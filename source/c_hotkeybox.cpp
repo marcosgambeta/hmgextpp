@@ -101,7 +101,7 @@ HB_FUNC( C_GETHOTKEYNAME )
    LPSTR pStr;
 #endif
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    WORD wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
    TCHAR szKeyName[100];
    InterpretHotKey(wHotKey, szKeyName);
@@ -146,7 +146,7 @@ HB_FUNC( INITHOTKEYBOX )
 
 HB_FUNC( SETHOTKEYVALUE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    WORD wHotKey = static_cast<WORD>(hb_parnl(2));
 

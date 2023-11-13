@@ -99,7 +99,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
  */
 HB_FUNC( GETCLASSNAME )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       char ClassName[256];
@@ -127,7 +127,7 @@ HB_FUNC( GETCLASSNAME )
  */
 HB_FUNC( GETCLASSNAMEBYREF )
 {
-   HWND    hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HB_SIZE nLen = hb_parcsiz(2); // fixed P.Ch. 16.12.
 
    hb_retni(0);
@@ -149,7 +149,7 @@ HB_FUNC( GETCLASSNAMEBYREF )
 
 HB_FUNC( GETWINDOWLONG )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_RETNL( GetWindowLongPtr(hwnd, hb_parni(2)) );
@@ -160,7 +160,7 @@ HB_FUNC( GETWINDOWLONG )
 
 HB_FUNC( SETWINDOWLONG )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_RETNL( SetWindowLongPtr(hwnd, hb_parni(2), hb_parnl(3)) );
@@ -180,7 +180,7 @@ HB_FUNC( SETWINDOWLONG )
  */
 HB_FUNC( GETWINDOWSTYLE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_RETNL( GetWindowLongPtr(hwnd, GWL_STYLE) );
@@ -198,7 +198,7 @@ HB_FUNC( GETWINDOWSTYLE )
  */
 HB_FUNC( SETWINDOWSTYLE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -219,7 +219,7 @@ HB_FUNC( SETWINDOWSTYLE )
  */
 HB_FUNC( ISWINDOWHASSTYLE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -232,7 +232,7 @@ HB_FUNC( ISWINDOWHASSTYLE )
 
 HB_FUNC( ISWINDOWHASEXSTYLE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);

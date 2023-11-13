@@ -194,7 +194,7 @@ HB_FUNC( INITMULTILISTBOX )
 
 HB_FUNC( LISTBOXGETMULTISEL )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    INT n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
    int buffer[32768];
 
@@ -209,7 +209,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
 HB_FUNC( LISTBOXSETMULTISEL )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
@@ -263,7 +263,7 @@ HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 
 HB_FUNC( DRAG_LIST_DRAWINSERT )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    LPARAM lParam = HB_PARNL(2);
    int nItem = hb_parni(3);
    LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);

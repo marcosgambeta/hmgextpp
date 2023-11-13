@@ -93,7 +93,7 @@ HB_FUNC( INITSPINNER )
       style2 |= UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
    }
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    HWND hedit = CreateWindowEx(
       WS_EX_CLIENTEDGE,

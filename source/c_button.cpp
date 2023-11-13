@@ -82,7 +82,7 @@ HB_FUNC( _SETBTNPICTURE )
    void * ImageName;
    LPCTSTR lpImageName = HB_PARSTR(2, &ImageName, nullptr);
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    HWND himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 

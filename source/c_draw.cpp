@@ -65,7 +65,7 @@ BEGINPAINT(HWND, cp2) --> HANDLE
 */
 HB_FUNC( BEGINPAINT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       PAINTSTRUCT ps;
@@ -81,7 +81,7 @@ ENDPAINT(HWND, cp2) --> .T.|.F.
 */
 HB_FUNC( ENDPAINT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    PAINTSTRUCT * pps = reinterpret_cast<PAINTSTRUCT*>(const_cast<char*>(hb_parc(2)));
 
    if( IsWindow(hWnd) && pps ) {
@@ -110,7 +110,7 @@ DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
 */
 HB_FUNC( DRAWSTATE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC;
    bool bDC = false;
 
@@ -161,7 +161,7 @@ GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
 */
 HB_FUNC( GETUPDATERECT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       if( HB_ISNIL(2) ) {
@@ -199,7 +199,7 @@ HB_FUNC( GRAYSTRING )
    }
 
    if( nLen > 0 ) {
-      HWND hWnd = hmg_par_HWND(1);
+      auto hWnd = hmg_par_HWND(1);
       HDC hDC;
       bool bDC = false;
 
@@ -237,7 +237,7 @@ INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
 */
 HB_FUNC( INVALIDATERECT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       bool bRect = false;
@@ -267,7 +267,7 @@ REDRAWWINDOW(HWND, p2) --> .T.|.F.
 */
 HB_FUNC( REDRAWWINDOW )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
@@ -287,7 +287,7 @@ C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
 */
 HB_FUNC( C_SETBACKCOLOR )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC;
    bool bDC = false;
 
@@ -320,7 +320,7 @@ SETBKMODE(HWND|HDC, p2) --> numeric
 */
 HB_FUNC( SETBKMODE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC;
    bool bDC = false;
 

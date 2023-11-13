@@ -168,7 +168,7 @@ IL_DRAW(HWND, HIMAGELIST, imageIndex, x, y) --> .T.|.F.
 */
 HB_FUNC( IL_DRAW ) // BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex, cx, cy)
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    HDC hdc;
    if( (hdc = GetDC(hwnd)) == nullptr ) {

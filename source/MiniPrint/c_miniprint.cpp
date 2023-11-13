@@ -1375,7 +1375,7 @@ _HMG_PRINTER_SHOWPAGE(filename, HWND, HDC) --> NIL
 */
 HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 {
-   HWND        hWnd       = hmg_par_HWND(2);
+   auto hWnd = hmg_par_HWND(2);
    HDC         hDCPrinter = hmg_par_HDC(3);
    PAINTSTRUCT ps;
    HDC         hDC = BeginPaint(hWnd, &ps);

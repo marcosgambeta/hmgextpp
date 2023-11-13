@@ -82,7 +82,7 @@ static HINSTANCE hRELib = nullptr;
 
 HB_FUNC( INITRICHEDITBOXEX )
 {
-   HWND  hWnd        = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HMENU hMenu       = hmg_par_HMENU(2);
    HWND  hWndControl = nullptr;
 
@@ -295,7 +295,7 @@ HB_FUNC( RICHEDITBOX_GETAUTOURLDETECT )
 //        RichEditBox_SetBkgndColor ( hWndControl, [aBkgndColor] )
 HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
 {
-   HWND hWndControl = hmg_par_HWND(1);
+   auto hWndControl = hmg_par_HWND(1);
 
    if( HB_ISARRAY(2) ) {
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
@@ -579,7 +579,7 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
 //        RichEditBox_FindText ( hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText )
 HB_FUNC( RICHEDITBOX_FINDTEXT )
 {
-   HWND hWndControl = hmg_par_HWND(1);
+   auto hWndControl = hmg_par_HWND(1);
    BOOL Down           = ( BOOL ) ( HB_ISNIL(3) ? TRUE  : hb_parl(3) );
    BOOL MatchCase      = ( BOOL ) ( HB_ISNIL(4) ? FALSE : hb_parl(4) );
    BOOL WholeWord      = ( BOOL ) ( HB_ISNIL(5) ? FALSE : hb_parl(5) );
@@ -891,7 +891,7 @@ HB_FUNC( RICHEDITBOX_SETRECT )
 //        RichEditBox_PastEspecial ( hWndControl , ClipboardFormat )
 HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a rich edit control
 {
-   HWND hWndControl = hmg_par_HWND(1);
+   auto hWndControl = hmg_par_HWND(1);
 
    if( HB_ISCHAR(2) ) {
       CHAR * ClipboardFormat = const_cast<CHAR*>(hb_parc(2));
@@ -927,7 +927,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    FormatRange.chrg.cpMin = HB_PARNL3(7, 1);
    FormatRange.chrg.cpMax = HB_PARNL3(7, 2);
 
-   HWND hWndControl = hmg_par_HWND(1);
+   auto hWndControl = hmg_par_HWND(1);
    LONG cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, reinterpret_cast<LPARAM>(&FormatRange));
    SendMessage(hWndControl, EM_FORMATRANGE, FALSE, reinterpret_cast<LPARAM>(nullptr));
    hb_retnl( cpMin );
@@ -936,7 +936,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
 //        RichEditBox_PosFromChar ( hWndControl , nPosChar )   return --> { nRowScreen, nColScreen } or { -1, -1 } if character is not displayed
 HB_FUNC( RICHEDITBOX_POSFROMCHAR )
 {
-   HWND   hWndControl = hmg_par_HWND(1);
+   auto hWndControl = hmg_par_HWND(1);
    POINTL PointL;
    LONG   nPosChar    = hmg_par_LONG(2);
 

@@ -68,7 +68,7 @@ HB_FUNC( GETHANDLEREBAR ) // GetHandleRebar(hPager)
 
 HB_FUNC( ADDTOPAGER ) // AdToPager(hwndPG , hToolBar)
 {
-   HWND hPager = hmg_par_HWND(1);
+   auto hPager = hmg_par_HWND(1);
    SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hmg_par_HWND(2)));
    SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
@@ -104,7 +104,7 @@ HB_FUNC( INITPAGER ) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertical,
    i.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
    InitCommonControlsEx(&i);
 
-   HWND hRebar = hmg_par_HWND(1);
+   auto hRebar = hmg_par_HWND(1);
    int nWidth = hmg_par_INT(2);
    int nHeight = hmg_par_INT(3);
 

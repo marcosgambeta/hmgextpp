@@ -875,7 +875,7 @@ HB_FUNC( BT_SCR_GETINFO )
    HDC hDC = nullptr;
    RECT rect;
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INT Mode = hmg_par_INT(2);
    INT info = hmg_par_INT(3);
 
@@ -2410,7 +2410,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
 {
    HDC hDC;
 
-   HWND hWnd   = hmg_par_HWND(1);
+   auto hWnd   = hmg_par_HWND(1);
    INT x1      = hmg_par_INT(2);
    INT y1      = hmg_par_INT(3);
    INT Width1  = hmg_par_INT(4);
@@ -3006,7 +3006,7 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
       return;
    }
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    if( !OpenClipboard(hWnd) ) {
       hb_retl(false);
       return;
@@ -3032,7 +3032,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       return;
    }
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    if( !OpenClipboard(hWnd) ) {
       hmg_ret_HBITMAP(nullptr);
       return;
@@ -3098,7 +3098,7 @@ BT_BMP_PUT_CLIPBOARD(HWND, HBITMAP) --> .T.|.F.
 */
 HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HBITMAP hBitmap = hmg_par_HBITMAP(2);
 
    BITMAP bm;
@@ -3248,7 +3248,7 @@ BT_TEXTOUT_SIZE(HWND, text, fontName, fontSize, type) --> array
 */
 HB_FUNC( BT_TEXTOUT_SIZE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 #ifndef UNICODE
    TCHAR * lpText   = ( TCHAR * ) hb_parc(2);
    TCHAR * FontName = ( TCHAR * ) hb_parc(3);

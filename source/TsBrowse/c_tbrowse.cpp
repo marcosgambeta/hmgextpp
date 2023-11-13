@@ -137,7 +137,7 @@ HB_FUNC( _CREATEWINDOWEX )
    int    y          = HB_ISNIL(6) ? 0 : hb_parni(6);
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
    int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
-   HWND   hWndParent = hmg_par_HWND(9);
+   auto hWndParent = hmg_par_HWND(9);
    HMENU  hMenu      = nullptr;
    HANDLE hInstance  = hmg_par_HANDLE(11);
 
@@ -265,7 +265,7 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
 
 HB_FUNC( TSDRAWCELL )
 {
-   HWND     hWnd         = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC      hDC          = hmg_par_HDC(2);
    int      nRow         = hb_parni(3);
    int      nColumn      = hb_parni(4);
@@ -621,7 +621,7 @@ void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyl
 
 HB_FUNC( TSBRWSCROLL )
 {
-   HWND  hWnd          = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    int   iRows         = hb_parni(2);
    HFONT hFont         = hmg_par_HFONT(3);
    int   nHeightCell   = hb_parni(4);
@@ -657,7 +657,7 @@ HB_FUNC( TSBRWSCROLL )
 
 HB_FUNC( TSBRWHSCROLL )
 {
-   HWND hWnd   = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    int  iCols  = hb_parni(2);
    int  nLeft  = hb_parni(3);
    int  nRight = hb_parni(4);
@@ -680,7 +680,7 @@ HB_FUNC( TSBRWHSCROLL )
 
 HB_FUNC( ROWFROMPIX )
 {
-   HWND hWnd  = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    int  iPixR = hb_parni(2);
    int  iCell = hb_parni(3);
    int  iHead = hb_parni(4);
@@ -710,7 +710,7 @@ HB_FUNC( ROWFROMPIX )
 
 HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 {
-   HWND  hWnd   = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HFONT hFont  = hmg_par_HFONT(2);
    int   iTotal = hb_parni(3);
 
@@ -745,7 +745,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 
 HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeightSuper, nHeightSpec ) -> nRows
 {
-   HWND hWnd  = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    int  iCell = hb_parni(2);
 
    int iHead = hb_parni(3);
@@ -1030,8 +1030,6 @@ HB_FUNC( GETSCRLRANGE )  // ( hWnd, nFlags )
 
 HB_FUNC( INITEDSPINNER )
 {
-   HWND hwnd;
-   HWND hedit;
    HWND hupdown;
    int  Style = WS_CHILD | WS_VISIBLE | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS | UDS_HOTTRACK;
    int  iMin, iMax;
@@ -1042,8 +1040,8 @@ HB_FUNC( INITEDSPINNER )
    i.dwICC  = ICC_UPDOWN_CLASS;
    InitCommonControlsEx(&i);
 
-   hwnd  = hmg_par_HWND(1);
-   hedit = hmg_par_HWND(2);
+   auto hwnd = hmg_par_HWND(1);
+   auto hedit = hmg_par_HWND(2);
 
    iMin  = hb_parni(7);
    iMax  = hb_parni(8);

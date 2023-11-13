@@ -59,7 +59,7 @@
 
 HB_FUNC( GETCUEBANNERTEXT )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_WCHAR * lpWCStr = static_cast<HB_WCHAR*>(hb_xgrab(256 * sizeof(HB_WCHAR)));
@@ -78,7 +78,7 @@ HB_FUNC( GETCUEBANNERTEXT )
 
 HB_FUNC( SENDMESSAGESTRINGW )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_WCHAR * lpWCStr = static_cast<HB_WCHAR*>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));

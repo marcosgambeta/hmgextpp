@@ -67,7 +67,7 @@ SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
 */
 HB_FUNC( SAVEWINDOWBYHANDLE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC = GetDC(hWnd);
    HPALETTE hPal = nullptr;
    void * FileName;
@@ -133,7 +133,7 @@ WNDCOPY(HWND, lp2, ) --> NIL
 */
 HB_FUNC( WNDCOPY )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC = GetDC(hWnd);
    HPALETTE hPal = nullptr;
    bool bRect = hb_parl(2);
@@ -586,7 +586,7 @@ HB_FUNC( DRAWGLYPHMASK )
    SetBkColor(hDCMem, rgbTransparent);
    BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
-   HWND hwnd = hmg_par_HWND(10);
+   auto hwnd = hmg_par_HWND(10);
 
    // handle to bitmaped button mask
    if( hwnd != nullptr ) {

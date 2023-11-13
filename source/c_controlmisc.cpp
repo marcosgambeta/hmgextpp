@@ -188,7 +188,7 @@ HB_FUNC( CREATECARET )
 
 HB_FUNC( CHANGESTYLE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    LONG_PTR dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
    LONG_PTR dwRemove = static_cast<LONG_PTR>(HB_PARNL(3));
    int iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
@@ -204,9 +204,9 @@ HB_FUNC( CHANGESTYLE )
 
 HB_FUNC( MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
 {
-   HWND hedit = hmg_par_HWND(1);
-   HWND hBtn1 = hmg_par_HWND(2);
-   HWND hBtn2 = hmg_par_HWND(3);
+   auto hedit = hmg_par_HWND(1);
+   auto hBtn1 = hmg_par_HWND(2);
+   auto hBtn2 = hmg_par_HWND(3);
    BOOL fBtn2 = hb_parl(4);
    int BtnWidth = hmg_par_int(5);
    int BtnWidth2;

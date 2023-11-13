@@ -125,7 +125,7 @@ INITTOOLBUTTON(HWND, cText, np3, p4, p5, np6, np7, cp8, p9, lp10, lp11, lp12, lp
 */
 HB_FUNC( INITTOOLBUTTON )
 {
-   HWND hwndTB = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    HWND himage = nullptr;
    int Transparent = hb_parl(9) ? 0 : 1;
 
@@ -313,7 +313,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    TBBUTTON tbb[NUM_TOOLBAR_BUTTONS];
    memset(tbb, 0, sizeof tbb);
 
-   HWND hwndTB  = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    int nBtn    = 0;
    int tmax    = 0;
    int ix      = 0;
@@ -482,7 +482,7 @@ GETSIZETOOLBAR(HWND) --> numeric
 */
 HB_FUNC( GETSIZETOOLBAR )
 {
-   HWND hwndTB = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    SIZE lpSize;
    SendMessage(hwndTB, TB_GETMAXSIZE, 0, reinterpret_cast<LPARAM>(&lpSize));
 
@@ -513,7 +513,7 @@ MAXTEXTBTNTOOLBAR() -->
 HB_FUNC( MAXTEXTBTNTOOLBAR )
 {
    TCHAR cString[255] = { 0 };
-   HWND hwndTB = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    int nBtn   = SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
    TBBUTTON lpBtn;
    DWORD    tSize;
@@ -641,7 +641,7 @@ REPLACETOOLBUTTONIMAGE(HWND, hBITMAP, cp3, lp4, np5) --> HBITMAP
 */
 HB_FUNC( REPLACETOOLBUTTONIMAGE )
 {
-   HWND    hwndTB     = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    HBITMAP hBitmapOld = hmg_par_HBITMAP(2);
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
    int     nButtonID  = hmg_par_INT(5);
@@ -764,7 +764,7 @@ CREATEPOPUPCHEVRON(HWND, np2) --> array
 */
 HB_FUNC( CREATEPOPUPCHEVRON )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    RECT rcRR;
    GetWindowRect(hwnd, &rcRR);
@@ -852,7 +852,7 @@ ADJUSTFLOATTOOLBAR() -->
 */
 HB_FUNC( ADJUSTFLOATTOOLBAR )
 {
-   HWND hwndTB = hmg_par_HWND(3);
+   auto hwndTB = hmg_par_HWND(3);
    RECT  rc;
    SendMessage(hwndTB, TB_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rc));
    int nbuttons = SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
@@ -933,7 +933,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 
    isInSizeMsg = 1;
 
-   HWND hwndTB  = hmg_par_HWND(1);
+   auto hwndTB = hmg_par_HWND(1);
    int  widthTb = hb_parni(2);
 
    if( hwndTB ) {

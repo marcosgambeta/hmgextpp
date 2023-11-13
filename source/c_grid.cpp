@@ -347,7 +347,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
 
    int s;
    int iColumn = 0;
-   HWND hc = hmg_par_HWND(1);
+   auto hc = hmg_par_HWND(1);
 
    for( s = 0; s <= iLen; s++ ) {
       COL.fmt = hb_arrayGetNI(jArray, s + 1);
@@ -389,7 +389,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LPWSTR lpText;
 #endif
 
-   HWND h = hmg_par_HWND(1);
+   auto h = hmg_par_HWND(1);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
@@ -439,7 +439,7 @@ LISTVIEWGETMULTISEL() -->
 */
 HB_FUNC( LISTVIEWGETMULTISEL )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int n = SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
    hb_reta(n);
 
@@ -465,7 +465,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
    // CLEAR CURRENT SELECTIONS
 
    int i = -1;
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    while( true ) {
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
@@ -498,7 +498,7 @@ HB_FUNC( LISTVIEWSETITEM )
    int  l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
    char * caption;
-   HWND h = hmg_par_HWND(1);
+   auto h = hmg_par_HWND(1);
    int  c = hb_parni(3) - 1;
 
    for( int s = 0; s <= l; s = s + 1 ) {
@@ -552,7 +552,7 @@ HB_FUNC( LISTVIEWGETITEM )
 
    int l = hb_parni(3);
    hb_reta(l);
-   HWND h = hmg_par_HWND(1);
+   auto h = hmg_par_HWND(1);
    int c = hb_parni(2) - 1;
    TCHAR * pszRet;
 
@@ -833,7 +833,7 @@ LISTVIEW_GETHEADER() -->
 */
 HB_FUNC( LISTVIEW_GETHEADER )
 {
-   HWND hGrid = hmg_par_HWND(1);
+   auto hGrid = hmg_par_HWND(1);
 
    hmg_ret_HANDLE(ListView_GetHeader(hGrid));
 }
@@ -872,7 +872,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
 #else
    LPWSTR lpText;
 #endif
-   HWND      hwnd    = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int       iColumn = hb_parni(2) - 1;
    PHB_ITEM  pValue  = hb_itemNew(nullptr);
 
@@ -911,7 +911,7 @@ LISTVIEW_DELETECOLUMN() -->
 */
 HB_FUNC( LISTVIEW_DELETECOLUMN )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    ListView_DeleteColumn(hwnd, hb_parni(2) - 1);
    SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
    RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
@@ -938,7 +938,7 @@ LISTVIEW_GETCHECKSTATE() -->
 */
 HB_FUNC( LISTVIEW_GETCHECKSTATE )
 {
-   HWND hwndLV = hmg_par_HWND(1);
+   auto hwndLV = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       hb_retl(ListView_GetCheckState(hwndLV, hb_parni(2) - 1));
@@ -952,7 +952,7 @@ LISTVIEW_SETCHECKSTATE() -->
 */
 HB_FUNC( LISTVIEW_SETCHECKSTATE )
 {
-   HWND hwndLV = hmg_par_HWND(1);
+   auto hwndLV = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       ListView_SetCheckState(hwndLV, hb_parni(2) - 1, hb_parl(3));
@@ -967,7 +967,7 @@ LISTVIEW_GETCOLUMNCOUNT() -->
 */
 HB_FUNC( LISTVIEW_GETCOLUMNCOUNT )  // Dr. Claudio Soto 2016/APR/07
 {
-   HWND hwndLV = hmg_par_HWND(1);
+   auto hwndLV = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       hb_retni(Header_GetItemCount(ListView_GetHeader(hwndLV)));
@@ -1032,7 +1032,7 @@ LISTVIEW_CHANGEEXTENDEDSTYLE() -->
 */
 HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    DWORD Add = hmg_par_DWORD(2);
    DWORD Remove = hmg_par_DWORD(3);
 
@@ -1142,7 +1142,7 @@ LISTVIEW_GROUPITEMSETID() -->
 */
 HB_FUNC( LISTVIEW_GROUPITEMSETID )
 {
-   HWND hWnd    = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INT  nRow    = hmg_par_INT(2);
    INT  GroupID = hmg_par_INT(3);
 
@@ -1166,7 +1166,7 @@ LISTVIEW_GROUPITEMGETID() -->
 */
 HB_FUNC( LISTVIEW_GROUPITEMGETID )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INT  nRow = hmg_par_INT(2);
 
 #if ((defined(__BORLANDC__) && __BORLANDC__ < 1410))
@@ -1248,7 +1248,7 @@ LISTVIEW_GROUPSETINFO() -->
 */
 HB_FUNC( LISTVIEW_GROUPSETINFO )
 {
-   HWND       hWnd         = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INT        GroupID      = hmg_par_INT(2);
    HB_WCHAR * cHeader      = static_cast<HB_WCHAR*>((hb_parclen(3) == 0) ? nullptr : hb_mbtowc(hb_parc(3)));
    UINT       nAlignHeader = hmg_par_UINT(4);
@@ -1290,7 +1290,7 @@ LISTVIEW_GROUPGETINFO() -->
 */
 HB_FUNC( LISTVIEW_GROUPGETINFO )
 {
-   HWND hWnd    = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
 
    INT      nRet;

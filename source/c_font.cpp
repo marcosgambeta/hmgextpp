@@ -81,7 +81,7 @@ _SETFONT(HWND, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAn
 */
 HB_FUNC( _SETFONT )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       int   bold      = hb_parl(4) ? FW_BOLD : FW_NORMAL;
@@ -106,7 +106,7 @@ _SETFONTHANDLE(HWND, HFONT) --> NIL
 */
 HB_FUNC( _SETFONTHANDLE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT ) {

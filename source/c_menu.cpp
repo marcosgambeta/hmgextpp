@@ -75,7 +75,7 @@ SETACCELERATORTABLE(HWND, HACCEL) --> NIL
 */
 HB_FUNC( SETACCELERATORTABLE )
 {
-   HWND hWndMain = hmg_par_HWND(1);
+   auto hWndMain = hmg_par_HWND(1);
    HACCEL hAccel = hmg_par_HACCEL(2);
 
    if( hWndMain != nullptr && hAccel != nullptr ) {
@@ -259,7 +259,7 @@ TRACKPOPUPMENU(HMENU, np2, np3, HWND, lp5) --> NIL
 */
 HB_FUNC( TRACKPOPUPMENU )
 {
-   HWND hwnd = hmg_par_HWND(4);
+   auto hwnd = hmg_par_HWND(4);
    SetForegroundWindow(hwnd); // hack for Microsoft "feature"
    TrackPopupMenu(hmg_par_HMENU(1), 0, hb_parni(2), hb_parni(3), 0, hwnd, nullptr);
    if( hb_pcount() > 4 && HB_ISLOG(5) && hb_parl(5) ) {
@@ -1284,7 +1284,7 @@ static BOOL _DestroyMenu(HMENU menu)
 
 HB_FUNC( _ONMEASUREMENUITEM )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HDC hdc = GetDC(hwnd);
@@ -1327,7 +1327,7 @@ HB_FUNC( _ONMEASUREMENUITEM )
 
 HB_FUNC( _COLORMENU )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HMENU iMenu = GetMenu(hWnd);
    MENUINFO iMenuInfo;
    GetMenuInfo(iMenu, &iMenuInfo);

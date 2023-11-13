@@ -136,7 +136,7 @@ HB_FUNC( MONITORFROMPOINT )
 // HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
 HB_FUNC( MONITORFROMWINDOW )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       hmg_ret_HMONITOR(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
@@ -162,7 +162,7 @@ HB_FUNC( MONITORFROMWINDOW )
 
 HB_FUNC( WINDOWTOMONITOR )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HMONITOR hMonitor = HB_ISNUM(2) ? reinterpret_cast<HMONITOR>(HB_PARNL(2)) : nullptr;

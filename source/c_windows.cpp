@@ -302,7 +302,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 HB_FUNC( APPEVENTS )
 {
    BOOL bRes = FALSE;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) ) ) {
@@ -365,7 +365,7 @@ HB_FUNC( APPEVENTS )
 HB_FUNC( APPEVENTSREMOVE )
 {
    bool bDel = false;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
@@ -380,7 +380,7 @@ HB_FUNC( APPEVENTSREMOVE )
 HB_FUNC( APPEVENTSUPDATE )
 {
    bool bUpd = false;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
@@ -422,7 +422,7 @@ HB_FUNC( APPEVENTSUPDATE )
 
 HB_FUNC( ENUMAPPEVENTS )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
@@ -462,7 +462,7 @@ HB_FUNC( ENUMAPPEVENTS )
 
 HB_FUNC( GETAPPEVENTSINFO )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 
@@ -615,7 +615,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 HB_FUNC( WINEVENTS )
 {
    BOOL bRes = FALSE;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message <= ( WM_APP + MAX_EVENTS ) ) ) {
@@ -678,7 +678,7 @@ HB_FUNC( WINEVENTS )
 HB_FUNC( WINEVENTSREMOVE )
 {
    bool bDel = false;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
@@ -693,7 +693,7 @@ HB_FUNC( WINEVENTSREMOVE )
 HB_FUNC( WINEVENTSUPDATE )
 {
    bool bUpd = false;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
@@ -735,7 +735,7 @@ HB_FUNC( WINEVENTSUPDATE )
 
 HB_FUNC( ENUMWINEVENTS )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
@@ -775,7 +775,7 @@ HB_FUNC( ENUMWINEVENTS )
 
 HB_FUNC( GETWINEVENTSINFO )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 

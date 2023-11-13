@@ -166,7 +166,6 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 
 HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 {
-   HWND   hwnd;
    HANDLE hFile;
 
 #ifndef UNICODE
@@ -177,7 +176,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    EDITSTREAM es;
    long       Flag, Mode;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) ) {
       case 1:    Flag = SF_TEXT; Mode = TM_PLAINTEXT; break;
       case 2:    Flag = SF_RTF; Mode = TM_RICHTEXT; break;
@@ -218,7 +217,6 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
 HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 {
-   HWND   hwnd;
    HANDLE hFile;
 
 #ifndef UNICODE
@@ -229,7 +227,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    EDITSTREAM es;
    long       Flag;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) ) {
       case 1:  Flag = SF_TEXT; break;
       case 2:  Flag = SF_RTF; break;
@@ -269,10 +267,9 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
 
 HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
 {
-   HWND    hwnd;
    LRESULT lAuto;
 
-   hwnd  = hmg_par_HWND(1);
+   auto hwnd  = hmg_par_HWND(1);
    lAuto = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
    if( lAuto ) {
@@ -284,10 +281,9 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
 
 HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
 {
-   HWND    hwnd;
    LRESULT lOpt, lResult;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
    if( hb_parl(2) ) {

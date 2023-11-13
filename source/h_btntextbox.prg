@@ -453,7 +453,7 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
    int  BtnWidth = HB_ISNIL(18) ? 0 : hb_parni(18);
 
    // Get the handle of the parent window/form.
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    BtnWidth  = BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1;
    BtnWidth2 = fBtn2 ? BtnWidth : 0;
@@ -602,7 +602,7 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
    int  width, height, BtnWidth2;
    int  BtnWidth = HB_ISNIL(3) ? 0 : hb_parni(3);
 
-   HWND hedit = hmg_par_HWND(1);
+   auto hedit = hmg_par_HWND(1);
    BOOL fBtn2 = hb_parl(5);
    BtnWidth  = BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1;
    BtnWidth2 = fBtn2 ?  BtnWidth : 0;

@@ -502,7 +502,7 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
 
    LPCTSTR lpIconName = HB_PARSTR(14, &IconName, nullptr);
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON) | (hb_parc(14) == nullptr ? BS_BITMAP : BS_ICON); // JK
 

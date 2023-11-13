@@ -58,13 +58,12 @@ LRESULT CALLBACK  OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lPar
 
 HB_FUNC( INITMASKEDTEXTBOX )
 {
-   HWND hwnd;
    HWND hbutton;
 
    int style;
    int ExStyle;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    style = WS_CHILD | ES_AUTOHSCROLL;
 
@@ -115,14 +114,13 @@ HB_FUNC( INITMASKEDTEXTBOX )
 
 HB_FUNC( INITTEXTBOX )
 {
-   HWND hwnd;           // Handle of the parent window/form.
    HWND hedit;          // Handle of the child window/control.
 
    int style;          // TEXTBOX window base style.
    int iExStyle;        // TEXTBOX window extended style.
 
    // Get the handle of the parent window/form.
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1); // Handle of the parent window/form.
 
    style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
 
@@ -187,13 +185,12 @@ HB_FUNC( INITTEXTBOX )
 
 HB_FUNC( INITCHARMASKTEXTBOX )
 {
-   HWND hwnd;
    HWND hbutton;
 
    int style;
    int ExStyle;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    style = WS_CHILD | ES_AUTOHSCROLL;
 

@@ -857,7 +857,7 @@ HB_FUNC( INITPROPGRID )
    int w = hb_parni(4);
    int h = hb_parni(5);
 
-   HWND hwndParent = hmg_par_HWND(1);
+   auto hwndParent = hmg_par_HWND(1);
 
    int style = WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASBUTTONS | TVS_FULLROWSELECT | TVS_NOHSCROLL | TVS_SHOWSELALWAYS;
    if( hb_parl(12) ) {
@@ -1262,7 +1262,7 @@ ADDPGITEM() -->
 */
 HB_FUNC( ADDPGITEM )
 {
-   HWND hWndTV = hmg_par_HWND(1);
+   auto hWndTV = hmg_par_HWND(1);
 
    LPARAMDATA * pData = ( LPARAMDATA * ) hb_xgrab((sizeof(LPARAMDATA)));
    ZeroMemory(pData, sizeof(LPARAMDATA));
@@ -1347,7 +1347,7 @@ PG_ENABLEITEM() -->
 */
 HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEnable);
 {
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
@@ -1370,7 +1370,7 @@ PG_CHANGEITEM() -->
 */
 HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lChange);
 {
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
@@ -1392,7 +1392,7 @@ PG_GETITEM(HWND, HTREEITEM, ntype) --> xvalue
 */
 HB_FUNC( PG_GETITEM )
 {
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
@@ -1538,7 +1538,7 @@ HB_FUNC( PG_ISVISIBLE )
 {
    bool lVisible = false;
 
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    HTREEITEM ItemHdl = TreeView_GetFirstVisible(TreeHandle);
 
@@ -1561,7 +1561,7 @@ HB_FUNC( PG_SEARCHID ) // PG_SearchID(hWndPG, nID)
    LPARAMDATA * pData;
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    int nID = hmg_par_int(2);
 
    HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
@@ -1590,7 +1590,7 @@ HB_FUNC( PG_SEARCHCATEGORY ) // PG_SearchCategory(hWndPG, cCategory)
    LPARAMDATA * pData;
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    LPTSTR cName = hb_strndup(hb_parc(2), 255); // temporary buffer
    HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
    while( TreeItemHandle != nullptr ) {
@@ -1645,7 +1645,7 @@ ADDTREEITEMS(HWND, ap2, p3) --> numeric
 */
 HB_FUNC( ADDTREEITEMS )
 {
-   HWND h = hmg_par_HWND(1);
+   auto h = hmg_par_HWND(1);
    int l = hb_parinfa(2, 0) - 1;
    PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
@@ -1688,7 +1688,7 @@ RESETPROPGRIDIMAGELIST(HWND, HTREEITEM, HBITMAP) --> numeric
 */
 HB_FUNC( RESETPROPGRIDIMAGELIST )
 {
-   HWND hWndPG = hmg_par_HWND(1);
+   auto hWndPG = hmg_par_HWND(1);
    HTREEITEM hItemPG = hmg_par_HTREEITEM(2);
    TV_ITEM TItem;
    memset(&TItem, 0, sizeof(TV_ITEM));
@@ -1771,7 +1771,7 @@ HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    HBRUSH hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
    HBRUSH hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
-   HWND     handle = hmg_par_HWND(1);
+   auto handle = hmg_par_HWND(1);
    COLORREF clr = hb_parnl(2);
    int      width = HB_ISNIL(3) ? 20 : hb_parni(3);
    int      height = HB_ISNIL(4) ? 20 : hb_parni(4);
@@ -1829,7 +1829,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    RECT     rect;
    HBITMAP  hBmp;
-   HWND     handle = hmg_par_HWND(1);
+   auto handle = hmg_par_HWND(1);
    COLORREF clr = hb_parnl(2);
    int      width = hb_parni(3);
    int      height = hb_parni(4);

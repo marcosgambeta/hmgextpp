@@ -161,7 +161,7 @@ HB_FUNC( SETTABCAPTION )
 
 HB_FUNC( ADDTABBITMAP )
 {
-   HWND hbutton = hmg_par_HWND(1);
+   auto hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = nullptr;
    int nCount = hb_parinfa(2, 0);
 

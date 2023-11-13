@@ -266,7 +266,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
 HB_FUNC( CREATEPROPERTYSHEET )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    PHB_ITEM sArray = hb_param(2, Harbour::Item::ARRAY);
    PHB_ITEM pArray = hb_param(3, Harbour::Item::ARRAY);
 

@@ -59,7 +59,7 @@ INITFRAME(HWND, HMENU, nX, nY, nWidth, nHeight, cp7, p8, p9, lp10) --> HANDLE
 */
 HB_FUNC( INITFRAME )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HWND hbutton = nullptr;
 
    if( IsWindow(hwnd) ) {

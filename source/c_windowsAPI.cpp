@@ -230,7 +230,7 @@ HB_FUNC( SETWINDOWPOS )
 
 HB_FUNC( ANIMATEWINDOW )
 {
-   HWND  hWnd    = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    DWORD dwTime  = hmg_par_DWORD(2);
    DWORD dwFlags = hmg_par_DWORD(3);
 
@@ -252,7 +252,7 @@ HB_FUNC( FLASHWINDOWEX )
 
 HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
@@ -326,11 +326,10 @@ static BOOL CenterIntoParent(HWND hwnd)
 
 HB_FUNC( C_CENTER )
 {
-   HWND hwnd;
    RECT rect;
    int  w, h, x, y;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( hb_parl(2) ) {
       CenterIntoParent(hwnd);
@@ -351,7 +350,7 @@ HB_FUNC( GETWINDOWTEXT )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   HWND   hWnd   = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    int    iLen   = GetWindowTextLength(hWnd);
    LPTSTR szText = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR));
 
@@ -371,7 +370,7 @@ HB_FUNC( GETWINDOWTEXT )
 
 HB_FUNC( SENDMESSAGE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
@@ -721,7 +720,7 @@ static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 
 HB_FUNC( C_ENUMCHILDWINDOWS )
 {
-   HWND     hWnd       = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock ) {
@@ -1054,7 +1053,7 @@ HB_FUNC( GETTABBRUSH )
    HDC     hDCMem;
    HBITMAP hBmp;
    HBITMAP hOldBmp;
-   HWND    hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    GetWindowRect(hWnd, &rc);
    hDC    = GetDC(hWnd);

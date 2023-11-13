@@ -76,7 +76,6 @@ LPWSTR AnsiToWide(LPCSTR);
 
 HB_FUNC( INITGETBOX )
 {
-   HWND hwnd;                    // Handle of the parent window/form.
    HWND hedit;                   // Handle of the child window/control.
    int  style;                   // GETBOX window base style.
    int  ibtnStyle1, ibtnStyle2;  // BUTTON window base style.
@@ -91,7 +90,7 @@ HB_FUNC( INITGETBOX )
 
    // Get the handle of the parent window/form.
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1); // Handle of the parent window/form.
    if( fBtns ) {
       BtnWidth  = (HB_ISNIL(19) ? 0 : hmg_par_int(19));
       BtnWidth  = (BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE));

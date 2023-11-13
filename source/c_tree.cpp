@@ -128,7 +128,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 {
    int Transparent = hb_parl(3) ? 0 : 1;
    int ic = 0;
-   HWND hbutton = hmg_par_HWND(1);
+   auto hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
    if( himl != nullptr ) {
       HMG_ImageListAdd(himl, const_cast<char*>(hb_parc(2)), Transparent);
@@ -190,7 +190,7 @@ HB_FUNC( ADDTREEITEM )
       is.hParent      = hPrev;
    }
 
-   HWND hWndTV = hmg_par_HWND(1);
+   auto hWndTV = hmg_par_HWND(1);
    HTREEITEM hRet = TreeView_InsertItem(hWndTV, &is);
    AddTreeItemLPARAM(hWndTV, hRet, nID, IsNodeFlag);
    hmg_ret_HTREEITEM(hRet);
@@ -245,7 +245,7 @@ TREEVIEW_DELETEITEM(HWND, HTREEITEM) --> NIL
 */
 HB_FUNC( TREEVIEW_DELETEITEM )
 {
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    TreeView_FreeMemoryLPARAMRecursive(TreeHandle, ItemHandle);
    TreeView_DeleteItem(TreeHandle, ItemHandle);
@@ -258,7 +258,7 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
 {
    int nCount = hb_parinfa(2, 0);
    TV_ITEM TreeItem;
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    for( int i = 1; i <= nCount; i++ ) {
       TreeItem.mask   = TVIF_PARAM;
@@ -339,7 +339,7 @@ TREEVIEW_GETSELECTIONID(HWND) --> numeric
 */
 HB_FUNC( TREEVIEW_GETSELECTIONID )
 {
-   HWND TreeHandle = hmg_par_HWND(1);
+   auto TreeHandle = hmg_par_HWND(1);
    HTREEITEM ItemHandle = TreeView_GetSelection(TreeHandle);
    if( ItemHandle != nullptr ) {
       TV_ITEM TreeItem;
@@ -416,7 +416,7 @@ TREEVIEW_EXPANDCHILDRENRECURSIVE(HWND, HTREEITEM, nExpand, lRecurse) --> NIL
 */
 HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
-   HWND      hWndTV     = hmg_par_HWND(1);
+   auto hWndTV = hmg_par_HWND(1);
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    UINT      nExpand    = hmg_par_UINT(3);
    BOOL      fRecurse   = hmg_par_BOOL(4);
@@ -537,7 +537,7 @@ TREEVIEW_SORTCHILDRENRECURSIVECB() -->
 */
 HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
-   HWND      hWndTV          = hmg_par_HWND(1);
+   auto hWndTV = hmg_par_HWND(1);
    HTREEITEM ItemHandle      = hmg_par_HTREEITEM(2);
    BOOL      fRecurse        = hmg_par_BOOL(3);
    BOOL      lCaseSensitive  = hmg_par_BOOL(4);
@@ -599,7 +599,7 @@ TREEITEM_SETNODEFLAG(HWND, HTREEITEM, lIsNodeFlag) --> NIL
 */
 HB_FUNC( TREEITEM_SETNODEFLAG )
 {
-   HWND hWndTV = hmg_par_HWND(1);
+   auto hWndTV = hmg_par_HWND(1);
    TV_ITEM TreeItem;
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = hmg_par_HTREEITEM(2);

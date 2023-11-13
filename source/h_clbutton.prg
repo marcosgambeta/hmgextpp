@@ -458,7 +458,7 @@ RETURN RetVal
 
 HB_FUNC( INITCLBUTTON )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HWND hbutton;
    int style;
 #ifndef UNICODE

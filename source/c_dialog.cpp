@@ -159,7 +159,7 @@ ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
 */
 HB_FUNC( ADDDIALOGPAGES )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
 
@@ -209,7 +209,7 @@ GETEDITTEXT(HWND, nId) --> cText
 */
 HB_FUNC( GETEDITTEXT )
 {
-   HWND hDlg = hmg_par_HWND(1);
+   auto hDlg = hmg_par_HWND(1);
    int id = hmg_par_int(2);
    USHORT strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
    TCHAR * str = new TCHAR[strlen + 2];

@@ -305,7 +305,7 @@ HB_FUNC( INITIMAGE )
 
 HB_FUNC( C_SETPICTURE )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HBITMAP hBitmap = nullptr;
 
    if( IsWindow(hWnd) && (hb_parclen(2) > 0) ) {

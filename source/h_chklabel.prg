@@ -575,7 +575,6 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 
 HB_FUNC_STATIC( INITCHKLABEL )
 {
-   HWND hwnd;
    HWND hbutton;
    HBITMAP himage;
    HBITMAP himage2;
@@ -585,7 +584,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
    int style = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( hb_parl(12) ) {
       ExStyle |= WS_EX_CLIENTEDGE;
@@ -660,7 +659,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
 
 HB_FUNC( SETCHKLABEL )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
    RECT rect;
 
@@ -678,7 +677,7 @@ HB_FUNC( SETCHKLABEL )
 
 HB_FUNC( GETCHKLABEL )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    hb_retl(pbtn->lCheck);

@@ -348,11 +348,10 @@ static int m_nHeightItem = 16;
 
 HB_FUNC_STATIC( INITCHKLISTBOX )
 {
-   HWND hwnd;
    HWND hbutton;
    int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) ) {
@@ -389,11 +388,10 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
 
 HB_FUNC_STATIC( INITMULTICHKLISTBOX )
 {
-   HWND hwnd;
    HWND hbutton;
    int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) ) {
@@ -430,7 +428,7 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
 
 HB_FUNC( CHKLISTBOXINSERTITEM )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
    int lbItem = hb_parni(3) - 1;
@@ -444,7 +442,7 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
 
 HB_FUNC( CHKLISTBOXADDITEM )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
    int bChecked = hb_parni(3);
@@ -460,7 +458,7 @@ HB_FUNC( CHKLISTBOXADDITEM )
 HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
    TCHAR achBuffer[BUFFER];
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HDC hdc = GetDC(hwnd);
    HFONT hFont = hmg_par_HFONT(2);
    HFONT hOldFont = nullptr;
@@ -493,7 +491,7 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 
 HB_FUNC( CHKLIST_SETCHECKBOX )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2) - 1;
    int bChecked = hb_parni(3);
    TCHAR cString[1024] = {TEXT("")};
@@ -506,7 +504,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
 
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2);
    int iCheck = static_cast<int>(SendMessage(hwnd, LB_GETITEMDATA, static_cast<WPARAM>(lbItem) - 1, 0));
 

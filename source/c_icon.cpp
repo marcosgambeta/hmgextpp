@@ -158,7 +158,7 @@ DRAWICONEX(HWND, np2, np3, HICON, np5, np6, np7, lp8) --> .T.|.F.|NIL
 */
 HB_FUNC( DRAWICONEX )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
       HICON hIcon = hmg_par_HICON(4);

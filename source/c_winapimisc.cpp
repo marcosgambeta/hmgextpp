@@ -530,7 +530,7 @@ HB_FUNC( PAINTBKGND )
    HBRUSH hBrush;
    RECT recClie;
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HDC hdc = GetDC(hwnd);
 
    GetClientRect(hwnd, &recClie);
@@ -1259,7 +1259,7 @@ FILLRECT(HWND|HDC, nLeft, nTop, nRight, nBottom, HBRUSH) --> numeric
 */
 HB_FUNC( FILLRECT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC hDC;
    bool bDC = false;
 
@@ -1538,7 +1538,7 @@ HB_FUNC( GETTEXTMETRIC )
 HB_FUNC( _GETCLIENTRECT )
 {
    RECT rc;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       GetClientRect(hWnd, &rc);

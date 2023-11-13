@@ -172,7 +172,7 @@ HB_FUNC( INITPLAYER )
 
 HB_FUNC( MCIFUNC )
 {
-   HWND mcihand = hmg_par_HWND(1);
+   auto mcihand = hmg_par_HWND(1);
    int func = hb_parni(2);
 
    switch( func ) {

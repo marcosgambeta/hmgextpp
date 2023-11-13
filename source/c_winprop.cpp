@@ -75,7 +75,7 @@ LPSTR  WideToAnsi(LPWSTR);
 /* Revised by P.Chornyj 16.11 */
 HB_FUNC( SETPROP )
 {
-   HWND    hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
    char *  lpMem;
    char    chType;
@@ -176,7 +176,7 @@ HB_FUNC( SETPROP )
 // [lHandle] : .T. =  return the value directly
 HB_FUNC( GETPROP )
 {
-   HWND    hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
    char *  lpMem;
    int     nLen;
@@ -231,7 +231,7 @@ HB_FUNC( GETPROP )
 // Usage: RemoveProp(hWnd, cPropName, [lNoFree]) -> hMem | NIL
 HB_FUNC( REMOVEPROP )
 {
-   HWND    hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
 
 #ifdef UNICODE
@@ -267,7 +267,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 /* Usage: aProps := EnumProps(nHandle) */
 HB_FUNC( ENUMPROPS )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       PHB_ITEM pArray = hb_itemArrayNew(0);
@@ -337,7 +337,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 
 HB_FUNC( ENUMPROPSEX )
 {
-   HWND     hWnd       = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock ) {

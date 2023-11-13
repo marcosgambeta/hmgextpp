@@ -738,7 +738,7 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
 
    int Transparent = hb_parl(7) ? 0 : 1;
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    DWORD style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 

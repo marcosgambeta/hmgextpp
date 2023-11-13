@@ -63,7 +63,6 @@ HB_FUNC( VERIFYPASSWORD )
    // This checks the appropriate registry key and, if necessary,
    // pops up a verify dialog.
 
-   HWND      hwnd;
    HINSTANCE hpwdcpl;
    VERIFYSCREENSAVEPWD VerifyScreenSavePwd;
    BOOL bres;
@@ -88,7 +87,7 @@ HB_FUNC( VERIFYPASSWORD )
       hb_retl(false);
    }
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    bres = VerifyScreenSavePwd(hwnd);
    FreeLibrary(hpwdcpl);
@@ -99,8 +98,6 @@ HB_FUNC( VERIFYPASSWORD )
 HB_FUNC( CHANGEPASSWORD )
 {
    // This only ever gets called under '95, when started with the /a option.
-
-   HWND hwnd;
 
    HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
    PWDCHANGEPASSWORD PwdChangePassword;
@@ -116,7 +113,7 @@ HB_FUNC( CHANGEPASSWORD )
       hb_retl(false);
    }
 
-   hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
    PwdChangePassword("SCRSAVE", hwnd, 0, 0);
    FreeLibrary(hmpr);
 

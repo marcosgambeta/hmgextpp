@@ -990,7 +990,7 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
    LPCTSTR lpImageName  = HB_PARSTR(8, &ImageName, nullptr);
    LPCTSTR lpIconName   = HB_PARSTR(14, &IconName, nullptr);
 
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    DWORD style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW | (HB_ISNIL(14) ? BS_BITMAP : BS_ICON) | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
 

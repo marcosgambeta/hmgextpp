@@ -340,7 +340,7 @@ static WNDPROC LabelOldWndProc;
 HB_FUNC_STATIC( INITLABEL )
 {
    HWND hWnd;
-   HWND hWndParent = hmg_par_HWND(1);
+   auto hWndParent = hmg_par_HWND(1);
 
    int style = WS_CHILD;
    int ExStyle = 0;

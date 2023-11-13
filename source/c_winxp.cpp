@@ -310,7 +310,7 @@ OPENTHEMEDATA(HWND, cp2) --> HANDLE
 HB_FUNC( OPENTHEMEDATA )
 {
    HTHEME nRet = nullptr;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    void * str = nullptr;
 
    if( hUxTheme == nullptr ) {
@@ -395,7 +395,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    HDC  hDC  = hmg_par_HDC(2);
    RECT pRect;
 
@@ -424,7 +424,7 @@ HB_FUNC( SETWINDOWTHEME )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    void * str1 = nullptr;
    void * str2 = nullptr;
 
@@ -452,7 +452,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND  hWnd  = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
    DWORD flags = hb_parnl(2);
 
    if( hUxTheme == nullptr ) {

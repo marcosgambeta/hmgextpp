@@ -91,7 +91,7 @@ CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
 */
 HB_FUNC( CAP_SETVIDEOFORMAT )
 {
-   HWND hCapWnd = hmg_par_HWND(1);
+   auto hCapWnd = hmg_par_HWND(1);
    BITMAPINFO binf;
    capGetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO));
    binf.bmiHeader.biWidth        = hb_parni(2);

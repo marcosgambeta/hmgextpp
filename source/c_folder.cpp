@@ -451,7 +451,6 @@ HB_FUNC( CREATEDLGFOLDER )
    int baseunitX = LOWORD(dwDlgBase), baseunitY = HIWORD(dwDlgBase);
    LPDLGTEMPLATE pdlgtemplate;
    HWND          hwnd;
-   HWND          hWndDlg;
 
    PHB_ITEM sArray;
    PHB_ITEM pArray;
@@ -464,7 +463,7 @@ HB_FUNC( CREATEDLGFOLDER )
    int     x, y, cx, cy;
 
    nIdFld = hmg_par_int(1);
-   hWndDlg = hmg_par_HWND(2);
+   auto hWndDlg = hmg_par_HWND(2);
 
    sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages
    pArray = hb_param(4, Harbour::Item::ARRAY);      //_HMG_aFolderTemplate
@@ -562,7 +561,7 @@ HB_FUNC( FOLDERHWNDTOINDEX )
  *****************************************************************************/
 HB_FUNC( FOLDERGETCURRENTPAGEHWND )
 {
-   HWND hWndDlg = hmg_par_HWND(1);
+   auto hWndDlg = hmg_par_HWND(1);
    int  iSel;
 
    FLDHDRINFO *   pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
@@ -582,8 +581,8 @@ HB_FUNC( FOLDERGETCURRENTPAGEHWND )
  *****************************************************************************/
 HB_FUNC( FOLDER_CHANGED )
 {
-   HWND hWndParent = hmg_par_HWND(1);
-   HWND hWndDlg = hmg_par_HWND(2);
+   auto hWndParent = hmg_par_HWND(1);
+   auto hWndDlg = hmg_par_HWND(2);
 
    FLD_Changed(hWndParent, hWndDlg);
 }
@@ -593,8 +592,8 @@ HB_FUNC( FOLDER_CHANGED )
  *****************************************************************************/
 HB_FUNC( FOLDER_UNCHANGED )
 {
-   HWND hWndParent = hmg_par_HWND(1);
-   HWND hWndDlg = hmg_par_HWND(2);
+   auto hWndParent = hmg_par_HWND(1);
+   auto hWndDlg = hmg_par_HWND(2);
 
    FLD_UnChanged(hWndParent, hWndDlg);
 }
@@ -604,7 +603,7 @@ HB_FUNC( FOLDER_UNCHANGED )
  *****************************************************************************/
 HB_FUNC( FOLDER_ISDIRTY )
 {
-   HWND hWndParent = hmg_par_HWND(1);
+   auto hWndParent = hmg_par_HWND(1);
    BOOL lPageDirty = FALSE;
 
    FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
@@ -631,7 +630,7 @@ HB_FUNC( FOLDER_ISDIRTY )
  *****************************************************************************/
 HB_FUNC( FOLDER_ISFINISH )
 {
-   HWND hWndParent = hmg_par_HWND(1);
+   auto hWndParent = hmg_par_HWND(1);
    BOOL lFooderFinish;
 
    FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
@@ -650,7 +649,7 @@ HB_FUNC( FOLDER_ISFINISH )
  *****************************************************************************/
 HB_FUNC( FOLDER_GETIDFLD )
 {
-   HWND hWndParent = hmg_par_HWND(1);
+   auto hWndParent = hmg_par_HWND(1);
    FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
@@ -665,7 +664,7 @@ HB_FUNC( FOLDER_GETIDFLD )
  *****************************************************************************/
 HB_FUNC( FOLDER_GETTABHANDLE )
 {
-   HWND hWndParent = hmg_par_HWND(1);
+   auto hWndParent = hmg_par_HWND(1);
    FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {

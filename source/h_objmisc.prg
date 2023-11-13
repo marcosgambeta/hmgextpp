@@ -290,7 +290,7 @@ RETURN NIL
 HB_FUNC( HMG_SETWINDOWOBJECT )
 {
    PHB_ITEM pObject;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       pObject = ( PHB_ITEM ) hb_param(2, Harbour::Item::OBJECT);
@@ -314,7 +314,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
 HB_FUNC( HMG_DELWINDOWOBJECT )
 {
    PHB_ITEM pObject;
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
@@ -330,7 +330,7 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
 
 HB_FUNC( HMG_GETWINDOWOBJECT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       hb_itemReturn((PHB_ITEM) GetWindowLongPtr(hWnd, GWLP_USERDATA));
@@ -343,7 +343,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
 {
    PHB_ITEM pObject;
 
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);

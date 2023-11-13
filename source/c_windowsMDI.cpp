@@ -266,7 +266,7 @@ INITMDICLIENTWINDOW() -->
 */
 HB_FUNC( INITMDICLIENTWINDOW )
 {
-   HWND hwndparent = hmg_par_HWND(1);
+   auto hwndparent = hmg_par_HWND(1);
    int icount = GetMenuItemCount(GetMenu(hwndparent));
 
    // Find window menu where children will be listed

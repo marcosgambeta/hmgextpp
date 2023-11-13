@@ -150,7 +150,7 @@ SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
 */
 HB_FUNC( SETMONTHCALVALUE )
 {
-   HWND hwnd = hmg_par_HWND(1);
+   auto hwnd = hmg_par_HWND(1);
 
    SYSTEMTIME sysTime{};
    sysTime.wYear         = hmg_par_WORD(2);
@@ -197,7 +197,7 @@ SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
 */
 HB_FUNC( SETPOSMONTHCAL )
 {
-   HWND hWndMonthCal = hmg_par_HWND(1);
+   auto hWndMonthCal = hmg_par_HWND(1);
 
    RECT rc;
    MonthCal_GetMinReqRect(hWndMonthCal, &rc);
