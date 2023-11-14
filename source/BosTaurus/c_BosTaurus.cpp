@@ -988,9 +988,9 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    auto hDC = hmg_par_HDC(1);
    INT nCountX        = static_cast<INT>(hb_parinfa(2, 0));
    INT nCountY        = static_cast<INT>(hb_parinfa(3, 0));
-   COLORREF ColorLine = hmg_par_COLORREF(4);
+   auto ColorLine = hmg_par_COLORREF(4);
    auto nWidthLine = hmg_par_INT(5);
-   COLORREF ColorFill = hmg_par_COLORREF(6);
+   auto ColorFill = hmg_par_COLORREF(6);
    auto nPOLY = hmg_par_INT(7);
 
    INT nLen = HB_MIN(nCountX, nCountY);
@@ -1057,9 +1057,9 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
    auto XEndArc = hmg_par_INT(8);
    auto YEndArc = hmg_par_INT(9);
 
-   COLORREF ColorLine = hmg_par_COLORREF(10);
+   auto ColorLine = hmg_par_COLORREF(10);
    auto nWidthLine = hmg_par_INT(11);
-   COLORREF ColorFill = hmg_par_COLORREF(12);
+   auto ColorFill = hmg_par_COLORREF(12);
 
    auto nArcType = hmg_par_INT(13);
 
@@ -1106,8 +1106,8 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    auto y1 = hmg_par_INT(3);
    auto Width1 = hmg_par_INT(4);
    auto Height1 = hmg_par_INT(5);
-   COLORREF ColorFill = hmg_par_COLORREF(6);
-   COLORREF ColorLine = hmg_par_COLORREF(7);
+   auto ColorFill = hmg_par_COLORREF(6);
+   auto ColorLine = hmg_par_COLORREF(7);
    auto nWidthLine = hmg_par_INT(8);
    auto Type = hmg_par_INT(9);
    auto RoundWidth = hmg_par_INT(10);
@@ -1166,7 +1166,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    auto Mode_Stretch = hmg_par_INT(11);
    auto Action = hmg_par_INT(12);
 
-   COLORREF color_transp = hmg_par_COLORREF(13);
+   auto color_transp = hmg_par_COLORREF(13);
 
    HDC memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
@@ -1260,8 +1260,8 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 {
    auto hDC = hmg_par_HDC(1);
 
-   COLORREF Color_RGB_O = hmg_par_COLORREF(6);
-   COLORREF Color_RGB_D = hmg_par_COLORREF(7);
+   auto Color_RGB_O = hmg_par_COLORREF(6);
+   auto Color_RGB_D = hmg_par_COLORREF(7);
    ULONG Mode = static_cast<ULONG>(hb_parnl(8));
 
    TRIVERTEX Vert[2];
@@ -1324,8 +1324,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    TCHAR * FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(5));
 #endif
    auto FontSize = hmg_par_INT(6);
-   COLORREF Text_Color = hmg_par_COLORREF(7);
-   COLORREF Back_Color = hmg_par_COLORREF(8);
+   auto Text_Color = hmg_par_COLORREF(7);
+   auto Back_Color = hmg_par_COLORREF(8);
    auto Type = hmg_par_INT(9);
    auto Align = hmg_par_INT(10);
    auto Orientation = hmg_par_INT(11);
@@ -1419,8 +1419,8 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    TCHAR * FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(7));
 #endif
    auto FontSize = hmg_par_INT(8);
-   COLORREF Text_Color = hmg_par_COLORREF(9);
-   COLORREF Back_Color = hmg_par_COLORREF(10);
+   auto Text_Color = hmg_par_COLORREF(9);
+   auto Back_Color = hmg_par_COLORREF(10);
    auto Type = hmg_par_INT(11);
    auto Align = hmg_par_INT(12);
    double Orientation  = static_cast<double>(hb_parnd(13));
@@ -1577,7 +1577,7 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
    auto x = hmg_par_INT(2);
    auto y = hmg_par_INT(3);
    auto Action = hmg_par_INT(4);
-   COLORREF Color = hmg_par_COLORREF(5);
+   auto Color = hmg_par_COLORREF(5);
 
    switch( Action ) {
       case BT_HDC_GETPIXEL:
@@ -1620,7 +1620,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
 
    auto Mode_Stretch = hmg_par_INT(11);
    auto Action = hmg_par_INT(12);
-   COLORREF color_transp = hmg_par_COLORREF(13);
+   auto color_transp = hmg_par_COLORREF(13);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
@@ -1705,7 +1705,7 @@ HB_FUNC( BT_BMP_CREATE )
 {
    auto Width = hmg_par_INT(1);
    auto Height = hmg_par_INT(2);
-   COLORREF Color_Fill_Bk = hmg_par_COLORREF(3);
+   auto Color_Fill_Bk = hmg_par_COLORREF(3);
 
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width, Height);
 
@@ -2307,7 +2307,7 @@ HB_FUNC( BT_BMP_PASTE )
 
    auto Mode_Stretch = hmg_par_INT(11);
    auto Action = hmg_par_INT(12);
-   COLORREF color_transp = hmg_par_COLORREF(13);
+   auto color_transp = hmg_par_COLORREF(13);
 
    HDC memDC_D = CreateCompatibleDC(nullptr);
    SelectObject(memDC_D, hBitmap_D);
@@ -2839,7 +2839,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    auto hBitmap_O = hmg_par_HBITMAP(1);
    INT Mode               = hb_parnl(2);
    FLOAT Angle            = static_cast<FLOAT>(hb_parnd(3));
-   COLORREF Color_Fill_Bk = hmg_par_COLORREF(4);
+   auto Color_Fill_Bk = hmg_par_COLORREF(4);
 
    HDC memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_O);

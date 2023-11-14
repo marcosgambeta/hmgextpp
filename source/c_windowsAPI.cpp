@@ -266,7 +266,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
             ( SetLayeredWindowAttributes_ptr ) wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes");
 
          if( fn_SetLayeredWindowAttributes != nullptr ) {
-            COLORREF crKey   = hmg_par_COLORREF(2);
+            auto crKey = hmg_par_COLORREF(2);
             auto bAlpha = hmg_par_BYTE(3);
             DWORD    dwFlags = hmg_par_DWORD(4);
 
