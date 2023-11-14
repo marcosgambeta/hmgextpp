@@ -1208,7 +1208,7 @@ HB_FUNC( SETMENUCOLORS )
 
 HB_FUNC( _ONDESTROYMENU )
 {
-   HMENU menu = hmg_par_HMENU(1);
+   auto menu = hmg_par_HMENU(1);
 
    if( IsMenu(menu) ) {
       bool bResult = _DestroyMenu(menu);

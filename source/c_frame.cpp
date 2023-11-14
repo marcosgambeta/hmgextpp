@@ -63,7 +63,7 @@ HB_FUNC( INITFRAME )
    HWND hbutton = nullptr;
 
    if( IsWindow(hwnd) ) {
-      HMENU hmenu = hmg_par_HMENU(2);
+      auto hmenu = hmg_par_HMENU(2);
       DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; /* opaque | transparent */
       void * str;
 
