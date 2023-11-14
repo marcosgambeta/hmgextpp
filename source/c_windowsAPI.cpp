@@ -557,8 +557,8 @@ HB_FUNC( GETCURSORPOS )
 
 HB_FUNC( SCREENTOCLIENT )
 {
-   LONG  x = hmg_par_LONG(2);
-   LONG  y = hmg_par_LONG(3);
+   auto x = hmg_par_LONG(2);
+   auto y = hmg_par_LONG(3);
    POINT pt;
 
    pt.x = x;
@@ -573,8 +573,8 @@ HB_FUNC( SCREENTOCLIENT )
 
 HB_FUNC( CLIENTTOSCREEN )
 {
-   LONG  x = hmg_par_LONG(2);
-   LONG  y = hmg_par_LONG(3);
+   auto x = hmg_par_LONG(2);
+   auto y = hmg_par_LONG(3);
    POINT pt;
 
    pt.x = x;

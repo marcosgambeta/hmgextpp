@@ -157,7 +157,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 //        RichEditBox_StreamIn ( hWndControl, cFileName, lSelection, nDataFormat )
 HB_FUNC( RICHEDITBOX_STREAMIN )
 {
-   LONG nDataFormat = hmg_par_LONG(4);
+   auto nDataFormat = hmg_par_LONG(4);
    LONG Format;
    switch( nDataFormat ) {
       case 1:   Format = SF_TEXT; break;                                      // ANSI and UTF-8 with BOM
@@ -204,7 +204,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 //        RichEditBox_StreamOut ( hWndControl, cFileName, lSelection, nDataFormat )
 HB_FUNC( RICHEDITBOX_STREAMOUT )
 {
-   LONG nDataFormat = hmg_par_LONG(4);
+   auto nDataFormat = hmg_par_LONG(4);
    LONG Format;
    switch( nDataFormat ) {
       case 1:   Format = SF_TEXT; break;                                      // ANSI and UTF-8 with BOM
@@ -938,7 +938,7 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
 {
    auto hWndControl = hmg_par_HWND(1);
    POINTL PointL;
-   LONG   nPosChar    = hmg_par_LONG(2);
+   auto nPosChar = hmg_par_LONG(2);
 
    SendMessage(hWndControl, EM_POSFROMCHAR, ( WPARAM ) &PointL, nPosChar);   // Retrieves the client area coordinates of
                                                                                           // a specified character in an edit control

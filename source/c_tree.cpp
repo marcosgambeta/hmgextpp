@@ -168,7 +168,7 @@ ADDTREEITEM(HWND, HTREEITEM, cText, p4, p5, p6, p7) --> HWND
 HB_FUNC( ADDTREEITEM )
 {
    HTREEITEM hPrev = hmg_par_HTREEITEM(2);
-   LONG nID        = hmg_par_LONG(6);
+   auto nID = hmg_par_LONG(6);
    auto IsNodeFlag = hmg_par_BOOL(7);
 
    TV_ITEM tvi;
