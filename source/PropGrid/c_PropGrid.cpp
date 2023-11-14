@@ -1562,7 +1562,7 @@ HB_FUNC( PG_SEARCHID ) // PG_SearchID(hWndPG, nID)
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
    auto TreeHandle = hmg_par_HWND(1);
-   int nID = hmg_par_int(2);
+   auto nID = hmg_par_int(2);
 
    HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
 

@@ -210,7 +210,7 @@ GETEDITTEXT(HWND, nId) --> cText
 HB_FUNC( GETEDITTEXT )
 {
    auto hDlg = hmg_par_HWND(1);
-   int id = hmg_par_int(2);
+   auto id = hmg_par_int(2);
    USHORT strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
    TCHAR * str = new TCHAR[strlen + 2];
    GetDlgItemText(hDlg, id, str, strlen + 1);

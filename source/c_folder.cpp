@@ -450,10 +450,10 @@ HB_FUNC( CREATEDLGFOLDER )
    BOOL    modal;
    LRESULT lResult;
    long    lTemplateSize;
-   int     nPages, style, nIdFld;
+   int     nPages, style;
    int     x, y, cx, cy;
 
-   nIdFld = hmg_par_int(1);
+   auto nIdFld = hmg_par_int(1);
    auto hWndDlg = hmg_par_HWND(2);
 
    auto sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages

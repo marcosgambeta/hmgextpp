@@ -208,10 +208,10 @@ HB_FUNC( MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth
    auto hBtn1 = hmg_par_HWND(2);
    auto hBtn2 = hmg_par_HWND(3);
    BOOL fBtn2 = hb_parl(4);
-   int BtnWidth = hmg_par_int(5);
+   auto BtnWidth = hmg_par_int(5);
    int BtnWidth2;
-   int width = hmg_par_int(6);
-   int height = hmg_par_int(7);
+   auto width = hmg_par_int(6);
+   auto height = hmg_par_int(7);
    BOOL fBtns = (hb_parnl(2) > 0);
 
    BtnWidth = (BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1);
