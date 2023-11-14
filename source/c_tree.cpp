@@ -169,7 +169,7 @@ HB_FUNC( ADDTREEITEM )
 {
    HTREEITEM hPrev = hmg_par_HTREEITEM(2);
    LONG nID        = hmg_par_LONG(6);
-   BOOL IsNodeFlag = hmg_par_BOOL(7);
+   auto IsNodeFlag = hmg_par_BOOL(7);
 
    TV_ITEM tvi;
    tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
@@ -419,7 +419,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
    auto hWndTV = hmg_par_HWND(1);
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    auto nExpand = hmg_par_UINT(3);
-   BOOL      fRecurse   = hmg_par_BOOL(4);
+   auto fRecurse = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent(hWndTV);
    BOOL      lEnabled   = IsWindowEnabled(hWndParent);
 
@@ -539,9 +539,9 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
    auto hWndTV = hmg_par_HWND(1);
    HTREEITEM ItemHandle      = hmg_par_HTREEITEM(2);
-   BOOL      fRecurse        = hmg_par_BOOL(3);
-   BOOL      lCaseSensitive  = hmg_par_BOOL(4);
-   BOOL      lAscendingOrder = hmg_par_BOOL(5);
+   auto fRecurse = hmg_par_BOOL(3);
+   auto lCaseSensitive = hmg_par_BOOL(4);
+   auto lAscendingOrder = hmg_par_BOOL(5);
    auto nNodePosition = hmg_par_INT(6);
    HWND      hWndParent      = GetParent(hWndTV);
    BOOL      lEnabled        = IsWindowEnabled(hWndParent);

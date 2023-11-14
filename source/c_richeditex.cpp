@@ -984,7 +984,7 @@ HB_FUNC( FINDREPLACEDLG )
    BOOL CheckDown      = ( BOOL ) ( HB_ISNIL(5) ? TRUE  : hb_parl(5) );
    BOOL CheckMatchCase = ( BOOL ) ( HB_ISNIL(6) ? FALSE : hb_parl(6) );
    BOOL CheckWholeWord = ( BOOL ) ( HB_ISNIL(7) ? FALSE : hb_parl(7) );
-   BOOL lReplace       = hmg_par_BOOL(10);
+   auto lReplace = hmg_par_BOOL(10);
 
    void * str1;
    void * str2;
