@@ -1252,10 +1252,10 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
    auto hWnd = hmg_par_HWND(1);
    auto GroupID = hmg_par_INT(2);
    HB_WCHAR * cHeader      = static_cast<HB_WCHAR*>((hb_parclen(3) == 0) ? nullptr : hb_mbtowc(hb_parc(3)));
-   UINT       nAlignHeader = hmg_par_UINT(4);
+   auto nAlignHeader = hmg_par_UINT(4);
    HB_WCHAR * cFooter      = (hb_parclen(5) == 0) ? nullptr : hb_mbtowc( hb_parc(5));
-   UINT       nAlignFooter = hmg_par_UINT(6);
-   UINT       nState       = hmg_par_UINT(7);
+   auto nAlignFooter = hmg_par_UINT(6);
+   auto nState = hmg_par_UINT(7);
 
    HB_WCHAR cHeaderBuffer[MAX_GROUP_BUFFER];
    HB_WCHAR cFooterBuffer[MAX_GROUP_BUFFER];

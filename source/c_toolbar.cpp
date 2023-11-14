@@ -953,7 +953,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
    LPARAM lParam = HB_PARNL(4);
    LPTBNOTIFY lpTB = reinterpret_cast<LPTBNOTIFY>(lParam);
 
-   UINT Msg = hmg_par_UINT(2);
+   auto Msg = hmg_par_UINT(2);
 
    switch( Msg ) {
       case WM_NOTIFY: {

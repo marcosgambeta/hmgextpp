@@ -418,7 +418,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
    auto hWndTV = hmg_par_HWND(1);
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-   UINT      nExpand    = hmg_par_UINT(3);
+   auto nExpand = hmg_par_UINT(3);
    BOOL      fRecurse   = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent(hWndTV);
    BOOL      lEnabled   = IsWindowEnabled(hWndParent);
