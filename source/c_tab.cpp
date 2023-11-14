@@ -106,7 +106,7 @@ HB_FUNC( INITTABCONTROL )
       nullptr);
 
    int l = hb_parinfa(7, 0) - 1;
-   PHB_ITEM hArray = hb_param(7, Harbour::Item::ARRAY);
+   auto hArray = hb_param(7, Harbour::Item::ARRAY);
 
    TC_ITEM tie{};
    tie.mask   = TCIF_TEXT;
@@ -167,7 +167,7 @@ HB_FUNC( ADDTABBITMAP )
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
-      PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+      auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
       TCHAR * FileName;
 

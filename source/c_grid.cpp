@@ -259,7 +259,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
    int nCount = static_cast<int>(hb_parinfa(2, 0));
 
    if( nCount > 0 ) {
-      PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+      auto hArray = hb_param(2, Harbour::Item::ARRAY);
       HIMAGELIST himl = nullptr;
       char * FileName;
       for( int s = 1; s <= nCount; s++ ) {
@@ -289,7 +289,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
    if( hheader ) {
       int nCount = static_cast<int>(hb_parinfa(2, 0));
       if( nCount > 0 ) {
-         PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+         auto hArray = hb_param(2, Harbour::Item::ARRAY);
          char * FileName;
          for( int s = 1; s <= nCount; s++ ) {
             FileName = const_cast<char*>(hb_arrayGetCPtr(hArray, s));
@@ -338,9 +338,9 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    LPWSTR lpText;
 #endif
    int iLen   = static_cast<int>(hb_parinfa(2, 0)) - 1;
-   PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
-   PHB_ITEM wArray = hb_param(3, Harbour::Item::ARRAY);
-   PHB_ITEM jArray = hb_param(4, Harbour::Item::ARRAY);
+   auto hArray = hb_param(2, Harbour::Item::ARRAY);
+   auto wArray = hb_param(3, Harbour::Item::ARRAY);
+   auto jArray = hb_param(4, Harbour::Item::ARRAY);
 
    LV_COLUMN COL;
    COL.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
@@ -391,7 +391,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
 
    auto h = hmg_par_HWND(1);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
-   PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+   auto hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
 
    char * caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
@@ -478,7 +478,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
 
    // SET NEW SELECTIONS
 
-   PHB_ITEM wArray = hb_param(2, Harbour::Item::ARRAY);
+   auto wArray = hb_param(2, Harbour::Item::ARRAY);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    for( i = 0; i <= l; i++ ) {
       ListView_SetItemState(hwnd, hb_arrayGetNI(wArray, i + 1) - 1, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
@@ -496,7 +496,7 @@ HB_FUNC( LISTVIEWSETITEM )
    LPWSTR lpText;
 #endif
    int  l = static_cast<int>(hb_parinfa(2, 0)) - 1;
-   PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+   auto hArray = hb_param(2, Harbour::Item::ARRAY);
    char * caption;
    auto h = hmg_par_HWND(1);
    int  c = hb_parni(3) - 1;
@@ -1006,7 +1006,7 @@ LISTVIEW_SETCOLUMNORDERARRAY() -->
 */
 HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
-   PHB_ITEM pOrder = hb_param(3, Harbour::Item::ARRAY);
+   auto pOrder = hb_param(3, Harbour::Item::ARRAY);
 
    if( pOrder != nullptr ) {
       int iColumn = hb_parni(2);

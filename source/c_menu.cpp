@@ -119,7 +119,7 @@ ARRAY2ACCELERATORTABLE(array) --> HACCEL
 */
 HB_FUNC( ARRAY2ACCELERATORTABLE )
 {
-   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
+   auto pArray = hb_param(1, Harbour::Item::ARRAY);
    int nLen;
    HACCEL hAccel = nullptr;
 
@@ -1170,7 +1170,7 @@ HB_FUNC( GETMENUCOLORS )
 
 HB_FUNC( SETMENUCOLORS )
 {
-   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
+   auto pArray = hb_param(1, Harbour::Item::ARRAY);
 
    if( (pArray != nullptr) && (hb_arrayLen(pArray) >= 28) ) {
       clrMenuBar1             = static_cast<COLORREF>(HB_PARVNL(1, 1));

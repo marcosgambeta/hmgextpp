@@ -1336,7 +1336,7 @@ HB_FUNC( SQLITE3_PREPARE )
 
         if( pHbSqlite3 && pHbSqlite3->db )
         {
-                PHB_ITEM SQL = hb_param(2, Harbour::Item::STRING);
+                auto SQL = hb_param(2, Harbour::Item::STRING);
 
                 if( SQL )
                 {
@@ -1369,7 +1369,7 @@ HB_FUNC( SQLITE3_PREPARE_V2 )
 
         if( pHbSqlite3 && pHbSqlite3->db )
         {
-                PHB_ITEM SQL = hb_param(2, Harbour::Item::STRING);
+                auto SQL = hb_param(2, Harbour::Item::STRING);
 
                 if( SQL )
                 {

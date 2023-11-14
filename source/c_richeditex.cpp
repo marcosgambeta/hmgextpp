@@ -457,7 +457,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    }
 
    if( HB_ISBYREF(8) ) {
-      PHB_ITEM pArray = hb_param(8, Harbour::Item::ANY);
+      auto pArray = hb_param(8, Harbour::Item::ANY);
       hb_arrayNew(pArray, 3);
       hb_arraySetNL( pArray, 1, GetRValue(CharFormat2.crTextColor) );
       hb_arraySetNL( pArray, 2, GetGValue(CharFormat2.crTextColor) );
@@ -465,7 +465,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    }
 
    if( HB_ISBYREF(9) ) {
-      PHB_ITEM pArray = hb_param(9, Harbour::Item::ANY);
+      auto pArray = hb_param(9, Harbour::Item::ANY);
       hb_arrayNew(pArray, 3);
       hb_arraySetNL( pArray, 1, GetRValue(CharFormat2.crBackColor) );
       hb_arraySetNL( pArray, 2, GetGValue(CharFormat2.crBackColor) );

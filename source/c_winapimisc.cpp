@@ -761,7 +761,7 @@ WAITRUNTERM(cCommandLine, cCurrentDirectory, nShowWindow, bWaitProc, nWaitMsec) 
 */
 HB_FUNC( WAITRUNTERM )
 {
-   PHB_ITEM pWaitProc = hb_param(4, Harbour::Item::BLOCK);
+   auto pWaitProc = hb_param(4, Harbour::Item::BLOCK);
    BOOL bTerm = FALSE;
    DWORD dwExitCode;
    STARTUPINFO stInfo;

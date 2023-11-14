@@ -346,15 +346,11 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
    TCHAR * ImageName;
    int     idRC, PageStyle;
 
-   PHB_ITEM sArray;
-   PHB_ITEM dArray;
-   PHB_ITEM cArray;
-
    long lTemplateSize;
 
-   sArray = hb_param(1, Harbour::Item::ARRAY); //Folder Array
-   dArray = hb_param(2, Harbour::Item::ARRAY); //Folder Page Array
-   cArray = hb_param(3, Harbour::Item::ARRAY); //Page Controls Array
+   auto sArray = hb_param(1, Harbour::Item::ARRAY); //Folder Array
+   auto dArray = hb_param(2, Harbour::Item::ARRAY); //Folder Page Array
+   auto cArray = hb_param(3, Harbour::Item::ARRAY); //Page Controls Array
    lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    pdlgtemplate = reinterpret_cast<DLGTEMPLATE*>(CreateDlgTemplate(lTemplateSize, dArray, cArray));
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
@@ -398,12 +394,11 @@ HB_FUNC( CREATEFOLDERPAGE )
 {
    FLDPAGEINFO * pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
 
-   PHB_ITEM sArray;
    TCHAR *  strTitle;
    TCHAR *  caption;
    int      idRC, PageStyle;
 
-   sArray = hb_param(1, Harbour::Item::ARRAY);
+   auto sArray = hb_param(1, Harbour::Item::ARRAY);
 
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
@@ -452,10 +447,6 @@ HB_FUNC( CREATEDLGFOLDER )
    LPDLGTEMPLATE pdlgtemplate;
    HWND          hwnd;
 
-   PHB_ITEM sArray;
-   PHB_ITEM pArray;
-   PHB_ITEM cArray;
-
    BOOL    modal;
    LRESULT lResult;
    long    lTemplateSize;
@@ -465,9 +456,9 @@ HB_FUNC( CREATEDLGFOLDER )
    nIdFld = hmg_par_int(1);
    auto hWndDlg = hmg_par_HWND(2);
 
-   sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages
-   pArray = hb_param(4, Harbour::Item::ARRAY);      //_HMG_aFolderTemplate
-   cArray = hb_param(5, Harbour::Item::ARRAY);      //_HMG_aDialogItems
+   auto sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages
+   auto pArray = hb_param(4, Harbour::Item::ARRAY);      //_HMG_aFolderTemplate
+   auto cArray = hb_param(5, Harbour::Item::ARRAY);      //_HMG_aDialogItems
 
    //  _HMG_aFolderTemplate := {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lApplyBtn,lCancelBtn}
    //  _HMG_aFolderTemplate -> {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lOkBtn,lApplyBtn,lCancelBtn, buttons , flat , hottrack , vertical , bottom, multiline}

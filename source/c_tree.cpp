@@ -99,7 +99,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
-      PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+      auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ ) {
          FileName = const_cast<char*>(hb_arrayGetCPtr(hArray, s)); // TODO: unicode

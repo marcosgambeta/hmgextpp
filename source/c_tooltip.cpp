@@ -273,7 +273,7 @@ HB_FUNC( INITTOOLTIPEX )
    auto hwndParent = hmg_par_HWND(1);
 
    if( IsWindow(hwndParent) ) {
-      PHB_ITEM aRect = hb_param(2, Harbour::Item::ANY);
+      auto aRect = hb_param(2, Harbour::Item::ANY);
 
       RECT rect;
       if( !Array2Rect(aRect, &rect) ) {

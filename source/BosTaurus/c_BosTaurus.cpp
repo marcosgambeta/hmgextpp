@@ -926,7 +926,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
       return;
    }
 
-   PHB_ITEM pArrayRect = hb_param(2, Harbour::Item::ARRAY);
+   auto pArrayRect = hb_param(2, Harbour::Item::ARRAY);
 
    if( hb_arrayLen(pArrayRect) == 4 ) {
       RECT rect;

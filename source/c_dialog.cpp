@@ -161,7 +161,7 @@ HB_FUNC( ADDDIALOGPAGES )
 {
    auto hwnd = hmg_par_HWND(1);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
-   PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+   auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
    TC_ITEM tie;
    tie.mask = TCIF_TEXT;
@@ -388,8 +388,8 @@ CREATEDLGTEMPLATE(HWND, ap2, ap3) --> LRESULT|HANDLE
 */
 HB_FUNC( CREATEDLGTEMPLATE )
 {
-   PHB_ITEM dArray = hb_param(2, Harbour::Item::ARRAY);
-   PHB_ITEM cArray = hb_param(3, Harbour::Item::ARRAY);
+   auto dArray = hb_param(2, Harbour::Item::ARRAY);
+   auto cArray = hb_param(3, Harbour::Item::ARRAY);
    BOOL modal = hb_arrayGetL(dArray, 3);
    HB_SIZE lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);

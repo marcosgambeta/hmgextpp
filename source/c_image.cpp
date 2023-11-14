@@ -1223,7 +1223,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
    void * str;
    TCHAR * szIconFile = static_cast<TCHAR*>(const_cast<char*>(HB_PARSTR(1, &str, nullptr)));
    HICON hIcon[9];
-   PHB_ITEM pArray = hb_param(2, Harbour::Item::ARRAY);
+   auto pArray = hb_param(2, Harbour::Item::ARRAY);
    int nLen;
 
    if( pArray && ((nLen = hb_arrayLen(pArray)) > 0) ) {

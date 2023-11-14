@@ -338,7 +338,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 HB_FUNC( ENUMPROPSEX )
 {
    auto hWnd = hmg_par_HWND(1);
-   PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
+   auto pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock ) {
       hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, reinterpret_cast<LPARAM>(pCodeBlock)) );

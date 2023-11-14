@@ -582,7 +582,7 @@ HB_FUNC( GETTIMEZONEBIAS )
 
 HB_FUNC_STATIC( MEMOREAD )
 {
-   PHB_ITEM pFileName = hb_param(1, Harbour::Item::STRING);
+   auto pFileName = hb_param(1, Harbour::Item::STRING);
 
    if( pFileName ) {
       FHANDLE fhnd = hb_fsOpen(hb_itemGetCPtr(pFileName), FO_READ | FO_SHARED | FO_PRIVATE);

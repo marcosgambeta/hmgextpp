@@ -235,7 +235,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
 
 HB_FUNC( CREATEPROPERTYSEEETPAGE )
 {
-   PHB_ITEM sArray      = hb_param(1, Harbour::Item::ARRAY);
+   auto sArray = hb_param(1, Harbour::Item::ARRAY);
 
    char * strTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
    int idRC             = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
@@ -267,8 +267,8 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 HB_FUNC( CREATEPROPERTYSHEET )
 {
    auto hwnd = hmg_par_HWND(1);
-   PHB_ITEM sArray = hb_param(2, Harbour::Item::ARRAY);
-   PHB_ITEM pArray = hb_param(3, Harbour::Item::ARRAY);
+   auto sArray = hb_param(2, Harbour::Item::ARRAY);
+   auto pArray = hb_param(3, Harbour::Item::ARRAY);
 
    int nPages = hb_arrayLen(sArray);
    HPROPSHEETPAGE * hpsp = static_cast<HPROPSHEETPAGE*>(malloc(sizeof(HPROPSHEETPAGE) * nPages ));
@@ -427,9 +427,9 @@ HB_FUNC( PROPSHEET_GETRESULT )
 *****************************************************************************/
 HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 {
-   PHB_ITEM sArray = hb_param(1, Harbour::Item::ARRAY); // Property Sheet Array
-   PHB_ITEM dArray = hb_param(2, Harbour::Item::ARRAY); // Property Sheet Page Array
-   PHB_ITEM cArray = hb_param(3, Harbour::Item::ARRAY); // Page Controls Array
+   auto sArray = hb_param(1, Harbour::Item::ARRAY); // Property Sheet Array
+   auto dArray = hb_param(2, Harbour::Item::ARRAY); // Property Sheet Page Array
+   auto cArray = hb_param(3, Harbour::Item::ARRAY); // Page Controls Array
 
    long lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);

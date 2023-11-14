@@ -147,7 +147,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
 HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 {
-   PHB_ITEM pConfig = hb_param(1, Harbour::Item::ARRAY);
+   auto pConfig = hb_param(1, Harbour::Item::ARRAY);
 
    if( pConfig && hb_arrayLen(pConfig) >= TDC_CONFIG ) {
       TASKDIALOGCONFIG config; memset(&config, 0, sizeof(TASKDIALOGCONFIG));

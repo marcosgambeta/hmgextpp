@@ -217,7 +217,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
       SendMessage(hwnd, LB_SETSEL, 0, i);
    }
 
-   PHB_ITEM wArray = hb_param(2, Harbour::Item::ARRAY);
+   auto wArray = hb_param(2, Harbour::Item::ARRAY);
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
 
    // SET NEW SELECTIONS
@@ -230,7 +230,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 {
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    int nTabStops[TOTAL_TABS];
-   PHB_ITEM wArray = hb_param(2, Harbour::Item::ARRAY);
+   auto wArray = hb_param(2, Harbour::Item::ARRAY);
    DWORD dwDlgBase = GetDialogBaseUnits();
    int baseunitX = LOWORD(dwDlgBase);
 

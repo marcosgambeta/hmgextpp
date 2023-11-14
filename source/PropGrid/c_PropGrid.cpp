@@ -866,8 +866,8 @@ HB_FUNC( INITPROPGRID )
 
    int iHeight = hb_parni(10);
 
-   PHB_ITEM hArray = hb_param(11, Harbour::Item::ARRAY);
-   PHB_ITEM MsgArray = hb_param(17, Harbour::Item::ARRAY);
+   auto hArray = hb_param(11, Harbour::Item::ARRAY);
+   auto MsgArray = hb_param(17, Harbour::Item::ARRAY);
 
    HWND hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT, "button", "", WS_CHILD | BS_GROUPBOX | WS_VISIBLE, x, y, w, h, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr);
 
@@ -1647,7 +1647,7 @@ HB_FUNC( ADDTREEITEMS )
 {
    auto h = hmg_par_HWND(1);
    int l = hb_parinfa(2, 0) - 1;
-   PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+   auto hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
    char * caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
 
