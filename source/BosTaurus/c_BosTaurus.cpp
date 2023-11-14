@@ -876,8 +876,8 @@ HB_FUNC( BT_SCR_GETINFO )
    RECT rect;
 
    auto hWnd = hmg_par_HWND(1);
-   INT Mode = hmg_par_INT(2);
-   INT info = hmg_par_INT(3);
+   auto Mode = hmg_par_INT(2);
+   auto info = hmg_par_INT(3);
 
    switch( Mode ) {
       case BT_SCR_DESKTOP:
@@ -989,9 +989,9 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    INT nCountX        = static_cast<INT>(hb_parinfa(2, 0));
    INT nCountY        = static_cast<INT>(hb_parinfa(3, 0));
    COLORREF ColorLine = hmg_par_COLORREF(4);
-   INT nWidthLine     = hmg_par_INT(5);
+   auto nWidthLine = hmg_par_INT(5);
    COLORREF ColorFill = hmg_par_COLORREF(6);
-   INT nPOLY          = hmg_par_INT(7);
+   auto nPOLY = hmg_par_INT(7);
 
    INT nLen = HB_MIN(nCountX, nCountY);
 
@@ -1047,21 +1047,21 @@ BT_DRAW_HDC_ARCX(HDC, x1, y1, x2, y3, XStartArc, YStartArc, xEndArc, YEndArc, co
 HB_FUNC( BT_DRAW_HDC_ARCX )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x1  = hmg_par_INT(2);
-   INT y1  = hmg_par_INT(3);
-   INT x2  = hmg_par_INT(4);
-   INT y2  = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto x2 = hmg_par_INT(4);
+   auto y2 = hmg_par_INT(5);
 
-   INT XStartArc = hmg_par_INT(6);
-   INT YStartArc = hmg_par_INT(7);
-   INT XEndArc   = hmg_par_INT(8);
-   INT YEndArc   = hmg_par_INT(9);
+   auto XStartArc = hmg_par_INT(6);
+   auto YStartArc = hmg_par_INT(7);
+   auto XEndArc = hmg_par_INT(8);
+   auto YEndArc = hmg_par_INT(9);
 
    COLORREF ColorLine = hmg_par_COLORREF(10);
-   INT nWidthLine     = hmg_par_INT(11);
+   auto nWidthLine = hmg_par_INT(11);
    COLORREF ColorFill = hmg_par_COLORREF(12);
 
-   INT nArcType = hmg_par_INT(13);
+   auto nArcType = hmg_par_INT(13);
 
    HPEN hPen       = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    HPEN OldPen     = static_cast<HPEN>(SelectObject(hDC, hPen));
@@ -1102,16 +1102,16 @@ BT_DRAW_HDC_FILLEDOBJECT(HDC, x, y, width, height, colorFill, colorLine, widthLi
 HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x1             = hmg_par_INT(2);
-   INT y1             = hmg_par_INT(3);
-   INT Width1         = hmg_par_INT(4);
-   INT Height1        = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
    COLORREF ColorFill = hmg_par_COLORREF(6);
    COLORREF ColorLine = hmg_par_COLORREF(7);
-   INT nWidthLine     = hmg_par_INT(8);
-   INT Type           = hmg_par_INT(9);
-   INT RoundWidth     = hmg_par_INT(10);
-   INT RoundHeight    = hmg_par_INT(11);
+   auto nWidthLine = hmg_par_INT(8);
+   auto Type = hmg_par_INT(9);
+   auto RoundWidth = hmg_par_INT(10);
+   auto RoundHeight = hmg_par_INT(11);
 
    HPEN hPen       = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    HPEN OldPen     = static_cast<HPEN>(SelectObject(hDC, hPen));
@@ -1152,19 +1152,19 @@ BT_DRAW_HDC_BITMAP(HDC, x1, y1, width1, height1, HBITMAP, x2, y2, width2, height
 HB_FUNC( BT_DRAW_HDC_BITMAP )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x1      = hmg_par_INT(2);
-   INT y1      = hmg_par_INT(3);
-   INT Width1  = hmg_par_INT(4);
-   INT Height1 = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hBitmap = hmg_par_HBITMAP(6);
-   INT x2          = hmg_par_INT(7);
-   INT y2          = hmg_par_INT(8);
-   INT Width2      = hmg_par_INT(9);
-   INT Height2     = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
-   INT Mode_Stretch = hmg_par_INT(11);
-   INT Action       = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(11);
+   auto Action = hmg_par_INT(12);
 
    COLORREF color_transp = hmg_par_COLORREF(13);
 
@@ -1209,19 +1209,19 @@ BT_DRAW_HDC_BITMAPALPHABLEND(HDC, x1, y1, width1, height1, HBITMAP, x2, y2, widt
 HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x1      = hmg_par_INT(2);
-   INT y1      = hmg_par_INT(3);
-   INT Width1  = hmg_par_INT(4);
-   INT Height1 = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hBitmap = hmg_par_HBITMAP(6);
-   INT x2          = hmg_par_INT(7);
-   INT y2          = hmg_par_INT(8);
-   INT Width2      = hmg_par_INT(9);
-   INT Height2     = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
    BYTE Alpha        = hmg_par_BYTE(11);
-   INT Mode_Stretch  = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
    blend.BlendOp             = AC_SRC_OVER;
@@ -1314,8 +1314,8 @@ BT_DRAW_HDC_TEXTOUT(HDC, x, y, text, fontname, fontsize, textColor, backColor, t
 HB_FUNC( BT_DRAW_HDC_TEXTOUT )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x           = hmg_par_INT(2);
-   INT y           = hmg_par_INT(3);
+   auto x = hmg_par_INT(2);
+   auto y = hmg_par_INT(3);
 #ifndef UNICODE
    TCHAR * lpText      = ( TCHAR * ) hb_parc(4);
    TCHAR * FontName    = ( TCHAR * ) hb_parc(5);
@@ -1323,12 +1323,12 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    TCHAR * lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(4));
    TCHAR * FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(5));
 #endif
-   INT FontSize        = hmg_par_INT(6);
+   auto FontSize = hmg_par_INT(6);
    COLORREF Text_Color = hmg_par_COLORREF(7);
    COLORREF Back_Color = hmg_par_COLORREF(8);
-   INT Type            = hmg_par_INT(9);
-   INT Align           = hmg_par_INT(10);
-   INT Orientation     = hmg_par_INT(11);
+   auto Type = hmg_par_INT(9);
+   auto Align = hmg_par_INT(10);
+   auto Orientation = hmg_par_INT(11);
 
    if( (Orientation < -360) || (Orientation > 360) ) {
       Orientation = 0;
@@ -1407,10 +1407,10 @@ BT_DRAW_HDC_DRAWTEXT(HDC, x, y, w, h, text, fontName, fontSize, textColor, backC
 HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x           = hmg_par_INT(2);
-   INT y           = hmg_par_INT(3);
-   INT w           = hmg_par_INT(4);
-   INT h           = hmg_par_INT(5);
+   auto x = hmg_par_INT(2);
+   auto y = hmg_par_INT(3);
+   auto w = hmg_par_INT(4);
+   auto h = hmg_par_INT(5);
 #ifndef UNICODE
    TCHAR * lpText      = ( TCHAR * ) hb_parc(6);
    TCHAR * FontName    = ( TCHAR * ) hb_parc(7);
@@ -1418,11 +1418,11 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    TCHAR * lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(6));
    TCHAR * FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(7));
 #endif
-   INT FontSize        = hmg_par_INT(8);
+   auto FontSize = hmg_par_INT(8);
    COLORREF Text_Color = hmg_par_COLORREF(9);
    COLORREF Back_Color = hmg_par_COLORREF(10);
-   INT Type            = hmg_par_INT(11);
-   INT Align           = hmg_par_INT(12);
+   auto Type = hmg_par_INT(11);
+   auto Align = hmg_par_INT(12);
    double Orientation  = static_cast<double>(hb_parnd(13));
 
    if( (Orientation < static_cast<double>(-360.0)) || (Orientation > static_cast<double>(360.0)) ) {
@@ -1506,8 +1506,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    TCHAR * lpText   = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
    TCHAR * FontName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(3));
 #endif
-   INT FontSize     = hmg_par_INT(4);
-   INT Type         = hmg_par_INT(5);
+   auto FontSize = hmg_par_INT(4);
+   auto Type = hmg_par_INT(5);
 
    INT Bold      = FW_NORMAL;
    INT Italic    = 0;
@@ -1574,9 +1574,9 @@ BT_DRAW_HDC_PIXEL(HDC, x, y, action, color) --> array
 HB_FUNC( BT_DRAW_HDC_PIXEL )
 {
    auto hDC = hmg_par_HDC(1);
-   INT x          = hmg_par_INT(2);
-   INT y          = hmg_par_INT(3);
-   INT Action     = hmg_par_INT(4);
+   auto x = hmg_par_INT(2);
+   auto y = hmg_par_INT(3);
+   auto Action = hmg_par_INT(4);
    COLORREF Color = hmg_par_COLORREF(5);
 
    switch( Action ) {
@@ -1607,19 +1607,19 @@ BT_DRAW_HDC_TO_HDC(HDC1, x1, y1, width1, height1, HDC2, x2, y2, width2, height2,
 HB_FUNC( BT_DRAW_HDC_TO_HDC )
 {
    auto hDC1 = hmg_par_HDC(1);
-   INT x1      = hmg_par_INT(2);
-   INT y1      = hmg_par_INT(3);
-   INT Width1  = hmg_par_INT(4);
-   INT Height1 = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hDC2 = hmg_par_HDC(6);
-   INT x2      = hmg_par_INT(7);
-   INT y2      = hmg_par_INT(8);
-   INT Width2  = hmg_par_INT(9);
-   INT Height2 = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
-   INT Mode_Stretch      = hmg_par_INT(11);
-   INT Action            = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(11);
+   auto Action = hmg_par_INT(12);
    COLORREF color_transp = hmg_par_COLORREF(13);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -1659,19 +1659,19 @@ BT_DRAW_HDC_TO_HDC_ALPHABLEND(HDC1, x1, y1, width1, height1, HDC2, x2, y2, width
 HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
 {
    auto hDC1 = hmg_par_HDC(1);
-   INT x1      = hmg_par_INT(2);
-   INT y1      = hmg_par_INT(3);
-   INT Width1  = hmg_par_INT(4);
-   INT Height1 = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hDC2 = hmg_par_HDC(6);
-   INT x2      = hmg_par_INT(7);
-   INT y2      = hmg_par_INT(8);
-   INT Width2  = hmg_par_INT(9);
-   INT Height2 = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
    BYTE Alpha   = hmg_par_BYTE(11);
-   INT Mode_Stretch = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
    blend.BlendOp             = AC_SRC_OVER;
@@ -1703,8 +1703,8 @@ BT_BMP_CREATE(width, height, backColor) --> HBITMAP
 */
 HB_FUNC( BT_BMP_CREATE )
 {
-   INT Width              = hmg_par_INT(1);
-   INT Height             = hmg_par_INT(2);
+   auto Width = hmg_par_INT(1);
+   auto Height = hmg_par_INT(2);
    COLORREF Color_Fill_Bk = hmg_par_COLORREF(3);
 
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width, Height);
@@ -2031,8 +2031,8 @@ HB_FUNC( BT_BMP_GETINFO )
          break;
       case BT_BITMAP_INFO_GETCOLORPIXEL:
       {
-         INT x = hmg_par_INT(3);
-         INT y = hmg_par_INT(4);
+         auto x = hmg_par_INT(3);
+         auto y = hmg_par_INT(4);
          HDC memDC = CreateCompatibleDC(nullptr);
          SelectObject(memDC, hBitmap);
          COLORREF color = GetPixel(memDC, x, y);
@@ -2055,10 +2055,10 @@ BT_BMP_CLONE(HBITMAP, x, y, width, height) --> HBITMAP
 HB_FUNC( BT_BMP_CLONE )
 {
    auto hBitmap = hmg_par_HBITMAP(1);
-   INT x1          = hmg_par_INT(2);
-   INT y1          = hmg_par_INT(3);
-   INT Width1      = hmg_par_INT(4);
-   INT Height1     = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    HDC memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap);
@@ -2237,11 +2237,11 @@ BT_BMP_COPYANDRESIZE(HBITMAP, newWidth, newHeight, modeStretch, algorithm) --> H
 */
 HB_FUNC( BT_BMP_COPYANDRESIZE )
 {
-   auto hBitmap1    = hmg_par_HBITMAP(1);
-   INT New_Width       = hmg_par_INT(2);
-   INT New_Height      = hmg_par_INT(3);
-   INT Mode_Stretch    = hmg_par_INT(4);
-   INT nAlgorithm      = hmg_par_INT(5);
+   auto hBitmap1 = hmg_par_HBITMAP(1);
+   auto New_Width = hmg_par_INT(2);
+   auto New_Height = hmg_par_INT(3);
+   auto Mode_Stretch = hmg_par_INT(4);
+   auto nAlgorithm = hmg_par_INT(5);
    HBITMAP hBitmap_New = nullptr;
 
    HDC memDC1 = CreateCompatibleDC(nullptr);
@@ -2294,19 +2294,19 @@ BT_BMP_PASTE(HBITMAP1, x1, y1, width1, height1, HBITMAP2, x2, y2, width2, height
 HB_FUNC( BT_BMP_PASTE )
 {
    auto hBitmap_D = hmg_par_HBITMAP(1);
-   INT x1            = hmg_par_INT(2);
-   INT y1            = hmg_par_INT(3);
-   INT Width1        = hmg_par_INT(4);
-   INT Height1       = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hBitmap_O = hmg_par_HBITMAP(6);
-   INT x2            = hmg_par_INT(7);
-   INT y2            = hmg_par_INT(8);
-   INT Width2        = hmg_par_INT(9);
-   INT Height2       = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
-   INT Mode_Stretch = hmg_par_INT(11);
-   INT Action       = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(11);
+   auto Action = hmg_par_INT(12);
    COLORREF color_transp = hmg_par_COLORREF(13);
 
    HDC memDC_D = CreateCompatibleDC(nullptr);
@@ -2354,19 +2354,19 @@ BT_BMP_PASTE_ALPHABLEND(HBITMAP1, x1, y1, width1, height1, HBITMAP2, x2, y2, wid
 HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
 {
    auto hBitmap_D = hmg_par_HBITMAP(1);
-   INT x1            = hmg_par_INT(2);
-   INT y1            = hmg_par_INT(3);
-   INT Width1        = hmg_par_INT(4);
-   INT Height1       = hmg_par_INT(5);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
 
    auto hBitmap_O = hmg_par_HBITMAP(6);
-   INT x2            = hmg_par_INT(7);
-   INT y2            = hmg_par_INT(8);
-   INT Width2        = hmg_par_INT(9);
-   INT Height2       = hmg_par_INT(10);
+   auto x2 = hmg_par_INT(7);
+   auto y2 = hmg_par_INT(8);
+   auto Width2 = hmg_par_INT(9);
+   auto Height2 = hmg_par_INT(10);
 
    BYTE Alpha        = hmg_par_BYTE(11);
-   INT Mode_Stretch  = hmg_par_INT(12);
+   auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
    blend.BlendOp             = AC_SRC_OVER;
@@ -2410,12 +2410,12 @@ HB_FUNC( BT_BMP_CAPTURESCR )
 {
    HDC hDC;
 
-   auto hWnd   = hmg_par_HWND(1);
-   INT x1      = hmg_par_INT(2);
-   INT y1      = hmg_par_INT(3);
-   INT Width1  = hmg_par_INT(4);
-   INT Height1 = hmg_par_INT(5);
-   INT Mode    = hmg_par_INT(6);
+   auto hWnd = hmg_par_HWND(1);
+   auto x1 = hmg_par_INT(2);
+   auto y1 = hmg_par_INT(3);
+   auto Width1 = hmg_par_INT(4);
+   auto Height1 = hmg_par_INT(5);
+   auto Mode = hmg_par_INT(6);
 
    switch( Mode ) {
       case BT_BITMAP_CAPTURE_DESKTOP:
@@ -2501,7 +2501,7 @@ HB_FUNC( BT_BMP_PROCESS )
    BYTE              BlueGammaRamp[256];
 
    auto hBitmap = hmg_par_HBITMAP(1);
-   INT Action = hmg_par_INT(2);
+   auto Action = hmg_par_INT(2);
 
    switch( Action ) {
       case BT_BMP_PROCESS_INVERT:
@@ -3213,11 +3213,11 @@ BT_STRETCH_RECT(@width1, @height1, @width2, @height2, modeStretch) --> .T.|.F.
 */
 HB_FUNC( BT_STRETCH_RECT )
 {
-   INT Width1       = hmg_par_INT(1);
-   INT Height1      = hmg_par_INT(2);
-   INT Width2       = hmg_par_INT(3);
-   INT Height2      = hmg_par_INT(4);
-   INT Mode_Stretch = hb_parnl(5);
+   auto Width1 = hmg_par_INT(1);
+   auto Height1 = hmg_par_INT(2);
+   auto Width2 = hmg_par_INT(3);
+   auto Height2 = hmg_par_INT(4);
+   auto Mode_Stretch = hb_parnl(5);
 
    if( HB_ISBYREF(1) && HB_ISBYREF(2) && HB_ISBYREF(3) && HB_ISBYREF(4) ) {
       bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -3256,8 +3256,8 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    TCHAR * lpText   = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
    TCHAR * FontName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(3));
 #endif
-   INT FontSize = hmg_par_INT(4);
-   INT Type = hmg_par_INT(5);
+   auto FontSize = hmg_par_INT(4);
+   auto Type = hmg_par_INT(5);
 
    HDC hDC = GetDC(hWnd);
 

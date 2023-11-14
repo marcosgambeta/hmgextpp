@@ -1144,8 +1144,8 @@ LISTVIEW_GROUPITEMSETID() -->
 HB_FUNC( LISTVIEW_GROUPITEMSETID )
 {
    auto hWnd = hmg_par_HWND(1);
-   INT  nRow    = hmg_par_INT(2);
-   INT  GroupID = hmg_par_INT(3);
+   auto nRow = hmg_par_INT(2);
+   auto GroupID = hmg_par_INT(3);
 
 #if ((defined(__BORLANDC__) && __BORLANDC__ < 1410))
    _LVITEM LVI{};
@@ -1168,7 +1168,7 @@ LISTVIEW_GROUPITEMGETID() -->
 HB_FUNC( LISTVIEW_GROUPITEMGETID )
 {
    auto hWnd = hmg_par_HWND(1);
-   INT  nRow = hmg_par_INT(2);
+   auto nRow = hmg_par_INT(2);
 
 #if ((defined(__BORLANDC__) && __BORLANDC__ < 1410))
    _LVITEM LVI{};
@@ -1250,7 +1250,7 @@ LISTVIEW_GROUPSETINFO() -->
 HB_FUNC( LISTVIEW_GROUPSETINFO )
 {
    auto hWnd = hmg_par_HWND(1);
-   INT        GroupID      = hmg_par_INT(2);
+   auto GroupID = hmg_par_INT(2);
    HB_WCHAR * cHeader      = static_cast<HB_WCHAR*>((hb_parclen(3) == 0) ? nullptr : hb_mbtowc(hb_parc(3)));
    UINT       nAlignHeader = hmg_par_UINT(4);
    HB_WCHAR * cFooter      = (hb_parclen(5) == 0) ? nullptr : hb_mbtowc( hb_parc(5));
@@ -1292,7 +1292,7 @@ LISTVIEW_GROUPGETINFO() -->
 HB_FUNC( LISTVIEW_GROUPGETINFO )
 {
    auto hWnd = hmg_par_HWND(1);
-   INT  GroupID = hmg_par_INT(2);
+   auto GroupID = hmg_par_INT(2);
 
    INT      nRet;
    HB_WCHAR cHeaderBuffer[MAX_GROUP_BUFFER];
