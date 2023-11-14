@@ -74,7 +74,7 @@ HB_FUNC( ISSAMEDISPLAYFORMAT )
 
 HB_FUNC( ENUMDISPLAYMONITORS )
 {
-   PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
+   auto pMonitorEnum = hb_itemArrayNew(0);
    EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
    hb_itemReturnRelease(pMonitorEnum);
 }
@@ -82,7 +82,7 @@ HB_FUNC( ENUMDISPLAYMONITORS )
 BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
    HB_SYMBOL_UNUSED(hdcMonitor);
-   PHB_ITEM pMonitor = hb_itemArrayNew(2);
+   auto pMonitor = hb_itemArrayNew(2);
    PHB_ITEM pRect = Rect2Hash(lprcMonitor);
    hb_arraySetNInt(pMonitor, 1, reinterpret_cast<LONG_PTR>(hMonitor));
    hb_itemArrayPut(pMonitor, 2, pRect);
@@ -99,7 +99,7 @@ HB_FUNC( GETMONITORINFO )
    mi.cbSize = sizeof(MONITORINFO);
 
    if( GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi) ) {
-      PHB_ITEM pMonInfo = hb_itemArrayNew(3);
+      auto pMonInfo = hb_itemArrayNew(3);
       PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
       PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
       hb_itemArrayPut(pMonInfo, 1, pMonitor);

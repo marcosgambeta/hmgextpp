@@ -736,7 +736,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
    UINT size = 0;
    fn_GdipGetImageEncodersSize(&num, &size);
 
-   PHB_ITEM pResult = hb_itemArrayNew(0);
+   auto pResult = hb_itemArrayNew(0);
 
    if( size == 0 ) {
       hb_itemReturnRelease(pResult);

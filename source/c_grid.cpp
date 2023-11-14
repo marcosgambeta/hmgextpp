@@ -986,7 +986,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
    if( iCols ) {
       auto iArray = static_cast<int*>(hb_xgrab(iCols * sizeof(int)));
-      PHB_ITEM pArray = hb_itemArrayNew(static_cast<HB_SIZE>(iCols));
+      auto pArray = hb_itemArrayNew(static_cast<HB_SIZE>(iCols));
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, static_cast<int*>(iArray));
 

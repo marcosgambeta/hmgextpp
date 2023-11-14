@@ -529,7 +529,7 @@ BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr)
 
 HB_EXPORT PHB_ITEM Rect2Array(RECT * rc)
 {
-   PHB_ITEM aRect = hb_itemArrayNew(4);
+   auto aRect = hb_itemArrayNew(4);
 
    HB_arraySetNL( aRect, 1, rc->left );
    HB_arraySetNL( aRect, 2, rc->top );
@@ -541,7 +541,7 @@ HB_EXPORT PHB_ITEM Rect2Array(RECT * rc)
 
 HB_EXPORT PHB_ITEM Point2Array(POINT * pt)
 {
-   PHB_ITEM aPoint = hb_itemArrayNew(2);
+   auto aPoint = hb_itemArrayNew(2);
 
    HB_arraySetNL( aPoint, 1, pt->x );
    HB_arraySetNL( aPoint, 2, pt->y );

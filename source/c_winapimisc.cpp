@@ -1482,7 +1482,7 @@ HB_FUNC( DRAWTEXT )
 HB_FUNC( GETTEXTMETRIC )
 {
    TEXTMETRIC tm;
-   PHB_ITEM   aMetr = hb_itemArrayNew(7);
+   auto aMetr = hb_itemArrayNew(7);
 
    if( GetTextMetrics(hmg_par_HDC(1), // handle of device context
                        &tm                    // address of text metrics structure

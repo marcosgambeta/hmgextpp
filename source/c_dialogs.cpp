@@ -108,7 +108,7 @@ HB_FUNC( CHOOSEFONT )
    long PointSize = -MulDiv(lf.lfHeight, 72, GetDeviceCaps(hdc, LOGPIXELSY));
    int bold = (lf.lfWeight == 700) ? 1 : 0;
 
-   PHB_ITEM pArray = hb_itemArrayNew(8);
+   auto pArray = hb_itemArrayNew(8);
    HB_ARRAYSETSTR(pArray, 1, lf.lfFaceName);
    hb_arraySetNL(pArray, 2, PointSize);
    hb_arraySetL(pArray, 3, bold);

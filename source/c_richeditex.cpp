@@ -1098,7 +1098,7 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
       nRet = 3;
    }
 
-   PHB_ITEM pArray = hb_itemArrayNew(6);
+   auto pArray = hb_itemArrayNew(6);
    hb_arraySetNL(pArray, 1, nRet);
    HB_ARRAYSETSTR(pArray, 2, FR->lpstrFindWhat);
    HB_ARRAYSETSTR(pArray, 3, FR->lpstrReplaceWith);

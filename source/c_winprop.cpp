@@ -270,7 +270,7 @@ HB_FUNC( ENUMPROPS )
    auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      PHB_ITEM pArray = hb_itemArrayNew(0);
+      auto pArray = hb_itemArrayNew(0);
 
       EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProc, reinterpret_cast<LPARAM>(pArray));
 
@@ -283,7 +283,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
    int iLen = lstrlen(pszPropName);
 
    if( iLen ) {
-      PHB_ITEM item    = hb_itemArrayNew(3);
+      auto item = hb_itemArrayNew(3);
       auto pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);

@@ -905,7 +905,7 @@ GETBITMAPSIZE(image) --> array
 */
 HB_FUNC( GETBITMAPSIZE )
 {
-   PHB_ITEM pResult = hb_itemArrayNew(3);
+   auto pResult = hb_itemArrayNew(3);
    HBITMAP hBitmap = nullptr;
    bool bDelete = true;
 
@@ -946,7 +946,7 @@ GETICONSIZE(HICON) --> array
 */
 HB_FUNC( GETICONSIZE )
 {
-   PHB_ITEM pResult = hb_itemArrayNew(3);
+   auto pResult = hb_itemArrayNew(3);
    HICON hIcon = hmg_par_HICON(1);
 
    _arraySet(pResult, 0, 0, 4);

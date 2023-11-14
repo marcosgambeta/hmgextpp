@@ -150,7 +150,7 @@ ENUMFONTSEX(HDC, cp2, nCharSet, nPitchAndFamily, p5, bp6, ap7) --> array
 HB_FUNC( ENUMFONTSEX )
 {
    HDC      hdc;
-   PHB_ITEM pArray     = hb_itemArrayNew(0);
+   auto pArray = hb_itemArrayNew(0);
    bool     bReleaseDC = false;
 
    if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC ) {
@@ -201,7 +201,7 @@ int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme,
    HB_SYMBOL_UNUSED(lpntme);
 
    if( lpelfe->elfLogFont.lfFaceName[0] != '@' ) {
-      PHB_ITEM pSubArray = hb_itemArrayNew(4);
+      auto pSubArray = hb_itemArrayNew(4);
       HB_ARRAYSETSTR(pSubArray, 1, lpelfe->elfLogFont.lfFaceName);
       hb_arraySetNL(pSubArray, 2, lpelfe->elfLogFont.lfCharSet);
       hb_arraySetNI(pSubArray, 3, lpelfe->elfLogFont.lfPitchAndFamily & FIXED_PITCH);

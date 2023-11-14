@@ -693,7 +693,7 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 
 HB_FUNC( ENUMWINDOWS )
 {
-   PHB_ITEM pArray = hb_itemArrayNew(0);
+   auto pArray = hb_itemArrayNew(0);
 
    EnumWindows(( WNDENUMPROC ) EnumWindowsProc, reinterpret_cast<LPARAM>(pArray));
 

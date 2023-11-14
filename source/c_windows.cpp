@@ -424,7 +424,7 @@ HB_FUNC( ENUMAPPEVENTS )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
-   PHB_ITEM aEvents = hb_itemArrayNew(0);
+   auto aEvents = hb_itemArrayNew(0);
 
    if( IsWindow(hWnd) ) {
    #ifdef UNICODE
@@ -436,7 +436,7 @@ HB_FUNC( ENUMAPPEVENTS )
 
       if( events != nullptr ) {
          for( size_t i = 0; i < events->count; i++ ) {
-            PHB_ITEM aEvent = hb_itemArrayNew(3);
+            auto aEvent = hb_itemArrayNew(3);
 
             hb_arraySetNInt(aEvent, 1, events->events[i].message);
             hb_arraySetL( aEvent, 2, events->events[i].active );
@@ -737,7 +737,7 @@ HB_FUNC( ENUMWINEVENTS )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
-   PHB_ITEM aEvents = hb_itemArrayNew(0);
+   auto aEvents = hb_itemArrayNew(0);
 
    if( IsWindow(hWnd) ) {
    #ifdef UNICODE
@@ -749,7 +749,7 @@ HB_FUNC( ENUMWINEVENTS )
 
       if( events != nullptr ) {
          for( size_t i = 0; i < events->count; i++ ) {
-            PHB_ITEM aEvent = hb_itemArrayNew(3);
+            auto aEvent = hb_itemArrayNew(3);
 
             hb_arraySetNInt(aEvent, 1, events->events[i].message);
             hb_arraySetL( aEvent, 2, events->events[i].active );

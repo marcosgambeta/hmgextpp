@@ -89,7 +89,7 @@ ACCELERATORTABLE2ARRAY(HACCEL) --> array
 HB_FUNC( ACCELERATORTABLE2ARRAY )
 {
    HACCEL hAccel = hmg_par_HACCEL(1);
-   PHB_ITEM aAccels = hb_itemArrayNew(0);
+   auto aAccels = hb_itemArrayNew(0);
 
    if( hAccel != nullptr ) {
       int cAccelEntries = CopyAcceleratorTable(hAccel, nullptr, 0);
@@ -98,7 +98,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
          if( lpAccel != nullptr ) {
             if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) ) {
                for( int i = 0; i < cAccelEntries; i++ ) {
-                  PHB_ITEM aAccel = hb_itemArrayNew(3);
+                  auto aAccel = hb_itemArrayNew(3);
                   hb_arraySetNI(aAccel, 1, lpAccel[i].fVirt);
                   hb_arraySetNL(aAccel, 2, lpAccel[i].key);
                   hb_arraySetNL(aAccel, 3, lpAccel[i].cmd);
@@ -1134,7 +1134,7 @@ static BOOL IsColorEqual(COLORREF clr1, COLORREF clr2)
 
 HB_FUNC( GETMENUCOLORS )
 {
-   PHB_ITEM aResult = hb_itemArrayNew(28);
+   auto aResult = hb_itemArrayNew(28);
 
    HB_arraySetNL(aResult, 1, clrMenuBar1);
    HB_arraySetNL(aResult, 2, clrMenuBar2);

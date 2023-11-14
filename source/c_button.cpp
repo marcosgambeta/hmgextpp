@@ -306,7 +306,7 @@ HB_FUNC( GETOWNBTNRECT )
 {
    DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
    RECT rc = pps->rcItem;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    HB_arraySetNL(aMetr, 1, rc.left);
    HB_arraySetNL(aMetr, 2, rc.top);
    HB_arraySetNL(aMetr, 3, rc.right);

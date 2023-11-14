@@ -143,7 +143,7 @@ HB_FUNC( QHTM_SETRETURNVALUE )
 void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM lParam)
 {
    PHB_DYNS pSymTest;
-   PHB_ITEM aMetr = hb_itemArrayNew(pFormSubmit->uFieldCount);
+   auto aMetr = hb_itemArrayNew(pFormSubmit->uFieldCount);
    PHB_ITEM atemp, temp;
    int      i;
 
@@ -298,7 +298,7 @@ HB_FUNC( QHTM_GETSIZE )
 
       if( SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, (LPARAM) & size) )
       {
-         PHB_ITEM aMetr = hb_itemArrayNew(2);
+         auto aMetr = hb_itemArrayNew(2);
 
          auto temp = hb_itemPutNL( NULL, size.cx );
          hb_itemArrayPut(aMetr, 1, temp);
