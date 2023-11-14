@@ -751,11 +751,10 @@ HB_FUNC( RR_CREATEPEN )
 
 HB_FUNC( RR_MODIFYPEN )
 {
-   LOGPEN ppn;
    int    i;
    HPEN   hp;
 
-   memset(&ppn, 0, sizeof(LOGPEN));
+   LOGPEN ppn{};
    i = GetObject(hmg_par_HPEN(1), sizeof(LOGPEN), &ppn);
    if( i > 0 ) {
       if( hb_parni(2) >= 0 ) {
@@ -800,11 +799,10 @@ HB_FUNC( RR_CREATEBRUSH )
 
 HB_FUNC( RR_MODIFYBRUSH )
 {
-   LOGBRUSH ppn;
    int      i;
    HBRUSH   hb;
 
-   memset(&ppn, 0, sizeof(LOGBRUSH));
+   LOGBRUSH ppn{};
    i = GetObject(hmg_par_HBRUSH(1), sizeof(LOGBRUSH), &ppn);
    if( i > 0 ) {
       if( hb_parni(2) >= 0 ) {
@@ -929,12 +927,11 @@ HB_FUNC( RR_CREATEFONT )
 
 HB_FUNC( RR_MODIFYFONT )
 {
-   LOGFONT ppn;
    int     i;
    HFONT   hf;
    LONG    nHeight;
 
-   memset(&ppn, 0, sizeof(LOGFONT));
+   LOGFONT ppn{};
    i = GetObject(hmg_par_HFONT(1), sizeof(LOGFONT), &ppn);
    if( i > 0 ) {
       //     if (hb_parc(2)!="")

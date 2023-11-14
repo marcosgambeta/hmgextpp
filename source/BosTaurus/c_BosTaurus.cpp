@@ -723,8 +723,7 @@ HB_FUNC( BT_DC_CREATE )
 {
    HBITMAP hBitmap;
 
-   BT_STRUCT BT;
-   ZeroMemory(&BT, sizeof(BT_STRUCT));
+   BT_STRUCT BT{};
    BT.Type = hmg_par_INT(1);
 
    switch( BT.Type ) {
@@ -1850,8 +1849,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    }
 
    // Get the header of MetaFile
-   ENHMETAHEADER emh;
-   ZeroMemory(&emh, sizeof(ENHMETAHEADER));
+   ENHMETAHEADER emh{};
    emh.nSize = sizeof(ENHMETAHEADER);
    if( GetEnhMetaFileHeader(hEMF, sizeof(ENHMETAHEADER), &emh) == 0 ) {
       DeleteEnhMetaFile(hEMF);

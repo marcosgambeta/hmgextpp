@@ -150,11 +150,8 @@ ENUMFONTSEX(HDC, cp2, nCharSet, nPitchAndFamily, p5, bp6, ap7) --> array
 HB_FUNC( ENUMFONTSEX )
 {
    HDC      hdc;
-   LOGFONT  lf;
    PHB_ITEM pArray     = hb_itemArrayNew(0);
    bool     bReleaseDC = false;
-
-   memset(&lf, 0, sizeof(LOGFONT));
 
    if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC ) {
       hdc = hmg_par_HDC(1);
@@ -162,6 +159,8 @@ HB_FUNC( ENUMFONTSEX )
       hdc = GetDC(nullptr);
       bReleaseDC = true;
    }
+
+   LOGFONT lf{};
 
    if( hb_parclen(2) > 0 ) {
       HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));

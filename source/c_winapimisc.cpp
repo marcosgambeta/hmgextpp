@@ -99,8 +99,6 @@ HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
  */
 HB_FUNC( WAITRUNPIPE )
 {
-   STARTUPINFO StartupInfo;
-   PROCESS_INFORMATION ProcessInfo;
    HANDLE ReadPipeHandle;
    HANDLE WritePipeHandle;                // not used here
 
@@ -111,15 +109,11 @@ HB_FUNC( WAITRUNPIPE )
 #endif
    const char *        szFile = ( const char * ) hb_parc(3);
    HB_FHANDLE          nHandle;
-   SECURITY_ATTRIBUTES sa;
 
-   ZeroMemory(&sa, sizeof(SECURITY_ATTRIBUTES));
+   SECURITY_ATTRIBUTES sa{};
    sa.nLength              = sizeof(SECURITY_ATTRIBUTES);
    sa.bInheritHandle       = 1;
    sa.lpSecurityDescriptor = nullptr;
-
-   memset(&StartupInfo, 0, sizeof(StartupInfo));
-   memset(&ProcessInfo, 0, sizeof(ProcessInfo));
 
    if( !hb_fsFile(szFile) ) {
       nHandle = hb_fsCreate(szFile, 0);
@@ -133,6 +127,9 @@ HB_FUNC( WAITRUNPIPE )
       return;
    }
 
+   STARTUPINFO StartupInfo{};
+
+   PROCESS_INFORMATION ProcessInfo{};
    ProcessInfo.hProcess    = INVALID_HANDLE_VALUE;
    ProcessInfo.hThread     = INVALID_HANDLE_VALUE;
    StartupInfo.dwFlags     = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
@@ -703,9 +700,7 @@ HB_FUNC( SHELLEXECUTEEX )
    void * str3 = nullptr;
    void * str4 = nullptr;
 
-   SHELLEXECUTEINFO SHExecInfo;
-   ZeroMemory(&SHExecInfo, sizeof(SHExecInfo));
-
+   SHELLEXECUTEINFO SHExecInfo{};
    SHExecInfo.cbSize       = sizeof(SHExecInfo);
    SHExecInfo.fMask        = SEE_MASK_NOCLOSEPROCESS;
    SHExecInfo.hwnd         = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
@@ -729,10 +724,9 @@ WAITRUN(cp1, np2) --> numeric
 HB_FUNC( WAITRUN )
 {
    DWORD dwExitCode;
-   STARTUPINFO stInfo;
    PROCESS_INFORMATION prInfo;
 
-   ZeroMemory(&stInfo, sizeof(stInfo));
+   STARTUPINFO stInfo{};
    stInfo.cb = sizeof(stInfo);
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
    stInfo.wShowWindow = hmg_par_WORD(2);
@@ -763,10 +757,9 @@ HB_FUNC( WAITRUNTERM )
    auto pWaitProc = hb_param(4, Harbour::Item::BLOCK);
    BOOL bTerm = FALSE;
    DWORD dwExitCode;
-   STARTUPINFO stInfo;
    PROCESS_INFORMATION prInfo;
 
-   ZeroMemory(&stInfo, sizeof(stInfo));
+   STARTUPINFO stInfo{};
    stInfo.cb = sizeof(stInfo);
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
    stInfo.wShowWindow = static_cast<WORD>(HB_ISNIL(3) ? 5 : hb_parni(3));
@@ -974,8 +967,7 @@ HB_FUNC( WINVERSION )
    std::string szVersionEx;
 #endif
 
-   OSVERSIONINFOEX osvi;
-   ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+   OSVERSIONINFOEX osvi{};
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
    BOOL bOsVersionInfoEx = GetVersionEx(( OSVERSIONINFO * ) &osvi);
@@ -1220,8 +1212,7 @@ HB_FUNC( GETDLLVERSION )
       fnDllGetVersion = ( DLLGETVERSIONPROC ) wapi_GetProcAddress(hModule, "DllGetVersion");
 
       if( fnDllGetVersion != nullptr ) {
-         DLLVERSIONINFO dvi;
-         memset(&dvi, 0, sizeof(DLLVERSIONINFO));
+         DLLVERSIONINFO dvi{};
          dvi.cbSize = sizeof(dvi);
 
          if( fnDllGetVersion(&dvi) == S_OK ) {

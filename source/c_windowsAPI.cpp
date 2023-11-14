@@ -507,9 +507,7 @@ HB_FUNC( GETTASKBARHEIGHT )
 
 static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
 {
-   NOTIFYICONDATA nid;
-
-   ZeroMemory(&nid, sizeof(nid));
+   NOTIFYICONDATA nid{};
 
    nid.cbSize = sizeof(NOTIFYICONDATA);
    nid.hIcon  = hIcon;
@@ -621,9 +619,7 @@ HB_FUNC( LOADTRAYICON )
 
 static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, TCHAR * szText)
 {
-   NOTIFYICONDATA nid;
-
-   ZeroMemory(&nid, sizeof(nid));
+   NOTIFYICONDATA nid{};
 
    nid.cbSize = sizeof(NOTIFYICONDATA);
    nid.hIcon  = hIcon;

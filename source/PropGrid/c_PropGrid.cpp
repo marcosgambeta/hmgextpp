@@ -807,7 +807,7 @@ static LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          if( pItemData->ItemChanged ) {
             HFONT    hFontBold, hOldFont;
             HFONT    hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
-            LOGFONT  lf; memset(&lf, 0, sizeof(lf));
+            LOGFONT  lf{};
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
@@ -1040,8 +1040,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
       case WM_LBUTTONDBLCLK:
       {
-         TV_ITEM tvi;
-         memset(&tvi, 0, sizeof(TV_ITEM));
+         TV_ITEM tvi{};
          tvi.mask = TVIF_HANDLE | TVIF_STATE;
          tvi.stateMask = TVIS_STATEIMAGEMASK;
          tvi.hItem = ppgrd->hItemActive;
@@ -1312,8 +1311,7 @@ static void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData
    HWND TreeHandle = hWnd;
    HTREEITEM TreeItemHandle = hItem;
 
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
    TreeView_GetItem(TreeHandle, &TreeItem);
@@ -1350,8 +1348,7 @@ HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEna
    auto TreeHandle = hmg_par_HWND(1);
    auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
    TreeView_GetItem(TreeHandle, &TreeItem);
@@ -1373,8 +1370,7 @@ HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lCha
    auto TreeHandle = hmg_par_HWND(1);
    auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
    TreeView_GetItem(TreeHandle, &TreeItem);
@@ -1395,8 +1391,7 @@ HB_FUNC( PG_GETITEM )
    auto TreeHandle = hmg_par_HWND(1);
    auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
    TreeView_GetItem(TreeHandle, &TreeItem);
@@ -1559,8 +1554,7 @@ PG_SEARCHID(HWND, id) --> HTREEITEM
 HB_FUNC( PG_SEARCHID ) // PG_SearchID(hWndPG, nID)
 {
    LPARAMDATA * pData;
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    auto TreeHandle = hmg_par_HWND(1);
    auto nID = hmg_par_int(2);
 
@@ -1588,8 +1582,7 @@ PG_SEARCHCATEGORY(HWND, cName) --> HTREEITEM
 HB_FUNC( PG_SEARCHCATEGORY ) // PG_SearchCategory(hWndPG, cCategory)
 {
    LPARAMDATA * pData;
-   TV_ITEM TreeItem;
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TreeItem{};
    auto TreeHandle = hmg_par_HWND(1);
    LPTSTR cName = hb_strndup(hb_parc(2), 255); // temporary buffer
    HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
@@ -1690,8 +1683,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 {
    auto hWndPG = hmg_par_HWND(1);
    auto hItemPG = hmg_par_HTREEITEM(2);
-   TV_ITEM TItem;
-   memset(&TItem, 0, sizeof(TV_ITEM));
+   TV_ITEM TItem{};
    TItem.mask = TVIF_HANDLE | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
    TItem.hItem = hItemPG;
    TreeView_GetItem(hWndPG, &TItem);

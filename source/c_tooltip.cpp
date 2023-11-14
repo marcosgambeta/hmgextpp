@@ -669,7 +669,7 @@ HB_FUNC( TTM_TRACKACTIVATE )
    auto hwndTool = hmg_par_HWND(2);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
-      TOOLINFO ti; memset(&ti, 0, sizeof(TOOLINFO));
+      TOOLINFO ti{};
 
       ti.cbSize = sizeof(ti);
       ti.hwnd   = hwndTool;

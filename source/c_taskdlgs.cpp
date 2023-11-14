@@ -150,7 +150,6 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
    auto pConfig = hb_param(1, Harbour::Item::ARRAY);
 
    if( pConfig && hb_arrayLen(pConfig) >= TDC_CONFIG ) {
-      TASKDIALOGCONFIG config; memset(&config, 0, sizeof(TASKDIALOGCONFIG));
       int     nButton;
       int     nRadioButton;
       BOOL    fVerificationFlagChecked;
@@ -171,6 +170,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 
       PHB_ITEM pCallbackData = nullptr;
 
+      TASKDIALOGCONFIG config{};
       // 1 UINT cbSize
       config.cbSize = sizeof(config);
 

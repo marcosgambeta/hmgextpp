@@ -322,13 +322,10 @@ HB_FUNC( TSDRAWCELL )
    HPEN  hWhitePen  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
    RECT   rct;
-   BITMAP bm;
    int    nTop, nLeft, nBkOld, iFlags;
    SIZE   size;
    int    iTxtW = 0;
    BOOL   bDraw = FALSE;
-
-   memset(&bm, 0, sizeof(BITMAP));
 
    if( GetTextExtentPoint32(hDC, cData, nLen, &size) )
       iTxtW = size.cx;
@@ -360,6 +357,8 @@ HB_FUNC( TSDRAWCELL )
    rct.bottom = ( bSpecHd ?  rct.bottom + nHeightSpec  : rct.bottom );
 
    /* Don't let left side go beyond rct.right of Client Rect. */
+
+   BITMAP bm{};
 
    if( nColumn - ( rct.right - rct.left ) <= 0 )
    {
