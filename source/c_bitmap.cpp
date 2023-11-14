@@ -418,7 +418,7 @@ DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> N
 */
 HB_FUNC( DRAWGLYPH )
 {
-   HDC      hDC            = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    int      x              = hb_parni(2);
    int      y              = hb_parni(3);
    int      dx             = hb_parni(4);
@@ -565,7 +565,7 @@ HB_FUNC( DRAWGLYPHMASK )
    BITMAP bitmap;
    GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 
-   HDC hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    SetBkColor(hDC, RGB(255, 255, 255)); // White
    SetTextColor(hDC, RGB(0, 0, 0)); // Black
    HDC hDCMem = CreateCompatibleDC(hDC);

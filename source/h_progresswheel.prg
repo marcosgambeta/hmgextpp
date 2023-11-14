@@ -947,7 +947,7 @@ RETURN
 
 HB_FUNC( SETBRUSHORG )
 {
-    HDC hDC  = hmg_par_HDC(1);
+    auto hDC = hmg_par_HDC(1);
 
     SetBrushOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
 }
@@ -968,7 +968,6 @@ HB_FUNC( SETSTRETCHBLTMODE )
 
 HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 {
-   HDC      hDC;
    HPEN     hPen;
    HBRUSH   hBrush;
    HPEN     OldPen;
@@ -978,7 +977,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    INT      XStartArc, YStartArc, XEndArc, YEndArc;
    INT      nArcType;
 
-   hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    x1  = hb_parni(2);
    y1  = hb_parni(3);
    x2  = hb_parni(4);

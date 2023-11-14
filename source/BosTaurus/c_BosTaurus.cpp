@@ -953,7 +953,7 @@ BT_DRAWEDGE(HDC, nTop, nLeft, nRight, nBottom, nEdge, nGrfFlags) --> NIL
 */
 HB_FUNC( BT_DRAWEDGE )
 {
-   HDC hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
 
    RECT Rect;
    Rect.top    = hb_parni(2);
@@ -985,7 +985,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    POINT aPoint[2048];
    #endif
 
-   HDC hDC            = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT nCountX        = static_cast<INT>(hb_parinfa(2, 0));
    INT nCountY        = static_cast<INT>(hb_parinfa(3, 0));
    COLORREF ColorLine = hmg_par_COLORREF(4);
@@ -1046,7 +1046,7 @@ BT_DRAW_HDC_ARCX(HDC, x1, y1, x2, y3, XStartArc, YStartArc, xEndArc, YEndArc, co
 */
 HB_FUNC( BT_DRAW_HDC_ARCX )
 {
-   HDC hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x1  = hmg_par_INT(2);
    INT y1  = hmg_par_INT(3);
    INT x2  = hmg_par_INT(4);
@@ -1101,7 +1101,7 @@ BT_DRAW_HDC_FILLEDOBJECT(HDC, x, y, width, height, colorFill, colorLine, widthLi
 */
 HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
 {
-   HDC hDC            = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x1             = hmg_par_INT(2);
    INT y1             = hmg_par_INT(3);
    INT Width1         = hmg_par_INT(4);
@@ -1151,7 +1151,7 @@ BT_DRAW_HDC_BITMAP(HDC, x1, y1, width1, height1, HBITMAP, x2, y2, width2, height
 */
 HB_FUNC( BT_DRAW_HDC_BITMAP )
 {
-   HDC hDC     = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x1      = hmg_par_INT(2);
    INT y1      = hmg_par_INT(3);
    INT Width1  = hmg_par_INT(4);
@@ -1208,7 +1208,7 @@ BT_DRAW_HDC_BITMAPALPHABLEND(HDC, x1, y1, width1, height1, HBITMAP, x2, y2, widt
 */
 HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
 {
-   HDC hDC     = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x1      = hmg_par_INT(2);
    INT y1      = hmg_par_INT(3);
    INT Width1  = hmg_par_INT(4);
@@ -1258,7 +1258,7 @@ BT_DRAW_HDC_GRADIENTFILL(HDC, x1, y1, x2, y2, colorRGBO, colorRGBD, mode) --> NI
 */
 HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 {
-   HDC hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
 
    COLORREF Color_RGB_O = hmg_par_COLORREF(6);
    COLORREF Color_RGB_D = hmg_par_COLORREF(7);
@@ -1313,7 +1313,7 @@ BT_DRAW_HDC_TEXTOUT(HDC, x, y, text, fontname, fontsize, textColor, backColor, t
 */
 HB_FUNC( BT_DRAW_HDC_TEXTOUT )
 {
-   HDC hDC         = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x           = hmg_par_INT(2);
    INT y           = hmg_par_INT(3);
 #ifndef UNICODE
@@ -1406,7 +1406,7 @@ BT_DRAW_HDC_DRAWTEXT(HDC, x, y, w, h, text, fontName, fontSize, textColor, backC
 */
 HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
 {
-   HDC hDC         = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x           = hmg_par_INT(2);
    INT y           = hmg_par_INT(3);
    INT w           = hmg_par_INT(4);
@@ -1498,7 +1498,7 @@ BT_DRAW_HDC_TEXTSIZE(HDC, text, fontName, fontSize, type) --> array
 */
 HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
 {
-   HDC hDC          = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
 #ifndef UNICODE
    TCHAR * lpText   = ( TCHAR * ) hb_parc(2);
    TCHAR * FontName = ( TCHAR * ) hb_parc(3);
@@ -1573,7 +1573,7 @@ BT_DRAW_HDC_PIXEL(HDC, x, y, action, color) --> array
 */
 HB_FUNC( BT_DRAW_HDC_PIXEL )
 {
-   HDC hDC        = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
    INT x          = hmg_par_INT(2);
    INT y          = hmg_par_INT(3);
    INT Action     = hmg_par_INT(4);
@@ -1606,13 +1606,13 @@ BT_DRAW_HDC_TO_HDC(HDC1, x1, y1, width1, height1, HDC2, x2, y2, width2, height2,
 */
 HB_FUNC( BT_DRAW_HDC_TO_HDC )
 {
-   HDC hDC1    = hmg_par_HDC(1);
+   auto hDC1 = hmg_par_HDC(1);
    INT x1      = hmg_par_INT(2);
    INT y1      = hmg_par_INT(3);
    INT Width1  = hmg_par_INT(4);
    INT Height1 = hmg_par_INT(5);
 
-   HDC hDC2    = hmg_par_HDC(6);
+   auto hDC2 = hmg_par_HDC(6);
    INT x2      = hmg_par_INT(7);
    INT y2      = hmg_par_INT(8);
    INT Width2  = hmg_par_INT(9);
@@ -1658,13 +1658,13 @@ BT_DRAW_HDC_TO_HDC_ALPHABLEND(HDC1, x1, y1, width1, height1, HDC2, x2, y2, width
 */
 HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
 {
-   HDC hDC1    = hmg_par_HDC(1);
+   auto hDC1 = hmg_par_HDC(1);
    INT x1      = hmg_par_INT(2);
    INT y1      = hmg_par_INT(3);
    INT Width1  = hmg_par_INT(4);
    INT Height1 = hmg_par_INT(5);
 
-   HDC hDC2    = hmg_par_HDC(6);
+   auto hDC2 = hmg_par_HDC(6);
    INT x2      = hmg_par_INT(7);
    INT y2      = hmg_par_INT(8);
    INT Width2  = hmg_par_INT(9);

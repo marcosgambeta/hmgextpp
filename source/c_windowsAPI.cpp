@@ -1034,7 +1034,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
 {
    RECT   rc;
    HBRUSH hBrush;
-   HDC    hDC = hmg_par_HDC(1);
+   auto hDC = hmg_par_HDC(1);
 
    SetBkMode(hDC, TRANSPARENT);
    GetWindowRect(hmg_par_HWND(2), &rc);

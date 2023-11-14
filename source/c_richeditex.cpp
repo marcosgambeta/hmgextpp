@@ -917,7 +917,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    rc.right  = hb_parni(5);  // in twips
    rc.bottom = hb_parni(6);  // in twips
 
-   HDC  hDCPrinter  = hmg_par_HDC(2);
+   auto hDCPrinter = hmg_par_HDC(2);
 
    FORMATRANGE FormatRange;
    FormatRange.hdc        = hDCPrinter;

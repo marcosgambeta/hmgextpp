@@ -97,7 +97,7 @@ _HMG_PRINTER_STARTDOC(HDC, cText) --> numeric
 */
 HB_FUNC( _HMG_PRINTER_STARTDOC )
 {
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != nullptr ) {
       DOCINFO docInfo{};
@@ -114,7 +114,7 @@ _HMG_PRINTER_STARTPAGE(HDC) --> NIL
 */
 HB_FUNC( _HMG_PRINTER_STARTPAGE )
 {
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != nullptr ) {
       StartPage(hdcPrint);
@@ -145,7 +145,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
    // 17: Angle Flag
    // 18: Angle
 
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != nullptr ) {
 
@@ -282,7 +282,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 
    HFONT hfont;
 
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
 
    int FontHeight;
 
@@ -393,7 +393,7 @@ _HMG_PRINTER_ENDPAGE(HDC) --> NIL
 */
 HB_FUNC( _HMG_PRINTER_ENDPAGE )
 {
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
    if( hdcPrint != nullptr ) {
       EndPage(hdcPrint);
    }
@@ -404,7 +404,7 @@ _HMG_PRINTER_ENDDOC(HDC) --> NIL
 */
 HB_FUNC( _HMG_PRINTER_ENDDOC )
 {
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
    if( hdcPrint != nullptr ) {
       EndDoc(hdcPrint);
    }
@@ -592,7 +592,7 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
 
    int width;
 
-   HDC     hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HBRUSH  hbrush = nullptr;
    HPEN    hpen   = nullptr;
@@ -681,7 +681,7 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
 
    int w, h, p;
 
-   HDC     hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HBRUSH  hbrush = nullptr;
    HPEN    hpen   = nullptr;
@@ -769,7 +769,7 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
    int width;
    int Style;
 
-   HDC     hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HPEN    hpen;
 
@@ -1376,7 +1376,7 @@ _HMG_PRINTER_SHOWPAGE(filename, HWND, HDC) --> NIL
 HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 {
    auto hWnd = hmg_par_HWND(2);
-   HDC         hDCPrinter = hmg_par_HDC(3);
+   auto hDCPrinter = hmg_par_HDC(3);
    PAINTSTRUCT ps;
    HDC         hDC = BeginPaint(hWnd, &ps);
 
@@ -1564,7 +1564,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    // 7: Stretch
    // 8: Transparent
 
-   HDC hdcPrint = hmg_par_HDC(1);
+   auto hdcPrint = hmg_par_HDC(1);
 
 #ifndef UNICODE
    LPSTR FileName = const_cast<LPSTR>(hb_parc(2));
