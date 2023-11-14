@@ -1220,7 +1220,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    auto Width2 = hmg_par_INT(9);
    auto Height2 = hmg_par_INT(10);
 
-   BYTE Alpha        = hmg_par_BYTE(11);
+   auto Alpha = hmg_par_BYTE(11);
    auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
@@ -1670,7 +1670,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    auto Width2 = hmg_par_INT(9);
    auto Height2 = hmg_par_INT(10);
 
-   BYTE Alpha   = hmg_par_BYTE(11);
+   auto Alpha = hmg_par_BYTE(11);
    auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
@@ -2365,7 +2365,7 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    auto Width2 = hmg_par_INT(9);
    auto Height2 = hmg_par_INT(10);
 
-   BYTE Alpha        = hmg_par_BYTE(11);
+   auto Alpha = hmg_par_BYTE(11);
    auto Mode_Stretch = hmg_par_INT(12);
 
    BLENDFUNCTION blend;
