@@ -167,7 +167,7 @@ ADDTREEITEM(HWND, HTREEITEM, cText, p4, p5, p6, p7) --> HWND
 */
 HB_FUNC( ADDTREEITEM )
 {
-   HTREEITEM hPrev = hmg_par_HTREEITEM(2);
+   auto hPrev = hmg_par_HTREEITEM(2);
    auto nID = hmg_par_LONG(6);
    auto IsNodeFlag = hmg_par_BOOL(7);
 
@@ -246,7 +246,7 @@ TREEVIEW_DELETEITEM(HWND, HTREEITEM) --> NIL
 HB_FUNC( TREEVIEW_DELETEITEM )
 {
    auto TreeHandle = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
+   auto ItemHandle = hmg_par_HTREEITEM(2);
    TreeView_FreeMemoryLPARAMRecursive(TreeHandle, ItemHandle);
    TreeView_DeleteItem(TreeHandle, ItemHandle);
 }
@@ -417,7 +417,7 @@ TREEVIEW_EXPANDCHILDRENRECURSIVE(HWND, HTREEITEM, nExpand, lRecurse) --> NIL
 HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
    auto hWndTV = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
+   auto ItemHandle = hmg_par_HTREEITEM(2);
    auto nExpand = hmg_par_UINT(3);
    auto fRecurse = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent(hWndTV);
@@ -538,7 +538,7 @@ TREEVIEW_SORTCHILDRENRECURSIVECB() -->
 HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
    auto hWndTV = hmg_par_HWND(1);
-   HTREEITEM ItemHandle      = hmg_par_HTREEITEM(2);
+   auto ItemHandle = hmg_par_HTREEITEM(2);
    auto fRecurse = hmg_par_BOOL(3);
    auto lCaseSensitive = hmg_par_BOOL(4);
    auto lAscendingOrder = hmg_par_BOOL(5);

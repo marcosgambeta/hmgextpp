@@ -1294,7 +1294,7 @@ HB_FUNC( ADDPGITEM )
    is.item = tvi;
    #endif
 
-   HTREEITEM hPrev = hmg_par_HTREEITEM(2);
+   auto hPrev = hmg_par_HTREEITEM(2);
 
    if( hPrev == 0 ) {
       is.hInsertAfter = hPrev;
@@ -1348,7 +1348,7 @@ PG_ENABLEITEM() -->
 HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEnable);
 {
    auto TreeHandle = hmg_par_HWND(1);
-   HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
+   auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
@@ -1371,7 +1371,7 @@ PG_CHANGEITEM() -->
 HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lChange);
 {
    auto TreeHandle = hmg_par_HWND(1);
-   HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
+   auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
@@ -1393,7 +1393,7 @@ PG_GETITEM(HWND, HTREEITEM, ntype) --> xvalue
 HB_FUNC( PG_GETITEM )
 {
    auto TreeHandle = hmg_par_HWND(1);
-   HTREEITEM TreeItemHandle = hmg_par_HTREEITEM(2);
+   auto TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
    memset(&TreeItem, 0, sizeof(TV_ITEM));
@@ -1539,7 +1539,7 @@ HB_FUNC( PG_ISVISIBLE )
    bool lVisible = false;
 
    auto TreeHandle = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
+   auto ItemHandle = hmg_par_HTREEITEM(2);
    HTREEITEM ItemHdl = TreeView_GetFirstVisible(TreeHandle);
 
    while( ItemHdl != nullptr ) {
@@ -1689,7 +1689,7 @@ RESETPROPGRIDIMAGELIST(HWND, HTREEITEM, HBITMAP) --> numeric
 HB_FUNC( RESETPROPGRIDIMAGELIST )
 {
    auto hWndPG = hmg_par_HWND(1);
-   HTREEITEM hItemPG = hmg_par_HTREEITEM(2);
+   auto hItemPG = hmg_par_HTREEITEM(2);
    TV_ITEM TItem;
    memset(&TItem, 0, sizeof(TV_ITEM));
    TItem.mask = TVIF_HANDLE | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
