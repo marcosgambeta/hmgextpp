@@ -62,7 +62,7 @@ HB_FUNC( GETCUEBANNERTEXT )
    auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HB_WCHAR * lpWCStr = static_cast<HB_WCHAR*>(hb_xgrab(256 * sizeof(HB_WCHAR)));
+      auto lpWCStr = static_cast<HB_WCHAR*>(hb_xgrab(256 * sizeof(HB_WCHAR)));
 
       if( SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)), 256) ) {
          hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);

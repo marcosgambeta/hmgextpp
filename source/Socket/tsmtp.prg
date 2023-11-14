@@ -591,9 +591,7 @@ HB_FUNC_STATIC( MEMOREAD )
          ULONG ulSize = hb_fsSeek(fhnd, 0, FS_END);
 
          if( ulSize != 0 ) {
-            BYTE * pbyBuffer;
-
-            pbyBuffer = (BYTE *) hb_xgrab(ulSize + sizeof(char));
+            auto pbyBuffer = static_cast<BYTE*>(hb_xgrab(ulSize + sizeof(char)));
 
             hb_fsSeek(fhnd, 0, FS_SET);
             hb_fsReadLarge(fhnd, pbyBuffer, ulSize);

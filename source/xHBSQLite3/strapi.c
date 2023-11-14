@@ -127,7 +127,6 @@ void hb_retstr_utf8(const char * szText)
 PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
 {
    PHB_CODEPAGE cdp;
-   char * pszDest;
    ULONG nDest;
 
    HB_TRACE(HB_TR_DEBUG, ("hb_itemPutStrLenUTF8(%p,%p,%" HB_PFS "u)", pItem, pStr, nLen));
@@ -137,7 +136,7 @@ PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
 
    cdp = hb_cdppage();
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
-   pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
+   auto pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
    hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);
@@ -159,7 +158,7 @@ const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
 
                 if( nLen != pItem->item.asString.length )
                 {
-                        char * pszUtf8 = static_cast<char*>(hb_xgrab(nLen + 1));
+                        auto pszUtf8 = static_cast<char*>(hb_xgrab(nLen + 1));
                         hb_cdpStrnToUTF8n(cdp, FALSE,
                           pItem->item.asString.value, pItem->item.asString.length,
                           pszUtf8, nLen + 1);
@@ -187,7 +186,6 @@ const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
 PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
 {
    PHB_CODEPAGE cdp;
-   char * pszDest;
    ULONG nDest, nLen;
 
    HB_TRACE(HB_TR_DEBUG, ("hb_itemPutStrUTF8(%p,%p)", pItem, pStr));
@@ -195,10 +193,10 @@ PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
    if( pStr == NULL )
       return hb_itemPutC(pItem, NULL);
 
-   cdp = hb_cdppage(); 
+   cdp = hb_cdppage();
    nLen = strlen(pStr);
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
-   pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
+   auto pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
    hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);

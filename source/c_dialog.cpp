@@ -249,7 +249,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
    int nDstLen = MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, nullptr, 0);
 
    if( nDstLen > 0 ) {
-      LPWSTR pszDst = static_cast<LPWSTR>(hb_xgrab(nDstLen * 2));
+      auto pszDst = static_cast<LPWSTR>(hb_xgrab(nDstLen * 2));
 
       MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
 

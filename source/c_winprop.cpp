@@ -284,7 +284,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 
    if( iLen ) {
       PHB_ITEM item    = hb_itemArrayNew(3);
-      LPTSTR   pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
+      auto pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);
 
@@ -355,7 +355,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
    if( iLen ) {
       auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
       auto pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(handle));
-      LPTSTR   pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
+      auto pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);
    #ifndef UNICODE

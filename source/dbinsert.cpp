@@ -85,8 +85,8 @@ HB_FUNC( DBINSERT )
          if( bOk ) {
             ULONG  ulLen  = ( pArea->ulRecCount - ulRec ) * pArea->uiRecordLen;
             ULONG  ulLen1 = ulCount * pArea->uiRecordLen;
-            char * pData  = reinterpret_cast<char*>(hb_xgrab(ulLen + 1));
-            char * pZero  = reinterpret_cast<char*>(hb_xgrab(ulLen1 + 1));
+            auto pData = reinterpret_cast<char*>(hb_xgrab(ulLen + 1));
+            auto pZero = reinterpret_cast<char*>(hb_xgrab(ulLen1 + 1));
 
             hb_fsSeekLarge(hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
                            ( HB_FOFFSET ) pArea->uiRecordLen *

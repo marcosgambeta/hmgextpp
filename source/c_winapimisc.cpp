@@ -103,7 +103,6 @@ HB_FUNC( WAITRUNPIPE )
    PROCESS_INFORMATION ProcessInfo;
    HANDLE ReadPipeHandle;
    HANDLE WritePipeHandle;                // not used here
-   char * Data;
 
 #ifndef UNICODE
    LPSTR lpCommandLine = const_cast<char*>(hb_parc(1));
@@ -150,7 +149,7 @@ HB_FUNC( WAITRUNPIPE )
 #endif
    }
 
-   Data = static_cast<char*>(hb_xgrab(1024));
+   auto Data = static_cast<char*>(hb_xgrab(1024));
    for( ;; ) {
       DWORD BytesRead;
       DWORD TotalBytes;
@@ -399,7 +398,7 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   TCHAR *      lpBuffer = ( TCHAR * ) hb_xgrab((MAX_PATH + 1) * sizeof(TCHAR));
+   auto lpBuffer = static_cast<TCHAR*>(hb_xgrab((MAX_PATH + 1) * sizeof(TCHAR)));
    LPITEMIDLIST pidlBrowse;   // PIDL selected by user
 
    SHGetSpecialFolderLocation(GetActiveWindow(), hb_parni(1), &pidlBrowse);
@@ -1665,7 +1664,7 @@ HB_FUNC( HMG_GETLOCALEINFO )
    LPSTR  pStr;
 #endif
 
-   cText = static_cast<LPTSTR>(hb_xgrab(HB_FILE_TYPE_MAX));
+   cText = static_cast<LPTSTR>(hb_xgrab(HB_FILE_TYPE_MAX)); // TODO: auto
 
    GetLocaleInfo(LOCALE_USER_DEFAULT, LCType, cText, HB_FILE_TYPE_MAX);
 

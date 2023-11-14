@@ -150,7 +150,7 @@ struct HMG_StructTreeItemLPARAM
 void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeFlag)
 {
    if( ( hWndTV != nullptr ) && ( ItemHandle != nullptr ) ) {
-      HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) hb_xgrab(sizeof(HMG_StructTreeItemLPARAM));
+      auto TreeItemLPARAM = static_cast<HMG_StructTreeItemLPARAM*>(hb_xgrab(sizeof(HMG_StructTreeItemLPARAM)));
       TreeItemLPARAM->ItemHandle = ItemHandle;
       TreeItemLPARAM->nID        = nID;
       TreeItemLPARAM->IsNodeFlag = IsNodeFlag;

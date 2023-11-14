@@ -683,12 +683,11 @@ HB_FUNC( SQLITE3_BLOB_READ )
         if( pBlob )
         {
                 int      iLen = hb_parni(2);
-                char *   buffer;
 
                 if( iLen == 0 )
                         iLen = sqlite3_blob_bytes(pBlob);
 
-                buffer = static_cast<char*>(hb_xgrab(iLen + 1));
+                auto buffer = static_cast<char*>(hb_xgrab(iLen + 1));
 
                 if( SQLITE_OK == sqlite3_blob_read(pBlob, static_cast<void*>(buffer), iLen, hb_parni(3)) )
                 {
@@ -1279,9 +1278,7 @@ HB_FUNC( SQLITE3_OPEN )
         {
                 if( sqlite3_open(pszdbName, &db) == SQLITE_OK )
                 {
-                        HB_SQLITE3 * hbsqlite3;
-
-                        hbsqlite3 = ( HB_SQLITE3 * ) hb_xgrab(sizeof(HB_SQLITE3));
+                        auto hbsqlite3 = static_cast<HB_SQLITE3*>(hb_xgrab(sizeof(HB_SQLITE3)));
                         hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
                         hbsqlite3->db = db;
                         hb_sqlite3_ret(hbsqlite3, HB_SQLITE3_DB);
@@ -1312,9 +1309,7 @@ HB_FUNC( SQLITE3_OPEN_V2 )
 
         if( sqlite3_open_v2(pszdbName, &db, hb_parni(2), NULL) == SQLITE_OK )
         {
-                HB_SQLITE3 * hbsqlite3;
-
-                hbsqlite3 = ( HB_SQLITE3 * ) hb_xgrab(sizeof(HB_SQLITE3));
+                auto hbsqlite3 = static_cast<HB_SQLITE3*>(hb_xgrab(sizeof(HB_SQLITE3)));
                 hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
                 hbsqlite3->db = db;
                 hb_sqlite3_ret(hbsqlite3, HB_SQLITE3_DB);
@@ -1597,12 +1592,11 @@ HB_FUNC( SQLITE3_FILE_TO_BUFF )
 
         if( handle != FS_ERROR )
         {
-                char *   buffer;
                 int  nSize;
 
                 nSize = hb_fsSeek(handle, 0, FS_END);
                 hb_fsSeek(handle, 0, FS_SET);
-                buffer = static_cast<char*>(hb_xgrab(nSize + 1));
+                auto buffer = static_cast<char*>(hb_xgrab(nSize + 1));
                 nSize = hb_fsReadLarge(handle, buffer, nSize);
                 buffer[ nSize ] = '\0';
                 hb_fsClose(handle);

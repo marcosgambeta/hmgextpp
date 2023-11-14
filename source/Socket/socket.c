@@ -260,7 +260,7 @@ HB_FUNC( SOCKETRECEIVE )
          int nLen = hb_parclen(2);
          if( nLen > 0 )
          {
-            char *pRead = ( char * ) hb_xgrab(nLen + 1);
+            auto pRead = static_cast<char*>(hb_xgrab(nLen + 1));
             if( HB_ISNUM(3) )
             {
                int recvtimeout = hb_parni(3);
@@ -351,7 +351,6 @@ HB_FUNC( SOCKETMD5 )
       unsigned char digest[ 16 ];
       unsigned int len = hb_parclen(1);
       UINT j;
-      char *pRet;
 
       string = ( unsigned char * ) hb_parc(1);
 
@@ -359,7 +358,7 @@ HB_FUNC( SOCKETMD5 )
       MD5Update(&context, ( unsigned char * ) string, len);
       MD5Final( digest, &context );
 
-      pRet = ( char * ) hb_xgrab(sizeof digest * 2 + 1);
+      auto pRet = static_cast<char*>(hb_xgrab(sizeof digest * 2 + 1));
       for( j = 0; j < sizeof digest; j++ )
          sprintf( pRet + ( j * 2 ), "%02x", digest[ j ] );
 
@@ -375,7 +374,6 @@ HB_FUNC( SOCKETENCODE64 )
    if( HB_ISCHAR(1) && hb_parclen(1) > 0 )
    {
       char *string;
-      char *pRet;
       int nEncodeLen;
       int nSubLen = 0;
       int nAdd;
@@ -392,7 +390,7 @@ HB_FUNC( SOCKETENCODE64 )
          nEncodeLen = nEncodeLen + ( ( nAdd + 1 ) * 2 );
       }
 
-      pRet = ( char * ) hb_xgrab(nEncodeLen + 1);
+      auto pRet = static_cast<char*>(hb_xgrab(nEncodeLen + 1));
 
       pRet[ nEncodeLen ] = 0;
       memset(pRet, '=', nEncodeLen);
@@ -411,13 +409,12 @@ HB_FUNC( SOCKETDECODE64 )
    if( HB_ISCHAR(1) && hb_parclen(1) > 0 )
    {
       char *string;
-      char *pRet;
       int nEncodeLen;
 
       string = ( char * ) hb_parc(1);
 
       nEncodeLen = 3 * ( ( hb_parclen(1) + 3 ) / 4 );
-      pRet = ( char * ) hb_xgrab(nEncodeLen);
+      auto pRet = static_cast<char*>(hb_xgrab(nEncodeLen));
       memset(pRet, 0, nEncodeLen);
 
       b64decode(string, pRet);

@@ -172,9 +172,8 @@ HB_FUNC( GETITEMBAR )
 #endif
    auto hWnd = hmg_par_HWND(1);
    int     iPos = hb_parni(2);
-   TCHAR * cString;
 
-   cString = ( TCHAR * ) hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR));
+   auto cString = static_cast<TCHAR*>(hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
    SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
 
 #ifndef UNICODE

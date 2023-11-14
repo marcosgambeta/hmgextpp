@@ -99,7 +99,7 @@ HB_FUNC( REGQUERYVALUEEX )
    hb_strfree(str);
 
    if( lError == ERROR_SUCCESS ) {
-      BYTE * lpData = static_cast<BYTE*>(hb_xgrab(lpcbData + 1));
+      auto lpData = static_cast<BYTE*>(hb_xgrab(lpcbData + 1));
       void * str;
       lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, static_cast<BYTE*>(lpData), &lpcbData);
       hb_strfree(str);

@@ -497,7 +497,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
    if( HB_ISCHAR(2) ) {
       LPSTR  szText        = const_cast<LPSTR>(hb_parc(2));
       int    nConvertedLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0);
-      LPWSTR lpwText       = static_cast<LPWSTR>(hb_xgrab(nConvertedLen * 2 + 1));
+      auto lpwText = static_cast<LPWSTR>(hb_xgrab(nConvertedLen * 2 + 1));
 
       MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen);
 

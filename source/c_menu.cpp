@@ -359,7 +359,7 @@ HB_FUNC( APPENDMENUSTRING )
    if( s_bCustomDraw ) {
       UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
+      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
       ZeroMemory(lpMenuItem, sizeof(MENUITEM));
       lpMenuItem->cbSize     = hb_parni(2);
       lpMenuItem->uiID       = hb_parni(2);
@@ -409,7 +409,7 @@ HB_FUNC( APPENDMENUPOPUP )
    if( s_bCustomDraw ) {
       UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
+      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
       lpMenuItem->cbSize     = hb_parni(2);
       lpMenuItem->uiID       = hb_parni(2);
       lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
@@ -432,7 +432,7 @@ APPENDMENUSEPARATOR(HMENU) --> .T.|.F.
 HB_FUNC( APPENDMENUSEPARATOR )
 {
    if( s_bCustomDraw ) {
-      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
+      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
       lpMenuItem->uiItemType = 1000;
       hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, reinterpret_cast<LPTSTR>(lpMenuItem)));
    } else {

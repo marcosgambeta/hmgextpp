@@ -88,7 +88,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
    HRESULT hResult;
 
    /*TODO*/
-   void ** hText = ( void ** ) hb_xgrab(sizeof(void*) * 3);
+   auto hText = static_cast<void**>(hb_xgrab(sizeof(void*) * 3));
    int     iText = 0;
 
    if( HB_ISCHAR(3) ) {
@@ -158,7 +158,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 
       HB_TYPE iType;
 
-      void ** hText = ( void ** ) hb_xgrab(sizeof(void*) * 10);
+      auto hText = static_cast<void**>(hb_xgrab(sizeof(void*) * 10));
       int     iText = 0;
 
       TASKDIALOG_BUTTON * buttons;

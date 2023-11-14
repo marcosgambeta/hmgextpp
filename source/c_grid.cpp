@@ -519,7 +519,8 @@ HB_FUNC( LISTVIEWSETITEM )
 static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
 {
 #ifndef UNICODE
-   LPSTR lpText = reinterpret_cast<LPSTR>(hb_xgrab(1)); lpText[0] = '\0'; // '\0';
+   auto lpText = reinterpret_cast<LPSTR>(hb_xgrab(1));
+   lpText[0] = '\0'; // '\0';
 #else
    LPWSTR lpText = '\0';
 #endif
@@ -741,7 +742,7 @@ LISTVIEW_GETSUBITEMRECT() -->
 */
 HB_FUNC( LISTVIEW_GETSUBITEMRECT )
 {
-   RECT * pRect = static_cast<RECT*>(hb_xgrab(sizeof(RECT)));
+   auto pRect = static_cast<RECT*>(hb_xgrab(sizeof(RECT)));
 
    ListView_GetSubItemRect(hmg_par_HWND(1), hb_parni(2), hb_parni(3), LVIR_BOUNDS, pRect);
 
@@ -759,7 +760,7 @@ LISTVIEW_GETITEMRECT() -->
 */
 HB_FUNC( LISTVIEW_GETITEMRECT )
 {
-   RECT * pRect = static_cast<RECT*>(hb_xgrab(sizeof(RECT)));
+   auto pRect = static_cast<RECT*>(hb_xgrab(sizeof(RECT)));
 
    ListView_GetItemRect(hmg_par_HWND(1), hb_parni(2), pRect, LVIR_LABEL);
 
@@ -984,7 +985,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
    int iCols = hb_parni(2);
 
    if( iCols ) {
-      int * iArray = static_cast<int*>(hb_xgrab(iCols * sizeof(int)));
+      auto iArray = static_cast<int*>(hb_xgrab(iCols * sizeof(int)));
       PHB_ITEM pArray = hb_itemArrayNew(static_cast<HB_SIZE>(iCols));
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, static_cast<int*>(iArray));
@@ -1012,7 +1013,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
       int iColumn = hb_parni(2);
 
       if( iColumn ) {
-         int * iArray = static_cast<int*>(hb_xgrab(iColumn * sizeof(int)));
+         auto iArray = static_cast<int*>(hb_xgrab(iColumn * sizeof(int)));
 
          for( int i = 0; i < iColumn; i++ ) {
             iArray[i] = HB_PARNI(3, i + 1) - 1;

@@ -184,7 +184,7 @@ static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName)
          nLen += static_cast<UINT>(hmg_tstrlen(pFileName)) + 1;
       }
 
-      LPTSTR buffer = static_cast<LPTSTR>(hb_xgrab(nLen * sizeof(TCHAR)));
+      auto buffer = static_cast<LPTSTR>(hb_xgrab(nLen * sizeof(TCHAR)));
 
       GetSystemDirectory(buffer, nLen);
 
@@ -201,9 +201,8 @@ static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName)
 
 TCHAR * hmg_tstrdup(const TCHAR * pszText)
 {
-   TCHAR * pszDup;
    HB_SIZE nLen = (hmg_tstrlen(pszText) + 1) * sizeof(TCHAR);
-   pszDup = static_cast<TCHAR*>(hb_xgrab(nLen));
+   auto pszDup = static_cast<TCHAR*>(hb_xgrab(nLen));
    memcpy(pszDup, pszText, nLen);
    return pszDup;
 }

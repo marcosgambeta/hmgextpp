@@ -890,7 +890,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
          const char * pszFuncName = hb_parc(2);
 
          if( pszFuncName && hb_dynsymIsFunction(hb_dynsymGet(pszFuncName)) ) {
-            PMYUSERDATA pUserData = ( PMYUSERDATA ) hb_xgrabz(sizeof(MYUSERDATA));
+            auto pUserData = static_cast<PMYUSERDATA>(hb_xgrabz(sizeof(MYUSERDATA)));
 
             pUserData->cbSize = sizeof(MYUSERDATA);
             pUserData->myParam.Listener = hb_dynsymGet(pszFuncName);
@@ -1310,8 +1310,6 @@ HB_FUNC( MSC_VER )
 
 HB_FUNC( BORLANDC )
 {
-   char * pszCompiler;
-
    #ifdef __BORLANDC__
 
    const char * pszName;
@@ -1321,7 +1319,7 @@ HB_FUNC( BORLANDC )
    int iVerMinor;
    int iVerPatch;
 
-   pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
+   auto pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
    szSub[0] = '\0';
 
    #if ( __BORLANDC__ >= 0x0590 )    /* Version 5.9 */
@@ -1363,7 +1361,7 @@ HB_FUNC( BORLANDC )
    #endif
 
    #else
-   pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
+   auto pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
    strcpy(pszCompiler, "");
    #endif /* __BORLANDC__ */
 
@@ -1374,7 +1372,7 @@ HB_FUNC( BORLANDC )
 
 HB_FUNC( HMG_VERSION )
 {
-   char * pszVersion = static_cast<char*>(hb_xgrab(40));
+   auto pszVersion = static_cast<char*>(hb_xgrab(40));
    hb_snprintf( pszVersion, 40, "Harbour MiniGUI %d.%d.%d (%s)", MG_VER_MAJOR, MG_VER_MINOR, MG_VER_RELEASE, MG_VER_STATUS );
    hb_retc_buffer(pszVersion);
 }
@@ -1401,7 +1399,6 @@ HB_FUNC( HMG_LOWER )
    LPSTR pStr;
    TCHAR * Text = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(1)));
    INT nLen;
-   TCHAR * Buffer;
 
    if( Text == nullptr ) {
       hb_retc( nullptr );
@@ -1409,7 +1406,7 @@ HB_FUNC( HMG_LOWER )
    }
 
    nLen = lstrlen(Text) + 1;
-   Buffer = ( TCHAR * ) hb_xgrab(nLen * sizeof(TCHAR));
+   auto Buffer = static_cast<TCHAR*>(hb_xgrab(nLen * sizeof(TCHAR)));
 
    if( Buffer != nullptr ) {
       lstrcpy(Buffer, Text);
@@ -1430,7 +1427,6 @@ HB_FUNC( HMG_UPPER )
    LPSTR pStr;
    TCHAR * Text = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(1)));
    INT nLen;
-   TCHAR * Buffer;
 
    if( Text == nullptr ) {
       hb_retc( nullptr );
@@ -1438,7 +1434,7 @@ HB_FUNC( HMG_UPPER )
    }
 
    nLen = lstrlen(Text) + 1;
-   Buffer = ( TCHAR * ) hb_xgrab(nLen * sizeof(TCHAR));
+   auto Buffer = static_cast<TCHAR*>(hb_xgrab(nLen * sizeof(TCHAR)));
 
    if( Buffer != nullptr ) {
       lstrcpy(Buffer, Text);

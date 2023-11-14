@@ -1264,7 +1264,7 @@ HB_FUNC( ADDPGITEM )
 {
    auto hWndTV = hmg_par_HWND(1);
 
-   LPARAMDATA * pData = ( LPARAMDATA * ) hb_xgrab((sizeof(LPARAMDATA)));
+   auto pData = static_cast<LPARAMDATA*>(hb_xgrab((sizeof(LPARAMDATA))));
    ZeroMemory(pData, sizeof(LPARAMDATA));
    pData->ItemName      = hb_strndup(hb_parc(7), 255);
    pData->ItemValue     = hb_strndup(hb_parc(8), 1024);
