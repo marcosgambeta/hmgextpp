@@ -280,7 +280,7 @@ HB_FUNC( TSDRAWCELL )
    COLORREF clrFore      = hb_parnl(8);
    COLORREF clrBack      = hb_parnl(9);
    HFONT    hFont        = hmg_par_HFONT(10);
-   HBITMAP  hBitMap      = hmg_par_HBITMAP(11);
+   auto hBitMap = hmg_par_HBITMAP(11);
    int      nHeightCell  = hb_parni(12);
    BOOL     b3DLook      = hb_parl(13);
    int      nLineStyle   = hb_parni(14);
@@ -766,7 +766,7 @@ HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeig
 
 HB_FUNC( SBMPHEIGHT )    // ( hBmp )
 {
-   HBITMAP hBmp = hmg_par_HBITMAP(1);
+   auto hBmp = hmg_par_HBITMAP(1);
    BITMAP  bm;
 
    GetObject(hBmp, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
@@ -776,7 +776,7 @@ HB_FUNC( SBMPHEIGHT )    // ( hBmp )
 
 HB_FUNC( SBMPWIDTH )
 {
-   HBITMAP hBmp = hmg_par_HBITMAP(1);
+   auto hBmp = hmg_par_HBITMAP(1);
    BITMAP  bm;
 
    GetObject(hBmp, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));

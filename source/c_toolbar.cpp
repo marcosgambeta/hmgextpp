@@ -642,7 +642,7 @@ REPLACETOOLBUTTONIMAGE(HWND, hBITMAP, cp3, lp4, np5) --> HBITMAP
 HB_FUNC( REPLACETOOLBUTTONIMAGE )
 {
    auto hwndTB = hmg_par_HWND(1);
-   HBITMAP hBitmapOld = hmg_par_HBITMAP(2);
+   auto hBitmapOld = hmg_par_HBITMAP(2);
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
    int     nButtonID  = hmg_par_INT(5);
 

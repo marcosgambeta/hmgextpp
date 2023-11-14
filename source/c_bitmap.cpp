@@ -423,7 +423,7 @@ HB_FUNC( DRAWGLYPH )
    int      y              = hb_parni(3);
    int      dx             = hb_parni(4);
    int      dy             = hb_parni(5);
-   HBITMAP  hBmp           = hmg_par_HBITMAP(6);
+   auto  hBmp = hmg_par_HBITMAP(6);
    COLORREF rgbTransparent = RGB(255, 255, 255);
    bool     disabled       = hb_parl(8);
    bool     stretched      = HB_ISNIL(9) ? false : hb_parl(9);
@@ -561,7 +561,7 @@ DRAWGLYPHMASK(HDC, 2, 3, dx, dy, HBITMAP, 7, 8, 9, HWND) --> NIL
 */
 HB_FUNC( DRAWGLYPHMASK )
 {
-   HBITMAP hBmp = hmg_par_HBITMAP(6);
+   auto hBmp = hmg_par_HBITMAP(6);
    BITMAP bitmap;
    GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 

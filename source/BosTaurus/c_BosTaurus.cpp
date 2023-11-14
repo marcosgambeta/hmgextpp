@@ -1157,7 +1157,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    INT Width1  = hmg_par_INT(4);
    INT Height1 = hmg_par_INT(5);
 
-   HBITMAP hBitmap = hmg_par_HBITMAP(6);
+   auto hBitmap = hmg_par_HBITMAP(6);
    INT x2          = hmg_par_INT(7);
    INT y2          = hmg_par_INT(8);
    INT Width2      = hmg_par_INT(9);
@@ -1214,7 +1214,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    INT Width1  = hmg_par_INT(4);
    INT Height1 = hmg_par_INT(5);
 
-   HBITMAP hBitmap = hmg_par_HBITMAP(6);
+   auto hBitmap = hmg_par_HBITMAP(6);
    INT x2          = hmg_par_INT(7);
    INT y2          = hmg_par_INT(8);
    INT Width2      = hmg_par_INT(9);
@@ -2002,7 +2002,7 @@ BT_BMP_GETINFO(HBITMAP, info) --> numeric
 */
 HB_FUNC( BT_BMP_GETINFO )
 {
-   HBITMAP hBitmap = hmg_par_HBITMAP(1);
+   auto hBitmap = hmg_par_HBITMAP(1);
    INT Info = hb_parnl(2);
 
    BITMAP bm;
@@ -2054,7 +2054,7 @@ BT_BMP_CLONE(HBITMAP, x, y, width, height) --> HBITMAP
 */
 HB_FUNC( BT_BMP_CLONE )
 {
-   HBITMAP hBitmap = hmg_par_HBITMAP(1);
+   auto hBitmap = hmg_par_HBITMAP(1);
    INT x1          = hmg_par_INT(2);
    INT y1          = hmg_par_INT(3);
    INT Width1      = hmg_par_INT(4);
@@ -2237,7 +2237,7 @@ BT_BMP_COPYANDRESIZE(HBITMAP, newWidth, newHeight, modeStretch, algorithm) --> H
 */
 HB_FUNC( BT_BMP_COPYANDRESIZE )
 {
-   HBITMAP hBitmap1    = hmg_par_HBITMAP(1);
+   auto hBitmap1    = hmg_par_HBITMAP(1);
    INT New_Width       = hmg_par_INT(2);
    INT New_Height      = hmg_par_INT(3);
    INT Mode_Stretch    = hmg_par_INT(4);
@@ -2293,13 +2293,13 @@ BT_BMP_PASTE(HBITMAP1, x1, y1, width1, height1, HBITMAP2, x2, y2, width2, height
 */
 HB_FUNC( BT_BMP_PASTE )
 {
-   HBITMAP hBitmap_D = hmg_par_HBITMAP(1);
+   auto hBitmap_D = hmg_par_HBITMAP(1);
    INT x1            = hmg_par_INT(2);
    INT y1            = hmg_par_INT(3);
    INT Width1        = hmg_par_INT(4);
    INT Height1       = hmg_par_INT(5);
 
-   HBITMAP hBitmap_O = hmg_par_HBITMAP(6);
+   auto hBitmap_O = hmg_par_HBITMAP(6);
    INT x2            = hmg_par_INT(7);
    INT y2            = hmg_par_INT(8);
    INT Width2        = hmg_par_INT(9);
@@ -2353,13 +2353,13 @@ BT_BMP_PASTE_ALPHABLEND(HBITMAP1, x1, y1, width1, height1, HBITMAP2, x2, y2, wid
 */
 HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
 {
-   HBITMAP hBitmap_D = hmg_par_HBITMAP(1);
+   auto hBitmap_D = hmg_par_HBITMAP(1);
    INT x1            = hmg_par_INT(2);
    INT y1            = hmg_par_INT(3);
    INT Width1        = hmg_par_INT(4);
    INT Height1       = hmg_par_INT(5);
 
-   HBITMAP hBitmap_O = hmg_par_HBITMAP(6);
+   auto hBitmap_O = hmg_par_HBITMAP(6);
    INT x2            = hmg_par_INT(7);
    INT y2            = hmg_par_INT(8);
    INT Width2        = hmg_par_INT(9);
@@ -2500,7 +2500,7 @@ HB_FUNC( BT_BMP_PROCESS )
    BYTE              GreenGammaRamp[256];
    BYTE              BlueGammaRamp[256];
 
-   HBITMAP hBitmap = hmg_par_HBITMAP(1);
+   auto hBitmap = hmg_par_HBITMAP(1);
    INT Action = hmg_par_INT(2);
 
    switch( Action ) {
@@ -2720,7 +2720,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    bt_RGBCOLORBYTE * RGBcolor_Yprevious_Xcurrent, * RGBcolor_Ycurrent_Xcurrent, * RGBcolor_Yposterior_Xcurrent;
    INT MatKernel3x3Filter[nMATFILTER];
 
-   HBITMAP hBitmap = hmg_par_HBITMAP(1);
+   auto hBitmap = hmg_par_HBITMAP(1);
    if( !HB_ISARRAY(2) || hb_parinfa(2, 0) != nMATFILTER ) {
       hb_retl(false);
       return;
@@ -2836,7 +2836,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    #define dABS(n)     (static_cast<double>(n) >= 0.0 ? static_cast<double>(n) : static_cast<double>(-n))
    #define SCALING(n)  (static_cast<double>(n) > 1.0 ? static_cast<double>(1.0 / n) : static_cast<double>(1.0))
 
-   HBITMAP hBitmap_O      = hmg_par_HBITMAP(1);
+   auto hBitmap_O = hmg_par_HBITMAP(1);
    INT Mode               = hb_parnl(2);
    FLOAT Angle            = static_cast<FLOAT>(hb_parnd(3));
    COLORREF Color_Fill_Bk = hmg_par_COLORREF(4);
@@ -3099,7 +3099,7 @@ BT_BMP_PUT_CLIPBOARD(HWND, HBITMAP) --> .T.|.F.
 HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 {
    auto hWnd = hmg_par_HWND(1);
-   HBITMAP hBitmap = hmg_par_HBITMAP(2);
+   auto hBitmap = hmg_par_HBITMAP(2);
 
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));

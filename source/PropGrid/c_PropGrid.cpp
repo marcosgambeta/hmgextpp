@@ -1892,7 +1892,7 @@ IL_ADDMASKEDINDIRECT() -->
 HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , ix , iy , imagecount)
 {
    BITMAP   bm;
-   HBITMAP  himage = hmg_par_HBITMAP(2);
+   auto himage = hmg_par_HBITMAP(2);
    COLORREF clrBk   = CLR_NONE;
    LRESULT  lResult = -1;
    int      ic      = 1;
