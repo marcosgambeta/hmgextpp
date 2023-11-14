@@ -1034,8 +1034,8 @@ LISTVIEW_CHANGEEXTENDEDSTYLE() -->
 HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    auto hWnd = hmg_par_HWND(1);
-   DWORD Add = hmg_par_DWORD(2);
-   DWORD Remove = hmg_par_DWORD(3);
+   auto Add = hmg_par_DWORD(2);
+   auto Remove = hmg_par_DWORD(3);
 
    DWORD OldStyle = ListView_GetExtendedListViewStyle(hWnd);
    DWORD NewStyle = (OldStyle | Add) & (~Remove);
@@ -1051,7 +1051,7 @@ LISTVIEW_GETEXTENDEDSTYLE() -->
 */
 HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
-   DWORD ExStyle = hmg_par_DWORD(2);
+   auto ExStyle = hmg_par_DWORD(2);
    DWORD OldStyle = ListView_GetExtendedListViewStyle(hmg_par_HWND(1));
 
    if( HB_ISNUM(2) ) {

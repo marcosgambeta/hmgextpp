@@ -231,8 +231,8 @@ HB_FUNC( SETWINDOWPOS )
 HB_FUNC( ANIMATEWINDOW )
 {
    auto hWnd = hmg_par_HWND(1);
-   DWORD dwTime  = hmg_par_DWORD(2);
-   DWORD dwFlags = hmg_par_DWORD(3);
+   auto dwTime = hmg_par_DWORD(2);
+   auto dwFlags = hmg_par_DWORD(3);
 
    hb_retl(( BOOL ) AnimateWindow(hWnd, dwTime, dwFlags));
 }
@@ -268,7 +268,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
          if( fn_SetLayeredWindowAttributes != nullptr ) {
             auto crKey = hmg_par_COLORREF(2);
             auto bAlpha = hmg_par_BYTE(3);
-            DWORD    dwFlags = hmg_par_DWORD(4);
+            auto dwFlags = hmg_par_DWORD(4);
 
             if( !( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) ) {
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
