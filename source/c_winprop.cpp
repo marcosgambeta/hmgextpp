@@ -296,7 +296,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
    #endif
       hb_arraySetNInt(item, 3, reinterpret_cast<LONG_PTR>(handle));
 
-      hb_arrayAddForward(( PHB_ITEM ) lParam, item);
+      hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(lParam), item);
       hb_itemRelease(item);
    }
 
@@ -349,7 +349,7 @@ HB_FUNC( ENUMPROPSEX )
 
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
-   PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
+   PHB_ITEM pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
    int      iLen       = lstrlen(pszPropName);
 
    if( iLen ) {

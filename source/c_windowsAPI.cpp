@@ -685,7 +685,7 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
-   hb_arrayAddForward(( PHB_ITEM ) pArray, pHWnd);
+   hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(pArray), pHWnd);
    hb_itemRelease(pHWnd);
 
    return TRUE;
@@ -702,7 +702,7 @@ HB_FUNC( ENUMWINDOWS )
 
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
-   PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
+   PHB_ITEM pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    if( pCodeBlock ) {

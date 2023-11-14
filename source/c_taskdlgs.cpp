@@ -429,7 +429,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       }
 
       if( hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM ) {
-         hb_itemRelease(( PHB_ITEM ) config.lpCallbackData);
+         hb_itemRelease(reinterpret_cast<PHB_ITEM>(config.lpCallbackData));
       }
 
       if( hResult == S_OK ) {
@@ -479,10 +479,10 @@ static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
 
 HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData )
 {
-   HB_TYPE iType = hb_itemType(( PHB_ITEM ) dwRefData);
+   HB_TYPE iType = hb_itemType(reinterpret_cast<PHB_ITEM>(dwRefData));
 
    if( iType & Harbour::Item::OBJECT ) {
-      PHB_ITEM     pObject = ( PHB_ITEM ) dwRefData;
+      PHB_ITEM     pObject = reinterpret_cast<PHB_ITEM>(dwRefData);
       const char * sMsgName;
       HRESULT      hRes;
 
@@ -516,13 +516,13 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
          }
       }
 
-      sMsgName = TD_NotifyToMsg(uiNotification, ( PHB_ITEM ) dwRefData);
+      sMsgName = TD_NotifyToMsg(uiNotification, reinterpret_cast<PHB_ITEM>(dwRefData));
 
       if( TD_objSendMsg(pObject, sMsgName, &hRes, hWnd, uiNotification, wParam, lParam) ) {
          return hRes;
       }
    } else if( iType & Harbour::Item::EVALITEM ) {
-      PHB_ITEM pCallback = ( PHB_ITEM ) dwRefData;
+      PHB_ITEM pCallback = reinterpret_cast<PHB_ITEM>(dwRefData);
 
       if( pCallback && hb_vmRequestReenter() ) {
          HRESULT  hRes;
