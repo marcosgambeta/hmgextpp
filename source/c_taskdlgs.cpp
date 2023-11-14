@@ -502,7 +502,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
             nMilliSec = hb_parni( -1 );
             // Remember what wParam is the time in milliseconds since dialog created or timer reset
             if( ( 0 != nMilliSec ) && ( nMilliSec < wParam ) ) { // If the condition is met - the time out!
-               PHB_ITEM itmTimeOut = hb_itemPutL( nullptr, true );
+               auto itmTimeOut = hb_itemPutL( nullptr, true );
                // Set TimedOut property to TRUE
                hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut);
                hb_itemRelease(itmTimeOut);
@@ -597,9 +597,9 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
 static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam)
 {
    if( hb_objHasMsg(pObject, sMsgName) ) {
-      PHB_ITEM itmHWND   = hb_itemPutNInt(nullptr, ( HB_MAXINT ) ( HB_PTRUINT ) hWnd);
-      PHB_ITEM itmNotify = hb_itemPutNInt(nullptr, uiNotification);
-      PHB_ITEM itmWParam = hb_itemPutNInt(nullptr, wParam);
+      auto itmHWND   = hb_itemPutNInt(nullptr, ( HB_MAXINT ) ( HB_PTRUINT ) hWnd);
+      auto itmNotify = hb_itemPutNInt(nullptr, uiNotification);
+      auto itmWParam = hb_itemPutNInt(nullptr, wParam);
       auto itmLParam = hb_itemNew(nullptr);
       PHB_ITEM itmResult;
 

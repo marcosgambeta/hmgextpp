@@ -210,8 +210,8 @@ static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
 {
    PHB_ITEM phRect = hb_hashNew(nullptr);
-   PHB_ITEM pKey = hb_itemPutCConst(nullptr, "left");
-   PHB_ITEM pValue = hb_itemPutNL( nullptr, rc->left );
+   auto pKey = hb_itemPutCConst(nullptr, "left");
+   auto pValue = hb_itemPutNL( nullptr, rc->left );
 
    hb_hashAddNew(phRect, pKey, pValue);
 

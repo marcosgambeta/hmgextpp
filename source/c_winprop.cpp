@@ -353,16 +353,15 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
    int      iLen       = lstrlen(pszPropName);
 
    if( iLen ) {
-      PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
-      PHB_ITEM pPropName;
-      PHB_ITEM pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(handle));
+      auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+      auto pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(handle));
       LPTSTR   pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);
    #ifndef UNICODE
-      pPropName = hb_itemPutCPtr(nullptr, pszName);
+      auto pPropName = hb_itemPutCPtr(nullptr, pszName);
    #else
-      pPropName = hb_itemPutCPtr(nullptr, WideToAnsi(pszName));
+      auto pPropName = hb_itemPutCPtr(nullptr, WideToAnsi(pszName));
    #endif
       hb_evalBlock(pCodeBlock, pHWnd, pPropName, pHandle, nullptr);
 

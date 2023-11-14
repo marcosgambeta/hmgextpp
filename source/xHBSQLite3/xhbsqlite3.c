@@ -245,10 +245,10 @@ static int authorizer( void * Cargo, int iAction, const char * sName1, const cha
    {
       
       int      iRes;
-      PHB_ITEM pItem1 = hb_itemPutStrUTF8(NULL, sName1);
-      PHB_ITEM pItem2 = hb_itemPutStrUTF8(NULL, sName2);
-      PHB_ITEM pItem3 = hb_itemPutStrUTF8(NULL, sName3);
-      PHB_ITEM pItem4 = hb_itemPutStrUTF8(NULL, sName4);
+      auto pItem1 = hb_itemPutStrUTF8(NULL, sName1);
+      auto pItem2 = hb_itemPutStrUTF8(NULL, sName2);
+      auto pItem3 = hb_itemPutStrUTF8(NULL, sName3);
+      auto pItem4 = hb_itemPutStrUTF8(NULL, sName4);
 
           const char * cFunc = hb_dynsymName(pCallback);
          

@@ -252,10 +252,10 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT mes
 
    if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
                                            ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) ) {
-      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
-      PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
-      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
-      PHB_ITEM plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
+      auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+      auto pmessage = hb_itemPutNS(nullptr, message);
+      auto pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
+      auto plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
 
       hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
@@ -565,10 +565,10 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT 
 
    if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
                                            ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) ) {
-      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
-      PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
-      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
-      PHB_ITEM plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
+      auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+      auto pmessage = hb_itemPutNS(nullptr, message);
+      auto pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
+      auto plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
 
       hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 

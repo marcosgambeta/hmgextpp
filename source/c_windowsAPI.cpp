@@ -687,7 +687,7 @@ HB_FUNC( GETDESKTOPWINDOW )
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
-   PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+   auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    hb_arrayAddForward(( PHB_ITEM ) pArray, pHWnd);
    hb_itemRelease(pHWnd);
@@ -707,7 +707,7 @@ HB_FUNC( ENUMWINDOWS )
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
-   PHB_ITEM pHWnd      = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+   auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    if( pCodeBlock ) {
       hb_evalBlock1(pCodeBlock, pHWnd);
