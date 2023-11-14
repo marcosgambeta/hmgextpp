@@ -760,7 +760,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
 
    fn_GdipGetImageEncoders(num, size, pImageCodecInfo);
 
-   PHB_ITEM pItem = hb_itemNew(nullptr);
+   auto pItem = hb_itemNew(nullptr);
 
    for( UINT i = 0; i < num; ++i ) {
       WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[i].MimeType, -1, RecvMimeType, size, nullptr, nullptr);

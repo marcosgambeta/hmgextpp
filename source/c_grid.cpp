@@ -874,7 +874,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
 #endif
    auto hwnd = hmg_par_HWND(1);
    int       iColumn = hb_parni(2) - 1;
-   PHB_ITEM  pValue  = hb_itemNew(nullptr);
+   auto pValue = hb_itemNew(nullptr);
 
    hb_itemCopy(pValue, hb_param(4, Harbour::Item::STRING));
 

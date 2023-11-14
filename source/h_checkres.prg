@@ -71,7 +71,7 @@ RETURN NIL
 
 void RegisterResource(HANDLE hRes, LPCSTR szType)
 {
-   PHB_ITEM pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
+   auto pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
 
    hb_vmPushSymbol(hb_dynsymGetSymbol("MGADDRESOURCE"));
    hb_vmPushNil();
@@ -84,7 +84,7 @@ void RegisterResource(HANDLE hRes, LPCSTR szType)
 
 void pascal DelResource(HANDLE hResource)
 {
-   PHB_ITEM pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
+   auto pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
 
    hb_vmPushSymbol(hb_dynsymGetSymbol("MGDELRESOURCE"));
    hb_vmPushNil();

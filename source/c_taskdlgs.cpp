@@ -526,7 +526,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
 
       if( pCallback && hb_vmRequestReenter() ) {
          HRESULT  hRes;
-         PHB_ITEM itmStr = hb_itemNew(nullptr);
+         auto itmStr = hb_itemNew(nullptr);
 
          hb_vmPushEvalSym();
          hb_vmPush(pCallback);
@@ -600,7 +600,7 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRe
       PHB_ITEM itmHWND   = hb_itemPutNInt(nullptr, ( HB_MAXINT ) ( HB_PTRUINT ) hWnd);
       PHB_ITEM itmNotify = hb_itemPutNInt(nullptr, uiNotification);
       PHB_ITEM itmWParam = hb_itemPutNInt(nullptr, wParam);
-      PHB_ITEM itmLParam = hb_itemNew(nullptr);
+      auto itmLParam = hb_itemNew(nullptr);
       PHB_ITEM itmResult;
 
       if( uiNotification == TDN_HYPERLINK_CLICKED ) {

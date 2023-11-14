@@ -706,9 +706,8 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
    PHB_ITEM   pItemArray[32]; // max 32 parameters?
    PHB_ITEM * pItems;
    HB_SIZE    ulPos;
-   PHB_ITEM   Key;
 
-   Key = hb_itemNew(nullptr);
+   auto Key = hb_itemNew(nullptr);
 
    // We implement only a "default" interface
    if( !IsEqualIID(riid, IID_NULL) ) {
