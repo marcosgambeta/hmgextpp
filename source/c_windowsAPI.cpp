@@ -848,7 +848,6 @@ HB_FUNC( C_SETWINDOWRGN )
 
 HB_FUNC( C_SETPOLYWINDOWRGN )
 {
-   HRGN  hRgn;
    POINT lppt[512];
    int   fnPolyFillMode;
    auto cPoints = static_cast<int>(hb_parinfa(2, 0));
@@ -864,7 +863,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
       lppt[i].y = HB_PARNI(3, i + 1);
    }
 
-   hRgn = CreatePolygonRgn(lppt, cPoints, fnPolyFillMode);
+   auto hRgn = CreatePolygonRgn(lppt, cPoints, fnPolyFillMode);
 
    SetWindowRgn(GetActiveWindow(), hRgn, TRUE);
 

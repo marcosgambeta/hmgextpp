@@ -980,14 +980,13 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
 void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
 {
    auto hDC = GetDC(hWnd);
-   HRGN     hReg;
    COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor) );
    RECT     rct;
 
    if( lCursor != 3 )
    {
       auto hBr = CreateSolidBrush(lclr);
-      hReg = CreateRectRgn(rctc->left, rctc->top, rctc->right - 1, rctc->bottom);
+      auto hReg = CreateRectRgn(rctc->left, rctc->top, rctc->right - 1, rctc->bottom);
 
       FrameRgn(hDC, hReg, hBr, 2, 2);
 

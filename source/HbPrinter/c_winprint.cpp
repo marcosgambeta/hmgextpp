@@ -1166,7 +1166,7 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
 
 HB_FUNC( RR_COMBINERGN )
 {
-   HRGN rgnnew = CreateRectRgn(0, 0, 1, 1);
+   auto rgnnew = CreateRectRgn(0, 0, 1, 1);
 
    CombineRgn(rgnnew, hmg_par_HRGN(1), hmg_par_HRGN(2), hb_parni(3));
    hmg_ret_HRGN(rgnnew);
@@ -1244,7 +1244,6 @@ HB_FUNC( RR_PICTURE )
    int        dc  = HB_PARNI(3, 2);
    int        tor = HB_PARNI(4, 1);
    int        toc = HB_PARNI(4, 2);
-   HRGN       hrgn1;
    POINT      lpp;
 
    void * str;
@@ -1292,7 +1291,7 @@ HB_FUNC( RR_PICTURE )
    xe = c + toc - 1;
    ye = r + tor - 1;
    GetViewportOrgEx(hDC, &lpp);
-   hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
+   auto hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
    if( hrgn == nullptr ) {
       SelectClipRgn(hDC, hrgn1);
    } else {
@@ -1449,7 +1448,6 @@ HB_FUNC( RR_DRAWPICTURE )
    long       lwidth  = 0;
    long       lheight = 0;
    RECT       lrect;
-   HRGN       hrgn1;
    POINT      lpp;
    int        lw, lh;
 
@@ -1488,7 +1486,7 @@ HB_FUNC( RR_DRAWPICTURE )
    xe = c + toc - 1;
    ye = r + tor - 1;
    GetViewportOrgEx(hDC, &lpp);
-   hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
+   auto hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
    if( hrgn == nullptr ) {
       SelectClipRgn(hDC, hrgn1);
    } else {
