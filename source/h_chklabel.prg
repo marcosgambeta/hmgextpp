@@ -526,14 +526,13 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 
 static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 {
-   HDC     hdc;
    HBITMAP hBitmap      = pbtn->himage;
    HBITMAP hBitmapMask  = pbtn->himagemask;
    HBITMAP hBitmap2     = pbtn->himage2;
    HBITMAP hBitmapMask2 = pbtn->himagemask2;
    BITMAP  bm;
 
-   hdc = GetWindowDC(hWnd);
+   auto hdc = GetWindowDC(hWnd);
 
    if( hBitmap == nullptr ) {
       FillRect(hdc, prect, GetSysColorBrush(COLOR_WINDOW));

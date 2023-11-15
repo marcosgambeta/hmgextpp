@@ -251,7 +251,7 @@ static void GetBtnPG(INSBTN *pbtn, RECT *rect)
 static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
 {
    HWND hBitmap = pbtn->himage;
-   HDC hdc = GetWindowDC(hWnd);
+   auto hdc = GetWindowDC(hWnd);
    if( pbtn->nButton ) {
       if( pbtn->fButtonDown == TRUE ) {
          DrawEdge(hdc, prect, EDGE_RAISED, BF_RECT | BF_FLAT | BF_ADJUST);
@@ -1123,7 +1123,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
 
       case WM_DRAWITEM:
       {
-         HDC hDC = GetWindowDC(GetParent(hFramePG));
+         auto hDC = GetWindowDC(GetParent(hFramePG));
          RECT rc = ppgrd->rcInfo;
          rc.left   += 1;
          rc.right  -= 1;

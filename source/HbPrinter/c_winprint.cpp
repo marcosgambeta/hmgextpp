@@ -1557,7 +1557,6 @@ HB_FUNC( RR_CREATEIMAGELIST )
 HB_FUNC( RR_DRAWIMAGELIST )
 {
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
-   HDC        temp2dc;
    HBITMAP    hbmpx;
    RECT       rect;
    HWND       hwnd = GetActiveWindow();
@@ -1566,7 +1565,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
    rect.top    = HB_PARNI(3, 1);
    rect.right  = HB_PARNI(4, 2);
    rect.bottom = HB_PARNI(4, 1);
-   temp2dc     = GetWindowDC( hwnd );
+   auto temp2dc = GetWindowDC( hwnd );
    auto tempdc = CreateCompatibleDC(temp2dc);
    hbmpx       = CreateCompatibleBitmap(temp2dc, hb_parni(5), hb_parni(6));
    ReleaseDC(hwnd, temp2dc);
@@ -1914,7 +1913,7 @@ HB_FUNC( RR_SCROLLWINDOW )
 HB_FUNC( RR_PREVIEWPLAY )
 {
    RECT rect;
-   HDC  imgDC      = GetWindowDC( hmg_par_HWND(1) );
+   auto imgDC = GetWindowDC( hmg_par_HWND(1) );
    auto tmpDC = CreateCompatibleDC(imgDC);
 #ifndef UNICODE
    LPSTR FileName = const_cast<LPSTR>(HB_PARC(2, 1));
@@ -1954,7 +1953,7 @@ HB_FUNC( RR_PREVIEWPLAY )
 HB_FUNC( RR_PLAYTHUMB )
 {
    RECT rect;
-   HDC  imgDC      = GetWindowDC( reinterpret_cast<HWND>(HB_PARVNL(1, 5)) );
+   auto imgDC = GetWindowDC( reinterpret_cast<HWND>(HB_PARVNL(1, 5)) );
 #ifndef UNICODE
    LPSTR FileName  = const_cast<LPSTR>(HB_PARC(2, 1));
    LPTSTR lpText   = const_cast<LPTSTR>(hb_parc(3));
