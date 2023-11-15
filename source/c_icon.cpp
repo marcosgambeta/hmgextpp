@@ -56,7 +56,7 @@ COPYICON(HICON) --> HICON
 */
 HB_FUNC( COPYICON )
 {
-   HICON hIcon = CopyIcon(hmg_par_HICON(1));
+   auto hIcon = CopyIcon(hmg_par_HICON(1));
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
 }
@@ -66,7 +66,7 @@ DESTROYICON(HICON) --> .T.|.F.
 */
 HB_FUNC( DESTROYICON )
 {
-   HICON hIcon = hmg_par_HICON(1);
+   auto hIcon = hmg_par_HICON(1);
    DelResource(hIcon);
    hb_retl(DestroyIcon(hIcon));
 }
@@ -76,7 +76,7 @@ DUPLICATEICON(HICON) --> HICON
 */
 HB_FUNC( DUPLICATEICON )
 {
-   HICON hIcon = DuplicateIcon(nullptr, hmg_par_HICON(1));
+   auto hIcon = DuplicateIcon(nullptr, hmg_par_HICON(1));
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
 }
@@ -88,7 +88,7 @@ HB_FUNC( LOADICON )
 {
    HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
    void * str;
-   HICON hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
+   auto hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
    hb_strfree(str);
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
@@ -100,7 +100,7 @@ EXTRACTICON(cExeFileName, nIconIndex) --> HICON
 HB_FUNC( EXTRACTICON )
 {
    void * str;
-   HICON hIcon = ExtractIcon(GetInstance(), HB_PARSTR(1, &str, nullptr), hmg_par_UINT(2));
+   auto hIcon = ExtractIcon(GetInstance(), HB_PARSTR(1, &str, nullptr), hmg_par_UINT(2));
    hb_strfree(str);
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
@@ -161,7 +161,7 @@ HB_FUNC( DRAWICONEX )
    auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HICON hIcon = hmg_par_HICON(4);
+      auto hIcon = hmg_par_HICON(4);
       auto hdc = GetDC(hwnd);
       auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
       hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));

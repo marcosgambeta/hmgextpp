@@ -1188,7 +1188,7 @@ HB_FUNC( REGISTERWINDOW )
    WndClass.hInstance = GetInstance();
 
    // icon from resource
-   HICON hIcon = LoadIcon(GetResources(), lpIconName);
+   auto hIcon = LoadIcon(GetResources(), lpIconName);
    // from file
    if( hIcon == nullptr && HB_ISCHAR(1) ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));

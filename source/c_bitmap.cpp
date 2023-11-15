@@ -947,7 +947,7 @@ GETICONSIZE(HICON) --> array
 HB_FUNC( GETICONSIZE )
 {
    auto pResult = hb_itemArrayNew(3);
-   HICON hIcon = hmg_par_HICON(1);
+   auto hIcon = hmg_par_HICON(1);
 
    _arraySet(pResult, 0, 0, 4);
 
