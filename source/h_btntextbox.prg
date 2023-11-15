@@ -599,15 +599,15 @@ REDEFBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7) --> array
 HB_FUNC_STATIC( REDEFBTNTEXTBOX )
 {
    HWND himage, himage2;
-   int  width, height, BtnWidth2;
+   int  BtnWidth2;
    int  BtnWidth = HB_ISNIL(3) ? 0 : hb_parni(3);
 
    auto hedit = hmg_par_HWND(1);
    BOOL fBtn2 = hb_parl(5);
    BtnWidth  = BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1;
    BtnWidth2 = fBtn2 ?  BtnWidth : 0;
-   width     = hb_parni(6);
-   height    = hb_parni(7);
+   auto width = hb_parni(6);
+   auto height = hb_parni(7);
 
    SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
@@ -698,7 +698,7 @@ SETTBBTNMARGIN(hedit, nBtnWidth, lBtns, lBtn2) --> NIL
 */
 HB_FUNC( SETTBBTNMARGIN )
 {
-   int  BtnWidth = hb_parni(2);
+   auto BtnWidth = hb_parni(2);
    BOOL fBtns    = hb_parl(3);
    BOOL fBtn2    = hb_parl(4);
    int  BtnWidth2;

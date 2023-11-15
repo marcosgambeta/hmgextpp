@@ -265,7 +265,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
 {
    auto hwnd = hmg_par_HWND(1);
    LPARAM lParam = HB_PARNL(2);
-   int nItem = hb_parni(3);
+   auto nItem = hb_parni(3);
    auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
    int nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);

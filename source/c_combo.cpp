@@ -246,7 +246,7 @@ COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
 HB_FUNC( COMBOADDSTRINGEX )
 {
    void * Text;
-   int nImage = hb_parni(3);
+   auto nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
@@ -266,7 +266,7 @@ COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
 HB_FUNC( COMBOINSERTSTRINGEX )
 {
    void * Text;
-   int nImage = hb_parni(3);
+   auto nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = hb_parni(4) - 1;

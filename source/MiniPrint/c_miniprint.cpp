@@ -200,8 +200,8 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
       SetTextColor(hdcPrint, RGB(r, g, b));
       SetBkMode(hdcPrint, TRANSPARENT);
 
-      int x = hb_parni(3);
-      int y = hb_parni(2);
+      auto x = hb_parni(3);
+      auto y = hb_parni(2);
 
       #ifdef UNICODE
       LPWSTR pText;
@@ -275,10 +275,10 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
    int g;
    int b;
 
-   int x   = hb_parni(3);
-   int y   = hb_parni(2);
-   int toy = hb_parni(17);
-   int tox = hb_parni(18);
+   auto x   = hb_parni(3);
+   auto y   = hb_parni(2);
+   auto toy = hb_parni(17);
+   auto tox = hb_parni(18);
 
    HFONT hfont;
 
@@ -584,11 +584,11 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
    int g;
    int b;
 
-   int x = hb_parni(3);
-   int y = hb_parni(2);
+   auto x = hb_parni(3);
+   auto y = hb_parni(2);
 
-   int tox = hb_parni(5);
-   int toy = hb_parni(4);
+   auto tox = hb_parni(5);
+   auto toy = hb_parni(4);
 
    int width;
 
@@ -671,11 +671,11 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
    int g;
    int b;
 
-   int x = hb_parni(3);
-   int y = hb_parni(2);
+   auto x = hb_parni(3);
+   auto y = hb_parni(2);
 
-   int tox = hb_parni(5);
-   int toy = hb_parni(4);
+   auto tox = hb_parni(5);
+   auto toy = hb_parni(4);
 
    int width;
 
@@ -760,11 +760,11 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
    int g;
    int b;
 
-   int x = hb_parni(3);
-   int y = hb_parni(2);
+   auto x = hb_parni(3);
+   auto y = hb_parni(2);
 
-   int tox = hb_parni(5);
-   int toy = hb_parni(4);
+   auto tox = hb_parni(5);
+   auto toy = hb_parni(4);
 
    int width;
    int Style;
@@ -1578,10 +1578,10 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    INT     nWidth, nHeight;
    POINT   Point;
    BITMAP  Bmp;
-   int     r   = hb_parni(3); // Row
-   int     c   = hb_parni(4); // Col
-   int     odr = hb_parni(5); // Height
-   int     odc = hb_parni(6); // Width
+   auto r = hb_parni(3); // Row
+   auto c = hb_parni(4); // Col
+   auto odr = hb_parni(5); // Height
+   auto odc = hb_parni(6); // Width
    int     dr;
    int     dc;
 

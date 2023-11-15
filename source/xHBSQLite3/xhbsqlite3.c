@@ -119,14 +119,12 @@ static int busy_handler( void * Cargo, int iNumberOfTimes )
 
    if( pCallback && hb_vmRequestReenter() )
    {
-      int iRes;
-      
-          hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
-          hb_vmPushNil();
-          hb_vmPushInteger(iNumberOfTimes);
-          hb_vmFunction(1);
-      
-      iRes = hb_parni( -1 );
+      hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
+      hb_vmPushNil();
+      hb_vmPushInteger(iNumberOfTimes);
+      hb_vmFunction(1);
+
+      auto iRes = hb_parni(-1);
 
       hb_vmRequestRestore();
 
@@ -142,13 +140,11 @@ static int progress_handler( void * Cargo )
 
    if( pCallback && hb_vmRequestReenter() )
    {
-      int iRes;
-
       hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
-          hb_vmPushNil();
-          hb_vmFunction(0);
+      hb_vmPushNil();
+      hb_vmFunction(0);
 
-      iRes = hb_parni( -1 );
+      auto iRes = hb_parni(-1);
 
       hb_vmRequestRestore();
 
@@ -164,13 +160,11 @@ static int hook_commit(void * Cargo)
 
    if( pCallback && hb_vmRequestReenter() )
    {
-      int iRes;
+      hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
+      hb_vmPushNil();
+      hb_vmFunction(0);
 
-        hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
-    hb_vmPushNil();
-        hb_vmFunction(0);
-
-      iRes = hb_parni( -1 );
+      auto iRes = hb_parni(-1);
 
       hb_vmRequestRestore();
 
@@ -197,31 +191,31 @@ static void hook_rollback(void * Cargo)
 static int callback(void * Cargo, int argc, char ** argv, char ** azColName)
 {
     PHB_DYNS pCallback = ( PHB_DYNS ) Cargo;
-        
+
    if( pCallback && hb_vmRequestReenter() )
    {
       auto pArrayValue = hb_itemArrayNew(argc);
       auto pArrayColName = hb_itemArrayNew(argc);
-      int      iRes, i;
+      int      i;
       const char * cFunc = hb_dynsymName(pCallback);
-          
-          
+
+
       for( i = 0; i < argc; i++ )
       {
          hb_arraySetC(pArrayValue, i + 1, ( const char * ) ( argv[ i ] ? argv[ i ] : "NULL" ));
          hb_arraySetC(pArrayColName, i + 1, ( const char * ) azColName[ i ]);
       }
- 
-          hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
+
+      hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
       hb_vmPushNil();
-          
+
       hb_vmPushInteger(argc);
       hb_vmPush(pArrayValue);
       hb_vmPush(pArrayColName);
-      
-      iRes = hb_parni( -1 );
 
-          hb_vmFunction(3);
+      auto iRes = hb_parni(-1);
+
+      hb_vmFunction(3);
           
       hb_itemRelease(pArrayValue);
       hb_itemRelease(pArrayColName);
@@ -238,32 +232,30 @@ static int authorizer( void * Cargo, int iAction, const char * sName1, const cha
                        const char * sName3,
                        const char * sName4 )
 {
-    
+
    PHB_DYNS pCallback = ( PHB_DYNS ) Cargo;
-   
+
    if( pCallback && hb_vmRequestReenter() )
    {
-      
-      int      iRes;
       auto pItem1 = hb_itemPutStrUTF8(NULL, sName1);
       auto pItem2 = hb_itemPutStrUTF8(NULL, sName2);
       auto pItem3 = hb_itemPutStrUTF8(NULL, sName3);
       auto pItem4 = hb_itemPutStrUTF8(NULL, sName4);
 
-          const char * cFunc = hb_dynsymName(pCallback);
-         
-          hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
+      const char * cFunc = hb_dynsymName(pCallback);
+
+      hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
       hb_vmPushNil();
-         
-          hb_vmPushInteger(iAction);
+
+      hb_vmPushInteger(iAction);
       hb_vmPush(pItem1);
       hb_vmPush(pItem2);
       hb_vmPush(pItem3);
       hb_vmPush(pItem4);
-       
-          hb_vmFunction(5);
-      
-      iRes = hb_parni( -1 );
+
+      hb_vmFunction(5);
+
+      auto iRes = hb_parni(-1);
 
       hb_itemRelease(pItem1);
       hb_itemRelease(pItem2);
@@ -682,7 +674,7 @@ HB_FUNC( SQLITE3_BLOB_READ )
 
         if( pBlob )
         {
-                int      iLen = hb_parni(2);
+                auto iLen = hb_parni(2);
 
                 if( iLen == 0 )
                         iLen = sqlite3_blob_bytes(pBlob);
@@ -717,7 +709,7 @@ HB_FUNC( SQLITE3_BLOB_WRITE )
 
         if( pBlob )
         {
-                int iLen = hb_parni(3);
+                auto iLen = hb_parni(3);
 
                 if( iLen == 0 )
                         iLen = static_cast<int>(hb_parcsiz(2)) - 1;

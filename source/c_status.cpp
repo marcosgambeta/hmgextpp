@@ -155,7 +155,7 @@ HB_FUNC( INITITEMBAR )
 HB_FUNC( SETITEMBAR )
 {
    auto hWnd = hmg_par_HWND(1);
-   int  iPos = hb_parni(3);
+   auto iPos = hb_parni(3);
    WORD nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
    void * str;
    LPCTSTR lpText = HB_PARSTR(2, &str, nullptr);
@@ -169,7 +169,7 @@ HB_FUNC( GETITEMBAR )
    LPSTR pStr;
 #endif
    auto hWnd = hmg_par_HWND(1);
-   int     iPos = hb_parni(2);
+   auto iPos = hb_parni(2);
 
    auto cString = static_cast<TCHAR*>(hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
    SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
@@ -191,10 +191,9 @@ HB_FUNC( REFRESHITEMBAR )
    int  s;
    int  nrOfParts;
    RECT rect;
-   int  size;
 
    auto hWndSB = hmg_par_HWND(1);
-   size      = hb_parni(2);
+   auto size = hb_parni(2);
    nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
    SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
 

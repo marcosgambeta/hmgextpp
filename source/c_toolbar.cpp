@@ -934,7 +934,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
    isInSizeMsg = 1;
 
    auto hwndTB = hmg_par_HWND(1);
-   int  widthTb = hb_parni(2);
+   auto widthTb = hb_parni(2);
 
    if( hwndTB ) {
       ResizeToolbar(hwndTB, widthTb);

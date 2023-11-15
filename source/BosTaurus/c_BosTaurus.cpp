@@ -960,8 +960,8 @@ HB_FUNC( BT_DRAWEDGE )
    Rect.right  = hb_parni(4);
    Rect.bottom = hb_parni(5);
 
-   INT Edge = hb_parni(6);
-   INT GrfFlags = hb_parni(7);
+   auto Edge = hb_parni(6);
+   auto GrfFlags = hb_parni(7);
 
    DrawEdge(hDC, &Rect, Edge, GrfFlags);
 }

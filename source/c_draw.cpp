@@ -189,7 +189,7 @@ GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
 */
 HB_FUNC( GRAYSTRING )
 {
-   int nCount = hb_parni(5);
+   auto nCount = hb_parni(5);
    auto nLen = static_cast<int>(hb_parclen(4));
 
    if( nCount > 0 ) {

@@ -969,26 +969,23 @@ HB_FUNC( SETSTRETCHBLTMODE )
 HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 {
    HBRUSH   hBrush;
-   INT      x1, y1, x2, y2, nWidthLine;
-   INT      XStartArc, YStartArc, XEndArc, YEndArc;
-   INT      nArcType;
 
    auto hDC = hmg_par_HDC(1);
-   x1  = hb_parni(2);
-   y1  = hb_parni(3);
-   x2  = hb_parni(4);
-   y2  = hb_parni(5);
+   auto x1  = hb_parni(2);
+   auto y1  = hb_parni(3);
+   auto x2  = hb_parni(4);
+   auto y2  = hb_parni(5);
 
-   XStartArc = hb_parni(6);
-   YStartArc = hb_parni(7);
-   XEndArc   = hb_parni(8);
-   YEndArc   = hb_parni(9);
+   auto XStartArc = hb_parni(6);
+   auto YStartArc = hb_parni(7);
+   auto XEndArc   = hb_parni(8);
+   auto YEndArc   = hb_parni(9);
 
    auto ColorLine  = static_cast<COLORREF>(hb_parnl(10));
-   nWidthLine = hb_parni(11);
+   auto nWidthLine = hb_parni(11);
    auto ColorFill  = static_cast<COLORREF>(hb_parnl(12));
 
-   nArcType = hb_parni(13);
+   auto nArcType = hb_parni(13);
 
    auto hPen = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen = static_cast<HPEN>(SelectObject(hDC, hPen));

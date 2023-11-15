@@ -173,7 +173,7 @@ HB_FUNC( INITPLAYER )
 HB_FUNC( MCIFUNC )
 {
    auto mcihand = hmg_par_HWND(1);
-   int func = hb_parni(2);
+   auto func = hb_parni(2);
 
    switch( func ) {
       case 1:  hb_retnl(MCIWndPlay(mcihand)); break;

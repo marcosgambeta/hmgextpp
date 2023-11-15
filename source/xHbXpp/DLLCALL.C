@@ -680,7 +680,6 @@ HB_FUNC( DLLCALL )
    int iParams = hb_pcount();
    int iFirst = 4;
    int iArgCnt = iParams - 3;
-   int iFlags;
    BOOL lUnload = FALSE;
    HINSTANCE  hInst;
    LPVOID     lpFunction;
@@ -702,7 +701,7 @@ HB_FUNC( DLLCALL )
       return;
    }
 
-   iFlags = hb_parni(2);
+   auto iFlags = hb_parni(2);
 
    if ((lpFunction = (LPVOID) GetProcAddress((HMODULE) hInst,
                                 ISCHAR(3) ? (LPCSTR) hb_parcx(3) :

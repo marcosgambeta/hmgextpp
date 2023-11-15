@@ -132,7 +132,7 @@ HB_FUNC( _CREATEWINDOWEX )
    auto cClass = static_cast<LPCSTR>(hb_parc(2));
    auto cTitle = static_cast<LPCSTR>(hb_parc(3));
 #endif
-   int    nStyle     = hb_parni(4);
+   auto   nStyle     = hb_parni(4);
    int    x          = HB_ISNIL(5) ? 0 : hb_parni(5);
    int    y          = HB_ISNIL(6) ? 0 : hb_parni(6);
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
@@ -264,9 +264,9 @@ HB_FUNC( TSDRAWCELL )
 {
    auto hWnd = hmg_par_HWND(1);
    auto hDC = hmg_par_HDC(2);
-   int      nRow         = hb_parni(3);
-   int      nColumn      = hb_parni(4);
-   int      nWidth       = hb_parni(5);
+   auto nRow = hb_parni(3);
+   auto nColumn = hb_parni(4);
+   auto nWidth = hb_parni(5);
 #ifndef UNICODE
    LPSTR    cData = const_cast<LPSTR>(hb_parc(6));
 #else
@@ -276,21 +276,21 @@ HB_FUNC( TSDRAWCELL )
    DWORD    nAlign       = hb_parnl(7);
    COLORREF clrFore      = hb_parnl(8);
    COLORREF clrBack      = hb_parnl(9);
-   auto hFont = hmg_par_HFONT(10);
-   auto hBitMap = hmg_par_HBITMAP(11);
-   int      nHeightCell  = hb_parni(12);
+   auto     hFont        = hmg_par_HFONT(10);
+   auto     hBitMap      = hmg_par_HBITMAP(11);
+   auto     nHeightCell  = hb_parni(12);
    BOOL     b3DLook      = hb_parl(13);
-   int      nLineStyle   = hb_parni(14);
+   auto     nLineStyle   = hb_parni(14);
    COLORREF clrLine      = hb_parnl(15);
-   int      nHeadFoot    = hb_parni(16);
-   int      nHeightHead  = hb_parni(17);
-   int      nHeightFoot  = hb_parni(18);
-   int      nHeightSuper = hb_parni(19);
-   int      nHeightSpec  = hb_parni(20);
+   auto     nHeadFoot    = hb_parni(16);
+   auto     nHeightHead  = hb_parni(17);
+   auto     nHeightFoot  = hb_parni(18);
+   auto     nHeightSuper = hb_parni(19);
+   auto     nHeightSpec  = hb_parni(20);
    BOOL     bAdjBmp      = hb_parl(21);
    BOOL     bMultiLine   = hb_parl(22);
-   int      nVAlign      = hb_parni(23);
-   int      nVertText    = hb_parni(24);
+   auto     nVAlign      = hb_parni(23);
+   auto     nVertText    = hb_parni(24);
    COLORREF clrTo        = hb_parnl(25);
    BOOL     bOpaque      = hb_parl(26);
    // HBRUSH   wBrush       = hmg_par_HBRUSH(27);
@@ -300,7 +300,7 @@ HB_FUNC( TSDRAWCELL )
    COLORREF nClr3DS      = hb_parnl(30);
    long     lCursor      = hb_parnl(31);
    BOOL     bSelec       = ( HB_ISNIL(32) ? FALSE : hb_parl(32) );
-   int      nBitmapMask  = hb_parni(33);  // SergKis 11.11.21
+   auto     nBitmapMask  = hb_parni(33);  // SergKis 11.11.21
 
    int ixLayOut = HIWORD(nAlign);
    int iAlign   = LOWORD(nAlign);
@@ -617,14 +617,14 @@ void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyl
 
 HB_FUNC( TSBRWSCROLL )
 {
-   auto hWnd = hmg_par_HWND(1);
-   int   iRows         = hb_parni(2);
-   auto hFont = hmg_par_HFONT(3);
-   int   nHeightCell   = hb_parni(4);
-   int   nHeightHead   = hb_parni(5);
-   int   nHeightFoot   = hb_parni(6);
-   int   nHeightSuper  = hb_parni(7);
-   int   nHeightSpecHd = hb_parni(8);
+   auto hWnd          = hmg_par_HWND(1);
+   auto iRows         = hb_parni(2);
+   auto hFont         = hmg_par_HFONT(3);
+   auto nHeightCell   = hb_parni(4);
+   auto nHeightHead   = hb_parni(5);
+   auto nHeightFoot   = hb_parni(6);
+   auto nHeightSuper  = hb_parni(7);
+   auto nHeightSpecHd = hb_parni(8);
 
    HFONT hOldFont = nullptr;
    auto hDC = GetDC(hWnd);
@@ -653,10 +653,10 @@ HB_FUNC( TSBRWSCROLL )
 
 HB_FUNC( TSBRWHSCROLL )
 {
-   auto hWnd = hmg_par_HWND(1);
-   int  iCols  = hb_parni(2);
-   int  nLeft  = hb_parni(3);
-   int  nRight = hb_parni(4);
+   auto hWnd   = hmg_par_HWND(1);
+   auto iCols  = hb_parni(2);
+   auto nLeft  = hb_parni(3);
+   auto nRight = hb_parni(4);
 
    auto hDC = GetDC(hWnd);
    RECT rct;
@@ -676,13 +676,13 @@ HB_FUNC( TSBRWHSCROLL )
 
 HB_FUNC( ROWFROMPIX )
 {
-   auto hWnd = hmg_par_HWND(1);
-   int  iPixR = hb_parni(2);
-   int  iCell = hb_parni(3);
-   int  iHead = hb_parni(4);
-   int  iFoot = hb_parni(5);
-   int  iSupH = hb_parni(6);
-   int  iSpcH = hb_parni(7);
+   auto hWnd  = hmg_par_HWND(1);
+   auto iPixR = hb_parni(2);
+   auto iCell = hb_parni(3);
+   auto iHead = hb_parni(4);
+   auto iFoot = hb_parni(5);
+   auto iSupH = hb_parni(6);
+   auto iSpcH = hb_parni(7);
 
    RECT rct;
    int  iRow;
@@ -708,7 +708,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 {
    auto hWnd = hmg_par_HWND(1);
    auto hFont = hmg_par_HFONT(2);
-   int   iTotal = hb_parni(3);
+   auto iTotal = hb_parni(3);
 
    TEXTMETRIC tm;
 
@@ -742,12 +742,12 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeightSuper, nHeightSpec ) -> nRows
 {
    auto hWnd = hmg_par_HWND(1);
-   int  iCell = hb_parni(2);
+   auto iCell = hb_parni(2);
 
-   int iHead = hb_parni(3);
-   int iFoot = hb_parni(4);
-   int iSupH = hb_parni(5);
-   int iSpcH = hb_parni(6);
+   auto iHead = hb_parni(3);
+   auto iFoot = hb_parni(4);
+   auto iSupH = hb_parni(5);
+   auto iSpcH = hb_parni(6);
 
    RECT rct;
    int  iRows, iFree;
@@ -1023,7 +1023,6 @@ HB_FUNC( INITEDSPINNER )
 {
    HWND hupdown;
    int  Style = WS_CHILD | WS_VISIBLE | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS | UDS_HOTTRACK;
-   int  iMin, iMax;
 
    INITCOMMONCONTROLSEX i;
 
@@ -1034,8 +1033,8 @@ HB_FUNC( INITEDSPINNER )
    auto hwnd = hmg_par_HWND(1);
    auto hedit = hmg_par_HWND(2);
 
-   iMin  = hb_parni(7);
-   iMax  = hb_parni(8);
+   auto iMin  = hb_parni(7);
+   auto iMax  = hb_parni(8);
 
    hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(nullptr),
                                   hedit, iMax, iMin, hb_parni(9) );

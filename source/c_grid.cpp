@@ -551,7 +551,7 @@ HB_FUNC( LISTVIEWGETITEM )
    LPSTR pStr;
 #endif
 
-   int l = hb_parni(3);
+   auto l = hb_parni(3);
    hb_reta(l);
    auto h = hmg_par_HWND(1);
    int c = hb_parni(2) - 1;
@@ -982,7 +982,7 @@ LISTVIEW_GETCOLUMNORDERARRAY() -->
 */
 HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 {
-   int iCols = hb_parni(2);
+   auto iCols = hb_parni(2);
 
    if( iCols ) {
       auto iArray = static_cast<int*>(hb_xgrab(iCols * sizeof(int)));
@@ -1010,7 +1010,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
    auto pOrder = hb_param(3, Harbour::Item::ARRAY);
 
    if( pOrder != nullptr ) {
-      int iColumn = hb_parni(2);
+      auto iColumn = hb_parni(2);
 
       if( iColumn ) {
          auto iArray = static_cast<int*>(hb_xgrab(iColumn * sizeof(int)));

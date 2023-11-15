@@ -365,8 +365,8 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
 
    HTHEME hTheme   = ( HTHEME ) HB_PARNL(1);
    auto hDC = hmg_par_HDC(2);
-   int    iPartId  = hb_parni(3);
-   int    iStateId = hb_parni(4);
+   auto iPartId = hb_parni(3);
+   auto iStateId = hb_parni(4);
 
    RECT pRect;
    RECT pClipRect;

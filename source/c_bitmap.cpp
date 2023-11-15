@@ -71,10 +71,10 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    auto hDC = GetDC(hWnd);
    HPALETTE hPal = nullptr;
    void * FileName;
-   int top = hb_parni(3);
-   int left = hb_parni(4);
-   int bottom = hb_parni(5);
-   int right = hb_parni(6);
+   auto top = hb_parni(3);
+   auto left = hb_parni(4);
+   auto bottom = hb_parni(5);
+   auto right = hb_parni(6);
 
    RECT rc;
    if( top != -1 && left != -1 && bottom != -1 && right != -1 ) {
@@ -419,11 +419,11 @@ DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> N
 HB_FUNC( DRAWGLYPH )
 {
    auto hDC = hmg_par_HDC(1);
-   int      x              = hb_parni(2);
-   int      y              = hb_parni(3);
-   int      dx             = hb_parni(4);
-   int      dy             = hb_parni(5);
-   auto  hBmp = hmg_par_HBITMAP(6);
+   auto x = hb_parni(2);
+   auto y = hb_parni(3);
+   auto dx = hb_parni(4);
+   auto dy = hb_parni(5);
+   auto hBmp = hmg_par_HBITMAP(6);
    COLORREF rgbTransparent = RGB(255, 255, 255);
    bool     disabled       = hb_parl(8);
    bool     stretched      = HB_ISNIL(9) ? false : hb_parl(9);
@@ -570,8 +570,8 @@ HB_FUNC( DRAWGLYPHMASK )
    SetTextColor(hDC, RGB(0, 0, 0)); // Black
    auto hDCMem = CreateCompatibleDC(hDC);
 
-   int dx = hb_parni(4);
-   int dy = hb_parni(5);
+   auto dx = hb_parni(4);
+   auto dy = hb_parni(5);
 
    dx = (dx > 0 ? HB_MIN(dx, bitmap.bmWidth) : bitmap.bmWidth);
    dy = (dy > 0 ? HB_MIN(dy, bitmap.bmHeight) : bitmap.bmHeight);

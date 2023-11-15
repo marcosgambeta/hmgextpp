@@ -432,7 +432,7 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
    int lbItem = hb_parni(3) - 1;
-   int bChecked = hb_parni(4);
+   auto bChecked = hb_parni(4);
 
    SendMessage(hwnd, LB_INSERTSTRING, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(lpString));
    SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(static_cast<int>(lbItem)), static_cast<LPARAM>(bChecked));
@@ -445,7 +445,7 @@ HB_FUNC( CHKLISTBOXADDITEM )
    auto hwnd = hmg_par_HWND(1);
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
-   int bChecked = hb_parni(3);
+   auto bChecked = hb_parni(3);
 
    m_nHeightItem = hb_parni(4);
    auto lbItem = static_cast<int>(SendMessage(hwnd, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString)));
@@ -492,7 +492,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
 {
    auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2) - 1;
-   int bChecked = hb_parni(3);
+   auto bChecked = hb_parni(3);
    TCHAR cString[1024] = {TEXT("")};
 
    SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(cString));
@@ -504,7 +504,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
    auto hwnd = hmg_par_HWND(1);
-   int lbItem = hb_parni(2);
+   auto lbItem = hb_parni(2);
    auto iCheck = static_cast<int>(SendMessage(hwnd, LB_GETITEMDATA, static_cast<WPARAM>(lbItem) - 1, 0));
 
    hb_retl(iCheck - 1);

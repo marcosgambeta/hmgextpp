@@ -724,7 +724,7 @@ HB_FUNC( RR_SAVEMETAFILE )
 
 HB_FUNC( RR_GETCURRENTOBJECT )
 {
-   int     what = hb_parni(1);
+   auto what = hb_parni(1);
    HGDIOBJ hand;
 
    if( what == 1 ) {
@@ -841,13 +841,13 @@ HB_FUNC( RR_CREATEFONT )
 #else
    TCHAR *      FontName  = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
-   int          FontSize  = hb_parni(2);
+   auto         FontSize  = hb_parni(2);
    LONG         FontWidth = hb_parnl(3);
    LONG         Orient    = hb_parnl(4);
    LONG         Weight    = hb_parnl(5);
-   int          Italic    = hb_parni(6);
-   int          Underline = hb_parni(7);
-   int          Strikeout = hb_parni(8);
+   auto         Italic    = hb_parni(6);
+   auto         Underline = hb_parni(7);
+   auto         Strikeout = hb_parni(8);
    HFONT        oldfont;
    LONG         newWidth, FontHeight;
    TEXTMETRIC   tm;
@@ -1003,7 +1003,7 @@ HB_FUNC( RR_TEXTOUT )
    HGDIOBJ xfont    = hmg_par_HFONT(3);
    HFONT   prevfont = nullptr;
    SIZE    szMetric;
-   int     lspace = hb_parni(4);
+   auto lspace = hb_parni(4);
 
    if( xfont != 0 ) {
       prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
@@ -1046,7 +1046,7 @@ HB_FUNC( RR_DRAWTEXT )
    UINT    uFormat;
 
    SIZE sSize;
-   int          iStyle  = hb_parni(4);
+   auto iStyle = hb_parni(4);
    LONG         w, h;
 
    SetRect(&rect, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1));

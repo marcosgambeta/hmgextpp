@@ -112,7 +112,7 @@ EXTRACTICONEX(cFileName, nIconIndex) --> {HIconLarge, HIconSmall}
 HB_FUNC( EXTRACTICONEX )
 {
    void * str;
-   int nIconIndex = hb_parni(2);
+   auto nIconIndex = hb_parni(2);
    if( nIconIndex == -1 ) {
       hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
    } else {
@@ -137,8 +137,8 @@ HB_FUNC( LOADICONBYNAME )
    if( hb_parclen(1) > 0 ) {
       void * str;
       LPCTSTR pszResOrFile = HB_PARSTR(1, &str, nullptr);
-      int cxDesired = hb_parni(2);
-      int cyDesired = hb_parni(3);
+      auto cxDesired = hb_parni(2);
+      auto cyDesired = hb_parni(3);
       HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
       hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
       if( hIcon == nullptr ) {

@@ -197,7 +197,7 @@ GETDLGITEMTEXT(HWND, nId, np3) --> cText
 */
 HB_FUNC( GETDLGITEMTEXT )
 {
-   int strlen = hb_parni(3);
+   auto strlen = hb_parni(3);
    TCHAR * str = new TCHAR[strlen + 1];
    GetDlgItemText(hmg_par_HWND(1), hmg_par_int(2), str, strlen);
    HB_RETSTR(str);

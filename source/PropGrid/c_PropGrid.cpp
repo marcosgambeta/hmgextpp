@@ -850,10 +850,10 @@ HB_FUNC( INITPROPGRID )
    int InfoStyle;
    int PGHeight;
 
-   int x = hb_parni(2);
-   int y = hb_parni(3);
-   int w = hb_parni(4);
-   int h = hb_parni(5);
+   auto x = hb_parni(2);
+   auto y = hb_parni(3);
+   auto w = hb_parni(4);
+   auto h = hb_parni(5);
 
    auto hwndParent = hmg_par_HWND(1);
 
@@ -862,7 +862,7 @@ HB_FUNC( INITPROPGRID )
       style = style  | TVS_SINGLEEXPAND;
    }
 
-   int iHeight = hb_parni(10);
+   auto iHeight = hb_parni(10);
 
    auto hArray = hb_param(11, Harbour::Item::ARRAY);
    auto MsgArray = hb_param(17, Harbour::Item::ARRAY);
@@ -1818,8 +1818,8 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    RECT     rect;
    auto handle = hmg_par_HWND(1);
    COLORREF clr = hb_parnl(2);
-   int      width = hb_parni(3);
-   int      height = hb_parni(4);
+   auto width = hb_parni(3);
+   auto height = hb_parni(4);
    auto imgDC = GetDC(handle);
    auto tmpDC = CreateCompatibleDC(imgDC);
 

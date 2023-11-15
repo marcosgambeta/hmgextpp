@@ -119,8 +119,8 @@ HB_FUNC( NOR )
 
 HB_FUNC( CREATEPEN )
 {
-   int      fnPenStyle = hb_parni(1);   // pen style
-   int      nWidth     = hb_parni(2);   // pen width
+   auto     fnPenStyle = hb_parni(1);   // pen style
+   auto     nWidth     = hb_parni(2);   // pen width
    COLORREF crColor    = hb_parni(3);   // pen color
 
    auto hpen = CreatePen(fnPenStyle, nWidth, crColor);

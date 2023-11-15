@@ -170,7 +170,7 @@ HB_FUNC( CREATEACCELERATORTABLE )
 {
    auto lpAccels = static_cast<LPACCEL>(hb_parptr(1));
    HACCEL  hAccel = nullptr;
-   int cAccelEntries = hb_parni(2);
+   auto cAccelEntries = hb_parni(2);
 
    if( lpAccels && (cAccelEntries > 0) ) {
       hAccel = CreateAcceleratorTable(lpAccels, cAccelEntries);

@@ -574,7 +574,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
    HBITMAP himage2;
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
-   int BtnWidth = hb_parni(7);
+   auto BtnWidth = hb_parni(7);
    int style = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 

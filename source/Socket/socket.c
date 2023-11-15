@@ -90,12 +90,11 @@ HB_FUNC( SOCKETCONNECT )
 
    if( bInit && HB_ISCHAR(2) && HB_ISNUM(3) )
    {
-      int nPort;
       SOCKADDR_IN sockDestinationAddr;
       const char *lpszAsciiDestination;
 
       lpszAsciiDestination = hb_parc(2);
-      nPort = hb_parni(3);
+      auto nPort = hb_parni(3);
 
       m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
       if( m_hSocket != INVALID_SOCKET )
@@ -138,12 +137,11 @@ HB_FUNC( SOCKETBIND )
 
    if( bInit && HB_ISCHAR(2) && HB_ISNUM(3) )
    {
-      int nPort;
       SOCKADDR_IN sockDestinationAddr;
       const char *lpszAsciiDestination;
 
       lpszAsciiDestination = hb_parc(2);
-      nPort = hb_parni(3);
+      auto nPort = hb_parni(3);
 
       m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
       if( m_hSocket != INVALID_SOCKET )
@@ -233,7 +231,7 @@ HB_FUNC( SOCKETSEND )
          int nBuf = hb_parclen(2);
          if( HB_ISNUM(3) )
          {
-            int sendtimeout = hb_parni(3);
+            auto sendtimeout = hb_parni(3);
             if( sendtimeout != -1 )
                setsockopt(m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof(sendtimeout));
          }
@@ -263,7 +261,7 @@ HB_FUNC( SOCKETRECEIVE )
             auto pRead = static_cast<char*>(hb_xgrab(nLen + 1));
             if( HB_ISNUM(3) )
             {
-               int recvtimeout = hb_parni(3);
+               auto recvtimeout = hb_parni(3);
                if( recvtimeout != -1 )
                   setsockopt(m_hSocket, SOL_SOCKET, SO_RCVTIMEO, ( char * ) &recvtimeout, sizeof(recvtimeout));
             }

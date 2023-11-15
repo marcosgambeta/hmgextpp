@@ -1645,7 +1645,7 @@ HMG_GETLOCALEINFO(npar) --> string
 */
 HB_FUNC( HMG_GETLOCALEINFO )
 {
-   INT LCType = hb_parni(1);
+   auto LCType = hb_parni(1);
 
 #ifndef UNICODE
    LPSTR cText;
