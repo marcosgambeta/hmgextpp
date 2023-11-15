@@ -1310,7 +1310,7 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName)
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight)
 {
-   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+   auto hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr ) {
       return nullptr;
    }
@@ -1351,7 +1351,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, const char * FileName, int Transpar
       return;
    }
 
-   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+   auto hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr ) {
       return;
    }
@@ -1371,7 +1371,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, char * FileName, int Transparent) /
       return;
    }
 
-   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+   auto hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr ) {
       return;
    }

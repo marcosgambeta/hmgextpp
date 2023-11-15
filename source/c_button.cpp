@@ -367,7 +367,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign)
 {
-   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+   auto hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr ) {
       return nullptr;
    }

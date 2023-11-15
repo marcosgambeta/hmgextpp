@@ -646,7 +646,7 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
    int     nButtonID  = hmg_par_INT(5);
 
-   HBITMAP hBitmapNew = HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, false, 255);
+   auto hBitmapNew = HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, false, 255);
 
    if( (hBitmapOld != nullptr) && (hBitmapNew != nullptr) ) {
       TBREPLACEBITMAP tbrb;

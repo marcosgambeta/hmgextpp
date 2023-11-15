@@ -474,7 +474,7 @@ MENUITEM_SETBITMAPS(HMENU, p2, p3) --> HBITMAP
 HB_FUNC( MENUITEM_SETBITMAPS )
 {
    int Transparent = s_bCustomDraw ? 0 : 1;
-   HBITMAP himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
+   auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
 
    if( s_bCustomDraw ) {
       MENUITEM * pMENUITEM;
@@ -492,7 +492,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
          pMENUITEM->hBitmap = himage1;
       }
    } else {
-      HBITMAP himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
+      auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
    }
 
@@ -504,8 +504,8 @@ HB_FUNC( MENUITEM_SETCHECKMARKS )
    if( s_bCustomDraw ) {
       MENUITEMINFO MenuItemInfo;
 
-      HBITMAP himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
-      HBITMAP himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+      auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+      auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
 
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_CHECKMARKS;
