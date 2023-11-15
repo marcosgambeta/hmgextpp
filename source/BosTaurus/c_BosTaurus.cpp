@@ -1003,7 +1003,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
          aPoint[i].y = hb_parvni(3, i + 1);
       }
 
-      HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+      auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
       auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
       HBRUSH hBrush = CreateSolidBrush(ColorFill);
       auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
@@ -1062,7 +1062,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
 
    auto nArcType = hmg_par_INT(13);
 
-   HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+   auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
    HBRUSH hBrush = CreateSolidBrush(ColorFill);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
@@ -1112,7 +1112,7 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    auto RoundWidth = hmg_par_INT(10);
    auto RoundHeight = hmg_par_INT(11);
 
-   HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+   auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
    HBRUSH hBrush = CreateSolidBrush(ColorFill);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));

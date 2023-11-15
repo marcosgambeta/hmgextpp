@@ -552,8 +552,8 @@ static void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
    int x = rc.left + ( nIndent - 9 ) / 2;
    int y = rc.top + ( h - 9 ) / 2 + 1;
 
-   HPEN hBoxPen = CreatePen(PS_SOLID, 1, m_crLine);
-   HPEN hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+   auto hBoxPen = CreatePen(PS_SOLID, 1, m_crLine);
+   auto hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
    HBRUSH hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hBoxPen));

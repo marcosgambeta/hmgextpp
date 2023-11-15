@@ -138,7 +138,7 @@ HB_FUNC( LINEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
    MoveToEx(hdc1, hmg_par_int(3), hmg_par_int(2), nullptr);
    LineTo(hdc1, hmg_par_int(5), hmg_par_int(4));
@@ -154,7 +154,7 @@ HB_FUNC( RECTDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
 
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -186,7 +186,7 @@ HB_FUNC( ROUNDRECTDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(9), static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(9), static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    HBRUSH hbrush;
@@ -217,7 +217,7 @@ HB_FUNC( ELLIPSEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    HBRUSH hbrush;
@@ -248,7 +248,7 @@ HB_FUNC( ARCDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
    Arc(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7), hmg_par_int(6), hmg_par_int(9), hmg_par_int(8));
    SelectObject(hdc1, hgdiobj1);
@@ -263,7 +263,7 @@ HB_FUNC( PIEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    HBRUSH hbrush;
@@ -294,7 +294,7 @@ HB_FUNC( POLYGONDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    HBRUSH hbrush;
@@ -333,7 +333,7 @@ HB_FUNC( POLYBEZIERDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
    auto hdc1 = GetDC(hWnd1);
-   HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
+   auto hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    POINT apoints[1024];
@@ -372,8 +372,8 @@ void WndDrawBox(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit)
 
 void WindowBoxIn(HDC hDC, RECT * pRect)
 {
-   HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
-   HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
+   auto hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
+   auto hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
 
    WndDrawBox(hDC, pRect, hGray, hWhite);
 
@@ -383,8 +383,8 @@ void WindowBoxIn(HDC hDC, RECT * pRect)
 
 void WindowRaised(HDC hDC, RECT * pRect)
 {
-   HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
-   HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
+   auto hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
+   auto hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
    WndDrawBox(hDC, pRect, hWhite, hGray);
 

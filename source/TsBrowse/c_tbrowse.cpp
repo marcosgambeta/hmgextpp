@@ -316,8 +316,8 @@ HB_FUNC( TSDRAWCELL )
    BOOL  bDegrad    = ( bBrush || clrTo == clrBack ? FALSE : TRUE );
    HFONT hOldFont   = nullptr;
    BOOL  bDestroyDC = FALSE;
-   HPEN  hGrayPen   = CreatePen(PS_SOLID, 1, clrLine);
-   HPEN  hWhitePen  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
+   auto  hGrayPen   = CreatePen(PS_SOLID, 1, clrLine);
+   auto  hWhitePen  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
    RECT   rct;
    int    nTop, nLeft, nBkOld, iFlags;
@@ -564,7 +564,7 @@ HB_FUNC( TSDRAWCELL )
 void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle, BOOL bHeader)
 {
    auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
-   HPEN hBlack  = CreatePen(PS_SOLID, 1, 0);
+   auto hBlack = CreatePen(PS_SOLID, 1, 0);
 
    switch( nLineStyle )
    {
@@ -787,9 +787,9 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
 
    HBRUSH hGrayBrush  = CreateSolidBrush(RGB(192, 192, 192));
    HBRUSH hWhiteBrush = CreateSolidBrush(RGB(255, 255, 255));
-   HPEN   hBlackPen   = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-   HPEN   hLGrayPen   = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
-   HPEN   hGrayPen    = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
+   auto hBlackPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+   auto hLGrayPen = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
+   auto hGrayPen = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
 
    auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hGrayBrush));
 

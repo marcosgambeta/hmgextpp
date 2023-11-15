@@ -795,8 +795,8 @@ HB_FUNC( _ONDRAWMENUITEM )
          TRUE);
 
       if( fSelected && (lpMenuItem->uiItemType != 1) && (eMenuCursorType == Short) && bSelectedItemBorder3d ) {
-         HPEN pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
-         HPEN pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
+         auto pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
+         auto pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
 
          auto oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
 
@@ -881,7 +881,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
 
    CopyRect(&rect, &r);
 
-   HPEN pen = CreatePen(PS_SOLID, 1, clrSeparator1);
+   auto pen = CreatePen(PS_SOLID, 1, clrSeparator1);
    auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    if( eSeparatorPosition == Right ) {
@@ -896,7 +896,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    LineTo(hDC, rect.right, rect.top);
 
    if( eSeparatorType == Double ) {
-      HPEN pen1 = CreatePen(PS_SOLID, 1, clrSeparator2);
+      auto pen1 = CreatePen(PS_SOLID, 1, clrSeparator2);
       auto oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
 
       rect.top += 1;
@@ -1039,7 +1039,7 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
 
       auto oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
 
-      HPEN pen = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
+      auto pen = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
       auto oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
 
       UINT w = (size.cx > min_width ? min_width : size.cx);
