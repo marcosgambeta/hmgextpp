@@ -554,7 +554,7 @@ static void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
 
    auto hBoxPen = CreatePen(PS_SOLID, 1, m_crLine);
    auto hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-   HBRUSH hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
+   auto hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hBoxPen));
    auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hNewBrush));
@@ -1759,8 +1759,8 @@ CREATECOLORBMP1(HWND, color, width, height) --> HBITMAP
 */
 HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 {
-   HBRUSH hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
-   HBRUSH hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
+   auto hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
+   auto hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    auto handle = hmg_par_HWND(1);
    COLORREF clr = hb_parnl(2);
@@ -1791,7 +1791,7 @@ HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    rect.right -= 1;
    rect.bottom -= 1;
 
-   HBRUSH hColorBrush = CreateSolidBrush(clr);
+   auto hColorBrush = CreateSolidBrush(clr);
    SelectObject(tmpDC, hColorBrush);
 
    FillRect(tmpDC, &rect, hColorBrush);
@@ -1813,9 +1813,8 @@ CREATECOLORBMP() -->
 */
 HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 {
-   HBRUSH   hColorBrush;
-   HBRUSH   hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
-   HBRUSH   hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
+   auto hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
+   auto hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    RECT     rect;
    auto handle = hmg_par_HWND(1);
@@ -1851,7 +1850,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    rect.right -= 1;
    rect.bottom -= 1;
 
-   hColorBrush = CreateSolidBrush(clr);
+   auto hColorBrush = CreateSolidBrush(clr);
    SelectObject(tmpDC, hColorBrush);
 
    FillRect(tmpDC, &rect, hColorBrush);

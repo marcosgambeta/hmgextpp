@@ -163,7 +163,7 @@ HB_FUNC( DRAWICONEX )
    if( IsWindow(hwnd) ) {
       HICON hIcon = hmg_par_HICON(4);
       auto hdc = GetDC(hwnd);
-      HBRUSH hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
+      auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
       hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));
       DeleteObject(hbrFlickerFreeDraw);
       if( hb_parldef(8, true) ) {

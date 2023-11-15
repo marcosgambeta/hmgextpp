@@ -155,12 +155,11 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 {
    POINT    ptSize;
    COLORREF cColor;
-   HBRUSH   hBrush;
 
    ptSize.x = rct->right - rct->left + 1;
    ptSize.y = rct->bottom - rct->top + 1;
 
-   hBrush = CreateSolidBrush(cBackgroundColor);
+   auto hBrush = CreateSolidBrush(cBackgroundColor);
 
    auto hdcTemp   = CreateCompatibleDC(hdc);
    auto hdcObject = CreateCompatibleDC(hdc);
@@ -785,8 +784,8 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
 {
    RECT   lrct;
 
-   HBRUSH hGrayBrush  = CreateSolidBrush(RGB(192, 192, 192));
-   HBRUSH hWhiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+   auto hGrayBrush  = CreateSolidBrush(RGB(192, 192, 192));
+   auto hWhiteBrush = CreateSolidBrush(RGB(255, 255, 255));
    auto hBlackPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
    auto hLGrayPen = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
    auto hGrayPen = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
@@ -894,7 +893,6 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
    BOOL   bDir, bHoriz = cTo < 0;
    long   iTot = ( !bHoriz ? ( rori->bottom + 2 - rori->top ) : ( rori->right + 2 - rori->left ) );
    RECT   rct;
-   HBRUSH hBrush;
 
    rct.top    = rori->top;
    rct.left   = rori->left;
@@ -927,7 +925,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
    else
       rct.right = rct.left + 1;
 
-   hBrush    = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
+   auto hBrush = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
    auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
    FillRect(hDC, &rct, hBrush);
 
@@ -984,12 +982,11 @@ void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
    auto hDC = GetDC(hWnd);
    HRGN     hReg;
    COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor) );
-   HBRUSH   hBr;
    RECT     rct;
 
    if( lCursor != 3 )
    {
-      hBr  = CreateSolidBrush(lclr);
+      auto hBr = CreateSolidBrush(lclr);
       hReg = CreateRectRgn(rctc->left, rctc->top, rctc->right - 1, rctc->bottom);
 
       FrameRgn(hDC, hReg, hBr, 2, 2);

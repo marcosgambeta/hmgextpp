@@ -863,7 +863,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    if( (EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)) ) {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
    } else {
-      HBRUSH brush = CreateSolidBrush(clrImageBk1);
+      auto brush = CreateSolidBrush(clrImageBk1);
       FillRect(hDC, &rect, brush);
       DeleteObject(brush);
    }
@@ -874,7 +874,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    if( (EnabledGradient()) && (!IsColorEqual(clrBk1, clrBk2)) ) {
       FillGradient(hDC, &rect, FALSE, clrBk1, clrBk2);
    } else {
-      HBRUSH brush = CreateSolidBrush(clrBk1);
+      auto brush = CreateSolidBrush(clrBk1);
       FillRect(hDC, &rect, brush);
       DeleteObject(brush);
    }
@@ -920,7 +920,7 @@ VOID DrawBitmapBK(HDC hDC, RECT r)
    if( (EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)) ) {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
    } else {
-      HBRUSH brush = CreateSolidBrush(clrImageBk1);
+      auto brush = CreateSolidBrush(clrImageBk1);
       FillRect(hDC, &rect, brush);
       DeleteObject(brush);
    }
@@ -946,7 +946,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
                (itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1,
                (itemType == 1) ? clrSelectedMenuBarItem2 : clrSelectedBk2);
          } else {
-            HBRUSH brush = CreateSolidBrush((itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1);
+            auto brush = CreateSolidBrush((itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1);
             FillRect(hDC, &rect, brush);
             DeleteObject(brush);
          }
@@ -957,7 +957,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
                ((itemType == 1) ? clrMenuBar1 : clrBk1),
                ((itemType == 1) ? clrMenuBar2 : clrBk2));
          } else {
-            HBRUSH brush = CreateSolidBrush((itemType == 1) ? clrMenuBar1 : clrBk1);
+            auto brush = CreateSolidBrush((itemType == 1) ? clrMenuBar1 : clrBk1);
             FillRect(hDC, &rect, brush);
             DeleteObject(brush);
          }
@@ -966,7 +966,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
       if( EnabledGradient() ) {
          FillGradient(hDC, &rect, FALSE, clrGrayedBk1, clrGrayedBk2);
       } else {
-         HBRUSH brush = CreateSolidBrush(clrGrayedBk1);
+         auto brush = CreateSolidBrush(clrGrayedBk1);
          FillRect(hDC, &rect, brush);
          DeleteObject(brush);
       }

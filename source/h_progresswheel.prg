@@ -1021,7 +1021,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 
 HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
-   HBRUSH hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
+   auto hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
 
    RegisterResource(hBrush, "BRUSH");
 

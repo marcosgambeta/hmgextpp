@@ -517,7 +517,7 @@ HB_FUNC( DRAWGLYPH )
    BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
    if( disabled ) {
-      HBRUSH hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
+      auto hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
       auto hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
       BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
@@ -728,7 +728,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
    if( disabled ) {
-      HBRUSH hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
+      auto hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
       auto hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
       BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);

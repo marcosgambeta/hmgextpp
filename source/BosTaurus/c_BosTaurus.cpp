@@ -1005,7 +1005,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
 
       auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
       auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
-      HBRUSH hBrush = CreateSolidBrush(ColorFill);
+      auto hBrush   = CreateSolidBrush(ColorFill);
       auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
       switch( nPOLY ) {
@@ -1064,7 +1064,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
 
    auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
-   HBRUSH hBrush = CreateSolidBrush(ColorFill);
+   auto hBrush   = CreateSolidBrush(ColorFill);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( nArcType ) {
@@ -1114,7 +1114,7 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
 
    auto hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
-   HBRUSH hBrush = CreateSolidBrush(ColorFill);
+   auto hBrush   = CreateSolidBrush(ColorFill);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( Type ) {
@@ -1716,7 +1716,7 @@ HB_FUNC( BT_BMP_CREATE )
    RECT Rect;
    SetRect(&Rect, 0, 0, bm.bmWidth, bm.bmHeight);
 
-   HBRUSH hBrush = CreateSolidBrush(Color_Fill_Bk);
+   auto hBrush = CreateSolidBrush(Color_Fill_Bk);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    FillRect(memDC, &Rect, hBrush);
 
@@ -1870,7 +1870,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    SelectObject(memDC, hBitmap);
 
    // Paint the background of the Bitmap
-   HBRUSH hBrush   = CreateSolidBrush(BackgroundColor);
+   auto hBrush   = CreateSolidBrush(BackgroundColor);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    RECT Rect;
    Rect.left   = 0;
@@ -2959,7 +2959,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SetStretchBltMode(memDC2, HALFTONE);
    SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
 
-   HBRUSH hBrush   = CreateSolidBrush(Color_Fill_Bk);
+   auto hBrush   = CreateSolidBrush(Color_Fill_Bk);
    auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC2, hBrush));
    RECT rectang;
    SetRect(&rectang, 0, 0, Width, Height);

@@ -1042,7 +1042,6 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
 
 HB_FUNC( GETTABBRUSH )
 {
-   HBRUSH  hBrush;
    RECT    rc;
    auto hWnd = hmg_par_HWND(1);
 
@@ -1056,7 +1055,7 @@ HB_FUNC( GETTABBRUSH )
 
    SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
 
-   hBrush = CreatePatternBrush(hBmp);
+   auto hBrush = CreatePatternBrush(hBmp);
 
    hmg_ret_HBRUSH(hBrush);
 

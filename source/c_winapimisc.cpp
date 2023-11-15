@@ -903,7 +903,7 @@ CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
 */
 HB_FUNC( CREATESOLIDBRUSH )
 {
-   HBRUSH hBrush = CreateSolidBrush(static_cast<COLORREF>(RGB(hb_parni(1), hb_parni(2), hb_parni(3))));
+   auto hBrush = CreateSolidBrush(static_cast<COLORREF>(RGB(hb_parni(1), hb_parni(2), hb_parni(3))));
    RegisterResource(hBrush, "BRUSH");
    hmg_ret_HBRUSH(hBrush);
 }

@@ -488,7 +488,7 @@ HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, 
    if( BackgroundColor == -1 ) {
       FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
    } else {
-      HBRUSH hBrush = CreateSolidBrush(BackgroundColor);
+      auto hBrush = CreateSolidBrush(BackgroundColor);
       FillRect(memDC2, &rect2, hBrush);
       DeleteObject(hBrush);
    }
@@ -613,7 +613,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    if( BackgroundColor == -1 ) {
       FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
    } else {
-      HBRUSH hBrush = CreateSolidBrush(BackgroundColor);
+      auto hBrush = CreateSolidBrush(BackgroundColor);
 
       FillRect(memDC2, &rect2, hBrush);
       DeleteObject(hBrush);

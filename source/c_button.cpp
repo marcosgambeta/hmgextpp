@@ -357,7 +357,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
       InflateRect(&rcF, -1, -1);
    }
 
-   HBRUSH hBrushPat = CreatePatternBrush(hBitmap);
+   auto hBrushPat = CreatePatternBrush(hBitmap);
 
    DeleteDC(hDCComp);
    DeleteObject(hBitmap);
