@@ -303,7 +303,7 @@ HB_FUNC( APPEVENTS )
 {
    BOOL bRes = FALSE;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
@@ -366,7 +366,7 @@ HB_FUNC( APPEVENTSREMOVE )
 {
    bool bDel = false;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
@@ -381,7 +381,7 @@ HB_FUNC( APPEVENTSUPDATE )
 {
    bool bUpd = false;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char *   pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
@@ -616,7 +616,7 @@ HB_FUNC( WINEVENTS )
 {
    BOOL bRes = FALSE;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
@@ -679,7 +679,7 @@ HB_FUNC( WINEVENTSREMOVE )
 {
    bool bDel = false;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
@@ -694,7 +694,7 @@ HB_FUNC( WINEVENTSUPDATE )
 {
    bool bUpd = false;
    auto hWnd = hmg_par_HWND(1);
-   UINT message = static_cast<UINT>(hb_parns(2));
+   auto message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char *      pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
@@ -1214,7 +1214,7 @@ HB_FUNC( REGISTERWINDOW )
    } else if( HB_ISCHAR(3) || HB_ISNUM(3) ) {
       void * str;
       LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr );
-      HBITMAP hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      auto hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       if( hImage == nullptr && HB_ISCHAR(3) ) {
          hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }

@@ -186,7 +186,6 @@ HB_FUNC( WAITRUNPIPE )
 HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in Windows clipboard
 {
    HGLOBAL      hglbCopy;
-   char *       lptstrCopy;
    UINT         cf;
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = strlen(cStr);
@@ -206,7 +205,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
       return;
    }
 
-   lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
+   auto lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[nLen] = ( TCHAR ) 0;  // NULL character
    GlobalUnlock(hglbCopy);
@@ -218,7 +217,6 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
 HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clipboard
 {
    HGLOBAL hglbCopy;
-   char *  lptstrCopy;
 
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = strlen(cStr);
@@ -235,7 +233,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
       return;
    }
 
-   lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
+   auto lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[nLen] = ( TCHAR ) 0;  // null character
    GlobalUnlock(hglbCopy);
@@ -1542,8 +1540,9 @@ HB_FUNC( _GETCLIENTRECT )
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 17d
 HB_FUNC( ISOEMTEXT )
 {
-   LPBYTE pString = reinterpret_cast<LPBYTE>(const_cast<char*>(hb_parc(1)));
-   WORD   w = 0, wLen = static_cast<WORD>(hb_parclen(1));
+   auto pString = reinterpret_cast<LPBYTE>(const_cast<char*>(hb_parc(1)));
+   WORD   w = 0;
+   auto wLen = static_cast<WORD>(hb_parclen(1));
    BOOL   bOem = FALSE;
 
    while( w < wLen && !bOem ) {

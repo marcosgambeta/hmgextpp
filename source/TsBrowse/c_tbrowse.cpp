@@ -129,8 +129,8 @@ HB_FUNC( _CREATEWINDOWEX )
    void *  hTitle;
    LPCTSTR cTitle = HB_PARSTR(3, &hTitle, nullptr);
 #else
-   LPCSTR cClass     = static_cast<LPCSTR>(hb_parc(2));
-   LPCSTR cTitle     = static_cast<LPCSTR>(hb_parc(3));
+   auto cClass = static_cast<LPCSTR>(hb_parc(2));
+   auto cTitle = static_cast<LPCSTR>(hb_parc(3));
 #endif
    int    nStyle     = hb_parni(4);
    int    x          = HB_ISNIL(5) ? 0 : hb_parni(5);
@@ -155,8 +155,7 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 {
    POINT    ptSize;
    COLORREF cColor;
-   HBITMAP  bmBackOld, bmObjectOld, bmTempOld, bmMemOld;
-   HBRUSH   hBrush, hBrOld;
+   HBRUSH   hBrush;
 
    ptSize.x = rct->right - rct->left + 1;
    ptSize.y = rct->bottom - rct->top + 1;
@@ -173,12 +172,12 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
    auto bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
    auto bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
 
-   bmTempOld   = static_cast<HBITMAP>(SelectObject(hdcTemp, bmAndTemp));
-   bmMemOld    = static_cast<HBITMAP>(SelectObject(hdcMem, bmAndMem));
-   bmBackOld   = static_cast<HBITMAP>(SelectObject(hdcBack, bmAndBack));
-   bmObjectOld = static_cast<HBITMAP>(SelectObject(hdcObject, bmAndObject));
+   auto bmTempOld   = static_cast<HBITMAP>(SelectObject(hdcTemp, bmAndTemp));
+   auto bmMemOld    = static_cast<HBITMAP>(SelectObject(hdcMem, bmAndMem));
+   auto bmBackOld   = static_cast<HBITMAP>(SelectObject(hdcBack, bmAndBack));
+   auto bmObjectOld = static_cast<HBITMAP>(SelectObject(hdcObject, bmAndObject));
 
-   hBrOld = static_cast<HBRUSH>(SelectObject(hdcMem, hBrush));
+   auto hBrOld = static_cast<HBRUSH>(SelectObject(hdcMem, hBrush));
 
    BitBlt(hdcTemp, 0, 0, ptSize.x, ptSize.y, hdc, rct->left, rct->top, SRCCOPY);
 
@@ -212,12 +211,11 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
 {
    auto hDCmem = CreateCompatibleDC(hDC);
    BITMAP  bitmap;
-   HBITMAP hBmpOld;
 
    if( !dwRaster )
       dwRaster = SRCCOPY;
 
-   hBmpOld = static_cast<HBITMAP>(SelectObject(hDCmem, hBitmap));
+   auto hBmpOld = static_cast<HBITMAP>(SelectObject(hDCmem, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 
    if( wWidth && ( wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight ) )
@@ -233,7 +231,8 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
 {
    auto hDcBmp = CreateCompatibleDC(hDC);
    HDC      hDcMask;
-   HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = static_cast<HBITMAP>(SelectObject(hDcBmp, hbm));
+   HBITMAP  hBmpMask, hOldBmp2;
+   auto hOldBmp1 = static_cast<HBITMAP>(SelectObject(hDcBmp, hbm));
    BITMAP   bm;
    COLORREF rgbBack;
 
@@ -564,7 +563,7 @@ HB_FUNC( TSDRAWCELL )
 
 void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle, BOOL bHeader)
 {
-   HPEN hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
+   auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
    HPEN hBlack  = CreatePen(PS_SOLID, 1, 0);
 
    switch( nLineStyle )
@@ -785,8 +784,6 @@ HB_FUNC( SBMPWIDTH )
 static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChecked)
 {
    RECT   lrct;
-   HPEN   hOldPen;
-   HBRUSH hOldBrush;
 
    HBRUSH hGrayBrush  = CreateSolidBrush(RGB(192, 192, 192));
    HBRUSH hWhiteBrush = CreateSolidBrush(RGB(255, 255, 255));
@@ -794,7 +791,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    HPEN   hLGrayPen   = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
    HPEN   hGrayPen    = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
 
-   hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hGrayBrush));
+   auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hGrayBrush));
 
    lrct.top = rct->top + ( ( ( rct->bottom - rct->top + 1 ) / 2 ) - 8 );
 
@@ -814,7 +811,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    lrct.right  += 1;
    lrct.bottom += 1;
 
-   hOldPen = static_cast<HPEN>(SelectObject(hDC, hBlackPen));
+   auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hBlackPen));
    Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.left   += 1;
@@ -897,7 +894,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
    BOOL   bDir, bHoriz = cTo < 0;
    long   iTot = ( !bHoriz ? ( rori->bottom + 2 - rori->top ) : ( rori->right + 2 - rori->left ) );
    RECT   rct;
-   HBRUSH hOldBrush, hBrush;
+   HBRUSH hBrush;
 
    rct.top    = rori->top;
    rct.left   = rori->left;
@@ -931,7 +928,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
       rct.right = rct.left + 1;
 
    hBrush    = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
-   hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
+   auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
    FillRect(hDC, &rct, hBrush);
 
    for( iEle = 1; iEle < iTot; iEle++ )

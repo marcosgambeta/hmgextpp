@@ -175,7 +175,7 @@ HB_FUNC( INVERTRECT )
 HB_FUNC( GETCLASSINFO )
 {
 #ifndef UNICODE
-   LPCSTR lpString = static_cast<LPCSTR>(hb_parc(2));
+   auto lpString = static_cast<LPCSTR>(hb_parc(2));
 #else
    LPWSTR lpString = AnsiToWide(const_cast<char*>(hb_parc(2)));
    LPSTR pStr;

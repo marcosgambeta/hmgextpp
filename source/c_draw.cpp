@@ -82,7 +82,7 @@ ENDPAINT(HWND, cp2) --> .T.|.F.
 HB_FUNC( ENDPAINT )
 {
    auto hWnd = hmg_par_HWND(1);
-   PAINTSTRUCT * pps = reinterpret_cast<PAINTSTRUCT*>(const_cast<char*>(hb_parc(2)));
+   auto pps = reinterpret_cast<PAINTSTRUCT*>(const_cast<char*>(hb_parc(2)));
 
    if( IsWindow(hWnd) && pps ) {
       hb_retl(EndPaint(hWnd, pps));
@@ -96,7 +96,7 @@ DRAWFOCUSRECT(p1) --> NIL
 */
 HB_FUNC( DRAWFOCUSRECT )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       InflateRect(&pps->rcItem, -3, -3);
@@ -125,7 +125,7 @@ HB_FUNC( DRAWSTATE )
       HBRUSH hBrush = nullptr;
       COLORREF crBrush;
       LPARAM lpData;
-      WPARAM wData = static_cast<WPARAM>(hb_parclen(4));
+      auto wData = static_cast<WPARAM>(hb_parclen(4));
       HB_ISIZ fuFlags = hb_parns(10);
 
       if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
@@ -190,7 +190,7 @@ GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
 HB_FUNC( GRAYSTRING )
 {
    int nCount = hb_parni(5);
-   int nLen = static_cast<int>(hb_parclen(4));
+   auto nLen = static_cast<int>(hb_parclen(4));
 
    if( nCount > 0 ) {
       nCount = HB_MIN(nCount, nLen);

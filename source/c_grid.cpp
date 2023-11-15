@@ -256,7 +256,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 {
    int cx = 0;
 
-   int nCount = static_cast<int>(hb_parinfa(2, 0));
+   auto nCount = static_cast<int>(hb_parinfa(2, 0));
 
    if( nCount > 0 ) {
       auto hArray = hb_param(2, Harbour::Item::ARRAY);
@@ -287,7 +287,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
    HIMAGELIST himl = nullptr;
 
    if( hheader ) {
-      int nCount = static_cast<int>(hb_parinfa(2, 0));
+      auto nCount = static_cast<int>(hb_parinfa(2, 0));
       if( nCount > 0 ) {
          auto hArray = hb_param(2, Harbour::Item::ARRAY);
          char * FileName;
@@ -844,7 +844,7 @@ GETHEADERLISTVIEWITEM() -->
 */
 HB_FUNC( GETHEADERLISTVIEWITEM )
 {
-   LPNMHEADER lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
+   auto lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
 
    hb_retni(lpnmheader->iItem);
 }
@@ -854,7 +854,7 @@ GETHEADERLISTVIEWITEMCX() -->
 */
 HB_FUNC( GETHEADERLISTVIEWITEMCX )
 {
-   LPNMHEADER lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
+   auto lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
 
    if( lpnmheader->pitem->mask == HDI_WIDTH ) {
       hb_retni(lpnmheader->pitem->cxy);
@@ -1074,7 +1074,7 @@ LISTVIEW_SETSORTHEADER() -->
 */
 HB_FUNC( LISTVIEW_SETSORTHEADER )
 {
-   HWND hWndHD = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0));
+   auto hWndHD = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0));
    INT nItem  = hb_parni(2) - 1;
    INT nType;
    HDITEM hdItem;
@@ -1251,7 +1251,7 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
 {
    auto hWnd = hmg_par_HWND(1);
    auto GroupID = hmg_par_INT(2);
-   HB_WCHAR * cHeader      = static_cast<HB_WCHAR*>((hb_parclen(3) == 0) ? nullptr : hb_mbtowc(hb_parc(3)));
+   auto cHeader = static_cast<HB_WCHAR*>((hb_parclen(3) == 0) ? nullptr : hb_mbtowc(hb_parc(3)));
    auto nAlignHeader = hmg_par_UINT(4);
    HB_WCHAR * cFooter      = (hb_parclen(5) == 0) ? nullptr : hb_mbtowc( hb_parc(5));
    auto nAlignFooter = hmg_par_UINT(6);

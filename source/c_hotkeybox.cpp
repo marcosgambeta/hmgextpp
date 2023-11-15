@@ -102,7 +102,7 @@ HB_FUNC( C_GETHOTKEYNAME )
 #endif
 
    auto hWnd = hmg_par_HWND(1);
-   WORD wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
+   auto wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
    TCHAR szKeyName[100];
    InterpretHotKey(wHotKey, szKeyName);
 
@@ -148,7 +148,7 @@ HB_FUNC( SETHOTKEYVALUE )
 {
    auto hWnd = hmg_par_HWND(1);
 
-   WORD wHotKey = static_cast<WORD>(hb_parnl(2));
+   auto wHotKey = static_cast<WORD>(hb_parnl(2));
 
    if( wHotKey != 0 ) {
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
@@ -159,7 +159,7 @@ HB_FUNC( SETHOTKEYVALUE )
 
 HB_FUNC( C_GETHOTKEYVALUE )
 {
-   WORD wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
+   auto wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
    UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
    UINT uModifiers = HIBYTE(LOWORD(wHotKey));
    UINT iModifierKeys =

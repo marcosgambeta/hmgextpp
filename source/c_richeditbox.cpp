@@ -144,7 +144,7 @@ HB_FUNC( UNLOADRICHEDITLIB )
 
 DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb )
 {
-   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
    if( !ReadFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return static_cast<DWORD>(-1);
@@ -155,7 +155,7 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
 
 DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb)
 {
-   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
    if( !WriteFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return static_cast<DWORD>(-1);
@@ -369,18 +369,17 @@ HB_FUNC( SETFONTRTF )
 {
    LRESULT    lResult;
    CHARFORMAT cF;
-   DWORD      Mask;
    DWORD      Effects = 0;
    int        SelText = SCF_SELECTION;
 
 #ifndef UNICODE
-   TCHAR * szFaceName = static_cast<TCHAR*>(const_cast<char*>(hb_parc(3)));
+   auto szFaceName = static_cast<TCHAR*>(const_cast<char*>(hb_parc(3)));
 #else
-   TCHAR * szFaceName = static_cast<TCHAR*>(hb_osStrU16Encode(static_cast<char*>(hb_parc(3))));
+   auto szFaceName = static_cast<TCHAR*>(hb_osStrU16Encode(static_cast<char*>(hb_parc(3))));
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
+   auto Mask = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
 
    if( hb_parni(10) > 0 ) {
       Mask = hb_parni(10);

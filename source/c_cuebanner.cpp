@@ -81,7 +81,7 @@ HB_FUNC( SENDMESSAGESTRINGW )
    auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HB_WCHAR * lpWCStr = static_cast<HB_WCHAR*>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));
+      auto lpWCStr = static_cast<HB_WCHAR*>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));
 
       HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), static_cast<WPARAM>(hb_parl(3)), reinterpret_cast<LPARAM>(lpWCStr))));
       if( lpWCStr != nullptr ) {

@@ -101,7 +101,7 @@ HB_FUNC( INITCOMBOBOXEX )
    PHB_ITEM hArray;
    HIMAGELIST himl = nullptr;
 
-   int nCount = static_cast<int>(hb_parinfa(14, 0));
+   auto nCount = static_cast<int>(hb_parinfa(14, 0));
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(7) ? 0 : 1;

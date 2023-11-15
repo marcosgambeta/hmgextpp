@@ -715,7 +715,7 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
    static PHB_SYMB pSymbol = nullptr;
    long int r;
 
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hwnd, "OldWndProc"));
+   auto OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hwnd, "OldWndProc"));
 
    switch( Msg ) {
       case WM_CONTEXTMENU:

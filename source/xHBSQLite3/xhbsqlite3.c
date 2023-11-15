@@ -1336,7 +1336,7 @@ HB_FUNC( SQLITE3_PREPARE )
                 if( SQL )
                 {
                         const char *   pSQL = hb_itemGetCPtr(SQL);
-                        int            ulLen = static_cast<int>(hb_itemGetCLen(SQL));
+                        auto ulLen = static_cast<int>(hb_itemGetCLen(SQL));
                         psqlite3_stmt  pStmt;
                         const char *   pszTail;
 
@@ -1369,7 +1369,7 @@ HB_FUNC( SQLITE3_PREPARE_V2 )
                 if( SQL )
                 {
                         const char *   pSQL = hb_itemGetCPtr(SQL);
-                        int            ulLen = static_cast<int>(hb_itemGetCLen(SQL));
+                        auto ulLen = static_cast<int>(hb_itemGetCLen(SQL));
                         psqlite3_stmt  pStmt;
                         const char *   pszTail;
 

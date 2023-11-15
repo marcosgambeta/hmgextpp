@@ -198,7 +198,7 @@ static BOOL FLD_isAppThemed(void)
    }
 
    if( hUxTheme ) {
-      fnIsAppThemed pfn = reinterpret_cast<fnIsAppThemed>(wapi_GetProcAddress(hUxTheme, "IsAppThemed"));
+      auto pfn = reinterpret_cast<fnIsAppThemed>(wapi_GetProcAddress(hUxTheme, "IsAppThemed"));
       if( pfn ) {
          bRet = static_cast<BOOL>(pfn());
       }
@@ -243,7 +243,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
                /* No default handler, forward notification to active page */
                if( pFhi->activeValid && pFhi->active_page != -1 ) {
                   HFLDPAGEINFO * hfpi = pFhi->fhpage;
-                  FLDPAGEINFO * fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
+                  auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
                   HWND hwndPage = fpi->hwndPage;
                   SendMessage(hwndPage, WM_COMMAND, wParam, lParam);
                }
@@ -339,11 +339,8 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
  *****************************************************************************/
 HB_FUNC( CREATEFOLDERPAGEINDIRECT )
 {
-   DLGTEMPLATE * pdlgtemplate;
-   FLDPAGEINFO * pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
+   auto pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
 
-   TCHAR * strTitle;
-   TCHAR * ImageName;
    int     idRC, PageStyle;
 
    long lTemplateSize;
@@ -352,20 +349,20 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
    auto dArray = hb_param(2, Harbour::Item::ARRAY); //Folder Page Array
    auto cArray = hb_param(3, Harbour::Item::ARRAY); //Page Controls Array
    lTemplateSize = GetSizeDlgTemp(dArray, cArray);
-   pdlgtemplate = reinterpret_cast<DLGTEMPLATE*>(CreateDlgTemplate(lTemplateSize, dArray, cArray));
+   auto pdlgtemplate = reinterpret_cast<DLGTEMPLATE*>(CreateDlgTemplate(lTemplateSize, dArray, cArray));
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
    #ifndef UNICODE
-   strTitle = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 1));                          // Tab Title
+   auto strTitle = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 1));                          // Tab Title
    #else
-   strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Tab Title
+   auto strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Tab Title
    #endif
    idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
    PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
    #ifndef UNICODE
-   ImageName = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));
+   auto ImageName = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));
    #else
-   ImageName = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 4))));
+   auto ImageName = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 4))));
    #endif
 
    pfpi->dwFlags = PageStyle;
@@ -392,10 +389,8 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
  *****************************************************************************/
 HB_FUNC( CREATEFOLDERPAGE )
 {
-   FLDPAGEINFO * pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
+   auto pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
 
-   TCHAR *  strTitle;
-   TCHAR *  caption;
    int      idRC, PageStyle;
 
    auto sArray = hb_param(1, Harbour::Item::ARRAY);
@@ -403,16 +398,16 @@ HB_FUNC( CREATEFOLDERPAGE )
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
    #ifndef UNICODE
-   strTitle = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 1));                          // Caption
+   auto strTitle = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 1));                          // Caption
    #else
-   strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Caption
+   auto strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Caption
    #endif
    idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
    PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
    #ifndef UNICODE
-   caption = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));                           // Page Image
+   auto caption = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));                           // Page Image
    #else
-   caption = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 4))));  // Page Image
+   auto caption = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 4))));  // Page Image
    #endif
    pfpi->dwFlags = PageStyle;
    pfpi->pszTemplate = MAKEINTRESOURCE(idRC);
@@ -440,12 +435,9 @@ HB_FUNC( CREATEFOLDERPAGE )
  *****************************************************************************/
 HB_FUNC( CREATEDLGFOLDER )
 {
-   HFLDPAGEINFO * hfpi;
-   FLDHDRINFO *   pFhi = static_cast<FLDHDRINFO*>(LocalAlloc(LPTR, sizeof(FLDHDRINFO)));
+   auto pFhi = static_cast<FLDHDRINFO*>(LocalAlloc(LPTR, sizeof(FLDHDRINFO)));
    DWORD          dwDlgBase = GetDialogBaseUnits();
    int baseunitX = LOWORD(dwDlgBase), baseunitY = HIWORD(dwDlgBase);
-   LPDLGTEMPLATE pdlgtemplate;
-   HWND          hwnd;
 
    BOOL    modal;
    LRESULT lResult;
@@ -494,13 +486,13 @@ HB_FUNC( CREATEDLGFOLDER )
       style |= TCS_MULTILINE;
    }
 
-   hfpi = static_cast<HFLDPAGEINFO*>(malloc(sizeof(HFLDPAGEINFO) * nPages));
+   auto hfpi = static_cast<HFLDPAGEINFO*>(malloc(sizeof(HFLDPAGEINFO) * nPages));
 
    for( int s = 0; s < nPages; s = s + 1 ) {
       hfpi[s] = static_cast<HFLDPAGEINFO>(reinterpret_cast<PHB_ITEM>(HB_arrayGetNL(sArray, s + 1)));
    }
 
-   hwnd = reinterpret_cast<HWND>(HB_arrayGetNL(pArray, 2));
+   auto hwnd = reinterpret_cast<HWND>(HB_arrayGetNL(pArray, 2));
 
    //Fill out the FOLDERHEADERINFO
    pFhi->hwnd        = hWndDlg;
@@ -521,7 +513,7 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->FolderStyle = style;
 
    lTemplateSize = GetSizeDlgTemp(pArray, cArray);
-   pdlgtemplate = reinterpret_cast<LPDLGTEMPLATE>(CreateDlgTemplate(lTemplateSize, pArray, cArray));
+   auto pdlgtemplate = reinterpret_cast<LPDLGTEMPLATE>(CreateDlgTemplate(lTemplateSize, pArray, cArray));
 
    if( modal ) {
       lResult = DialogBoxIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd, reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
@@ -555,14 +547,13 @@ HB_FUNC( FOLDERGETCURRENTPAGEHWND )
    auto hWndDlg = hmg_par_HWND(1);
    int  iSel;
 
-   FLDHDRINFO *   pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
-   FLDPAGEINFO *  fpi;
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
    HFLDPAGEINFO * hfpi;
 
    hfpi = pFhi->fhpage;
    iSel = TabCtrl_GetCurSel(pFhi->hwndTab);
 
-   fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[iSel]);
+   auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[iSel]);
 
    hmg_ret_HWND(fpi->hwndPage);
 }
@@ -597,7 +588,7 @@ HB_FUNC( FOLDER_ISDIRTY )
    auto hWndParent = hmg_par_HWND(1);
    BOOL lPageDirty = FALSE;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
       return;
@@ -605,7 +596,7 @@ HB_FUNC( FOLDER_ISDIRTY )
 
    for( int i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO * fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
+      auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
 
       /* look to see if there's any dirty pages */
       if( fpi->isDirty && !pFhi->activeValid ) {
@@ -624,7 +615,7 @@ HB_FUNC( FOLDER_ISFINISH )
    auto hWndParent = hmg_par_HWND(1);
    BOOL lFooderFinish;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi->isModal ) {
       lFooderFinish = !pFhi->activeValid;
@@ -641,7 +632,7 @@ HB_FUNC( FOLDER_ISFINISH )
 HB_FUNC( FOLDER_GETIDFLD )
 {
    auto hWndParent = hmg_par_HWND(1);
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
       hb_retni(hmg_par_int(2));
@@ -656,7 +647,7 @@ HB_FUNC( FOLDER_GETIDFLD )
 HB_FUNC( FOLDER_GETTABHANDLE )
 {
    auto hWndParent = hmg_par_HWND(1);
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
       hb_retnl(0); // TODO: 0 -> nullptr
@@ -920,7 +911,6 @@ DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize)
 //-----------------------------------------------------------------
 DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName)
 {
-   DLGTEMPLATE * pTemplate;
    DWORD         resSize;
    HGLOBAL       hglb;
 
@@ -930,7 +920,7 @@ DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName)
 
    hglb = LoadResource(GetResources(), hrsrc);
 
-   pTemplate = static_cast<DLGTEMPLATE*>(LockResource(hglb));
+   auto pTemplate = static_cast<DLGTEMPLATE*>(LockResource(hglb));
    pTemplate = FLD_SetStyleDlgRes(pTemplate, resSize);
 
    return pTemplate;
@@ -941,7 +931,7 @@ DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName)
    -----------------------------------------------------------------*/
 VOID WINAPI FLD_SelChanged(HWND hWndDlg)
 {
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    int iSel = TabCtrl_GetCurSel(pFhi->hwndTab);
 
@@ -961,7 +951,7 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
    int   cxMargin = LOWORD(dwDlgBase) / 4;
    int   cyMargin = HIWORD(dwDlgBase) / 8;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( pFhi ) {
       GetWindowRect(pFhi->hwndTab, &rcTab);
@@ -990,7 +980,7 @@ VOID WINAPI FLD_DialogAlign(HWND hWndDlg)
    int   cxMargin = LOWORD(dwDlgBase) / 4;
    int   cyMargin = HIWORD(dwDlgBase) / 8;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    if( pFhi ) {
       GetWindowRect(pFhi->hwndTab, &rcTab);
@@ -1012,15 +1002,13 @@ VOID WINAPI FLD_DialogAlign(HWND hWndDlg)
    -----------------------------------------------------------------*/
 static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, BOOL resize)
 {
-   const WORD *  p;
    int           width, height;
-   FLDPAGEINFO * fpi;
 
    if( !pTemplate ) {
       return FALSE;
    }
 
-   p = reinterpret_cast<const WORD*>(pTemplate);
+   auto p = reinterpret_cast<const WORD*>(pTemplate);
 
    if( reinterpret_cast<const MyDLGTEMPLATEEX*>(pTemplate)->signature == 0xFFFF ) {
       /* DLGTEMPLATEEX (not defined in any std. header file) */
@@ -1069,7 +1057,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    }
 
    /* Extract the caption */
-   fpi = reinterpret_cast<FLDPAGEINFO*>(pFhi->fhpage[index]);
+   auto fpi = reinterpret_cast<FLDPAGEINFO*>(pFhi->fhpage[index]);
    fpi->pszText = reinterpret_cast<LPCTSTR>(p);
 
    return TRUE;
@@ -1080,7 +1068,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    -----------------------------------------------------------------*/
 static void FLD_Changed(HWND hWndParent, HWND hwndDirtyPage)
 {
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
       return;
@@ -1089,7 +1077,7 @@ static void FLD_Changed(HWND hWndParent, HWND hwndDirtyPage)
    /* Set the dirty flag of this page.  */
    for( int i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
+      auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       if( fpi->hwndPage == hwndDirtyPage ) {
          fpi->isDirty = TRUE;
       }
@@ -1110,7 +1098,7 @@ static void FLD_UnChanged(HWND hWndParent, HWND hwndCleanPage)
 {
    BOOL noPageDirty = TRUE;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndParent, GWLP_USERDATA));
 
    if( !pFhi ) {
       return;
@@ -1119,7 +1107,7 @@ static void FLD_UnChanged(HWND hWndParent, HWND hwndCleanPage)
    for( int i = 0; i < pFhi->nPages; i++ ) {
       /* set the specified page as clean */
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
+      auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       if( fpi->hwndPage == hwndCleanPage ) {
          fpi->isDirty = FALSE;
       }
@@ -1148,7 +1136,7 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
       case FLBTN_OK:
       case FLBTN_APPLY:
       {
-         FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+         auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
          HWND hwndApplyBtn = GetDlgItem(hWndDlg, FLBTN_APPLY);
          if( pFhi->activeValid ) {
             if( FLD_Apply(hWndDlg, wID) == FALSE ) {
@@ -1170,7 +1158,6 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
             }
          } else {
             FLHNOTIFY      fln;
-            FLDPAGEINFO *  fpi;
             HFLDPAGEINFO * hfpi;
             HWND hwndPage;
 
@@ -1181,7 +1168,7 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
             fln.hdr.code = FLN_FINISH;
 
             hfpi = pFhi->fhpage;
-            fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
+            auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
             hwndPage = fpi->hwndPage;
 
             SendMessage(hwndPage, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&fln));
@@ -1209,11 +1196,10 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
    -----------------------------------------------------------------*/
 static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
 {
-   FLDPAGEINFO *  fpi;
    HFLDPAGEINFO * hfpi;
    HWND         hwndPage;
    FLHNOTIFY    fln;
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    if( pFhi->active_page < 0 ) {
       return FALSE;
@@ -1227,7 +1213,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    fln.hdr.code = FLN_KILLACTIVE;
 
    hfpi = pFhi->fhpage;
-   fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
+   auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
    hwndPage = fpi->hwndPage;
 
    if( SendMessage(hwndPage, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&fln)) != FALSE ) {
@@ -1276,19 +1262,18 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    -----------------------------------------------------------------*/
 static void FLD_Cancel(HWND hWndDlg, LPARAM lParam)
 {
-   FLDPAGEINFO *  fpi;
    HFLDPAGEINFO * hfpi;
    HWND      hwndPage;
    FLHNOTIFY fln;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    if( pFhi->active_page < 0 ) {
       return;
    }
 
    hfpi = pFhi->fhpage;
-   fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
+   auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
    hwndPage = fpi->hwndPage;
 
    fln.hdr.code = FLN_QUERYCANCEL;
@@ -1332,9 +1317,8 @@ static void FLD_Cancel(HWND hWndDlg, LPARAM lParam)
    -----------------------------------------------------------------*/
 static void FLD_Help(HWND hWndDlg)
 {
-   FLDHDRINFO *   pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
    HWND           hwndPage;
-   FLDPAGEINFO *  fpi;
    HFLDPAGEINFO * hfpi;
    FLHNOTIFY      fln;
 
@@ -1343,7 +1327,7 @@ static void FLD_Help(HWND hWndDlg)
    }
 
    hfpi = pFhi->fhpage;
-   fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
+   auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[pFhi->active_page]);
    hwndPage = fpi->hwndPage;
 
    fln.hdr.code = FLN_HELP;
@@ -1359,7 +1343,7 @@ static void FLD_Help(HWND hWndDlg)
    -----------------------------------------------------------------*/
 static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
 {
-   FLDPAGEINFO *  fpi;
+   FLDPAGEINFO * fpi;
    HFLDPAGEINFO * hfpi = pFhi->fhpage;
 
    if( index == pFhi->active_page ) {
@@ -1408,11 +1392,11 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
    -----------------------------------------------------------------*/
 static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
 {
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    for( int index = 0; index < pFhi->nPages; index++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[index]);
+      auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[index]);
       if( fpi->hwndPage == hPageDlg ) {
          return index;
       }
@@ -1426,7 +1410,7 @@ static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
    -----------------------------------------------------------------*/
 static void FLD_CleanUp(HWND hWndDlg)
 {
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
    if( !pFhi ) {
       return;
@@ -1434,7 +1418,7 @@ static void FLD_CleanUp(HWND hWndDlg)
 
    for( int i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
+      auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
 
       if( fpi->hwndPage ) {
          DestroyWindow(fpi->hwndPage);
@@ -1463,7 +1447,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
    int cy = 0;
    int i = 0;
 
-   FLDHDRINFO * pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndFolder, GWLP_USERDATA));
+   auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndFolder, GWLP_USERDATA));
 
    l = pFhi->nPages - 1;
 

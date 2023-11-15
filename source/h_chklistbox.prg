@@ -446,10 +446,9 @@ HB_FUNC( CHKLISTBOXADDITEM )
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
    int bChecked = hb_parni(3);
-   int lbItem;
 
    m_nHeightItem = hb_parni(4);
-   lbItem = static_cast<int>(SendMessage(hwnd, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString)));
+   auto lbItem = static_cast<int>(SendMessage(hwnd, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString)));
    SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(static_cast<int>(lbItem)), static_cast<LPARAM>(bChecked));
 
    hb_strfree(String);
@@ -506,16 +505,14 @@ HB_FUNC( CHKLIST_GETCHECKBOX )
 {
    auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2);
-   int iCheck = static_cast<int>(SendMessage(hwnd, LB_GETITEMDATA, static_cast<WPARAM>(lbItem) - 1, 0));
+   auto iCheck = static_cast<int>(SendMessage(hwnd, LB_GETITEMDATA, static_cast<WPARAM>(lbItem) - 1, 0));
 
    hb_retl(iCheck - 1);
 }
 
 HB_FUNC( _ONMEASURELISTBOXITEM )
 {
-   LPMEASUREITEMSTRUCT lpmis;
-
-   lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
+   auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
    // Set the height of the list box items.
    lpmis->itemHeight = m_nHeightItem;
@@ -523,7 +520,6 @@ HB_FUNC( _ONMEASURELISTBOXITEM )
 
 HB_FUNC( _ONDRAWLISTBOXITEM )
 {
-   PDRAWITEMSTRUCT pdis;
    TCHAR achBuffer[BUFFER];
    int cch;
    int yPos, iCheck, style = 0;
@@ -531,7 +527,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
    RECT rcCheck;
    HBRUSH hBackBrush;
 
-   pdis = reinterpret_cast<PDRAWITEMSTRUCT>(HB_PARNL(1));
+   auto pdis = reinterpret_cast<PDRAWITEMSTRUCT>(HB_PARNL(1));
 
    // If there are no list box items, skip this message.
    if( static_cast<int>(pdis->itemID) > -1 ) {
@@ -603,7 +599,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
  */
 HB_FUNC( GETMISCTLTYPE )
 {
-   LPMEASUREITEMSTRUCT pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
+   auto pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
    if( pmis ) {
       hb_retni(static_cast<UINT>(pmis->CtlType));

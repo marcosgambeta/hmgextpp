@@ -64,7 +64,7 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
       MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPTSTR>(&lpMsgBuf), 0, nullptr);
 
    // Display the error message and exit the process
-   LPVOID lpDisplayBuf = static_cast<LPVOID>(LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(static_cast<LPCTSTR>(lpMsgBuf)) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR)));
+   auto lpDisplayBuf = static_cast<LPVOID>(LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(static_cast<LPCTSTR>(lpMsgBuf)) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR)));
 
 #ifdef UNICODE
 #if ((defined(__BORLANDC__) && __BORLANDC__ <= 1410))

@@ -340,7 +340,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.style   = style;                      // window style
    mcs.lParam  = 0;                          // lparam
 
-   HWND hwndChild   = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
+   auto hwndChild = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
 
    if( hwndChild != nullptr ) {
       style = GetWindowLong(hwndChild, GWL_STYLE);

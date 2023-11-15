@@ -189,7 +189,6 @@ _GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
 HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 {
    TCHAR bBuffer[32767];
-   TCHAR * p;
    INT nLen;
 #ifdef UNICODE
    LPSTR pStr;
@@ -200,7 +199,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
    GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(1, &str, nullptr));
    hb_strfree(str);
 
-   p = static_cast<TCHAR*>(bBuffer);
+   auto p = static_cast<TCHAR*>(bBuffer);
    nLen = FindLenSubString(p);
    hb_reta(nLen);
    if( nLen > 0 ) {
@@ -240,7 +239,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
    GetPrivateProfileSection(HB_PARSTR(1, &str1, nullptr), bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(2, &str2, nullptr));
    hb_strfree(str1);
    hb_strfree(str2);
-   TCHAR * p = static_cast<TCHAR*>(bBuffer);
+   auto p = static_cast<TCHAR*>(bBuffer);
    INT nLen = FindLenSubString(p);
    hb_reta(nLen);
    if( nLen > 0 ) {

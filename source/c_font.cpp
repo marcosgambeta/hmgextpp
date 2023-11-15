@@ -64,9 +64,9 @@ INITFONT(cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, n
 HB_FUNC( INITFONT )
 {
    int   bold      = hb_parl(3) ? FW_BOLD : FW_NORMAL;
-   DWORD italic    = static_cast<DWORD>(hb_parl(4));
-   DWORD underline = static_cast<DWORD>(hb_parl(5));
-   DWORD strikeout = static_cast<DWORD>(hb_parl(6));
+   auto italic    = static_cast<DWORD>(hb_parl(4));
+   auto underline = static_cast<DWORD>(hb_parl(5));
+   auto strikeout = static_cast<DWORD>(hb_parl(6));
    DWORD angle     = hb_parnl(7);
    DWORD charset   = hb_parnldef(8, DEFAULT_CHARSET);
    void * str;
@@ -85,9 +85,9 @@ HB_FUNC( _SETFONT )
 
    if( IsWindow(hwnd) ) {
       int   bold      = hb_parl(4) ? FW_BOLD : FW_NORMAL;
-      DWORD italic    = static_cast<DWORD>(hb_parl(5));
-      DWORD underline = static_cast<DWORD>(hb_parl(6));
-      DWORD strikeout = static_cast<DWORD>(hb_parl(7));
+      auto italic    = static_cast<DWORD>(hb_parl(5));
+      auto underline = static_cast<DWORD>(hb_parl(6));
+      auto strikeout = static_cast<DWORD>(hb_parl(7));
       DWORD angle     = hb_parnl(8);
       DWORD charset   = hb_parnldef(9, DEFAULT_CHARSET);
       void * str;

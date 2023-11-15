@@ -376,14 +376,13 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
       if( osvi.dwMajorVersion == 5 ) { /* Windows 2000 or XP */
          BOOL  bFlag;
          TCHAR lpPrinterName[MAX_BUFFER_SIZE];
-         _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
          HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
          if( !hWinSpool ) {
             hb_retc( "" );
             return;
          }
-         fnGetDefaultPrinter = reinterpret_cast<_GETDEFAULTPRINTER>(reinterpret_cast<void*>(GetProcAddress(hWinSpool, GETDEFAULTPRINTER)));
+         auto fnGetDefaultPrinter = reinterpret_cast<_GETDEFAULTPRINTER>(reinterpret_cast<void*>(GetProcAddress(hWinSpool, GETDEFAULTPRINTER)));
          if( !fnGetDefaultPrinter ) {
             FreeLibrary(hWinSpool);
             hb_retc( "" );
@@ -1154,7 +1153,7 @@ HB_FUNC( RR_CREATERGN )
 
 HB_FUNC( RR_CREATEPOLYGONRGN )
 {
-   int   number = static_cast<int>(hb_parinfa(1, 0));
+   auto number = static_cast<int>(hb_parinfa(1, 0));
    POINT apoints[1024];
 
    for( int i = 0; i <= number - 1; i++ ) {
@@ -1318,7 +1317,6 @@ HB_FUNC( RR_PICTURE )
 
 LPVOID rr_loadpicturefromresource(const TCHAR * resname, LONG * lwidth, LONG * lheight)
 {
-   HBITMAP    hbmpx;
    IPicture * iPicture = nullptr;
    IStream *  iStream  = nullptr;
    PICTDESC   picd;
@@ -1328,7 +1326,7 @@ LPVOID rr_loadpicturefromresource(const TCHAR * resname, LONG * lwidth, LONG * l
    LPVOID     lpVoid;
    int        nSize;
 
-   hbmpx = static_cast<HBITMAP>(LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+   auto hbmpx = static_cast<HBITMAP>(LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
    if( hbmpx != nullptr ) {
       picd.cbSizeofstruct = sizeof(PICTDESC);
       picd.picType        = PICTYPE_BITMAP;
@@ -1520,12 +1518,11 @@ HB_FUNC( RR_CREATEIMAGELIST )
 {
    void * str;
    LPCTSTR cFileName = HB_PARSTR(1, &str, nullptr);
-   HBITMAP    hbmpx;
    BITMAP     bm;
    HIMAGELIST himl;
    int        dx, number;
 
-   hbmpx = static_cast<HBITMAP>(LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
+   auto hbmpx = static_cast<HBITMAP>(LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
    if( hbmpx == nullptr ) {
       hbmpx = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
    }
@@ -1586,7 +1583,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
 
 HB_FUNC( RR_POLYGON )
 {
-   int      number = static_cast<int>(hb_parinfa(1, 0));
+   auto number = static_cast<int>(hb_parinfa(1, 0));
    int      styl = GetPolyFillMode(hDC);
    POINT    apoints[1024];
    LONG_PTR xpen   = HB_PARNL(3);
@@ -1622,7 +1619,7 @@ HB_FUNC( RR_POLYGON )
 
 HB_FUNC( RR_POLYBEZIER )
 {
-   DWORD    number = static_cast<DWORD>(hb_parinfa(1, 0));
+   auto number = static_cast<DWORD>(hb_parinfa(1, 0));
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
@@ -1644,7 +1641,7 @@ HB_FUNC( RR_POLYBEZIER )
 
 HB_FUNC( RR_POLYBEZIERTO )
 {
-   DWORD    number = static_cast<DWORD>(hb_parinfa(1, 0));
+   auto number = static_cast<DWORD>(hb_parinfa(1, 0));
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 

@@ -603,7 +603,7 @@ SETBUTTONTIP(p1, cText) --> NIL
 HB_FUNC( SETBUTTONTIP )
 {
    //void * str;
-   LPTOOLTIPTEXT lpttt = reinterpret_cast<LPTOOLTIPTEXT>(HB_PARNL(1));
+   auto lpttt = reinterpret_cast<LPTOOLTIPTEXT>(HB_PARNL(1));
    lpttt->hinst = GetModuleHandle(nullptr);
    lpttt->lpszText = const_cast<TCHAR*>(hb_parc(2)); //HB_PARSTR(2, &str, nullptr); // TODO: revisar (memory leak ?)
    //hb_strfree(str);
@@ -769,7 +769,7 @@ HB_FUNC( CREATEPOPUPCHEVRON )
    RECT rcRR;
    GetWindowRect(hwnd, &rcRR);
 
-   LPNMREBARCHEVRON lpRB  = reinterpret_cast<LPNMREBARCHEVRON>(HB_PARNL(2));
+   auto lpRB = reinterpret_cast<LPNMREBARCHEVRON>(HB_PARNL(2));
    int uBand = lpRB->uBand;
    RECT rcCvr = lpRB->rc;
 
@@ -824,7 +824,7 @@ GETIMAGELIST(HWND, np2) --> HBITMAP
 */
 HB_FUNC( GETIMAGELIST )
 {
-   HIMAGELIST himl = reinterpret_cast<HIMAGELIST>(SendMessage(hmg_par_HWND(1), TB_GETIMAGELIST, 0, 0));
+   auto himl = reinterpret_cast<HIMAGELIST>(SendMessage(hmg_par_HWND(1), TB_GETIMAGELIST, 0, 0));
    IMAGEINFO  ImageInfo;
    ImageList_GetImageInfo(himl, hmg_par_INT(2), &ImageInfo);
    HBITMAP himage = ImageInfo.hbmImage;
@@ -951,7 +951,7 @@ TOOLBAREXCUSTFUNC(p1, p2, p3, p4) --> .T.|.F.
 HB_FUNC( TOOLBAREXCUSTFUNC )
 {
    LPARAM lParam = HB_PARNL(4);
-   LPTBNOTIFY lpTB = reinterpret_cast<LPTBNOTIFY>(lParam);
+   auto lpTB = reinterpret_cast<LPTBNOTIFY>(lParam);
 
    auto Msg = hmg_par_UINT(2);
 
@@ -969,7 +969,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                break;
             }
             case TBN_GETBUTTONINFO: {
-               LPTBNOTIFY lpTbNotify = reinterpret_cast<LPTBNOTIFY>(lParam);
+               auto lpTbNotify = reinterpret_cast<LPTBNOTIFY>(lParam);
                if( lpTbNotify->iItem >= buttonCount || lpTbNotify->iItem < 0 ) {
                   hb_retl(false);
                } else {

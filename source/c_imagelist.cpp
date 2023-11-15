@@ -83,7 +83,7 @@ HB_FUNC( IL_ADD ) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
 
    void * strImageName1;
    LPCTSTR lpImageName1  = HB_PARSTR(2, &strImageName1, nullptr);
-   HBITMAP himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName1, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
+   auto himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName1, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
    if( himage1 == nullptr ) {
       himage1 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName1, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
@@ -140,7 +140,7 @@ HB_FUNC( IL_ADDMASKED ) // IL_AddMasked(himl, image, color, ix, iy, imagecount)
 
    void * strImageName;
    LPCTSTR lpImageName = HB_PARSTR(2, &strImageName, nullptr);
-   HBITMAP himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
+   auto himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
    if( himage1 == nullptr ) {
       himage1 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }

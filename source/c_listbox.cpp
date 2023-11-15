@@ -249,14 +249,14 @@ HB_FUNC( _GETDDLMESSAGE )
 HB_FUNC( GET_DRAG_LIST_NOTIFICATION_CODE )
 {
    LPARAM lParam = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
    hb_retni(lpdli->uNotification);
 }
 
 HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 {
    LPARAM lParam = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
    int nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
    hb_retni(nDragItem);
 }
@@ -266,7 +266,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    auto hwnd = hmg_par_HWND(1);
    LPARAM lParam = HB_PARNL(2);
    int nItem = hb_parni(3);
-   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
    int nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
@@ -280,7 +280,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
 HB_FUNC( DRAG_LIST_MOVE_ITEMS )
 {
    LPARAM lParam = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
    char string[1024];
 

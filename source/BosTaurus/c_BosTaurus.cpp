@@ -555,7 +555,7 @@ static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
 
    bm.bmBitsPixel    = 24;
    bm.bmWidthBytes   = (bm.bmWidth * bm.bmBitsPixel + 31) / 32 * 4;
-   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
+   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    BITMAPFILEHEADER BIFH;
    BIFH.bfType      = ('M' << 8) + 'B';
@@ -582,7 +582,7 @@ static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
       return nullptr;
    }
 
-   LPBYTE lp_hGlobalAlloc = static_cast<LPBYTE>(GlobalLock(hGlobalAlloc));
+   auto lp_hGlobalAlloc = static_cast<LPBYTE>(GlobalLock(hGlobalAlloc));
 
    memcpy(lp_hGlobalAlloc, &BIFH, sizeof(BITMAPFILEHEADER));
    memcpy((lp_hGlobalAlloc + sizeof(BITMAPFILEHEADER)), &Bitmap_Info, sizeof(BITMAPINFO));
@@ -985,8 +985,8 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    #endif
 
    auto hDC = hmg_par_HDC(1);
-   INT nCountX        = static_cast<INT>(hb_parinfa(2, 0));
-   INT nCountY        = static_cast<INT>(hb_parinfa(3, 0));
+   auto nCountX = static_cast<INT>(hb_parinfa(2, 0));
+   auto nCountY = static_cast<INT>(hb_parinfa(3, 0));
    auto ColorLine = hmg_par_COLORREF(4);
    auto nWidthLine = hmg_par_INT(5);
    auto ColorFill = hmg_par_COLORREF(6);
@@ -1003,10 +1003,10 @@ HB_FUNC( BT_DRAW_HDC_POLY )
          aPoint[i].y = hb_parvni(3, i + 1);
       }
 
-      HPEN hPen       = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-      HPEN OldPen     = static_cast<HPEN>(SelectObject(hDC, hPen));
-      HBRUSH hBrush   = CreateSolidBrush(ColorFill);
-      HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
+      HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+      auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
+      HBRUSH hBrush = CreateSolidBrush(ColorFill);
+      auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
       switch( nPOLY ) {
          case BT_DRAW_POLYLINE:
@@ -1062,10 +1062,10 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
 
    auto nArcType = hmg_par_INT(13);
 
-   HPEN hPen       = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-   HPEN OldPen     = static_cast<HPEN>(SelectObject(hDC, hPen));
-   HBRUSH hBrush   = CreateSolidBrush(ColorFill);
-   HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
+   HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+   auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
+   HBRUSH hBrush = CreateSolidBrush(ColorFill);
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( nArcType ) {
       case BT_DRAW_ARC:
@@ -1112,10 +1112,10 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    auto RoundWidth = hmg_par_INT(10);
    auto RoundHeight = hmg_par_INT(11);
 
-   HPEN hPen       = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-   HPEN OldPen     = static_cast<HPEN>(SelectObject(hDC, hPen));
-   HBRUSH hBrush   = CreateSolidBrush(ColorFill);
-   HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
+   HPEN hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
+   auto OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
+   HBRUSH hBrush = CreateSolidBrush(ColorFill);
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( Type ) {
       case BT_FILLRECTANGLE:
@@ -1261,7 +1261,7 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 
    auto Color_RGB_O = hmg_par_COLORREF(6);
    auto Color_RGB_D = hmg_par_COLORREF(7);
-   ULONG Mode = static_cast<ULONG>(hb_parnl(8));
+   auto Mode = static_cast<ULONG>(hb_parnl(8));
 
    TRIVERTEX Vert[2];
 
@@ -1372,7 +1372,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    HFONT hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   HFONT hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
+   auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    SetTextAlign(hDC, Align);
    SetTextColor(hDC, Text_Color);
@@ -1422,7 +1422,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    auto Back_Color = hmg_par_COLORREF(10);
    auto Type = hmg_par_INT(11);
    auto Align = hmg_par_INT(12);
-   double Orientation  = static_cast<double>(hb_parnd(13));
+   auto Orientation = static_cast<double>(hb_parnd(13));
 
    if( (Orientation < static_cast<double>(-360.0)) || (Orientation > static_cast<double>(360.0)) ) {
       Orientation = static_cast<double>(0.0);
@@ -1467,7 +1467,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    HFONT hFont = CreateFont(0 - FontSize, 0, static_cast<int>(Orientation), static_cast<int>(Orientation), Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   HFONT hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
+   auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    SetTextColor(hDC, Text_Color);
 
@@ -1538,7 +1538,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    HFONT hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   HFONT hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
+   auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    SIZE SizeText;
    GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
@@ -1546,8 +1546,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    HB_STORVNL(SizeText.cx, -1, 1);
    HB_STORVNL(SizeText.cy, -1, 2);
 
-   UINT iFirstChar = static_cast<UINT>(lpText[0]);
-   UINT iLastChar  = static_cast<UINT>(lpText[0]);
+   auto iFirstChar = static_cast<UINT>(lpText[0]);
+   auto iLastChar  = static_cast<UINT>(lpText[0]);
    ABCFLOAT ABCfloat;
    GetCharABCWidthsFloat(hDC, iFirstChar, iLastChar, &ABCfloat);
    hb_storvnd(static_cast<double>(static_cast<FLOAT>(ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC)), -1, 3);
@@ -1717,7 +1717,7 @@ HB_FUNC( BT_BMP_CREATE )
    SetRect(&Rect, 0, 0, bm.bmWidth, bm.bmHeight);
 
    HBRUSH hBrush = CreateSolidBrush(Color_Fill_Bk);
-   HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    FillRect(memDC, &Rect, hBrush);
 
    SelectObject(memDC, OldBrush);
@@ -1755,7 +1755,7 @@ HB_FUNC( BT_BMP_LOADFILE )
 #endif
 
    // First find BMP image in resourses (.EXE file)
-   HBITMAP hBitmap = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+   auto hBitmap = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
 
    // If fail: find BMP in disk
    if( hBitmap == nullptr ) {
@@ -1818,7 +1818,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 #else
    TCHAR * FileName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
-   COLORREF BackgroundColor = static_cast<COLORREF>(RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3)));
+   auto BackgroundColor = static_cast<COLORREF>(RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3)));
    INT      ModeStretch     = HB_ISNUM(5) ? hb_parnl(5) : BT_SCALE;
 
    HENHMETAFILE  hEMF = nullptr;
@@ -1871,7 +1871,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    // Paint the background of the Bitmap
    HBRUSH hBrush   = CreateSolidBrush(BackgroundColor);
-   HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    RECT Rect;
    Rect.left   = 0;
    Rect.top    = 0;
@@ -1920,7 +1920,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
 
    bm.bmBitsPixel  = 24;
    bm.bmWidthBytes = (bm.bmWidth * bm.bmBitsPixel + 31) / 32 * 4;
-   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
+   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    BITMAPFILEHEADER BIFH;
    BIFH.bfType      = ('M' << 8) + 'B';
@@ -1947,7 +1947,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
       return FALSE;
    }
 
-   LPBYTE lp_hBits = static_cast<LPBYTE>(GlobalLock(hBits));
+   auto lp_hBits = static_cast<LPBYTE>(GlobalLock(hBits));
 
    GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, static_cast<LPVOID>(lp_hBits), &Bitmap_Info, DIB_RGB_COLORS);
 
@@ -2127,7 +2127,7 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
       return FALSE;
    }
 
-   LPBYTE lp_Bits = static_cast<LPBYTE>(GlobalLock(Image->hGlobal));
+   auto lp_Bits = static_cast<LPBYTE>(GlobalLock(Image->hGlobal));
    auto memDC = CreateCompatibleDC(nullptr);
 
    if( nAction == BT_BMP_GETBITS ) {
@@ -2581,7 +2581,7 @@ HB_FUNC( BT_BMP_PROCESS )
    BI.bmiHeader.biClrImportant  = 0;
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
-   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
+   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    HGLOBAL hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
    if( hBits == nullptr ) {
@@ -2744,7 +2744,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    BI.bmiHeader.biClrImportant  = 0;
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
-   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
+   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    HGLOBAL hBits_O = GlobalAlloc(GHND, nBytes_Bits);
    if( hBits_O == nullptr ) {
@@ -2759,8 +2759,8 @@ HB_FUNC( BT_BMP_FILTER3X3 )
       return;
    }
 
-   LPBYTE lp_Bits_O = static_cast<LPBYTE>(GlobalLock(hBits_O));
-   LPBYTE lp_Bits_D = static_cast<LPBYTE>(GlobalLock(hBits_D));
+   auto lp_Bits_O = static_cast<LPBYTE>(GlobalLock(hBits_O));
+   auto lp_Bits_D = static_cast<LPBYTE>(GlobalLock(hBits_D));
 
    auto memDC = CreateCompatibleDC(nullptr);
 
@@ -2836,7 +2836,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
    auto hBitmap_O = hmg_par_HBITMAP(1);
    INT Mode               = hb_parnl(2);
-   FLOAT Angle            = static_cast<FLOAT>(hb_parnd(3));
+   auto Angle = static_cast<FLOAT>(hb_parnd(3));
    auto Color_Fill_Bk = hmg_par_COLORREF(4);
 
    auto memDC1 = CreateCompatibleDC(nullptr);
@@ -2960,7 +2960,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
 
    HBRUSH hBrush   = CreateSolidBrush(Color_Fill_Bk);
-   HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(memDC2, hBrush));
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(memDC2, hBrush));
    RECT rectang;
    SetRect(&rectang, 0, 0, Width, Height);
    FillRect(memDC2, &rectang, hBrush);
@@ -3043,7 +3043,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       return;
    }
 
-   LPBYTE lp_Clipboard = static_cast<LPBYTE>(GlobalLock(hClipboard));
+   auto lp_Clipboard = static_cast<LPBYTE>(GlobalLock(hClipboard));
 
    LPBITMAPINFO lp_BI = ( LPBITMAPINFO ) lp_Clipboard;
 
@@ -3058,7 +3058,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       nBytes_Offset = sizeof(RGBQUAD) * 256;
    }
 
-   LPBYTE lp_Bits = static_cast<LPBYTE>(lp_Clipboard + (sizeof(BITMAPINFOHEADER) + nBytes_Offset));
+   auto lp_Bits = static_cast<LPBYTE>(lp_Clipboard + (sizeof(BITMAPINFOHEADER) + nBytes_Offset));
 
    BITMAPINFO   BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -3117,7 +3117,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
 
-   DWORD nBytes_Bits  = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
+   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
    DWORD nBytes_Total = sizeof(BITMAPINFOHEADER) + nBytes_Bits;
 
    if( !OpenClipboard(hWnd) ) {
@@ -3132,7 +3132,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
       return;
    }
 
-   LPBYTE lp_Clipboard = reinterpret_cast<LPBYTE>(GlobalLock(hClipboard));
+   auto lp_Clipboard = reinterpret_cast<LPBYTE>(GlobalLock(hClipboard));
 
    memcpy(lp_Clipboard, &BI.bmiHeader, sizeof(BITMAPINFOHEADER));
 
@@ -3285,7 +3285,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    HFONT hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   HFONT hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
+   auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
 /*
    When GetTextExtentPoint32() returns the text extent, it assumes that the text is HORIZONTAL,

@@ -160,7 +160,7 @@ ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
 HB_FUNC( ADDDIALOGPAGES )
 {
    auto hwnd = hmg_par_HWND(1);
-   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+   auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
    TC_ITEM tie;
@@ -211,8 +211,8 @@ HB_FUNC( GETEDITTEXT )
 {
    auto hDlg = hmg_par_HWND(1);
    auto id = hmg_par_int(2);
-   USHORT strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
-   TCHAR * str = new TCHAR[strlen + 2];
+   auto strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
+   auto str = new TCHAR[strlen + 2];
    GetDlgItemText(hDlg, id, str, strlen + 1);
    HB_RETSTR(str);
    delete[] str;
@@ -236,7 +236,7 @@ HB_FUNC( ISDLGBUTTONCHECKED )
 
 static LPWORD lpwAlign(LPWORD lpIn)
 {
-   ULONG_PTR ul = reinterpret_cast<ULONG_PTR>(lpIn);
+   auto ul = reinterpret_cast<ULONG_PTR>(lpIn);
    ul += 3;
    ul >>= 2;
    ul <<= 2;

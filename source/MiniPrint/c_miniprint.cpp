@@ -1666,7 +1666,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
    LPWSTR cPrinterName = AnsiToWide(const_cast<char*>(hb_parc(1)));
    LPSTR  pStr;
 #endif
-   DWORD      nJobID   = static_cast<DWORD>(hb_parni(2));
+   auto nJobID = static_cast<DWORD>(hb_parni(2));
    HANDLE     hPrinter = nullptr;
    TCHAR      cDateTime[256];
    SYSTEMTIME LocalSystemTime;

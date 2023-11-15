@@ -84,7 +84,7 @@ HB_FUNC( _SETBTNPICTURE )
 
    auto hwnd = hmg_par_HWND(1);
 
-   HWND himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+   auto himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
    if( himage == nullptr ) {
       himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
@@ -129,7 +129,7 @@ HB_FUNC( _SETBTNICON )
    void * IconName;
    LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
-   HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
@@ -149,7 +149,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    void * IconName;
    LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
-   HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
@@ -188,7 +188,7 @@ DRAWBUTTON(p1, p2, p3, p4, p5, p6) --> NIL
 */
 HB_FUNC( DRAWBUTTON )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(4));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(4));
 
    UINT iFocus     = hb_parni(2);
    UINT iState     = hb_parni(3);
@@ -202,8 +202,8 @@ HB_FUNC( DRAWBUTTON )
    DrawFrameControl(pps->hDC, &pps->rcItem, DFC_BUTTON, (!iFlat) ? iState : (iState | DFCS_FLAT));
 
    if( iFocus == 1 ) {
-      HPEN OldPen = static_cast<HPEN>(SelectObject(pps->hDC, GetStockObject(BLACK_PEN)));
-      HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(pps->hDC, GetStockObject(NULL_BRUSH)));
+      auto OldPen = static_cast<HPEN>(SelectObject(pps->hDC, GetStockObject(BLACK_PEN)));
+      auto OldBrush = static_cast<HBRUSH>(SelectObject(pps->hDC, GetStockObject(NULL_BRUSH)));
 
       InflateRect(&pps->rcItem, 1, 1);
       Rectangle(pps->hDC, pps->rcItem.left, pps->rcItem.top, pps->rcItem.right, pps->rcItem.bottom);
@@ -220,7 +220,7 @@ GETOWNBTNHANDLE(p1) --> HANDLE
 */
 HB_FUNC( GETOWNBTNHANDLE )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hmg_ret_HWND(pps->hwndItem);
@@ -234,7 +234,7 @@ GETOWNBTNSTATE(p1) --> numeric
 */
 HB_FUNC( GETOWNBTNSTATE )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hb_retnl(pps->itemState);
@@ -248,7 +248,7 @@ GETOWNBTNDC(p1) --> HANDLE
 */
 HB_FUNC( GETOWNBTNDC )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hmg_ret_HDC(pps->hDC);
@@ -262,7 +262,7 @@ GETOWNBTNITEMID(p1) --> numeric
 */
 HB_FUNC( GETOWNBTNITEMID )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hb_retnl(pps->itemID);
@@ -276,7 +276,7 @@ GETOWNBTNITEMACTION(p1) --> numeric
 */
 HB_FUNC( GETOWNBTNITEMACTION )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hb_retnl(pps->itemAction);
@@ -290,7 +290,7 @@ GETOWNBTNCTLTYPE(p1) --> numeric
 */
 HB_FUNC( GETOWNBTNCTLTYPE )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
    if( pps ) {
       hb_retni(pps->CtlType);
@@ -304,7 +304,7 @@ GETOWNBTNRECT(p1) --> array
 */
 HB_FUNC( GETOWNBTNRECT )
 {
-   DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
    RECT rc = pps->rcItem;
    auto aMetr = hb_itemArrayNew(4);
    HB_arraySetNL(aMetr, 1, rc.left);
@@ -343,7 +343,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    rcF.right  = nWidth;
    rcF.bottom = nHeight;
 
-   int nCount = static_cast<int>(ceil(((nWidth > nHeight) ? nHeight : nWidth) / 2));
+   auto nCount = static_cast<int>(ceil(((nWidth > nHeight) ? nHeight : nWidth) / 2));
 
    HBRUSH hBrush;
    HBRUSH hBrushOld;

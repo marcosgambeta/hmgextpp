@@ -145,7 +145,7 @@ HB_FUNC( UNLOADRICHEDITEXLIB )
 
 DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
-   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
    if( ReadFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return 0;
@@ -192,7 +192,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
 DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
-   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
    if( WriteFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return 0;

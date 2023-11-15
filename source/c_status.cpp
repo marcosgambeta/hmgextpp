@@ -76,7 +76,6 @@ HB_FUNC( INITITEMBAR )
    int   nrOfParts = 0;
    RECT  rect;
    WORD  displayFlags;
-   HICON hIcon;
    int   style;
    int   cx;
    int   cy;
@@ -133,7 +132,7 @@ HB_FUNC( INITITEMBAR )
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
+   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
@@ -262,7 +261,6 @@ HB_FUNC( KEYTOGGLENT )
 HB_FUNC( SETSTATUSITEMICON )
 {
    RECT  rect;
-   HICON hIcon;
    int   cx;
    int   cy;
 
@@ -280,7 +278,7 @@ HB_FUNC( SETSTATUSITEMICON )
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
+   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
@@ -294,16 +292,15 @@ HB_FUNC( SETSTATUSITEMICON )
 HB_FUNC( SETSTATUSBARSIZE )
 {
    HLOCAL hloc;
-   LPINT  lpParts;
 
    auto hwndStatus = hmg_par_HWND(1);
-   int  nParts     = static_cast<int>(hb_parinfa(2, 0));
+   auto nParts = static_cast<int>(hb_parinfa(2, 0));
    int  nWidth;
 
    // Set Widths from array
 
    hloc    = LocalAlloc(LHND, sizeof(int) * nParts);
-   lpParts = ( LPINT ) LocalLock(hloc);
+   auto lpParts = static_cast<LPINT>(LocalLock(hloc));
 
    nWidth = 0;
 

@@ -88,14 +88,14 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
 
    auto hMemDC = CreateCompatibleDC(hDC);
    auto hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
-   HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
+   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, rc.top, rc.left, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
    HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
    HANDLE filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
-   LPBITMAPINFOHEADER lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
+   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
    if( lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER) ) {
       BITMAPFILEHEADER bmfHdr;
       bmfHdr.bfType = static_cast<WORD>('M' << 8) | 'B';
@@ -148,14 +148,14 @@ HB_FUNC( WNDCOPY )
 
    auto hMemDC = CreateCompatibleDC(hDC);
    auto hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
-   HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
+   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
    HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
    HANDLE filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
-   LPBITMAPINFOHEADER lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
+   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
    if( lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER) ) {
       BITMAPFILEHEADER bmfHdr;
       bmfHdr.bfType = (static_cast<WORD>('M' << 8) | 'B');
@@ -191,8 +191,8 @@ WORD DibNumColors(VOID FAR * pv)
 {
    int bits;
 
-   LPBITMAPINFOHEADER lpbi = static_cast<LPBITMAPINFOHEADER>(pv);
-   LPBITMAPCOREHEADER lpbc = static_cast<LPBITMAPCOREHEADER>(pv);
+   auto lpbi = static_cast<LPBITMAPINFOHEADER>(pv);
+   auto lpbc = static_cast<LPBITMAPCOREHEADER>(pv);
 
    // With the BITMAPINFO format headers, the size of the palette
    // is in biClrUsed, whereas in the BITMAPCORE - style headers, it
@@ -223,7 +223,7 @@ WORD DibNumColors(VOID FAR * pv)
 
 static WORD PaletteSize(VOID FAR * pv)
 {
-   LPBITMAPINFOHEADER lpbi = static_cast<LPBITMAPINFOHEADER>(pv);
+   auto lpbi = static_cast<LPBITMAPINFOHEADER>(pv);
    WORD NumColors = DibNumColors(lpbi);
    return (lpbi->biSize == sizeof(BITMAPCOREHEADER)) ? static_cast<WORD>(NumColors * sizeof(RGBTRIPLE)) : static_cast<WORD>(NumColors * sizeof(RGBQUAD));
 }
@@ -243,7 +243,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    BITMAP bm;
    GetObject(hbm, sizeof(bm), reinterpret_cast<LPSTR>(&bm));
 
-   WORD biBits = static_cast<WORD>(bm.bmPlanes * bm.bmBitsPixel);
+   auto biBits = static_cast<WORD>(bm.bmPlanes * bm.bmBitsPixel);
 
    BITMAPINFOHEADER bi; // TODO: initialize with {}
    bi.biSize          = sizeof(BITMAPINFOHEADER);
@@ -345,7 +345,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    bool bAlphaChannel = false;
 
    if( hDib ) {
-      LPBITMAPINFO lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hDib));
+      auto lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hDib));
       unsigned char * uc = reinterpret_cast<LPBYTE>(lpbmi) + static_cast<WORD>(lpbmi->bmiHeader.biSize) + PaletteSize(lpbmi);
 
       for( unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && !bAlphaChannel; ul += 4 ) {
@@ -371,7 +371,7 @@ HBITMAP Icon2Bmp(HICON hIcon)
    BITMAP bitmap;
    GetObject(icon.hbmColor, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
    auto hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
-   HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
+   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
 
    PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
    DrawIconEx(hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, nullptr, DI_NORMAL);
@@ -397,7 +397,7 @@ HBITMAP IconMask2Bmp(HICON hIcon)
    BITMAP bitmap;
    GetObject(icon.hbmColor, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
    auto hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
-   HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
+   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
 
    PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
    DrawIconEx(hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, nullptr, DI_MASK);
@@ -498,7 +498,7 @@ HB_FUNC( DRAWGLYPH )
    // prime the "no blink" device context
    auto hDCNoBlink = CreateCompatibleDC(hDC);
    auto hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
-   HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
+   auto hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255)); // White
    SetTextColor(hDCNoBlink, RGB(0, 0, 0)); // Black
@@ -518,7 +518,7 @@ HB_FUNC( DRAWGLYPH )
 
    if( disabled ) {
       HBRUSH hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
-      HBRUSH hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
+      auto hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
       BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);
@@ -575,7 +575,7 @@ HB_FUNC( DRAWGLYPHMASK )
 
    dx = (dx > 0 ? HB_MIN(dx, bitmap.bmWidth) : bitmap.bmWidth);
    dy = (dy > 0 ? HB_MIN(dy, bitmap.bmHeight) : bitmap.bmHeight);
-   HBITMAP hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
+   auto hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
    COLORREF rgbTransparent = GetPixel(hDCMem, 0, 0);
 
    // build mask based on transparent color
@@ -623,7 +623,7 @@ HB_FUNC( LOADBITMAP )
    void * ImageName;
    LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
 
-   HBITMAP hBitmap = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR));
+   auto hBitmap = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR));
 
    if( hBitmap == nullptr ) {
       hBitmap = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
@@ -709,7 +709,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    // prime the "no blink" device context
    auto hDCNoBlink = CreateCompatibleDC(hDC);
    auto hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
-   HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
+   auto hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255));
    SetTextColor(hDCNoBlink, RGB(0, 0, 0));
@@ -729,7 +729,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
    if( disabled ) {
       HBRUSH hBr = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
-      HBRUSH hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
+      auto hOld = static_cast<HBRUSH>(SelectObject(hDCNoBlink, hBr));
       BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);

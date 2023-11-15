@@ -485,9 +485,7 @@ void GetCheck(INSCHK * pbtn, RECT * rect)
 
 BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL lCheck, BOOL lLeftCheck)
 {
-   INSCHK * pbtn;
-
-   pbtn = static_cast<INSCHK*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK)));
+   auto pbtn = static_cast<INSCHK*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK)));
 
    if( !pbtn ) {
       return FALSE;
@@ -544,7 +542,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
       auto hdcMem = CreateCompatibleDC(hdc);
 
       if( pbtn->lCheck ) {
-         HBITMAP hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask));
+         auto hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask));
          GetObject(hBitmap, sizeof(bm), &bm);
 
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
@@ -553,7 +551,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT);
          SelectObject(hdcMem, hbmOld);
       } else if( hBitmap2 != nullptr ) {
-         HBITMAP hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask2));
+         auto hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask2));
          GetObject(hBitmap2, sizeof(bm), &bm);
 
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
@@ -656,7 +654,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
 HB_FUNC( SETCHKLABEL )
 {
    auto hWnd = hmg_par_HWND(1);
-   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
    RECT rect;
 
    pbtn->lCheck = hb_parl(2);
@@ -674,7 +672,7 @@ HB_FUNC( SETCHKLABEL )
 HB_FUNC( GETCHKLABEL )
 {
    auto hWnd = hmg_par_HWND(1);
-   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    hb_retl(pbtn->lCheck);
 }
@@ -688,7 +686,7 @@ LRESULT APIENTRY ChkLabelFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
    RECT rect;
    TRACKMOUSEEVENT tme;
 
-   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    switch( Msg ) {
       case WM_NCCALCSIZE:

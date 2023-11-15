@@ -482,7 +482,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
    HB_TYPE iType = hb_itemType(reinterpret_cast<PHB_ITEM>(dwRefData));
 
    if( iType & Harbour::Item::OBJECT ) {
-      PHB_ITEM     pObject = reinterpret_cast<PHB_ITEM>(dwRefData);
+      auto pObject = reinterpret_cast<PHB_ITEM>(dwRefData);
       const char * sMsgName;
       HRESULT      hRes;
 
@@ -522,7 +522,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
          return hRes;
       }
    } else if( iType & Harbour::Item::EVALITEM ) {
-      PHB_ITEM pCallback = reinterpret_cast<PHB_ITEM>(dwRefData);
+      auto pCallback = reinterpret_cast<PHB_ITEM>(dwRefData);
 
       if( pCallback && hb_vmRequestReenter() ) {
          HRESULT  hRes;

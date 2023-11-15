@@ -970,9 +970,6 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 {
    HPEN     hPen;
    HBRUSH   hBrush;
-   HPEN     OldPen;
-   HBRUSH   OldBrush;
-   COLORREF ColorLine, ColorFill;
    INT      x1, y1, x2, y2, nWidthLine;
    INT      XStartArc, YStartArc, XEndArc, YEndArc;
    INT      nArcType;
@@ -988,14 +985,14 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    XEndArc   = hb_parni(8);
    YEndArc   = hb_parni(9);
 
-   ColorLine  = static_cast<COLORREF>(hb_parnl(10));
+   auto ColorLine  = static_cast<COLORREF>(hb_parnl(10));
    nWidthLine = hb_parni(11);
-   ColorFill  = static_cast<COLORREF>(hb_parnl(12));
+   auto ColorFill  = static_cast<COLORREF>(hb_parnl(12));
 
    nArcType = hb_parni(13);
 
    hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-   OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
+   auto OldPen = static_cast<HPEN>(SelectObject(hDC, hPen));
 
    if( hb_parnl(14) ) {
       hBrush   = hmg_par_HBRUSH(14);
@@ -1003,7 +1000,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
       hBrush   = CreateSolidBrush(ColorFill);
    }
 
-   OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
+   auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( nArcType ) {
       case BT_DRAW_ARC:

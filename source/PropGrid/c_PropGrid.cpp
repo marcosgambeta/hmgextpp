@@ -206,7 +206,7 @@ static int        m_nHeightHeader = 0;
 
 static bool InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pgrd)
 {
-   INSBTN * pbtn = reinterpret_cast<INSBTN*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN)));
+   auto pbtn = reinterpret_cast<INSBTN*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN)));
 
    if( pbtn == nullptr ) {
       return false;
@@ -313,7 +313,6 @@ static void LineHorz(HDC hDC, int x0, int x1, int y)
 static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, int indent, int datawidth, int style, bool readonly, bool lInfoShow,
    int cyInfo, int PGHeight, HWND hTitle, HWND hInfo, HWND hFrame, HWND hHeader, HWND hFramePG, HWND hBtnOk, HWND hBtnApply, HWND hBtnCancel, HWND hBtnHelp)
 {
-   PROPGRD * ppgrd;
    RECT rcCtrl;
    RECT rcButton;
    HWND  hwndButton;
@@ -323,7 +322,7 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
    int cxMargin = GetSystemMetrics(SM_CYDLGFRAME);
    int buttonWidth;
    int buttonHeight = 0;
-   ppgrd = reinterpret_cast<PROPGRD*>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
+   auto ppgrd = reinterpret_cast<PROPGRD*>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
 
    if( !ppgrd ) {
       return FALSE;
@@ -557,8 +556,8 @@ static void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
    HPEN hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
    HBRUSH hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
 
-   HPEN hOldPen = static_cast<HPEN>(SelectObject(hDC, hBoxPen));
-   HBRUSH hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hNewBrush));
+   auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hBoxPen));
+   auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hNewBrush));
 
    // Draw the box
 
@@ -805,14 +804,14 @@ static LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          }
 
          if( pItemData->ItemChanged ) {
-            HFONT    hFontBold, hOldFont;
-            HFONT    hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
+            HFONT    hFontBold;
+            auto hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
             LOGFONT  lf{};
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
             hFontBold = CreateFontIndirect(&lf);
-            hOldFont = static_cast<HFONT>(SelectObject(pCD->nmcd.hdc, hFontBold));
+            auto hOldFont = static_cast<HFONT>(SelectObject(pCD->nmcd.hdc, hFontBold));
 
             DeleteObject(hFontBold);
             DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT);
@@ -1110,8 +1109,8 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   PROPGRD * ppgrd = ( PROPGRD * ) GetWindowLongPtr(hFramePG, GWLP_USERDATA);
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hFramePG, "oldframepgproc")));
+   auto ppgrd = reinterpret_cast<PROPGRD*>(GetWindowLongPtr(hFramePG, GWLP_USERDATA));
+   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hFramePG, "oldframepgproc")));
 
    switch( Msg ) {
       case WM_DESTROY:
@@ -1776,7 +1775,7 @@ HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    SelectObject(tmpDC, hBmp);
 
-   HBRUSH hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
+   auto hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
    FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;
@@ -1814,7 +1813,6 @@ CREATECOLORBMP() -->
 */
 HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 {
-   HBRUSH   hOldBrush;
    HBRUSH   hColorBrush;
    HBRUSH   hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
    HBRUSH   hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
@@ -1837,7 +1835,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    SelectObject(tmpDC, hBmp);
 
-   hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
+   auto hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
    FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;

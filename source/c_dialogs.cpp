@@ -141,7 +141,7 @@ HB_FUNC( C_GETFILE )
    LPWSTR pW1, pW2;
    LPSTR  pStr;
    int    j = 0, cont = 0;
-   char * p = static_cast<char*>(hb_parc(1));
+   auto p = static_cast<char*>(hb_parc(1));
    TCHAR  Filter[4096];
    memset(static_cast<void*>(&Filter), 0, sizeof(Filter));
 
@@ -243,7 +243,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    LPWSTR pW, pW1, pW2;
    LPSTR  pStr;
    int    j = 0, cont = 0;
-   char * p = static_cast<char*>(hb_parc(1));
+   auto p = static_cast<char*>(hb_parc(1));
    TCHAR  Filter[4096];
    memset(static_cast<void*>(&Filter), 0, sizeof(Filter));
 

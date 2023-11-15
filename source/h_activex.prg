@@ -883,16 +883,15 @@ HB_FUNC( SETUPCONNECTIONPOINT )
    IEnumConnectionPoints *     m_pIEnumConnectionPoints;
    HRESULT hr;
    IID     rriid; // = {0};
-   /* register */ IEventHandler * selfobj;
    DWORD dwCookie = 0;
 
-   device_interface * pdevice_interface = reinterpret_cast<device_interface*>(HB_PARNL(1));
+   auto pdevice_interface = reinterpret_cast<device_interface*>(HB_PARNL(1));
    MyRealIEventHandler * pThis;
 
    // Allocate our IEventHandler object (actually a MyRealIEventHandler)
    // intentional misrepresentation of size
 
-   selfobj = static_cast<IEventHandler*>(GlobalAlloc(GMEM_FIXED, sizeof(MyRealIEventHandler)));
+   auto selfobj = static_cast<IEventHandler*>(GlobalAlloc(GMEM_FIXED, sizeof(MyRealIEventHandler)));
 
    if( !selfobj ) {
       hr = E_OUTOFMEMORY;
@@ -970,7 +969,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
 
 HB_FUNC( SHUTDOWNCONNECTIONPOINT )
 {
-   MyRealIEventHandler * self = reinterpret_cast<MyRealIEventHandler*>(HB_PARNL(1));
+   auto self = reinterpret_cast<MyRealIEventHandler*>(HB_PARNL(1));
 
    if( self->pIConnectionPoint ) {
       self->pIConnectionPoint->lpVtbl->Unadvise(self->pIConnectionPoint, self->dwEventCookie);
@@ -982,7 +981,7 @@ HB_FUNC( SHUTDOWNCONNECTIONPOINT )
 
 HB_FUNC( RELEASEDISPATCH )
 {
-   IDispatch * pObj = reinterpret_cast<IDispatch*>(HB_PARNL(1));
+   auto pObj = reinterpret_cast<IDispatch*>(HB_PARNL(1));
    pObj->lpVtbl->Release(pObj);
 }
 

@@ -243,9 +243,8 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 {
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
-   WNDPROC         OldWndProc;
 
-   OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
+   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
 
    switch( Msg ) {
       case WM_DESTROY:

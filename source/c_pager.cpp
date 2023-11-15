@@ -80,7 +80,7 @@ HB_FUNC( SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
 
 HB_FUNC( PAGERCALCSIZE ) // PagerCalcSize(lParam , nWidth)
 {
-   NMPGCALCSIZE * lpCalcSize = reinterpret_cast<LPNMPGCALCSIZE>(HB_PARNL(1));
+   auto lpCalcSize = reinterpret_cast<LPNMPGCALCSIZE>(HB_PARNL(1));
 
    if( lpCalcSize->dwFlag == PGF_CALCWIDTH ) {
       lpCalcSize->iWidth = hmg_par_INT(2);
@@ -93,7 +93,7 @@ HB_FUNC( PAGERCALCSIZE ) // PagerCalcSize(lParam , nWidth)
 
 HB_FUNC( PAGERSCROLL ) // PagerScroll(lParam , nScroll)
 {
-   NMPGSCROLL * lpScroll = reinterpret_cast<LPNMPGSCROLL>(HB_PARNL(1));
+   auto lpScroll = reinterpret_cast<LPNMPGSCROLL>(HB_PARNL(1));
    lpScroll->iScroll = hb_parnl(2);
 }
 

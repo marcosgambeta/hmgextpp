@@ -202,7 +202,7 @@ HB_FUNC( SETWINDOWSTYLE )
 
    if( IsWindow(hwnd) ) {
       LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
-      LONG_PTR nNewStyle = static_cast<LONG_PTR>(HB_PARNL(2));
+      auto nNewStyle = static_cast<LONG_PTR>(HB_PARNL(2));
 
       HB_RETNL( SetWindowLongPtr(hwnd, GWL_STYLE, ( hmg_par_BOOL(3) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle )) );
    } else {

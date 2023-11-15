@@ -179,7 +179,6 @@ HB_FUNC( GETPROP )
    auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
    char *  lpMem;
-   int     nLen;
 
 #ifndef UNICODE
    LPCSTR pW = hb_parc(2);
@@ -216,7 +215,7 @@ HB_FUNC( GETPROP )
       }
    }
 
-   nLen = static_cast<int>(*reinterpret_cast<int*>(lpMem + 1));
+   auto nLen = static_cast<int>(*reinterpret_cast<int*>(lpMem + 1));
    switch( lpMem[0] ) {
       case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
       case 'L':   hb_retl(( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 )); break;
@@ -349,7 +348,7 @@ HB_FUNC( ENUMPROPSEX )
 
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
-   PHB_ITEM pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
+   auto pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
    int      iLen       = lstrlen(pszPropName);
 
    if( iLen ) {

@@ -1050,7 +1050,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, TEXT("oldbtnproc")));
+   auto OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, TEXT("oldbtnproc")));
 
    switch( Msg ) {
       case WM_LBUTTONDBLCLK:

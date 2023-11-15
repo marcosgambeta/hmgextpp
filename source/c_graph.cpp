@@ -72,9 +72,9 @@ HB_FUNC( TEXTDRAW )
       void * str2;
 
       int   bold      = hb_parl(11) ? FW_BOLD : FW_NORMAL;
-      DWORD italic    = static_cast<DWORD>(hb_parl(12));
-      DWORD underline = static_cast<DWORD>(hb_parl(13));
-      DWORD strikeout = static_cast<DWORD>(hb_parl(14));
+      auto italic    = static_cast<DWORD>(hb_parl(12));
+      auto underline = static_cast<DWORD>(hb_parl(13));
+      auto strikeout = static_cast<DWORD>(hb_parl(14));
       DWORD angle     = hb_parnl(16);
       LPCTSTR lpString = HB_PARSTR(4, &str1, nullptr);
       int      iBkMode;
@@ -311,7 +311,7 @@ HB_FUNC( POLYGONDRAW )
    }
 
    POINT apoints[1024];
-   int number = static_cast<int>(hb_parinfa(2, 0));
+   auto number = static_cast<int>(hb_parinfa(2, 0));
 
    for( int i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(2, i + 1);
@@ -337,7 +337,7 @@ HB_FUNC( POLYBEZIERDRAW )
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
    POINT apoints[1024];
-   DWORD number = static_cast<DWORD>(hb_parinfa(2, 0));
+   auto number = static_cast<DWORD>(hb_parinfa(2, 0));
 
    for( DWORD i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(2, i + 1);
@@ -352,7 +352,7 @@ HB_FUNC( POLYBEZIERDRAW )
 
 void WndDrawBox(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit)
 {
-   HPEN hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
+   auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
 
    POINT pt;
 

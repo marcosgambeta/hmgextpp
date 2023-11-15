@@ -91,7 +91,7 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
    TCHAR * lpText    = hb_osStrU16Encode(hb_parc(1));
    TCHAR * lpCaption = hb_osStrU16Encode(hb_parc(2));
 #endif
-   UINT  uType          = static_cast<UINT>( hb_parnldef(3, MB_OK));
+   auto uType = static_cast<UINT>( hb_parnldef(3, MB_OK));
    WORD  wLanguageId    = MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL);
    DWORD dwMilliseconds = HB_ISNUM(4) ? hmg_par_DWORD(4) : static_cast<DWORD>(0xFFFFFFFF);
 

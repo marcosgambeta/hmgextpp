@@ -94,7 +94,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
    if( hAccel != nullptr ) {
       int cAccelEntries = CopyAcceleratorTable(hAccel, nullptr, 0);
       if( cAccelEntries > 0 ) {
-         LPACCEL lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
+         auto lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
          if( lpAccel != nullptr ) {
             if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) ) {
                for( int i = 0; i < cAccelEntries; i++ ) {
@@ -124,7 +124,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
    HACCEL hAccel = nullptr;
 
    if( pArray != nullptr && ((nLen = hb_arrayLen(pArray)) > 0)) {
-      LPACCEL lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
+      auto lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
       if( lpAccel != nullptr ) {
          for( int i = 0; i < nLen; i++ ) {
             if( hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY ) {
@@ -156,7 +156,7 @@ HB_FUNC( COPYACCELERATORTABLE )
    if( hAccelSrc != nullptr ) {
       int cAccelEntries = CopyAcceleratorTable(hAccelSrc, nullptr, 0);
       if( cAccelEntries > 0 ) {
-         LPACCEL lpAccelDst = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
+         auto lpAccelDst = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
          if( lpAccelDst != nullptr ) {
             hb_retni(CopyAcceleratorTable(hAccelSrc, lpAccelDst, cAccelEntries));
             hb_storptr(lpAccelDst, 2);
@@ -168,7 +168,7 @@ HB_FUNC( COPYACCELERATORTABLE )
 // HACCEL WINAPI CreateAcceleratorTable(LPACCEL lpAccel, int cAccelEntries)
 HB_FUNC( CREATEACCELERATORTABLE )
 {
-   LPACCEL lpAccels = static_cast<LPACCEL>(hb_parptr(1));
+   auto lpAccels = static_cast<LPACCEL>(hb_parptr(1));
    HACCEL  hAccel = nullptr;
    int cAccelEntries = hb_parni(2);
 
@@ -536,7 +536,7 @@ HB_FUNC( MENUITEM_SETICON )
    void * str;
    LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
-   HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
+   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
@@ -548,7 +548,7 @@ HB_FUNC( MENUITEM_SETICON )
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_DATA;
       if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         LPMENUITEM lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
+         auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
          if( lpMenuItem->hBitmap != nullptr ) {
             DeleteObject(lpMenuItem->hBitmap);
          }
@@ -597,7 +597,7 @@ HB_FUNC( XGETMENUCAPTION )
       MenuItemInfo.fMask  = MIIM_DATA;
       GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
 
-      MENUITEM * lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
+      auto lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
 
       if( lpMenuItem->caption != nullptr ) {
       #ifndef UNICODE
@@ -627,10 +627,10 @@ HB_FUNC( XSETMENUCAPTION )
       MenuItemInfo.fMask  = MIIM_DATA;
       GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
 
-      MENUITEM * lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
+      auto lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
 
       if( lpMenuItem->caption != nullptr ) {
-         UINT cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
+         auto cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
       #ifndef UNICODE
          hb_retclen(lpMenuItem->caption, lpMenuItem->cch);
@@ -714,8 +714,8 @@ HB_FUNC( GETMENUITEMCOUNT )
 
 HB_FUNC( _ONDRAWMENUITEM )
 {
-   LPDRAWITEMSTRUCT lpdis = reinterpret_cast<LPDRAWITEMSTRUCT>(HB_PARNL(1));
-   MENUITEM * lpMenuItem = reinterpret_cast<MENUITEM*>(lpdis->itemData);
+   auto lpdis = reinterpret_cast<LPDRAWITEMSTRUCT>(HB_PARNL(1));
+   auto lpMenuItem = reinterpret_cast<MENUITEM*>(lpdis->itemData);
 
    if( lpdis->CtlType != ODT_MENU ) {
       return;
@@ -798,7 +798,7 @@ HB_FUNC( _ONDRAWMENUITEM )
          HPEN pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
          HPEN pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
 
-         HPEN oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
+         auto oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
 
          RECT rect;
          CopyRect(&rect, &lpdis->rcItem);
@@ -882,7 +882,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    CopyRect(&rect, &r);
 
    HPEN pen = CreatePen(PS_SOLID, 1, clrSeparator1);
-   HPEN oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
+   auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    if( eSeparatorPosition == Right ) {
       rect.left += (min_width + cx_delta + 2);
@@ -897,7 +897,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
 
    if( eSeparatorType == Double ) {
       HPEN pen1 = CreatePen(PS_SOLID, 1, clrSeparator2);
-      HPEN oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
+      auto oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
 
       rect.top += 1;
       MoveToEx(hDC, rect.left, rect.top, nullptr);
@@ -985,7 +985,7 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
       pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
    }
 
-   HPEN oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
+   auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    RECT rect;
    CopyRect(&rect, &r);
@@ -1037,10 +1037,10 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
          brush = CreateSolidBrush(clrCheckMarkBk);
       }
 
-      HBRUSH oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
+      auto oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
 
       HPEN pen = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
-      HPEN oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
+      auto oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
 
       UINT w = (size.cx > min_width ? min_width : size.cx);
       UINT h = w;
@@ -1251,8 +1251,7 @@ static BOOL _DestroyMenu(HMENU menu)
       }
 
       if( s_bCustomDraw ) {
-         LPMENUITEM lpMenuItem;
-         lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
+         auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
 
          if( lpMenuItem->caption != nullptr ) {
             hb_xfree(lpMenuItem->caption);
@@ -1288,8 +1287,8 @@ HB_FUNC( _ONMEASUREMENUITEM )
 
    if( IsWindow(hwnd) ) {
       auto hdc = GetDC(hwnd);
-      LPMEASUREITEMSTRUCT lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(4));
-      MENUITEM * lpMenuItem = reinterpret_cast<MENUITEM*>(lpmis->itemData);
+      auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(4));
+      auto lpMenuItem = reinterpret_cast<MENUITEM*>(lpmis->itemData);
       SIZE size = {0, 0};
 
       HFONT oldfont;

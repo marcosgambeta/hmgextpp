@@ -611,7 +611,7 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
    auto hwndToolTip = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      COLORREF cr = static_cast<COLORREF>(0);
+      auto cr = static_cast<COLORREF>(0);
 
       if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ARRAY), &cr) ) {
          if( HB_ISNUM(2) ) {
@@ -635,7 +635,7 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
    auto hwndToolTip = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      COLORREF cr = static_cast<COLORREF>(0);
+      auto cr = static_cast<COLORREF>(0);
 
       if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
          if( HB_ISNUM(2) ) {

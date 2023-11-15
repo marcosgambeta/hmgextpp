@@ -189,8 +189,8 @@ HB_FUNC( CREATECARET )
 HB_FUNC( CHANGESTYLE )
 {
    auto hWnd = hmg_par_HWND(1);
-   LONG_PTR dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
-   LONG_PTR dwRemove = static_cast<LONG_PTR>(HB_PARNL(3));
+   auto dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
+   auto dwRemove = static_cast<LONG_PTR>(HB_PARNL(3));
    int iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
    LONG_PTR dwStyle, dwNewStyle;
 

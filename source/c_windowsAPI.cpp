@@ -590,7 +590,6 @@ HB_FUNC( CLIENTTOSCREEN )
 
 HB_FUNC( LOADTRAYICON )
 {
-   HICON     hIcon;
    HINSTANCE hInstance = hmg_par_HINSTANCE(1);                                       // handle to application instance
 
 #ifndef UNICODE
@@ -601,7 +600,7 @@ HB_FUNC( LOADTRAYICON )
    int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
    int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
 
-   hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
+   auto hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
 
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
@@ -702,7 +701,7 @@ HB_FUNC( ENUMWINDOWS )
 
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
-   PHB_ITEM pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
+   auto pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    if( pCodeBlock ) {
@@ -852,7 +851,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    HRGN  hRgn;
    POINT lppt[512];
    int   fnPolyFillMode;
-   int   cPoints = static_cast<int>(hb_parinfa(2, 0));
+   auto cPoints = static_cast<int>(hb_parinfa(2, 0));
 
    if( hb_parni(4) == 1 ) {
       fnPolyFillMode = WINDING;
@@ -1045,7 +1044,6 @@ HB_FUNC( GETTABBRUSH )
 {
    HBRUSH  hBrush;
    RECT    rc;
-   HBITMAP hOldBmp;
    auto hWnd = hmg_par_HWND(1);
 
    GetWindowRect(hWnd, &rc);
@@ -1054,7 +1052,7 @@ HB_FUNC( GETTABBRUSH )
 
    auto hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
 
-   hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
+   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
 
    SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
 
@@ -1149,15 +1147,13 @@ HB_FUNC( CREATEHATCHBRUSH )
 /* Modified by P.Ch. 16.10. */
 HB_FUNC( CREATEPATTERNBRUSH )
 {
-   HBITMAP hImage;
-
 #ifndef UNICODE
    LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr );
 #else
    LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(const_cast<char*>(hb_parc(1))) : ( HB_ISNUM(1) ? static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parni(1))) : nullptr );
 #endif
 
-   hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+   auto hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
    if( hImage == nullptr && HB_ISCHAR(1) ) {
       hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
@@ -1224,7 +1220,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
          hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, nullptr, 0);
          if( hbm32 ) {
-            HBITMAP holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
+            auto holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
 
             // Create a DC just to copy the bitmap into the memory DC
             auto hDC = CreateCompatibleDC(hMemDC);
@@ -1234,13 +1230,13 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                HANDLE    hData;
                RGNDATA * pData;
                BYTE *    p32;
-               BYTE      lr, lg, lb, hr, hg, hb;
+               BYTE      lr, lg, lb;
                HRGN      h;
 
                GetObject(hbm32, sizeof(bm32), &bm32);
                while( bm32.bmWidthBytes % 4 ) {
                   bm32.bmWidthBytes++;
-               }   
+               }
 
                // Copy the bitmap into the memory DC
                holdBmp = static_cast<HBITMAP>(SelectObject(hDC, hBmp));
@@ -1261,9 +1257,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                lr = GetRValue(cTransparentColor);
                lg = GetGValue(cTransparentColor);
                lb = GetBValue(cTransparentColor);
-               hr = static_cast<BYTE>(HB_MIN(0xff, lr + GetRValue(cTolerance)));
-               hg = static_cast<BYTE>(HB_MIN(0xff, lg + GetGValue(cTolerance)));
-               hb = static_cast<BYTE>(HB_MIN(0xff, lb + GetBValue(cTolerance)));
+               auto hr = static_cast<BYTE>(HB_MIN(0xff, lr + GetRValue(cTolerance)));
+               auto hg = static_cast<BYTE>(HB_MIN(0xff, lg + GetGValue(cTolerance)));
+               auto hb = static_cast<BYTE>(HB_MIN(0xff, lb + GetBValue(cTolerance)));
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
                p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;

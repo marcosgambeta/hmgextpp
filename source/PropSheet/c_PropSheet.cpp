@@ -103,7 +103,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    case WM_NOTIFY:
    {
       LPNMHDR lpnmhdr  = reinterpret_cast<NMHDR FAR*>(lParam);
-      PSHNOTIFY * psn = reinterpret_cast<PSHNOTIFY*>(lParam);
+      auto psn = reinterpret_cast<PSHNOTIFY*>(lParam);
 
       int nPage = PropSheet_HwndToIndex(hWndParent, hWndDlg);
       int nId   = PropSheet_IndexToId(hWndParent, nPage);
@@ -206,7 +206,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
 
       case PSCB_PRECREATE:
       {
-         LPDLGTEMPLATE lpTemplate = reinterpret_cast<LPDLGTEMPLATE>(lParam);
+         auto lpTemplate = reinterpret_cast<LPDLGTEMPLATE>(lParam);
 
          if( !(lpTemplate->style & WS_SYSMENU) ) {
             lpTemplate->style |= WS_SYSMENU;
@@ -271,7 +271,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    auto pArray = hb_param(3, Harbour::Item::ARRAY);
 
    int nPages = hb_arrayLen(sArray);
-   HPROPSHEETPAGE * hpsp = static_cast<HPROPSHEETPAGE*>(malloc(sizeof(HPROPSHEETPAGE) * nPages ));
+   auto hpsp = static_cast<HPROPSHEETPAGE*>(malloc(sizeof(HPROPSHEETPAGE) * nPages ));
    for( int s = 0; s < nPages; s = s + 1 ) {
       hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(hb_arrayGetNL(sArray, s + 1)));
    }

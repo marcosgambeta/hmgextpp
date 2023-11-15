@@ -119,8 +119,7 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
    HINSTANCE hinstDll = hmg_LoadLibrarySystem(lpszDllName);
 
    if( hinstDll ) {
-      _DLLGETVERSIONPROC pDllGetVersion;
-      pDllGetVersion = reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
+      auto pDllGetVersion = reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
 
       if( pDllGetVersion ) {
          DLLVERSIONINFO2 dvi{};
