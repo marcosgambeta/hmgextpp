@@ -251,7 +251,7 @@ HB_FUNC( RR_DELETEDC )
 HB_FUNC( RR_GETDEVICECAPS )
 {
    TEXTMETRIC tm;
-   HFONT      xfont = hmg_par_HFONT(2);
+   auto xfont = hmg_par_HFONT(2);
 
    if( xfont != 0 ) {
       SelectObject(hDCRef, xfont);
@@ -848,7 +848,7 @@ HB_FUNC( RR_CREATEFONT )
    int          Italic    = hb_parni(6);
    int          Underline = hb_parni(7);
    int          Strikeout = hb_parni(8);
-   HFONT        oldfont, hxfont;
+   HFONT        oldfont;
    LONG         newWidth, FontHeight;
    TEXTMETRIC   tm;
    BYTE         bItalic, bUnderline, bStrikeOut;
@@ -891,7 +891,7 @@ HB_FUNC( RR_CREATEFONT )
    }
 
    FontHeight = -MulDiv(FontSize, GetDeviceCaps(hDCRef, LOGPIXELSY), 72);
-   hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
+   auto hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
    if( FontWidth < 0 ) {
       oldfont = static_cast<HFONT>(SelectObject(hDC, hxfont));
       GetTextMetrics(hDC, &tm);

@@ -804,13 +804,12 @@ static LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          }
 
          if( pItemData->ItemChanged ) {
-            HFONT    hFontBold;
             auto hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
             LOGFONT  lf{};
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
-            hFontBold = CreateFontIndirect(&lf);
+            auto hFontBold = CreateFontIndirect(&lf);
             auto hOldFont = static_cast<HFONT>(SelectObject(pCD->nmcd.hdc, hFontBold));
 
             DeleteObject(hFontBold);

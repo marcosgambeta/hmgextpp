@@ -131,7 +131,7 @@ HB_FUNC( INITMONTHCAL )
    }
 
    void * str;
-   HFONT hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
+   auto hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
    hb_strfree(str);
 
    SendMessage(hmonthcal, WM_SETFONT, reinterpret_cast<WPARAM>(hfont), 1);

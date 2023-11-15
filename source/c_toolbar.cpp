@@ -219,7 +219,7 @@ LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
    SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &lf, 0);
 
    auto hdc = GetDC(hwnd);
-   HFONT hFont = CreateFontIndirect(&lf);
+   auto hFont = CreateFontIndirect(&lf);
    SelectObject(hdc, hFont);
 
    SIZE sz;

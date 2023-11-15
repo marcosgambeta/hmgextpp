@@ -70,7 +70,7 @@ HB_FUNC( INITFONT )
    DWORD angle     = hb_parnl(7);
    DWORD charset   = hb_parnldef(8, DEFAULT_CHARSET);
    void * str;
-   HFONT hFont = PrepareFont(HB_PARSTR(1, &str, nullptr), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
+   auto hFont = PrepareFont(HB_PARSTR(1, &str, nullptr), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
    hb_strfree(str);
    RegisterResource(hFont, "FONT");
    hmg_ret_HFONT(hFont);
@@ -91,7 +91,7 @@ HB_FUNC( _SETFONT )
       DWORD angle     = hb_parnl(8);
       DWORD charset   = hb_parnldef(9, DEFAULT_CHARSET);
       void * str;
-      HFONT hFont = PrepareFont(HB_PARSTR(2, &str, nullptr), hb_parni(3), bold, italic, underline, strikeout, angle, charset);
+      auto hFont = PrepareFont(HB_PARSTR(2, &str, nullptr), hb_parni(3), bold, italic, underline, strikeout, angle, charset);
       hb_strfree(str);
       SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 1);
       RegisterResource(hFont, "FONT");

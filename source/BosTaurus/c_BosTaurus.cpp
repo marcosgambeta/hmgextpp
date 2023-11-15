@@ -1369,7 +1369,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   HFONT hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
+   auto hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
@@ -1464,7 +1464,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   HFONT hFont = CreateFont(0 - FontSize, 0, static_cast<int>(Orientation), static_cast<int>(Orientation), Bold, Italic, Underline, StrikeOut,
+   auto hFont = CreateFont(0 - FontSize, 0, static_cast<int>(Orientation), static_cast<int>(Orientation), Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
@@ -1535,7 +1535,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   HFONT hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
+   auto hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
@@ -3282,7 +3282,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
 
    FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;   // Size of font in logic points
 
-   HFONT hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
+   auto hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    auto hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));

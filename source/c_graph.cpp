@@ -82,7 +82,7 @@ HB_FUNC( TEXTDRAW )
       COLORREF crFgColor = CLR_INVALID;
       RECT     rect;
 
-      HFONT font = PrepareFont(HB_PARSTR(9, &str2, nullptr), hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
+      auto font = PrepareFont(HB_PARSTR(9, &str2, nullptr), hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
 
       HGDIOBJ hgdiobj = SelectObject(hDC, font);
 

@@ -291,7 +291,7 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
    auto hDC = hmg_par_HDC(1);
    HWND  hWnd       = nullptr;
    BOOL  bDestroyDC = FALSE;
-   HFONT hFont      = hmg_par_HFONT(3);
+   auto hFont = hmg_par_HFONT(3);
    HFONT hOldFont   = nullptr;
    SIZE  sz;
 
