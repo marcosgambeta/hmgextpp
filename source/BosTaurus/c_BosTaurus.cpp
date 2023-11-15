@@ -1422,7 +1422,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    auto Back_Color = hmg_par_COLORREF(10);
    auto Type = hmg_par_INT(11);
    auto Align = hmg_par_INT(12);
-   auto Orientation = static_cast<double>(hb_parnd(13));
+   auto Orientation = hb_parnd(13);
 
    if( (Orientation < static_cast<double>(-360.0)) || (Orientation > static_cast<double>(360.0)) ) {
       Orientation = static_cast<double>(0.0);
