@@ -646,9 +646,9 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    WORD   Numbering      = ( HB_ISNIL(3) ?    0 : hb_parni(3) );
    WORD   NumberingStyle = ( HB_ISNIL(4) ?    0 : hb_parni(4) );
    WORD   NumberingStart = ( HB_ISNIL(5) ?    0 : hb_parni(5) );
-   double Offset         = HB_ISNIL(6) ?  0.0 : static_cast<double>(hb_parnd(6));
-   double LineSpacing    = HB_ISNIL(7) ?  0.0 : static_cast<double>(hb_parnd(7));
-   double StartIndent    = HB_ISNIL(8) ?  0.0 : static_cast<double>(hb_parnd(8));
+   double Offset         = HB_ISNIL(6) ?  0.0 : hb_parnd(6);
+   double LineSpacing    = HB_ISNIL(7) ?  0.0 : hb_parnd(7);
+   double StartIndent    = HB_ISNIL(8) ?  0.0 : hb_parnd(8);
 
    DWORD Mask = 0;
 
