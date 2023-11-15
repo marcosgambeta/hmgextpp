@@ -527,7 +527,7 @@ HB_FUNC( PAINTBKGND )
    RECT recClie;
 
    auto hwnd = hmg_par_HWND(1);
-   HDC hdc = GetDC(hwnd);
+   auto hdc = GetDC(hwnd);
 
    GetClientRect(hwnd, &recClie);
 

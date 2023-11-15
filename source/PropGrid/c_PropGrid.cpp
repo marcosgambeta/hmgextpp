@@ -271,7 +271,7 @@ static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
          int      wWidth = prect->right - prect->left;
          int      wHeight = prect->bottom - prect->top;
 
-         HDC      hDCmem = CreateCompatibleDC(hdc);
+         auto hDCmem = CreateCompatibleDC(hdc);
          BITMAP   bitmap;
          DWORD    dwRaster = SRCCOPY;
 
@@ -1767,8 +1767,8 @@ HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    COLORREF clr = hb_parnl(2);
    int      width = HB_ISNIL(3) ? 20 : hb_parni(3);
    int      height = HB_ISNIL(4) ? 20 : hb_parni(4);
-   HDC      imgDC = GetDC(handle);
-   HDC      tmpDC = CreateCompatibleDC(imgDC);
+   auto imgDC = GetDC(handle);
+   auto tmpDC = CreateCompatibleDC(imgDC);
 
    RECT rect;
    SetRect(&rect, 0, 0, width, height); // Size Bmp
@@ -1825,8 +1825,8 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    COLORREF clr = hb_parnl(2);
    int      width = hb_parni(3);
    int      height = hb_parni(4);
-   HDC      imgDC = GetDC(handle);
-   HDC      tmpDC = CreateCompatibleDC(imgDC);
+   auto imgDC = GetDC(handle);
+   auto tmpDC = CreateCompatibleDC(imgDC);
 
    if( (width == 0) & (height == 0) ) {
       width = 20;
@@ -2336,7 +2336,7 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 
 static void enumFonts(HWND hWndEdit)// , BYTE lfCharSet)
 {
-   HDC hDC = GetDC(nullptr);
+   auto hDC = GetDC(nullptr);
    LOGFONT lf;
    lf.lfCharSet = ANSI_CHARSET;
    lf.lfPitchAndFamily = 0;

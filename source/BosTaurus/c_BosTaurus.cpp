@@ -129,7 +129,7 @@ BOOL bt_bmp_is_24bpp (HBITMAP hBitmap)
 
 static HBITMAP bt_bmp_create_24bpp(int Width, int Height)
 {
-   HDC hDC_mem = CreateCompatibleDC(nullptr);
+   auto hDC_mem = CreateCompatibleDC(nullptr);
 
    BITMAPINFO Bitmap_Info;
    Bitmap_Info.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -168,10 +168,10 @@ static HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_h
    GetObject(hBitmap_Original, sizeof(BITMAP), static_cast<LPBYTE>(&bm));
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
 
-   HDC memDC1 = CreateCompatibleDC(nullptr);
+   auto memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_Original);
 
-   HDC memDC2 = CreateCompatibleDC(nullptr);
+   auto memDC2 = CreateCompatibleDC(nullptr);
    SelectObject(memDC2, hBitmap_New);
 
    StretchBlt(memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
@@ -293,7 +293,7 @@ static HBITMAP bt_LoadOLEPicture(const TCHAR * FileName, const TCHAR * TypePictu
    iPicture->lpVtbl->get_Width(iPicture, &hmWidth);
    iPicture->lpVtbl->get_Height(iPicture, &hmHeight);
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    //SetStretchBltMode (memDC, COLORONCOLOR);
    POINT Point;
    GetBrushOrgEx(memDC, &Point);
@@ -548,7 +548,7 @@ static HBITMAP bt_LoadGDIPlusPicture(const TCHAR * FileName, const TCHAR * TypeP
 // Internal Function: bt_Bitmap_To_Stream () ---> Return hGlobalAlloc
 static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
 {
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
@@ -1167,7 +1167,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
 
    auto color_transp = hmg_par_COLORREF(13);
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -1228,7 +1228,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    blend.AlphaFormat         = 0;
    blend.SourceConstantAlpha = Alpha;
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -1708,7 +1708,7 @@ HB_FUNC( BT_BMP_CREATE )
 
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width, Height);
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap_New);
 
    BITMAP bm;
@@ -1865,7 +1865,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    }
 
    // Create Bitmap
-   HDC memDC   = CreateCompatibleDC(nullptr);
+   auto memDC   = CreateCompatibleDC(nullptr);
    HBITMAP hBitmap = bt_bmp_create_24bpp(nWidth, nHeight);
    SelectObject(memDC, hBitmap);
 
@@ -1913,7 +1913,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
       return bt_SaveGDIPlusPicture(hBitmap, FileName, nTypePicture);
    }
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
@@ -2031,7 +2031,7 @@ HB_FUNC( BT_BMP_GETINFO )
       {
          auto x = hmg_par_INT(3);
          auto y = hmg_par_INT(4);
-         HDC memDC = CreateCompatibleDC(nullptr);
+         auto memDC = CreateCompatibleDC(nullptr);
          SelectObject(memDC, hBitmap);
          COLORREF color = GetPixel(memDC, x, y);
          DeleteDC(memDC);
@@ -2058,10 +2058,10 @@ HB_FUNC( BT_BMP_CLONE )
    auto Width1 = hmg_par_INT(4);
    auto Height1 = hmg_par_INT(5);
 
-   HDC memDC1 = CreateCompatibleDC(nullptr);
+   auto memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap);
 
-   HDC memDC2 = CreateCompatibleDC(nullptr);
+   auto memDC2 = CreateCompatibleDC(nullptr);
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width1, Height1);
    SelectObject(memDC2, hBitmap_New);
 
@@ -2128,7 +2128,7 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
    }
 
    LPBYTE lp_Bits = static_cast<LPBYTE>(GlobalLock(Image->hGlobal));
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
 
    if( nAction == BT_BMP_GETBITS ) {
       GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
@@ -2242,7 +2242,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
    auto nAlgorithm = hmg_par_INT(5);
    HBITMAP hBitmap_New = nullptr;
 
-   HDC memDC1 = CreateCompatibleDC(nullptr);
+   auto memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap1);
    BITMAP bm;
    GetObject(hBitmap1, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
@@ -2253,7 +2253,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
 
    if( nAlgorithm == BT_RESIZE_COLORONCOLOR || nAlgorithm == BT_RESIZE_HALFTONE ) {
       hBitmap_New = bt_bmp_create_24bpp(New_Width, New_Height);
-      HDC memDC2 = CreateCompatibleDC(nullptr);
+      auto memDC2 = CreateCompatibleDC(nullptr);
       SelectObject(memDC2, hBitmap_New);
 
       if( nAlgorithm == BT_RESIZE_COLORONCOLOR ) {
@@ -2307,10 +2307,10 @@ HB_FUNC( BT_BMP_PASTE )
    auto Action = hmg_par_INT(12);
    auto color_transp = hmg_par_COLORREF(13);
 
-   HDC memDC_D = CreateCompatibleDC(nullptr);
+   auto memDC_D = CreateCompatibleDC(nullptr);
    SelectObject(memDC_D, hBitmap_D);
 
-   HDC memDC_O = CreateCompatibleDC(nullptr);
+   auto memDC_O = CreateCompatibleDC(nullptr);
    SelectObject(memDC_O, hBitmap_O);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -2372,10 +2372,10 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    blend.AlphaFormat         = 0;
    blend.SourceConstantAlpha = Alpha;
 
-   HDC memDC_D = CreateCompatibleDC(nullptr);
+   auto memDC_D = CreateCompatibleDC(nullptr);
    SelectObject(memDC_D, hBitmap_D);
 
-   HDC memDC_O = CreateCompatibleDC(nullptr);
+   auto memDC_O = CreateCompatibleDC(nullptr);
    SelectObject(memDC_O, hBitmap_O);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -2433,7 +2433,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
 
    HBITMAP hBitmap = bt_bmp_create_24bpp(Width1, Height1);
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    BitBlt(memDC, 0, 0, Width1, Height1, hDC, x1, y1, SRCCOPY);
@@ -2591,7 +2591,7 @@ HB_FUNC( BT_BMP_PROCESS )
       lp_Bits = static_cast<LPBYTE>(GlobalLock(hBits));
    }
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ ) {
@@ -2762,7 +2762,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    LPBYTE lp_Bits_O = static_cast<LPBYTE>(GlobalLock(hBits_O));
    LPBYTE lp_Bits_D = static_cast<LPBYTE>(GlobalLock(hBits_D));
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
 
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits_O), &BI, DIB_RGB_COLORS);
 
@@ -2839,7 +2839,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    FLOAT Angle            = static_cast<FLOAT>(hb_parnd(3));
    auto Color_Fill_Bk = hmg_par_COLORREF(4);
 
-   HDC memDC1 = CreateCompatibleDC(nullptr);
+   auto memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_O);
    BITMAP bm;
    GetObject(hBitmap_O, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
@@ -2847,7 +2847,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    INT Width  = bm.bmWidth;
    INT Height = bm.bmHeight;
 
-   HDC memDC2 = CreateCompatibleDC(nullptr);
+   auto memDC2 = CreateCompatibleDC(nullptr);
    SetGraphicsMode(memDC2, GM_ADVANCED);
 
    if( (Mode & BT_BITMAP_REFLECT_HORIZONTAL) == BT_BITMAP_REFLECT_HORIZONTAL ) {
@@ -3073,7 +3073,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    BI.bmiHeader.biClrUsed       = 0;
    BI.bmiHeader.biClrImportant  = 0;
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
 
    LPBYTE lp_Bits2;
    HBITMAP hBitmap = CreateDIBSection(memDC, &BI, DIB_RGB_COLORS, ( VOID ** ) &lp_Bits2, nullptr, 0);
@@ -3136,7 +3136,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    memcpy(lp_Clipboard, &BI.bmiHeader, sizeof(BITMAPINFOHEADER));
 
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Clipboard + sizeof(BITMAPINFOHEADER)), &BI, DIB_RGB_COLORS);
 
    GlobalUnlock(hClipboard);
@@ -3257,7 +3257,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    auto FontSize = hmg_par_INT(4);
    auto Type = hmg_par_INT(5);
 
-   HDC hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
 
    INT Bold      = FW_NORMAL;
    INT Italic    = 0;

@@ -447,16 +447,14 @@ using PINSCHK = INSCHK *;
 
 HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 {
-   HDC hdcMem;
-   HDC hdcMem2;
    HBITMAP hbmMask;
    BITMAP bm;
 
    GetObject(hbmColour, sizeof(BITMAP), &bm);
    hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, nullptr);
 
-   hdcMem = CreateCompatibleDC(0);
-   hdcMem2 = CreateCompatibleDC(0);
+   auto hdcMem = CreateCompatibleDC(0);
+   auto hdcMem2 = CreateCompatibleDC(0);
 
    SelectObject(hdcMem, hbmColour);
    SelectObject(hdcMem2, hbmMask);
@@ -545,7 +543,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
       int wRow = prect->top;
       int wCol = prect->left;
 
-      HDC hdcMem = CreateCompatibleDC(hdc);
+      auto hdcMem = CreateCompatibleDC(hdc);
 
       if( pbtn->lCheck ) {
          HBITMAP hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask));

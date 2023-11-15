@@ -52,7 +52,7 @@
 
 HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset)
 {
-   HDC hDC = GetDC(HWND_DESKTOP);
+   auto hDC = GetDC(HWND_DESKTOP);
    FontSize = -MulDiv(FontSize, GetDeviceCaps(hDC, LOGPIXELSY), 72);
    ReleaseDC(HWND_DESKTOP, hDC);
    return CreateFont(FontSize, 0, Angle, 0, Weight, Italic, Underline, StrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);

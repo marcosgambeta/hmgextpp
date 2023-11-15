@@ -1937,8 +1937,7 @@ static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND h
    RECT       rect, rect2;
    HBITMAP    bitmap;
    LONG       lWidth, lHeight;
-   HDC        imgDC = GetDC(handle);
-   HDC        tmpDC;
+   auto imgDC = GetDC(handle);
 
    if( read_image(filename, &nFileSize, &hMem ) == FALSE) {
       ReleaseDC(handle, imgDC);
@@ -1969,7 +1968,7 @@ static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND h
 
    calc_rect(handle, width, height, scalestrech, lWidth, lHeight, &rect, &rect2);
 
-   tmpDC  = CreateCompatibleDC(imgDC);
+   auto tmpDC  = CreateCompatibleDC(imgDC);
    bitmap = CreateCompatibleBitmap(imgDC, width, height);
    SelectObject(tmpDC, bitmap);
 

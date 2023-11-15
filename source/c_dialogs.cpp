@@ -64,7 +64,7 @@ CHOOSEFONT(cFaceName, nHeight, nWeight, lItalic, nRGB, lUnderline, lStrikeOut, n
 HB_FUNC( CHOOSEFONT )
 {
    HWND hwnd = GetActiveWindow();
-   HDC hdc  = GetDC(hwnd);
+   auto hdc = GetDC(hwnd);
 
    LOGFONT lf{};
    void * str;

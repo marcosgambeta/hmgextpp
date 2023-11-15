@@ -156,7 +156,7 @@ HB_FUNC( SETNONCLIENTFONT )
 #ifdef UNICODE
    LPWSTR pWStr;
 #endif
-   HDC hDC = GetDC(HWND_DESKTOP);
+   auto hDC = GetDC(HWND_DESKTOP);
 
    NONCLIENTMETRICS ncm{};
    ncm.cbSize = sizeof(NONCLIENTMETRICS);

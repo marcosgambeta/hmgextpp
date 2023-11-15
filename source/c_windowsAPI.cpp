@@ -1045,15 +1045,13 @@ HB_FUNC( GETTABBRUSH )
 {
    HBRUSH  hBrush;
    RECT    rc;
-   HDC     hDC;
-   HDC     hDCMem;
    HBITMAP hBmp;
    HBITMAP hOldBmp;
    auto hWnd = hmg_par_HWND(1);
 
    GetWindowRect(hWnd, &rc);
-   hDC    = GetDC(hWnd);
-   hDCMem = CreateCompatibleDC(hDC);
+   auto hDC = GetDC(hWnd);
+   auto hDCMem = CreateCompatibleDC(hDC);
 
    hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
 
@@ -1203,7 +1201,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
    if( hBmp ) {
       // Create a memory DC inside which we will scan the bitmap content
-      HDC hMemDC = CreateCompatibleDC(nullptr);
+      auto hMemDC = CreateCompatibleDC(nullptr);
       if( hMemDC ) {
          BITMAP bm;
          BITMAPINFOHEADER RGB32BITSBITMAPINFO;
@@ -1230,7 +1228,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
             HBITMAP holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
 
             // Create a DC just to copy the bitmap into the memory DC
-            HDC hDC = CreateCompatibleDC(hMemDC);
+            auto hDC = CreateCompatibleDC(hMemDC);
             if( hDC ) {
                // Get how many bytes per row we have for the bitmap bits (rounded up to 32 bits)
                BITMAP    bm32;

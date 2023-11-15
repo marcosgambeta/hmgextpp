@@ -1287,7 +1287,7 @@ HB_FUNC( _ONMEASUREMENUITEM )
    auto hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HDC hdc = GetDC(hwnd);
+      auto hdc = GetDC(hwnd);
       LPMEASUREITEMSTRUCT lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(4));
       MENUITEM * lpMenuItem = reinterpret_cast<MENUITEM*>(lpmis->itemData);
       SIZE size = {0, 0};

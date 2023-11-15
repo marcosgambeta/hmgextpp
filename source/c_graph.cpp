@@ -137,7 +137,7 @@ LINEDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
 HB_FUNC( LINEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
    MoveToEx(hdc1, hmg_par_int(3), hmg_par_int(2), nullptr);
@@ -153,7 +153,7 @@ RECTDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9) --> NIL
 HB_FUNC( RECTDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
 
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
@@ -185,7 +185,7 @@ ROUNDRECTDRAW() --> NIL
 HB_FUNC( ROUNDRECTDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(9), static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -216,7 +216,7 @@ ELLIPSEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8) --> NIL
 HB_FUNC( ELLIPSEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -247,7 +247,7 @@ ARCDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> NIL
 HB_FUNC( ARCDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
    Arc(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7), hmg_par_int(6), hmg_par_int(9), hmg_par_int(8));
@@ -262,7 +262,7 @@ PIEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12) --> NIL
 HB_FUNC( PIEDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(11), static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -293,7 +293,7 @@ POLYGONDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
 HB_FUNC( POLYGONDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -332,7 +332,7 @@ POLYBEZIERDRAW(HWND, p2, p3, p4) --> NIL
 HB_FUNC( POLYBEZIERDRAW )
 {
    auto hWnd1 = hmg_par_HWND(1);
-   HDC hdc1 = GetDC(hWnd1);
+   auto hdc1 = GetDC(hWnd1);
    HPEN hpen = CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
    HGDIOBJ hgdiobj1 = SelectObject(hdc1, hpen);
 

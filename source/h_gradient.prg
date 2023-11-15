@@ -339,13 +339,12 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
 HB_FUNC( CREATEGRADIENTBRUSH )
 {
    auto hwnd = hmg_par_HWND(1);
-   HDC  hdc;
 
    if( !IsWindow(hwnd) ) {
       hwnd = GetDesktopWindow();
    }
 
-   hdc = GetDC(hwnd);
+   auto hdc = GetDC(hwnd);
 
    hmg_ret_HBRUSH(LinearGradientBrush(hdc, hb_parnl(2), hb_parnl(3), (COLORREF) hb_parnl(4), (COLORREF) hb_parnl(5), hb_parl(6)));
    ReleaseDC(hwnd, hdc);
@@ -353,11 +352,10 @@ HB_FUNC( CREATEGRADIENTBRUSH )
 
 HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert)
 {
-   HDC     memDC;
    HBITMAP memBmp;
    HBRUSH  pGradientBrush = nullptr;
 
-   memDC  = CreateCompatibleDC(pDC);
+   auto memDC  = CreateCompatibleDC(pDC);
    memBmp = CreateCompatibleBitmap(pDC, cx, cy);
 
    if( memDC && memBmp ) {

@@ -75,7 +75,6 @@ HB_FUNC( INITITEMBAR )
    int   ptArray[40]; // Array defining the number of parts/sections
    int   nrOfParts = 0;
    RECT  rect;
-   HDC   hDC;
    WORD  displayFlags;
    HICON hIcon;
    int   style;
@@ -106,7 +105,7 @@ HB_FUNC( INITITEMBAR )
 
    nrOfParts++;
 
-   hDC = GetDC(hWndSB);
+   auto hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
    if( hb_parnl(5) == 0 ) {
@@ -193,7 +192,6 @@ HB_FUNC( REFRESHITEMBAR )
    int  s;
    int  nrOfParts;
    RECT rect;
-   HDC  hDC;
    int  size;
 
    auto hWndSB = hmg_par_HWND(1);
@@ -201,7 +199,7 @@ HB_FUNC( REFRESHITEMBAR )
    nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
    SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
 
-   hDC = GetDC(hWndSB);
+   auto hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
    if( ( nrOfParts == 1 ) || ( IsZoomed(GetParent(hWndSB)) ) || ( !(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) ) {

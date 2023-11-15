@@ -153,7 +153,6 @@ HB_FUNC( _CREATEWINDOWEX )
 
 void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackgroundColor)
 {
-   HDC      hdcTemp, hdcObject, hdcBack, hdcMem;
    POINT    ptSize;
    COLORREF cColor;
    HBITMAP  bmAndObject, bmAndBack, bmBackOld, bmObjectOld, bmAndTemp, bmTempOld, bmAndMem, bmMemOld;
@@ -164,10 +163,10 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 
    hBrush = CreateSolidBrush(cBackgroundColor);
 
-   hdcTemp   = CreateCompatibleDC(hdc);
-   hdcObject = CreateCompatibleDC(hdc);
-   hdcBack   = CreateCompatibleDC(hdc);
-   hdcMem    = CreateCompatibleDC(hdc);
+   auto hdcTemp   = CreateCompatibleDC(hdc);
+   auto hdcObject = CreateCompatibleDC(hdc);
+   auto hdcBack   = CreateCompatibleDC(hdc);
+   auto hdcMem    = CreateCompatibleDC(hdc);
 
    bmAndTemp   = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
    bmAndMem    = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
@@ -211,7 +210,7 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 
 void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wHeight, DWORD dwRaster)
 {
-   HDC     hDCmem = CreateCompatibleDC(hDC);
+   auto hDCmem = CreateCompatibleDC(hDC);
    BITMAP  bitmap;
    HBITMAP hBmpOld;
 
@@ -232,7 +231,7 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
 
 void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
 {
-   HDC      hDcBmp = CreateCompatibleDC(hDC);
+   auto hDcBmp = CreateCompatibleDC(hDC);
    HDC      hDcMask;
    HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = static_cast<HBITMAP>(SelectObject(hDcBmp, hbm));
    BITMAP   bm;
@@ -630,7 +629,7 @@ HB_FUNC( TSBRWSCROLL )
    int   nHeightSpecHd = hb_parni(8);
 
    HFONT hOldFont = nullptr;
-   HDC   hDC      = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    RECT  rct;
 
    if( hFont )
@@ -661,7 +660,7 @@ HB_FUNC( TSBRWHSCROLL )
    int  nLeft  = hb_parni(3);
    int  nRight = hb_parni(4);
 
-   HDC  hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    RECT rct;
 
    GetClientRect(hWnd, &rct);
@@ -716,7 +715,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
    TEXTMETRIC tm;
 
    RECT  rct;
-   HDC   hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    HFONT hOldFont = nullptr;
    LONG  lTotHeight, lReturn;
 
@@ -985,7 +984,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
 
 void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
 {
-   HDC      hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    HRGN     hReg;
    COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor) );
    HBRUSH   hBr;

@@ -461,9 +461,9 @@ HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, 
 
    SetRect(&rect2, 0, 0, rect.right, rect.bottom);
 
-   HDC hDC = GetDC(hWnd);
-   HDC memDC1 = CreateCompatibleDC(hDC);
-   HDC memDC2 = CreateCompatibleDC(hDC);
+   auto hDC = GetDC(hWnd);
+   auto memDC1 = CreateCompatibleDC(hDC);
+   auto memDC2 = CreateCompatibleDC(hDC);
 
    if( ScaleStretch == 0 ) {
       if( static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right ) {
@@ -586,9 +586,9 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    RECT rect2;
    SetRect(&rect2, 0, 0, rect.right, rect.bottom);
 
-   HDC hDC = GetDC(hWnd);
-   HDC memDC1 = CreateCompatibleDC(hDC);
-   HDC memDC2 = CreateCompatibleDC(hDC);
+   auto hDC = GetDC(hWnd);
+   auto memDC1 = CreateCompatibleDC(hDC);
+   auto memDC2 = CreateCompatibleDC(hDC);
 
    if( ScaleStretch == 0 ) {
       if( static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right ) {
@@ -1248,7 +1248,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
 
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName)
 {
-   HDC memDC = CreateCompatibleDC(nullptr);
+   auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));

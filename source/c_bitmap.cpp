@@ -68,7 +68,7 @@ SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
 HB_FUNC( SAVEWINDOWBYHANDLE )
 {
    auto hWnd = hmg_par_HWND(1);
-   HDC hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    HPALETTE hPal = nullptr;
    void * FileName;
    int top = hb_parni(3);
@@ -86,7 +86,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
       GetClientRect(hWnd, &rc);
    }
 
-   HDC hMemDC = CreateCompatibleDC(hDC);
+   auto hMemDC = CreateCompatibleDC(hDC);
    HBITMAP hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, rc.top, rc.left, SRCCOPY);
@@ -134,7 +134,7 @@ WNDCOPY(HWND, lp2, ) --> NIL
 HB_FUNC( WNDCOPY )
 {
    auto hWnd = hmg_par_HWND(1);
-   HDC hDC = GetDC(hWnd);
+   auto hDC = GetDC(hWnd);
    HPALETTE hPal = nullptr;
    bool bRect = hb_parl(2);
    void * FileName;
@@ -146,7 +146,7 @@ HB_FUNC( WNDCOPY )
       GetClientRect(hWnd, &rc);
    }
 
-   HDC hMemDC = CreateCompatibleDC(hDC);
+   auto hMemDC = CreateCompatibleDC(hDC);
    HBITMAP hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0, SRCCOPY);
@@ -260,7 +260,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
 
    DWORD dwLen = bi.biSize + PaletteSize(&bi);
 
-   HDC hdc = GetDC(nullptr);
+   auto hdc = GetDC(nullptr);
    hpal = SelectPalette(hdc, hpal, FALSE);
    RealizePalette(hdc);
 
@@ -330,7 +330,7 @@ C_HASALPHA(HBITMAP) --> .T.|.F.
 */
 HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
 {
-   HDC hDC = GetDC(GetDesktopWindow());
+   auto hDC = GetDC(GetDesktopWindow());
 
    if( GetDeviceCaps(hDC, BITSPIXEL) < 32 ) {
       ReleaseDC(GetDesktopWindow(), hDC);
@@ -363,8 +363,8 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
 
 HBITMAP Icon2Bmp(HICON hIcon)
 {
-   HDC hDC = GetDC(nullptr);
-   HDC hMemDC = CreateCompatibleDC(hDC);
+   auto hDC = GetDC(nullptr);
+   auto hMemDC = CreateCompatibleDC(hDC);
 
    ICONINFO icon;
    GetIconInfo(hIcon, &icon);
@@ -389,8 +389,8 @@ HBITMAP Icon2Bmp(HICON hIcon)
 
 HBITMAP IconMask2Bmp(HICON hIcon)
 {
-   HDC hDC = GetDC(nullptr);
-   HDC hMemDC = CreateCompatibleDC(hDC);
+   auto hDC = GetDC(nullptr);
+   auto hMemDC = CreateCompatibleDC(hDC);
 
    ICONINFO icon;
    GetIconInfo(hIcon, &icon);
@@ -477,14 +477,14 @@ HB_FUNC( DRAWGLYPH )
       }
    }
 
-   HDC hDCMem = CreateCompatibleDC(hDC);
+   auto hDCMem = CreateCompatibleDC(hDC);
 
    if( stretched ) {
       dx = (dx > 0 ? dx : bitmap.bmWidth);
       dy = (dy > 0 ? dy : bitmap.bmHeight);
       hBmpStretch = CreateCompatibleBitmap(hDC, dx, dy);
       SelectObject(hDCMem, hBmpStretch);
-      HDC hDCStretch = CreateCompatibleDC(hDC);
+      auto hDCStretch = CreateCompatibleDC(hDC);
       hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCStretch, hBmp));
       StretchBlt(hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
       SelectObject(hDCStretch, hBmpDefault);
@@ -496,7 +496,7 @@ HB_FUNC( DRAWGLYPH )
    }
 
    // prime the "no blink" device context
-   HDC hDCNoBlink = CreateCompatibleDC(hDC);
+   auto hDCNoBlink = CreateCompatibleDC(hDC);
    HBITMAP hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
    HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
@@ -510,7 +510,7 @@ HB_FUNC( DRAWGLYPH )
    }
 
    // build mask based on transparent color.
-   HDC hDCMask = CreateCompatibleDC(hDCNoBlink);
+   auto hDCMask = CreateCompatibleDC(hDCNoBlink);
    HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
@@ -568,7 +568,7 @@ HB_FUNC( DRAWGLYPHMASK )
    auto hDC = hmg_par_HDC(1);
    SetBkColor(hDC, RGB(255, 255, 255)); // White
    SetTextColor(hDC, RGB(0, 0, 0)); // Black
-   HDC hDCMem = CreateCompatibleDC(hDC);
+   auto hDCMem = CreateCompatibleDC(hDC);
 
    int dx = hb_parni(4);
    int dy = hb_parni(5);
@@ -579,7 +579,7 @@ HB_FUNC( DRAWGLYPHMASK )
    COLORREF rgbTransparent = GetPixel(hDCMem, 0, 0);
 
    // build mask based on transparent color
-   HDC hDCMask = CreateCompatibleDC(hDC);
+   auto hDCMask = CreateCompatibleDC(hDC);
    HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
 
    SelectObject(hDCMask, hBmpTransMask);
@@ -685,7 +685,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       }
    }
 
-   HDC hDCMem = CreateCompatibleDC(hDC);
+   auto hDCMem = CreateCompatibleDC(hDC);
 
    if( stretched ) {
       dx = (dx > 0 ? dx : bitmap.bmWidth);
@@ -693,7 +693,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
       hBmpStretch = CreateCompatibleBitmap(hDC, dx, dy);
       SelectObject(hDCMem, hBmpStretch);
-      HDC hDCStretch = CreateCompatibleDC(hDC);
+      auto hDCStretch = CreateCompatibleDC(hDC);
       hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCStretch, hBmp));
 
       StretchBlt(hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
@@ -707,7 +707,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    }
 
    // prime the "no blink" device context
-   HDC hDCNoBlink = CreateCompatibleDC(hDC);
+   auto hDCNoBlink = CreateCompatibleDC(hDC);
    HBITMAP hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
    HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
@@ -721,7 +721,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    }
 
    // build mask based on transparent color.
-   HDC hDCMask = CreateCompatibleDC(hDCNoBlink);
+   auto hDCMask = CreateCompatibleDC(hDCNoBlink);
    HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
