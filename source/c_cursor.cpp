@@ -114,7 +114,7 @@ HB_FUNC( SETWINDOWCURSOR )
    if( HB_ISCHAR(2) ) {
       void * str;
       LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
-      HCURSOR ch = LoadCursor(GetResources(), lpCursorName);
+      auto ch = LoadCursor(GetResources(), lpCursorName);
 
       if( ch == nullptr ) {
          ch = LoadCursorFromFile(lpCursorName);
@@ -126,7 +126,7 @@ HB_FUNC( SETWINDOWCURSOR )
 
       hb_strfree(str);
    } else if( HB_ISNUM(2) ) {
-      HCURSOR ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
+      auto ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
 
       if( ch != nullptr ) {
          SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));

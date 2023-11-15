@@ -292,7 +292,7 @@ HB_FUNC( CURSORSTOP )
 
 HB_FUNC( DESTROYCURSOR )
 {
-   HCURSOR hCur = hmg_par_HCURSOR(1);
+   auto hCur = hmg_par_HCURSOR(1);
 
    if( hCur == hDrag )
    {

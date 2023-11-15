@@ -1196,7 +1196,7 @@ HB_FUNC( REGISTERWINDOW )
    WndClass.hIcon = ( ( hIcon != nullptr ) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION) );
 
    // cursor from resource
-   HCURSOR hCursor = LoadCursor(GetResources(), lpCursorName);
+   auto hCursor = LoadCursor(GetResources(), lpCursorName);
    // from file
    if( ( hCursor == nullptr ) && HB_ISCHAR(4) ) {
       hCursor = LoadCursorFromFile(lpCursorName);
