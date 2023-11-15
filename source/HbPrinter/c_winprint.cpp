@@ -1557,7 +1557,6 @@ HB_FUNC( RR_CREATEIMAGELIST )
 HB_FUNC( RR_DRAWIMAGELIST )
 {
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
-   HBITMAP    hbmpx;
    RECT       rect;
    HWND       hwnd = GetActiveWindow();
 
@@ -1567,7 +1566,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
    rect.bottom = HB_PARNI(4, 1);
    auto temp2dc = GetWindowDC( hwnd );
    auto tempdc = CreateCompatibleDC(temp2dc);
-   hbmpx       = CreateCompatibleBitmap(temp2dc, hb_parni(5), hb_parni(6));
+   auto hbmpx = CreateCompatibleBitmap(temp2dc, hb_parni(5), hb_parni(6));
    ReleaseDC(hwnd, temp2dc);
    SelectObject(tempdc, hbmpx);
    BitBlt(tempdc, 0, 0, hb_parni(5), hb_parni(6), tempdc, 0, 0, WHITENESS);

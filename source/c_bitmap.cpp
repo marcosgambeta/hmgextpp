@@ -87,7 +87,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    }
 
    auto hMemDC = CreateCompatibleDC(hDC);
-   HBITMAP hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
+   auto hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, rc.top, rc.left, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
@@ -147,7 +147,7 @@ HB_FUNC( WNDCOPY )
    }
 
    auto hMemDC = CreateCompatibleDC(hDC);
-   HBITMAP hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
+   auto hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBitmap));
    BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
@@ -370,7 +370,7 @@ HBITMAP Icon2Bmp(HICON hIcon)
    GetIconInfo(hIcon, &icon);
    BITMAP bitmap;
    GetObject(icon.hbmColor, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
-   HBITMAP hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
+   auto hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
 
    PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
@@ -396,7 +396,7 @@ HBITMAP IconMask2Bmp(HICON hIcon)
    GetIconInfo(hIcon, &icon);
    BITMAP bitmap;
    GetObject(icon.hbmColor, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
-   HBITMAP hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
+   auto hBmp = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    HBITMAP hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
 
    PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
@@ -497,7 +497,7 @@ HB_FUNC( DRAWGLYPH )
 
    // prime the "no blink" device context
    auto hDCNoBlink = CreateCompatibleDC(hDC);
-   HBITMAP hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
+   auto hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
    HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255)); // White
@@ -511,7 +511,7 @@ HB_FUNC( DRAWGLYPH )
 
    // build mask based on transparent color.
    auto hDCMask = CreateCompatibleDC(hDCNoBlink);
-   HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
+   auto hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
    BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
@@ -580,7 +580,7 @@ HB_FUNC( DRAWGLYPHMASK )
 
    // build mask based on transparent color
    auto hDCMask = CreateCompatibleDC(hDC);
-   HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
+   auto hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
 
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
@@ -708,7 +708,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
    // prime the "no blink" device context
    auto hDCNoBlink = CreateCompatibleDC(hDC);
-   HBITMAP hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
+   auto hBmpNoBlink = CreateCompatibleBitmap(hDC, dx, dy);
    HBITMAP hBmpNoBlinkOld = static_cast<HBITMAP>(SelectObject(hDCNoBlink, hBmpNoBlink));
    BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255));
@@ -722,7 +722,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
    // build mask based on transparent color.
    auto hDCMask = CreateCompatibleDC(hDCNoBlink);
-   HBITMAP hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
+   auto hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
    BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);

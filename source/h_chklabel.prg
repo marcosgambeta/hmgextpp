@@ -447,11 +447,10 @@ using PINSCHK = INSCHK *;
 
 HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 {
-   HBITMAP hbmMask;
    BITMAP bm;
 
    GetObject(hbmColour, sizeof(BITMAP), &bm);
-   hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, nullptr);
+   auto hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, nullptr);
 
    auto hdcMem = CreateCompatibleDC(0);
    auto hdcMem2 = CreateCompatibleDC(0);

@@ -334,7 +334,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    int b2 = GetBValue(Color2);
 
    auto hDCComp = CreateCompatibleDC(hDC);
-   HBITMAP hBitmap = CreateCompatibleBitmap(hDC, nWidth, nHeight);
+   auto hBitmap = CreateCompatibleBitmap(hDC, nWidth, nHeight);
    SelectObject(hDCComp, hBitmap);
 
    RECT rcF;

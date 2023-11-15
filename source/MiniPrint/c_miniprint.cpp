@@ -1935,7 +1935,6 @@ static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND h
    HRESULT    hr;
    DWORD      nFileSize = 0;
    RECT       rect, rect2;
-   HBITMAP    bitmap;
    LONG       lWidth, lHeight;
    auto imgDC = GetDC(handle);
 
@@ -1969,7 +1968,7 @@ static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND h
    calc_rect(handle, width, height, scalestrech, lWidth, lHeight, &rect, &rect2);
 
    auto tmpDC  = CreateCompatibleDC(imgDC);
-   bitmap = CreateCompatibleBitmap(imgDC, width, height);
+   auto bitmap = CreateCompatibleBitmap(imgDC, width, height);
    SelectObject(tmpDC, bitmap);
 
    if( whitebackground == 1 ) {

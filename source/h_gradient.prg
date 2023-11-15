@@ -352,11 +352,10 @@ HB_FUNC( CREATEGRADIENTBRUSH )
 
 HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert)
 {
-   HBITMAP memBmp;
    HBRUSH  pGradientBrush = nullptr;
 
    auto memDC  = CreateCompatibleDC(pDC);
-   memBmp = CreateCompatibleBitmap(pDC, cx, cy);
+   auto memBmp = CreateCompatibleBitmap(pDC, cx, cy);
 
    if( memDC && memBmp ) {
       TRIVERTEX     rcVertex[2];

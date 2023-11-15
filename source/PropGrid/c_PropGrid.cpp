@@ -1772,7 +1772,7 @@ HB_FUNC( CREATECOLORBMP1 ) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    RECT rect;
    SetRect(&rect, 0, 0, width, height); // Size Bmp
-   HBITMAP hBmp = CreateCompatibleBitmap(imgDC, width, height);
+   auto hBmp = CreateCompatibleBitmap(imgDC, width, height);
 
    SelectObject(tmpDC, hBmp);
 
@@ -1820,7 +1820,6 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    HBRUSH   hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    RECT     rect;
-   HBITMAP  hBmp;
    auto handle = hmg_par_HWND(1);
    COLORREF clr = hb_parnl(2);
    int      width = hb_parni(3);
@@ -1834,7 +1833,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    }
 
    SetRect(&rect, 0, 0, width, height); // Size Bmp
-   hBmp = CreateCompatibleBitmap(imgDC, width, height);
+   auto hBmp = CreateCompatibleBitmap(imgDC, width, height);
 
    SelectObject(tmpDC, hBmp);
 

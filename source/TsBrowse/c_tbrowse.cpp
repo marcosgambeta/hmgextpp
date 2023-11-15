@@ -155,7 +155,7 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 {
    POINT    ptSize;
    COLORREF cColor;
-   HBITMAP  bmAndObject, bmAndBack, bmBackOld, bmObjectOld, bmAndTemp, bmTempOld, bmAndMem, bmMemOld;
+   HBITMAP  bmBackOld, bmObjectOld, bmTempOld, bmMemOld;
    HBRUSH   hBrush, hBrOld;
 
    ptSize.x = rct->right - rct->left + 1;
@@ -168,10 +168,10 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
    auto hdcBack   = CreateCompatibleDC(hdc);
    auto hdcMem    = CreateCompatibleDC(hdc);
 
-   bmAndTemp   = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
-   bmAndMem    = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
-   bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
-   bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
+   auto bmAndTemp   = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
+   auto bmAndMem    = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
+   auto bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
+   auto bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
 
    bmTempOld   = static_cast<HBITMAP>(SelectObject(hdcTemp, bmAndTemp));
    bmMemOld    = static_cast<HBITMAP>(SelectObject(hdcMem, bmAndMem));

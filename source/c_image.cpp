@@ -482,7 +482,7 @@ HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, 
    }
 
    HBITMAP hBitmap_old = static_cast<HBITMAP>(SelectObject(memDC1, hBitmap_new));
-   HBITMAP new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
+   auto new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
    HBITMAP old_hBitmap = static_cast<HBITMAP>(SelectObject(memDC2, new_hBitmap));
 
    if( BackgroundColor == -1 ) {
@@ -607,7 +607,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    }
 
    HBITMAP hBitmap_old = static_cast<HBITMAP>(SelectObject(memDC1, hBitmap_new));
-   HBITMAP new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
+   auto new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
    HBITMAP old_hBitmap = static_cast<HBITMAP>(SelectObject(memDC2, new_hBitmap));
 
    if( BackgroundColor == -1 ) {

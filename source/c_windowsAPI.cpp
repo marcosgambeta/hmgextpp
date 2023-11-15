@@ -1045,7 +1045,6 @@ HB_FUNC( GETTABBRUSH )
 {
    HBRUSH  hBrush;
    RECT    rc;
-   HBITMAP hBmp;
    HBITMAP hOldBmp;
    auto hWnd = hmg_par_HWND(1);
 
@@ -1053,7 +1052,7 @@ HB_FUNC( GETTABBRUSH )
    auto hDC = GetDC(hWnd);
    auto hDCMem = CreateCompatibleDC(hDC);
 
-   hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
+   auto hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
 
    hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
 
