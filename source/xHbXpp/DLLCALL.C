@@ -467,7 +467,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
             case Harbour::Item::DOUBLE            :
                Parm[iCnt].nWidth = sizeof(double);
-               DblParms[iCnt] = (double) hb_parnd(i);
+               DblParms[iCnt] = hb_parnd(i);
                Parm[iCnt].pArg   = &( DblParms[iCnt] );
                Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
                iFlags |= DC_RETVAL_MATH8;
