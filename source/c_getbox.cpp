@@ -232,7 +232,7 @@ HB_FUNC( INITGETBOX )
    }
 
    if( fBtns ) {
-      hBtn1 = CreateWindow(WC_BUTTON,
+      hBtn1 = CreateWindowEx(0, WC_BUTTON,
                            TEXT("..."),
                            ibtnStyle1,
                            hb_parni(5) - BtnWidth - 3,
@@ -248,7 +248,7 @@ HB_FUNC( INITGETBOX )
    }
 
    if( fBtn2 ) {
-      hBtn2 = CreateWindow(WC_BUTTON,
+      hBtn2 = CreateWindowEx(0, WC_BUTTON,
                            TEXT("..."),
                            ibtnStyle2,
                            hb_parni(5) - BtnWidth - BtnWidth2 - 3,

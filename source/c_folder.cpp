@@ -700,7 +700,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    style = pFhi->FolderStyle;
 
    // Create the tab control.
-   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
+   pFhi->hwndTab = CreateWindowEx(0, WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
    if( pFhi->hwndTab == nullptr ) {
       MessageBox
