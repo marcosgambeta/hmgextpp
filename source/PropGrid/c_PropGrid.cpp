@@ -523,7 +523,18 @@ static HWND CreateHeaderWindow(HWND hwndParent)
 {
    HWND hwndHeader;
 
-   if( (hwndHeader = CreateWindowEx(0, WC_HEADER, nullptr, WS_CHILD | WS_BORDER | HDS_BUTTONS | HDS_HORZ, 0, 0, 0, 0, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr)) == nullptr ) {  // No application-defined data.
+   if( (hwndHeader = CreateWindowEx(0,
+                                    WC_HEADER,
+                                    nullptr,
+                                    WS_CHILD | WS_BORDER | HDS_BUTTONS | HDS_HORZ,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    hwndParent,
+                                    nullptr,
+                                    GetModuleHandle(nullptr),
+                                    nullptr)) == nullptr ) {  // No application-defined data.
       return nullptr;
    }
 
@@ -855,8 +866,6 @@ HB_FUNC( INITPROPGRID )
    auto w = hb_parni(4);
    auto h = hb_parni(5);
 
-   auto hwndParent = hmg_par_HWND(1);
-
    int style = WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASBUTTONS | TVS_FULLROWSELECT | TVS_NOHSCROLL | TVS_SHOWSELALWAYS;
    if( hb_parl(12) ) {
       style = style  | TVS_SINGLEEXPAND;
@@ -867,7 +876,18 @@ HB_FUNC( INITPROPGRID )
    auto hArray = hb_param(11, Harbour::Item::ARRAY);
    auto MsgArray = hb_param(17, Harbour::Item::ARRAY);
 
-   auto hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT, "button", "", WS_CHILD | BS_GROUPBOX | WS_VISIBLE, x, y, w, h, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT,
+                                  "button",
+                                  TEXT(""),
+                                  WS_CHILD | BS_GROUPBOX | WS_VISIBLE,
+                                  x,
+                                  y,
+                                  w,
+                                  h,
+                                  hmg_par_HWND(1),
+                                  nullptr,
+                                  GetModuleHandle(nullptr),
+                                  nullptr);
 
    SetProp(hFramePG, "oldframepgproc", reinterpret_cast<HWND>(GetWindowLongPtr(hFramePG, GWLP_WNDPROC)));
 
@@ -894,10 +914,54 @@ HB_FUNC( INITPROPGRID )
    x = 0;
    y = 0;
 
-   auto hWndPG = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, "", style, x, y + m_nHeightHeader, w, PGHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   auto hFrame = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_OWNERDRAW | SS_NOTIFY | WS_BORDER, /* SS_SUNKEN , */ x, y + PGHeight + m_nHeightHeader, w, iHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   auto hTitle = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 10, y + PGHeight + m_nHeightHeader + 10, w - 20, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   auto hInfo = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 20, y + PGHeight + m_nHeightHeader + 26, w - 30, iHeight - 36, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hWndPG = CreateWindowEx(WS_EX_CLIENTEDGE,
+                                WC_TREEVIEW,
+                                TEXT(""),
+                                style,
+                                x,
+                                y + m_nHeightHeader,
+                                w,
+                                PGHeight,
+                                hFramePG,
+                                nullptr,
+                                GetModuleHandle(nullptr),
+                                nullptr);
+   auto hFrame = CreateWindowEx(WS_EX_TRANSPARENT,
+                                "static",
+                                TEXT(""),
+                                InfoStyle | SS_OWNERDRAW | SS_NOTIFY | WS_BORDER, /* SS_SUNKEN , */
+                                x,
+                                y + PGHeight + m_nHeightHeader,
+                                w,
+                                iHeight,
+                                hFramePG,
+                                nullptr,
+                                GetModuleHandle(nullptr),
+                                nullptr);
+   auto hTitle = CreateWindowEx(WS_EX_TRANSPARENT,
+                                "static",
+                                TEXT(""),
+                                InfoStyle | SS_NOTIFY,
+                                x + 10,
+                                y + PGHeight + m_nHeightHeader + 10,
+                                w - 20,
+                                20,
+                                hFramePG,
+                                nullptr,
+                                GetModuleHandle(nullptr),
+                                nullptr);
+   auto hInfo = CreateWindowEx(WS_EX_TRANSPARENT,
+                               "static",
+                               TEXT(""),
+                               InfoStyle | SS_NOTIFY,
+                               x + 20,
+                               y + PGHeight + m_nHeightHeader + 26,
+                               w - 30,
+                               iHeight - 36,
+                               hFramePG,
+                               nullptr,
+                               GetModuleHandle(nullptr),
+                               nullptr);
 
    HWND hBtnOk = nullptr;
    HWND hBtnApply = nullptr;
@@ -905,19 +969,63 @@ HB_FUNC( INITPROPGRID )
    HWND hBtnHelp = nullptr;
 
    if( hb_parl(13) ) {
-      hBtnOk = CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 4), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0, 0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+      hBtnOk = CreateWindowEx(0,
+                              "button",
+                              hb_arrayGetCPtr(MsgArray, 4),
+                              BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE,
+                              0,
+                              0,
+                              70,
+                              20,
+                              hFramePG,
+                              nullptr,
+                              GetModuleHandle(nullptr),
+                              nullptr);
    }
 
    if( hb_parl(14) ) {
-      hBtnApply = CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 1), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0, 0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+      hBtnApply = CreateWindowEx(0,
+                                 "button",
+                                 hb_arrayGetCPtr(MsgArray, 1),
+                                 BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE,
+                                 0,
+                                 0,
+                                 70,
+                                 20,
+                                 hFramePG,
+                                 nullptr,
+                                 GetModuleHandle(nullptr),
+                                 nullptr);
    }
 
    if( hb_parl(15) ) {
-      hBtnCancel = CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 3), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0, 0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+      hBtnCancel = CreateWindowEx(0,
+                                  "button",
+                                  hb_arrayGetCPtr(MsgArray, 3),
+                                  BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE,
+                                  0,
+                                  0,
+                                  70,
+                                  20,
+                                  hFramePG,
+                                  nullptr,
+                                  GetModuleHandle(nullptr),
+                                  nullptr);
    }
 
    if( hb_parl(16) ) {
-      hBtnHelp = CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 2), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0, 0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+      hBtnHelp = CreateWindowEx(0,
+                                "button",
+                                hb_arrayGetCPtr(MsgArray, 2),
+                                BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE,
+                                0,
+                                0,
+                                70,
+                                20,
+                                hFramePG,
+                                nullptr,
+                                GetModuleHandle(nullptr),
+                                nullptr);
    }
 
    InitPropGrd(hWndPG, x, y, w, h, hb_parni(6), hb_parni(7), style, hb_parl(8), hb_parl(9), iHeight, PGHeight, hTitle, hInfo, hFrame, hHeader, hFramePG, hBtnOk, hBtnApply, hBtnCancel, hBtnHelp);
@@ -2005,17 +2113,17 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
    }
 
    auto hEdit = CreateWindowEx(0,
-                          cClass.c_str(),
-                          cName.c_str(),
-                          Style,
-                          rc.left + 1,
-                          rc.top - 1,
-                          rc.right - rc.left - 1,
-                          height,
-                          hWnd,
-                          hmg_par_HMENU(2),
-                          GetModuleHandle(nullptr),
-                          nullptr);
+                               cClass.c_str(),
+                               cName.c_str(),
+                               Style,
+                               rc.left + 1,
+                               rc.top - 1,
+                               rc.right - rc.left - 1,
+                               height,
+                               hWnd,
+                               hmg_par_HMENU(2),
+                               GetModuleHandle(nullptr),
+                               nullptr);
 
    switch( ItemType ) {
       case PG_LOGIC:

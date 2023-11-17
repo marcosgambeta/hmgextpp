@@ -577,8 +577,6 @@ HB_FUNC_STATIC( INITCHKLABEL )
    int style = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
-   auto hwnd = hmg_par_HWND(1);
-
    if( hb_parl(12) ) {
       ExStyle |= WS_EX_CLIENTEDGE;
    }
@@ -616,17 +614,17 @@ HB_FUNC_STATIC( INITCHKLABEL )
    }
 
    auto hbutton = CreateWindowEx(ExStyle,
-                            WC_STATIC,
-                            lpWindowName,
-                            style,
-                            hmg_par_int(4),
-                            hmg_par_int(5),
-                            hmg_par_int(6),
-                            hmg_par_int(7),
-                            hwnd,
-                            hmg_par_HMENU(3),
-                            GetInstance(),
-                            nullptr);
+                                 WC_STATIC,
+                                 lpWindowName,
+                                 style,
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_int(7),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(3),
+                                 GetInstance(),
+                                 nullptr);
 
    if( hb_parc(19) != nullptr ) {
       himage = HMG_LoadPicture(hb_parc(19), -1, -1, nullptr, 0, 0, -1, 0, false, 255);

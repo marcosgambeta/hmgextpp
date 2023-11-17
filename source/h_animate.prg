@@ -272,9 +272,18 @@ HB_FUNC_STATIC( INITANIMATERES )
 
    HINSTANCE avi = LoadLibrary(HB_PARSTR(7, &DllName, nullptr));
 
-   auto AnimationCtrl = CreateWindowEx(0, ANIMATE_CLASS, nullptr, style,
-      hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
-      hmg_par_HWND(1), hmg_par_HMENU(2), avi, nullptr);
+   auto AnimationCtrl = CreateWindowEx(0,
+                                       ANIMATE_CLASS,
+                                       nullptr,
+                                       style,
+                                       hmg_par_int(3),
+                                       hmg_par_int(4),
+                                       hmg_par_int(5),
+                                       hmg_par_int(6),
+                                       hmg_par_HWND(1),
+                                       hmg_par_HMENU(2),
+                                       avi,
+                                       nullptr);
 
    Animate_OpenEx(AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni(8)));
 

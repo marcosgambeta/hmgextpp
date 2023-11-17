@@ -452,9 +452,6 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
    int  BtnWidth2;
    int  BtnWidth = HB_ISNIL(18) ? 0 : hb_parni(18);
 
-   // Get the handle of the parent window/form.
-   auto hwnd = hmg_par_HWND(1);
-
    BtnWidth  = BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1;
    BtnWidth2 = fBtn2 ? BtnWidth : 0;
 
@@ -493,9 +490,18 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
    }
 
    // Creates the child Frame control.
-   auto hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, "", style,
-      hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
-      hwnd, nullptr, GetInstance(), nullptr);
+   auto hedit = CreateWindowEx(WS_EX_CLIENTEDGE,
+                               WC_EDIT,
+                               TEXT(""),
+                               style,
+                               hmg_par_int(3),
+                               hmg_par_int(4),
+                               hmg_par_int(5),
+                               hmg_par_int(6),
+                               hmg_par_HWND(1),
+                               nullptr,
+                               GetInstance(),
+                               nullptr);
 
    SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
@@ -569,13 +575,31 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
       ibtnStyle2 |= BS_BITMAP;
    }
 
-   auto hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle1,
-      hmg_par_int(5) - BtnWidth - 3, -1, BtnWidth, hmg_par_int(6) - 2,
-      hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
+   auto hBtn1 = CreateWindowEx(0,
+                               WC_BUTTON,
+                               TEXT("..."),
+                               ibtnStyle1,
+                               hmg_par_int(5) - BtnWidth - 3,
+                               -1,
+                               BtnWidth,
+                               hmg_par_int(6) - 2,
+                               hedit,
+                               reinterpret_cast<HMENU>(TBB1),
+                               GetInstance(),
+                               nullptr);
 
-   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle2,
-      hmg_par_int(5) - BtnWidth - BtnWidth2 - 3, -1, BtnWidth, hmg_par_int(6) - 2,
-      hedit, reinterpret_cast<HMENU>(TBB2), GetInstance(), nullptr) : nullptr;
+   HWND hBtn2 = fBtn2 ? CreateWindowEx(0,
+                                       WC_BUTTON,
+                                       TEXT("..."),
+                                       ibtnStyle2,
+                                       hmg_par_int(5) - BtnWidth - BtnWidth2 - 3,
+                                       -1,
+                                       BtnWidth,
+                                       hmg_par_int(6) - 2,
+                                       hedit,
+                                       reinterpret_cast<HMENU>(TBB2),
+                                       GetInstance(),
+                                       nullptr) : nullptr;
 
    if( himage != nullptr ) {
       SendMessage(hBtn1, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
@@ -667,13 +691,31 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
       himage2 = nullptr;
    }
 
-   auto hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
-      width - BtnWidth - 4, -1, BtnWidth, height - 2,
-      hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
+   auto hBtn1 = CreateWindowEx(0,
+                               WC_BUTTON,
+                               TEXT("..."),
+                               BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
+                               width - BtnWidth - 4,
+                               -1,
+                               BtnWidth,
+                               height - 2,
+                               hedit,
+                               reinterpret_cast<HMENU>(TBB1),
+                               GetInstance(),
+                               nullptr);
 
-   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
-      width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth, height - 2,
-      hedit, reinterpret_cast<HMENU>(TBB2), GetInstance(), nullptr) : nullptr;
+   HWND hBtn2 = fBtn2 ? CreateWindowEx(0,
+                                       WC_BUTTON,
+                                       TEXT("..."),
+                                       BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
+                                       width - BtnWidth - BtnWidth2 - 4,
+                                       -1,
+                                       BtnWidth,
+                                       height - 2,
+                                       hedit,
+                                       reinterpret_cast<HMENU>(TBB2),
+                                       GetInstance(),
+                                       nullptr) : nullptr;
 
    if( himage != nullptr ) {
       SendMessage(hBtn1, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));

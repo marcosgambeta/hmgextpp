@@ -521,19 +521,18 @@ HB_FUNC_STATIC( INITCOMBOBOX )
       style |= CBS_LOWERCASE;
    }
 
-   auto hbutton = CreateWindowEx(
-      0,
-      WC_COMBOBOX,
-      TEXT(""),
-      style,
-      hmg_par_int(3),
-      hmg_par_int(4),
-      hmg_par_int(5),
-      hmg_par_int(8),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 WC_COMBOBOX,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(8),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
 
    hmg_ret_HWND(hbutton);
 }

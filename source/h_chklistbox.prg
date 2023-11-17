@@ -350,7 +350,6 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
 {
    int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
-   auto hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) ) {
@@ -370,17 +369,17 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
    }
 
    auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
-                            WC_LISTBOX,
-                            TEXT(""),
-                            style,
-                            hmg_par_int(3),
-                            hmg_par_int(4),
-                            hmg_par_int(5),
-                            hmg_par_int(6),
-                            hwnd,
-                            hmg_par_HMENU(2),
-                            GetInstance(),
-                            nullptr);
+                                 WC_LISTBOX,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
 
    hmg_ret_HWND(hbutton);
 }
@@ -389,7 +388,6 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
 {
    int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
-   auto hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) ) {
@@ -409,17 +407,17 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
    }
 
    auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
-                            WC_LISTBOX,
-                            TEXT(""),
-                            style,
-                            hmg_par_int(3),
-                            hmg_par_int(4),
-                            hmg_par_int(5),
-                            hmg_par_int(6),
-                            hwnd,
-                            hmg_par_HMENU(2),
-                            GetInstance(),
-                            nullptr);
+                                 WC_LISTBOX,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
 
    hmg_ret_HWND(hbutton);
 }

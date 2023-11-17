@@ -287,19 +287,19 @@ HB_FUNC( INITSPLITBUTTON )
    DWORD style = hb_parl(5) ? BS_DEFSPLITBUTTON : BS_SPLITBUTTON;
 
    void * str;
-   auto hbutton = CreateWindowEx(
-      0,
-      "button",
-      HB_PARSTR(4, &str, nullptr),
-      style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
-      hb_parni(3),
-      hb_parni(2),
-      hb_parni(6),
-      hb_parni(7),
-      hmg_par_HWND(1),
-      ( HMENU ) HB_PARNL(8),
-      GetModuleHandle(nullptr),
-      nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 "button",
+                                 HB_PARSTR(4, &str, nullptr),
+                                 style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
+                                 hmg_par_int(3),
+                                 hmg_par_int(2),
+                                 hmg_par_int(6),
+                                 hmg_par_int(7),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(8),
+                                 GetModuleHandle(nullptr),
+                                 nullptr);
+
    hb_strfree(str);
 
    hmg_ret_HWND(hbutton);

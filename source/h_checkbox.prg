@@ -693,9 +693,18 @@ HB_FUNC_STATIC( INITCHECKBOX )
       ExStyle |= WS_EX_TRANSPARENT;
    }
 
-   hmg_ret_HWND(CreateWindowEx(ExStyle, WC_BUTTON, lpWindowName, style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(8), hmg_par_int(9),
-      hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
+   hmg_ret_HWND(CreateWindowEx(ExStyle,
+                               WC_BUTTON,
+                               lpWindowName,
+                               style,
+                               hmg_par_int(4),
+                               hmg_par_int(5),
+                               hmg_par_int(8),
+                               hmg_par_int(9),
+                               hmg_par_HWND(1),
+                               hmg_par_HMENU(3),
+                               GetInstance(),
+                               nullptr));
 
    hb_strfree(WindowName);
 }
@@ -718,9 +727,18 @@ HB_FUNC_STATIC( INITCHECKBUTTON )
       style |= WS_TABSTOP;
    }
 
-   hmg_ret_HWND(CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(8), hmg_par_int(9),
-      hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
+   hmg_ret_HWND(CreateWindowEx(0,
+                               WC_BUTTON,
+                               lpWindowName,
+                               style,
+                               hmg_par_int(4),
+                               hmg_par_int(5),
+                               hmg_par_int(8),
+                               hmg_par_int(9),
+                               hmg_par_HWND(1),
+                               hmg_par_HMENU(3),
+                               GetInstance(),
+                               nullptr));
 
    hb_strfree(WindowName);
 }
@@ -750,9 +768,18 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
       style |= WS_TABSTOP;
    }
 
-   auto hbutton = CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(9), hmg_par_int(10),
-      hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 WC_BUTTON,
+                                 lpWindowName,
+                                 style,
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(9),
+                                 hmg_par_int(10),
+                                 hwnd,
+                                 hmg_par_HMENU(3),
+                                 GetInstance(),
+                                 nullptr);
 
    if( !hb_parl(13) ) {
       himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));

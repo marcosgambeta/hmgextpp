@@ -480,9 +480,18 @@ HB_FUNC_STATIC( INITBUTTON )
       style |= BS_MULTILINE;
    }
 
-   hmg_ret_HWND(CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
-      hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
+   hmg_ret_HWND(CreateWindowEx(0,
+                               WC_BUTTON,
+                               HB_PARSTR(2, &WindowName, nullptr),
+                               style,
+                               hmg_par_int(4),
+                               hmg_par_int(5),
+                               hmg_par_int(6),
+                               hmg_par_int(7),
+                               hmg_par_HWND(1),
+                               hmg_par_HMENU(3),
+                               GetInstance(),
+                               nullptr));
 
    hb_strfree(WindowName);
 }
@@ -518,9 +527,18 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
       style |= WS_TABSTOP;
    }
 
-   auto hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
-      hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 WC_BUTTON,
+                                 HB_PARSTR(2, &WindowName, nullptr),
+                                 style,
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_int(7),
+                                 hwnd,
+                                 hmg_par_HMENU(3),
+                                 GetInstance(),
+                                 nullptr);
 
    if( HB_ISNIL(14) ) {
       if( !hb_parl(17) ) {

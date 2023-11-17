@@ -458,7 +458,6 @@ RETURN RetVal
 
 HB_FUNC( INITCLBUTTON )
 {
-   auto hwnd = hmg_par_HWND(1);
    int style;
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(4);
@@ -472,17 +471,18 @@ HB_FUNC( INITCLBUTTON )
       style = BS_DEFCOMMANDLINK;
    }
 
-   auto hbutton = CreateWindowEx(0, "button",
-                          lpWindowName,
-                          style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
-                          hb_parni(3),
-                          hb_parni(2),
-                          hb_parni(6),
-                          hb_parni(7),
-                          hwnd,
-                          ( HMENU ) HB_PARNL(8),
-                          GetModuleHandle(nullptr),
-                          nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 "button",
+                                 lpWindowName,
+                                 style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
+                                 hmg_par_int(3),
+                                 hmg_par_int(2),
+                                 hmg_par_int(6),
+                                 hmg_par_int(7),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(8),
+                                 GetModuleHandle(nullptr),
+                                 nullptr);
 
    hmg_ret_HWND(hbutton);
 }

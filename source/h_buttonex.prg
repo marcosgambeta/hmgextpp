@@ -990,8 +990,6 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
    LPCTSTR lpImageName  = HB_PARSTR(8, &ImageName, nullptr);
    LPCTSTR lpIconName   = HB_PARSTR(14, &IconName, nullptr);
 
-   auto hwnd = hmg_par_HWND(1);
-
    DWORD style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW | (HB_ISNIL(14) ? BS_BITMAP : BS_ICON) | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
 
    if( hb_parl(9) ) {
@@ -1006,9 +1004,18 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
       style |= WS_TABSTOP;
    }
 
-   auto hbutton = CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
-      hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+   auto hbutton = CreateWindowEx(0,
+                                 WC_BUTTON,
+                                 lpWindowName,
+                                 style,
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_int(7),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(3),
+                                 GetInstance(),
+                                 nullptr);
 
    SetProp(hbutton, TEXT("oldbtnproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnButtonProc));

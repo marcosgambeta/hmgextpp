@@ -136,11 +136,19 @@ HB_FUNC( _CREATEWINDOWEX )
    int    y          = HB_ISNIL(6) ? 0 : hb_parni(6);
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
    int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
-   auto hWndParent = hmg_par_HWND(9);
-   HMENU  hMenu      = nullptr;
-   HANDLE hInstance  = hmg_par_HANDLE(11);
 
-   auto hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);
+   auto hWnd = CreateWindowEx(dwExStyle,
+                              cClass,
+                              cTitle,
+                              nStyle,
+                              x,
+                              y,
+                              nWidth,
+                              nHeight,
+                              hmg_par_HWND(9),
+                              nullptr,
+                              static_cast<HINSTANCE>(hmg_par_HANDLE(11)),
+                              nullptr);
 
    HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 

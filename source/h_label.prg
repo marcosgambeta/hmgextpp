@@ -339,8 +339,6 @@ static WNDPROC LabelOldWndProc;
 
 HB_FUNC_STATIC( INITLABEL )
 {
-   auto hWndParent = hmg_par_HWND(1);
-
    int style = WS_CHILD;
    int ExStyle = 0;
 
@@ -392,17 +390,17 @@ HB_FUNC_STATIC( INITLABEL )
    }
 
    auto hWnd = CreateWindowEx(ExStyle,
-                         WC_STATIC,
-                         lpWindowName,
-                         style,
-                         hmg_par_int(4),
-                         hmg_par_int(5),
-                         hmg_par_int(6),
-                         hmg_par_int(7),
-                         hWndParent,
-                         hmg_par_HMENU(3),
-                         GetInstance(),
-                         nullptr);
+                              WC_STATIC,
+                              lpWindowName,
+                              style,
+                              hmg_par_int(4),
+                              hmg_par_int(5),
+                              hmg_par_int(6),
+                              hmg_par_int(7),
+                              hmg_par_HWND(1),
+                              hmg_par_HMENU(3),
+                              GetInstance(),
+                              nullptr);
 
    if( hb_parl(10) ) {
       LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(LabelSubClassFunc)));

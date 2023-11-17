@@ -1827,19 +1827,18 @@ HB_FUNC( INITEMFFILE )
       Style |= SS_NOTIFY;
    }
 
-   auto hWnd = CreateWindowEx(
-      0,
-      WC_STATIC,
-      nullptr,
-      Style,
-      hb_parni(3),
-      hb_parni(4),
-      0,
-      0,
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+   auto hWnd = CreateWindowEx(0,
+                              WC_STATIC,
+                              nullptr,
+                              Style,
+                              hmg_par_int(3),
+                              hmg_par_int(4),
+                              0,
+                              0,
+                              hmg_par_HWND(1),
+                              hmg_par_HMENU(2),
+                              GetInstance(),
+                              nullptr);
 
    HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 }
