@@ -348,7 +348,6 @@ static int m_nHeightItem = 16;
 
 HB_FUNC_STATIC( INITCHKLISTBOX )
 {
-   HWND hbutton;
    int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
    auto hwnd = hmg_par_HWND(1);
@@ -370,7 +369,7 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
       m_nHeightItem = hb_parni(12);
    }
 
-   hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                             WC_LISTBOX,
                             TEXT(""),
                             style,
@@ -388,7 +387,6 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
 
 HB_FUNC_STATIC( INITMULTICHKLISTBOX )
 {
-   HWND hbutton;
    int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
    auto hwnd = hmg_par_HWND(1);
@@ -410,7 +408,7 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
       m_nHeightItem = hb_parni(12);
    }
 
-   hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                             WC_LISTBOX,
                             TEXT(""),
                             style,

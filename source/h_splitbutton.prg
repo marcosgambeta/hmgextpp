@@ -287,7 +287,7 @@ HB_FUNC( INITSPLITBUTTON )
    DWORD style = hb_parl(5) ? BS_DEFSPLITBUTTON : BS_SPLITBUTTON;
 
    void * str;
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       0,
       "button",
       HB_PARSTR(4, &str, nullptr),

@@ -108,7 +108,7 @@ HB_FUNC( INITTOOLBAR )
       style |= CCS_ADJUSTABLE;
    }
 
-   HWND hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
+   auto hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) ) {
       SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(6), hb_parni(7));
@@ -283,7 +283,7 @@ HB_FUNC( INITTOOLBAREX )
       style |= CCS_ADJUSTABLE;
    }
 
-   HWND hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
+   auto hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) ) {
       SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(6), hb_parni(7));

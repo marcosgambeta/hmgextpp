@@ -83,7 +83,7 @@ HB_FUNC( INITLISTBOX )
       style |= LBS_MULTICOLUMN | WS_HSCROLL;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
@@ -171,7 +171,7 @@ HB_FUNC( INITMULTILISTBOX )
       style |= LBS_MULTICOLUMN;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),

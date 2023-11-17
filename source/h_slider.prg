@@ -301,7 +301,7 @@ HB_FUNC_STATIC( INITSLIDER )
       iSelMax = HB_MAX(hb_parnidef(17, 0), hb_parnidef(18, 0));
    }
 
-   HWND hTrackBar = CreateWindowEx(0,
+   auto hTrackBar = CreateWindowEx(0,
                                    TRACKBAR_CLASS,
                                    nullptr,
                                    style,

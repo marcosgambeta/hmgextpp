@@ -518,9 +518,7 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
 
 HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 {
-   HWND hControl;
-
-   hControl = CreateWindowEx(0, "AtlAxWin",
+   auto hControl = CreateWindowEx(0, "AtlAxWin",
 #ifndef UNICODE
                           hb_parc(2),
 #else

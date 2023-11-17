@@ -82,7 +82,7 @@ HB_FUNC( INITEDITBOX )
       style |= WS_HSCROLL;
    }
 
-   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                                  WC_EDIT,
                                  TEXT(""),
                                  style,

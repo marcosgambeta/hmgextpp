@@ -236,7 +236,7 @@ HB_FUNC( INITMDIWINDOW )
       style |= WS_HSCROLL;
    }
 
-   HWND hwnd = CreateWindowEx(
+   auto hwnd = CreateWindowEx(
       ExStyle,
       lpClassName,
       lpWindowName,
@@ -277,7 +277,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    // Create the MDI client filling the client area
 
-   HWND hwndMDIClient = CreateWindowEx(
+   auto hwndMDIClient = CreateWindowEx(
       0,
       TEXT("mdiclient"),
       nullptr,

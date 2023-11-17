@@ -127,7 +127,7 @@ HB_FUNC( INITHOTKEYBOX )
       style |= WS_TABSTOP;
    }
 
-   HWND hwndHotKey = CreateWindowEx(
+   auto hwndHotKey = CreateWindowEx(
       0,
       HOTKEY_CLASS,
       TEXT(""),

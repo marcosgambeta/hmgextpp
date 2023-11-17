@@ -518,7 +518,7 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
+   auto hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
       hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 

@@ -339,7 +339,6 @@ static WNDPROC LabelOldWndProc;
 
 HB_FUNC_STATIC( INITLABEL )
 {
-   HWND hWnd;
    auto hWndParent = hmg_par_HWND(1);
 
    int style = WS_CHILD;
@@ -392,7 +391,7 @@ HB_FUNC_STATIC( INITLABEL )
       ExStyle |= WS_EX_TRANSPARENT;
    }
 
-   hWnd = CreateWindowEx(ExStyle,
+   auto hWnd = CreateWindowEx(ExStyle,
                          WC_STATIC,
                          lpWindowName,
                          style,

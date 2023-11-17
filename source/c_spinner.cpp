@@ -95,7 +95,7 @@ HB_FUNC( INITSPINNER )
 
    auto hwnd = hmg_par_HWND(1);
 
-   HWND hedit = CreateWindowEx(
+   auto hedit = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_EDIT,
       TEXT(""),
@@ -109,7 +109,7 @@ HB_FUNC( INITSPINNER )
       GetInstance(),
       nullptr);
 
-   HWND hupdown = CreateWindowEx(
+   auto hupdown = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       UPDOWN_CLASS,
       TEXT(""),

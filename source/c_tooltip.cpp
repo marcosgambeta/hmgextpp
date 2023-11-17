@@ -162,7 +162,7 @@ HB_FUNC( INITTOOLTIP )
       }
 
       /* Create a tooltip */
-      HWND hwndToolTip = CreateWindowEx(
+      auto hwndToolTip = CreateWindowEx(
          0,
          TOOLTIPS_CLASS,
          nullptr,
@@ -305,7 +305,7 @@ HB_FUNC( INITTOOLTIPEX )
       InitCommonControlsEx(&icex);
 
       /* Create a tooltip */
-      HWND hwndToolTip = CreateWindowEx(
+      auto hwndToolTip = CreateWindowEx(
          WS_EX_TOPMOST,
          TOOLTIPS_CLASS,
          nullptr,

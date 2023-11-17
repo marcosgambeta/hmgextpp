@@ -521,7 +521,7 @@ HB_FUNC_STATIC( INITCOMBOBOX )
       style |= CBS_LOWERCASE;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       0,
       WC_COMBOBOX,
       TEXT(""),

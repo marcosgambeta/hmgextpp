@@ -121,7 +121,6 @@ HB_FUNC( REGISTER_CLASS )
 
 HB_FUNC( _CREATEWINDOWEX )
 {
-   HWND   hWnd;
    DWORD  dwExStyle  = hb_parnl(1);
 #ifdef UNICODE
    void *  hClassName;
@@ -141,7 +140,7 @@ HB_FUNC( _CREATEWINDOWEX )
    HMENU  hMenu      = nullptr;
    HANDLE hInstance  = hmg_par_HANDLE(11);
 
-   hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);
+   auto hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);
 
    HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 

@@ -97,7 +97,7 @@ HB_FUNC( INITMONTHCAL )
       style |= WS_TABSTOP;
    }
 
-   HWND hmonthcal = CreateWindowEx(
+   auto hmonthcal = CreateWindowEx(
       0,
       MONTHCAL_CLASS,
       TEXT(""),

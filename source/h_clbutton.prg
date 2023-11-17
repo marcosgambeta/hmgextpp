@@ -459,7 +459,6 @@ RETURN RetVal
 HB_FUNC( INITCLBUTTON )
 {
    auto hwnd = hmg_par_HWND(1);
-   HWND hbutton;
    int style;
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(4);
@@ -473,7 +472,7 @@ HB_FUNC( INITCLBUTTON )
       style = BS_DEFCOMMANDLINK;
    }
 
-   hbutton = CreateWindowEx(0, "button",
+   auto hbutton = CreateWindowEx(0, "button",
                           lpWindowName,
                           style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
                           hb_parni(3),

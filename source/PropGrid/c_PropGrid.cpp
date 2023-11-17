@@ -867,7 +867,7 @@ HB_FUNC( INITPROPGRID )
    auto hArray = hb_param(11, Harbour::Item::ARRAY);
    auto MsgArray = hb_param(17, Harbour::Item::ARRAY);
 
-   HWND hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT, "button", "", WS_CHILD | BS_GROUPBOX | WS_VISIBLE, x, y, w, h, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT, "button", "", WS_CHILD | BS_GROUPBOX | WS_VISIBLE, x, y, w, h, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr);
 
    SetProp(hFramePG, "oldframepgproc", reinterpret_cast<HWND>(GetWindowLongPtr(hFramePG, GWLP_WNDPROC)));
 
@@ -894,10 +894,10 @@ HB_FUNC( INITPROPGRID )
    x = 0;
    y = 0;
 
-   HWND hWndPG = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, "", style, x, y + m_nHeightHeader, w, PGHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   HWND hFrame = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_OWNERDRAW | SS_NOTIFY | WS_BORDER, /* SS_SUNKEN , */ x, y + PGHeight + m_nHeightHeader, w, iHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   HWND hTitle = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 10, y + PGHeight + m_nHeightHeader + 10, w - 20, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
-   HWND hInfo = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 20, y + PGHeight + m_nHeightHeader + 26, w - 30, iHeight - 36, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hWndPG = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, "", style, x, y + m_nHeightHeader, w, PGHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hFrame = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_OWNERDRAW | SS_NOTIFY | WS_BORDER, /* SS_SUNKEN , */ x, y + PGHeight + m_nHeightHeader, w, iHeight, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hTitle = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 10, y + PGHeight + m_nHeightHeader + 10, w - 20, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
+   auto hInfo = CreateWindowEx(WS_EX_TRANSPARENT, "static", "", InfoStyle | SS_NOTIFY, x + 20, y + PGHeight + m_nHeightHeader + 26, w - 30, iHeight - 36, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
 
    HWND hBtnOk = nullptr;
    HWND hBtnApply = nullptr;
@@ -1928,7 +1928,6 @@ HB_FUNC( GETDATEPICKER )
 HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
 {
    static PHB_SYMB   pSymbol = nullptr;
-   HWND              hEdit;
    std::string       cClass;
    std::string       cName = "";
    int               Style = WS_CHILD | WS_VISIBLE;
@@ -2005,7 +2004,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
          cClass = "EDIT";
    }
 
-   hEdit = CreateWindowEx(0,
+   auto hEdit = CreateWindowEx(0,
                           cClass.c_str(),
                           cName.c_str(),
                           Style,

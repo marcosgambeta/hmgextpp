@@ -66,7 +66,7 @@ HB_FUNC( INITIPADDRESS )
       style |= WS_TABSTOP;
    }
 
-   HWND hIpAddress = CreateWindowEx(
+   auto hIpAddress = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_IPADDRESS,
       TEXT(""),

@@ -70,7 +70,7 @@ HB_FUNC( INITTREE )
       mask = TVS_LINESATROOT;
    }
 
-   HWND hWndTV = CreateWindowEx(
+   auto hWndTV = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_TREEVIEW,
       TEXT(""),

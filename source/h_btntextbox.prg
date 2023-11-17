@@ -493,7 +493,7 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
    }
 
    // Creates the child Frame control.
-   HWND hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, "", style,
+   auto hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, "", style,
       hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
       hwnd, nullptr, GetInstance(), nullptr);
 
@@ -569,7 +569,7 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
       ibtnStyle2 |= BS_BITMAP;
    }
 
-   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle1,
+   auto hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle1,
       hmg_par_int(5) - BtnWidth - 3, -1, BtnWidth, hmg_par_int(6) - 2,
       hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
 
@@ -667,7 +667,7 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
       himage2 = nullptr;
    }
 
-   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
+   auto hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
       width - BtnWidth - 4, -1, BtnWidth, height - 2,
       hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
 

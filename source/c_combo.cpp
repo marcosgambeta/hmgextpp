@@ -83,7 +83,7 @@ HB_FUNC( INITCOMBOBOXEX )
       style |= CBS_NOINTEGRALHEIGHT;
    }
 
-   HWND hCombo = CreateWindowEx(0,
+   auto hCombo = CreateWindowEx(0,
                                 WC_COMBOBOXEX,
                                 TEXT(""),
                                 style,

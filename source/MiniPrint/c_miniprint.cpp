@@ -1827,7 +1827,7 @@ HB_FUNC( INITEMFFILE )
       Style |= SS_NOTIFY;
    }
 
-   HWND hWnd = CreateWindowEx(
+   auto hWnd = CreateWindowEx(
       0,
       WC_STATIC,
       nullptr,

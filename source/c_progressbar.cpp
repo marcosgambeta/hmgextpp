@@ -70,7 +70,7 @@ HB_FUNC( INITPROGRESSBAR )
       style |= WS_VISIBLE;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       PROGRESS_CLASS,
       0,

@@ -72,7 +72,7 @@ HB_FUNC( INITRADIOGROUP )
       style |= BS_LEFTTEXT;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       0,
       WC_BUTTON,
       HB_PARSTR(2, &str, nullptr),
@@ -108,7 +108,7 @@ HB_FUNC( INITRADIOBUTTON )
       style |= BS_LEFTTEXT;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       0,
       WC_BUTTON,
       HB_PARSTR(2, &str, nullptr),

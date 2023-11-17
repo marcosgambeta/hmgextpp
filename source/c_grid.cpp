@@ -220,7 +220,7 @@ HB_FUNC( INITLISTVIEW )
       style |= LVS_OWNERDATA;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_LISTVIEW,
       "",

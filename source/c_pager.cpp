@@ -127,7 +127,7 @@ HB_FUNC( INITPAGER ) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertical,
    //rbBand.cxMinChild = 0;
    //rbBand.cyMinChild = 0;
 
-   HWND hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
+   auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
 
    void * str;
 

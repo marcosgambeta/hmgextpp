@@ -90,7 +90,7 @@ HB_FUNC( INITDATEPICK )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                                  DATETIMEPICK_CLASS,
                                  TEXT("DateTime"),
                                  style,
@@ -133,7 +133,7 @@ HB_FUNC( INITTIMEPICK )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                                  DATETIMEPICK_CLASS,
                                  TEXT("DateTime"),
                                  style,

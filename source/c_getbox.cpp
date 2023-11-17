@@ -76,7 +76,6 @@ LPWSTR AnsiToWide(LPCSTR);
 
 HB_FUNC( INITGETBOX )
 {
-   HWND hedit;                   // Handle of the child window/control.
    int  style;                   // GETBOX window base style.
    int  ibtnStyle1, ibtnStyle2;  // BUTTON window base style.
    HWND himage, himage2;
@@ -136,7 +135,7 @@ HB_FUNC( INITGETBOX )
 
    // Creates the child control.
 
-   hedit = CreateWindowEx(hb_parl(23) ? 0 : WS_EX_CLIENTEDGE,
+   auto hedit = CreateWindowEx(hb_parl(23) ? 0 : WS_EX_CLIENTEDGE,
                           WC_EDIT,
                           TEXT(""),
                           style,

@@ -73,7 +73,7 @@ HB_FUNC( INITBROWSE )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                                  WC_LISTVIEW,
                                  TEXT(""),
                                  style,
@@ -112,7 +112,7 @@ INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
 HB_FUNC( INITVSCROLLBAR )
 {
-   HWND hscrollbar = CreateWindowEx(0,
+   auto hscrollbar = CreateWindowEx(0,
                                     WC_SCROLLBAR,
                                     TEXT(""),
                                     WS_CHILD | WS_VISIBLE | SBS_VERT,

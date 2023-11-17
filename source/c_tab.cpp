@@ -91,7 +91,7 @@ HB_FUNC( INITTABCONTROL )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(
+   auto hbutton = CreateWindowEx(
       0,
       WC_TABCONTROL,
       nullptr,

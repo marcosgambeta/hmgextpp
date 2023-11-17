@@ -1005,7 +1005,7 @@ HB_FUNC( INITWINDOW )
    void * str1;
    void * str2;
 
-   HWND hwnd = CreateWindowEx(
+   auto hwnd = CreateWindowEx(
       ExStyle,
       HB_PARSTR(12, &str1, nullptr),
       HB_PARSTR(1, &str2, nullptr),
@@ -1062,7 +1062,7 @@ HB_FUNC( INITMODALWINDOW )
    void * str1;
    void * str2;
 
-   HWND hwnd = CreateWindowEx(
+   auto hwnd = CreateWindowEx(
       ExStyle,
       HB_PARSTR(10, &str1, nullptr),
       HB_PARSTR(1, &str2, nullptr),
@@ -1105,7 +1105,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    void * str1;
    void * str2;
 
-   HWND hwnd = CreateWindowEx(
+   auto hwnd = CreateWindowEx(
       WS_EX_STATICEDGE | WS_EX_TOOLWINDOW,
       HB_PARSTR(3, &str1, nullptr),
       HB_PARSTR(5, &str2, nullptr),
@@ -1146,7 +1146,7 @@ HB_FUNC( INITSPLITBOX )
       style |= CCS_VERT;
    }
 
-   HWND hwndRB = CreateWindowEx(
+   auto hwndRB = CreateWindowEx(
       WS_EX_TOOLWINDOW | WS_EX_DLGMODALFRAME,
       REBARCLASSNAME,
       nullptr,

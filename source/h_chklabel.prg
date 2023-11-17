@@ -569,7 +569,6 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 
 HB_FUNC_STATIC( INITCHKLABEL )
 {
-   HWND hbutton;
    HBITMAP himage;
    HBITMAP himage2;
    void * WindowName;
@@ -616,7 +615,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
       style |= SS_CENTERIMAGE;
    }
 
-   hbutton = CreateWindowEx(ExStyle,
+   auto hbutton = CreateWindowEx(ExStyle,
                             WC_STATIC,
                             lpWindowName,
                             style,
