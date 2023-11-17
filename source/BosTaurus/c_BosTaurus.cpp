@@ -166,7 +166,7 @@ static HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_h
 {
    BITMAP bm;
    GetObject(hBitmap_Original, sizeof(BITMAP), static_cast<LPBYTE>(&bm));
-   HBITMAP hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
+   auto hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
 
    auto memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_Original);
@@ -308,7 +308,7 @@ static HBITMAP bt_LoadOLEPicture(const TCHAR * FileName, const TCHAR * TypePictu
    INT pxWidth  = bt_LOGHIMETRIC_TO_PIXEL(hmWidth, GetDeviceCaps(memDC, LOGPIXELSX));
    INT pxHeight = bt_LOGHIMETRIC_TO_PIXEL(hmHeight, GetDeviceCaps(memDC, LOGPIXELSY));
 
-   HBITMAP hBitmap = bt_bmp_create_24bpp(pxWidth, pxHeight);
+   auto hBitmap = bt_bmp_create_24bpp(pxWidth, pxHeight);
    SelectObject(memDC, hBitmap);
 
    iPicture->lpVtbl->Render(iPicture, memDC, 0, 0, pxWidth, pxHeight, 0, hmHeight, hmWidth, -hmHeight, nullptr);
@@ -1706,7 +1706,7 @@ HB_FUNC( BT_BMP_CREATE )
    auto Height = hmg_par_INT(2);
    auto Color_Fill_Bk = hmg_par_COLORREF(3);
 
-   HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width, Height);
+   auto hBitmap_New = bt_bmp_create_24bpp(Width, Height);
 
    auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap_New);
@@ -1866,7 +1866,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    // Create Bitmap
    auto memDC   = CreateCompatibleDC(nullptr);
-   HBITMAP hBitmap = bt_bmp_create_24bpp(nWidth, nHeight);
+   auto hBitmap = bt_bmp_create_24bpp(nWidth, nHeight);
    SelectObject(memDC, hBitmap);
 
    // Paint the background of the Bitmap
@@ -2062,7 +2062,7 @@ HB_FUNC( BT_BMP_CLONE )
    SelectObject(memDC1, hBitmap);
 
    auto memDC2 = CreateCompatibleDC(nullptr);
-   HBITMAP hBitmap_New = bt_bmp_create_24bpp(Width1, Height1);
+   auto hBitmap_New = bt_bmp_create_24bpp(Width1, Height1);
    SelectObject(memDC2, hBitmap_New);
 
    BitBlt(memDC2, 0, 0, Width1, Height1, memDC1, x1, y1, SRCCOPY);
@@ -2431,7 +2431,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
          return;
    }
 
-   HBITMAP hBitmap = bt_bmp_create_24bpp(Width1, Height1);
+   auto hBitmap = bt_bmp_create_24bpp(Width1, Height1);
 
    auto memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
@@ -2950,7 +2950,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
       }
    }
 
-   HBITMAP hBitmap_D = bt_bmp_create_24bpp(Width, Height);
+   auto hBitmap_D = bt_bmp_create_24bpp(Width, Height);
    SelectObject(memDC2, hBitmap_D);
 
    //SetStretchBltMode (memDC2, COLORONCOLOR);
