@@ -17157,7 +17157,7 @@ RETURN iif(Len(cHex) > 4, L2Bin(Int(nDec)), iif(Len(cHex) > 2, I2Bin(Int(nDec)),
 
 STATIC FUNCTION nBmpWidth(hBmp)
 
-RETURN GetBitmapSize(hBmp)[1]
+RETURN hmg_GetBitmapSize(hBmp)[1]
 
 // ============================================================================
 // FUNCTION _nColumn() Version 9.0 Nov/30/2009

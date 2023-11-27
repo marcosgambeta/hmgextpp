@@ -1234,7 +1234,7 @@ FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight
 
    TempName := TempFile(GetTempFolder(), "BMP")
 
-   SaveWindowByHandle(GetFormHandle(cWindowName), TempName, ntop, nleft, nbottom, nright)
+   hmg_SaveWindowByHandle(GetFormHandle(cWindowName), TempName, ntop, nleft, nbottom, nright)
 
    HO := GetPrintableAreaHorizontalOffset()
    VO := GetPrintableAreaVerticalOffset()

@@ -63,9 +63,9 @@ HANDLE DibFromBitmap(HBITMAP, HPALETTE);
 WORD GetDIBColors(LPSTR);
 
 /*
-SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
+HMG_SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
 */
-HB_FUNC( SAVEWINDOWBYHANDLE )
+HB_FUNC( HMG_SAVEWINDOWBYHANDLE )
 {
    auto hWnd = hmg_par_HWND(1);
    auto hDC = GetDC(hWnd);
@@ -128,10 +128,14 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    ReleaseDC(hWnd, hDC);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SAVEWINDOWBYHANDLE, HMG_SAVEWINDOWBYHANDLE )
+#endif
+
 /*
-WNDCOPY(HWND, lp2, ) --> NIL
+HMG_WNDCOPY(HWND, lp2, ) --> NIL
 */
-HB_FUNC( WNDCOPY )
+HB_FUNC( HMG_WNDCOPY )
 {
    auto hWnd = hmg_par_HWND(1);
    auto hDC = GetDC(hWnd);
@@ -186,6 +190,10 @@ HB_FUNC( WNDCOPY )
    GlobalFree(hDIB);
    ReleaseDC(hWnd, hDC);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( WNDCOPY, HMG_WNDCOPY )
+#endif
 
 WORD DibNumColors(VOID FAR * pv)
 {
@@ -326,9 +334,9 @@ WORD GetDIBColors(LPSTR lpDIB)
 }
 
 /*
-C_HASALPHA(HBITMAP) --> .T.|.F.
+HMG_C_HASALPHA(HBITMAP) --> .T.|.F.
 */
-HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
+HB_FUNC( HMG_C_HASALPHA ) // hBitmap --> lYesNo
 {
    auto hDC = GetDC(GetDesktopWindow());
 
@@ -360,6 +368,10 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
 
    hb_retl(bAlphaChannel);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_HASALPHA, HMG_C_HASALPHA ) // hBitmap --> lYesNo
+#endif
 
 HBITMAP Icon2Bmp(HICON hIcon)
 {
@@ -414,9 +426,9 @@ HBITMAP IconMask2Bmp(HICON hIcon)
 // (c) Andy Wos <andywos@unwired.com.au>
 
 /*
-DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> NIL
+HMG_DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> NIL
 */
-HB_FUNC( DRAWGLYPH )
+HB_FUNC( HMG_DRAWGLYPH )
 {
    auto hDC = hmg_par_HDC(1);
    auto x = hb_parni(2);
@@ -553,13 +565,17 @@ HB_FUNC( DRAWGLYPH )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DRAWGLYPH, HMG_DRAWGLYPH )
+#endif
+
 // Function DRAWGLYPHMASK create and draw bimap mask - first pixel is treated as transparent color
 // Based upon function DrawGlyph by Andy Wos <andywos@unwired.com.au>
 
 /*
-DRAWGLYPHMASK(HDC, 2, 3, dx, dy, HBITMAP, 7, 8, 9, HWND) --> NIL
+HMG_DRAWGLYPHMASK(HDC, 2, 3, dx, dy, HBITMAP, 7, 8, 9, HWND) --> NIL
 */
-HB_FUNC( DRAWGLYPHMASK )
+HB_FUNC( HMG_DRAWGLYPHMASK )
 {
    auto hBmp = hmg_par_HBITMAP(6);
    BITMAP bitmap;
@@ -599,6 +615,10 @@ HB_FUNC( DRAWGLYPHMASK )
    DeleteDC(hDCMask);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DRAWGLYPHMASK, HMG_DRAWGLYPHMASK )
+#endif
+
 // Harbour MiniGUI 1.3 Extended (Build 33)
 // Author P.Chornyj
 //
@@ -616,9 +636,9 @@ HB_FUNC( DRAWGLYPHMASK )
 //   If the function fails, the return value is 0.
 
 /*
-LOADBITMAP(fileName) --> HBITMAP
+HMG_LOADBITMAP(fileName) --> HBITMAP
 */
-HB_FUNC( LOADBITMAP )
+HB_FUNC( HMG_LOADBITMAP )
 {
    void * ImageName;
    LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
@@ -634,6 +654,10 @@ HB_FUNC( LOADBITMAP )
 
    hb_strfree(ImageName);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( LOADBITMAP, HMG_LOADBITMAP )
+#endif
 
 // DrawGlyph for C-level
 
@@ -854,9 +878,9 @@ BOOL GetImageSize(const char * fn, int * x, int * y)
 // Return: 2 dim array -> array[1] = width, array[2] = height
 
 /*
-HB_GETIMAGESIZE(file) --> array
+HMG_HB_GETIMAGESIZE(file) --> array
 */
-HB_FUNC( HB_GETIMAGESIZE )
+HB_FUNC( HMG_HB_GETIMAGESIZE )
 {
    int x = 0;
    int y = 0;
@@ -867,6 +891,10 @@ HB_FUNC( HB_GETIMAGESIZE )
    HB_STORNI(x, -1, 1);
    HB_STORNI(y, -1, 2);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( HB_GETIMAGESIZE, HMG_HB_GETIMAGESIZE )
+#endif
 
 // Harbour MiniGUI 1.3 Extended (Build 33)
 // Author P.Chornyj
@@ -901,9 +929,9 @@ static void _arraySet(PHB_ITEM pArray, int Width, int Height, int BitsPixel)
 }
 
 /*
-GETBITMAPSIZE(image) --> array
+HMG_GETBITMAPSIZE(image) --> array
 */
-HB_FUNC( GETBITMAPSIZE )
+HB_FUNC( HMG_GETBITMAPSIZE )
 {
    auto pResult = hb_itemArrayNew(3);
    HBITMAP hBitmap = nullptr;
@@ -941,10 +969,14 @@ HB_FUNC( GETBITMAPSIZE )
    hb_itemReturnRelease(pResult);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETBITMAPSIZE, HMG_GETBITMAPSIZE )
+#endif
+
 /*
-GETICONSIZE(HICON) --> array
+HMG_GETICONSIZE(HICON) --> array
 */
-HB_FUNC( GETICONSIZE )
+HB_FUNC( HMG_GETICONSIZE )
 {
    auto pResult = hb_itemArrayNew(3);
    auto hIcon = hmg_par_HICON(1);
@@ -969,10 +1001,14 @@ HB_FUNC( GETICONSIZE )
    hb_itemReturnRelease(pResult);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETICONSIZE, HMG_GETICONSIZE )
+#endif
+
 /*
-GETPIXELCOLOR(HDC, x, y) --> .T.|.F.
+HMG_GETPIXELCOLOR(HDC, x, y) --> .T.|.F.
 */
-HB_FUNC( GETPIXELCOLOR )
+HB_FUNC( HMG_GETPIXELCOLOR )
 {
    COLORREF pixel = GetPixel(hmg_par_HDC(1), hb_parni(2), hb_parni(3));
 
@@ -989,3 +1025,7 @@ HB_FUNC( GETPIXELCOLOR )
 
    hb_retl(result);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETPIXELCOLOR, HMG_GETPIXELCOLOR )
+#endif

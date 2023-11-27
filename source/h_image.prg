@@ -263,17 +263,17 @@ FUNCTION BmpSize(xBitmap)
    DO CASE
    CASE hb_IsString(xBitmap)
 
-      aRet := GetBitmapSize(xBitmap)
+      aRet := hmg_GetBitmapSize(xBitmap)
 
       IF Empty(aRet[1]) .AND. Empty(aRet[2])
          xBitmap := C_GetResPicture(xBitmap)
-         aRet := GetBitmapSize(xBitmap)
+         aRet := hmg_GetBitmapSize(xBitmap)
          DeleteObject(xBitmap)
       ENDIF
 
    CASE hb_IsNumeric(xBitmap)
 
-      aRet := GetBitmapSize(xBitmap)
+      aRet := hmg_GetBitmapSize(xBitmap)
 
    ENDCASE
 
@@ -289,7 +289,7 @@ FUNCTION HasAlpha(FileName)
    hBitmap := C_GetResPicture(FileName)
 
    IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
-      lResult := C_HasAlpha(hBitmap)
+      lResult := hmg_C_HasAlpha(hBitmap)
       DeleteObject(hBitmap)
    ENDIF
 

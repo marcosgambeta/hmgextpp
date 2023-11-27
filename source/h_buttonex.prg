@@ -248,10 +248,10 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
 
       SWITCH _HMG_aControlMiscData1[k]
       CASE 0
-         aBmp := GetBitmapSize(_HMG_aControlBrushHandle[k])
+         aBmp := hmg_GetBitmapSize(_HMG_aControlBrushHandle[k])
          EXIT
       CASE 1
-         aBmp := GetIconSize(_HMG_aControlBrushHandle[k])
+         aBmp := hmg_GetIconSize(_HMG_aControlBrushHandle[k])
       ENDSWITCH
 
       _HMG_aControlHeadClick[k] := {aBmp[1], aBmp[2]}
@@ -571,10 +571,10 @@ FUNCTION OwnButtonPaint(pdis)
 
       SWITCH _HMG_aControlMiscData1[i]
       CASE 0
-         aBmp := GetBitmapSize(_HMG_aControlBrushHandle[i])
+         aBmp := hmg_GetBitmapSize(_HMG_aControlBrushHandle[i])
          EXIT
       CASE 1
-         aBmp := GetIconSize(_HMG_aControlBrushHandle[i])
+         aBmp := hmg_GetIconSize(_HMG_aControlBrushHandle[i])
       ENDSWITCH
 
    ENDIF
@@ -636,19 +636,19 @@ FUNCTION OwnButtonPaint(pdis)
             ENDIF
 
             IF lnoadjust
-               DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
+               hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
                DrawText(hDC, _HMG_aControlCaption[i], xPoz, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
             ELSE
-               DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
+               hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
 
          ELSE  // vertical non selected
 
             IF lnoadjust
-               DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
+               hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
                DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
             ELSE
-               DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
+               hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
 
          ENDIF
@@ -656,13 +656,13 @@ FUNCTION OwnButtonPaint(pdis)
       ELSE  // vertical disabled
 
          IF lnoadjust
-            DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
+            hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
             SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
             DrawText(hDC, _HMG_aControlCaption[i], 2, pozYtext + 1, x2, aBtnRc[4] + 1, DT_CENTER)
             SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
             DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext, x2, aBtnRc[4], DT_CENTER)
          ELSE
-            DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
          ENDIF
 
       ENDIF
@@ -731,19 +731,19 @@ FUNCTION OwnButtonPaint(pdis)
             ENDIF
 
             IF lnoadjust
-               DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
+               hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
                DrawText(hDC, _HMG_aControlCaption[i], x1, y1 + 1, x2, y1 + y2, DT_CENTER)
             ELSE
-               DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
+               hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
 
          ELSE
 
             IF lnoadjust
-               DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
+               hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
                DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
             ELSE
-               DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
+               hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
 
          ENDIF
@@ -751,13 +751,13 @@ FUNCTION OwnButtonPaint(pdis)
       ELSE  // disabled horizontal
 
          IF lnoadjust
-            DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
+            hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
             SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
             DrawText(hDC, _HMG_aControlCaption[i], x1 + 1, y1 + 1, x2 + 1, y1 + y2 + 1, DT_CENTER)
             SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
             DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
          ELSE
-            DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
          ENDIF
 
       ENDIF
@@ -804,11 +804,11 @@ FUNCTION _SetBtnPictureMask(hWnd, i /*ControlIndex*/)
    aBtnRc[3] := _HMG_aControlWidth[i]
    aBtnRc[4] := _HMG_aControlHeight[i]
 
-   aBmp := GetBitmapSize(_HMG_aControlBrushHandle[i])
+   aBmp := hmg_GetBitmapSize(_HMG_aControlBrushHandle[i])
    x := aBtnRc[3] / 2 - aBmp[1] / 2
    y := aBtnRc[4] / 2 - aBmp[2] / 2
 
-   DrawGlyphMask(hDC, x, y, aBmp[1], aBmp[2], _HMG_aControlBrushHandle[i], , .T., .F., hWnd)
+   hmg_DrawGlyphMask(hDC, x, y, aBmp[1], aBmp[2], _HMG_aControlBrushHandle[i], , .T., .F., hWnd)
 
    ReleaseDC(hWnd, hDC)
 

@@ -127,12 +127,12 @@ FUNCTION OwnTabPaint(lParam)
 
       nItemId := Min(nItemId, Len(_HMG_aControlPicture[i]))
 
-      hImage := LoadBitmap(_HMG_aControlPicture[i][nItemId])
+      hImage := hmg_LoadBitmap(_HMG_aControlPicture[i][nItemId])
       IF Empty(hImage)
          hImage := LoadImage(_HMG_aControlPicture[i][nItemId], , , , , , bkColor)
       ENDIF
 
-      aBmp := GetBitmapSize(hImage)
+      aBmp := hmg_GetBitmapSize(hImage)
 
       xp1 := 4
       xp2 := aBmp[1]
@@ -143,17 +143,17 @@ FUNCTION OwnTabPaint(lParam)
       IF _HMG_aControlMiscData1[i][4]  // Bottom Tab
 
          IF lSelected
-            DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
          ELSE
-            DrawGlyph(hDC, aBtnRc[1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
          ENDIF
 
       ELSE
 
          IF lSelected
-            DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F.)
          ELSE
-            DrawGlyph(hDC, aBtnRc[1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F.)
+            hmg_DrawGlyph(hDC, aBtnRc[1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F.)
          ENDIF
 
       ENDIF

@@ -132,8 +132,8 @@
 #translate SetProperty(<FormName>, <ControlName>, "ImageWidth", <w>) => _HMG_aControlHeadClick\[GetControlIndex(<ControlName>, <FormName>)]\[1] := <w>
 #translate SetProperty(<FormName>, <ControlName>, "ImageHeight", <h>) => _HMG_aControlHeadClick\[GetControlIndex(<ControlName>, <FormName>)]\[2] := <h>
 #translate DoMethod(<FormName>, "Print") => PrintWindow(<FormName>)
-#translate DoMethod(<FormName>, "SaveAs", <FileName>) => WndCopy(GetFormHandle(<FormName>), .F., <FileName>)
-#translate DoMethod(<FormName>, <ControlName>, "SaveAs", <FileName>) => WndCopy(GetControlHandle(<ControlName>, <FormName>), .T., <FileName>)
+#translate DoMethod(<FormName>, "SaveAs", <FileName>) => hmg_WndCopy(GetFormHandle(<FormName>), .F., <FileName>)
+#translate DoMethod(<FormName>, <ControlName>, "SaveAs", <FileName>) => hmg_WndCopy(GetControlHandle(<ControlName>, <FormName>), .T., <FileName>)
 #translate SetProperty(<FormName>, <ControlName>, "Velocity", <Value>) => SendMessage(GetControlHandle(<ControlName>, <FormName>), WM_USER+10, iif(<Value> > 0, 1, 0), <Value>)
 
 // ============================================================================
