@@ -839,9 +839,9 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
    CASE CONTROL_TYPE_COMBO
       // (JK) HMG 1.0 Experimental Build 8
       IF _HMG_aControlMiscData1[ix][1] == 0      // standard combo
-         ComboAddString(c, value)
+         hmg_ComboAddString(c, value)
       ELSEIF _HMG_aControlMiscData1[ix][1] == 1  // extend combo - "parent" is a picture Id. ;-)
-         ComboAddStringEx(c, value, Parent)
+         hmg_ComboAddStringEx(c, value, Parent)
       ENDIF
       EXIT
 
@@ -1895,10 +1895,10 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
    CASE CONTROL_TYPE_COMBO
       IF _HMG_aControlMiscData1[i][1] == 0       // standard combo
          ComboBoxDeleteString(c, Item)
-         ComboInsertString(c, value, Item)
+         hmg_ComboInsertString(c, value, Item)
       ELSEIF _HMG_aControlMiscData1[i][1] == 1   // extend combo - value is array (1-image index, 2-string)
          ComboBoxDeleteItemEx(c, Item)
-         ComboInsertStringEx(c, value[2], value[1], Item)
+         hmg_ComboInsertStringEx(c, value[2], value[1], Item)
       ENDIF
       EXIT
 
@@ -2059,7 +2059,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
       EXIT
 
    CASE CONTROL_TYPE_COMBO
-      RetVal := ComboGetString(c, Item)
+      RetVal := hmg_ComboGetString(c, Item)
       EXIT
 
    // CASE "GRID" $ T
@@ -3048,7 +3048,7 @@ FUNCTION _GetComboItemValue(ControlName, ParentForm, nItemIndex)
    IF GetControlIndex(ControlName, ParentForm) > 0
       Assign nItem := nItemIndex
 
-      RETURN ComboGetString(GetControlHandle(ControlName, ParentForm), nItem)
+      RETURN hmg_ComboGetString(GetControlHandle(ControlName, ParentForm), nItem)
    ENDIF
 
 RETURN NIL
@@ -4509,7 +4509,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "ITEMHEIGHT"
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_COMBO
-            ComboSetItemHeight(GetControlHandle(Arg2, Arg1), Arg4)
+            hmg_ComboSetItemHeight(GetControlHandle(Arg2, Arg1), Arg4)
          ELSE
             TreeView_SetItemHeight(GetControlHandle(Arg2, Arg1), Arg4)
          ENDIF
@@ -6683,7 +6683,7 @@ PROCEDURE _Refresh(i)
          rows := _HMG_aControlMiscData1[i][4]
          BackValue := _GetValue(NIL, NIL, i)
          ComboboxReset(t)
-         AEval(rows, {|v|ComboAddString(t, v)})
+         AEval(rows, {|v|hmg_ComboAddString(t, v)})
          IF BackValue > 0 .AND. BackValue <= Len(rows)
             _SetValue(NIL, NIL, BackValue, i)
          ENDIF

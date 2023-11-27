@@ -58,9 +58,9 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
 void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
 
 /*
-INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND
+HMG_INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND
 */
-HB_FUNC( INITCOMBOBOXEX )
+HB_FUNC( HMG_INITCOMBOBOXEX )
 {
    INITCOMMONCONTROLSEX icex;
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -134,34 +134,50 @@ HB_FUNC( INITCOMBOBOXEX )
    hmg_ret_HWND(hCombo);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITCOMBOBOXEX, HMG_INITCOMBOBOXEX )
+#endif
+
 /*
-COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
+HMG_COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
 */
-HB_FUNC( COMBOSETITEMHEIGHT )
+HB_FUNC( HMG_COMBOSETITEMHEIGHT )
 {
    SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, -1, hb_parni(2));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOSETITEMHEIGHT, HMG_COMBOSETITEMHEIGHT )
+#endif
+
 /*
-COMBOSHOWDROPDOWN(HWND) --> NIL
+HMG_COMBOSHOWDROPDOWN(HWND) --> NIL
 */
-HB_FUNC( COMBOSHOWDROPDOWN )
+HB_FUNC( HMG_COMBOSHOWDROPDOWN )
 {
    SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, 1, 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOSHOWDROPDOWN, HMG_COMBOSHOWDROPDOWN )
+#endif
+
 /*
-COMBOEDITSETSEL(HWND, np2, np3) --> numeric
+HMG_COMBOEDITSETSEL(HWND, np2, np3) --> numeric
 */
-HB_FUNC( COMBOEDITSETSEL )
+HB_FUNC( HMG_COMBOEDITSETSEL )
 {
    hb_retni(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOEDITSETSEL, HMG_COMBOEDITSETSEL )
+#endif
+
 /*
-COMBOGETEDITSEL(HWND) --> array
+HMG_COMBOGETEDITSEL(HWND) --> array
 */
-HB_FUNC( COMBOGETEDITSEL )
+HB_FUNC( HMG_COMBOGETEDITSEL )
 {
    DWORD pos = SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr));
    hb_reta(2);
@@ -169,42 +185,58 @@ HB_FUNC( COMBOGETEDITSEL )
    HB_STORNI(HIWORD(pos), -1, 2);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOGETEDITSEL, HMG_COMBOGETEDITSEL )
+#endif
+
 /*
-COMBOSELECTSTRING(HWND, cp2) --> numeric
+HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
-HB_FUNC( COMBOSELECTSTRING )
+HB_FUNC( HMG_COMBOSELECTSTRING )
 {
    hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, -1, reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOSELECTSTRING, HMG_COMBOSELECTSTRING )
+#endif
+
 /* Added by P.Ch. 16.10. */
 
 /*
-COMBOFINDSTRING(HWND, cString) --> numeric
+HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 */
-HB_FUNC( COMBOFINDSTRING )
+HB_FUNC( HMG_COMBOFINDSTRING )
 {
    void * Text;
    hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
    hb_strfree(Text);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOFINDSTRING, HMG_COMBOFINDSTRING )
+#endif
+
 /*
-COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
+HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 */
-HB_FUNC( COMBOFINDSTRINGEXACT )
+HB_FUNC( HMG_COMBOFINDSTRINGEXACT )
 {
    void * Text;
    hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
    hb_strfree(Text);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOFINDSTRINGEXACT, HMG_COMBOFINDSTRINGEXACT )
+#endif
+
 // Modified by P.Ch. 16.10.
 
 /*
-COMBOGETSTRING(HWND, np2) --> cString
+HMG_COMBOGETSTRING(HWND, np2) --> cString
 */
-HB_FUNC( COMBOGETSTRING )
+HB_FUNC( HMG_COMBOGETSTRING )
 {
    int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
 
@@ -218,32 +250,44 @@ HB_FUNC( COMBOGETSTRING )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOGETSTRING, HMG_COMBOGETSTRING )
+#endif
+
 /*
-COMBOADDSTRING(HWND, cString) --> NIL
+HMG_COMBOADDSTRING(HWND, cString) --> NIL
 */
-HB_FUNC( COMBOADDSTRING )
+HB_FUNC( HMG_COMBOADDSTRING )
 {
    void * String;
    SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
    hb_strfree(String);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOADDSTRING, HMG_COMBOADDSTRING )
+#endif
+
 /*
-COMBOINSERTSTRING(HWND, cString, np3) --> NIL
+HMG_COMBOINSERTSTRING(HWND, cString, np3) --> NIL
 */
-HB_FUNC( COMBOINSERTSTRING )
+HB_FUNC( HMG_COMBOINSERTSTRING )
 {
    void * String;
    SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
    hb_strfree(String);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOINSERTSTRING, HMG_COMBOINSERTSTRING )
+#endif
+
 // extend combo functions  (JK)  HMG 1.0 Exp. Build 8
 
 /*
-COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
+HMG_COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
 */
-HB_FUNC( COMBOADDSTRINGEX )
+HB_FUNC( HMG_COMBOADDSTRINGEX )
 {
    void * Text;
    auto nImage = hb_parni(3);
@@ -260,10 +304,14 @@ HB_FUNC( COMBOADDSTRINGEX )
    hb_strfree(Text);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOADDSTRINGEX, HMG_COMBOADDSTRINGEX )
+#endif
+
 /*
-COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
+HMG_COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
 */
-HB_FUNC( COMBOINSERTSTRINGEX )
+HB_FUNC( HMG_COMBOINSERTSTRINGEX )
 {
    void * Text;
    auto nImage = hb_parni(3);
@@ -280,10 +328,14 @@ HB_FUNC( COMBOINSERTSTRINGEX )
    hb_strfree(Text);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( COMBOINSERTSTRINGEX, HMG_COMBOINSERTSTRINGEX )
+#endif
+
 /*
-COMBOADDDATASTRINGEX(HWND, cString) --> NIL
+HMG_COMBOADDDATASTRINGEX(HWND, cString) --> NIL
 */
-HB_FUNC( COMBOADDDATASTRINGEX )
+HB_FUNC( HMG_COMBOADDDATASTRINGEX )
 {
    void * Text;
    COMBOBOXEXITEM cbei;
@@ -298,3 +350,7 @@ HB_FUNC( COMBOADDDATASTRINGEX )
    SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
    hb_strfree(Text);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( COMBOADDDATASTRINGEX, HMG_COMBOADDDATASTRINGEX )
+#endif

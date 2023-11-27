@@ -2542,9 +2542,9 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
          ENDIF
          EXIT
       CASE CBN_SELCHANGE
-         IF PG_GETITEM(hWndPG, hItem, PGI_VALUE) != ComboGetString(hWnd, ComboGetCursel(hWnd))
+         IF PG_GETITEM(hWndPG, hItem, PGI_VALUE) != hmg_ComboGetString(hWnd, ComboGetCursel(hWnd))
             _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
-            cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
+            cValue := hmg_ComboGetString(hWnd, ComboGetCursel(hWnd))
             cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             aData := PgIdentData(cData)
             IF AScan(aData, cValue) == 0
@@ -2699,7 +2699,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
          ENDIF
          EXIT
       //CASE PG_LOGIC // TODO: Duplicate case value
-      //   cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
+      //   cValue := hmg_ComboGetString(hWnd, ComboGetCursel(hWnd))
       //   PG_SETDATAITEM(hWndPG, hItem, cValue, "", .F.)
       //   EXIT
       CASE PG_IMAGE
@@ -2736,7 +2736,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       //   ENDIF
       //   EXIT
       CASE PG_SYSCOLOR
-         cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
+         cValue := hmg_ComboGetString(hWnd, ComboGetCursel(hWnd))
          nColor := PgIdentColor(0, cValue)
          hImage := CREATECOLORBMP(hWndPG, nColor, ItHeight * 1.4, ItHeight)
          ResetPropGridImageList(hWndPG, hItem, hImage)
@@ -2810,8 +2810,8 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          EXIT
       CASE PG_LOGIC
          ComboBoxReset(hEdit)
-         ComboAddString(hEdit, "true")
-         ComboAddString(hEdit, "false")
+         hmg_ComboAddString(hEdit, "true")
+         hmg_ComboAddString(hEdit, "false")
          ComboSetCurSel(hEdit, IIF(Lower(PG_GETITEM(hWnd, hWndItem, PGI_VALUE)) == "true", 1, 2))
          EXIT
       CASE PG_ENUM

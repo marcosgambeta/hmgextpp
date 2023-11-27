@@ -119,7 +119,7 @@ METHOD Default() CLASS TComboBox
    LOCAL i
 
    For i = 1 To Len(::aItems)
-      ComboAddString(::hWnd, ::aItems[i])
+      hmg_ComboAddString(::hWnd, ::aItems[i])
       If i == Eval(::bSetGet)
          ComboSetCurSel(::hWnd, i)
       Endif

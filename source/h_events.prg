@@ -4675,10 +4675,10 @@ STATIC PROCEDURE DoComboAutoComplete(i)
 
          ELSE
 
-            IF ComboFindString(hWnd, cValue) > 0
+            IF hmg_ComboFindString(hWnd, cValue) > 0
 
-               ComboSelectString(hWnd, cValue)
-               ComboEditSetSel(hWnd, 0, -1)
+               hmg_ComboSelectString(hWnd, cValue)
+               hmg_ComboEditSetSel(hWnd, 0, -1)
                _HMG_aControlMiscData1[i][9] := 0
 
                RETURN
@@ -4696,13 +4696,13 @@ STATIC PROCEDURE DoComboAutoComplete(i)
    IF hWnd > 0
 
       IF lShowDropDown
-         ComboShowDropDown(hWnd)
+         hmg_ComboShowDropDown(hWnd)
       ENDIF
 
-      IF ComboFindString(hWnd, cValue) > 0
+      IF hmg_ComboFindString(hWnd, cValue) > 0
 
-         ComboSelectString(hWnd, cValue)
-         ComboEditSetSel(hWnd, nStart, -1)
+         hmg_ComboSelectString(hWnd, cValue)
+         hmg_ComboEditSetSel(hWnd, nStart, -1)
 
       ENDIF
 

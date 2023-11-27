@@ -391,7 +391,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
             IF value == (WorkArea)->(RecNo())
                cset := rcount
             ENDIF
-            ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
+            hmg_ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
             (WorkArea)->(dbSkip())
          ENDDO
 
@@ -404,7 +404,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
    ELSE
 
       IF Len(rows) > 0
-         AEval(rows, {|v|ComboAddString(ControlHandle, v)})
+         AEval(rows, {|v|hmg_ComboAddString(ControlHandle, v)})
       ENDIF
 
       IF hb_IsNumeric(value) .AND. value != 0
@@ -414,7 +414,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
    ENDIF
 
    IF ItemHeight != NIL
-      ComboSetItemHeight(ControlHandle, ItemHeight)
+      hmg_ComboSetItemHeight(ControlHandle, ItemHeight)
    ENDIF
 
    IF ItemSource != NIL
@@ -458,9 +458,9 @@ PROCEDURE _DataComboRefresh(i)  // (JK) Modified for extend COMBO HMG 1.0 Build 
 
    DO WHILE !(WorkArea)->(EOF())  // (JK) HMG 1.0 Experimental Build 8
       IF _HMG_aControlMiscData1[i][1] != 1  // standard Combo
-         ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
+         hmg_ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ELSE  // extend Combo
-         ComboAddDataStringEx(ControlHandle, cValToChar((WorkArea)->&(cField)))
+         hmg_ComboAddDataStringEx(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ENDIF
       (WorkArea)->(dbSkip())
    ENDDO

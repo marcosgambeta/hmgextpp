@@ -177,7 +177,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
 
       IF i > 0
 
-         ControlHandle := InitComboBoxEx(_HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
+         ControlHandle := hmg_InitComboBoxEx(_HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
@@ -197,7 +197,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
 
    ELSE
 
-      ControlHandle := InitComboBoxEx(ParentForm, 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
+      ControlHandle := hmg_InitComboBoxEx(ParentForm, 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
@@ -216,7 +216,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF nItemHeight != NIL
-      ComboSetItemHeight(ControlHandle, nItemHeight)
+      hmg_ComboSetItemHeight(ControlHandle, nItemHeight)
    ENDIF
 
    IF tooltip != NIL
@@ -304,7 +304,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
             IF value == (WorkArea)->(RecNo())
                cset := rcount
             ENDIF
-            ComboAddStringEx(ControlHandle, cValToChar((WorkArea)->&(cField), 1))
+            hmg_ComboAddStringEx(ControlHandle, cValToChar((WorkArea)->&(cField), 1))
             (WorkArea)->(dbSkip())
          ENDDO
 
@@ -317,7 +317,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
    ELSE
 
       IF Len(rows) > 0
-         AEval(rows, {|v, i|ComboAddStringEx(ControlHandle, v, i)})
+         AEval(rows, {|v, i|hmg_ComboAddStringEx(ControlHandle, v, i)})
       ENDIF
 
       IF hb_IsNumeric(value) .AND. value != 0
