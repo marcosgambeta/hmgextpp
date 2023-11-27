@@ -1359,38 +1359,39 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             z := iif(_HMG_aScrollStep[1] > 0, _HMG_aScrollStep[1], hmg_GetScrollRangeMax(hwnd, SB_HORZ) / _HMG_aScrollStep[2])
 
-            IF LoWord(wParam) == SB_LINERIGHT
+            SWITCH LoWord(wParam)
 
+            CASE SB_LINERIGHT
                NewHPos := GetScrollPos(hwnd, SB_HORZ) + z
                IF NewHPos >= hmg_GetScrollRangeMax(hwnd, SB_HORZ) - 10
                   NewHPos := hmg_GetScrollRangeMax(hwnd, SB_HORZ)
                ENDIF
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
+               EXIT
 
-            ELSEIF LoWord(wParam) == SB_LINELEFT
-
+            CASE SB_LINELEFT
                NewHPos := GetScrollPos(hwnd, SB_HORZ) - z
                IF NewHPos < 10
                   NewHPos := 0
                ENDIF
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
+               EXIT
 
-            ELSEIF LoWord(wParam) == SB_PAGELEFT
-
+            CASE SB_PAGELEFT
                NewHPos := GetScrollPos(hwnd, SB_HORZ) - _HMG_aScrollStep[2]
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
+               EXIT
 
-            ELSEIF LoWord(wParam) == SB_PAGERIGHT
-
+            CASE SB_PAGERIGHT
                NewHPos := GetScrollPos(hwnd, SB_HORZ) + _HMG_aScrollStep[2]
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
+               EXIT
 
-            ELSEIF LoWord(wParam) == SB_THUMBPOSITION
-
+            CASE SB_THUMBPOSITION
                NewHPos := HIWORD(wParam)
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
 
-            ENDIF
+            ENDSWITCH
 
             IF _HMG_aFormVirtualHeight[i] > 0
                NewVPos := GetScrollPos(hwnd, SB_VERT)
@@ -1406,28 +1407,27 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF _HMG_aControlParentHandles[x] == hwnd
 
-                     IF _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
+                     SWITCH _HMG_aControlType[x]
 
+                     CASE CONTROL_TYPE_SPINNER
                         MoveWindow(_HMG_aControlhandles[x][1], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewVPos, _HMG_aControlWidth[x] - GetWindowWidth(_HMG_aControlhandles[x][2]) + 1, _HMG_aControlHeight[x], .T.)
                         MoveWindow(_HMG_aControlhandles[x][2], _HMG_aControlCol[x] + _HMG_aControlWidth[x] - GetWindowWidth(_HMG_aControlhandles[x][2]) - NewHPos, _HMG_aControlRow[x] - NewVPos, ;
                            GetWindowWidth(_HMG_aControlhandles[x][2]), _HMG_aControlHeight[x], .T.)
+                        EXIT
+
 #ifdef _DBFBROWSE_
-                     ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_BROWSE
-
+                     CASE CONTROL_TYPE_BROWSE
                         MoveWindow(_HMG_aControlhandles[x], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewVPos, _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH(), _HMG_aControlHeight[x], .T.)
-
                         MoveWindow(_HMG_aControlIds[x], _HMG_aControlCol[x] + _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - NewHPos, _HMG_aControlRow[x] - NewVPos, ;
                            GetWindowWidth(_HMG_aControlIds[x]), GetWindowHeight(_HMG_aControlIds[x]), .T.)
-
                         MoveWindow(_HMG_aControlMiscData1[x][1], _HMG_aControlCol[x] + _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - NewHPos, _HMG_aControlRow[x] + _HMG_aControlHeight[x] - GethScrollBarHeight() - NewVPos, ;
                            GetWindowWidth(_HMG_aControlMiscData1[x][1]), GetWindowHeight(_HMG_aControlMiscData1[x][1]), .T.)
-
                         ReDrawWindow(_HMG_aControlhandles[x])
+                        EXIT
 #endif
-                     ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_RADIOGROUP
 
+                     CASE CONTROL_TYPE_RADIOGROUP
                         FOR z := 1 TO Len(_HMG_aControlhandles[x])
-
                            IF !_HMG_aControlMiscData1[x]
                               MoveWindow(_HMG_aControlhandles[x][z], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewVPos + ((z - 1) * _HMG_aControlSpacing[x]), ;
                                  _HMG_aControlWidth[x], _HMG_aControlHeight[x] / Len(_HMG_aControlhandles[x]), .T.)
@@ -1435,18 +1435,17 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                               MoveWindow(_HMG_aControlhandles[x][z], _HMG_aControlCol[x] - NewHPos + (z - 1) * (_HMG_aControlWidth[x] + _HMG_aControlSpacing[x]), _HMG_aControlRow[x] - NewVPos, ;
                                  _HMG_aControlWidth[x], _HMG_aControlHeight[x], .T.)
                            ENDIF
-
                         NEXT z
+                        EXIT
 
-                     ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_TOOLBAR
-
+                     CASE CONTROL_TYPE_TOOLBAR
                         MsgMiniGuiError("ToolBar's Parent Window cannot be a 'Virtual Dimensioned' window (use 'Virtual Dimensioned' SplitChild instead).")
+                        EXIT
 
-                     ELSE
-
+                     OTHERWISE
                         MoveWindow(_HMG_aControlhandles[x], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewVPos, _HMG_aControlWidth[x], _HMG_aControlHeight[x], .T.)
 
-                     ENDIF
+                     ENDSWITCH
 
                   ENDIF
                NEXT x
