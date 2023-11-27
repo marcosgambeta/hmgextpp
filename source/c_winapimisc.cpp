@@ -648,7 +648,7 @@ HB_FUNC( SHELLEXECUTE )
    BOOL bIsWow64 = FALSE;
    LPFN_WOW64DISABLEWOW64FSREDIRECTION fnDisable;
    PVOID OldValue = nullptr;
-   bool bRestore = false;
+   auto bRestore = false;
    LPFN_WOW64REVERTWOW64FSREDIRECTION fnRevert;
    HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
@@ -1249,7 +1249,7 @@ HB_FUNC( FILLRECT )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
-   bool bDC = false;
+   auto bDC = false;
 
    if( IsWindow(hWnd) ) {
       hDC = GetDC(hWnd);

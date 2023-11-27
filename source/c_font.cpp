@@ -151,7 +151,7 @@ HB_FUNC( ENUMFONTSEX )
 {
    HDC      hdc;
    auto pArray = hb_itemArrayNew(0);
-   bool     bReleaseDC = false;
+   auto bReleaseDC = false;
 
    if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC ) {
       hdc = hmg_par_HDC(1);

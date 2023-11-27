@@ -94,8 +94,8 @@ extern BOOL Array2Rect(PHB_ITEM aPoint, RECT * rect);
 extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
-static bool g_bIsToolTipActive = true;
-static bool g_bIsToolTipBalloon = false;
+static auto g_bIsToolTipActive = true;
+static auto g_bIsToolTipBalloon = false;
 
 static int g_iToolTipMaxWidth = -1;
 

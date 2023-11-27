@@ -417,11 +417,11 @@ LRESULT APIENTRY LabelSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
 {
    TRACKMOUSEEVENT tme;
    static PHB_SYMB pSymbol = nullptr;
-   static bool bMouseTracking = false;
+   static auto bMouseTracking = false;
    long r = 0;
 
 #if _OLD_STYLE
-   bool bCallUDF = false;
+   auto bCallUDF = false;
 #endif
 
    if( Msg == WM_MOUSEMOVE || Msg == WM_MOUSELEAVE ) {

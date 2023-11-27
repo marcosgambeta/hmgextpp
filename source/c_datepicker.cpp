@@ -315,7 +315,7 @@ HB_FUNC( DTP_SETDATETIME ) // TODO: deprecate bTimeToZero
 {
    SYSTEMTIME sysTime{};
 
-   bool bTimeToZero = false;
+   auto bTimeToZero = false;
 
    if( HB_ISDATETIME(2) ) {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;

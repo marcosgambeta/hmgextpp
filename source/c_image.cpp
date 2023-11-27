@@ -226,7 +226,7 @@ static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
 
 LRESULT APIENTRY ImageSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static bool bMouseTracking = false;
+   static auto bMouseTracking = false;
 
    if( Msg == WM_MOUSEMOVE || Msg == WM_MOUSELEAVE ) {
       long r = 0;
@@ -813,7 +813,7 @@ static bool GetEnCodecClsid(const char * MimeType, CLSID * Clsid)
    }
 
    UINT CodecIndex;
-   bool bFounded = false;
+   auto bFounded = false;
 
    for( CodecIndex = 0; CodecIndex < num; ++CodecIndex ) {
       WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[CodecIndex].MimeType, -1, RecvMimeType, size, nullptr, nullptr);

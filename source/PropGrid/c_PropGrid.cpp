@@ -1637,7 +1637,7 @@ PG_ISVISIBLE(HWND, HTREEITEM) --> .T.|.F.
 */
 HB_FUNC( PG_ISVISIBLE )
 {
-   bool lVisible = false;
+   auto lVisible = false;
 
    auto TreeHandle = hmg_par_HWND(1);
    auto ItemHandle = hmg_par_HTREEITEM(2);

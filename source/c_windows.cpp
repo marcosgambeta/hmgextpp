@@ -364,7 +364,7 @@ HB_FUNC( APPEVENTS )
 
 HB_FUNC( APPEVENTSREMOVE )
 {
-   bool bDel = false;
+   auto bDel = false;
    auto hWnd = hmg_par_HWND(1);
    auto message = static_cast<UINT>(hb_parns(2));
 
@@ -379,7 +379,7 @@ HB_FUNC( APPEVENTSREMOVE )
 
 HB_FUNC( APPEVENTSUPDATE )
 {
-   bool bUpd = false;
+   auto bUpd = false;
    auto hWnd = hmg_par_HWND(1);
    auto message = static_cast<UINT>(hb_parns(2));
 
@@ -677,7 +677,7 @@ HB_FUNC( WINEVENTS )
 
 HB_FUNC( WINEVENTSREMOVE )
 {
-   bool bDel = false;
+   auto bDel = false;
    auto hWnd = hmg_par_HWND(1);
    auto message = static_cast<UINT>(hb_parns(2));
 
@@ -692,7 +692,7 @@ HB_FUNC( WINEVENTSREMOVE )
 
 HB_FUNC( WINEVENTSUPDATE )
 {
-   bool bUpd = false;
+   auto bUpd = false;
    auto hWnd = hmg_par_HWND(1);
    auto message = static_cast<UINT>(hb_parns(2));
 

@@ -350,7 +350,7 @@ HB_FUNC( HMG_C_HASALPHA ) // hBitmap --> lYesNo
 
    HANDLE hDib = DibFromBitmap(hmg_par_HBITMAP(1), nullptr);
 
-   bool bAlphaChannel = false;
+   auto bAlphaChannel = false;
 
    if( hDib ) {
       auto lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hDib));
@@ -935,7 +935,7 @@ HB_FUNC( HMG_GETBITMAPSIZE )
 {
    auto pResult = hb_itemArrayNew(3);
    HBITMAP hBitmap = nullptr;
-   bool bDelete = true;
+   auto bDelete = true;
 
    if( hb_parclen(1) > 0 ) {
       void * ImageName;

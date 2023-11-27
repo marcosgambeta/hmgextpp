@@ -112,7 +112,7 @@ HB_FUNC( DRAWSTATE )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
-   bool bDC = false;
+   auto bDC = false;
 
    if( IsWindow(hWnd) ) {
       hDC = GetDC(hWnd);
@@ -201,7 +201,7 @@ HB_FUNC( GRAYSTRING )
    if( nLen > 0 ) {
       auto hWnd = hmg_par_HWND(1);
       HDC hDC;
-      bool bDC = false;
+      auto bDC = false;
 
       if( IsWindow(hWnd) ) {
          hDC = GetDC(hWnd);
@@ -240,7 +240,7 @@ HB_FUNC( INVALIDATERECT )
    auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      bool bRect = false;
+      auto bRect = false;
       RECT rc;
 
       if( (hb_pcount() > 2) && (!HB_ISNIL(3)) ) {
@@ -289,7 +289,7 @@ HB_FUNC( C_SETBACKCOLOR )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
-   bool bDC = false;
+   auto bDC = false;
 
    if( IsWindow(hWnd) ) {
       hDC = GetDC(hWnd);
@@ -322,7 +322,7 @@ HB_FUNC( SETBKMODE )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
-   bool bDC = false;
+   auto bDC = false;
 
    if( IsWindow(hWnd) ) {
       hDC = GetDC(hWnd);
@@ -364,7 +364,7 @@ HB_FUNC( VALIDATERECT )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      bool bRect = false;
+      auto bRect = false;
       RECT rc;
 
       if( (hb_pcount() > 1) && (!HB_ISNIL(2)) ) {

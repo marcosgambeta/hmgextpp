@@ -58,7 +58,7 @@ HB_FUNC( TEXTDRAW )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
-   bool bDC = false;
+   auto bDC = false;
 
    if( IsWindow(hWnd) ) {
       hDC = GetDC(hWnd);

@@ -105,7 +105,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 {
    auto hDC = hmg_par_HDC(1);
    HWND hWnd = nullptr;
-   bool bDestroyDC = false;
+   auto bDestroyDC = false;
    auto hFont = hmg_par_HFONT(3);
    HFONT hOldFont = nullptr;
    SIZE sz;
