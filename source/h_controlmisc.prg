@@ -1296,11 +1296,11 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
          IF _HMG_aControlEnabled[y]
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
                ReDrawWindow(c)
             ELSE
                _DestroyBtnPicture(c, y)
-               _SetBtnPicture(c, _HMG_aControlPicture[y][2])
+               hmg__SetBtnPicture(c, _HMG_aControlPicture[y][2])
             ENDIF
             DisableWindow(c)
          ENDIF
@@ -1309,7 +1309,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
          IF _HMG_aControlEnabled[y]
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y])
                ReDrawWindow(c)
             ELSE
                _SetBtnPictureMask(c, y)
@@ -1325,7 +1325,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
          IF _HMG_aControlEnabled[y]
             IF _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
                ReDrawWindow(c)
             ELSE
                _SetBtnPictureMask(c, y)
@@ -1449,11 +1449,11 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          IF !_HMG_aControlEnabled[y]
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
                ReDrawWindow(c)
             ELSE
                _DestroyBtnPicture(c, y)
-               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y][1])
+               _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y][1])
             ENDIF
             EnableWindow(c)
          ENDIF
@@ -1462,11 +1462,11 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          IF !_HMG_aControlEnabled[y]
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y])
                ReDrawWindow(c)
             ELSE
                _DestroyBtnPictureMask(c, y)
-               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y])
             ENDIF
             EnableWindow(c)
          ENDIF
@@ -1478,11 +1478,11 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          IF !_HMG_aControlEnabled[y]
             IF _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
-               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
                ReDrawWindow(c)
             ELSE
                _DestroyBtnPictureMask(c, y)
-               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
+               _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y])
             ENDIF
             EnableWindow(c)
          ENDIF
@@ -2830,10 +2830,10 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       DeleteObject(_HMG_aControlSpacing[i][4])
       _HMG_aControlPicture[i] := FileName
       cImage := iif(hb_IsArray(Filename) .AND. Len(Filename) > 0, Filename[1], Filename)
-      _HMG_aControlSpacing[i][4] := _SetBtnPicture(_HMG_aControlSpacing[i][2], cImage)
+      _HMG_aControlSpacing[i][4] := hmg__SetBtnPicture(_HMG_aControlSpacing[i][2], cImage)
       IF hb_IsArray(Filename) .AND. Len(Filename) > 1
          DeleteObject(_HMG_aControlSpacing[i][5])
-         _HMG_aControlSpacing[i][5] := _SetBtnPicture(_HMG_aControlSpacing[i][3], Filename[2])
+         _HMG_aControlSpacing[i][5] := hmg__SetBtnPicture(_HMG_aControlSpacing[i][3], Filename[2])
       ENDIF
       EXIT
 
@@ -2883,22 +2883,22 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
 
          IF _HMG_aControlMiscData1[i] == 0  // bitmap
             IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
-               _HMG_aControlBrushHandle[i] := _SetMixedBtnPicture(c, cImage)
+               _HMG_aControlBrushHandle[i] := hmg__SetMixedBtnPicture(c, cImage)
                ReDrawWindow(c)
             ELSE
                IF t == CONTROL_TYPE_OBUTTON
-                  _HMG_aControlBrushHandle[i] := _SetBtnPicture(c, cImage, _HMG_aControlHeadClick[i][1], _HMG_aControlHeadClick[i][2])
+                  _HMG_aControlBrushHandle[i] := hmg__SetBtnPicture(c, cImage, _HMG_aControlHeadClick[i][1], _HMG_aControlHeadClick[i][2])
                ELSE
-                  _HMG_aControlBrushHandle[i] := _SetBtnPicture(c, cImage, -1, -1)
+                  _HMG_aControlBrushHandle[i] := hmg__SetBtnPicture(c, cImage, -1, -1)
                ENDIF
             ENDIF
          ELSE                                // icon
             IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
-               _HMG_aControlBrushHandle[i] := _SetMixedBtnIcon(c, cImage)
+               _HMG_aControlBrushHandle[i] := hmg__SetMixedBtnIcon(c, cImage)
                ReDrawWindow(c)
             ELSE
                IF hb_IsString(cImage)
-                  _HMG_aControlBrushHandle[i] := _SetBtnIcon(c, cImage)
+                  _HMG_aControlBrushHandle[i] := hmg__SetBtnIcon(c, cImage)
                ELSE
                   _HMG_aControlBrushHandle[i] := Filename
                   SendMessage(c, STM_SETIMAGE, IMAGE_ICON, Filename)

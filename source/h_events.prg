@@ -176,7 +176,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       ts := (i > 0 .AND. _IsControlDefined("StatusBar", _HMG_aFormNames[i]))
 
-      SWITCH GETOWNBTNCTLTYPE(lParam)
+      SWITCH hmg_GETOWNBTNCTLTYPE(lParam)
 
       CASE ODT_MENU
          IF ts .AND. GetDrawItemHandle(lParam) == GetControlHandle("StatusBar", _HMG_aFormNames[i])
@@ -4459,9 +4459,9 @@ STATIC PROCEDURE _OnDrawStatusItem(hWnd, lParam)
    LOCAL h
    LOCAL nIndex := 0
 
-   hDC := GETOWNBTNDC(lParam)
-   aRect := GETOWNBTNRECT(lParam)
-   nItem := GETOWNBTNITEMID(lParam)
+   hDC := hmg_GETOWNBTNDC(lParam)
+   aRect := hmg_GETOWNBTNRECT(lParam)
+   nItem := hmg_GETOWNBTNITEMID(lParam)
 
    FOR EACH h IN _HMG_aControlParentHandles
 

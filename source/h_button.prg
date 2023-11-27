@@ -328,7 +328,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
 
          SetWindowStyle(ControlHandle, style, .T.)
 
-         _SetBtnPicture(ControlHandle, image)
+         hmg__SetBtnPicture(ControlHandle, image)
 
       ENDIF
 
@@ -419,7 +419,7 @@ FUNCTION InitDialogButtonImage(ParentFormName, ControlHandle, k)
 
    image := _HMG_aControlPicture[k]
    IF !Empty(image) .AND. ParentFormName != NIL
-      _SetBtnPicture(ControlHandle, image)
+      hmg__SetBtnPicture(ControlHandle, image)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

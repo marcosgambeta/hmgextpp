@@ -464,7 +464,7 @@ FUNCTION InitDialogCheckButton(ParentName, ControlHandle, k)
    Value := _HMG_aControlValue[k]
    threestate := _HMG_aControlSpacing[k]
    IF !Empty(BitMap) .AND. ParentName != NIL
-      _SetBtnPicture(ControlHandle, BitMap)
+      hmg__SetBtnPicture(ControlHandle, BitMap)
    ENDIF
    IF value
       SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
@@ -550,7 +550,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
 
          SetWindowStyle(ControlHandle, Style, .T.)
 
-         _SetBtnPicture(ControlHandle, bitmap)
+         hmg__SetBtnPicture(ControlHandle, bitmap)
       ENDIF
 
    ELSE

@@ -81,17 +81,17 @@ FUNCTION OwnTabPaint(lParam)
    LOCAL lBigFsize2
    LOCAL lBigFsize3
 
-   hDC := GETOWNBTNDC(lParam)
+   hDC := hmg_GETOWNBTNDC(lParam)
 
-   i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE(lParam))
+   i := AScan(_HMG_aControlHandles, hmg_GETOWNBTNHANDLE(lParam))
 
    IF Empty(hDC) .OR. i == 0
       RETURN 1
    ENDIF
 
-   nItemId    := GETOWNBTNITEMID(lParam) + 1
-   aBtnRc     := GETOWNBTNRECT(lParam)
-   lSelected  := ( hb_bitand(GETOWNBTNSTATE(lParam), ODS_SELECTED) == ODS_SELECTED )
+   nItemId    := hmg_GETOWNBTNITEMID(lParam) + 1
+   aBtnRc     := hmg_GETOWNBTNRECT(lParam)
+   lSelected  := ( hb_bitand(hmg_GETOWNBTNSTATE(lParam), ODS_SELECTED) == ODS_SELECTED )
    lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
    lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
    lBigFsize3 := ( _HMG_aControlFontSize[i] >= 24 )

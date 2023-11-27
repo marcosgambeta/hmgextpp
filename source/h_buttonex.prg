@@ -174,7 +174,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
 
    IF !Empty(image) .AND. Empty(aRet[2])
       aRet[2] := iif(_HMG_IsThemed .AND. hb_UAt(".", image) == 0 .AND. imagewidth < 0 .AND. imageheight < 0, ;
-         C_GetResPicture(image), _SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
+         C_GetResPicture(image), hmg__SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
    ENDIF
 
    IF !empty(FontHandle)
@@ -379,13 +379,13 @@ FUNCTION OwnButtonPaint(pdis)
    LOCAL aGradient
    LOCAL lvertical
 
-   hDC := GETOWNBTNDC(pdis)
+   hDC := hmg_GETOWNBTNDC(pdis)
 
-   IF Empty(hDC) .OR. GETOWNBTNCTLTYPE(pdis) != ODT_BUTTON
+   IF Empty(hDC) .OR. hmg_GETOWNBTNCTLTYPE(pdis) != ODT_BUTTON
       RETURN 1
    ENDIF
 
-   itemAction := GETOWNBTNITEMACTION(pdis)
+   itemAction := hmg_GETOWNBTNITEMACTION(pdis)
    lDrawEntire := (hb_bitand(itemAction, ODA_DRAWENTIRE) == ODA_DRAWENTIRE)
    loFocus := (hb_bitand(itemAction, ODA_FOCUS) == ODA_FOCUS)
    loSelect := (hb_bitand(itemAction, ODA_SELECT) == ODA_SELECT)
@@ -394,9 +394,9 @@ FUNCTION OwnButtonPaint(pdis)
       RETURN 1
    ENDIF
 
-   hWnd := GETOWNBTNHANDLE(pdis)
-   aBtnRc := GETOWNBTNRECT(pdis)
-   itemState := GETOWNBTNSTATE(pdis)
+   hWnd := hmg_GETOWNBTNHANDLE(pdis)
+   aBtnRc := hmg_GETOWNBTNRECT(pdis)
+   itemState := hmg_GETOWNBTNSTATE(pdis)
 
    i := AScan(_HMG_aControlHandles, hWnd)
 
@@ -461,7 +461,7 @@ FUNCTION OwnButtonPaint(pdis)
 
    ELSE
 
-      DrawButton(hDC, iif(lFocus .OR. _HMG_aControlRangeMax[i][1] == 1, 1, 0), ;
+      hmg_DrawButton(hDC, iif(lFocus .OR. _HMG_aControlRangeMax[i][1] == 1, 1, 0), ;
          DFCS_BUTTONPUSH + iif(lSelected, DFCS_PUSHED, 0) + iif(lDisabled, DFCS_INACTIVE, 0) + iif(lflat, DFCS_FLAT, 0), ;
          pdis, iif(hb_bitand(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT, _HMG_aControlRangeMax[i][1], 2), iif(lflat, 1, 0))
 
@@ -506,7 +506,7 @@ FUNCTION OwnButtonPaint(pdis)
                   _GradientFill(hDC, xp2 + 2, xp1 + 2, yp2 - 2, yp1 - 2, _HMG_aControlBkColor[i], lvertical)
                   _HMG_aControlBkColor[i] := aDarkColor
                ELSE
-                  hBrush := CreateButtonBrush(hDC, yp1 - 2, yp2 - 2, aGradient[1][2], aGradient[1][1])
+                  hBrush := hmg_CreateButtonBrush(hDC, yp1 - 2, yp2 - 2, aGradient[1][2], aGradient[1][1])
                   FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 2, yp2 - 2, hBrush)
                   DeleteObject(hBrush)
                ENDIF
@@ -516,7 +516,7 @@ FUNCTION OwnButtonPaint(pdis)
                IF Len(aGradient[1]) == 3
                   _GradientFill(hDC, xp2 + 1, xp1 + 1, yp2 - 1, yp1 - 1, aGradient, lvertical)
                ELSE
-                  hBrush := CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][1], aGradient[1][2])
+                  hBrush := hmg_CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][1], aGradient[1][2])
                   FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
                   DeleteObject(hBrush)
                ENDIF
@@ -528,7 +528,7 @@ FUNCTION OwnButtonPaint(pdis)
                      iif(Len(aGradient) == 1, InvertGradInfo(aGradient), ;
                      iif(hb_IsArray(_HMG_aControlBkColor[i, 1]), _HMG_aControlBkColor[i], ModifGradInfo(aGradient))), lvertical)
                ELSE
-                  hBrush := CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][2], aGradient[1][1])
+                  hBrush := hmg_CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][2], aGradient[1][1])
                   FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
                   DeleteObject(hBrush)
                ENDIF
@@ -816,7 +816,7 @@ RETURN NIL
 
 FUNCTION _DestroyBtnPictureMask(hWnd, ControlIndex)
    
-   LOCAL MaskHwnd := _GetBtnPictureHandle(hWnd)
+   LOCAL MaskHwnd := hmg__GetBtnPictureHandle(hWnd)
 
    IF !Empty(MaskHwnd) .AND. MaskHwnd != _HMG_aControlBrushHandle[ControlIndex]
       DeleteObject(MaskHwnd)
@@ -826,7 +826,7 @@ RETURN NIL
 
 FUNCTION _DestroyBtnPicture(hWnd, ControlIndex)
    
-   LOCAL BtnPicHwnd := _GetBtnPictureHandle(hWnd)
+   LOCAL BtnPicHwnd := hmg__GetBtnPictureHandle(hWnd)
 
    IF !Empty(BtnPicHwnd) .AND. BtnPicHwnd == _HMG_aControlBrushHandle[ControlIndex]
       DeleteObject(BtnPicHwnd)
