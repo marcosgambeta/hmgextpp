@@ -247,7 +247,7 @@ METHOD SetPage(nSize, lReDraw) CLASS TSBScrlBar
 
    ::nPgStep := nSize
 
-   SetScrollInfo(IIf(!Empty(::hWnd), ::oWnd:hWnd, ::hWnd), nFlags, nSize, lReDraw, ::lShowDisabled)
+   hmg_SetScrollInfo(IIf(!Empty(::hWnd), ::oWnd:hWnd, ::hWnd), nFlags, nSize, lReDraw, ::lShowDisabled)
 
 Return NIL
 

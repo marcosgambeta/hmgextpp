@@ -202,7 +202,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
          IF i > 0
 
-            ControlHandle := InitBrowse(ParentFormHandle, 0, x, y, w - DeltaWidth, h, NoTabStop) // Browse+
+            ControlHandle := hmg_InitBrowse(ParentFormHandle, 0, x, y, w - DeltaWidth, h, NoTabStop) // Browse+
 
             x := GetWindowCol(Controlhandle)
             y := GetWindowRow(Controlhandle)
@@ -213,7 +213,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       ELSE
 
-         ControlHandle := InitBrowse(ParentFormHandle, 0, x, y, w - DeltaWidth, h, NoTabStop) // Browse+
+         ControlHandle := hmg_InitBrowse(ParentFormHandle, 0, x, y, w - DeltaWidth, h, NoTabStop) // Browse+
 
       ENDIF
 
@@ -417,11 +417,11 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    IF !_HMG_aControlMiscData1[i, 8]
 
       IF hsum > w - GETVSCROLLBARWIDTH() - 4
-         ScrollBarHandle := InitVScrollBar(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y, GETVSCROLLBARWIDTH(), h - GETHSCROLLBARHEIGHT())
-         ScrollBarButtonHandle := InitVScrollBarButton(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y + h - GETHSCROLLBARHEIGHT(), GETVSCROLLBARWIDTH(), GETHSCROLLBARHEIGHT())
+         ScrollBarHandle := hmg_InitVScrollBar(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y, GETVSCROLLBARWIDTH(), h - GETHSCROLLBARHEIGHT())
+         ScrollBarButtonHandle := hmg_InitVScrollBarButton(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y + h - GETHSCROLLBARHEIGHT(), GETVSCROLLBARWIDTH(), GETHSCROLLBARHEIGHT())
       ELSE
-         ScrollBarHandle := InitVScrollBar(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y, GETVSCROLLBARWIDTH(), h)
-         ScrollBarButtonHandle := InitVScrollBarButton(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y + h - GETHSCROLLBARHEIGHT(), 0, 0)
+         ScrollBarHandle := hmg_InitVScrollBar(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y, GETVSCROLLBARWIDTH(), h)
+         ScrollBarButtonHandle := hmg_InitVScrollBarButton(ParentFormHandle, x + w - GETVSCROLLBARWIDTH(), y + h - GETHSCROLLBARHEIGHT(), 0, 0)
       ENDIF
 
       IF _HMG_BeginTabActive

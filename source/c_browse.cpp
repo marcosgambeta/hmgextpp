@@ -58,9 +58,9 @@ LRESULT APIENTRY SubClassFunc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 static WNDPROC lpfnOldWndProc;
 
 /*
-INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND
+HMG_INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( INITBROWSE )
+HB_FUNC( HMG_INITBROWSE )
 {
    INITCOMMONCONTROLSEX i;
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -91,6 +91,10 @@ HB_FUNC( INITBROWSE )
    hmg_ret_HWND(hbutton);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITBROWSE, HMG_INITBROWSE )
+#endif
+
 LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    if( msg == WM_MOUSEWHEEL ) {
@@ -108,9 +112,9 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 }
 
 /*
-INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
+HMG_INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( INITVSCROLLBAR )
+HB_FUNC( HMG_INITVSCROLLBAR )
 {
    auto hscrollbar = CreateWindowEx(0,
                                     WC_SCROLLBAR,
@@ -130,20 +134,28 @@ HB_FUNC( INITVSCROLLBAR )
    hmg_ret_HWND(hscrollbar);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITVSCROLLBAR, HMG_INITVSCROLLBAR )
+#endif
+
 /*
-GETSCROLLRANGEMAX(HWND, nBar) --> numeric
+HMG_GETSCROLLRANGEMAX(HWND, nBar) --> numeric
 */
-HB_FUNC( GETSCROLLRANGEMAX )
+HB_FUNC( HMG_GETSCROLLRANGEMAX )
 {
    int MinPos, MaxPos;
    GetScrollRange(hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos);
    hb_retni(MaxPos);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETSCROLLRANGEMAX, HMG_GETSCROLLRANGEMAX )
+#endif
+
 /*
-INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
+HMG_INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( INITVSCROLLBARBUTTON )
+HB_FUNC( HMG_INITVSCROLLBARBUTTON )
 {
    hmg_ret_HWND(CreateWindowEx(0,
                                WC_STATIC,
@@ -159,10 +171,14 @@ HB_FUNC( INITVSCROLLBARBUTTON )
                                nullptr));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITVSCROLLBARBUTTON, HMG_INITVSCROLLBARBUTTON )
+#endif
+
 /*
-SETSCROLLINFO(HWND, nMax, nPos, nPage) --> numeric
+HMG_SETSCROLLINFO(HWND, nMax, nPos, nPage) --> numeric
 */
-HB_FUNC( SETSCROLLINFO )
+HB_FUNC( HMG_SETSCROLLINFO )
 {
    SCROLLINFO lpsi;
    lpsi.cbSize = sizeof(SCROLLINFO);
@@ -173,3 +189,7 @@ HB_FUNC( SETSCROLLINFO )
    lpsi.nPos   = hb_parni(3);
    hb_retni(SetScrollInfo(hmg_par_HWND(1), SB_CTL, static_cast<LPSCROLLINFO>(&lpsi), 1));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETSCROLLINFO, HMG_SETSCROLLINFO )
+#endif

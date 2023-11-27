@@ -845,7 +845,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
          _hmg_printer_PrevPageNumber := _hmg_printer_CurrentPageNumber
          hwnd := GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")
          nRow := GetProperty("_HMG_PRINTER_SHOWTHUMBNAILS", "Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "Row")
-         nScrollMax := GetScrollRangeMax(hwnd, SB_VERT)
+         nScrollMax := hmg_GetScrollRangeMax(hwnd, SB_VERT)
 
          IF _hmg_printer_PageCount == _hmg_printer_CurrentPageNumber
 

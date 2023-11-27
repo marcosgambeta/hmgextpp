@@ -1981,8 +1981,8 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
 
    // Get hScrollBar Maximun Range / vScrollBar Maximun Range
 
-   nHorizontalScrollBarRangeMax := GetScrollRangeMax(nWindowHandle, SB_HORZ)
-   nVerticalScrollBarRangeMax := GetScrollRangeMax(nWindowHandle, SB_VERT)
+   nHorizontalScrollBarRangeMax := hmg_GetScrollRangeMax(nWindowHandle, SB_HORZ)
+   nVerticalScrollBarRangeMax := hmg_GetScrollRangeMax(nWindowHandle, SB_VERT)
 
    // Calculate Current Visible Area
 

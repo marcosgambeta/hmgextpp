@@ -867,7 +867,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSE
 
-            IF GetScrollPos(hwnd, SB_VERT) >= GetScrollRangeMax(hwnd, SB_VERT) - 10
+            IF GetScrollPos(hwnd, SB_VERT) >= hmg_GetScrollRangeMax(hwnd, SB_VERT) - 10
                SendMessage(hwnd, WM_VSCROLL, SB_BOTTOM, 0)
             ELSE
                SendMessage(hwnd, WM_VSCROLL, SB_PAGEDOWN, 0)
@@ -1040,13 +1040,13 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                MsgMiniGuiError("SplitBox's Parent Window cannot be a 'Virtual Dimensioned' window (use 'Virtual Dimensioned' SplitChild instead).")
             ENDIF
 
-            z := iif(_HMG_aScrollStep[1] > 0, _HMG_aScrollStep[1], GetScrollRangeMax(hwnd, SB_VERT) / _HMG_aScrollStep[2])
+            z := iif(_HMG_aScrollStep[1] > 0, _HMG_aScrollStep[1], hmg_GetScrollRangeMax(hwnd, SB_VERT) / _HMG_aScrollStep[2])
 
             IF LoWord(wParam) == SB_LINEDOWN
 
                NewPos := GetScrollPos(hwnd, SB_VERT) + z
-               IF NewPos >= GetScrollRangeMax(hwnd, SB_VERT) - 10
-                  NewPos := GetScrollRangeMax(hwnd, SB_VERT)
+               IF NewPos >= hmg_GetScrollRangeMax(hwnd, SB_VERT) - 10
+                  NewPos := hmg_GetScrollRangeMax(hwnd, SB_VERT)
                ENDIF
                SetScrollPos(hwnd, SB_VERT, NewPos, .T.)
 
@@ -1065,7 +1065,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             ELSEIF LoWord(wParam) == SB_BOTTOM
 
-               NewPos := GetScrollRangeMax(hwnd, SB_VERT)
+               NewPos := hmg_GetScrollRangeMax(hwnd, SB_VERT)
                SetScrollPos(hwnd, SB_VERT, NewPos, .T.)
 
             ELSEIF LoWord(wParam) == SB_PAGEUP
@@ -1210,7 +1210,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      RecordCount := RecCount()
                   ENDIF
 
-                  SkipCount := Int(HIWORD(wParam) * RecordCount / GetScrollRangeMax(_HMG_aControlIds[i], 2))
+                  SkipCount := Int(HIWORD(wParam) * RecordCount / hmg_GetScrollRangeMax(_HMG_aControlIds[i], 2))
 
                   IF SkipCount > (RecordCount / 2)
                      dbGoBottom()
@@ -1357,13 +1357,13 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                MsgMiniGuiError("SplitBox's Parent Window cannot be a 'Virtual Dimensioned' window (use 'Virtual Dimensioned' SplitChild instead).")
             ENDIF
 
-            z := iif(_HMG_aScrollStep[1] > 0, _HMG_aScrollStep[1], GetScrollRangeMax(hwnd, SB_HORZ) / _HMG_aScrollStep[2])
+            z := iif(_HMG_aScrollStep[1] > 0, _HMG_aScrollStep[1], hmg_GetScrollRangeMax(hwnd, SB_HORZ) / _HMG_aScrollStep[2])
 
             IF LoWord(wParam) == SB_LINERIGHT
 
                NewHPos := GetScrollPos(hwnd, SB_HORZ) + z
-               IF NewHPos >= GetScrollRangeMax(hwnd, SB_HORZ) - 10
-                  NewHPos := GetScrollRangeMax(hwnd, SB_HORZ)
+               IF NewHPos >= hmg_GetScrollRangeMax(hwnd, SB_HORZ) - 10
+                  NewHPos := hmg_GetScrollRangeMax(hwnd, SB_HORZ)
                ENDIF
                SetScrollPos(hwnd, SB_HORZ, NewHPos, .T.)
 
