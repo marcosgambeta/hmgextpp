@@ -272,7 +272,7 @@
 
 // ============================================================================
 
-#xtranslate SendMessageWideString(<h>, <n>, <wp>, <lp>) => SendMessageStringW(<h>, <n>, <wp>, <lp>)
+#xtranslate SendMessageWideString(<h>, <n>, <wp>, <lp>) => hmg_SendMessageStringW(<h>, <n>, <wp>, <lp>)
 #xtranslate ProcessMessages() => DoEvents()
 #translate And(<p1>, <p2>) => hb_BitAnd(<p1>, <p2>) // deprecated
 #xtranslate Random(<nMax>) => hb_RandomInt(iif(hb_IsNumeric(<nMax>), <nMax>, 65535))

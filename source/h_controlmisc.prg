@@ -4961,15 +4961,15 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
       CASE "CUEBANNER" /* P.Ch. 16.10. */
          IF IsVistaOrLater()
             IF "TEXT" $ GetControlTypeAsString(Arg2, Arg1)
-               RetVal := GetCueBannerText(GetControlHandle(Arg2, Arg1))
+               RetVal := hmg_GetCueBannerText(GetControlHandle(Arg2, Arg1))
             ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
-               RetVal := GetCueBannerText(GetControlHandle(Arg2, Arg1)[1])
+               RetVal := hmg_GetCueBannerText(GetControlHandle(Arg2, Arg1)[1])
             ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_COMBO
                ix := GetControlIndex(Arg2, Arg1)
                IF _HMG_aControlMiscData1[ix][2]
-                  RetVal := GetCueBannerText(_HMG_aControlRangeMin[ix])
+                  RetVal := hmg_GetCueBannerText(_HMG_aControlRangeMin[ix])
                ELSE
-                  RetVal := GetCueBannerText(GetControlHandle(Arg2, Arg1))
+                  RetVal := hmg_GetCueBannerText(GetControlHandle(Arg2, Arg1))
                ENDIF
             ENDIF
          ENDIF
