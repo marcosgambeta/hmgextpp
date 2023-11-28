@@ -50,11 +50,11 @@
 // Status:      Public Domain
 // Notes:       This is very simple crypt algorithm based on XOR encryption.
 
-#if !defined(__MINGW32__)
+#if !defined(__MINGW32__) // TODO: if the compiler is GCC/MinGW... ?
 
 #include <hbapi.hpp>
 
-HB_FUNC( CHARXOR )
+HB_FUNC( HMG_CHARXOR )
 {
    unsigned int len1, nl1, len2, nl2;
 
@@ -77,5 +77,9 @@ HB_FUNC( CHARXOR )
       hb_xfree(Res);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CHARXOR, HMG_CHARXOR )
+#endif
 
 #endif
