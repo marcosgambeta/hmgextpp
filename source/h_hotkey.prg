@@ -176,8 +176,8 @@ RETURN bRetVal
 //---------------------------------------------------------------------------//
 PROCEDURE _PushKey(nKey)
 //---------------------------------------------------------------------------//
-   Keybd_Event(nKey, .F.)
-   Keybd_Event(nKey, .T.)
+   hmg_Keybd_Event(nKey, .F.)
+   hmg_Keybd_Event(nKey, .T.)
 
 RETURN
 
@@ -195,11 +195,11 @@ FUNCTION HMG_PressKey(...)  // by Dr. Claudio Soto, April 2016
       ELSE
          LOOP
       ENDIF
-      Keybd_Event(aVK[i], .F.)   // KeyDown
+      hmg_Keybd_Event(aVK[i], .F.)   // KeyDown
    NEXT
 
    FOR i := Len(aVK) TO 1 STEP -1
-      Keybd_Event(aVK[i], .T.)   // KeyUp
+      hmg_Keybd_Event(aVK[i], .T.)   // KeyUp
    NEXT
 
 RETURN aVK

@@ -887,7 +887,7 @@
 //------------------------------------------------------------------------//
 #xtranslate GetSysMetrics( <p> )      => GetSystemMetrics( <p> )
 #xtranslate SysRefresh()              => DoEvents()
-#xtranslate nMakeLong( <p1> , <p2> )  => MakeLong( <p1> , <p2> )
+#xtranslate nMakeLong( <p1> , <p2> )  => hmg_MakeLong( <p1> , <p2> )
 
 #ifndef BN_CLICKED
 #define BN_CLICKED                 0

@@ -1328,7 +1328,7 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
       IF (i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == hWnd})) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
-            setfocus(wParam)
+            hmg_setfocus(wParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 

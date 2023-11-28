@@ -86,4 +86,4 @@
 
 #xtranslate DELETE BRUSH <brush> ;
    =>;
-       DeleteObject( <brush> )
+       hmg_DeleteObject( <brush> )

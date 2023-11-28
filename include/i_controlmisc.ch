@@ -361,14 +361,14 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 /*
  * Virtual keys wrappers
  */
-#xtranslate InsertReturn() => InsertVKey( VK_RETURN )
-#xtranslate InsertPoint() => InsertVKey( VK_DECIMAL )
-#xtranslate InsertTab() => InsertVKey( VK_TAB )
-#xtranslate InsertBackspace() => InsertVKey( VK_BACK )
-#xtranslate InsertUp() => InsertVKey( VK_UP )
-#xtranslate InsertDown() => InsertVKey( VK_DOWN )
-#xtranslate InsertPrior() => InsertVKey( VK_PRIOR )
-#xtranslate InsertNext() => InsertVKey( VK_NEXT )
+#xtranslate InsertReturn() => hmg_InsertVKey( VK_RETURN )
+#xtranslate InsertPoint() => hmg_InsertVKey( VK_DECIMAL )
+#xtranslate InsertTab() => hmg_InsertVKey( VK_TAB )
+#xtranslate InsertBackspace() => hmg_InsertVKey( VK_BACK )
+#xtranslate InsertUp() => hmg_InsertVKey( VK_UP )
+#xtranslate InsertDown() => hmg_InsertVKey( VK_DOWN )
+#xtranslate InsertPrior() => hmg_InsertVKey( VK_PRIOR )
+#xtranslate InsertNext() => hmg_InsertVKey( VK_NEXT )
 
 // Release Control by given Window Handle
 

@@ -1514,7 +1514,7 @@ METHOD New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSizes
       ELSE
          hFont := InitFont(::cFont, ::nFontSize) // SergKis addition
          ::nHeightCell := ::nHeightHead := GetTextHeight(0, "B", hFont) + 1
-         DeleteObject(hFont)
+         hmg_DeleteObject(hFont)
       ENDIF
       ::nHeightFoot := 0
       ::nHeightSpecHd := iif(::lEditableHd, ::nHeightHead, 0)
@@ -2950,7 +2950,7 @@ METHOD Default() CLASS TSBrowse
 
    IF !::lNoHScroll
       IF !Empty(::cAlias) .AND. ::lIsTxt .AND. ::oTxtFile != NIL
-         nTxtWid := Max(1, GetTextWidth(0, "B", hFont))
+         nTxtWid := Max(1, hmg_GetTextWidth(0, "B", hFont))
          nMin := 1
          nMax := ::oTxtFile:nMaxLineLength - Int(nMaxWidth / nTxtWid)
          ::oHScroll := TSBScrlBar():WinNew(nMin, nMax,, .F., Self)
@@ -3325,11 +3325,11 @@ METHOD Destroy() CLASS TSBrowse
    DEFAULT ::lDestroy := .F.
 
    IF ::uBmpSel != NIL .AND. ::lDestroy
-      DeleteObject(::uBmpSel)
+      hmg_DeleteObject(::uBmpSel)
    ENDIF
 
    IF ::hBrush != NIL // Alen Uzelac 13.09.2012
-      DeleteObject(::hBrush)
+      hmg_DeleteObject(::hBrush)
    ENDIF
 
    IF ::oCursor != NIL // GF 29.02.2016
@@ -3337,51 +3337,51 @@ METHOD Destroy() CLASS TSBrowse
    ENDIF
 
    IF ::hBmpCursor != NIL
-      DeleteObject(::hBmpCursor)
+      hmg_DeleteObject(::hBmpCursor)
    ENDIF
 
    IF hb_IsArray(::aSortBmp) .AND. !Empty(::aSortBmp)
-      AEval(::aSortBmp, {| hBmp | iif(Empty(hBmp), , DeleteObject(hBmp)) })
+      AEval(::aSortBmp, {| hBmp | iif(Empty(hBmp), , hmg_DeleteObject(hBmp)) })
    ENDIF
 
    IF hb_IsArray(::aCheck) .AND. !Empty(::aCheck)
-      AEval(::aCheck, {| hBmp | iif(Empty(hBmp), , DeleteObject(hBmp)) })
+      AEval(::aCheck, {| hBmp | iif(Empty(hBmp), , hmg_DeleteObject(hBmp)) })
    ENDIF
 
    IF Len(::aColumns) > 0
       FOR EACH oCol IN ::aColumns
          IF hb_IsArray(oCol:aCheck)
-            AEval(oCol:aCheck, {| hBmp | iif(Empty(hBmp), , DeleteObject(hBmp)) })
+            AEval(oCol:aCheck, {| hBmp | iif(Empty(hBmp), , hmg_DeleteObject(hBmp)) })
          ENDIF
          IF hb_IsArray(oCol:aBitMaps)
-            AEval(oCol:aBitMaps, {| hBmp | iif(Empty(hBmp), , DeleteObject(hBmp)) })
+            AEval(oCol:aBitMaps, {| hBmp | iif(Empty(hBmp), , hmg_DeleteObject(hBmp)) })
          ENDIF
          IF !::lDestroyAll
             LOOP
          ENDIF
          IF !Empty(oCol:uBmpCell) .AND. !hb_IsBlock(oCol:uBmpCell)
-            DeleteObject(oCol:uBmpCell)
+            hmg_DeleteObject(oCol:uBmpCell)
          ENDIF
          IF !Empty(oCol:uBmpHead) .AND. !hb_IsBlock(oCol:uBmpHead)
-            DeleteObject(oCol:uBmpHead)
+            hmg_DeleteObject(oCol:uBmpHead)
          ENDIF
          IF !Empty(oCol:uBmpSpcHd) .AND. !hb_IsBlock(oCol:uBmpSpcHd)
-            DeleteObject(oCol:uBmpSpcHd)
+            hmg_DeleteObject(oCol:uBmpSpcHd)
          ENDIF
          IF !Empty(oCol:uBmpFoot) .AND. !hb_IsBlock(oCol:uBmpFoot)
-            DeleteObject(oCol:uBmpFoot)
+            hmg_DeleteObject(oCol:uBmpFoot)
          ENDIF
       NEXT
    ENDIF
 
    IF ::lDestroyAll
       IF hb_IsArray(::aSuperHead) .AND. !Empty(::aSuperHead)
-         AEval(::aSuperHead, {| a | iif(Empty(a[8]) .OR. hb_IsBlock(a[8]), , DeleteObject(a[8])) })
+         AEval(::aSuperHead, {| a | iif(Empty(a[8]) .OR. hb_IsBlock(a[8]), , hmg_DeleteObject(a[8])) })
       ENDIF
    ENDIF
 
    IF hb_IsArray(::aBitMaps) .AND. !Empty(::aBitMaps)
-      AEval(::aBitMaps, {| hBmp | iif(Empty(hBmp), , DeleteObject(hBmp)) })
+      AEval(::aBitMaps, {| hBmp | iif(Empty(hBmp), , hmg_DeleteObject(hBmp)) })
    ENDIF
 
 #ifndef _TSBFILTER7_
@@ -3709,7 +3709,7 @@ METHOD DrawHeaders(lFooters, lDrawCell) CLASS TSBrowse
          nVAlign := 1
 
          IF LoWord(oColumn:nHAlign) == DT_VERT
-            DeleteObject(hFont)
+            hmg_DeleteObject(hFont)
          ENDIF
 
       ENDIF
@@ -4530,8 +4530,8 @@ METHOD DrawPressed(nCell, lPressed) CLASS TSBrowse
    LineTo(hDC, nRight - 1, nBottom - 1)
    LineTo(hDC, nRight - 1, nTop - 1)
    SelectObject(hDC, hOldPen)
-   DeleteObject(hGrayPen)
-   DeleteObject(hWhitePen)
+   hmg_DeleteObject(hGrayPen)
+   hmg_DeleteObject(hWhitePen)
    ReleaseDC(::hWnd, hDC)
 
    IF lPressed
@@ -5561,7 +5561,7 @@ METHOD Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack) 
 
       aRct := ::GetCliRect(::hWnd)
       IF ::nMemoWE == NIL .OR. Empty(::nMemoWE)
-         nWidth := Max(nWidth, GetTextWidth(0, SubStr(uValue, 1, At(Chr(13), uValue) - 1), iif(hFont != NIL, hFont, 0)))
+         nWidth := Max(nWidth, hmg_GetTextWidth(0, SubStr(uValue, 1, At(Chr(13), uValue) - 1), iif(hFont != NIL, hFont, 0)))
          nWidth := Min(nWidth, Int(aRct[3] * .8))
       ELSE
          nWidth := ::nMemoWE
@@ -5621,7 +5621,7 @@ METHOD Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack) 
          IF hb_IsNumeric(::bDataEval(oCol))
             nWidth := 0
             AEval(aGet, {| x | nWidth := Max(Len(x), nWidth) })
-            nWidth := Max(GetTextWidth(0, Replicate("B", nWidth), hFont), oCol:nWidth)
+            nWidth := Max(hmg_GetTextWidth(0, Replicate("B", nWidth), hFont), oCol:nWidth)
          ENDIF
 
          nHeight := Max(10, Min(10, Len(aGet))) * ::nHeightCell
@@ -5835,13 +5835,13 @@ METHOD EditExit(nCol, nKey, uVar, bValid, lLostFocus) CLASS TSBrowse
       CASE "TGETBOX" $ Upper(oCol:oEdit:ClassName())
          ix := GetControlIndex(::cChildControl, ::cParentWnd)
          nKey := _HMG_aControlMiscData1[ix][3]
-         SetFocus(::hWnd) // JP 1.59
+         hmg_SetFocus(::hWnd) // JP 1.59
 
       CASE "TBTNBOX" $ Upper(oCol:oEdit:ClassName()) .AND. lSpinner
          IF oCol:oEdit:hWndChild != NIL
             PostMessage(oCol:oEdit:hWndChild, WM_CLOSE)
          ENDIF
-         SetFocus(::hWnd)
+         hmg_SetFocus(::hWnd)
       ENDCASE
    ENDIF
 
@@ -5852,7 +5852,7 @@ METHOD EditExit(nCol, nKey, uVar, bValid, lLostFocus) CLASS TSBrowse
    IF !lLostFocus .AND. nKey > 0 .AND. (nKey != VK_ESCAPE .OR. ::nColSpecHd != 0) .AND. ValType(oCol:oEdit) == "O"
 
       ::lPostEdit := .T.
-      HideCaret(oCol:oEdit:hWnd)
+      hmg_HideCaret(oCol:oEdit:hWnd)
 
       IF lCombo
 
@@ -6193,7 +6193,7 @@ METHOD Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow) CLASS TSBro
 
    FOR nCol := 1 TO Len(::aColSizes)
 
-      AAdd(aLen, Max(1, Round(::aColSizes[nCol] / GetTextWidth(0, "B", hFont), 0)))
+      AAdd(aLen, Max(1, Round(::aColSizes[nCol] / hmg_GetTextWidth(0, "B", hFont), 0)))
 
       cPic := ""
       cType := iif(Empty(::aColumns[nCol]:cDataType), ValType(::bDataEval(::aColumns[nCol])), ::aColumns[nCol]:cDataType)
@@ -7682,7 +7682,7 @@ METHOD GoEnd() CLASS TSBrowse
    LOCAL nPos := ::nColPos
 
    IF ::lIsTxt
-      nTxtWid := Max(1, GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
+      nTxtWid := Max(1, hmg_GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
 
       IF ::nAt < ::oTxtFile:nMaxLineLength - Int(nWidth / nTxtWid)
          ::nAt := ::oTxtFile:nMaxLineLength - Int(nWidth / nTxtWid)
@@ -8184,7 +8184,7 @@ METHOD GoRight() CLASS TSBrowse
    nWidth := ::nWidth() - iif(::oVScroll != NIL, GetSysMetrics(2), 0)
 
    IF ::lIsTxt
-      nTxtWid := Max(1, GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
+      nTxtWid := Max(1, hmg_GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
       IF ::nOffset < ::oTxtFile:nMaxLineLength - Int(nWidth / nTxtWid)
          ::nOffset += 5
          ::Refresh(.F.)
@@ -9132,7 +9132,7 @@ METHOD LButtonDown(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
                   Eval(oCol:oEdit:bLostFocus, VK_ESCAPE)
                ENDIF
             ENDCASE
-            SetFocus(::hWnd)
+            hmg_SetFocus(::hWnd)
             ::Refresh(.T.)
          ENDIF
          // end
@@ -9149,7 +9149,7 @@ METHOD LButtonDown(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
 
    ENDIF
 
-   SetFocus(::hWnd)
+   hmg_SetFocus(::hWnd)
 
    IF ::nLen < 1 .OR. ::lIsTxt
       IF !::lCanAppend .OR. ::lIsTxt
@@ -9579,15 +9579,15 @@ METHOD LoadFields(lEditable, aColSel, cAlsSel, aNameSel, aHeadSel) CLASS TSBrows
          SWITCH cType
          CASE "C"
             cData := PadR(Trim(cData), nSize, "B")
-            nSize := GetTextWidth(0, cData, hFont)
+            nSize := hmg_GetTextWidth(0, cData, hFont)
             EXIT
          CASE "N"
             cData := StrZero(cData, nSize, nDec)
-            nSize := GetTextWidth(0, cData, hFont)
+            nSize := hmg_GetTextWidth(0, cData, hFont)
             EXIT
          CASE "D"
             cData := cValToChar(iif(Empty(cData), Date(), cData))
-            nSize := Int(GetTextWidth(0, cData + "BB", hFont)) + iif(lEditable, 30, 0)
+            nSize := Int(hmg_GetTextWidth(0, cData + "BB", hFont)) + iif(lEditable, 30, 0)
             EXIT
          CASE "M"
             nSize := iif(::nMemoWV == NIL, 200, ::nMemoWV)
@@ -9596,18 +9596,18 @@ METHOD LoadFields(lEditable, aColSel, cAlsSel, aNameSel, aHeadSel) CLASS TSBrows
          CASE "@"
          CASE "T"
             cPicture := NIL
-            nSize := GetTextWidth(0, Replicate("9", 24), hFont)
+            nSize := hmg_GetTextWidth(0, Replicate("9", 24), hFont)
             EXIT
          CASE "^"
          CASE "+"
-            nSize := GetTextWidth(0, Replicate("9", 10), hFont)
+            nSize := hmg_GetTextWidth(0, Replicate("9", 10), hFont)
             EXIT
          OTHERWISE
             cData := cValToChar(cData)
-            nSize := GetTextWidth(0, cData, hFont)
+            nSize := hmg_GetTextWidth(0, cData, hFont)
          ENDSWITCH
 
-         nSize := Max(GetTextWidth(0, Replicate("B", Len(cHeading) + 1), hFontH), nSize)
+         nSize := Max(hmg_GetTextWidth(0, Replicate("B", Len(cHeading) + 1), hFontH), nSize)
          nSize += iif(!Empty(cOrder), 14, 0)
 
       ELSEIF hb_IsArray(::aColSizes) .AND. !Empty(::aColSizes) .AND. n <= Len(::aColSizes)
@@ -9984,7 +9984,7 @@ METHOD HScroll(nWParam, nLParam) CLASS TSBrowse
    ::lNoPaint := .F.
 
    IF GetFocus() != ::hWnd
-      SetFocus(::hWnd)
+      hmg_SetFocus(::hWnd)
    ENDIF
 
    SWITCH nMsg
@@ -10546,23 +10546,23 @@ METHOD LoadRecordSet() CLASS TSBrowse
 
          IF cType == "C" .AND. hb_IsChar(cData)
             cData := PadR(Trim(cData), nWidth, "B")
-            nWidth := GetTextWidth(0, cData, hFont)
+            nWidth := hmg_GetTextWidth(0, cData, hFont)
          ELSEIF cType == "N"
             cData := StrZero(Val(Replicate("4", nWidth)), nDec)
-            nWidth := GetTextWidth(0, cData, hFont)
+            nWidth := hmg_GetTextWidth(0, cData, hFont)
          ELSEIF cType == "D"
             cData := cValToChar(iif(!Empty(cData), cData, Date()))
-            nWidth := Int(GetTextWidth(0, cData, hFont)) + 22
+            nWidth := Int(hmg_GetTextWidth(0, cData, hFont)) + 22
          ELSEIF cType == "M"
             // cData := cValToChar(cData)
             nWidth := iif(::nMemoWV == NIL, 200, ::nMemoWV)
          ELSE
             cData := cValToChar(cData)
-            nWidth := GetTextWidth(0, cData, hFont)
+            nWidth := hmg_GetTextWidth(0, cData, hFont)
          ENDIF
       ENDIF
 
-      nWidth := Max(nWidth, GetTextWidth(0, cHeading, hFont))
+      nWidth := Max(nWidth, hmg_GetTextWidth(0, cHeading, hFont))
       cBlock := "AdoGenFldBlk(Self:oRS, " + LTrim(Str(nE)) + ")"
       ::AddColumn(TSColumn():New(cHeading, AdoGenFldBlk(::oRSet, nE),, {::nClrText, ::nClrPane}, ;
          {nAlign, DT_CENTER}, nWidth,, ::lEditable,,, ::oRSet:Fields(nE):Name,,,, 5,,,, Self, cBlock))
@@ -10626,22 +10626,22 @@ METHOD LoadRelated(cAlias, lEditable, aNames, aHeaders) CLASS TSBrowse
       SWITCH cType
       CASE "C"
          cData := PadR(Trim(cData), nSize, "B")
-         nSize := GetTextWidth(0, cData, hFont)
+         nSize := hmg_GetTextWidth(0, cData, hFont)
          EXIT
       CASE "N"
          cData := StrZero(cData, nSize, nDec)
-         nSize := GetTextWidth(0, cData, hFont)
+         nSize := hmg_GetTextWidth(0, cData, hFont)
          EXIT
       CASE "D"
          cData := cValToChar(iif(!Empty(cData), cData, Date()))
-         nSize := Int(GetTextWidth(0, cData, hFont) * 1.15)
+         nSize := Int(hmg_GetTextWidth(0, cData, hFont) * 1.15)
          EXIT
       OTHERWISE
          cData := cValToChar(cData)
-         nSize := GetTextWidth(0, cData, hFont)
+         nSize := hmg_GetTextWidth(0, cData, hFont)
       ENDSWITCH
 
-      nSize := Max(GetTextWidth(0, Replicate("B", Len(cHeading)), hFont), nSize)
+      nSize := Max(hmg_GetTextWidth(0, Replicate("B", Len(cHeading)), hFont), nSize)
       cBlock := "FieldWBlock(" + Chr(34) + (cAlias)->(Field(nE)) + Chr(34) +  ", Select(" + Chr(34) + cAlias + Chr(34) + "))"
       ::AddColumn(TSColumn():New(cHeading, FieldWBlock((cAlias)->(Field(nE)), nArea),, ;
          {::nClrText, ::nClrPane}, {nAlign, DT_CENTER}, nSize,, lEditable,,,,,,, ;
@@ -11516,7 +11516,7 @@ METHOD PanEnd() CLASS TSBrowse
    ::nOldCell := ::nCell
 
    IF ::lIsTxt
-      nTxtWid := Max(1, GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
+      nTxtWid := Max(1, hmg_GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
       ::nAt := ::oTxtFile:nMaxLineLength - Int(nWidth / nTxtWid)
       ::Refresh(.F., , .F.)
 
@@ -11726,7 +11726,7 @@ METHOD PanRight() CLASS TSBrowse
 
    IF ::lIsTxt
 
-      nTxtWid := Max(1, GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
+      nTxtWid := Max(1, hmg_GetTextWidth(0, "B", iif(::hFont != NIL, ::hFont, 0)))
 
       IF ::nAt < ::oTxtFile:nMaxLineLength - 21 - Int(nWidth / nTxtWid)
          ::nAt := ::nAt + 20
@@ -12463,7 +12463,7 @@ METHOD Report(cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal) 
 
       IF !::aColumns[aCols[nI]]:lBitMap
 
-         nSize := Max(1, Round(::aColSizes[aCols[nI]] / GetTextWidth(0, "b", iif(hFont != NIL, hFont, ::hFont)), 0))
+         nSize := Max(1, Round(::aColSizes[aCols[nI]] / hmg_GetTextWidth(0, "b", iif(hFont != NIL, hFont, ::hFont)), 0))
          AAdd(aWidths, nSize)
          AAdd(aHeader1, "")
          AAdd(aHeader2, ::aColumns[aCols[nI]]:cHeading)
@@ -13224,7 +13224,7 @@ METHOD SetArray(aArray, lAutoCols, aHead, aSizes) CLASS TSBrowse
          cHead := cValToChar(aHead[nI])
 
          IF Empty(aSizes)
-            nMax := Max(GetTextWidth(0, cValToChar(Eval(bData))), GetTextWidth(0, cHead))
+            nMax := Max(hmg_GetTextWidth(0, cValToChar(Eval(bData))), hmg_GetTextWidth(0, cHead))
             nMax := Max(nMax, 70)
          ELSE
             nMax := aSizes[nI]
@@ -13490,7 +13490,7 @@ METHOD SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aNa
          ELSE
             cTemp := cFooter
          ENDIF
-         nFooter := GetTextWidth(0, cTemp, hFontFoot)
+         nFooter := hmg_GetTextWidth(0, cTemp, hFontFoot)
       ELSE
          aAligns := {nAlign, DT_CENTER}
          cFooter := NIL
@@ -13504,7 +13504,7 @@ METHOD SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aNa
          cTemp := cHead
       ENDIF
 
-      nMax := Max(GetTextWidth(0, aDefMaxVal[nI] + "W", hFont), GetTextWidth(0, cTemp, hFontHead))
+      nMax := Max(hmg_GetTextWidth(0, aDefMaxVal[nI] + "W", hFont), hmg_GetTextWidth(0, cTemp, hFontHead))
       nMax := Max(nMax + GetBorderWidth(), 32)
       nMax := Max(nMax, nFooter)
 
@@ -13512,7 +13512,7 @@ METHOD SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aNa
          IF hb_IsNumeric(aSizes[nI]) .AND. aSizes[nI] > 0
             nMax := aSizes[nI]
          ELSEIF hb_IsChar(aSizes[nI])
-            nMax := GetTextWidth(0, aSizes[nI], hFont)
+            nMax := hmg_GetTextWidth(0, aSizes[nI], hFont)
          ENDIF
       ENDIF
 
@@ -13920,7 +13920,7 @@ METHOD SetColumns(aData, aHeaders, aColSizes) CLASS TSBrowse
 
       FOR n := 1 TO nElements
          ::aColSizes[n] := iif(!hb_isChar(aFields[n]), 16, ; // Bitmap handle
-         GetTextWidth(0, Replicate("B", Max(Len(::aHeaders[n]), Len(aFields[n])) + 1), iif(!Empty(::hFont), ::hFont, 0)))
+         hmg_GetTextWidth(0, Replicate("B", Max(Len(::aHeaders[n]), Len(aFields[n])) + 1), iif(!Empty(::hFont), ::hFont, 0)))
       NEXT
    ENDIF
 
@@ -14796,7 +14796,7 @@ METHOD SetSelectMode(lOnOff, bSelected, uBmpSel, nColSel, nAlign) CLASS TSBrowse
    ELSEIF ::uBmpSel != NIL
 
       IF ::lDestroy
-         DeleteObject(::uBmpSel)
+         hmg_DeleteObject(::uBmpSel)
       ENDIF
 
       ::lDestroy := .F.
@@ -15139,7 +15139,7 @@ METHOD VScroll(nMsg, nPos) CLASS TSBrowse
       ENDIF
    ENDIF
    IF GetFocus() != ::hWnd
-      SetFocus(::hWnd)
+      hmg_SetFocus(::hWnd)
    ENDIF
 
    SWITCH nMsg
@@ -15315,7 +15315,7 @@ METHOD Enabled(lEnab) CLASS TSBrowse
             ENDIF
             IF hb_IsArray(::aOldEnabled) .AND. !Empty(::aOldEnabled[1])
                AEval(::aOldEnabled[2], {| oc, nc | ::aColumns[nc] := oc:Clone() })
-               DeleteObject(::hBrush)
+               hmg_DeleteObject(::hBrush)
                ::hBrush := ::aOldEnabled[1]
                ::nClrPane := ::aOldEnabled[3]
                ::nClrLine := ::aOldEnabled[5]
@@ -16181,7 +16181,7 @@ STATIC FUNCTION SetHeights(oBrw)
 
          ELSEIF hb_IsChar(cHeading) .AND. LoWord(oBrw:aColumns[nEle]:nHAlign) == DT_VERT
 
-            nHeight := GetTextWidth(oBrw:hDC, cHeading, hFont)
+            nHeight := hmg_GetTextWidth(oBrw:hDC, cHeading, hFont)
 
             IF nHeight > nHHeight
                nHHeight := nHeight

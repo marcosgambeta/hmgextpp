@@ -2230,7 +2230,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle, aValid, aValidMessages, aReadOnly
                dbGoTo(nRec)
             ENDIF
             IF GetControlHandle(_GetFocusedControl((r := GetParentFormName(i))), r) != GridHandle
-               SetFocus(GridHandle)
+               hmg_SetFocus(GridHandle)
             ENDIF
          ENDIF
 
@@ -2446,7 +2446,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle, aValid, aValidMessages, aReadOnly
 
    _HMG_InplaceParentHandle := 0
 
-   SetFocus(GridHandle)
+   hmg_SetFocus(GridHandle)
 
    // Restore Original Record Pointer
    dbGoTo(BackRec)

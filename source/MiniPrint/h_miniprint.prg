@@ -613,7 +613,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
          ENDIF
       NEXT i
 
-      SetFocus(ModalHandle)
+      hmg_SetFocus(ModalHandle)
 
       _HMG_IsModalActive := .T.
       _hmg_activemodalhandle := ModalHandle

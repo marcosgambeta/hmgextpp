@@ -418,7 +418,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
                    Transform(cValToChar(Eval(::bData)), cPicture) )) )
          nWidth := Round(nWidth * (nEle + 1) * 1.3, 0)         //V90
       ELSE
-         nWidth := Int(IIf(!lBitMap .AND. !lCheck, 0.67 * GetTextWidth(0, Replicate("B", Max(Len(cHeading), Len(IIf(Empty(cPicture), ;
+         nWidth := Int(IIf(!lBitMap .AND. !lCheck, 0.67 * hmg_GetTextWidth(0, Replicate("B", Max(Len(cHeading), Len(IIf(Empty(cPicture), ;
                    cValToChar(Eval(bData)), Transform(cValToChar(Eval(bData)), cPicture)))) + 1), 0), 16))
       ENDIF
    ENDIF
@@ -811,7 +811,7 @@ METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
       cChr := Replicate(cChr, nLen)
    ENDIF
 
-   nWidth := GetTextWidth(0, cChr, hFont)
+   nWidth := hmg_GetTextWidth(0, cChr, hFont)
    nWidth := Int(nWidth * nKfc)
 
 RETURN nWidth

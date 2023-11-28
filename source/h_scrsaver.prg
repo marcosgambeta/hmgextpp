@@ -81,7 +81,7 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
          TOPMOST NOSIZE NOCAPTION;
          ON GOTFOCUS SetCursorPos(x / 2, y / 2);
          ON INIT ( ShowCursor(.F.), ;
-            SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
+            hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
          ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
@@ -95,7 +95,7 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
          TOPMOST NOSIZE NOCAPTION;
          ON GOTFOCUS SetCursorPos(x / 2, y / 2);
          ON INIT ( ShowCursor(.F.), ;
-            SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
+            hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
          ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
@@ -206,7 +206,7 @@ FUNCTION _ReleaseScrSaver(cRelease, cSSaver, cPaint)
       SetProperty(cSSaver, "Timer_SSaver", "Enabled", .F.)
    ENDIF
 
-   SystemParametersInfo(SPI_SCREENSAVERRUNNING, 0, @Dummy, 0)
+   hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 0, @Dummy, 0)
 
 RETURN NIL
 

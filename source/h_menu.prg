@@ -556,7 +556,7 @@ PROCEDURE _EndMenu()
                AAdd(_HMG_aControlsContextMenu, {h, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex[i], .T.})
                IF _HMG_aControlType[_HMG_xContextMenuButtonIndex[i]] == CONTROL_TYPE_IMAGE .OR. ;
                   _HMG_aControlType[_HMG_xContextMenuButtonIndex[i]] == CONTROL_TYPE_LABEL
-                  ChangeStyle(h, SS_NOTIFY)
+                  hmg_ChangeStyle(h, SS_NOTIFY)
                ENDIF
             ENDIF
 
@@ -1001,7 +1001,7 @@ FUNCTION _ModifyMenuItem(ItemName, FormName, Caption, action, name, Image)
    ModifyMenuItem(a[1], a[2], Id, Caption)
 
    IF image != NIL
-      DeleteObject(_HMG_aControlBrushHandle[x])
+      hmg_DeleteObject(_HMG_aControlBrushHandle[x])
       _HMG_aControlBrushHandle[x] := MenuItem_SetBitMaps(a[1], Id, image, "")
    ENDIF
 

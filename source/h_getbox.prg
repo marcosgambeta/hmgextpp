@@ -391,7 +391,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus(lPrevious)
    LOCAL i
 
    NextControlHandle := GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
-   setfocus(NextControlHandle)
+   hmg_setfocus(NextControlHandle)
 
    IF (i := AScan(_HMG_aControlHandles, NextControlHandle)) > 0
 
@@ -594,15 +594,15 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                coldbuff := oGet:buffer
 
                h := GetFocus()
-               HideCaret(hWnd)
-               HideCaret(h)
+               hmg_HideCaret(hWnd)
+               hmg_HideCaret(h)
 
 #ifdef _NAMES_LIST_
                IF !Do_ControlEventProcedure(oGet:postblock, _GetNameList(oGet:name), oGet)
 #else
                IF !Do_ControlEventProcedure(oGet:postblock, __mvGet(oGet:name), oGet)
 #endif
-                  SetFocus(hWnd)
+                  hmg_SetFocus(hWnd)
                   IF Empty(_HMG_aControlSpacing[i])
                      oGet:changed := .T.
                   ELSE
@@ -610,12 +610,12 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                      IF !oGet:changed
                         PostMessage(hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
                      ENDIF
-                     SetFocus(hWnd)
+                     hmg_SetFocus(hWnd)
                   ENDIF
                ELSE
                   oGet:changed := .T.
                   oGet:original := oGet:buffer
-                  ShowCaret(h)
+                  hmg_ShowCaret(h)
                ENDIF
 
                IF !( coldbuff == oGet:buffer )
@@ -1340,7 +1340,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       IF (i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == hWnd})) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
-            setfocus(wParam)
+            hmg_setfocus(wParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
@@ -1370,7 +1370,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             ENDSWITCH
 
             SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
-            setfocus(aHandle[1])
+            hmg_setfocus(aHandle[1])
 
          ENDIF
 
@@ -1490,12 +1490,12 @@ RETURN
 //---------------------------------------------------------------------------//
 STATIC PROCEDURE _SetGetBoxCaret(hWnd)
 //---------------------------------------------------------------------------//
-   HideCaret(hWnd)
-   DestroyCaret()
+   hmg_HideCaret(hWnd)
+   hmg_DestroyCaret()
 
    IF !IsWindowHasStyle(hWnd, ES_READONLY)
-      CreateCaret(hWnd, 0, iif(lInsert, 2, 4), GetWindowHeight(hWnd))
-      ShowCaret(hWnd)
+      hmg_CreateCaret(hWnd, 0, iif(lInsert, 2, 4), GetWindowHeight(hWnd))
+      hmg_ShowCaret(hWnd)
    ENDIF
 
 RETURN

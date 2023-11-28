@@ -268,7 +268,7 @@ FUNCTION BmpSize(xBitmap)
       IF Empty(aRet[1]) .AND. Empty(aRet[2])
          xBitmap := C_GetResPicture(xBitmap)
          aRet := hmg_GetBitmapSize(xBitmap)
-         DeleteObject(xBitmap)
+         hmg_DeleteObject(xBitmap)
       ENDIF
 
    CASE hb_IsNumeric(xBitmap)
@@ -290,7 +290,7 @@ FUNCTION HasAlpha(FileName)
 
    IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
       lResult := hmg_C_HasAlpha(hBitmap)
-      DeleteObject(hBitmap)
+      hmg_DeleteObject(hBitmap)
    ENDIF
 
 RETURN lResult
@@ -312,7 +312,7 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
       lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower(cEncoder), nJpgQuality)
 
       IF hb_IsString(FileName)
-         DeleteObject(hBitmap)
+         hmg_DeleteObject(hBitmap)
       ENDIF
    ENDIF
 

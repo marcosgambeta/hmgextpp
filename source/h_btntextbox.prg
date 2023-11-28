@@ -408,7 +408,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
          ParentForm := _HMG_aControlParentHandles[i]
          IF (i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == aHandle[1]})) > 0
             IF _HMG_aControlsContextMenu[i][4]
-               setfocus(aHandle[1])
+               hmg_setfocus(aHandle[1])
                _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
                TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(HwndBtn), HIWORD(HwndBtn), ParentForm)
                RETURN 1
@@ -416,7 +416,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
          ENDIF
       ELSE
          IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) > 4 .AND. _HMG_aControlMiscData1[i][5]
-            SetFocus(aHandle[1])
+            hmg_SetFocus(aHandle[1])
          ENDIF
       ENDIF
 

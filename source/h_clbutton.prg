@@ -141,7 +141,7 @@ PROCEDURE ReleaseCLButtonImageList(cWindow, cControl)
       i := GetControlIndex(cControl, cWindow)
 
       IF !Empty(_HMG_aControlBrushHandle[i])
-         IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
+         hmg_IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
       ENDIF
 
       _HMG_UserComponentProcess := .T.
@@ -233,7 +233,7 @@ PROCEDURE CLButtonSetFocus(cWindow, cControl)
             ENDIF
          ENDIF
       NEXT
-      SetFocus(hWnd)
+      hmg_SetFocus(hWnd)
       SendMessage(hWnd, BM_SETSTYLE, LOWORD(BS_DEFCOMMANDLINK), 1)
 
    ELSE
@@ -405,7 +405,7 @@ PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
       _HMG_aControlPicture[i] := cBitmap
 
       IF !Empty(_HMG_aControlBrushHandle[i])
-         IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
+         hmg_IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
       ENDIF
 
       _HMG_aControlBrushHandle[i] := CLButton_SetImage(GetControlHandle(cControl, cWindow), cBitmap)

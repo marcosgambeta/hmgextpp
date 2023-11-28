@@ -116,7 +116,7 @@ FUNCTION OwnTabPaint(lParam)
 
    hBrush := CreateSolidBrush(aBkColor[1], aBkColor[2], aBkColor[3])
    FillRect(hDC, aBtnRc[1], aBtnRc[2], aBtnRc[3], aBtnRc[4], hBrush)
-   DeleteObject(hBrush)
+   hmg_DeleteObject(hBrush)
 
    x1 := aBtnRc[1]
    y1 := Round(aBtnRc[4] / 2, 0) - ( aMetr[1] - 10 )
@@ -158,7 +158,7 @@ FUNCTION OwnTabPaint(lParam)
 
       ENDIF
 
-      DeleteObject(hImage)
+      hmg_DeleteObject(hImage)
 
    ENDIF
 

@@ -881,7 +881,7 @@ FUNCTION PgInitItem(aRowItem, k)
       ExpandPG(ControlHandle, 1)
    ENDIF
    TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
-   SetFocus(ControlHandle)
+   hmg_SetFocus(ControlHandle)
 
 RETURN NIL
 
@@ -927,7 +927,7 @@ FUNCTION PgInitItemXml(cFile, k)
       ExpandPG(ControlHandle, 1)
    ENDIF
    TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
-   SetFocus(ControlHandle)
+   hmg_SetFocus(ControlHandle)
 
 RETURN NIL
 
@@ -989,7 +989,7 @@ FUNCTION ExpandPG(hWndPG, typ)
    
    LOCAL hItem
    
-   SetFocus(hWndPG)
+   hmg_SetFocus(hWndPG)
    hItem := PG_GetRoot(hWndPG)
    DO WHILE !empty(hItem)
       IF PG_GetItem(hWndPG, hItem, PGI_TYPE) ==  PG_CATEG
@@ -1018,7 +1018,7 @@ FUNCTION ExpandCategPG(ParentForm, ControlName, cCategory, typ)
    k := GetControlIndex(ControlName, ParentForm)
    IF k > 0
       hWndPG := _HMG_aControlHandles[k, 1]
-      SetFocus(hWndPG)
+      hmg_SetFocus(hWndPG)
       hItem := PG_SearchCategory(hWndPG, cCategory)
 
       IF !empty(hItem)
@@ -2422,7 +2422,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       cValue := GetWindowText(hWnd)
       IF wParam == 27
          _PGInitData(hWndPG, hWnd, hItem, PG_GETITEM(hWndPG, hItem, PGI_TYPE))
-         SetFocus(hWndPG)
+         hmg_SetFocus(hWndPG)
       ELSEIF wParam >= 32
          _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
       ENDIF

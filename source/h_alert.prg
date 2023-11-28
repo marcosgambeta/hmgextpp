@@ -298,18 +298,18 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
    // calculate the maximum width of the lines
 
    nMaxWidth := GetFontWidth(cFont, nMaxLen)
-   IF GetTextWidth(hDC, Space(10), hDlgFont) != GetTextWidth(hDC, Replicate("B", 10), hDlgFont)
+   IF hmg_GetTextWidth(hDC, Space(10), hDlgFont) != hmg_GetTextWidth(hDC, Replicate("B", 10), hDlgFont)
       nMaxWidth *= 0.7
    ENDIF
 
    FOR n := 1 TO nLineas
-      nMaxLin := Max(nMaxLin, GetTextWidth(hDC, AllTrim(MemoLine(cMsg, , n)), hDlgFont ))
+      nMaxLin := Max(nMaxLin, hmg_GetTextWidth(hDC, AllTrim(MemoLine(cMsg, , n)), hDlgFont ))
    NEXT
 
    // calculate the maximum width of the buttons
 
    FOR n := 1 TO nLenaOp
-      nMaxBoton := Max(nMaxBoton, GetTextWidth(hDC, aOptions[n], hDlgFont))
+      nMaxBoton := Max(nMaxBoton, hmg_GetTextWidth(hDC, aOptions[n], hDlgFont))
    NEXT
 
    ReleaseDC(hWnd, hDC)

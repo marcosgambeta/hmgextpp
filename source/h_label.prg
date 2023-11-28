@@ -258,8 +258,8 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF autosize .AND. !lDialogInMemory
-      _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
-         iif(bold .OR. italic, GetTextWidth(NIL, " ", FontHandle), 0))
+      _SetControlWidth(ControlName, ParentFormName, hmg_GetTextWidth(NIL, Caption, FontHandle) + ;
+         iif(bold .OR. italic, hmg_GetTextWidth(NIL, " ", FontHandle), 0))
       _SetControlHeight(ControlName, ParentFormName, FontSize + iif(FontSize < 14, 12, 16))
    ENDIF
 
@@ -285,9 +285,9 @@ FUNCTION InitDialogLabel(ParentFormName, ControlHandle, k)
    ENDIF
 
    IF _HMG_aControlSpacing[k] == 1
-      _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, _HMG_aControlCaption[k], _HMG_aControlFontHandle[k]) + ;
+      _SetControlWidth(ControlName, ParentFormName, hmg_GetTextWidth(NIL, _HMG_aControlCaption[k], _HMG_aControlFontHandle[k]) + ;
          iif(_HMG_aControlFontAttributes[k][1] .OR. _HMG_aControlFontAttributes[k][2], ;
-         GetTextWidth(NIL, " ", _HMG_aControlFontHandle[k]), 0))
+         hmg_GetTextWidth(NIL, " ", _HMG_aControlFontHandle[k]), 0))
       _SetControlHeight(ControlName, ParentFormName, _HMG_aControlFontSize[k] + iif(_HMG_aControlFontSize[k] < 14, 12, 16))
       RedrawWindow(ControlHandle)
    ENDIF

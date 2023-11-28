@@ -312,7 +312,7 @@ FUNCTION OMONTHCALEVENTS(hWnd, nMsg, wParam, lParam) // GF 2016.04.02
    SWITCH nMsg
 
    CASE WM_MOUSEACTIVATE
-      SetFocus(hWnd)
+      hmg_SetFocus(hWnd)
       RETURN 1
 
    CASE WM_SETFOCUS

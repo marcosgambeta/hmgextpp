@@ -136,7 +136,7 @@ FUNCTION HMG_Graph(nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep, 
    // Graph info
    //
    IF !Empty(cTitle)
-      DrawTextInBitmap(hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif(Len(cTitle) > 40, 10, 12) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2)
+      DrawTextInBitmap(hDC, nTop - 33 * nResV, ( nWidth - hmg_GetTextWidth(hDC, cTitle) / iif(Len(cTitle) > 40, 10, 12) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2)
    ENDIF
 
    // Legends

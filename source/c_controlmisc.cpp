@@ -52,17 +52,25 @@
 
 void pascal DelResource(HANDLE hResource);
 
-HB_FUNC( MAKELONG )
+HB_FUNC( HMG_MAKELONG )
 {
    hb_retnl( MAKELONG(hb_parni(1), hb_parni(2)) );
 }
 
-HB_FUNC( _ENABLESCROLLBARS )
+#if 1
+HB_FUNC_TRANSLATE( MAKELONG, HMG_MAKELONG )
+#endif
+
+HB_FUNC( HMG__ENABLESCROLLBARS )
 {
    EnableScrollBar( hmg_par_HWND(1), hb_parni(2), hb_parni(3) );
 }
 
-HB_FUNC( DELETEOBJECT )
+#if 1
+HB_FUNC_TRANSLATE( _ENABLESCROLLBARS, HMG__ENABLESCROLLBARS )
+#endif
+
+HB_FUNC( HMG_DELETEOBJECT )
 {
    HANDLE hRes = hmg_par_HANDLE(1);
 
@@ -74,34 +82,54 @@ HB_FUNC( DELETEOBJECT )
    }
 }
 
-HB_FUNC( IMAGELIST_DESTROY )
+#if 1
+HB_FUNC_TRANSLATE( DELETEOBJECT, HMG_DELETEOBJECT )
+#endif
+
+HB_FUNC( HMG_IMAGELIST_DESTROY )
 {
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
    DelResource(himl);
    hb_retl(ImageList_Destroy(himl));
 }
 
-HB_FUNC( SETFOCUS )
+#if 1
+HB_FUNC_TRANSLATE( IMAGELIST_DESTROY, HMG_IMAGELIST_DESTROY )
+#endif
+
+HB_FUNC( HMG_SETFOCUS )
 {
    hmg_ret_HWND(SetFocus(hmg_par_HWND(1)));
 }
 
-HB_FUNC( INSERTSHIFTTAB )
+#if 1
+HB_FUNC_TRANSLATE( SETFOCUS, HMG_SETFOCUS )
+#endif
+
+HB_FUNC( HMG_INSERTSHIFTTAB )
 {
    keybd_event(VK_SHIFT, 0, 0, 0);
    keybd_event(VK_TAB, 0, 0, 0);
    keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
 }
 
-HB_FUNC( SYSTEMPARAMETERSINFO )
+#if 1
+HB_FUNC_TRANSLATE( INSERTSHIFTTAB, HMG_INSERTSHIFTTAB )
+#endif
+
+HB_FUNC( HMG_SYSTEMPARAMETERSINFO )
 {
    hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), static_cast<VOID*>(const_cast<char*>(hb_parc(3))), hmg_par_UINT(4)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SYSTEMPARAMETERSINFO, HMG_SYSTEMPARAMETERSINFO )
+#endif
+
 /*
 GETTEXTWIDTH(HDC, cString, HFONT) --> numeric
 */
-HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
+HB_FUNC( HMG_GETTEXTWIDTH ) // returns the width of a string in pixels
 {
    auto hDC = hmg_par_HDC(1);
    HWND hWnd = nullptr;
@@ -137,15 +165,27 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
    hb_strfree(String);
 }
 
-HB_FUNC( KEYBD_EVENT )
+#if 1
+HB_FUNC_TRANSLATE( GETTEXTWIDTH, HMG_GETTEXTWIDTH )
+#endif
+
+HB_FUNC( HMG_KEYBD_EVENT )
 {
    keybd_event(hmg_par_BYTE(1), static_cast<BYTE>(MapVirtualKey(hb_parni(1), 0)), hb_parl(2) ? KEYEVENTF_KEYUP : 0, 0);
 }
 
-HB_FUNC( INSERTVKEY )
+#if 1
+HB_FUNC_TRANSLATE( KEYBD_EVENT, HMG_KEYBD_EVENT )
+#endif
+
+HB_FUNC( HMG_INSERTVKEY )
 {
    keybd_event(hmg_par_BYTE(1), 0, 0, 0);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INSERTVKEY, HMG_INSERTVKEY )
+#endif
 
 HB_FUNC( _HMG_SETVSCROLLVALUE )
 {
@@ -157,25 +197,41 @@ HB_FUNC( _HMG_SETHSCROLLVALUE )
    SendMessage(hmg_par_HWND(1), WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, hb_parni(2)), 0);
 }
 
-HB_FUNC( SHOWCARET )
+HB_FUNC( HMG_SHOWCARET )
 {
    hb_retl(ShowCaret(hmg_par_HWND(1)));
 }
 
-HB_FUNC( HIDECARET )
+#if 1
+HB_FUNC_TRANSLATE( SHOWCARET, HMG_SHOWCARET )
+#endif
+
+HB_FUNC( HMG_HIDECARET )
 {
    hb_retl(HideCaret(hmg_par_HWND(1)));
 }
 
-HB_FUNC( DESTROYCARET )
+#if 1
+HB_FUNC_TRANSLATE( HIDECARET, HMG_HIDECARET )
+#endif
+
+HB_FUNC( HMG_DESTROYCARET )
 {
    hb_retl(DestroyCaret());
 }
 
-HB_FUNC( CREATECARET )
+#if 1
+HB_FUNC_TRANSLATE( DESTROYCARET, HMG_DESTROYCARET )
+#endif
+
+HB_FUNC( HMG_CREATECARET )
 {
    hb_retl(CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CREATECARET, HMG_CREATECARET )
+#endif
 
 // CHANGESTYLE (hWnd,dwAdd,dwRemove,lExStyle)
 // Action: Modifies the basic styles of a window
@@ -186,7 +242,7 @@ HB_FUNC( CREATECARET )
 // HMG 1.1 Expermental Build 12a
 // (C)Jacek Kubica <kubica@wssk.wroc.pl>
 
-HB_FUNC( CHANGESTYLE )
+HB_FUNC( HMG_CHANGESTYLE )
 {
    auto hWnd = hmg_par_HWND(1);
    auto dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
@@ -202,7 +258,11 @@ HB_FUNC( CHANGESTYLE )
    SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
-HB_FUNC( MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
+#if 1
+HB_FUNC_TRANSLATE( CHANGESTYLE, HMG_CHANGESTYLE )
+#endif
+
+HB_FUNC( HMG_MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
 {
    auto hedit = hmg_par_HWND(1);
    auto hBtn1 = hmg_par_HWND(2);
@@ -226,3 +286,7 @@ HB_FUNC( MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth
       }
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( MOVEBTNTEXTBOX, HMG_MOVEBTNTEXTBOX )
+#endif

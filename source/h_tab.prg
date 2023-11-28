@@ -610,7 +610,7 @@ FUNCTION _AddTabPage(ControlName, ParentForm, Position, Caption, Image, tooltip)
       // JD 11/05/2006
       IF ImageFlag
          IF !Empty(_HMG_aControlInputMask[i])
-            IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
+            hmg_IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
          ENDIF
          _HMG_aControlInputMask[i] := AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
       ENDIF
@@ -794,7 +794,7 @@ FUNCTION _DeleteTabPage(ControlName, ParentForm, Position)
       // JD 11/05/2006
       IF ImageFlag
          IF !Empty(_HMG_aControlInputMask[i])
-            IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
+            hmg_IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
          ENDIF
          _HMG_aControlInputMask[i] := AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
       ENDIF

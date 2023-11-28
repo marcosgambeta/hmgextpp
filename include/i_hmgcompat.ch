@@ -144,7 +144,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_ChangeWindowStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ] ) ;
    => ;
-   ChangeStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] );;
+   hmg_ChangeStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] );;
    iif(<.lRedrawWindow.>, RedrawWindow ( <hWnd> ), NIL)
 
 #ifndef WS_EX_WINDOWEDGE
@@ -496,7 +496,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> ENABLE MARQUEE [ UPDATED <milliseconds> ] ;
    => ;
-   ChangeStyle( GetControlHandle(<(name)>,<(parent)>) , PBS_MARQUEE );;
+   hmg_ChangeStyle( GetControlHandle(<(name)>,<(parent)>) , PBS_MARQUEE );;
    SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 1 , <milliseconds> )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> DISABLE MARQUEE ;

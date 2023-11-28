@@ -222,8 +222,8 @@
 
 // ============================================================================
 
-#xtranslate _DestroyImageList(<ControlName>, <ParentFormName>) => ImageList_Destroy(GetControlHandle(<ControlName>, <ParentFormName>)) ;; _ReleaseControl(<ControlName>, <ParentFormName>)
-#xtranslate IL_DESTROY(<h>) => ImageList_Destroy(<h>)
+#xtranslate _DestroyImageList(<ControlName>, <ParentFormName>) => hmg_ImageList_Destroy(GetControlHandle(<ControlName>, <ParentFormName>)) ;; _ReleaseControl(<ControlName>, <ParentFormName>)
+#xtranslate IL_DESTROY(<h>) => hmg_ImageList_Destroy(<h>)
 #xtranslate _DragEnterImage(<ix>, <iy>) => IL_DragEnter(_HMG_ActiveDragImageHandle, <ix>, <iy>)
 #xtranslate _MoveImage(<ix>, <iy>) => IL_DragMove(<ix>, <iy>)
 #xtranslate _EndDragImage() => IL_EndDrag(_HMG_ActiveDragImageHandle)
@@ -350,7 +350,7 @@
 
 // ============================================================================
 
-#define MAKELRESULT(lw, hw) MAKELONG(lw, hw)
+#define MAKELRESULT(lw, hw) hmg_MAKELONG(lw, hw)
 #ifndef HB_SYMBOL_UNUSED
 #define HB_SYMBOL_UNUSED(symbol) ((symbol))
 #endif

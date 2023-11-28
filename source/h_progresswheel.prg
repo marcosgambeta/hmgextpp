@@ -779,7 +779,7 @@ FUNCTION UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, Color
 
    IF GradientMode != 3
       IF hGradient != NIL
-         DeleteObject(hGradient)
+         hmg_DeleteObject(hGradient)
          hGradient := NIL
       ENDIF
    ELSE

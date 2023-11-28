@@ -223,7 +223,7 @@ FUNCTION OSPINEVENTS(hWnd, nMsg, wParam, lParam)    // 2006.08.13 JD
          IF wParam == 0x0D   // Return key pressed
 
             IF _GetKeyState(VK_SHIFT)  // Is Shift key pressed?
-               InsertShiftTab()
+               hmg_InsertShiftTab()
             ELSE
                InsertTab()
             ENDIF
@@ -243,7 +243,7 @@ FUNCTION OSPINEVENTS(hWnd, nMsg, wParam, lParam)    // 2006.08.13 JD
       IF i > 0
 
          IF _HMG_aControlsContextMenu[i][4]
-            setfocus(wParam)
+            hmg_setfocus(wParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 

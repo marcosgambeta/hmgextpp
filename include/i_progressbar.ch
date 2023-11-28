@@ -106,4 +106,4 @@ SendMessage( <hWnd>, PBM_SETBARCOLOR, 0, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetProgressBarRange ( <hWnd>, <l>, <b> ) ;
 => ;
-SendMessage( <hWnd>, PBM_SETRANGE, 0, MAKELONG( <l>, <b> ) )
+SendMessage( <hWnd>, PBM_SETRANGE, 0, hmg_MAKELONG( <l>, <b> ) )

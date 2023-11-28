@@ -216,7 +216,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 
       IF autosize
          BackWidth := Width
-         Width := GetTextWidth(NIL, aOptions[1], FontHandle) + 21
+         Width := hmg_GetTextWidth(NIL, aOptions[1], FontHandle) + 21
          MoveWindow(ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T.)
       ENDIF
 
@@ -241,7 +241,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          ENDIF
 
          IF autosize
-            Width := GetTextWidth(NIL, aOptions[i], FontHandle) + 21
+            Width := hmg_GetTextWidth(NIL, aOptions[i], FontHandle) + 21
             MoveWindow(ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[i], FontHandle) + 8, .T.)
          ENDIF
 

@@ -117,7 +117,7 @@ PROCEDURE _DefineFont(FontName, fName, fSize, bold, italic, underline, strikeout
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := 0
    _HMG_aControlCol                [k] := 0
-   _HMG_aControlWidth              [k] := GetTextWidth(NIL, "B", FontHandle)
+   _HMG_aControlWidth              [k] := hmg_GetTextWidth(NIL, "B", FontHandle)
    _HMG_aControlHeight             [k] := GetTextHeight(NIL, "B", FontHandle)
    _HMG_aControlSpacing            [k] := 0
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1)
@@ -159,7 +159,7 @@ PROCEDURE _EraseFontDef(i)
 
    LOCAL mVar
 
-   DeleteObject(_HMG_aControlFontHandle[i])
+   hmg_DeleteObject(_HMG_aControlFontHandle[i])
 
    IF _HMG_lOOPEnabled
       Eval(_HMG_bOnControlDestroy, i)
@@ -307,7 +307,7 @@ FUNCTION _SetFontAttr(ControlName, ParentForm, Value, nType)
       RETURN .F.
    ENDIF
 
-   DeleteObject(_HMG_aControlFontHandle[i])
+   hmg_DeleteObject(_HMG_aControlFontHandle[i])
 
    SWITCH nType
 

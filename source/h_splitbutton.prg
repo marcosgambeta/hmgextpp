@@ -201,7 +201,7 @@ PROCEDURE SPButtonSetFocus(cWindow, cControl)
          ENDIF
       NEXT
 
-      SetFocus(hWnd)
+      hmg_SetFocus(hWnd)
       SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, LOWORD(1))
 
    ELSE

@@ -1600,7 +1600,7 @@ FUNCTION _SetFocusedSplitChild(i)
       FOR EACH nIndex IN _HMG_aFormSplitChildList[i]
 
          IF _HMG_aFormFocused[nIndex]
-            SetFocus(_HMG_aFormHandles[nIndex])
+            hmg_SetFocus(_HMG_aFormHandles[nIndex])
             SplitFocusFlag := .T.
          ENDIF
 
@@ -1630,7 +1630,7 @@ PROCEDURE _SetActivationFocus(i)
       IF _HMG_aControlParentHandles[x] == hParent .AND. _HMG_aControlType[x] != CONTROL_TYPE_HOTKEY
 
          IF _HMG_aControlType[x] == CONTROL_TYPE_OBUTTON .AND. hb_IsLogical(_HMG_aControlDblClick[x]) .AND. _HMG_aControlDblClick[x]
-            SetFocus(hControl)
+            hmg_SetFocus(hControl)
             FocusDefined := .T.
             EXIT
          ENDIF
@@ -1748,7 +1748,7 @@ PROCEDURE _hmg_OnHideFocusManagement(i)
 
             EnableWindow(_HMG_aFormParenthandle[i])
 
-            SetFocus(_HMG_aFormParenthandle[i])
+            hmg_SetFocus(_HMG_aFormParenthandle[i])
 
          ELSE
 
@@ -1759,7 +1759,7 @@ PROCEDURE _hmg_OnHideFocusManagement(i)
 
             AEval(_HMG_aFormHandles, bEnableWindow)
 
-            SetFocus(_HMG_aFormParenthandle[i])
+            hmg_SetFocus(_HMG_aFormParenthandle[i])
 
          ENDIF
 
@@ -1772,7 +1772,7 @@ PROCEDURE _hmg_OnHideFocusManagement(i)
 
          AEval(_HMG_aFormHandles, bEnableWindow)
 
-         SetFocus(_HMG_MainHandle)
+         hmg_SetFocus(_HMG_MainHandle)
 
       ENDIF
 
@@ -2225,7 +2225,7 @@ FUNCTION ReleaseAllWindows()
          ENDIF
 
          IF GetObjectType(_HMG_aFormBrushHandle[i]) == OBJ_BRUSH
-            DeleteObject(_HMG_aFormBrushHandle[i])
+            hmg_DeleteObject(_HMG_aFormBrushHandle[i])
          ENDIF
 
          IF Len(_HMG_aFormMiscData1[i]) > 0 .AND. _HMG_aFormMiscData1[i][1] != NIL
@@ -2233,7 +2233,7 @@ FUNCTION ReleaseAllWindows()
          ENDIF
 
          IF Len(_HMG_aFormMiscData1[i]) > 2 .AND. !Empty(_HMG_aFormMiscData1[i][3])
-            DeleteObject(_HMG_aFormMiscData1[i][3])
+            hmg_DeleteObject(_HMG_aFormMiscData1[i][3])
          ENDIF
 
       ENDIF
@@ -2734,10 +2734,10 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          nHeight := GetTextHeight(NIL, "A", hFont)
 
          IF lWidth
-            nWidth := GetTextWidth(NIL, cTmp, hFont) + nX * 2
+            nWidth := hmg_GetTextWidth(NIL, cTmp, hFont) + nX * 2
          ENDIF
 
-         DeleteObject(hFont)
+         hmg_DeleteObject(hFont)
 
          nHeight += 8
 
@@ -2811,7 +2811,7 @@ EfeitoLabel(cTxt)
 STATIC PROCEDURE EfeitoLabel(cTxt)
 
    LOCAL cFormName := ThisWindow.Name
-   LOCAL nDescLen := GetTextWidth(, cDescEfeito, _HMG_aControlFontHandle[GetControlIndex("Message", cFormName)])
+   LOCAL nDescLen := hmg_GetTextWidth(, cDescEfeito, _HMG_aControlFontHandle[GetControlIndex("Message", cFormName)])
    LOCAL nLblLen := GetProperty(cFormName, "Message", "Width")
 
    IF ++nCtEfeito > Len(cTxt)

@@ -473,8 +473,8 @@ FUNCTION _ActivateMdiWindow(FormName)
       IF !_HMG_aFormNoShow[i]
          ShowWindow(GetFormHandle(FormName))
          IF _HMG_ProgrammaticChange
-            SetFocus(_HMG_MainClientMDIHandle)  // BK 26-Apr-2012
-            SetFocus(GetFormHandle(FormName)) // BK 26-Apr-2012
+            hmg_SetFocus(_HMG_MainClientMDIHandle)  // BK 26-Apr-2012
+            hmg_SetFocus(GetFormHandle(FormName)) // BK 26-Apr-2012
          ENDIF
       ENDIF
 

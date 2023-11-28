@@ -834,8 +834,8 @@ METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
    IF hb_IsNumeric(cText) ; cText := Replicate(cChar, cText)
    ENDIF
    hFont := InitFont(cFont, nSize, lBold)
-   nWidth := GetTextWidth(NIL, cText, hFont)
-   DeleteObject(hFont)
+   nWidth := hmg_GetTextWidth(NIL, cText, hFont)
+   hmg_DeleteObject(hFont)
 
 RETURN nWidth
 
@@ -1051,7 +1051,7 @@ CLASS TWndData
    METHOD Restore() INLINE ShowWindow(::nHandle, SW_RESTORE)
    METHOD Show() INLINE _ShowWindow(::cName)
    METHOD Hide() INLINE _HideWindow(::cName)
-   METHOD SetFocus(xName) INLINE iif(Empty(xName), SetFocus(::nHandle), ;
+   METHOD SetFocus(xName) INLINE iif(Empty(xName), hmg_SetFocus(::nHandle), ;
       iif(hb_IsObject(::GetObj(xName)), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus")))
    METHOD SetSize(y, x, w, h) INLINE _SetWindowSizePos(::cName, y, x, w, h)
 

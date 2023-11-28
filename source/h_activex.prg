@@ -126,7 +126,7 @@ PROCEDURE _DefineActivex(cControlName, cParentForm, nRow, nCol, nWidth, nHeight,
    ENDIF
 
    IF hb_defaultValue(clientedge, .F.)
-      ChangeStyle(nControlHandle, WS_EX_CLIENTEDGE, , .T.)
+      hmg_ChangeStyle(nControlHandle, WS_EX_CLIENTEDGE, , .T.)
    ENDIF
 
    nParentFormHandle := GetFormHandle(cParentForm)

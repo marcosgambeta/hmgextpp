@@ -220,7 +220,7 @@ FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, Procedure
    ParentForm := GetControlHandle(ParentControl, ParentForm)
 
    IF w == NIL
-      w := Max(70, GetTextWidth(NIL, Caption, _HMG_aControlFontHandle[GetControlIndex(ParentControl, cParentForm)]) + 6)
+      w := Max(70, hmg_GetTextWidth(NIL, Caption, _HMG_aControlFontHandle[GetControlIndex(ParentControl, cParentForm)]) + 6)
    ENDIF
 
    IF !Empty(ProcedureName)  // P.D. 24/11/2013

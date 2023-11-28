@@ -166,8 +166,8 @@ SendMessage( <hWnd>, TB_CUSTOMIZE, 0, 0 )
 
 #xtranslate DisableToolButton ( <hWnd>, <id> ) ;
 => ;
-SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, MAKELONG( 0, 0 ) )
+SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 0, 0 ) )
 
 #xtranslate EnableToolButton ( <hWnd>, <id> ) ;
 => ;
-SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, MAKELONG( 1, 0 ) )
+SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 1, 0 ) )

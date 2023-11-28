@@ -526,7 +526,7 @@ FUNCTION ListView_CalculateSize(hLV, nNumberOfRows, /*@*/nWidth, /*@*/nHeight)
        nNumberOfRows -= 1
    ENDIF
    // Calculate size
-   nResult := SendMessage(hLV, LVM_APPROXIMATEVIEWRECT, nNumberOfRows, MAKELONG(-1, -1))
+   nResult := SendMessage(hLV, LVM_APPROXIMATEVIEWRECT, nNumberOfRows, hmg_MAKELONG(-1, -1))
    // Extract, adjust, and return values
    nWidth  := LOWORD(nResult) + 4
    nHeight := HIWORD(nResult) + 4
@@ -1162,7 +1162,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    _HMG_InplaceParentHandle := 0
 
-   SetFocus(_HMG_aControlHandles[idx])
+   hmg_SetFocus(_HMG_aControlHandles[idx])
 
    IF Save != V
       Eval(bChange, v)

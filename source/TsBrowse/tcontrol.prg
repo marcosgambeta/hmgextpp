@@ -384,7 +384,7 @@ METHOD ForWhen() CLASS TControl
       ENDIF
    ELSE
       IF Empty(GetFocus())
-         SetFocus(::hWnd)
+         hmg_SetFocus(::hWnd)
       ENDIF
    ENDIF
 
@@ -442,7 +442,7 @@ METHOD GoNextCtrl(hCtrl) CLASS TControl
    ::hCtlFocus := hCtlNext
 
    IF hCtlNext != hCtrl
-      SetFocus(hCtlNext)
+      hmg_SetFocus(hCtlNext)
    ENDIF
 
 RETURN NIL
@@ -456,7 +456,7 @@ METHOD GoPrevCtrl(hCtrl) CLASS TControl
    ::hCtlFocus := hCtlPrev
 
    IF hCtlPrev != hCtrl
-      SetFocus(hCtlPrev)
+      hmg_SetFocus(hCtlPrev)
    ENDIF
 
 RETURN NIL
@@ -652,7 +652,7 @@ METHOD SetColor(nClrFore, nClrBack, hBrush) CLASS TControl
    ::nClrPane = nClrBack
 
    IF ::hBrush != NIL
-      DeleteObject(::hBrush)  // Alen Uzelac 13.09.2012
+      hmg_DeleteObject(::hBrush)  // Alen Uzelac 13.09.2012
    ENDIF
 
    IF hBrush != NIL
@@ -688,7 +688,7 @@ RETURN NIL
 METHOD __SetFocus() CLASS TControl
 
    IF ::lWhen()
-      SetFocus(::hWnd)
+      hmg_SetFocus(::hWnd)
       ::oWnd:hCtlFocus := ::hWnd
    ENDIF
 
