@@ -548,7 +548,7 @@ RETURN NIL
 METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TControl
 
    IF ::oCursor != NIL
-      SetResCursor(::oCursor:hCursor)
+      hmg_SetResCursor(::oCursor:hCursor)
    ELSE
       CursorArrow()
    ENDIF

@@ -4150,7 +4150,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          _WindowCargo(Arg1, Arg3)
          EXIT
       CASE "CURSOR"
-         SetWindowCursor(GetFormHandle(Arg1), Arg3)
+         hmg_SetWindowCursor(GetFormHandle(Arg1), Arg3)
          _HMG_aFormMiscData1[GetFormIndex(Arg1)][2] := Arg3
          EXIT
       CASE "MINWIDTH" // Grigory Filatov HMG 1.4 Ext Build 43

@@ -272,7 +272,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate SetCursorSystem ( <nCursor> ) ;
    => ;
-   SetResCursor( hmg_LoadCursor( NIL, <nCursor> ) )
+   hmg_SetResCursor( hmg_LoadCursor( NIL, <nCursor> ) )
 
 
 #xtranslate GetControlFontHandle ( <ControlName> , <ParentForm> ) ;

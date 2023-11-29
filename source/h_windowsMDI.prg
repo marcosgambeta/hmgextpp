@@ -345,7 +345,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
       aRGB := _HMG_aFormBkColor[i]
       // End
       IF cursor != NIL
-         SetWindowCursor(Formhandle, cursor)
+         hmg_SetWindowCursor(Formhandle, cursor)
       ENDIF
 
    ENDIF

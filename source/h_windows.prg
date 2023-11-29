@@ -286,7 +286,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    ENDIF
 
    IF mdi .AND. cursor != NIL  /* P.Ch. 16.10. */
-      SetWindowCursor(FormHandle, cursor)
+      hmg_SetWindowCursor(FormHandle, cursor)
    ENDIF
 
    IF Main
@@ -536,7 +536,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    ENDIF
 
    IF cursor != NIL
-      SetWindowCursor(FormHandle, cursor)
+      hmg_SetWindowCursor(FormHandle, cursor)
    ENDIF
 
    htooltip := InitToolTip(NIL, SetToolTipBalloon())
@@ -712,7 +712,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
       Formhandle := InitSplitChildWindow(w, h, FormName, nocaption, title, 0, vscroll, hscroll)
 
       IF cursor != NIL
-         SetWindowCursor(FormHandle, cursor)
+         hmg_SetWindowCursor(FormHandle, cursor)
       ENDIF
 
       IF _HMG_SplitLastControl == "TOOLBAR" .AND. !_HMG_ActiveSplitBoxInverted

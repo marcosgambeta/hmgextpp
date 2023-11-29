@@ -4093,9 +4093,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _HMG_ListBoxDragListId != -1
 
                IF _HMG_ListBoxDragListId > _HMG_ListBoxDragItem
-                  SetResCursor(hmg_LoadCursor(GetInstance(), "MINIGUI_DRAGDOWN"))
+                  hmg_SetResCursor(hmg_LoadCursor(GetInstance(), "MINIGUI_DRAGDOWN"))
                ELSE
-                  SetResCursor(hmg_LoadCursor(GetInstance(), "MINIGUI_DRAGUP"))
+                  hmg_SetResCursor(hmg_LoadCursor(GetInstance(), "MINIGUI_DRAGUP"))
                ENDIF
 
                RETURN 0

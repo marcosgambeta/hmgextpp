@@ -10819,7 +10819,7 @@ METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
 
          ::nIconPos := nIcon
          ::DrawIcon(nIcon, .T.)
-         CursorHand()
+         hmg_CursorHand()
          RETURN 0
       ENDIF
    ENDIF
@@ -10865,7 +10865,7 @@ METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
       // don't allow MouseMove to drag/resize columns
       // unless in header row and not in frozen zone
       IF ::oCursor != NIL
-         SetResCursor(::oCursor:hCursor)
+         hmg_SetResCursor(::oCursor:hCursor)
       ELSE
          CursorArrow()
       ENDIF
@@ -10915,7 +10915,7 @@ METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
             ENDIF
             IF nLast != nFirst
                ::lGrasp := .F.
-               CursorHand()
+               hmg_CursorHand()
                ::lColDrag := ::lCaptured := ::lMouseDown := .F.
             ENDIF
          ENDIF
@@ -10934,7 +10934,7 @@ METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
                IF AScan(::GetColSizes(), {| nColumn | nColPixPos += nColumn, nColPix >= nColPixPos - 2 .AND. nColPix <= nColPixPos + 2 }, ::nColPos) != 0
                   CursorWE()
                ELSE
-                  CursorHand()
+                  hmg_CursorHand()
                ENDIF
             ENDIF
          ENDIF
@@ -10944,7 +10944,7 @@ METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
          ::Super:MouseMove(nRowPix, nColPix, nKeyFlags)
       ELSE
          IF ::oCursor != NIL
-            SetResCursor(::oCursor:hCursor)
+            hmg_SetResCursor(::oCursor:hCursor)
          ELSE
             CursorArrow()
          ENDIF
@@ -14929,7 +14929,7 @@ METHOD SortArray(nCol, lDescend) CLASS TSBrowse
    ENDIF
 
    ::nAt := AScan(::aArray, {| e | lAEqual(e, aLine) })
-   CursorHand()
+   hmg_CursorHand()
 
 RETURN Self
 
