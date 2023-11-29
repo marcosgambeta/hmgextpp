@@ -20,7 +20,7 @@ METHOD New(cResName, cPredef) CLASS TCursor
       cPredef := Upper(cPredef)
       IF (nAt := AScan({"ARROW", "IBEAM", "WAIT", "CROSS", "UPARROW", "SIZENWSE", "SIZENESW", "SIZEWE", "SIZENS"}, cPredef)) != 0
          aTypes = { IDC_ARROW, IDC_IBEAM, IDC_WAIT, IDC_CROSS, IDC_UPARROW, IDC_SIZENWSE, IDC_SIZENESW, IDC_SIZEWE, IDC_SIZENS }
-         ::hCursor = LoadCursor(NIL, aTypes[nAt])
+         ::hCursor = hmg_LoadCursor(NIL, aTypes[nAt])
          ::lPredef = .T.
       ELSE
          SWITCH cPredef
@@ -33,7 +33,7 @@ METHOD New(cResName, cPredef) CLASS TCursor
          ENDSWITCH
       ENDIF
    ELSE
-      ::hCursor = LoadCursor(GetInstance(), cResName)
+      ::hCursor = hmg_LoadCursor(GetInstance(), cResName)
       ::lPredef = .F.
    ENDIF
 

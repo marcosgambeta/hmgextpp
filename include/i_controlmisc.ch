@@ -107,55 +107,55 @@ SetWindowCursor( <hWnd>, IDC_ARROW )
 
 #xtranslate CursorArrow() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_ARROW ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_ARROW ) )
 
 #xtranslate CursorHelp() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_HELP ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_HELP ) )
 
 #xtranslate CursorWait() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_WAIT ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_WAIT ) )
 
 #xtranslate CursorCross() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_CROSS ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_CROSS ) )
 
 #xtranslate CursorIBeam() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_IBEAM ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_IBEAM ) )
 
 #xtranslate CursorAppStarting() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_APPSTARTING ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_APPSTARTING ) )
 
 #xtranslate CursorNo() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_NO ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_NO ) )
 
 #xtranslate CursorSizeAll() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_SIZEALL ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_SIZEALL ) )
 
 #xtranslate CursorSizenEsW() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_SIZENESW ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENESW ) )
 
 #xtranslate CursorSizenWsE() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_SIZENWSE ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENWSE ) )
 
 #xtranslate CursorSizeNS() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_SIZENS ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENS ) )
 
 #xtranslate CursorSizeWE() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_SIZEWE ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_SIZEWE ) )
 
 #xtranslate CursorUpArrow() ;
 => ;
-SetResCursor( LoadCursor( NIL, IDC_UPARROW ) )
+SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
 
 // Alert icons
 #define ICON_EXCLAMATION      1  // default value

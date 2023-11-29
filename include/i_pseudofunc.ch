@@ -215,7 +215,7 @@
 #xtranslate _GetNotifyIconTooltip(<FormName>) => _HMG_aFormNotifyIconTooltip\[GetFormIndex(<FormName>)\]
 #xtranslate _GetRadioGroupReadOnly(<ControlName>, <FormName>) => GetControlPageMap(<ControlName>, <FormName>)
 #xtranslate _GetAddress(<ControlName>, <FormName>) => _GetValue(<ControlName>, <FormName>)
-#xtranslate RC_CURSOR(<cCursor>) => SetResCursor(LoadCursor(GetInstance(), <cCursor>))
+#xtranslate RC_CURSOR(<cCursor>) => SetResCursor(hmg_LoadCursor(GetInstance(), <cCursor>))
 #xtranslate GetCursorRow() => GetCursorPos()\[1\]
 #xtranslate GetCursorCol() => GetCursorPos()\[2\]
 #xtranslate LB_String2Array(<cData>[, <Sep>]) => hb_ATokens(<cData>, iif(hb_IsString(<Sep>), <Sep>, Chr(9)))
