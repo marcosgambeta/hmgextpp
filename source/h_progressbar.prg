@@ -125,7 +125,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

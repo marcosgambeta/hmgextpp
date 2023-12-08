@@ -125,7 +125,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)
@@ -319,7 +319,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

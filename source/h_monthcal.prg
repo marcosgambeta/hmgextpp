@@ -131,7 +131,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls(1)
+         hmg_InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogMonthCalendar(x, y, z)}
@@ -140,7 +140,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         aControlHandle[1] := GetDialogItemHandle(ParentFormHandle, nId)
+         aControlHandle[1] := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          SetWindowStyle(aControlHandle[1], style, .T.)
 

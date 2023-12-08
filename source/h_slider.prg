@@ -145,7 +145,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
          AAdd(_HMG_aDialogItems, {nId, k, "msctls_trackbar32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

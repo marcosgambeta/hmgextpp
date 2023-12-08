@@ -170,7 +170,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
          SetWindowStyle(ControlHandle, style, .T.)
 
          x := GetWindowCol(Controlhandle)

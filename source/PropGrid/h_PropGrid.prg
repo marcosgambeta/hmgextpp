@@ -2927,11 +2927,11 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
    LOCAL hListBox
 
    IF DLG_ID != NIL
-      hListBox := Getdialogitemhandle(DLG_HWND, 102)
+      hListBox := hmg_Getdialogitemhandle(DLG_HWND, 102)
       SWITCH DLG_ID
       CASE 101
          IF DLG_NOT == 1024
-            cValue := GetEditText(DLG_HWND, 101)
+            cValue := hmg_GetEditText(DLG_HWND, 101)
             IF !Empty(cValue)
                EnableDialogItem(DLG_HWND, 110)
             ELSE
@@ -2941,9 +2941,9 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
          EXIT
       CASE 110
          IF DLG_NOT == 0
-            cValue := GetEditText(DLG_HWND, 101)
+            cValue := hmg_GetEditText(DLG_HWND, 101)
             EnableDialogItem(DLG_HWND, 105)
-            SetDialogItemText(DLG_HWND, 101, "")
+            hmg_SetDialogItemText(DLG_HWND, 101, "")
             AAdd(aItem, cValue)
             ListboxAddString(hListBox, cValue)
             DisableDialogItem(DLG_HWND, 110)
@@ -2993,7 +2993,7 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
          EXIT
       CASE 105
          IF DLG_NOT == 0
-            ret := GetEditText(DLG_HWND, 101)
+            ret := hmg_GetEditText(DLG_HWND, 101)
             lOk := .T.
             _ReleaseDialog()
          ENDIF
@@ -3003,7 +3003,7 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
             ListBoxReset(hListBox)
             aItem := AClone(aItemOld)
             SetInitItem(aItem, 1)
-            SetDialogItemText(DLG_HWND, 101, "")
+            hmg_SetDialogItemText(DLG_HWND, 101, "")
          ENDIF
          EXIT
       CASE 107
@@ -3025,7 +3025,7 @@ STATIC FUNCTION SetInitItem(aItem, met)
    IF met == 0
       DisableDialogItem(DLG_HWND, 110)
    ENDIF
-   hListBox := Getdialogitemhandle(DLG_HWND, 102)
+   hListBox := hmg_Getdialogitemhandle(DLG_HWND, 102)
    FOR i = 1 TO Len(aItem)
       ListboxAddString(hListBox, aItem[i])
    NEXT i

@@ -160,7 +160,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

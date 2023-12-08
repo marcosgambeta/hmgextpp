@@ -153,7 +153,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
 
          x := GetWindowCol(Controlhandle)

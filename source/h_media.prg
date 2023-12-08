@@ -260,7 +260,7 @@ FUNCTION _DefineAnimateBox(ControlName, ParentFormName, x, y, w, h, autoplay, ce
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
          SetWindowStyle(ControlHandle, Style, .T.)
 
          x := GetWindowCol(Controlhandle)

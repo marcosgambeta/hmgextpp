@@ -198,7 +198,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       ELSE
 
-         aControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         aControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
          SetWindowStyle(aControlHandle, Style, .T.)
 
          x := GetWindowCol(aControlHandle)

@@ -150,14 +150,14 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls(1)
+         hmg_InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogDatePicker(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)
@@ -381,14 +381,14 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls(1)
+         hmg_InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogDatePicker(x, y, z )}
          AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

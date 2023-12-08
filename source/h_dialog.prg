@@ -128,7 +128,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
          IF hb_IsBlock(DialogProcedure)
             _HMG_ModalDialogProcedure := DialogProcedure
          ENDIF
-         _HMG_ModalDialogReturn := InitModalDialog(ParentHandle,  Id_resource)
+         _HMG_ModalDialogReturn := hmg_InitModalDialog(ParentHandle,  Id_resource)
          _HMG_InitDialogProcedure := ""
          _HMG_ModalDialogProcedure := ""
          RETURN NIL
@@ -139,7 +139,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
          IF hb_IsBlock(DialogProcedure)
             _HMG_DialogProcedure := DialogProcedure
          ENDIF
-         Formhandle := InitDialog(ParentHandle,  Id_resource)
+         Formhandle := hmg_InitDialog(ParentHandle,  Id_resource)
          IF FormHandle <= 0
             MsgMiniGuiError("Error by create Dialog from resource.")
          ENDIF
@@ -296,7 +296,7 @@ FUNCTION _EndDialog()
 
    IF  _HMG_DialogInMemory .AND. Len(_HMG_aDialogTemplate) > 0
       IF _HMG_aDialogTemplate[3]  // Modal
-         _HMG_ModalDialogReturn := CreateDlgTemplate(_HMG_aDialogTemplate[2], _HMG_aDialogTemplate, _HMG_aDialogItems)
+         _HMG_ModalDialogReturn := hmg_CreateDlgTemplate(_HMG_aDialogTemplate[2], _HMG_aDialogTemplate, _HMG_aDialogItems)
          _HMG_InitDialogProcedure := ""
          _HMG_ModalDialogProcedure := ""
          _HMG_aDialogTemplate := {}
@@ -305,7 +305,7 @@ FUNCTION _EndDialog()
          //                                              10             12
          //   {"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size,bold,italic,underline,strikeout}  --->_HMG_aDialogItems
 
-         Formhandle := CreateDlgTemplate(_HMG_aDialogTemplate[2], _HMG_aDialogTemplate,  _HMG_aDialogItems)
+         Formhandle := hmg_CreateDlgTemplate(_HMG_aDialogTemplate[2], _HMG_aDialogTemplate,  _HMG_aDialogItems)
          IF _HMG_aDialogTemplate[1] > 0
             _HMG_aFormHandles[_HMG_aDialogTemplate[1]] := FormHandle
          ENDIF
@@ -316,7 +316,7 @@ FUNCTION _EndDialog()
             k      := _HMG_aDialogItems[n, 2]
             blInit := _HMG_aDialogItems[n, 19]
 
-            ControlHandle := GetDialogItemHandle(ParentForm, nId)
+            ControlHandle := hmg_GetDialogItemHandle(ParentForm, nId)
             FontHandle    := GetFontHandle(_HMG_aDialogItems[n, 13])
 
             IF !empty(FontHandle)
@@ -419,7 +419,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
                ret := .F.
             ENDIF
          ELSE
-            IF (ControlHandle := GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
+            IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
                ControlHandle := lParam
             ENDIF
             Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -427,7 +427,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
          ENDIF
       ENDIF
       IF !ret
-         IF (ControlHandle := GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
+         IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
             ControlHandle := lParam
          ENDIF
          Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -468,16 +468,16 @@ FUNCTION ModalDialogProc(hwndDlg, nMsg, wParam, lParam)
       ret := .T.
       EXIT
    CASE WM_CLOSE
-      EndDialog(hwndDlg, 0)
+      hmg_EndDialog(hwndDlg, 0)
       ret := .T.
       EXIT
    CASE WM_COMMAND
       DO CASE
       CASE LOWORD(wParam) == IDOK .AND. HIWORD(wParam) == BN_CLICKED
-         EndDialog(hwndDlg, IDOK)
+         hmg_EndDialog(hwndDlg, IDOK)
          ret := .T.
       CASE LOWORD(wParam) == IDCANCEL .AND. HIWORD(wParam) == BN_CLICKED
-         EndDialog(hwndDlg, IDCANCEL)
+         hmg_EndDialog(hwndDlg, IDCANCEL)
          ret := .T.
       CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
          ret := .T.
@@ -503,7 +503,7 @@ DisableDialogItem(hDlg, Id) --> NIL
 */
 FUNCTION DisableDialogItem(hDlg, Id)
 
-   LOCAL ControlHandle := GetDialogITemHandle(hDlg, Id)
+   LOCAL ControlHandle := hmg_GetDialogITemHandle(hDlg, Id)
 
    IF ControlHandle > 0
       DisableWindow(ControlHandle)
@@ -516,7 +516,7 @@ EnableDialogItem(hDlg, Id) --> NIL
 */
 FUNCTION EnableDialogItem(hDlg, Id)
 
-   LOCAL ControlHandle := GetDialogITemHandle(hDlg, Id)
+   LOCAL ControlHandle := hmg_GetDialogITemHandle(hDlg, Id)
 
    IF ControlHandle > 0
       EnableWindow(ControlHandle)
@@ -615,7 +615,7 @@ FUNCTION _ReleaseDialog(hwndDlg)
 
    IF hwndDlg != 0
       IF _HMG_ActiveDlgProcModal
-         EndDialog(hwndDlg, 0)
+         hmg_EndDialog(hwndDlg, 0)
       ELSE
          EraseDialog(hwndDlg)
       ENDIF

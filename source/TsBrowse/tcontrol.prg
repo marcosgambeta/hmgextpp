@@ -178,7 +178,7 @@ METHOD Init(hDlg) CLASS TControl
 
    DEFAULT ::lActive := .T., ::lCaptured := .F.
 
-   IF (::hWnd := GetDialogItemHandle(hDlg, ::nId)) != 0    //JP
+   IF (::hWnd := hmg_GetDialogItemHandle(hDlg, ::nId)) != 0    //JP
       oRect     := ::GetRect()
 
       ::nTop    := iif(::nTop    == NIL, oRect:nTop,   ::nTop    )

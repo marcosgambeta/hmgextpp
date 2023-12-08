@@ -97,67 +97,95 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 }
 
 /*
-INITMODALDIALOG(HWND, np2) --> LRESULT
+HMG_INITMODALDIALOG(HWND, np2) --> LRESULT
 */
-HB_FUNC( INITMODALDIALOG )
+HB_FUNC( HMG_INITMODALDIALOG )
 {
    HB_RETNL(static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMODALDIALOG, HMG_INITMODALDIALOG )
+#endif
+
 /*
-INITDIALOG(HWND, np2) --> HANDLE
+HMG_INITDIALOG(HWND, np2) --> HANDLE
 */
-HB_FUNC( INITDIALOG )
+HB_FUNC( HMG_INITDIALOG )
 {
    hmg_ret_HWND(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_DlgProc)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITDIALOG, HMG_INITDIALOG )
+#endif
+
 /*
-GETDIALOGITEMHANDLE(HWND, nID) --> HANDLE
+HMG_GETDIALOGITEMHANDLE(HWND, nID) --> HANDLE
 */
-HB_FUNC( GETDIALOGITEMHANDLE )
+HB_FUNC( HMG_GETDIALOGITEMHANDLE )
 {
    hmg_ret_HWND(GetDlgItem(hmg_par_HWND(1), hmg_par_int(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETDIALOGITEMHANDLE, HMG_GETDIALOGITEMHANDLE )
+#endif
+
 /*
-CHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
+HMG_CHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
 */
-HB_FUNC( CHECKDLGBUTTON )
+HB_FUNC( HMG_CHECKDLGBUTTON )
 {
    CheckDlgButton(hmg_par_HWND(2), hmg_par_int(1), BST_CHECKED);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CHECKDLGBUTTON, HMG_CHECKDLGBUTTON )
+#endif
+
 /*
-UNCHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
+HMG_UNCHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
 */
-HB_FUNC( UNCHECKDLGBUTTON )
+HB_FUNC( HMG_UNCHECKDLGBUTTON )
 {
    CheckDlgButton(hmg_par_HWND(2), hmg_par_int(1), BST_UNCHECKED);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( UNCHECKDLGBUTTON, HMG_UNCHECKDLGBUTTON )
+#endif
+
 /*
-SETDIALOGITEMTEXT(HWND, nId, cText) --> .T.|.F.
+HMG_SETDIALOGITEMTEXT(HWND, nId, cText) --> .T.|.F.
 */
-HB_FUNC( SETDIALOGITEMTEXT )
+HB_FUNC( HMG_SETDIALOGITEMTEXT )
 {
    void * str;
    hb_retl(SetDlgItemText(hmg_par_HWND(1), hmg_par_int(2), HB_PARSTR(3, &str, nullptr)));
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETDIALOGITEMTEXT, HMG_SETDIALOGITEMTEXT )
+#endif
+
 /*
-ENDDIALOG(HWND, nResult) --> NIL
+HMG_ENDDIALOG(HWND, nResult) --> NIL
 */
-HB_FUNC( ENDDIALOG )
+HB_FUNC( HMG_ENDDIALOG )
 {
    EndDialog(hmg_par_HWND(1), hb_parni(2));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ENDDIALOG, HMG_ENDDIALOG )
+#endif
+
 /*
-ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
+HMG_ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
 */
-HB_FUNC( ADDDIALOGPAGES )
+HB_FUNC( HMG_ADDDIALOGPAGES )
 {
    auto hwnd = hmg_par_HWND(1);
    auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
@@ -176,26 +204,38 @@ HB_FUNC( ADDDIALOGPAGES )
    TabCtrl_SetCurFocus(hwnd, hb_parni(3) - 1);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ADDDIALOGPAGES, HMG_ADDDIALOGPAGES )
+#endif
+
 /*
-GETDLGCTRLID(HWND) --> numeric
+HMG_GETDLGCTRLID(HWND) --> numeric
 */
-HB_FUNC( GETDLGCTRLID )
+HB_FUNC( HMG_GETDLGCTRLID )
 {
    hb_retni(GetDlgCtrlID(hmg_par_HWND(1)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETDLGCTRLID, HMG_GETDLGCTRLID )
+#endif
+
 /*
-SETDLGITEMINT(HWND, nId, nValue, lSigned) --> NIL // TODO: return .T. or .F.
+HMG_SETDLGITEMINT(HWND, nId, nValue, lSigned) --> NIL // TODO: return .T. or .F.
 */
-HB_FUNC( SETDLGITEMINT )
+HB_FUNC( HMG_SETDLGITEMINT )
 {
    SetDlgItemInt(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? false : true);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETDLGITEMINT, HMG_SETDLGITEMINT )
+#endif
+
 /*
-GETDLGITEMTEXT(HWND, nId, np3) --> cText
+HMG_GETDLGITEMTEXT(HWND, nId, np3) --> cText
 */
-HB_FUNC( GETDLGITEMTEXT )
+HB_FUNC( HMG_GETDLGITEMTEXT )
 {
    auto strlen = hb_parni(3);
    TCHAR * str = new TCHAR[strlen + 1];
@@ -204,10 +244,14 @@ HB_FUNC( GETDLGITEMTEXT )
    delete[] str;
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETDLGITEMTEXT, HMG_GETDLGITEMTEXT )
+#endif
+
 /*
-GETEDITTEXT(HWND, nId) --> cText
+HMG_GETEDITTEXT(HWND, nId) --> cText
 */
-HB_FUNC( GETEDITTEXT )
+HB_FUNC( HMG_GETEDITTEXT )
 {
    auto hDlg = hmg_par_HWND(1);
    auto id = hmg_par_int(2);
@@ -218,21 +262,33 @@ HB_FUNC( GETEDITTEXT )
    delete[] str;
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETEDITTEXT, HMG_GETEDITTEXT )
+#endif
+
 /*
-CHECKRADIOBUTTON(HWND, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL // TODO: return .T. or .F.
+HMG_CHECKRADIOBUTTON(HWND, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL // TODO: return .T. or .F.
 */
-HB_FUNC( CHECKRADIOBUTTON )
+HB_FUNC( HMG_CHECKRADIOBUTTON )
 {
    CheckRadioButton(hmg_par_HWND(1), hmg_par_int(2), hmg_par_int(3), hmg_par_int(4));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CHECKRADIOBUTTON, HMG_CHECKRADIOBUTTON )
+#endif
+
 /*
-ISDLGBUTTONCHECKED(HWND, nIDButton) --> .T.|.F.
+HMG_ISDLGBUTTONCHECKED(HWND, nIDButton) --> .T.|.F.
 */
-HB_FUNC( ISDLGBUTTONCHECKED )
+HB_FUNC( HMG_ISDLGBUTTONCHECKED )
 {
    hb_retl(IsDlgButtonChecked(hmg_par_HWND(1), hmg_par_int(2)) == BST_CHECKED ? true : false);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ISDLGBUTTONCHECKED, HMG_ISDLGBUTTONCHECKED )
+#endif
 
 static LPWORD lpwAlign(LPWORD lpIn)
 {
@@ -384,9 +440,9 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 }
 
 /*
-CREATEDLGTEMPLATE(HWND, ap2, ap3) --> LRESULT|HANDLE
+HMG_CREATEDLGTEMPLATE(HWND, ap2, ap3) --> LRESULT|HANDLE
 */
-HB_FUNC( CREATEDLGTEMPLATE )
+HB_FUNC( HMG_CREATEDLGTEMPLATE )
 {
    auto dArray = hb_param(2, Harbour::Item::ARRAY);
    auto cArray = hb_param(3, Harbour::Item::ARRAY);
@@ -405,10 +461,14 @@ HB_FUNC( CREATEDLGTEMPLATE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CREATEDLGTEMPLATE, HMG_CREATEDLGTEMPLATE )
+#endif
+
 /*
-INITEXCOMMONCONTROLS(np) --> NIL
+HMG_INITEXCOMMONCONTROLS(np) --> NIL
 */
-HB_FUNC( INITEXCOMMONCONTROLS )
+HB_FUNC( HMG_INITEXCOMMONCONTROLS )
 {
    INITCOMMONCONTROLSEX i{};
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -422,3 +482,7 @@ HB_FUNC( INITEXCOMMONCONTROLS )
 
    InitCommonControlsEx(&i);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITEXCOMMONCONTROLS, HMG_INITEXCOMMONCONTROLS )
+#endif

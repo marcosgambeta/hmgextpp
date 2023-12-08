@@ -740,7 +740,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
          nId           := aDialogItems[n, 1]
          k             := aDialogItems[n, 2]
          blInit        := aDialogItems[n, 19]
-         ControlHandle := GetDialogItemHandle(_HMG_ActiveDialogHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(_HMG_ActiveDialogHandle, nId)
          FontHandle    := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
@@ -904,7 +904,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
+            ControlHandle := hmg_GetDialogITemHandle(hwndDlg, LOWORD(wParam))
             Events(hwndDlg, nMsg, wParam, ControlHandle)
             lRet := .T.
          ENDIF
@@ -917,13 +917,13 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
+            ControlHandle := hmg_GetDialogITemHandle(hwndDlg, LOWORD(wParam))
             Events(hwndDlg, nMsg, wParam, ControlHandle)
             lRet := .T.
          ENDIF
       ENDIF
       IF !lRet
-         ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
+         ControlHandle := hmg_GetDialogITemHandle(hwndDlg, LOWORD(wParam))
          Events(hwndDlg, nMsg, wParam, ControlHandle)
          lRet := .T.
       ENDIF
@@ -973,7 +973,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
       ENDSWITCH
       EXIT
    OTHERWISE
-      ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
+      ControlHandle := hmg_GetDialogITemHandle(hwndDlg, LOWORD(wParam))
       Events(hwndDlg, nMsg, wParam, ControlHandle)
       lRet := .T.                                                         // end
    ENDSWITCH
@@ -1021,7 +1021,7 @@ FUNCTION _ReleasePropertySheet(hwndPropSheet, hWndDlg)
       ErasePropSheet(hwndPropSheet)
       DestroyWindow(hwndPropSheet)
    ELSE
-      EndDialog(hwndDlg, 0)
+      hmg_EndDialog(hwndDlg, 0)
    ENDIF
 
 RETURN NIL

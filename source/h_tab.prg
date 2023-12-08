@@ -229,7 +229,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
          SetWindowStyle(ControlHandle, Style, .T.)
 
@@ -353,7 +353,7 @@ FUNCTION InitDialogTab(ParentName, ControlHandle, k)
 
       _HMG_aControlPageMap[k] := _HMG_ActiveTabFullPageMap
 
-      AddDialogPages(ControlHandle, aCaptions, _HMG_aControlValue[k])
+      hmg_AddDialogPages(ControlHandle, aCaptions, _HMG_aControlValue[k])
 
    ENDIF
 
