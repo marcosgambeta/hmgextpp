@@ -172,7 +172,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitDatePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, updown, rightalign, invisible, notabstop)
+      ControlHandle := hmg_InitDatePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, updown, rightalign, invisible, notabstop)
 
    ENDIF
 
@@ -193,9 +193,9 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF Empty(Value)
-         SetDatePickNull(ControlHandle)
+         hmg_SetDatePickNull(ControlHandle)
       ELSE
-         SetDatePick(ControlHandle, Year(value), Month(value), Day(value))
+         hmg_SetDatePick(ControlHandle, Year(value), Month(value), Day(value))
       ENDIF
 
       IF tooltip != NIL
@@ -265,7 +265,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF hb_IsString(cDateFormat)
 
-      IF SetDatePickerDateFormat(ControlHandle, cDateFormat)
+      IF hmg_SetDatePickerDateFormat(ControlHandle, cDateFormat)
          _HMG_aControlSpacing[k] := cDateFormat
       ELSE
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": Wrong format string.")
@@ -403,7 +403,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitTimePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, invisible, notabstop)
+      ControlHandle := hmg_InitTimePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, invisible, notabstop)
 
    ENDIF
 
@@ -423,12 +423,12 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF Empty(Value)
          IF shownone
-            SetDatePickNull(ControlHandle)
+            hmg_SetDatePickNull(ControlHandle)
          ELSE
-            SetTimePick(ControlHandle, Val(Left(Time(), 2)), Val(SubStr(Time(), 4, 2)), Val(SubStr(Time(), 7, 2)))
+            hmg_SetTimePick(ControlHandle, Val(Left(Time(), 2)), Val(SubStr(Time(), 4, 2)), Val(SubStr(Time(), 7, 2)))
          ENDIF
       ELSE
-         SetTimePick(ControlHandle, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
+         hmg_SetTimePick(ControlHandle, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
 
       IF tooltip != NIL
@@ -492,7 +492,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
-   IF SetDatePickerDateFormat(ControlHandle, cTimeFormat)
+   IF hmg_SetDatePickerDateFormat(ControlHandle, cTimeFormat)
       _HMG_aControlSpacing[k] := cTimeFormat
       IF AScan(_HMG_aControlFontAttributes[k], .T.) > 0 .OR. ;
             fontname != _HMG_DefaultFontName .OR. fontsize != _HMG_DefaultFontSize
@@ -527,7 +527,7 @@ FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
    hb_default(@dRangeMin, BLANK_DATE)
    hb_default(@dRangeMax, BLANK_DATE)
 
-   IF (lOK := SetDatePickRange(ControlHandle, dRangeMin, dRangeMax))
+   IF (lOK := hmg_SetDatePickRange(ControlHandle, dRangeMin, dRangeMax))
       _HMG_aControlRangeMin[Index] := dRangeMin
       _HMG_aControlRangeMax[Index] := dRangeMax
    ENDIF

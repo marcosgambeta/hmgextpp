@@ -233,14 +233,14 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
 
    CASE CONTROL_TYPE_DATEPICK
       IF Empty(Ts := _SetGetDatePickerDateFormat(_HMG_aControlNames[ix], GetParentFormName(ix))) .OR. !("HH:" $ Upper(Ts)) .OR. !("mm:" $ Lower(Ts))
-         retval := GetDatePickDate(c)
+         retval := hmg_GetDatePickDate(c)
       ELSE
-         retval := dtp_GetDateTime(c)
+         retval := hmg_dtp_GetDateTime(c)
       ENDIF
       EXIT
 
    CASE CONTROL_TYPE_TIMEPICK
-      retval := iif(GetDatePickHour(c) >= 0, StrZero(GetDatePickHour(c), 2) + ":" + StrZero(GetDatePickMinute(c), 2) + ":" + StrZero(GetDatePickSecond(c), 2), "")
+      retval := iif(hmg_GetDatePickHour(c) >= 0, StrZero(hmg_GetDatePickHour(c), 2) + ":" + StrZero(hmg_GetDatePickMinute(c), 2) + ":" + StrZero(hmg_GetDatePickSecond(c), 2), "")
       EXIT
 
    CASE CONTROL_TYPE_SLIDER
@@ -582,20 +582,20 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_DATEPICK
       IF Empty(Value)
-         SetDatePickNull(c)
+         hmg_SetDatePickNull(c)
       ELSE
          IF HB_ISDATETIME(value) .OR. hb_IsArray(value)
             IF hb_IsArray(value)
                IF Len(value) >= 7
-                  dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6], value[7])
+                  hmg_dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6], value[7])
                ELSE
-                  dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6])
+                  hmg_dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6])
                ENDIF
             ELSE
-               dtp_SetDateTime(c, value)
+               hmg_dtp_SetDateTime(c, value)
             ENDIF
          ELSE
-            SetDatePick(c, Year(value), Month(value), Day(value))
+            hmg_SetDatePick(c, Year(value), Month(value), Day(value))
          ENDIF
       ENDIF
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
@@ -603,9 +603,9 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_TIMEPICK
       IF Empty(Value)
-         SetDatePickNull(c)
+         hmg_SetDatePickNull(c)
       ELSEIF hb_IsString(Value)
-         SetTimePick(c, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
+         hmg_SetTimePick(c, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       EXIT
@@ -3002,7 +3002,7 @@ STATIC FUNCTION _SetGetDatePickerDateFormat(ControlName, ParentForm, cFormat)
 
          IF hb_IsString(cFormat)
 
-            IF SetDatePickerDateFormat(_HMG_aControlHandles[ix], cFormat)
+            IF hmg_SetDatePickerDateFormat(_HMG_aControlHandles[ix], cFormat)
                _HMG_aControlSpacing[ix] := cFormat
             ENDIF
 
@@ -5164,7 +5164,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_CHECKLABEL
             RetVal := GetChkLabel(GetControlHandle(Arg2, Arg1))
          ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_DATEPICK
-            RetVal := dtp_IsChecked(GetControlHandle(Arg2, Arg1))
+            RetVal := hmg_dtp_IsChecked(GetControlHandle(Arg2, Arg1))
          ELSE
             RetVal := _IsMenuItemChecked(Arg2, Arg1)
          ENDIF
