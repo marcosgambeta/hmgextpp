@@ -72,7 +72,7 @@ FUNCTION GetColor(aInitColor, aCustomColors, nFlags)
       ENDIF
    ENDIF
 
-   IF (nColor := ChooseColor(NIL, nInitColor, aCustomColors, nFlags)) != -1
+   IF (nColor := hmg_ChooseColor(NIL, nInitColor, aCustomColors, nFlags)) != -1
       aRetVal := nRGB2Arr(nColor)
    ENDIF
 
@@ -81,14 +81,14 @@ RETURN aRetVal
 //---------------------------------------------------------------------------//
 FUNCTION GetFolder(cTitle, cInitPath, nFlags, lNewFolderButton, nFolderType) // JK HMG 1.0 Experimental Build 8
 //---------------------------------------------------------------------------//
-RETURN C_BrowseForFolder(NIL, cTitle, ;
+RETURN hmg_C_BrowseForFolder(NIL, cTitle, ;
    hb_defaultValue(nFlags, BIF_USENEWUI + BIF_VALIDATE + ;
    iif(hb_defaultValue(lNewFolderButton, .T.), 0, BIF_NONEWFOLDERBUTTON)), nFolderType, cInitPath)
 
 //---------------------------------------------------------------------------//
 FUNCTION BrowseForFolder(nFolderType, nFlags, cTitle, cInitPath) // Contributed By Ryszard Rylko
 //---------------------------------------------------------------------------//
-RETURN C_BrowseForFolder(NIL, cTitle, ;
+RETURN hmg_C_BrowseForFolder(NIL, cTitle, ;
    hb_defaultValue(nFlags, hb_BitOr(BIF_NEWDIALOGSTYLE, BIF_EDITBOX, BIF_VALIDATE)), nFolderType, cInitPath)
 
 //---------------------------------------------------------------------------//
@@ -107,7 +107,7 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
       cFilter += Chr(0)
    ENDIF
 
-   files := C_GetFile(cFilter, title, cIniFolder, multiselect, lNoChangeCurDir, hb_defaultValue(nFilterIndex, 1))
+   files := hmg_C_GetFile(cFilter, title, cIniFolder, multiselect, lNoChangeCurDir, hb_defaultValue(nFilterIndex, 1))
 
    IF multiselect
 
@@ -157,7 +157,7 @@ FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
       cFilter += Chr(0)
    ENDIF
 
-RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;
+RETURN hmg_C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;
    @nFilterIndex, hb_defaultValue(lPromptOverwrite, .F.))
 
 //---------------------------------------------------------------------------//
@@ -171,7 +171,7 @@ FUNCTION GetFont(cInitFontName, nInitFontSize, lBold, lItalic, anInitColor, lUnd
       rgbcolor := RGB(anInitColor[1] , anInitColor[2] , anInitColor[3])
    ENDIF
 
-   RetArray := ChooseFont(hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;
+   RetArray := hmg_ChooseFont(hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;
       hb_defaultValue(lBold, .F.) , hb_defaultValue(lItalic, .F.) , rgbcolor, ;
       hb_defaultValue(lUnderLine, .F.) , hb_defaultValue(lStrikeOut, .F.) , hb_defaultValue(nCharSet, 0))
 

@@ -616,8 +616,8 @@ CLASS TDlu2Pix
       ::nScaleHeight := hb_defaultValue(nPrcH, 100), ::nSize := hb_defaultValue(nSize, ::nSize), ;
       ::UnitsToPixels(), Self) CONSTRUCTOR
   _METHOD UnitsToPixels(nPrcW, nPrcH)
-   METHOD DLU2PixH(nHeight, nPrc) INLINE Round((UnitsToPixelsY(nHeight) * 13 * nPrc) / 1500, 0)
-   METHOD DLU2PixW(nWidth, nPrc) INLINE Round((UnitsToPixelsX(nWidth) * 13 * nPrc) / 1500, 0)
+   METHOD DLU2PixH(nHeight, nPrc) INLINE Round((hmg_UnitsToPixelsY(nHeight) * 13 * nPrc) / 1500, 0)
+   METHOD DLU2PixW(nWidth, nPrc) INLINE Round((hmg_UnitsToPixelsX(nWidth) * 13 * nPrc) / 1500, 0)
   _METHOD Kfc(nKfcW, nKfcH)
   _METHOD ToVal(nKfc, nVal)
   _METHOD GetGaps(aGaps, oWnd)
