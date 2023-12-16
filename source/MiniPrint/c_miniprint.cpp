@@ -1378,7 +1378,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    auto hWnd = hmg_par_HWND(2);
    auto hDCPrinter = hmg_par_HDC(3);
    PAINTSTRUCT ps;
-   HDC         hDC = BeginPaint(hWnd, &ps);
+   auto hDC = BeginPaint(hWnd, &ps);
 
    void * str;
    HENHMETAFILE hemf = GetEnhMetaFile(HB_PARSTR(1, &str, nullptr));
