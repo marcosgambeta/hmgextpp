@@ -336,7 +336,7 @@ FUNCTION EraseWindow(window)
       IF !_HMG_aFormDeleted[i]
          IF hb_IsArray(_HMG_aFormGraphTasks[i])
             ASize(_HMG_aFormGraphTasks[i], 0)
-            RedrawWindow(_HMG_aFormHandles[i])
+            hmg_RedrawWindow(_HMG_aFormHandles[i])
          ENDIF
       ENDIF
    ENDIF

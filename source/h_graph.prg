@@ -192,7 +192,7 @@ PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
          FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize + 3;
          BOLD CENTERALIGN VCENTERALIGN
       IF lPrint .OR. lRedraw
-         RedrawWindow(GetControlHandle(cNameObj, parent))
+         hmg_RedrawWindow(GetControlHandle(cNameObj, parent))
       ENDIF
    ENDIF
 
@@ -266,7 +266,7 @@ PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
                BACKCOLOR iif(lPrint, WHITE, aClrBack);
                FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize - 1 RIGHTALIGN
             IF lPrint .OR. lRedraw
-               RedrawWindow(GetControlHandle(cNameObj, parent))
+               hmg_RedrawWindow(GetControlHandle(cNameObj, parent))
             ENDIF
          ENDIF
          IF nRange * ( - nI ) >= nXMin * ( -1 )
@@ -279,7 +279,7 @@ PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
                BACKCOLOR iif(lPrint, WHITE, aClrBack);
                FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize - 1 RIGHTALIGN
             IF lPrint .OR. lRedraw
-               RedrawWindow(GetControlHandle(cNameObj, parent))
+               hmg_RedrawWindow(GetControlHandle(cNameObj, parent))
             ENDIF
          ENDIF
       ENDIF
@@ -771,7 +771,7 @@ FUNCTION drawpiegraph(windowname, fromrow, fromcol, torow, tocol, series, aname,
         FONTCOLOR { 0, 0, 0 }
         BACKCOLOR iif(lPrint, WHITE, backcolor)
       END LABEL
-      RedrawWindow(GetControlHandle(cname, windowname))
+      hmg_RedrawWindow(GetControlHandle(cname, windowname))
       fromrow += 25 + _HMG_DefaultFontSize
    ENDIF
 

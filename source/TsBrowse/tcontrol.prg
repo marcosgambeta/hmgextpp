@@ -145,7 +145,7 @@ CLASS TControl
    METHOD Paint() VIRTUAL
    METHOD SuperKeyDown(nKey, nFlags, xObj)
    MESSAGE BeginPaint METHOD _BeginPaint()
-   METHOD EndPaint() INLINE ::nPaintCount--, EndPaint(::hWnd, ::cPS), ::cPS := NIL, ::hDC := NIL
+   METHOD EndPaint() INLINE ::nPaintCount--, hmg_EndPaint(::hWnd, ::cPS), ::cPS := NIL, ::hDC := NIL
    METHOD Register(nClsStyle)            //TWindow
    MESSAGE SetFocus METHOD __SetFocus()   //TWindow
    METHOD RButtonUp(nRow, nCol, nKeyFlags)    //TWindow
@@ -165,7 +165,7 @@ CLASS TControl
    METHOD ReSize(nSizeType, nWidth, nHeight)
    METHOD Command(nWParam, nLParam)
    METHOD Notify(nWParam, nLParam)
-   METHOD Refresh(lErase) INLINE InvalidateRect(::hWnd, IIf(lErase == NIL .OR. !lErase, 0, 1))
+   METHOD Refresh(lErase) INLINE hmg_InvalidateRect(::hWnd, IIf(lErase == NIL .OR. !lErase, 0, 1))
    METHOD nGetChrHeight() INLINE ::hDC := GetDC(::hWnd), ::nChrHeight := _GetTextHeight(::hWnd, ::hDC) // Temp
    METHOD GetText() INLINE GetWindowText(::hWnd)   //TWindow
    METHOD VScroll(nWParam, nLParam)                //TWindow
@@ -239,7 +239,7 @@ METHOD _BeginPaint() CLASS TControl
       ::nPaintCount++
    ENDIF
 
-   ::hDC = BeginPaint(::hWnd, @cPS)
+   ::hDC = hmg_BeginPaint(::hWnd, @cPS)
    ::cPS = cPS
 
 RETURN NIL

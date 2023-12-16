@@ -264,7 +264,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
          _SetControlWidth(ControlName, ParentFormName, hmg_GetTextWidth(NIL, Caption, FontHandle) + ;
             iif(bold .OR. italic, hmg_GetTextWidth(NIL, " ", FontHandle), 0) + 20)
          _SetControlHeight(ControlName, ParentFormName, FontSize + iif(FontSize < 14, 12, 16))
-         RedrawWindow(ControlHandle)
+         hmg_RedrawWindow(ControlHandle)
       ENDIF
    ENDIF
 

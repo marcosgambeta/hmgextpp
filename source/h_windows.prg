@@ -1127,7 +1127,7 @@ STATIC PROCEDURE _InputBoxAdjust(nTitleH, nBordW)
    _InputBox._Cancel.Row     := nHeight - 48 - nTitleH
    _InputBox._Cancel.Col     := nWidth  - 120 - nBordW
 
-   InvalidateRect(GetFormHandle("_InputBox"), 0)  // GF 11/05/2009
+   hmg_InvalidateRect(GetFormHandle("_InputBox"), 0)  // GF 11/05/2009
 
 RETURN
 
@@ -1467,7 +1467,7 @@ PROCEDURE _RefreshDataControls(i)
 
    IF (Len(_HMG_aFormGraphTasks[i]) > 0 .OR. ;
       hb_IsBlock(_HMG_aFormPaintProcedure[i])) .AND. _HMG_ProgrammaticChange
-      InvalidateRect(_HMG_aFormHandles[i], 0)  // GF 07/11/2012
+      hmg_InvalidateRect(_HMG_aFormHandles[i], 0)  // GF 07/11/2012
    ENDIF
 
    FOR EACH ControlIndex IN _HMG_aFormBrowseList[i]

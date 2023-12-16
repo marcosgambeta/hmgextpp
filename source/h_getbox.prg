@@ -546,7 +546,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
       ENDIF
 
-      InvalidateRect(hWnd, 0)
+      hmg_InvalidateRect(hWnd, 0)
       PostMessage(hWnd, WM_CARET, 0, 0)
       _HMG_aControlMiscData1[i][1] := 1
 

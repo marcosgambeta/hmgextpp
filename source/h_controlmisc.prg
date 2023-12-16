@@ -557,12 +557,12 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          IF hb_IsArray(Value) .AND. value[1] * value[2] == 0
             _HMG_aControlMiscData1[ix][1] := 0
             _HMG_aControlMiscData1[ix][17] := 0
-            RedrawWindow(c)
+            hmg_RedrawWindow(c)
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
          ELSEIF x .OR. !hb_IsArray(Value)
             ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
             ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
-            RedrawWindow(c)
+            hmg_RedrawWindow(c)
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
          ENDIF
       ENDIF
@@ -1237,7 +1237,7 @@ FUNCTION _SetFocus(ControlName, ParentForm, Index)
                   IF Empty(_HMG_aControlBrushHandle[x])
                      LOOP
                   ENDIF
-                  RedrawWindow(hControl)
+                  hmg_RedrawWindow(hControl)
                ENDIF
             ENDIF
          NEXT
@@ -1281,7 +1281,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
 
    IF T == CONTROL_TYPE_BUTTON .AND. _HMG_aControlEnabled[y]
       SendMessage(c, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       IF !Empty(_HMG_aControlInputMask[y])
          z := _DetermineKey(_HMG_aControlInputMask[y])
          _ReleaseHotKey(ParentForm, z[2], z[1])
@@ -1297,7 +1297,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _DestroyBtnPicture(c, y)
                hmg__SetBtnPicture(c, _HMG_aControlPicture[y][2])
@@ -1310,7 +1310,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _SetBtnPictureMask(c, y)
                _DestroyBtnPicture(c, y)
@@ -1326,7 +1326,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
             IF _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _SetBtnPictureMask(c, y)
                _DestroyBtnPicture(c, y)
@@ -1450,7 +1450,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _DestroyBtnPicture(c, y)
                _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y][1])
@@ -1463,7 +1463,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _DestroyBtnPictureMask(c, y)
                _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y])
@@ -1479,7 +1479,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             IF _HMG_IsThemed
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := hmg__SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                _DestroyBtnPictureMask(c, y)
                _HMG_aControlBrushHandle[y] := hmg__SetBtnPicture(c, _HMG_aControlPicture[y])
@@ -2249,8 +2249,8 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
                      ENDIF
 
                      _BrowseRefresh("", "", p)
-                     ReDrawWindow(_HMG_aControlIds[p])
-                     ReDrawWindow(_HMG_aControlMiscData1[p][1])
+                     hmg_ReDrawWindow(_HMG_aControlIds[p])
+                     hmg_ReDrawWindow(_HMG_aControlMiscData1[p][1])
 
                   ELSE
 
@@ -2416,8 +2416,8 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
             ENDIF
 
             _BrowseRefresh("", "", x)
-            ReDrawWindow(_HMG_aControlIds[x])
-            ReDrawWindow(_HMG_aControlMiscData1[x][1])
+            hmg_ReDrawWindow(_HMG_aControlIds[x])
+            hmg_ReDrawWindow(_HMG_aControlMiscData1[x][1])
          ELSE
             MoveWindow(c, col - sx, Row - sy, Width, Height, .T.)
          ENDIF
@@ -2452,8 +2452,8 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
             ENDIF
 
             _BrowseRefresh("", "", x)
-            ReDrawWindow(_HMG_aControlIds[x])
-            ReDrawWindow(_HMG_aControlMiscData1[x][1])
+            hmg_ReDrawWindow(_HMG_aControlIds[x])
+            hmg_ReDrawWindow(_HMG_aControlMiscData1[x][1])
 
          ELSE
 
@@ -2463,7 +2463,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
       ENDIF
 
-      ReDrawWindow(c)
+      hmg_ReDrawWindow(c)
 #endif
    CASE T == CONTROL_TYPE_RADIOGROUP
 
@@ -2843,7 +2843,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       ELSE
          h := _HMG_aControlHandles[i]
          _HMG_aControlHandles[i] := ReplaceToolButtonImage(_HMG_aControlContainerHandle[i], c, Filename, Empty(Filename), _HMG_aControlIds[i])
-         ReDrawWindow(_HMG_aControlContainerHandle[i])
+         hmg_ReDrawWindow(_HMG_aControlContainerHandle[i])
          _HMG_aControlPicture[i] := FileName
          IF !Empty(_HMG_aControlHandles[i])
             hmg_DeleteObject(h)
@@ -2884,7 +2884,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
          IF _HMG_aControlMiscData1[i] == 0  // bitmap
             IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
                _HMG_aControlBrushHandle[i] := hmg__SetMixedBtnPicture(c, cImage)
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                IF t == CONTROL_TYPE_OBUTTON
                   _HMG_aControlBrushHandle[i] := hmg__SetBtnPicture(c, cImage, _HMG_aControlHeadClick[i][1], _HMG_aControlHeadClick[i][2])
@@ -2895,14 +2895,14 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
          ELSE                                // icon
             IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
                _HMG_aControlBrushHandle[i] := hmg__SetMixedBtnIcon(c, cImage)
-               ReDrawWindow(c)
+               hmg_ReDrawWindow(c)
             ELSE
                IF hb_IsString(cImage)
                   _HMG_aControlBrushHandle[i] := hmg__SetBtnIcon(c, cImage)
                ELSE
                   _HMG_aControlBrushHandle[i] := Filename
                   SendMessage(c, STM_SETIMAGE, IMAGE_ICON, Filename)
-                  ReDrawWindow(c)
+                  hmg_ReDrawWindow(c)
                ENDIF
             ENDIF
          ENDIF
@@ -5535,7 +5535,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
          _ActivateWindow(Arg1)
          EXIT
       CASE "CENTER"        ; _CenterWindow(Arg1, _SetCenterWindowStyle())            ; EXIT
-      CASE "REDRAW"        ; RedrawWindow(GetFormHandle(Arg1))                       ; EXIT
+      CASE "REDRAW"        ; hmg_RedrawWindow(GetFormHandle(Arg1))                   ; EXIT
       CASE "RELEASE"       ; _ReleaseWindow(Arg1)                                    ; EXIT
       CASE "MAXIMIZE"      ; _MaximizeWindow(Arg1)                                   ; EXIT
       CASE "MINIMIZE"      ; _MinimizeWindow(Arg1)                                   ; EXIT
@@ -5550,8 +5550,8 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
             ENDIF
          ENDIF
          EXIT
-      CASE "ENABLEUPDATE"  ; LockWindowUpdate(0) ; RedrawWindow(GetFormHandle(Arg1)) ; EXIT
-      CASE "DISABLEUPDATE" ; LockWindowUpdate(GetFormHandle(Arg1))                   ; EXIT
+      CASE "ENABLEUPDATE"  ; LockWindowUpdate(0) ; hmg_RedrawWindow(GetFormHandle(Arg1)) ; EXIT
+      CASE "DISABLEUPDATE" ; LockWindowUpdate(GetFormHandle(Arg1))                       ; EXIT
       OTHERWISE
          MsgMiniGuiError("Window: unrecognized method '" + Arg2 + "'.")
       ENDSWITCH
@@ -6853,7 +6853,7 @@ FUNCTION _SetWindowBackColor(FormHandle, aColor)
       _HMG_aFormBkColor[i] := aColor
       _HMG_aFormBrushHandle[i] := hBrush
 
-      RedrawWindow(FormHandle)
+      hmg_RedrawWindow(FormHandle)
 
    ENDIF
 
@@ -6936,13 +6936,13 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_PROPGRID
    CASE CONTROL_TYPE_BROWSE
       ListView_SetTextColor(c, value[1], value[2], value[3])
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_RICHEDIT
       SetFontRTF(c, -1, _HMG_aControlFontName[i], _HMG_aControlFontSize[i], _HMG_aControlFontAttributes[i][1], _HMG_aControlFontAttributes[i][2], ;
          RGB(Value[1], Value[2], Value[3]), _HMG_aControlFontAttributes[i][3], _HMG_aControlFontAttributes[i][4])
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_DATEPICK
@@ -6983,7 +6983,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_TEXT
    CASE CONTROL_TYPE_EDIT
       _HMG_aControlFontColor[i] := iif(hb_IsArray(Value), Value, nRGB2Arr(default))
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_CHECKLABEL
@@ -7019,7 +7019,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
 
    CASE CONTROL_TYPE_SLIDER
       _HMG_aControlBkColor[i] := Value
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       f := GetFocus()
       hmg_setfocus(c)
       hmg_setfocus(f)
@@ -7029,12 +7029,12 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_BROWSE
       ListView_SetBkColor(c, Value[1], Value[2], Value[3])
       ListView_SetTextBkColor(c, Value[1], Value[2], Value[3])
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_RICHEDIT
       SendMessage(c, EM_SETBKGNDCOLOR, 0, RGB(Value[1], Value[2], Value[3]))
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_DATEPICK
@@ -7088,7 +7088,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_EDIT
    CASE CONTROL_TYPE_GETBOX
       _HMG_aControlBkColor[i] := iif(hb_IsArray(Value), Value, {nRGB2Arr(d), nRGB2Arr(f), nRGB2Arr(d)})
-      RedrawWindow(c)
+      hmg_RedrawWindow(c)
       EXIT
 
    CASE CONTROL_TYPE_IMAGE
@@ -8148,11 +8148,11 @@ STATIC FUNCTION _RedrawControl(i)
       ControlHandle := _HMG_aControlHandles[i]
 
       IF hb_IsArray(ControlHandle)
-         AEval(ControlHandle, {|x|RedrawWindow(x, .T.)})
+         AEval(ControlHandle, {|x|hmg_RedrawWindow(x, .T.)})
       ELSEIF _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON
-         InvalidateRect(ControlHandle, 0)
+         hmg_InvalidateRect(ControlHandle, 0)
       ELSE
-         RedrawWindow(ControlHandle)
+         hmg_RedrawWindow(ControlHandle)
       ENDIF
 
    ENDIF

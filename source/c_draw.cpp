@@ -61,9 +61,9 @@ extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
 /*
-BEGINPAINT(HWND, cp2) --> HANDLE
+HMG_BEGINPAINT(HWND, cp2) --> HANDLE
 */
-HB_FUNC( BEGINPAINT )
+HB_FUNC( HMG_BEGINPAINT )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -76,10 +76,14 @@ HB_FUNC( BEGINPAINT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( BEGINPAINT, HMG_BEGINPAINT )
+#endif
+
 /*
-ENDPAINT(HWND, cp2) --> .T.|.F.
+HMG_ENDPAINT(HWND, cp2) --> .T.|.F.
 */
-HB_FUNC( ENDPAINT )
+HB_FUNC( HMG_ENDPAINT )
 {
    auto hWnd = hmg_par_HWND(1);
    auto pps = reinterpret_cast<PAINTSTRUCT*>(const_cast<char*>(hb_parc(2)));
@@ -91,10 +95,14 @@ HB_FUNC( ENDPAINT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ENDPAINT, HMG_ENDPAINT )
+#endif
+
 /*
-DRAWFOCUSRECT(p1) --> NIL
+HMG_DRAWFOCUSRECT(p1) --> NIL
 */
-HB_FUNC( DRAWFOCUSRECT )
+HB_FUNC( HMG_DRAWFOCUSRECT )
 {
    auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
 
@@ -105,10 +113,14 @@ HB_FUNC( DRAWFOCUSRECT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DRAWFOCUSRECT, HMG_DRAWFOCUSRECT )
+#endif
+
 /*
-DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
+HMG_DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
 */
-HB_FUNC( DRAWSTATE )
+HB_FUNC( HMG_DRAWSTATE )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
@@ -156,10 +168,14 @@ HB_FUNC( DRAWSTATE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DRAWSTATE, HMG_DRAWSTATE )
+#endif
+
 /*
-GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
+HMG_GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
 */
-HB_FUNC( GETUPDATERECT )
+HB_FUNC( HMG_GETUPDATERECT )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -176,18 +192,26 @@ HB_FUNC( GETUPDATERECT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETUPDATERECT, HMG_GETUPDATERECT )
+#endif
+
 /*
-GDIFLUSH() --> .T.|.F.
+HMG_GDIFLUSH() --> .T.|.F.
 */
-HB_FUNC( GDIFLUSH )
+HB_FUNC( HMG_GDIFLUSH )
 {
    hb_retl(GdiFlush() ? true : false);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GDIFLUSH, HMG_GDIFLUSH )
+#endif
+
 /*
-GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
+HMG_GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
 */
-HB_FUNC( GRAYSTRING )
+HB_FUNC( HMG_GRAYSTRING )
 {
    auto nCount = hb_parni(5);
    auto nLen = static_cast<int>(hb_parclen(4));
@@ -232,10 +256,14 @@ HB_FUNC( GRAYSTRING )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GRAYSTRING, HMG_GRAYSTRING )
+#endif
+
 /*
-INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
+HMG_INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
 */
-HB_FUNC( INVALIDATERECT )
+HB_FUNC( HMG_INVALIDATERECT )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -262,10 +290,14 @@ HB_FUNC( INVALIDATERECT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INVALIDATERECT, HMG_INVALIDATERECT )
+#endif
+
 /*
-REDRAWWINDOW(HWND, p2) --> .T.|.F.
+HMG_REDRAWWINDOW(HWND, p2) --> .T.|.F.
 */
-HB_FUNC( REDRAWWINDOW )
+HB_FUNC( HMG_REDRAWWINDOW )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -282,10 +314,14 @@ HB_FUNC( REDRAWWINDOW )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REDRAWWINDOW, HMG_REDRAWWINDOW )
+#endif
+
 /*
-C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
+HMG_C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
 */
-HB_FUNC( C_SETBACKCOLOR )
+HB_FUNC( HMG_C_SETBACKCOLOR )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
@@ -315,10 +351,14 @@ HB_FUNC( C_SETBACKCOLOR )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( C_SETBACKCOLOR, HMG_C_SETBACKCOLOR )
+#endif
+
 /*
-SETBKMODE(HWND|HDC, p2) --> numeric
+HMG_SETBKMODE(HWND|HDC, p2) --> numeric
 */
-HB_FUNC( SETBKMODE )
+HB_FUNC( HMG_SETBKMODE )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
@@ -342,10 +382,14 @@ HB_FUNC( SETBKMODE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETBKMODE, HMG_SETBKMODE )
+#endif
+
 /*
-UPDATEWINDOW(HWND) --> .T.|.F.
+HMG_UPDATEWINDOW(HWND) --> .T.|.F.
 */
-HB_FUNC( UPDATEWINDOW )
+HB_FUNC( HMG_UPDATEWINDOW )
 {
    HWND hWnd = hmg_par_HWND(1);
 
@@ -356,10 +400,14 @@ HB_FUNC( UPDATEWINDOW )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( UPDATEWINDOW, HMG_UPDATEWINDOW )
+#endif
+
 /*
-VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
+HMG_VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
 */
-HB_FUNC( VALIDATERECT )
+HB_FUNC( HMG_VALIDATERECT )
 {
    HWND hWnd = hmg_par_HWND(1);
 
@@ -386,10 +434,18 @@ HB_FUNC( VALIDATERECT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( VALIDATERECT, HMG_VALIDATERECT )
+#endif
+
 /*
-WINDOWFROMDC(HDC) --> numeric
+HMG_WINDOWFROMDC(HDC) --> numeric
 */
-HB_FUNC( WINDOWFROMDC )
+HB_FUNC( HMG_WINDOWFROMDC )
 {
    HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( WINDOWFROMDC, HMG_WINDOWFROMDC )
+#endif

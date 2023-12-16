@@ -887,7 +887,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
       RETURN
    ENDIF
 
-   InvalidateRect(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), 0)
+   hmg_InvalidateRect(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), 0)
 
    _HMG_PRINTER_SHOWPAGE(_hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy)
 

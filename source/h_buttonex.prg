@@ -298,7 +298,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
                _DoControlEventProcedure(_HMG_aControlGotFocusProcedure[i], i)
 
                IF wParam == 0
-                  InvalidateRect(hWnd, 0)
+                  hmg_InvalidateRect(hWnd, 0)
                   _HMG_aControlRangeMax[i][1] := 1
                ENDIF
 
@@ -319,7 +319,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
 
                IF wParam == 1
                   _HMG_aControlRangeMax[i][1] := 0
-                  InvalidateRect(hWnd, 0)
+                  hmg_InvalidateRect(hWnd, 0)
                ENDIF
 
             ENDIF
@@ -469,7 +469,7 @@ FUNCTION OwnButtonPaint(pdis)
 
    hOldFont := SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr := GetTextMetric(hDC)
-   oldBkMode := SetBkMode(hDC, TRANSPARENT)
+   oldBkMode := hmg_SetBkMode(hDC, TRANSPARENT)
    oldTextColor := SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
 
    IF !lDisabled
@@ -766,11 +766,11 @@ FUNCTION OwnButtonPaint(pdis)
 
    IF (lSelected .OR. lFocus) .AND. !lDisabled .AND. !lXPThemeActive
       SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
-      DrawFocusRect(pdis)
+      hmg_DrawFocusRect(pdis)
    ENDIF
 
    SelectObject(hDC, hOldFont)
-   SetBkMode(hDC, oldBkMode)
+   hmg_SetBkMode(hDC, oldBkMode)
    SetTextColor(hDC, oldTextColor)
 
 RETURN 1

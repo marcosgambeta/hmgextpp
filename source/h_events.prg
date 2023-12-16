@@ -365,7 +365,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   IF _HMG_aControlInputMask[i] .AND. ;
                      (_HMG_aFormBkColor[x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])][1] != -1 .OR. ;
                      Len(HMG_GetFormControls(_HMG_aFormNames[x], "IMAGE")) > 0)
-                     SetBkMode(wParam, TRANSPARENT)
+                     hmg_SetBkMode(wParam, TRANSPARENT)
                      RETURN GetStockObject(NULL_BRUSH)
                   ENDIF
                ENDIF
@@ -478,7 +478,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                               IF IsXPThemed .AND. (a := _HMG_aFormBkColor[AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])])[1] != -1
                                  _HMG_aControlBkColor[i] := a
                               ELSE
-                                 SetBkMode(wParam, TRANSPARENT)
+                                 hmg_SetBkMode(wParam, TRANSPARENT)
                                  RETURN GetStockObject(NULL_BRUSH)
                               ENDIF
 
@@ -914,7 +914,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSE
 
-            UpdateWindow(hWnd)
+            hmg_UpdateWindow(hWnd)
 
          ENDIF
 
@@ -1112,7 +1112,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         MoveWindow(_HMG_aControlMiscData1[x][1], _HMG_aControlCol[x] + _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - NewHPos, _HMG_aControlRow[x] + _HMG_aControlHeight[x] - GetHScrollBarHeight() - NewPos, ;
                            GetWindowWidth(_HMG_aControlMiscData1[x][1]), GetWindowHeight(_HMG_aControlMiscData1[x][1]), .T.)
 
-                        ReDrawWindow(_HMG_aControlhandles[x])
+                        hmg_ReDrawWindow(_HMG_aControlhandles[x])
 #endif
                      ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_RADIOGROUP
 
@@ -1140,7 +1140,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                NEXT x
 
-               ReDrawWindow(hwnd)
+               hmg_ReDrawWindow(hwnd)
 
             ENDIF
 
@@ -1422,7 +1422,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                            GetWindowWidth(_HMG_aControlIds[x]), GetWindowHeight(_HMG_aControlIds[x]), .T.)
                         MoveWindow(_HMG_aControlMiscData1[x][1], _HMG_aControlCol[x] + _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - NewHPos, _HMG_aControlRow[x] + _HMG_aControlHeight[x] - GethScrollBarHeight() - NewVPos, ;
                            GetWindowWidth(_HMG_aControlMiscData1[x][1]), GetWindowHeight(_HMG_aControlMiscData1[x][1]), .T.)
-                        ReDrawWindow(_HMG_aControlhandles[x])
+                        hmg_ReDrawWindow(_HMG_aControlhandles[x])
                         EXIT
 #endif
 
@@ -1450,7 +1450,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   ENDIF
                NEXT x
 
-               RedrawWindow(hwnd)
+               hmg_RedrawWindow(hwnd)
 
             ENDIF
 
@@ -1757,7 +1757,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                SizeRebar(k)
                r := RebarHeight(k)
-               RedrawWindow(k)
+               hmg_RedrawWindow(k)
 
             ENDIF
 
@@ -3318,7 +3318,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             ENDIF
 
             IF GetNotifyCode(lParam) == -181
-               ReDrawWindow(_hmg_acontrolhandles[i])
+               hmg_ReDrawWindow(_hmg_acontrolhandles[i])
             ENDIF
 
             // Grid OnQueryData ............................
@@ -3758,7 +3758,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             ENDIF
 
             IF GetNotifyCode(lParam) == -181
-               ReDrawWindow(_hmg_acontrolhandles[i])
+               hmg_ReDrawWindow(_hmg_acontrolhandles[i])
             ENDIF
 
          ENDIF
@@ -4470,7 +4470,7 @@ STATIC PROCEDURE _OnDrawStatusItem(hWnd, lParam)
       IF _HMG_aControlType[i] == CONTROL_TYPE_ITEMMESSAGE .AND. h == hWnd
 
          IF nIndex++ == nItem
-            oldBkMode := SetBkMode(hDC, TRANSPARENT)
+            oldBkMode := hmg_SetBkMode(hDC, TRANSPARENT)
 
             IF _HMG_aControlBkColor[i] != NIL
                hBrush := CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
@@ -4484,7 +4484,7 @@ STATIC PROCEDURE _OnDrawStatusItem(hWnd, lParam)
 
             DrawText(hDC, _HMG_aControlCaption[i], aRect[1] + 1, aRect[2], aRect[3] - 1, aRect[4], hb_BitOr(_HMG_aControlSpacing[i], DT_SINGLELINE, DT_VCENTER))
 
-            SetBkMode(hDC, oldBkMode)
+            hmg_SetBkMode(hDC, oldBkMode)
             EXIT
          ENDIF
 
@@ -4848,7 +4848,7 @@ PROCEDURE _AutoAdjust(hWnd, aInitSize)
       ShowWindow(hWnd)
    ELSE
       LockWindowUpdate(0)
-      RedrawWindow(hWnd)
+      hmg_RedrawWindow(hWnd)
    ENDIF
 
 RETURN

@@ -100,7 +100,7 @@ FUNCTION OwnTabPaint(lParam)
 
    hOldFont     := SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr        := GetTextMetric(hDC)
-   oldBkMode    := SetBkMode(hDC, TRANSPARENT)
+   oldBkMode    := hmg_SetBkMode(hDC, TRANSPARENT)
    nTextColor   := GetSysColor(COLOR_BTNTEXT)
    oldTextColor := SetTextColor(hDC, GetRed(nTextColor), GetGreen(nTextColor), GetBlue(nTextColor))
 
@@ -203,7 +203,7 @@ FUNCTION OwnTabPaint(lParam)
    ENDIF
 
    SelectObject(hDC, hOldFont)
-   SetBkMode(hDC, oldBkMode)
+   hmg_SetBkMode(hDC, oldBkMode)
    SetTextColor(hDC, oldTextColor)
 
 RETURN 0
