@@ -169,7 +169,7 @@ CLASS HBPrinter
 
 ENDCLASS
 
-METHOD New() CLASS HBPrinter
+METHOD HBPrinter:New()
 
    LOCAL aprnport
 
@@ -186,7 +186,7 @@ METHOD New() CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SelectPrinter(cPrinter, lPrev) CLASS HBPrinter
+METHOD HBPrinter:SelectPrinter(cPrinter, lPrev)
 
 #ifndef UNICODE
    LOCAL txtp := ""
@@ -242,7 +242,7 @@ METHOD SelectPrinter(cPrinter, lPrev) CLASS HBPrinter
 
 RETURN NIL
 
-METHOD SetDevMode(what, newvalue) CLASS HBPrinter
+METHOD HBPrinter:SetDevMode(what, newvalue)
 
    ::hDCRef := rr_setdevmode(what, newvalue)
    rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
@@ -250,7 +250,7 @@ METHOD SetDevMode(what, newvalue) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SetUserMode(what, value, value2) CLASS HBPrinter
+METHOD HBPrinter:SetUserMode(what, value, value2)
 
    ::hDCRef := rr_setusermode(what, value, value2)
    rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
@@ -258,7 +258,7 @@ METHOD SetUserMode(what, value, value2) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD StartDoc(ldocname) CLASS HBPrinter
+METHOD HBPrinter:StartDoc(ldocname)
 
    ::Printing := .T.
    IF ldocname != NIL
@@ -271,7 +271,7 @@ METHOD StartDoc(ldocname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SetPage(orient, size, fontname) CLASS HBPrinter
+METHOD HBPrinter:SetPage(orient, size, fontname)
 
    LOCAL lhand := ::getobjbyname(fontname, "F")
 
@@ -289,7 +289,7 @@ METHOD SetPage(orient, size, fontname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Startpage() CLASS HBPrinter
+METHOD HBPrinter:Startpage()
 
    IF ::PreviewMode
       ::hDC := rr_createmfile(::BasePageName + StrZero(Len(::metafiles) + 1, 4) + ".emf")
@@ -309,7 +309,7 @@ METHOD Startpage() CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Endpage() CLASS HBPrinter
+METHOD HBPrinter:Endpage()
 
    IF ::PreviewMode
       rr_closemfile()
@@ -320,7 +320,7 @@ METHOD Endpage() CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SaveMetaFiles(number, filename) CLASS HBPrinter
+METHOD HBPrinter:SaveMetaFiles(number, filename)
 
    LOCAL aPages
 
@@ -339,7 +339,7 @@ METHOD SaveMetaFiles(number, filename) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD EndDoc() CLASS HBPrinter
+METHOD HBPrinter:EndDoc()
 
    IF ::PreviewMode
       ::preview()
@@ -351,7 +351,7 @@ METHOD EndDoc() CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SetTextColor(clr) CLASS HBPrinter
+METHOD HBPrinter:SetTextColor(clr)
 
    LOCAL lret := ::Textcolor
 
@@ -367,7 +367,7 @@ METHOD SetTextColor(clr) CLASS HBPrinter
 
 RETURN lret
 
-METHOD SetPolyFillMode(style) CLASS HBPrinter
+METHOD HBPrinter:SetPolyFillMode(style)
 
    LOCAL lret := ::PolyFillMode
 
@@ -375,7 +375,7 @@ METHOD SetPolyFillMode(style) CLASS HBPrinter
 
 RETURN lret
 
-METHOD SetBkColor(clr) CLASS HBPrinter
+METHOD HBPrinter:SetBkColor(clr)
 
    LOCAL lret := ::BkColor
 
@@ -389,7 +389,7 @@ METHOD SetBkColor(clr) CLASS HBPrinter
 
 RETURN lret
 
-METHOD SetBkMode(nmode) CLASS HBPrinter
+METHOD HBPrinter:SetBkMode(nmode)
 
    LOCAL lret := ::Bkmode
 
@@ -398,7 +398,7 @@ METHOD SetBkMode(nmode) CLASS HBPrinter
 
 RETURN lret
 
-METHOD DefineBrush(defname, lstyle, lcolor, lhatch) CLASS HBPrinter
+METHOD HBPrinter:DefineBrush(defname, lstyle, lcolor, lhatch)
 
    LOCAL lhand := ::getobjbyname(defname, "B")
 
@@ -420,7 +420,7 @@ METHOD DefineBrush(defname, lstyle, lcolor, lhatch) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SelectBrush(defname) CLASS HBPrinter
+METHOD HBPrinter:SelectBrush(defname)
 
    LOCAL lhand := ::getobjbyname(defname, "B")
 
@@ -431,7 +431,7 @@ METHOD SelectBrush(defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD ModifyBrush(defname, lstyle, lcolor, lhatch) CLASS HBPrinter
+METHOD HBPrinter:ModifyBrush(defname, lstyle, lcolor, lhatch)
 
    LOCAL lhand := 0
    LOCAL lpos
@@ -464,7 +464,7 @@ METHOD ModifyBrush(defname, lstyle, lcolor, lhatch) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DefinePen(defname, lstyle, lwidth, lcolor) CLASS HBPrinter
+METHOD HBPrinter:DefinePen(defname, lstyle, lwidth, lcolor)
 
    LOCAL lhand := ::getobjbyname(defname, "P")
 
@@ -486,7 +486,7 @@ METHOD DefinePen(defname, lstyle, lwidth, lcolor) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD ModifyPen(defname, lstyle, lwidth, lcolor) CLASS HBPrinter
+METHOD HBPrinter:ModifyPen(defname, lstyle, lwidth, lcolor)
 
    LOCAL lhand := 0
    LOCAL lpos
@@ -523,7 +523,7 @@ METHOD ModifyPen(defname, lstyle, lwidth, lcolor) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SelectPen(defname) CLASS HBPrinter
+METHOD HBPrinter:SelectPen(defname)
 
    LOCAL lhand := ::getobjbyname(defname, "P")
 
@@ -534,7 +534,7 @@ METHOD SelectPen(defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DefineFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, litalic, lunderline, lstrikeout) CLASS HBPrinter
+METHOD HBPrinter:DefineFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, litalic, lunderline, lstrikeout)
 
    LOCAL lhand := ::getobjbyname(lfontname, "F")
 
@@ -555,7 +555,7 @@ METHOD DefineFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, li
 
 RETURN SELF
 
-METHOD ModifyFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, lnweight, litalic, lnitalic, lunderline, lnunderline, lstrikeout, lnstrikeout) CLASS HBPrinter
+METHOD HBPrinter:ModifyFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, lnweight, litalic, lnitalic, lunderline, lnunderline, lstrikeout, lnstrikeout)
 
    LOCAL lhand := 0
    LOCAL lpos
@@ -596,7 +596,7 @@ METHOD ModifyFont(defname, lfontname, lfontsize, lfontwidth, langle, lweight, ln
 
 RETURN SELF
 
-METHOD SelectFont(defname) CLASS HBPrinter
+METHOD HBPrinter:SelectFont(defname)
 
    LOCAL lhand := ::getobjbyname(defname, "F")
 
@@ -607,7 +607,7 @@ METHOD SelectFont(defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SetUnits(newvalue, r, c) CLASS HBPrinter
+METHOD HBPrinter:SetUnits(newvalue, r, c)
 
    LOCAL oldvalue := ::Units
 
@@ -637,7 +637,7 @@ METHOD SetUnits(newvalue, r, c) CLASS HBPrinter
 
 RETURN oldvalue
 
-METHOD Convert(arr, lsize) CLASS HBPrinter
+METHOD HBPrinter:Convert(arr, lsize)
 
    LOCAL aret := AClone(arr)
 
@@ -667,7 +667,7 @@ METHOD Convert(arr, lsize) CLASS HBPrinter
 
 RETURN aret
 
-METHOD DrawText(row, col, torow, tocol, txt, style, defname) CLASS HBPrinter
+METHOD HBPrinter:DrawText(row, col, torow, tocol, txt, style, defname)
 
    LOCAL lhf := ::getobjbyname(defname, "F")
 
@@ -677,7 +677,7 @@ METHOD DrawText(row, col, torow, tocol, txt, style, defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD TEXTOUT(row, col, txt, defname) CLASS HBPrinter
+METHOD HBPrinter:TEXTOUT(row, col, txt, defname)
 
    LOCAL lhf := ::getobjbyname(defname, "F")
 
@@ -685,7 +685,7 @@ METHOD TEXTOUT(row, col, txt, defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Say(row, col, txt, defname, lcolor, lalign) CLASS HBPrinter
+METHOD HBPrinter:Say(row, col, txt, defname, lcolor, lalign)
 
    LOCAL atxt := {}
    LOCAL i
@@ -750,7 +750,7 @@ METHOD Say(row, col, txt, defname, lcolor, lalign) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DefineImageList(defname, cpicture, nicons) CLASS HBPrinter
+METHOD HBPrinter:DefineImageList(defname, cpicture, nicons)
 
    LOCAL lhi := ::getobjbyname(defname, "I")
    LOCAL w := 0
@@ -770,7 +770,7 @@ METHOD DefineImageList(defname, cpicture, nicons) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DrawImageList(defname, nicon, row, col, torow, tocol, lstyle, color) CLASS HBPrinter
+METHOD HBPrinter:DrawImageList(defname, nicon, row, col, torow, tocol, lstyle, color)
 
    LOCAL lhi := ::getobjbyname(defname, "I")
 
@@ -784,7 +784,7 @@ METHOD DrawImageList(defname, nicon, row, col, torow, tocol, lstyle, color) CLAS
 
 RETURN SELF
 
-METHOD Rectangle(row, col, torow, tocol, defpen, defbrush) CLASS HBPrinter
+METHOD HBPrinter:Rectangle(row, col, torow, tocol, defpen, defbrush)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
    LOCAL lhb := ::getobjbyname(defbrush, "B")
@@ -795,7 +795,7 @@ METHOD Rectangle(row, col, torow, tocol, defpen, defbrush) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD FrameRect(row, col, torow, tocol, defbrush) CLASS HBPrinter
+METHOD HBPrinter:FrameRect(row, col, torow, tocol, defbrush)
 
    LOCAL lhb := ::getobjbyname(defbrush, "B")
 
@@ -805,7 +805,7 @@ METHOD FrameRect(row, col, torow, tocol, defbrush) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD RoundRect(row, col, torow, tocol, widthellipse, heightellipse, defpen, defbrush) CLASS HBPrinter
+METHOD HBPrinter:RoundRect(row, col, torow, tocol, widthellipse, heightellipse, defpen, defbrush)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
    LOCAL lhb := ::getobjbyname(defbrush, "B")
@@ -816,7 +816,7 @@ METHOD RoundRect(row, col, torow, tocol, widthellipse, heightellipse, defpen, de
 
 RETURN SELF
 
-METHOD FillRect(row, col, torow, tocol, defbrush) CLASS HBPrinter
+METHOD HBPrinter:FillRect(row, col, torow, tocol, defbrush)
 
    LOCAL lhb := ::getobjbyname(defbrush, "B")
 
@@ -826,7 +826,7 @@ METHOD FillRect(row, col, torow, tocol, defbrush) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD InvertRect(row, col, torow, tocol) CLASS HBPrinter
+METHOD HBPrinter:InvertRect(row, col, torow, tocol)
 
    hb_default(@torow, ::maxrow)
    hb_default(@tocol, ::maxcol)
@@ -834,7 +834,7 @@ METHOD InvertRect(row, col, torow, tocol) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Ellipse(row, col, torow, tocol, defpen, defbrush) CLASS HBPrinter
+METHOD HBPrinter:Ellipse(row, col, torow, tocol, defpen, defbrush)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
    LOCAL lhb := ::getobjbyname(defbrush, "B")
@@ -845,7 +845,7 @@ METHOD Ellipse(row, col, torow, tocol, defpen, defbrush) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Arc(row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen) CLASS HBPrinter
+METHOD HBPrinter:Arc(row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
@@ -855,7 +855,7 @@ METHOD Arc(row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen) C
 
 RETURN SELF
 
-METHOD ArcTo(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen) CLASS HBPrinter
+METHOD HBPrinter:ArcTo(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
@@ -865,7 +865,7 @@ METHOD ArcTo(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen)
 
 RETURN SELF
 
-METHOD Chord(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush) CLASS HBPrinter
+METHOD HBPrinter:Chord(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
    LOCAL lhb := ::getobjbyname(defbrush, "B")
@@ -876,7 +876,7 @@ METHOD Chord(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen,
 
 RETURN SELF
 
-METHOD Pie(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush) CLASS HBPrinter
+METHOD HBPrinter:Pie(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
    LOCAL lhb := ::getobjbyname(defbrush, "B")
@@ -887,7 +887,7 @@ METHOD Pie(row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, d
 
 RETURN SELF
 
-METHOD Polygon(apoints, defpen, defbrush, style) CLASS HBPrinter
+METHOD HBPrinter:Polygon(apoints, defpen, defbrush, style)
 
    LOCAL apx := {}
    LOCAL apy := {}
@@ -900,7 +900,7 @@ METHOD Polygon(apoints, defpen, defbrush, style) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD PolyBezier(apoints, defpen) CLASS HBPrinter
+METHOD HBPrinter:PolyBezier(apoints, defpen)
 
    LOCAL apx := {}
    LOCAL apy := {}
@@ -912,7 +912,7 @@ METHOD PolyBezier(apoints, defpen) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD PolyBezierTo(apoints, defpen) CLASS HBPrinter
+METHOD HBPrinter:PolyBezierTo(apoints, defpen)
 
    LOCAL apx := {}
    LOCAL apy := {}
@@ -924,7 +924,7 @@ METHOD PolyBezierTo(apoints, defpen) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD Line(row, col, torow, tocol, defpen) CLASS HBPrinter
+METHOD HBPrinter:Line(row, col, torow, tocol, defpen)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
@@ -934,7 +934,7 @@ METHOD Line(row, col, torow, tocol, defpen) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD LineTo(row, col, defpen) CLASS HBPrinter
+METHOD HBPrinter:LineTo(row, col, defpen)
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
@@ -942,7 +942,7 @@ METHOD LineTo(row, col, defpen) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD GetTextExtent(ctext, apoint, deffont) CLASS HBPrinter
+METHOD HBPrinter:GetTextExtent(ctext, apoint, deffont)
 
    LOCAL lhf := ::getobjbyname(deffont, "F")
 
@@ -950,7 +950,7 @@ METHOD GetTextExtent(ctext, apoint, deffont) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD GetTextExtent_mm(ctext, apoint, deffont) CLASS HBPrinter
+METHOD HBPrinter:GetTextExtent_mm(ctext, apoint, deffont)
 
    LOCAL lhf := ::getobjbyname(deffont, "F")
 
@@ -960,7 +960,7 @@ METHOD GetTextExtent_mm(ctext, apoint, deffont) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD GetObjByName(defname, what, retpos) CLASS HBPrinter
+METHOD HBPrinter:GetObjByName(defname, what, retpos)
 
    LOCAL lfound
    LOCAL lret := 0
@@ -989,7 +989,7 @@ METHOD GetObjByName(defname, what, retpos) CLASS HBPrinter
 
 RETURN lret
 
-METHOD DefineRectRgn(defname, row, col, torow, tocol) CLASS HBPrinter
+METHOD HBPrinter:DefineRectRgn(defname, row, col, torow, tocol)
 
    LOCAL lhand := ::getobjbyname(defname, "R")
 
@@ -1003,7 +1003,7 @@ METHOD DefineRectRgn(defname, row, col, torow, tocol) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DefineEllipticRgn(defname, row, col, torow, tocol) CLASS HBPrinter
+METHOD HBPrinter:DefineEllipticRgn(defname, row, col, torow, tocol)
 
    LOCAL lhand := ::getobjbyname(defname, "R")
 
@@ -1017,7 +1017,7 @@ METHOD DefineEllipticRgn(defname, row, col, torow, tocol) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DefineRoundRectRgn(defname, row, col, torow, tocol, widthellipse, heightellipse) CLASS HBPrinter
+METHOD HBPrinter:DefineRoundRectRgn(defname, row, col, torow, tocol, widthellipse, heightellipse)
 
    LOCAL lhand := ::getobjbyname(defname, "R")
 
@@ -1031,7 +1031,7 @@ METHOD DefineRoundRectRgn(defname, row, col, torow, tocol, widthellipse, heighte
 
 RETURN SELF
 
-METHOD DefinePolygonRgn(defname, apoints, style) CLASS HBPrinter
+METHOD HBPrinter:DefinePolygonRgn(defname, apoints, style)
 
    LOCAL apx := {}
    LOCAL apy := {}
@@ -1047,7 +1047,7 @@ METHOD DefinePolygonRgn(defname, apoints, style) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD CombineRgn(defname, reg1, reg2, style) CLASS HBPrinter
+METHOD HBPrinter:CombineRgn(defname, reg1, reg2, style)
 
    LOCAL lr1 := ::getobjbyname(reg1, "R")
    LOCAL lr2 := ::getobjbyname(reg2, "R")
@@ -1061,7 +1061,7 @@ METHOD CombineRgn(defname, reg1, reg2, style) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD SelectClipRgn(defname) CLASS HBPrinter
+METHOD HBPrinter:SelectClipRgn(defname)
 
    LOCAL lhand := ::getobjbyname(defname, "R")
 
@@ -1072,14 +1072,14 @@ METHOD SelectClipRgn(defname) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD DeleteClipRgn() CLASS HBPrinter
+METHOD HBPrinter:DeleteClipRgn()
 
    ::Regions[1, 1] := 0
    rr_deletecliprgn()
 
 RETURN SELF
 
-METHOD SetViewPortOrg(row, col) CLASS HBPrinter
+METHOD HBPrinter:SetViewPortOrg(row, col)
 
    row := iif(row != NIL, row, 0)
    col := iif(col != NIL, col, 0)
@@ -1088,13 +1088,13 @@ METHOD SetViewPortOrg(row, col) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD GetViewPortOrg() CLASS HBPrinter
+METHOD HBPrinter:GetViewPortOrg()
 
    rr_getviewportorg(::ViewPortOrg)
 
 RETURN SELF
 
-METHOD End() CLASS HBPrinter
+METHOD HBPrinter:End()
 
    IF ::PreviewMode
       AEval(::metafiles, {|x|FErase(x[1])})
@@ -1113,7 +1113,7 @@ METHOD End() CLASS HBPrinter
 
 RETURN NIL
 
-METHOD DXCOLORS(par) CLASS HBPrinter
+METHOD HBPrinter:DXCOLORS(par)
 
    LOCAL ltemp := 0
    LOCAL aColorNames
@@ -1272,36 +1272,36 @@ METHOD DXCOLORS(par) CLASS HBPrinter
 
 RETURN ltemp
 
-METHOD SetRGB(red, green, blue) CLASS HBPrinter
+METHOD HBPrinter:SetRGB(red, green, blue)
 RETURN rr_setrgb(red, green, blue)
 
-METHOD SetTextCharExtra(col) CLASS HBPrinter
+METHOD HBPrinter:SetTextCharExtra(col)
 
    LOCAL p1 := ::convert({0, 0})
    LOCAL p2 := ::convert({0, col})
 
 RETURN rr_SetTextCharExtra(p2[2] - p1[2])
 
-METHOD GetTextCharExtra() CLASS HBPrinter
+METHOD HBPrinter:GetTextCharExtra()
 RETURN rr_GetTextCharExtra()
 
-METHOD SetTextJustification(col) CLASS HBPrinter
+METHOD HBPrinter:SetTextJustification(col)
 
    LOCAL p1 := ::convert({0, 0})
    LOCAL p2 := ::convert({0, col})
 
 RETURN rr_SetTextJustification(p2[2] - p1[2])
 
-METHOD GetTextJustification() CLASS HBPrinter
+METHOD HBPrinter:GetTextJustification()
 RETURN rr_GetTextJustification()
 
-METHOD SetTextAlign(style) CLASS HBPrinter
+METHOD HBPrinter:SetTextAlign(style)
 RETURN rr_settextalign(style)
 
-METHOD GetTextAlign() CLASS HBPrinter
+METHOD HBPrinter:GetTextAlign()
 RETURN rr_gettextalign()
 
-METHOD Picture(row, col, torow, tocol, cpicture, extrow, extcol) CLASS HBPrinter
+METHOD HBPrinter:Picture(row, col, torow, tocol, cpicture, extrow, extcol)
 
    LOCAL lp1 := ::convert({row, col})
    LOCAL lp2
@@ -1384,7 +1384,7 @@ RETURN n
 
 #endif
 
-METHOD PrevThumb(nclick) CLASS HBPrinter
+METHOD HBPrinter:PrevThumb(nclick)
 
    LOCAL i
    LOCAL spage
@@ -1426,7 +1426,7 @@ METHOD PrevThumb(nclick) CLASS HBPrinter
 
 RETURN SELF
 
-METHOD PrevShow() CLASS HBPrinter
+METHOD HBPrinter:PrevShow()
 
    LOCAL spos := {0, 0}
 
@@ -1472,7 +1472,7 @@ METHOD PrevShow() CLASS HBPrinter
 
 RETURN SELF
 
-METHOD PrevPrint(n1) CLASS HBPrinter
+METHOD HBPrinter:PrevPrint(n1)
 
    LOCAL i
    LOCAL ilkop
@@ -2226,7 +2226,7 @@ STATIC FUNCTION LangInit
 
 RETURN aLang
 
-METHOD Preview() CLASS HBPrinter
+METHOD HBPrinter:Preview()
 
    LOCAL i
    LOCAL pi := 1
@@ -2428,14 +2428,14 @@ METHOD Preview() CLASS HBPrinter
 
 RETURN NIL
 
-METHOD PrevClose(lEsc) CLASS HBPrinter
+METHOD HBPrinter:PrevClose(lEsc)
 
    ::lEscaped := lEsc
    _ReleaseWindow("HBPREVIEW")
 
 RETURN SELF
 
-METHOD PrintOption() CLASS HBPrinter
+METHOD HBPrinter:PrintOption()
 
    LOCAL OKprint := .F.
 
@@ -2496,7 +2496,7 @@ RETURN OKPrint
 
 #ifdef _DEBUG_
 
-METHOD ReportData(l_x1, l_x2, l_x3, l_x4, l_x5, l_x6) CLASS HBPrinter
+METHOD HBPrinter:ReportData(l_x1, l_x2, l_x3, l_x4, l_x5, l_x6)
 
    SET PRINTER TO "hbprinter.rep" ADDITIVE
    SET DEVICE TO PRINT
