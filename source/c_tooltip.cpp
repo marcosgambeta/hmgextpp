@@ -709,7 +709,7 @@ HB_FUNC( TTM_TRACKPOSITION )
  */
 HB_FUNC( TTM_UPDATE )
 {
-   HWND hwndToolTip = hmg_par_HWND(1);
+   auto hwndToolTip = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
       SendMessage(hwndToolTip, TTM_UPDATE, 0, 0);

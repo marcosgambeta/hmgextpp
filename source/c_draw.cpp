@@ -391,7 +391,7 @@ HMG_UPDATEWINDOW(HWND) --> .T.|.F.
 */
 HB_FUNC( HMG_UPDATEWINDOW )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       hb_retl(UpdateWindow(hWnd) ? true : false);
@@ -409,7 +409,7 @@ HMG_VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
 */
 HB_FUNC( HMG_VALIDATERECT )
 {
-   HWND hWnd = hmg_par_HWND(1);
+   auto hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
       auto bRect = false;
