@@ -328,7 +328,7 @@ HB_FUNC( TSDRAWCELL )
    RECT   rct;
    int    nTop, nLeft, nBkOld, iFlags;
    SIZE   size;
-   int    iTxtW = 0;
+   auto   iTxtW = 0;
    BOOL   bDraw = FALSE;
 
    if( GetTextExtentPoint32(hDC, cData, nLen, &size) )
@@ -1015,7 +1015,8 @@ void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
 
 HB_FUNC( GETSCRLRANGE )  // ( hWnd, nFlags )
 {
-   int iMin = 0, iMax = 0;
+   auto iMin = 0;
+   auto iMax = 0;
 
    GetScrollRange(hmg_par_HWND(1), // its hWnd
                    hb_parni(2),          // Scroll bar flags

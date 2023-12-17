@@ -89,7 +89,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
    /*TODO*/
    auto hText = static_cast<void**>(hb_xgrab(sizeof(void*) * 3));
-   int     iText = 0;
+   auto iText = 0;
 
    if( HB_ISCHAR(3) ) {
       pszWindowTitle = HB_PARSTRDEF(3, &hText[iText++], nullptr);
@@ -158,15 +158,15 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       HB_TYPE iType;
 
       auto hText = static_cast<void**>(hb_xgrab(sizeof(void*) * 10));
-      int     iText = 0;
+      auto iText = 0;
 
       TASKDIALOG_BUTTON * buttons;
       void ** hButton = nullptr;
-      int     iButton = 0;
+      auto iButton = 0;
 
       TASKDIALOG_BUTTON * radiobuttons;
       void ** hRadioButton = nullptr;
-      int     iRadioButton = 0;
+      auto iRadioButton = 0;
 
       PHB_ITEM pCallbackData = nullptr;
 

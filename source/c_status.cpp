@@ -58,7 +58,7 @@ HB_FUNC( INITMESSAGEBAR )
 {
    HWND hWndSB;
    int  ptArray[40];  // Array defining the number of parts/sections
-   int  nrOfParts = 1;
+   auto nrOfParts = 1;
 
    hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
 
@@ -71,9 +71,9 @@ HB_FUNC( INITMESSAGEBAR )
 
 HB_FUNC( INITITEMBAR )
 {
-   int   cSpaceInBetween = 8;
+   auto cSpaceInBetween = 8;
    int   ptArray[40]; // Array defining the number of parts/sections
-   int   nrOfParts = 0;
+   auto nrOfParts = 0;
    RECT  rect;
    WORD  displayFlags;
    int   style;

@@ -807,9 +807,9 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    // Created and position of the buttons
    {
       int x, y;
-      int num_buttons = 0;
-      int buttonWidth = 0;
-      int buttonHeight = 0;
+      auto num_buttons = 0;
+      auto buttonWidth = 0;
+      auto buttonHeight = 0;
       int cx = FLD_isAppThemed() ? 2 : 0;
 
       if( cx ) {
@@ -1491,9 +1491,9 @@ static void FLD_AddBitmap(HWND hWndFolder)
    TC_ITEM       tie;
    HDC hDC;
    int l;
-   int cx = 0;
-   int cy = 0;
-   int i = 0;
+   auto cx = 0;
+   auto cy = 0;
+   auto i = 0;
 
    auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndFolder, GWLP_USERDATA));
 

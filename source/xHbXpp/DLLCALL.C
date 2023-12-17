@@ -408,7 +408,7 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs,
 static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int iArgCnt, PEXECSTRUCT xec)
 {
    int iRtype;
-   int iCnt = 0;
+   auto iCnt = 0;
 //   int iCmode;
    int i;
    double DblParms[15];
@@ -655,8 +655,8 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
 HB_FUNC( DLLEXECUTECALL )
 {
-   int iParams = hb_pcount();
-   int iFirst  = 2;
+   auto iParams = hb_pcount();
+   auto iFirst  = 2;
    int iArgCnt = iParams - 1;
    PEXECSTRUCT xec = (PEXECSTRUCT) hb_parptr(1);
 
@@ -677,8 +677,8 @@ HB_FUNC( DLLEXECUTECALL )
 
 HB_FUNC( DLLCALL )
 {
-   int iParams = hb_pcount();
-   int iFirst = 4;
+   auto iParams = hb_pcount();
+   auto iFirst = 4;
    int iArgCnt = iParams - 3;
    BOOL lUnload = FALSE;
    HINSTANCE  hInst;
@@ -998,8 +998,8 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
 
 HB_FUNC( CALLDLL )
 {
-   int iParams = hb_pcount();
-   int iFirst = 2;
+   auto iParams = hb_pcount();
+   auto iFirst = 2;
    int iArgCnt = iParams - 1;
    LPVOID     lpFunction;
 

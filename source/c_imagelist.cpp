@@ -76,7 +76,7 @@ IL_ADD(p1, p2, p3, p4, p5, p6) --> numeric
 */
 HB_FUNC( IL_ADD ) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
 {
-   int ic = 1;
+   auto ic = 1;
    if( hb_parni(6) ) {
       ic = hb_parni(6);
    }
@@ -107,7 +107,7 @@ HB_FUNC( IL_ADD ) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
    hb_strfree(strImageName2);
 
    BITMAP bm;
-   int lResult = -1;
+   auto lResult = -1;
 
    if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 ) {
       if( (hb_parni(4) * ic == bm.bmWidth) && (hb_parni(5) == bm.bmHeight) ) {
@@ -133,7 +133,7 @@ HB_FUNC( IL_ADDMASKED ) // IL_AddMasked(himl, image, color, ix, iy, imagecount)
       clrBk = hmg_par_COLORREF(3);
    }
 
-   int ic = 1;
+   auto ic = 1;
    if( hb_parni(6) ) {
       ic = hb_parni(6);
    }
@@ -150,7 +150,7 @@ HB_FUNC( IL_ADDMASKED ) // IL_AddMasked(himl, image, color, ix, iy, imagecount)
    hb_strfree(strImageName);
 
    BITMAP bm;
-   int lResult = -1;
+   auto lResult = -1;
 
    if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 ) {
       if( (hb_parni(4) * ic == bm.bmWidth) && (hb_parni(5) == bm.bmHeight) ) {

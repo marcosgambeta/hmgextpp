@@ -95,7 +95,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
    int nCount = hb_parinfa(2, 0);
    char * FileName;
    HIMAGELIST himl = nullptr;
-   int ic = 0;
+   auto ic = 0;
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
@@ -127,7 +127,7 @@ ADDTREEVIEWBITMAP(HWND, p2, p3) --> numeric
 HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 {
    int Transparent = hb_parl(3) ? 0 : 1;
-   int ic = 0;
+   auto ic = 0;
    auto hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
    if( himl != nullptr ) {

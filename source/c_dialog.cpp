@@ -368,10 +368,10 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 
    ExStyle   = HB_arrayGetNL(dArray, 5); // ExStyle
    style     = HB_arrayGetNL(dArray, 4); // style
-   int x     = hb_arrayGetNI(dArray, 6); // x
-   int y     = hb_arrayGetNI(dArray, 7); // y
-   int w     = hb_arrayGetNI(dArray, 8); // w
-   int h     = hb_arrayGetNI(dArray, 9); // h
+   auto x    = hb_arrayGetNI(dArray, 6); // x
+   auto y    = hb_arrayGetNI(dArray, 7); // y
+   auto w    = hb_arrayGetNI(dArray, 8); // w
+   auto h    = hb_arrayGetNI(dArray, 9); // h
    int nItem = hb_arrayLen(cArray);
 
    *pw++   = 1;            // DlgVer

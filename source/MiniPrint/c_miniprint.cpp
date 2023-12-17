@@ -851,7 +851,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    LPSTR  pStr;
 #endif
 
-   int fields = 0;
+   auto fields = 0;
 
    void * str;
    BOOL bFlag = OpenPrinter(const_cast<TCHAR*>(HB_PARSTR(1, &str, nullptr)), &hPrinter, nullptr );

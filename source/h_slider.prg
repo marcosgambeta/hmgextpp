@@ -259,8 +259,8 @@ INITSLIDER(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9, p10, p11, p12, p13, p14,
 */
 HB_FUNC_STATIC( INITSLIDER )
 {
-   int iSelMin = 0;
-   int iSelMax = 0;
+   auto iSelMin = 0;
+   auto iSelMax = 0;
 
    INITCOMMONCONTROLSEX i;
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);

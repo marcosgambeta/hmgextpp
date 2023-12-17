@@ -316,12 +316,12 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
    RECT rcCtrl;
    RECT rcButton;
    HWND  hwndButton;
-   int num_buttons = 0;
+   auto num_buttons = 0;
    int x, y, h;
    int cyMargin = GetSystemMetrics(SM_CYFRAME);
    int cxMargin = GetSystemMetrics(SM_CYDLGFRAME);
    int buttonWidth;
-   int buttonHeight = 0;
+   auto buttonHeight = 0;
    auto ppgrd = reinterpret_cast<PROPGRD*>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
 
    if( !ppgrd ) {
@@ -1773,7 +1773,7 @@ INITPROPGRIDIMAGELIST(HWND, HIMAGELIST) --> numeric
 */
 HB_FUNC( INITPROPGRIDIMAGELIST )
 {
-   int cx = 0;
+   auto cx = 0;
    HIMAGELIST himl = hmg_par_HIMAGELIST(2);
    if( himl != nullptr ) {
       SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
@@ -1990,7 +1990,7 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
    auto himage = hmg_par_HBITMAP(2);
    COLORREF clrBk   = CLR_NONE;
    LRESULT  lResult = -1;
-   int      ic      = 1;
+   auto ic = 1;
 
    if( hb_parnl(3) ) {
       clrBk = hmg_par_COLORREF(3);
@@ -2039,7 +2039,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
    std::string       cClass;
    std::string       cName = "";
    int               Style = WS_CHILD | WS_VISIBLE;
-   int               nBtn = 0;
+   auto              nBtn = 0;
    int               height = rc.bottom - rc.top - 1;
 
    switch( ItemType ) {

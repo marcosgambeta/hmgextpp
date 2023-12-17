@@ -1260,7 +1260,7 @@ HB_FUNC( FILLRECT )
 
    if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
       RECT rc;
-      int iParam = 6;
+      auto iParam = 6;
 
       if( Array2Rect(hb_param(2, Harbour::Item::ANY), &rc) ) {
          iParam = 3;

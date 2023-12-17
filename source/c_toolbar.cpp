@@ -133,8 +133,8 @@ HB_FUNC( INITTOOLBUTTON )
       DWORD tSize = SendMessage(hwndTB, TB_GETPADDING, 0, 0);
       int px    = LOWORD(tSize);
       int py    = HIWORD(tSize);
-      int ix = 0;
-      int iy = 0;
+      auto ix = 0;
+      auto iy = 0;
       if( hb_parl(16) ) {
          ix = hb_parni(6) - px;
          iy = hb_parni(7) - py;
@@ -147,7 +147,7 @@ HB_FUNC( INITTOOLBUTTON )
 
    // Add the bitmap containing button images to the toolbar.
 
-   int nBtn       = 0;
+   auto nBtn = 0;
    TBADDBITMAP tbab;
    tbab.hInst = nullptr;
    tbab.nID   = reinterpret_cast<UINT_PTR>(himage);
@@ -246,7 +246,7 @@ HB_FUNC( INITTOOLBAREX )
    InitCommonControlsEx(&icex);
 
    DWORD style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
-   int ExStyle = 0;
+   auto ExStyle = 0;
    int TbExStyle = TBSTYLE_EX_DRAWDDARROWS;
 
    if( hb_parl(14) ) {
@@ -314,10 +314,10 @@ HB_FUNC( INITTOOLBUTTONEX )
    memset(tbb, 0, sizeof tbb);
 
    auto hwndTB = hmg_par_HWND(1);
-   int nBtn    = 0;
-   int tmax    = 0;
-   int ix      = 0;
-   int iy      = 0;
+   auto nBtn    = 0;
+   auto tmax    = 0;
+   auto ix      = 0;
+   auto iy      = 0;
    int xBtn    = SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
    DWORD TbStyle = SendMessage(hwndTB, TB_GETSTYLE, 0, 0);
    int style   = TBSTYLE_BUTTON;
@@ -517,8 +517,8 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    int nBtn   = SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
    TBBUTTON lpBtn;
    DWORD    tSize;
-   int      ty   = 0;
-   int      tmax = 0;
+   auto ty = 0;
+   auto tmax = 0;
 
    for( auto i = 0; i < nBtn; i++ ) {
       SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
@@ -740,7 +740,7 @@ HB_FUNC( SETCAPTIONSPLITBOXITEM )
 int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
 {
    RECT rcDst, rcBt;
-   int  nBtnV = 0;
+   auto nBtnV = 0;
 
    for( auto i = 0; i < nBtn; i++ ) {
       SendMessage(tbHwnd, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&rcBt));

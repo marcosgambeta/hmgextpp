@@ -340,7 +340,7 @@ static WNDPROC LabelOldWndProc;
 HB_FUNC_STATIC( INITLABEL )
 {
    int style = WS_CHILD;
-   int ExStyle = 0;
+   auto ExStyle = 0;
 
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);

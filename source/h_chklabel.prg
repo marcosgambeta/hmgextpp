@@ -575,7 +575,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
    auto BtnWidth = hb_parni(7);
    int style = WS_CHILD | SS_NOTIFY;
-   int ExStyle = 0;
+   auto ExStyle = 0;
 
    if( hb_parl(12) ) {
       ExStyle |= WS_EX_CLIENTEDGE;

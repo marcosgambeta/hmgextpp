@@ -518,7 +518,8 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
 {
    TCHAR achBuffer[BUFFER];
    int cch;
-   int yPos, iCheck, style = 0;
+   int yPos, iCheck;
+   auto style = 0;
    TEXTMETRIC tm;
    RECT rcCheck;
    HBRUSH hBackBrush;

@@ -64,11 +64,11 @@ INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15,
 */
 HB_FUNC( INITMONTHCAL )
 {
-   int   bold      = FW_NORMAL;
-   int   italic    = 0;
-   int   underline = 0;
-   int   strikeout = 0;
-   int   angle     = 0;
+   int  bold      = FW_NORMAL;
+   auto italic    = 0;
+   auto underline = 0;
+   auto strikeout = 0;
+   auto angle     = 0;
 
    INITCOMMONCONTROLSEX icex;
    icex.dwSize = sizeof(icex);

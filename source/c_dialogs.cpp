@@ -135,16 +135,17 @@ HB_FUNC( HMG_C_GETFILE )
    TCHAR cFullName[256][1024];
    TCHAR cCurDir[512];
    TCHAR cFileName[512];
-   int iFilterIndex = 1;
-   int iPosition    = 0;
-   int iNumSelected = 0;
+   auto iFilterIndex = 1;
+   auto iPosition    = 0;
+   auto iNumSelected = 0;
 
    DWORD flags = OFN_FILEMUSTEXIST;
 
 #ifdef UNICODE
    LPWSTR pW1, pW2;
    LPSTR  pStr;
-   int    j = 0, cont = 0;
+   auto j = 0;
+   auto cont = 0;
    auto p = static_cast<char*>(hb_parc(1));
    TCHAR  Filter[4096];
    memset(static_cast<void*>(&Filter), 0, sizeof(Filter));
@@ -245,12 +246,13 @@ HB_FUNC( HMG_C_PUTFILE ) // JK JP
 {
    TCHAR buffer[512];
    TCHAR cExt[4];
-   int iFilterIndex = 1;
+   auto iFilterIndex = 1;
 
 #ifdef UNICODE
    LPWSTR pW, pW1, pW2;
    LPSTR  pStr;
-   int    j = 0, cont = 0;
+   auto j = 0;
+   auto cont = 0;
    auto p = static_cast<char*>(hb_parc(1));
    TCHAR  Filter[4096];
    memset(static_cast<void*>(&Filter), 0, sizeof(Filter));

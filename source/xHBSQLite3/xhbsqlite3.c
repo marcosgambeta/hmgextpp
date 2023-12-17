@@ -371,7 +371,7 @@ static PHB_ITEM hb_sqlite3_itemPut(PHB_ITEM pItem, void * pMemAddr, int iType)
 static void * hb_sqlite3_itemGet(PHB_ITEM pItem, int iType, BOOL fError)
 {
    PHB_SQLITE3_HOLDER   pStructHolder = ( PHB_SQLITE3_HOLDER ) hb_itemGetPtrGC(pItem, hb_sqlite3_destructor);
-   int                  iError = 0;
+   auto                 iError = 0;
 
    HB_SYMBOL_UNUSED(iError);
 
@@ -951,9 +951,9 @@ HB_FUNC( SQLITE3_TABLE_COLUMN_METADATA )
         {
                 char const *   pzDataType = NULL;
                 char const *   pzCollSeq = NULL;
-                int            iNotNull = 0;
-                int            iPrimaryKey = 0;
-                int            iAutoinc = 0;
+                auto           iNotNull = 0;
+                auto           iPrimaryKey = 0;
+                auto           iAutoinc = 0;
 
                 void *         hDbName;
                 void *         hTableName;
@@ -1178,7 +1178,8 @@ HB_FUNC( SQLITE3_GET_TABLE )
                                                                                                 NULL), &pResult, &iRow, &iCol,
                                                                 &pszErrMsg) == SQLITE_OK )
                 {
-                        int i, j, k = 0;
+                        int i, j;
+                        auto k = 0;
 
                         for( i = 0; i < iRow + 1; i++ )
                         {

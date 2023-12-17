@@ -262,7 +262,7 @@ HMG_ADDLISTVIEWBITMAP() -->
 */
 HB_FUNC( HMG_ADDLISTVIEWBITMAP )       // Grid+
 {
-   int cx = 0;
+   auto cx = 0;
 
    auto nCount = static_cast<int>(hb_parinfa(2, 0));
 
@@ -370,7 +370,7 @@ HB_FUNC( HMG_INITLISTVIEWCOLUMNS )
    COL.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 
    int s;
-   int iColumn = 0;
+   auto iColumn = 0;
    auto hc = hmg_par_HWND(1);
 
    for( s = 0; s <= iLen; s++ ) {
@@ -479,8 +479,8 @@ HB_FUNC( HMG_LISTVIEWGETMULTISEL )
    int n = SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
    hb_reta(n);
 
-   int i = -1;
-   int j = 0;
+   auto i = -1;
+   auto j = 0;
 
    while( true ) {
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
@@ -504,7 +504,7 @@ HB_FUNC( HMG_LISTVIEWSETMULTISEL )
 {
    // CLEAR CURRENT SELECTIONS
 
-   int i = -1;
+   auto i = -1;
    auto hwnd = hmg_par_HWND(1);
 
    while( true ) {
@@ -576,7 +576,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
    LV_ITEM lvi;
    lvi.iSubItem = iSubItem_;
 
-   int nLen = 64;
+   auto nLen = 64;
    int nRes;
 
    do {

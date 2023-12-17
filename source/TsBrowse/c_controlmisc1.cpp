@@ -106,8 +106,8 @@ static far HCURSOR hDrag  = nullptr;
 
 HB_FUNC( NOR )
 {
-   int p = hb_pcount();
-   int ret = 0;
+   auto p = hb_pcount();
+   auto ret = 0;
 
    for( auto n = 1; n <= p; n++ )
    {

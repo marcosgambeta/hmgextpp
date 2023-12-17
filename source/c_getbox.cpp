@@ -81,8 +81,8 @@ HB_FUNC( HMG_INITGETBOX )
    HWND himage, himage2;
    HWND hBtn1, hBtn2;
    BOOL fBtns, fBtn2;
-   int  BtnWidth  = 0;
-   int  BtnWidth2 = 0;
+   auto BtnWidth  = 0;
+   auto BtnWidth2 = 0;
 
    fBtns = hb_parl(20);
    fBtn2 = hb_parl(22);

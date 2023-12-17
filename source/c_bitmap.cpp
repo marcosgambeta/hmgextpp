@@ -882,8 +882,8 @@ HMG_HB_GETIMAGESIZE(file) --> array
 */
 HB_FUNC( HMG_HB_GETIMAGESIZE )
 {
-   int x = 0;
-   int y = 0;
+   auto x = 0;
+   auto y = 0;
    void * str;
    GetImageSize(HB_PARSTR(1, &str, nullptr), &x, &y);
    hb_strfree(str);

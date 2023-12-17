@@ -585,7 +585,7 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    BOOL WholeWord      = ( BOOL ) ( HB_ISNIL(5) ? FALSE : hb_parl(5) );
    BOOL SelectFindText = ( BOOL ) ( HB_ISNIL(6) ? TRUE  : hb_parl(6) );
 
-   int Options = 0;
+   auto Options = 0;
 
    if( Down ) {
       Options |= FR_DOWN;
