@@ -146,7 +146,7 @@ HB_FUNC( SHOWWINDOW )
 
 HB_FUNC( GETACTIVEWINDOW )
 {
-   HWND hwnd = GetActiveWindow();
+   auto hwnd = GetActiveWindow();
 
    hmg_ret_HWND(hwnd);
 }

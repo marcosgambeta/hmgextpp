@@ -82,7 +82,7 @@ HB_FUNC( MESSAGEBOXINDIRECT )
 // MessageBoxTimeout (Text, Caption, nTypeButton, nMilliseconds) ---> Return iRetButton
 HB_FUNC( MESSAGEBOXTIMEOUT )
 {
-   HWND hWnd = GetActiveWindow();
+   auto hWnd = GetActiveWindow();
 
 #ifndef UNICODE
    const char * lpText    = hb_parc(1);

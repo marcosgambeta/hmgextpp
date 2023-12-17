@@ -1553,7 +1553,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
 {
    auto himl = hmg_par_HIMAGELIST(1);
    RECT       rect;
-   HWND       hwnd = GetActiveWindow();
+   auto hwnd = GetActiveWindow();
 
    rect.left   = HB_PARNI(3, 2);
    rect.top    = HB_PARNI(3, 1);

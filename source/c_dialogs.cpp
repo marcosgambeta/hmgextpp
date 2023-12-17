@@ -63,7 +63,7 @@ HMG_CHOOSEFONT(cFaceName, nHeight, nWeight, lItalic, nRGB, lUnderline, lStrikeOu
 */
 HB_FUNC( HMG_CHOOSEFONT )
 {
-   HWND hwnd = GetActiveWindow();
+   auto hwnd = GetActiveWindow();
    auto hdc = GetDC(hwnd);
 
    LOGFONT lf{};
