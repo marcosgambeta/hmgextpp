@@ -107,7 +107,7 @@ PROCEDURE DisplayHelpTopic(xTopic, nMet)
 
       __defaultNIL(@xTopic, 0)
 
-      WinHelp(_HMG_MainHandle, _HMG_ActiveHelpFile, nMet, xTopic)
+      hmg_WinHelp(_HMG_MainHandle, _HMG_ActiveHelpFile, nMet, xTopic)
 
    ENDIF
 

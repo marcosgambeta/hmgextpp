@@ -1013,7 +1013,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSE
 
-            WinHelp(hWnd, _HMG_ActiveHelpFile, 2, _HMG_aControlHelpId[i])
+            hmg_WinHelp(hWnd, _HMG_ActiveHelpFile, 2, _HMG_aControlHelpId[i])
 
          ENDIF
 

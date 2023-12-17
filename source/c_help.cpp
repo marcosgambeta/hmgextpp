@@ -48,9 +48,9 @@
 #include <hbwinuni.hpp>
 
 /*
-WINHELP(HWND, cp2, np3, np4) --> .T.|.F.
+HMG_WINHELP(HWND, cp2, np3, np4) --> .T.|.F.
 */
-HB_FUNC( WINHELP )
+HB_FUNC( HMG_WINHELP )
 {
    UINT style;
    DWORD context;
@@ -69,3 +69,7 @@ HB_FUNC( WINHELP )
 
    hb_strfree(str);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( WINHELP, HMG_WINHELP )
+#endif
