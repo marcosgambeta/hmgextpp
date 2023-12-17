@@ -842,7 +842,7 @@ HB_FUNC( SQLITE3_ROLLBACK_HOOK )
 
 HB_FUNC( SQLITE3_COMPILEOPTION_USED )
 {
-        hb_retl(( BOOL ) sqlite3_compileoption_used(hb_parc(1)));
+        hb_retl(static_cast<BOOL>(sqlite3_compileoption_used(hb_parc(1))));
 }
 
 HB_FUNC( SQLITE3_COMPILEOPTION_GET )
@@ -979,9 +979,9 @@ HB_FUNC( SQLITE3_TABLE_COLUMN_METADATA )
 
                         hb_arraySetStrUTF8(pArray, 1, pzDataType);
                         hb_arraySetStrUTF8(pArray, 2, pzCollSeq);
-                        hb_arraySetL( pArray, 3, ( BOOL ) ( iNotNull != 0 ) );
-                        hb_arraySetL( pArray, 4, ( BOOL ) ( iPrimaryKey != 0 ) );
-                        hb_arraySetL( pArray, 5, ( BOOL ) ( iAutoinc != 0 ) );
+                        hb_arraySetL( pArray, 3, static_cast<BOOL>( iNotNull != 0 ) );
+                        hb_arraySetL( pArray, 4, static_cast<BOOL>( iPrimaryKey != 0 ) );
+                        hb_arraySetL( pArray, 5, static_cast<BOOL>( iAutoinc != 0 ) );
 
                         hb_itemReturnRelease(pArray);
                 }
@@ -1494,7 +1494,7 @@ HB_FUNC( SQLITE3_STMT_READONLY )
         psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
         if( pStmt )
-                hb_retl(( BOOL ) sqlite3_stmt_readonly(pStmt));
+                hb_retl(static_cast<BOOL>(sqlite3_stmt_readonly(pStmt)));
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }

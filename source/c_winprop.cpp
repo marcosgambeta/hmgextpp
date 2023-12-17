@@ -107,7 +107,7 @@ HB_FUNC( SETPROP )
       chType = 'D';     // date
       nLen   = 9;       // len of "yyyymmdd"
    } else if( HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY)) ) {
-      if( ( BOOL ) hb_parldef(4, false) ) {
+      if( static_cast<BOOL>(hb_parldef(4, false)) ) {
          chType = 'X';                 // if 'X' memory HANDLE passed
       } else {
          chType = 'I';                 // int
@@ -218,7 +218,7 @@ HB_FUNC( GETPROP )
    auto nLen = static_cast<int>(*reinterpret_cast<int*>(lpMem + 1));
    switch( lpMem[0] ) {
       case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
-      case 'L':   hb_retl(( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 )); break;
+      case 'L':   hb_retl(static_cast<BOOL>(*reinterpret_cast<BOOL*>( lpMem + sizeof(int) + 1 ))); break;
       case 'D':   hb_retds(lpMem + sizeof(int) + 1); break;
       case 'I':   hb_retni(static_cast<INT>(*reinterpret_cast<INT*>(lpMem + sizeof(int) + 1))); break;
       case 'F':   hb_retnd(static_cast<double>(*reinterpret_cast<double*>(lpMem + sizeof(int) + 1))); break;

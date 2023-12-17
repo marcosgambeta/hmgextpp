@@ -223,7 +223,7 @@ HB_FUNC( MOVEFILE )
    LPWSTR lpNewFileName = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
 
-   hb_retl(( BOOL ) MoveFile(lpExistingFileName, lpNewFileName));
+   hb_retl(static_cast<BOOL>(MoveFile(lpExistingFileName, lpNewFileName)));
 
 #ifdef UNICODE
    hb_xfree(lpExistingFileName);
@@ -312,7 +312,7 @@ HB_FUNC( DESTROYCURSOR )
    }
 
    DelResource(hCur);
-   hb_retl(( BOOL ) DestroyCursor(hCur));
+   hb_retl(static_cast<BOOL>(DestroyCursor(hCur)));
 }
 
 HB_FUNC( GETWHEELSCROLLLINES )

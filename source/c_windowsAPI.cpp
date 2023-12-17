@@ -225,7 +225,7 @@ HB_FUNC( SETWINDOWTEXTW )
 
 HB_FUNC( SETWINDOWPOS )
 {
-   hb_retl(( BOOL ) SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
+   hb_retl(static_cast<BOOL>(SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7))));
 }
 
 HB_FUNC( ANIMATEWINDOW )
@@ -234,7 +234,7 @@ HB_FUNC( ANIMATEWINDOW )
    auto dwTime = hmg_par_DWORD(2);
    auto dwFlags = hmg_par_DWORD(3);
 
-   hb_retl(( BOOL ) AnimateWindow(hWnd, dwTime, dwFlags));
+   hb_retl(static_cast<BOOL>(AnimateWindow(hWnd, dwTime, dwFlags)));
 }
 
 HB_FUNC( FLASHWINDOWEX )
@@ -247,7 +247,7 @@ HB_FUNC( FLASHWINDOWEX )
    FlashWinInfo.uCount    = hmg_par_UINT(3);
    FlashWinInfo.dwTimeout = hmg_par_DWORD(4);
 
-   hb_retl(( BOOL ) FlashWindowEx(&FlashWinInfo));
+   hb_retl(static_cast<BOOL>(FlashWindowEx(&FlashWinInfo)));
 }
 
 HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
@@ -527,7 +527,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(4)));
 #endif
-   hb_retl(( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText));
+   hb_retl(static_cast<BOOL>(ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText)));
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -637,7 +637,7 @@ HB_FUNC( CHANGENOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(3)));
 #endif
-   hb_retl(( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText));
+   hb_retl(static_cast<BOOL>(ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText)));
 
 #ifdef UNICODE
    hb_xfree(szText);

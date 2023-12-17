@@ -80,9 +80,9 @@ typedef struct _tagEDITBALLOONTIP
 #define ECM_FIRST          0x1500            // Edit control messages
 
 #define EM_SHOWBALLOONTIP  (ECM_FIRST + 3) // Show a balloon tip associated to the edit control
-#define Edit_ShowBalloonTip(hwnd, peditballoontip)  ( BOOL ) SNDMSG(( hwnd ), EM_SHOWBALLOONTIP, 0, ( LPARAM ) ( peditballoontip ))
+#define Edit_ShowBalloonTip(hwnd, peditballoontip)  static_cast<BOOL>(SNDMSG(( hwnd ), EM_SHOWBALLOONTIP, 0, ( LPARAM ) ( peditballoontip )))
 #define EM_HIDEBALLOONTIP  (ECM_FIRST + 4) // Hide any balloon tip associated with the edit control
-#define Edit_HideBalloonTip(hwnd)                   ( BOOL ) SNDMSG(( hwnd ), EM_HIDEBALLOONTIP, 0, 0)
+#define Edit_HideBalloonTip(hwnd)                   static_cast<BOOL>(SNDMSG(( hwnd ), EM_HIDEBALLOONTIP, 0, 0))
 #endif
 
 #define HB_cdpGetU16(cdp, fCtrl, ch)               hb_cdpGetU16(cdp, ch)

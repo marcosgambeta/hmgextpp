@@ -1382,7 +1382,7 @@ HB_FUNC( EMPTYWORKINGSET )
 
       hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID);
       if( hProcess != nullptr ) {
-         hb_retl(( BOOL ) pEmptyWorkingSet(hProcess));
+         hb_retl(static_cast<BOOL>(pEmptyWorkingSet(hProcess)));
 
          CloseHandle(hProcess);
       } else {

@@ -580,10 +580,10 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
 HB_FUNC( RICHEDITBOX_FINDTEXT )
 {
    auto hWndControl = hmg_par_HWND(1);
-   BOOL Down           = ( BOOL ) ( HB_ISNIL(3) ? TRUE  : hb_parl(3) );
-   BOOL MatchCase      = ( BOOL ) ( HB_ISNIL(4) ? FALSE : hb_parl(4) );
-   BOOL WholeWord      = ( BOOL ) ( HB_ISNIL(5) ? FALSE : hb_parl(5) );
-   BOOL SelectFindText = ( BOOL ) ( HB_ISNIL(6) ? TRUE  : hb_parl(6) );
+   BOOL Down           = static_cast<BOOL>(HB_ISNIL(3) ? TRUE  : hb_parl(3));
+   BOOL MatchCase      = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
+   BOOL WholeWord      = static_cast<BOOL>(HB_ISNIL(5) ? FALSE : hb_parl(5));
+   BOOL SelectFindText = static_cast<BOOL>(HB_ISNIL(6) ? TRUE  : hb_parl(6));
 
    auto Options = 0;
 
@@ -978,12 +978,12 @@ HB_FUNC( REGISTERFINDMSGSTRING )
 HB_FUNC( FINDREPLACEDLG )
 {
    HWND hWnd           = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
-   BOOL NoUpDown       = ( BOOL ) ( HB_ISNIL(2) ? FALSE : hb_parl(2) );
-   BOOL NoMatchCase    = ( BOOL ) ( HB_ISNIL(3) ? FALSE : hb_parl(3) );
-   BOOL NoWholeWord    = ( BOOL ) ( HB_ISNIL(4) ? FALSE : hb_parl(4) );
-   BOOL CheckDown      = ( BOOL ) ( HB_ISNIL(5) ? TRUE  : hb_parl(5) );
-   BOOL CheckMatchCase = ( BOOL ) ( HB_ISNIL(6) ? FALSE : hb_parl(6) );
-   BOOL CheckWholeWord = ( BOOL ) ( HB_ISNIL(7) ? FALSE : hb_parl(7) );
+   BOOL NoUpDown       = static_cast<BOOL>(HB_ISNIL(2) ? FALSE : hb_parl(2));
+   BOOL NoMatchCase    = static_cast<BOOL>(HB_ISNIL(3) ? FALSE : hb_parl(3));
+   BOOL NoWholeWord    = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
+   BOOL CheckDown      = static_cast<BOOL>(HB_ISNIL(5) ? TRUE  : hb_parl(5));
+   BOOL CheckMatchCase = static_cast<BOOL>(HB_ISNIL(6) ? FALSE : hb_parl(6));
+   BOOL CheckWholeWord = static_cast<BOOL>(HB_ISNIL(7) ? FALSE : hb_parl(7));
    auto lReplace = hmg_par_BOOL(10);
 
    void * str1;

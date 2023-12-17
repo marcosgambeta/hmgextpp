@@ -797,13 +797,13 @@ HB_FUNC( BT_DC_DELETE )
    BT.hDC  = reinterpret_cast<HDC>(HB_PARVNL(1, 3));
    // PAINTSTRUCT
    BT.PaintStruct.hdc            = reinterpret_cast<HDC>(HB_PARVNL(1, 4));             // HDC  hdc;
-   BT.PaintStruct.fErase         = ( BOOL ) hb_parvni(1, 5);            // BOOL fErase;
+   BT.PaintStruct.fErase         = static_cast<BOOL>(hb_parvni(1, 5));            // BOOL fErase;
    BT.PaintStruct.rcPaint.left   = HB_PARVNL(1, 6);            // RECT rcPaint.left;
    BT.PaintStruct.rcPaint.top    = HB_PARVNL(1, 7);            // RECT rcPaint.top;
    BT.PaintStruct.rcPaint.right  = HB_PARVNL(1, 8);            // RECT rcPaint.right;
    BT.PaintStruct.rcPaint.bottom = HB_PARVNL(1, 9);            // RECT rcPaint.bottom;
-   BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni(1, 10);           // BOOL fRestore;
-   BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
+   BT.PaintStruct.fRestore       = static_cast<BOOL>(hb_parvni(1, 10));           // BOOL fRestore;
+   BT.PaintStruct.fIncUpdate     = static_cast<BOOL>(hb_parvni(1, 11));           // BOOL fIncUpdate;
    for( auto i = 0; i < 32; i++ ) {
       BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i));  // BYTE rgbReserved[32];
    }
