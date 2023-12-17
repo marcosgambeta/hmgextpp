@@ -73,7 +73,7 @@ ENDCLASS
 //
 // New
 //
-METHOD New(cKey, cValue) CLASS TPair
+METHOD TPair:New(cKey, cValue)
 ::cKey   := cKey
 ::cValue := cValue
 return Self

@@ -97,7 +97,7 @@ ENDCLASS
 *    oSock := TPop3():new()
 **********
 */
-METHOD New() CLASS TPOP3
+METHOD TPOP3:New()
 ::oSocket := TSocket():New()
 //::oSocket:SetDebug(.T.)
 return Self
@@ -105,7 +105,7 @@ return Self
 //
 // Connect to remore site
 //
-METHOD Connect(cAddress, nPort) CLASS TPOP3
+METHOD TPOP3:Connect(cAddress, nPort)
 local bRet
 
 DEFAULT nPort TO 110
@@ -122,7 +122,7 @@ return bRet
 //
 // Close socket
 //
-METHOD Close() CLASS TPOP3
+METHOD TPOP3:Close()
 local bRet
 
 if ::oSocket:SendString("QUIT" + CHR(13) + CHR(10))
@@ -150,7 +150,7 @@ return bRet
 *    TPop3:New
 **********
 */
-METHOD Login(cUser, cPwd) CLASS TPOP3
+METHOD TPOP3:Login(cUser, cPwd)
 LOCAL cLine
 LOCAL bRet := .T.
 if ::oSocket:SendString("USER " + cUser + CHR(13) + CHR(10))
@@ -168,7 +168,7 @@ return bRet
 //
 // List messages
 //
-METHOD List(lFullInfo) CLASS TPOP3
+METHOD TPOP3:List(lFullInfo)
 local aRet := {}
 local cMsg
 local nSpace, cMsgID, cSize, cInfo, nPos, cDmm, cSubject
@@ -207,7 +207,7 @@ return aRet
 //
 // Get original text of mail
 //
-METHOD GetMessageHeader(cMessageID) CLASS TPOP3
+METHOD TPOP3:GetMessageHeader(cMessageID)
 local cRet := ""
 local cMsg
 
@@ -228,7 +228,7 @@ return cRet
 //
 // Get original text of mail
 //
-METHOD GetMessageText(cMessageID) CLASS TPOP3
+METHOD TPOP3:GetMessageText(cMessageID)
 local cRet := ""
 local cMsg
 
@@ -249,7 +249,7 @@ return cRet
 //
 // Delete original text of mail
 //
-METHOD DeleteMessage(cMessageID) CLASS TPOP3
+METHOD TPOP3:DeleteMessage(cMessageID)
 local bRet := .T.
 
 if ::oSocket:SendString("DELE " + cMessageID + CHR(13) + CHR(10)

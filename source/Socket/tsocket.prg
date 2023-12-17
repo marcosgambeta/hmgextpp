@@ -119,13 +119,13 @@ CLASS TSocket
 ENDCLASS
 
 
-METHOD New() CLASS TSocket
+METHOD TSocket:New()
 return Self
 
 //
 // Connect to remore site
 //
-METHOD Connect(cAddress, nPort) CLASS TSocket
+METHOD TSocket:Connect(cAddress, nPort)
 local cSok := space(len(::m_hSocket))
 local bRet
 
@@ -140,7 +140,7 @@ return bRet
 //
 // Close socket
 //
-METHOD Close() CLASS TSocket
+METHOD TSocket:Close()
 local cSok := space(len(::m_hSocket))
 local bRet
 
@@ -155,14 +155,14 @@ return bRet
 //
 // Send string to socket
 //
-METHOD SendString(cString) CLASS TSocket
+METHOD TSocket:SendString(cString)
 ::PrintDebugMessage("Send string " + cString)
 return SocketSend(::m_hSocket, cString, ::nSendTimeout)
 
 //
 // Receive string from socket
 //
-METHOD ReceiveString() CLASS TSocket
+METHOD TSocket:ReceiveString()
 local cRet := ""
 local cBuf := space(4096)
 local nRet
@@ -184,7 +184,7 @@ return cRet
 //
 // Receive char from socket
 //
-METHOD ReceiveChar(nBufLen) CLASS TSocket
+METHOD TSocket:ReceiveChar(nBufLen)
 local cRet, cBuf, nRet
 
 DEFAULT nBufLen TO 1
@@ -202,7 +202,7 @@ return cRet
 //
 // Receive Line from socket
 //
-METHOD ReceiveLine() CLASS TSocket
+METHOD TSocket:ReceiveLine()
 local cRet := ""
 local cBuf := space(1)
 local nRet
@@ -232,7 +232,7 @@ return cRet
 //
 // Bind all address
 //
-METHOD Bind(cAddress, nPort) CLASS TSocket
+METHOD TSocket:Bind(cAddress, nPort)
 local cSok := space(len(::m_hSocket))
 local bRet
 
@@ -247,7 +247,7 @@ return bRet
 //
 // Listen for client
 //
-METHOD Listen(nClient) CLASS TSocket
+METHOD TSocket:Listen(nClient)
 local cSok := space(len(::m_hSocket))
 local bRet
 local oRet
@@ -268,28 +268,28 @@ return oRet
 //
 // Receive Timeout
 //
-METHOD SetReceiveTimeout(nTime) CLASS TSocket
+METHOD TSocket:SetReceiveTimeout(nTime)
 ::nReceiveTimeout := nTime
 return NIL
 
 //
 // Send Timeout
 //
-METHOD SetSendTimeout(nTime) CLASS TSocket
+METHOD TSocket:SetSendTimeout(nTime)
 ::nSendTimeout := nTime
 return NIL
 
 //
 // Set debug inside socket class
 //
-METHOD SetDebug(bDebug) CLASS TSocket
+METHOD TSocket:SetDebug(bDebug)
 ::bDebug := bDebug
 return NIL
 
 //
 // Print error messages
 //
-METHOD PrintDebugMessage(cMsg) CLASS TSocket
+METHOD TSocket:PrintDebugMessage(cMsg)
 if ::bDebug
    ? "(" +::m_hSocket +") (" +cMsg +")"
 endif

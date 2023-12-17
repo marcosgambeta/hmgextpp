@@ -104,7 +104,7 @@ CLASS THttp
 ENDCLASS
 
 
-METHOD New() CLASS THttp
+METHOD THttp:New()
 ::oSocket    := TSocket():New()
 ::cUserAgent := "THttp/Harbour (http://www.baccan.it; MSIE 6.0)"
 return Self
@@ -156,7 +156,7 @@ return Self
 *    THttp:Get
 **********
 */
-METHOD Connect(cAddress, nPort) CLASS THttp
+METHOD THttp:Connect(cAddress, nPort)
 LOCAL lRet
 
 DEFAULT nPort TO 80
@@ -174,7 +174,7 @@ return lRet
 //
 // Close socket
 //
-METHOD Close() CLASS THttp
+METHOD THttp:Close()
 return ::oSocket:Close()
 
 /****m* THttp/THttp:Get
@@ -224,7 +224,7 @@ return ::oSocket:Close()
 *    THttp:Post
 **********
 */
-METHOD Get(cPage, aPair) CLASS THttp
+METHOD THttp:Get(cPage, aPair)
 LOCAL cRet := ""
 LOCAL cURL := ""
 LOCAL cPost := ::Value2String(aPair)
@@ -307,7 +307,7 @@ return cRet
 *    THttp:Get
 **********
 */
-METHOD Post(cPage, aPair) CLASS THttp
+METHOD THttp:Post(cPage, aPair)
 LOCAL cRet := ""
 LOCAL cURL := ""
 LOCAL cPost := ::Value2String(aPair)
@@ -342,7 +342,7 @@ IF ::oSocket:SendString(cURL)
 ENDIF
 return cRet
 
-METHOD Value2String(aPair) CLASS THttp
+METHOD THttp:Value2String(aPair)
 local cPost := ""
 local nPair
 local oDecode
@@ -363,7 +363,7 @@ return cPost
 //
 // Set proxy port
 //
-METHOD SetProxy(cProxy, nPort, cUser, cPwd) CLASS THttp
+METHOD THttp:SetProxy(cProxy, nPort, cUser, cPwd)
 local oSock
 
 DEFAULT nPort TO 8080
@@ -384,7 +384,7 @@ return NIL
 //
 // Set user and password method
 //
-METHOD SetUser(cUser, cPwd) CLASS THttp
+METHOD THttp:SetUser(cUser, cPwd)
 local oSock
 if cUser!=NIL
    oSock := TDecode():new()
@@ -401,19 +401,19 @@ return NIL
 //
 // Set user agent
 //
-METHOD SetUserAgent(cAgent) CLASS THttp
+METHOD THttp:SetUserAgent(cAgent)
 ::cUserAgent := cAgent
 return NIL
 
 //
 // Get user agent
 //
-METHOD GetUserAgent() CLASS THttp
+METHOD THttp:GetUserAgent()
 return ::cUserAgent
 
 //
 // Set receive timeout
 //
-METHOD SetReceiveTimeout(nMilliSec) CLASS THttp
+METHOD THttp:SetReceiveTimeout(nMilliSec)
 ::oSocket:SetReceiveTimeout(nMilliSec)
 return NIL

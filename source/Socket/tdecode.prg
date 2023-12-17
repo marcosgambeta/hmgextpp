@@ -100,7 +100,7 @@ ENDCLASS
 *    oSock := TDecode():new()
 **********
 */
-METHOD New() CLASS TDecode
+METHOD TDecode:New()
 ::cCharPos := "0123456789abcdef"
 return Self
 
@@ -119,7 +119,7 @@ return Self
 *    TDecode:Encode
 **********
 */
-METHOD Decode(cString) CLASS TDecode
+METHOD TDecode:Decode(cString)
 LOCAL cRet := ""
 LOCAL nChars, nDec, i, cChar
 LOCAL nPos1, nPos2
@@ -149,7 +149,7 @@ return cRet
 //
 // Encode String
 //
-METHOD Encode(cString) CLASS TDecode
+METHOD TDecode:Encode(cString)
 LOCAL cRet := ""
 LOCAL nChars, nChar, i, cChar
 
@@ -175,15 +175,15 @@ enddo
 
 return cRet
 
-METHOD Encode64( cData, nLen ) CLASS TDecode
+METHOD TDecode:Encode64( cData, nLen )
 DEFAULT nLen TO 0
 return SocketEncode64( cData, nLen )
 
-METHOD Decode64( cData ) CLASS TDecode
+METHOD TDecode:Decode64( cData )
 return SocketDecode64( cData )
 
-METHOD MD5( cData ) CLASS TDecode
+METHOD TDecode:MD5( cData )
 return SocketMD5( cData )
 
-METHOD HMAC_MD5( cLogin, cPwd, cChallenge ) CLASS TDecode
+METHOD TDecode:HMAC_MD5( cLogin, cPwd, cChallenge )
 return ::Encode64( SocketHMAC_MD5( cLogin, cPwd, ::Decode64(cChallenge) ) )

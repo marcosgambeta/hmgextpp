@@ -130,7 +130,7 @@ CLASS TSMTP
 ENDCLASS
 
 
-METHOD New() CLASS TSMTP
+METHOD TSMTP:New()
 ::oSocket := TSocket():New()
 //::oSocket:SetDebug(.T.)
 ::ClearData()
@@ -139,7 +139,7 @@ return Self
 //
 // Connect to remore site
 //
-METHOD Connect(cAddress, nPort, cHelo) CLASS TSMTP
+METHOD TSMTP:Connect(cAddress, nPort, cHelo)
 local bRet, cErr
 
 DEFAULT nPort TO 25
@@ -178,7 +178,7 @@ endif
 return bRet
 
 // Receive lines (answer) from server 
-METHOD GetLines() CLASS TSMTP
+METHOD TSMTP:GetLines()
 local cLines := ""
 local cLine
 
@@ -192,7 +192,7 @@ enddo
 return cLines
 
 // Login to server
-METHOD Login(cUser, cPwd) CLASS TSMTP
+METHOD TSMTP:Login(cUser, cPwd)
 local cErr    := ""
 local bRet    := .F.
 local oDecode := TDecode():new()
@@ -224,7 +224,7 @@ endif
 return bRet
 
 // Login to server
-METHOD LoginMD5( cUser, cPwd ) CLASS TSMTP
+METHOD TSMTP:LoginMD5( cUser, cPwd )
 local cErr    := ""
 local bRet    := .F.
 local oDecode := TDecode():new()
@@ -256,7 +256,7 @@ return bRet
 //
 // Close socket
 //
-METHOD Close() CLASS TSMTP
+METHOD TSMTP:Close()
 ::oSocket:SendString("QUIT" + CHR(13) + CHR(10))
 ::GetLines()
 return ::oSocket:Close()
@@ -264,7 +264,7 @@ return ::oSocket:Close()
 //
 // Clear data
 //
-METHOD ClearData() CLASS TSMTP
+METHOD TSMTP:ClearData()
 ::cFrom     := ""
 ::cReplyTo  := ""
 ::cEmail    := ""
@@ -281,7 +281,7 @@ return NIL
 //
 // Set From
 //
-METHOD SetFrom(cUser, cEmail)  CLASS TSMTP
+METHOD TSMTP:SetFrom(cUser, cEmail)
 ::cFrom  := cUser
 ::cEmail := cEmail
 return NIL
@@ -289,49 +289,49 @@ return NIL
 //
 // Set Reply-To
 //
-METHOD SetReplyTo(cReplyTo)  CLASS TSMTP
+METHOD TSMTP:SetReplyTo(cReplyTo)
 ::cReplyTo := cReplyTo
 return NIL
 
 //
 // Set Subject
 //
-METHOD SetSubject(cSubject)  CLASS TSMTP
+METHOD TSMTP:SetSubject(cSubject)
 ::cSubject := cSubject
 return NIL
 
 //
 // Set Priority
 //
-METHOD SetPriority(nPriority)  CLASS TSMTP
+METHOD TSMTP:SetPriority(nPriority)
 ::nPriority := nPriority
 return NIL
 
 //
 // Add to
 //
-METHOD AddTo(cUser, cEmail) CLASS TSMTP
+METHOD TSMTP:AddTo(cUser, cEmail)
 aadd(::aTo, {cUser, cEmail})
 return NIL
 
 //
 // Add cc
 //
-METHOD AddCc(cUser, cEmail) CLASS TSMTP
+METHOD TSMTP:AddCc(cUser, cEmail)
 aadd(::aCc, {cUser, cEmail})
 return NIL
 
 //
 // Add Bcc
 //
-METHOD AddBcc(cUser, cEmail) CLASS TSMTP
+METHOD TSMTP:AddBcc(cUser, cEmail)
 aadd(::aBcc, {cUser, cEmail})
 return NIL
 
 //
 // Set data
 //
-METHOD SetData(cMail, bHTML) CLASS TSMTP
+METHOD TSMTP:SetData(cMail, bHTML)
 DEFAULT bHTML TO .F.
 ::cData := cMail
 ::bHTML := bHTML
@@ -340,27 +340,27 @@ return NIL
 //
 // Add attach
 //
-METHOD AddAttach(cAttach) CLASS TSMTP
+METHOD TSMTP:AddAttach(cAttach)
 aadd(::aAttach, cAttach)
 return NIL
 
 //
 // Get Error
 //
-METHOD GetLastError() CLASS TSMTP
+METHOD TSMTP:GetLastError()
 return ::cError
 
 //
 // Set Send timeout
 //
-METHOD SetSendTimeout(nMilliSec) CLASS TSMTP
+METHOD TSMTP:SetSendTimeout(nMilliSec)
 ::oSocket:SetSendTimeout(nMilliSec)
 return NIL
 
 //
 // Send message
 //
-METHOD Send(bIgnoreTOError, bRequestReturnReceipt) CLASS TSMTP
+METHOD TSMTP:Send(bIgnoreTOError, bRequestReturnReceipt)
 local bRet := .F.
 local cHeader := ""
 local cErr

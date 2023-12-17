@@ -85,7 +85,7 @@ ENDCLASS
 //
 // New
 //
-METHOD New() CLASS TFtp
+METHOD TFtp:New()
 ::oSocket := TSocket():New()
 //::oSocket:bDebug := .T.
 return Self
@@ -93,7 +93,7 @@ return Self
 //
 // Connect
 //
-METHOD Connect(cAddress, nPort) CLASS TFtp
+METHOD TFtp:Connect(cAddress, nPort)
 local lRet
 
 DEFAULT nPort TO 21
@@ -110,13 +110,13 @@ return lRet
 //
 // Close
 //
-METHOD Close() CLASS TFtp
+METHOD TFtp:Close()
 return ::oSocket:Close()
 
 //
 // Login
 //
-METHOD Login(cUser, cPwd) CLASS TFtp
+METHOD TFtp:Login(cUser, cPwd)
 local cErr := ""
 local lRet := .F.
 
@@ -157,7 +157,7 @@ return lRet
 //
 // List
 //
-METHOD List() CLASS TFtp
+METHOD TFtp:List()
 //local cErr := ""
 
 //## to improve
