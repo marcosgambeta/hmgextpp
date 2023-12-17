@@ -237,11 +237,11 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 {
    auto sArray = hb_param(1, Harbour::Item::ARRAY);
 
-   char * strTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
+   auto strTitle        = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
    auto idRC            = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
    auto PageStyle       = hb_arrayGetNI(sArray, 3);                      // Page Style
-   char * strHdTitle    = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
-   char * strSubHdTitle = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // HdSubTitle
+   auto strHdTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
+   auto strSubHdTitle   = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // HdSubTitle
 
    PROPSHEETPAGE psp{};
    psp.dwSize            = sizeof(PROPSHEETPAGE);
@@ -279,7 +279,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    auto Style          = hb_arrayGetNI(pArray, 4);
    auto idWM           = hb_arrayGetNI(pArray, 15);
    auto idHeader       = hb_arrayGetNI(pArray, 17);
-   char * strPropSheet = const_cast<char*>(hb_arrayGetCPtr(pArray, 10));  // Caption Property Sheet
+   auto strPropSheet   = const_cast<char*>(hb_arrayGetCPtr(pArray, 10));  // Caption Property Sheet
 
    HICON hicon;
    int idIcon;
@@ -434,11 +434,11 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    long lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
-   char * strTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
+   auto strTitle        = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
    auto idRC            = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
    auto PageStyle       = hb_arrayGetNI(sArray, 3);                      // Page Style
-   char * strHdTitle    = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
-   char * strSubHdTitle = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // SubHdTitle
+   auto strHdTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
+   auto strSubHdTitle   = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // SubHdTitle
 
    PROPSHEETPAGE psp{};
    psp.dwSize            = sizeof(PROPSHEETPAGE);

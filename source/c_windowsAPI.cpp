@@ -523,7 +523,7 @@ static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
 HB_FUNC( SHOWNOTIFYICON )
 {
 #ifndef UNICODE
-   char * szText = const_cast<char*>(hb_parc(4));
+   auto szText = const_cast<char*>(hb_parc(4));
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(4)));
 #endif
@@ -633,7 +633,7 @@ static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, TCHAR * szText)
 HB_FUNC( CHANGENOTIFYICON )
 {
 #ifndef UNICODE
-   char * szText = const_cast<char*>(hb_parc(3));
+   auto szText = const_cast<char*>(hb_parc(3));
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(3)));
 #endif

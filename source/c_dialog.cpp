@@ -359,7 +359,6 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    HB_LONGLONG style, ExStyle, HelpId;
    #endif
    ULONG Id;
-   char * strtemp;
    int nchar;
 
    PWORD pdlgtemplate = static_cast<WORD*>(LocalAlloc(LPTR, lTemplateSize));
@@ -389,7 +388,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    *pw++   = static_cast<WORD>(MulDiv(h, 8, baseunitY)); // cy
    *pw++   = 0; // Menu
    *pw++   = 0; // Class
-   strtemp = const_cast<char*>(hb_arrayGetCPtr(dArray, 10)); // caption
+   auto strtemp = const_cast<char*>(hb_arrayGetCPtr(dArray, 10)); // caption
    nchar   = nCopyAnsiToWideChar(pw, strtemp);
    pw     += nchar;
    if( hb_arrayGetNI(dArray, 4) & DS_SETFONT ) {

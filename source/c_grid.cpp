@@ -422,7 +422,7 @@ HB_FUNC( HMG_ADDLISTVIEWITEMS )
    auto hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
 
-   char * caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
+   auto caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
 #ifndef UNICODE
    lpText = caption;
 #else

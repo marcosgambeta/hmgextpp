@@ -1748,7 +1748,7 @@ HB_FUNC( ADDTREEITEMS )
    int l = hb_parinfa(2, 0) - 1;
    auto hArray = hb_param(2, Harbour::Item::ARRAY);
    int c = ListView_GetItemCount(h);
-   char * caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
+   auto caption = const_cast<char*>(hb_arrayGetCPtr(hArray, 1));
 
    LV_ITEM  LI;
    LI.mask = LVIF_TEXT | LVIF_IMAGE;   // Browse+
@@ -1846,7 +1846,7 @@ PGCOMBOADDSTRING(HWND, text, HIMAGELIST) --> NIL
 HB_FUNC( PGCOMBOADDSTRING )
 {
    HIMAGELIST hILst = hmg_par_HIMAGELIST(3);
-   char * cString = const_cast<char*>(hb_parc(2));
+   auto cString = const_cast<char*>(hb_parc(2));
    DWORD dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM) cString);
    if( hb_parnl(3) ) {
       SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, (LPARAM) hILst);
