@@ -107,7 +107,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_IPADDRESS
-      retval := GetIPAddress(c)
+      retval := hmg_GetIPAddress(c)
       EXIT
 
    CASE CONTROL_TYPE_MONTHCAL
@@ -345,7 +345,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       IF Len(Value) == 0
          ClearIpAddress(c)
       ELSE
-         SetIPAddress(c, Value[1], Value[2], Value[3], Value[4])
+         hmg_SetIPAddress(c, Value[1], Value[2], Value[3], Value[4])
       ENDIF
       EXIT
 

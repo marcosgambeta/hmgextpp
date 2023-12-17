@@ -49,7 +49,7 @@
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-HB_FUNC( INITIPADDRESS )
+HB_FUNC( HMG_INITIPADDRESS )
 {
    INITCOMMONCONTROLSEX icex;
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -83,12 +83,20 @@ HB_FUNC( INITIPADDRESS )
    hmg_ret_HWND(hIpAddress);
 }
 
-HB_FUNC( SETIPADDRESS )
+#if 1
+HB_FUNC_TRANSLATE( INITIPADDRESS, HMG_INITIPADDRESS )
+#endif
+
+HB_FUNC( HMG_SETIPADDRESS )
 {
    SendMessage(hmg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(hmg_par_BYTE(2), hmg_par_BYTE(3), hmg_par_BYTE(4), hmg_par_BYTE(5)));
 }
 
-HB_FUNC( GETIPADDRESS )
+#if 1
+HB_FUNC_TRANSLATE( SETIPADDRESS, HMG_SETIPADDRESS )
+#endif
+
+HB_FUNC( HMG_GETIPADDRESS )
 {
    DWORD pdwAddr;
    SendMessage(hmg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
@@ -98,3 +106,7 @@ HB_FUNC( GETIPADDRESS )
    HB_STORNI(THIRD_IPADDRESS(pdwAddr), -1, 3);
    HB_STORNI(FOURTH_IPADDRESS(pdwAddr), -1, 4);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETIPADDRESS, HMG_GETIPADDRESS )
+#endif

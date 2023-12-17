@@ -95,7 +95,7 @@ FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := InitIPAddress(ParentForm, 0, x, y, w, h, invisible, notabstop)
+   ControlHandle := hmg_InitIPAddress(ParentForm, 0, x, y, w, h, invisible, notabstop)
 
    IF !empty(FontHandle)
       hmg__SetFontHandle(ControlHandle, FontHandle)
@@ -112,7 +112,7 @@ FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
    ENDIF
 
    IF hb_IsArray(aValue)
-      SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
+      hmg_SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
    ENDIF
 
    IF tooltip != NIL
