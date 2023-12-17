@@ -238,8 +238,8 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
    auto sArray = hb_param(1, Harbour::Item::ARRAY);
 
    char * strTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
-   int idRC             = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
-   int PageStyle        = hb_arrayGetNI(sArray, 3);                      // Page Style
+   auto idRC            = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
+   auto PageStyle       = hb_arrayGetNI(sArray, 3);                      // Page Style
    char * strHdTitle    = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
    char * strSubHdTitle = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // HdSubTitle
 
@@ -276,9 +276,9 @@ HB_FUNC( CREATEPROPERTYSHEET )
       hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(hb_arrayGetNL(sArray, s + 1)));
    }
 
-   int Style           = hb_arrayGetNI(pArray, 4);
-   int idWM            = hb_arrayGetNI(pArray, 15);
-   int idHeader        = hb_arrayGetNI(pArray, 17);
+   auto Style          = hb_arrayGetNI(pArray, 4);
+   auto idWM           = hb_arrayGetNI(pArray, 15);
+   auto idHeader       = hb_arrayGetNI(pArray, 17);
    char * strPropSheet = const_cast<char*>(hb_arrayGetCPtr(pArray, 10));  // Caption Property Sheet
 
    HICON hicon;
@@ -435,8 +435,8 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
    char * strTitle      = const_cast<char*>(hb_arrayGetCPtr(sArray, 1)); // Caption
-   int idRC             = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
-   int PageStyle        = hb_arrayGetNI(sArray, 3);                      // Page Style
+   auto idRC            = hb_arrayGetNI(sArray, 2);                      // Id Dialog resource
+   auto PageStyle       = hb_arrayGetNI(sArray, 3);                      // Page Style
    char * strHdTitle    = const_cast<char*>(hb_arrayGetCPtr(sArray, 4)); // HdTitle
    char * strSubHdTitle = const_cast<char*>(hb_arrayGetCPtr(sArray, 5)); // SubHdTitle
 

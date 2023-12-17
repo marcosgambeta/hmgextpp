@@ -341,8 +341,6 @@ HB_FUNC( HMG_CREATEFOLDERPAGEINDIRECT )
 {
    auto pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
 
-   int     idRC, PageStyle;
-
    long lTemplateSize;
 
    auto sArray = hb_param(1, Harbour::Item::ARRAY); //Folder Array
@@ -357,8 +355,8 @@ HB_FUNC( HMG_CREATEFOLDERPAGEINDIRECT )
    #else
    auto strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Tab Title
    #endif
-   idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
-   PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
+   auto idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
+   auto PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
    #ifndef UNICODE
    auto ImageName = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));
    #else
@@ -395,8 +393,6 @@ HB_FUNC( HMG_CREATEFOLDERPAGE )
 {
    auto pfpi = static_cast<FLDPAGEINFO*>(LocalAlloc(LPTR, sizeof(FLDPAGEINFO)));
 
-   int      idRC, PageStyle;
-
    auto sArray = hb_param(1, Harbour::Item::ARRAY);
 
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
@@ -406,8 +402,8 @@ HB_FUNC( HMG_CREATEFOLDERPAGE )
    #else
    auto strTitle = static_cast<TCHAR*>(AnsiToWide(static_cast<char*>(hb_arrayGetCPtr(sArray, 1)))); // Caption
    #endif
-   idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
-   PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
+   auto idRC = hb_arrayGetNI(sArray, 2);                                       // Id Dialog resource
+   auto PageStyle = hb_arrayGetNI(sArray, 3);                                       // Page Style
    #ifndef UNICODE
    auto caption = const_cast<TCHAR*>(hb_arrayGetCPtr(sArray, 4));                           // Page Image
    #else
@@ -451,7 +447,6 @@ HB_FUNC( HMG_CREATEDLGFOLDER )
    LRESULT lResult;
    long    lTemplateSize;
    int     nPages, style;
-   int     x, y, cx, cy;
 
    auto nIdFld = hmg_par_int(1);
    auto hWndDlg = hmg_par_HWND(2);
@@ -465,10 +460,10 @@ HB_FUNC( HMG_CREATEDLGFOLDER )
    modal = hb_arrayGetL(pArray, 3);
 
    nPages = hb_arrayLen(sArray);
-   x = hb_arrayGetNI(pArray, 6);      //x
-   y = hb_arrayGetNI(pArray, 7);      //y
-   cx = hb_arrayGetNI(pArray, 8);      //w
-   cy = hb_arrayGetNI(pArray, 9);      //h
+   auto x = hb_arrayGetNI(pArray, 6);      //x
+   auto y = hb_arrayGetNI(pArray, 7);      //y
+   auto cx = hb_arrayGetNI(pArray, 8);      //w
+   auto cy = hb_arrayGetNI(pArray, 9);      //h
    style = WS_CHILD | WS_VISIBLE;
    if( hb_arrayGetL(pArray, 19) ) {
       style |= TCS_BUTTONS;
