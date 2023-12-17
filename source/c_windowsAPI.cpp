@@ -1261,8 +1261,8 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
                p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;
-               for( INT y = 0; y < bm.bmHeight; y++ ) {    // Scan each bitmap pixel from left to right
-                  for( INT x = 0; x < bm.bmWidth; x++ ) {  // Search for a continuous range of "non transparent pixels"
+               for( auto y = 0; y < bm.bmHeight; y++ ) {    // Scan each bitmap pixel from left to right
+                  for( auto x = 0; x < bm.bmWidth; x++ ) {  // Search for a continuous range of "non transparent pixels"
                      int    x0 = x;
                      LONG * p  = ( LONG * ) p32 + x;
                      while( x < bm.bmWidth ) {

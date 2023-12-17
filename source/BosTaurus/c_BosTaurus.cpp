@@ -774,7 +774,7 @@ HB_FUNC( BT_DC_CREATE )
    HB_STORVNL( BT.PaintStruct.rcPaint.bottom, -1, 9);           // RECT rcPaint.bottom;
    HB_STORVNI( BT.PaintStruct.fRestore, -1, 10);                // BOOL fRestore;
    HB_STORVNI( BT.PaintStruct.fIncUpdate, -1, 11);              // BOOL fIncUpdate;
-   for( INT i = 0; i < 32; i++ ) {
+   for( auto i = 0; i < 32; i++ ) {
       HB_STORVNI(BT.PaintStruct.rgbReserved[i], -1, 12 + i);  // BYTE rgbReserved[32];
    }
 
@@ -804,7 +804,7 @@ HB_FUNC( BT_DC_DELETE )
    BT.PaintStruct.rcPaint.bottom = HB_PARVNL(1, 9);            // RECT rcPaint.bottom;
    BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni(1, 10);           // BOOL fRestore;
    BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
-   for( INT i = 0; i < 32; i++ ) {
+   for( auto i = 0; i < 32; i++ ) {
       BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i));  // BYTE rgbReserved[32];
    }
 
@@ -998,7 +998,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       #ifdef __MINGW_H
       POINT aPoint[nLen];
       #endif
-      for( INT i = 0; i < nLen; i++ ) {
+      for( auto i = 0; i < nLen; i++ ) {
          aPoint[i].x = hb_parvni(2, i + 1);
          aPoint[i].y = hb_parvni(3, i + 1);
       }
@@ -2552,7 +2552,7 @@ HB_FUNC( BT_BMP_PROCESS )
          RedGamma   = static_cast<DOUBLE>(hb_parvnd(3, 1));
          GreenGamma = static_cast<DOUBLE>(hb_parvnd(3, 2));
          BlueGamma  = static_cast<DOUBLE>(hb_parvnd(3, 3));
-         for( INT i = 0; i < 256; i++ ) {
+         for( auto i = 0; i < 256; i++ ) {
             RedGammaRamp[i]   = static_cast<BYTE>(bt_GAMMA(i, RedGamma));
             GreenGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, GreenGamma));
             BlueGammaRamp[i]  = static_cast<BYTE>(bt_GAMMA(i, BlueGamma));
@@ -2594,10 +2594,10 @@ HB_FUNC( BT_BMP_PROCESS )
    auto memDC = CreateCompatibleDC(nullptr);
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
 
-   for( INT y = 0; y < bm.bmHeight; y++ ) {
+   for( auto y = 0; y < bm.bmHeight; y++ ) {
       RGBcolor = ( bt_RGBCOLORBYTE * ) (lp_Bits + static_cast<LONG>(y) * bm.bmWidthBytes);
 
-      for( INT x = 0; x < bm.bmWidth; x++ ) {
+      for( auto x = 0; x < bm.bmWidth; x++ ) {
          switch( Action ) {
             case BT_BMP_PROCESS_INVERT:
                RGBcolor->R = 255 - RGBcolor->R;
@@ -2723,7 +2723,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
       hb_retl(false);
       return;
    }
-   for( INT i = 0; i < nMATFILTER; i++ ) {
+   for( auto i = 0; i < nMATFILTER; i++ ) {
       MatKernel3x3Filter[i] = hb_parvni(2, i + 1);
    }
 
@@ -2766,11 +2766,11 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits_O), &BI, DIB_RGB_COLORS);
 
-   for( INT y = 0; y < bm.bmHeight; y++ ) {
+   for( auto y = 0; y < bm.bmHeight; y++ ) {
 //     RGBcolor_O = (bt_RGBCOLORBYTE *) (lp_Bits_O + (LONG) (y) * bm.bmWidthBytes);
       RGBcolor_D = ( bt_RGBCOLORBYTE * ) (lp_Bits_D + static_cast<LONG>(y) * bm.bmWidthBytes);
 
-      for( INT x = 0; x < bm.bmWidth; x++ ) {
+      for( auto x = 0; x < bm.bmWidth; x++ ) {
          if( (y >= HALF && y < (bm.bmHeight - HALF)) && (x >= HALF && x < (bm.bmWidth - HALF)) ) {
             RGBcolor_Yprevious_Xcurrent  = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + static_cast<LONG>(y - 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
             RGBcolor_Ycurrent_Xcurrent   = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + static_cast<LONG>(y + 0) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));

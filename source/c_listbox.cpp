@@ -202,7 +202,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    hb_reta(n);
 
-   for( INT i = 0; i < n; i++ ) {
+   for( auto i = 0; i < n; i++ ) {
       HB_STORNI(buffer[i] + 1, -1, i + 1);
    }
 }

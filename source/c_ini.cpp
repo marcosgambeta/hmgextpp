@@ -205,14 +205,14 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
    if( nLen > 0 ) {
 #ifndef UNICODE
       HB_STORC((p = FindFirstSubString(p)), -1, 1);
-      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          HB_STORC(p, -1, i);
       }
 #else
       p = FindFirstSubString(p);
       pStr = WideToAnsi(p);
       HB_STORC(pStr, -1, 1);
-      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          pStr = WideToAnsi(p);
          HB_STORC(pStr, -1, i);
       }
@@ -245,14 +245,14 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
    if( nLen > 0 ) {
 #ifndef UNICODE
       HB_STORC((p = FindFirstSubString(p)), -1, 1);
-      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          HB_STORC(p, -1, i);
       }
 #else
       p = FindFirstSubString(p);
       pStr = WideToAnsi(p);
       HB_STORC(pStr, -1, 1);
-      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          pStr = WideToAnsi(p);
          HB_STORC(pStr, -1, i);
       }
