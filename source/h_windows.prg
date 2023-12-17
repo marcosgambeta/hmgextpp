@@ -2275,7 +2275,7 @@ FUNCTION ReleaseAllWindows()
 
    NEXT
 
-   OleDataRelease()
+   hmg_OleDataRelease()
 
    UnloadRichEditLib()
    UnloadRichEditExLib()

@@ -285,7 +285,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       nStyle := WS_CHILD + WS_TABSTOP + WS_VISIBLE + WS_CAPTION + WS_BORDER + WS_SYSMENU + WS_THICKFRAME
 
       IF _HMG_DialogInMemory // Dialog Template
-         IF GetClassInfo(GetInstance(), ControlName) == NIL
+         IF GetClassInfo(hmg_GetInstance(), ControlName) == NIL
             IF !Register_Class(ControlName, CreateSolidBrush(GetRed(GetSysColor(COLOR_BTNFACE)), GetGreen(GetSysColor(COLOR_BTNFACE)), GetBlue(GetSysColor(COLOR_BTNFACE))))
                RETURN NIL
             ENDIF

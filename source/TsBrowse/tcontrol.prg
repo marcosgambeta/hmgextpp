@@ -289,7 +289,7 @@ METHOD TControl:Create(cClsName)
       ::hBrush := CreateSolidBrush(GetRed(::nClrPane), GetGreen(::nClrPane), GetBlue(::nClrPane))
    ENDIF
 
-   IF GetClassInfo(GetInstance(), cClsName) == NIL
+   IF GetClassInfo(hmg_GetInstance(), cClsName) == NIL
       IF _HMG_MainClientMDIHandle != 0
          ::lRegistered := Register_Class(cClsName, ::hBrush, _HMG_MainClientMDIHandle)
       ELSE
@@ -300,9 +300,9 @@ METHOD TControl:Create(cClsName)
    ENDIF
 
    IF ::nBottom != CW_USEDEFAULT
-     ::hWnd := _CreateWindowEx(xStyle, cClsName, ::cCaption, ::nStyle, ::nLeft, ::nTop, ::nRight - ::nLeft + 1, ::nBottom - ::nTop + 1, ::hWndParent, 0, GetInstance(), ::nId)
+     ::hWnd := _CreateWindowEx(xStyle, cClsName, ::cCaption, ::nStyle, ::nLeft, ::nTop, ::nRight - ::nLeft + 1, ::nBottom - ::nTop + 1, ::hWndParent, 0, hmg_GetInstance(), ::nId)
    ELSE
-     ::hWnd := _CreateWindowEx(xStyle, cClsName, ::cCaption, ::nStyle, ::nLeft, ::nTop, ::nRight, ::nBottom, ::hWndParent, 0, GetInstance(), ::nId)
+     ::hWnd := _CreateWindowEx(xStyle, cClsName, ::cCaption, ::nStyle, ::nLeft, ::nTop, ::nRight, ::nBottom, ::hWndParent, 0, hmg_GetInstance(), ::nId)
    ENDIF
 
    IF ::hWnd == 0
@@ -590,7 +590,7 @@ METHOD TControl:Register(nClsStyle)
       RETURN NIL
    ENDIF
 
-   hUser := GetInstance()
+   hUser := hmg_GetInstance()
 
    ClassName := ::cControlName
 

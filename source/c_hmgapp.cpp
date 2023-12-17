@@ -135,20 +135,32 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
    return dwVersion;
 }
 
-HB_FUNC( GETINSTANCE )
+HB_FUNC( HMG_GETINSTANCE )
 {
    hmg_ret_HANDLE(g_hInstance);
 }
 
-HB_FUNC( GETCOMCTL32DLLVER )
+#if 1
+HB_FUNC_TRANSLATE( GETINSTANCE, HMG_GETINSTANCE )
+#endif
+
+HB_FUNC( HMG_GETCOMCTL32DLLVER )
 {
    hb_retnint(g_dwComCtl32Ver);
 }
 
-HB_FUNC( OLEDATARELEASE )
+#if 1
+HB_FUNC_TRANSLATE( GETCOMCTL32DLLVER, HMG_GETCOMCTL32DLLVER )
+#endif
+
+HB_FUNC( HMG_OLEDATARELEASE )
 {
    CoUninitialize();
 }
+
+#if 1
+HB_FUNC_TRANSLATE( OLEDATARELEASE, HMG_OLEDATARELEASE )
+#endif
 
 // borrowed from hbwapi.lib [vszakats]
 #ifndef LOAD_LIBRARY_SEARCH_SYSTEM32

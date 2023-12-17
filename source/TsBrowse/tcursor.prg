@@ -33,7 +33,7 @@ METHOD TCursor:New(cResName, cPredef)
          ENDSWITCH
       ENDIF
    ELSE
-      ::hCursor = hmg_LoadCursor(GetInstance(), cResName)
+      ::hCursor = hmg_LoadCursor(hmg_GetInstance(), cResName)
       ::lPredef = .F.
    ENDIF
 
