@@ -1156,13 +1156,13 @@ ENDCLASS
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD New() CLASS WREPORT
+METHOD WREPORT:New()
 //---------------------------------------------------------------------------//
 return self
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD End() CLASS WREPORT
+METHOD WREPORT:End()
 //---------------------------------------------------------------------------//
 release ::F_HANDLE,::aDeclare,::AHead,::ABody,::AFeet,::Hb,::Valore,::mx_ln_doc;
 ,       ::PRNDRV,::argm,::aStat
@@ -1171,7 +1171,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD IsMono(arg1) CLASS WREPORT
+METHOD WREPORT:IsMono(arg1)
 //---------------------------------------------------------------------------//
 
    LOCAL en
@@ -1189,7 +1189,7 @@ return rtv
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD COUNTSECT(EXEC) CLASS WREPORT
+METHOD WREPORT:COUNTSECT(EXEC)
 //---------------------------------------------------------------------------//
 DEFAULT EXEC TO .F.
     IF EXEC
@@ -1200,7 +1200,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Splash(etichetta,prc_init,sezione,rit) CLASS WREPORT
+METHOD WREPORT:Splash(etichetta,prc_init,sezione,rit)
 //---------------------------------------------------------------------------//
 
    LOCAL rtv
@@ -1250,7 +1250,7 @@ return rtv
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD DoPr() CLASS WREPORT
+METHOD WREPORT:DoPr()
 //---------------------------------------------------------------------------//
 *   ::argm:={_MainArea,_psd,db_arc,_prw}
 *   stampeEsegui(_MainArea,_psd,db_arc,_prw)
@@ -1261,7 +1261,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD DoMiniPr() CLASS WREPORT
+METHOD WREPORT:DoMiniPr()
 //---------------------------------------------------------------------------//
    CursorWait()
    ritspl := PrminiEsegui(::argm[1],::argm[2],::argm[3],::argm[4])
@@ -1271,7 +1271,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD FgetLine(handle)  CLASS WREPORT
+METHOD WREPORT:FgetLine(handle)
 //---------------------------------------------------------------------------//
 
    LOCAL rt_line := ""
@@ -1329,7 +1329,7 @@ RETURN rt_line
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
+METHOD WREPORT:Transpace(arg1,arg2,arg3) // The core of parser
 //---------------------------------------------------------------------------//
 
    LOCAL al1 := .F.
@@ -1449,7 +1449,7 @@ return nr
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD MACROCOMPILE(cStr, lMesg,cmdline,section) CLASS WREPORT
+METHOD WREPORT:MACROCOMPILE(cStr, lMesg,cmdline,section)
 //---------------------------------------------------------------------------//
 
    LOCAL bOld
@@ -1504,7 +1504,7 @@ return xResult
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Traduci(elemento,ctrl,cmdline) CLASS WREPORT  // The interpreter
+METHOD WREPORT:Traduci(elemento,ctrl,cmdline) // The interpreter
 //---------------------------------------------------------------------------//
 
    LOCAL string
@@ -1647,7 +1647,7 @@ return ritorno
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpreter
+METHOD WREPORT:Leggipar(ArryPar,cmdline,section) // The core of  interpreter
 //---------------------------------------------------------------------------//
 
    LOCAL _arg1
@@ -2270,7 +2270,7 @@ return .T.
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
+METHOD WREPORT:WHAT_ELE(Arg1,Arg2,Arg3)
 //---------------------------------------------------------------------------//
 
    LOCAL rtv
@@ -2314,7 +2314,7 @@ return rtv
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLASS WREPORT
+METHOD WREPORT:MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar)
 //---------------------------------------------------------------------------//
 
    LOCAL _Memo1 := argm1
@@ -2369,7 +2369,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD PUTARRAY(row,col,arr,awidths,rowheight,vertalign,noframes,abrushes,apens,afonts,afontscolor,abitmaps,userfun) CLASS Wreport
+METHOD WREPORT:PUTARRAY(row,col,arr,awidths,rowheight,vertalign,noframes,abrushes,apens,afonts,afontscolor,abitmaps,userfun)
 //---------------------------------------------------------------------------//
 
    LOCAL j
@@ -2478,7 +2478,7 @@ return self
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD HATCH(arg1) CLASS WREPORT
+METHOD WREPORT:HATCH(arg1)
 //---------------------------------------------------------------------------//
 
    LOCAL ritorno := 0
@@ -2490,7 +2490,7 @@ return ritorno
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) CLASS WREPORT
+METHOD WREPORT:GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g)
 *                1        2      3       4        5        6       7       8
 //---------------------------------------------------------------------------//
 
@@ -2664,7 +2664,7 @@ return ritorno
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD GrHead() CLASS WREPORT
+METHOD WREPORT:GrHead()
 //---------------------------------------------------------------------------//
 
    LOCAL db_arc := dbf()
@@ -2681,7 +2681,7 @@ return ::aStat["Ghead"]
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD GFeet() CLASS WREPORT
+METHOD WREPORT:GFeet()
 //---------------------------------------------------------------------------//
 
    LOCAL db_arc := dbf()
@@ -2699,7 +2699,7 @@ return Gfeet
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD UsaFont(arrypar) CLASS WREPORT
+METHOD WREPORT:UsaFont(arrypar)
 //---------------------------------------------------------------------------//
 
    LOCAL al := {hbprn:gettextalign(), hbprn:gettexcolor()}
@@ -2725,7 +2725,7 @@ return al
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD UsaColor(arg1) CLASS WREPORT
+METHOD WREPORT:UsaColor(arg1)
 //---------------------------------------------------------------------------//
 
    LOCAL ritorno := arg1
@@ -2747,7 +2747,7 @@ return ritorno
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD SetMyRgb(dato) CLASS WREPORT
+METHOD WREPORT:SetMyRgb(dato)
 //---------------------------------------------------------------------------//
 
    LOCAL HexNumber
@@ -2768,7 +2768,7 @@ return r
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Hgconvert(ltxt) CLASS WREPORT
+METHOD WREPORT:Hgconvert(ltxt)
 //---------------------------------------------------------------------------//
 
    SWITCH valtype(&ltxt)
@@ -2787,7 +2787,7 @@ RETURN ""
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD TheHead() CLASS WREPORT
+METHOD WREPORT:TheHead()
 //---------------------------------------------------------------------------//
 
    LOCAL grd
@@ -2823,7 +2823,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD TheBody() CLASS WREPORT
+METHOD WREPORT:TheBody()
 //---------------------------------------------------------------------------//
 
    LOCAL db_arc := dbf()
@@ -2993,7 +2993,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
+METHOD WREPORT:TheFeet(last) //Feet // IL Piede
 //---------------------------------------------------------------------------//
 // exclude:= FALSE
    default last to .F.
@@ -3017,7 +3017,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD Quantirec(_MainArea) CLASS WREPORT     //count record that will be print
+METHOD WREPORT:Quantirec(_MainArea) //count record that will be print
 //---------------------------------------------------------------------------//
 
    LOCAL conta := 0
@@ -3055,7 +3055,7 @@ return conta
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD JustificaLinea(WPR_LINE,WTOPE) CLASS WREPORT
+METHOD WREPORT:JustificaLinea(WPR_LINE,WTOPE)
 //---------------------------------------------------------------------------//
 
    LOCAL I
@@ -3075,7 +3075,7 @@ RETURN WPR_LINE
 /*
 */
 //---------------------------------------------------------------------------//
-Method TheMiniHead() Class Wreport
+Method WREPORT:TheMiniHead()
 //---------------------------------------------------------------------------//
    if nPgr == mx_pg ; last_pag:=.T. ; endif
    START PRINTPAGE
@@ -3092,7 +3092,7 @@ return NIL
 /*
 */
 //---------------------------------------------------------------------------//
-METHOD TheMiniBody() class Wreport
+METHOD WREPORT:TheMiniBody()
 //---------------------------------------------------------------------------//
 
    LOCAL db_arc := dbf()
