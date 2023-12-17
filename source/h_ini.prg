@@ -159,7 +159,7 @@ FUNCTION _GetIni(cSection, cEntry, cDefault, uVar)
    IF !Empty(_HMG_ActiveIniFile)
       __defaultNIL(@cDefault, cVar)
       __defaultNIL(@uVar, cDefault)
-      cVar  := GetPrivateProfileString(cSection, cEntry, xChar(cDefault), _HMG_ActiveIniFile)
+      cVar  := hmg_GetPrivateProfileString(cSection, cEntry, xChar(cDefault), _HMG_ActiveIniFile)
    ELSE
       IF cDefault != NIL
          cVar := xChar(cDefault)
@@ -177,7 +177,7 @@ FUNCTION _SetIni(cSection, cEntry, cValue)
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := WritePrivateProfileString(cSection, cEntry, xChar(cValue), _HMG_ActiveIniFile)
+      ret := hmg_WritePrivateProfileString(cSection, cEntry, xChar(cValue), _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
@@ -189,7 +189,7 @@ FUNCTION _DelIniEntry(cSection, cEntry)
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := DelIniEntry(cSection, cEntry, _HMG_ActiveIniFile)
+      ret := hmg_DelIniEntry(cSection, cEntry, _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
@@ -201,7 +201,7 @@ FUNCTION _DelIniSection(cSection)
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := DelIniSection(cSection, _HMG_ActiveIniFile)
+      ret := hmg_DelIniSection(cSection, _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
@@ -493,7 +493,7 @@ FUNCTION _GetSectionNames(cIniFile)
    LOCAL aLista
 
    IF File(cIniFile)
-      aLista := _GetPrivateProfileSectionNames(cIniFile)
+      aLista := hmg__GetPrivateProfileSectionNames(cIniFile)
       IF !Empty(aLista)
          AEval(aLista, {|cVal|iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
       ENDIF
@@ -514,7 +514,7 @@ FUNCTION _GetSection(cSection, cIniFile)
    LOCAL n
 
    IF File(cIniFile)
-      aLista := _GetPrivateProfileSection(cSection, cIniFile)
+      aLista := hmg__GetPrivateProfileSection(cSection, cIniFile)
       IF !Empty(aLista)
          FOR i := 1 TO Len(aLista)
             IF (n := At("=", aLista[i])) > 0
