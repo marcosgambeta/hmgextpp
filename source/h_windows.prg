@@ -918,7 +918,7 @@ FUNCTION _SetNotifyIconName(FormName, IconName)
    IF (i := GetFormIndex(FormName)) > 0 .AND. _HMG_aFormType[i] == "A"
 
       IF _HMG_aFormMiscData1[i][1] != NIL
-         DestroyIcon(_HMG_aFormMiscData1[i][1])
+         hmg_DestroyIcon(_HMG_aFormMiscData1[i][1])
       ENDIF
 
       _HMG_aFormMiscData1[i][1] := LoadTrayIcon(GetResources(), IconName)
@@ -2229,7 +2229,7 @@ FUNCTION ReleaseAllWindows()
          ENDIF
 
          IF Len(_HMG_aFormMiscData1[i]) > 0 .AND. _HMG_aFormMiscData1[i][1] != NIL
-            DestroyIcon(_HMG_aFormMiscData1[i][1])
+            hmg_DestroyIcon(_HMG_aFormMiscData1[i][1])
          ENDIF
 
          IF Len(_HMG_aFormMiscData1[i]) > 2 .AND. !Empty(_HMG_aFormMiscData1[i][3])

@@ -3990,7 +3990,7 @@ METHOD TSBrowse:DrawIcons()
    LOCAL nCol := 10
    LOCAL n := 1
    LOCAL nIcons := Int(nWidth / 50) * Int(nHeight / 50)
-   LOCAL hIcon := ExtractIcon("user.exe", 0)
+   LOCAL hIcon := hmg_ExtractIcon("user.exe", 0)
 
    SetBkColor(::hDC, CLR_BLUE)
    SetTextColor(::hDC, CLR_WHITE)

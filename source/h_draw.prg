@@ -283,11 +283,11 @@ FUNCTION HMG_DrawIcon(window, icon, row, col, w, h, rgb, transparent)
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))
 
       IF hb_IsNumeric(icon)
-         DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)
-         AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
+         hmg_DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)
+         AAdd(_HMG_aFormGraphTasks[i], {||hmg_DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
       ELSEIF hb_IsString(icon)
-         DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)
-         AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)})
+         hmg_DrawIconEx(FormHandle, Col, Row, hmg_LoadIconByName(icon, w, h), w, h, rgb, .T.)
+         AAdd(_HMG_aFormGraphTasks[i], {||hmg_DrawIconEx(FormHandle, Col, Row, hmg_LoadIconByName(icon, w, h), w, h, rgb, .T.)})
       ENDIF
    ENDIF
 
@@ -320,7 +320,7 @@ FUNCTION HMG_DrawSysIcon(window, cIconDll, icon, row, col, w, h, rgb, transparen
       hb_default(@cIconDll, System.SystemFolder + hb_ps() + "imageres.dll")
 
       IF hb_IsNumeric(icon)
-         AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, ExtractIcon(cIconDll, icon), w, h, rgb, .T.)})
+         AAdd(_HMG_aFormGraphTasks[i], {||hmg_DrawIconEx(FormHandle, Col, Row, hmg_ExtractIcon(cIconDll, icon), w, h, rgb, .T.)})
       ENDIF
    ENDIF
 

@@ -2870,7 +2870,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
                hmg_ImageList_Destroy(_HMG_aControlBrushHandle[i])
             ENDIF
             IF !Empty(_HMG_aControlMiscData1[i])
-               DestroyIcon(_HMG_aControlBrushHandle[i])
+               hmg_DestroyIcon(_HMG_aControlBrushHandle[i])
             ELSE
                hmg_DeleteObject(_HMG_aControlBrushHandle[i])
             ENDIF
@@ -3845,7 +3845,7 @@ FUNCTION _EraseControl(i, p)
    ENDIF
 
    IF (_HMG_aControlType[i] == CONTROL_TYPE_BUTTON .OR. _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON) .AND. !Empty(_HMG_aControlMiscData1[i])
-      DestroyIcon(_HMG_aControlBrushHandle[i])
+      hmg_DestroyIcon(_HMG_aControlBrushHandle[i])
    ELSE
       hmg_DeleteObject(_HMG_aControlBrushHandle[i])
    ENDIF
