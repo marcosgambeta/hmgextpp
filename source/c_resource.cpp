@@ -75,7 +75,7 @@ static HINSTANCE HMG_LoadDll( char * DllName )
 
 static void HMG_UnloadDll(void)
 {
-   for( int i = 255; i >= 0; i-- ) {
+   for( auto i = 255; i >= 0; i-- ) {
       FreeLibrary(HMG_DllStore[i]);
    }
 }

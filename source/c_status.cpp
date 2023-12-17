@@ -110,7 +110,7 @@ HB_FUNC( INITITEMBAR )
    if( hb_parnl(5) == 0 ) {
       ptArray[nrOfParts - 1] = rect.right;
    } else {
-      for( int n = 0; n < nrOfParts - 1; n++ ) {
+      for( auto n = 0; n < nrOfParts - 1; n++ ) {
          ptArray[n] -= hb_parni(4) - cSpaceInBetween;
       }
 
@@ -208,7 +208,7 @@ HB_FUNC( REFRESHITEMBAR )
 
    s = TRUE;
    if( rect.right > 0 ) {
-      for( int n = 0; n <= nrOfParts - 1; n++ ) {
+      for( auto n = 0; n <= nrOfParts - 1; n++ ) {
 
          if( n == 0 ) {
             if( size >= ptArray[n] && nDev < 0 ) {
@@ -303,7 +303,7 @@ HB_FUNC( SETSTATUSBARSIZE )
 
    nWidth = 0;
 
-   for( int i = 0; i < nParts; i++ ) {
+   for( auto i = 0; i < nParts; i++ ) {
       nWidth       = nWidth + HB_PARNI(2, i + 1);
       lpParts[i] = nWidth;
    }

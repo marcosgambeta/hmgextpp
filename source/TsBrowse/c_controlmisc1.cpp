@@ -109,7 +109,7 @@ HB_FUNC( NOR )
    int p = hb_pcount();
    int ret = 0;
 
-   for( int n = 1; n <= p; n++ )
+   for( auto n = 1; n <= p; n++ )
    {
       ret = ret | hb_parni(n);
    }

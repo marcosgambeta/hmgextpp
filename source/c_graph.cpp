@@ -313,7 +313,7 @@ HB_FUNC( POLYGONDRAW )
    POINT apoints[1024];
    auto number = static_cast<int>(hb_parinfa(2, 0));
 
-   for( int i = 0; i <= number - 1; i++ ) {
+   for( auto i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(2, i + 1);
       apoints[i].y = HB_PARNI(3, i + 1);
    }

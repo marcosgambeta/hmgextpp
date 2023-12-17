@@ -171,7 +171,7 @@ HB_FUNC( ADDTABBITMAP )
 
       TCHAR * FileName;
 
-      for( int i = 1; i <= nCount; i++ ) {
+      for( auto i = 1; i <= nCount; i++ ) {
          FileName = const_cast<TCHAR*>(hb_arrayGetCPtr(hArray, i));
 
          if( himl == nullptr ) {
@@ -187,7 +187,7 @@ HB_FUNC( ADDTABBITMAP )
 
       TC_ITEM tie{};
 
-      for( int i = 0; i < nCount; i++ ) {
+      for( auto i = 0; i < nCount; i++ ) {
          tie.mask = TCIF_IMAGE;
          tie.iImage = i;
          TabCtrl_SetItem(hbutton, i, &tie);

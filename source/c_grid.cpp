@@ -262,7 +262,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
       auto hArray = hb_param(2, Harbour::Item::ARRAY);
       HIMAGELIST himl = nullptr;
       char * FileName;
-      for( int s = 1; s <= nCount; s++ ) {
+      for( auto s = 1; s <= nCount; s++ ) {
          FileName = const_cast<char*>(hb_arrayGetCPtr(hArray, s));
          if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, nullptr);
@@ -291,7 +291,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
       if( nCount > 0 ) {
          auto hArray = hb_param(2, Harbour::Item::ARRAY);
          char * FileName;
-         for( int s = 1; s <= nCount; s++ ) {
+         for( auto s = 1; s <= nCount; s++ ) {
             FileName = const_cast<char*>(hb_arrayGetCPtr(hArray, s));
             if( himl == nullptr ) {
                himl = HMG_ImageListLoadFirst(FileName, nCount, 1, nullptr, nullptr);
@@ -411,7 +411,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LI.pszText   = lpText;
    ListView_InsertItem(h, &LI);
 
-   for( int s = 1; s <= l; s = s + 1 ) {
+   for( auto s = 1; s <= l; s = s + 1 ) {
       caption = const_cast<char*>(hb_arrayGetCPtr(hArray, s + 1));
 #ifndef UNICODE
       lpText = caption;
@@ -501,7 +501,7 @@ HB_FUNC( LISTVIEWSETITEM )
    auto h = hmg_par_HWND(1);
    int  c = hb_parni(3) - 1;
 
-   for( int s = 0; s <= l; s = s + 1 ) {
+   for( auto s = 0; s <= l; s = s + 1 ) {
       caption = const_cast<char*>(hb_arrayGetCPtr(hArray, s + 1));
 #ifndef UNICODE
       lpText = caption;
@@ -557,7 +557,7 @@ HB_FUNC( LISTVIEWGETITEM )
    int c = hb_parni(2) - 1;
    TCHAR * pszRet;
 
-   for( int s = 0; s <= l - 1; s++ ) {
+   for( auto s = 0; s <= l - 1; s++ ) {
       pszRet = GetLVItemText(h, c, s);
 #ifndef UNICODE
       HB_STORC(pszRet, -1, s + 1);
@@ -990,7 +990,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, static_cast<int*>(iArray));
 
-      for( int i = 0; i < iCols; i++ ) {
+      for( auto i = 0; i < iCols; i++ ) {
          hb_arraySetNI(pArray, static_cast<HB_SIZE>(i) + 1, iArray[i] + 1);
       }
 
@@ -1015,7 +1015,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
       if( iColumn ) {
          auto iArray = static_cast<int*>(hb_xgrab(iColumn * sizeof(int)));
 
-         for( int i = 0; i < iColumn; i++ ) {
+         for( auto i = 0; i < iColumn; i++ ) {
             iArray[i] = HB_PARNI(3, i + 1) - 1;
          }
 

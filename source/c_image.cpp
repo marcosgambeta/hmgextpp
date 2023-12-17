@@ -1174,7 +1174,7 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
    //
    //        Now write the actual icon images
    //
-   for( int i = 0; i < nNumIcons; i++ ) {
+   for( auto i = 0; i < nNumIcons; i++ ) {
       ICONINFO iconInfo;
       BITMAP bmpColor;
       BITMAP bmpMask;
@@ -1199,7 +1199,7 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
    //
    SetFilePointer(hFile, sizeof(ICONHEADER), 0, FILE_BEGIN);
 
-   for( int i = 0; i < nNumIcons; i++ ) {
+   for( auto i = 0; i < nNumIcons; i++ ) {
       WriteIconDirectoryEntry(hFile, hIcon[i], pImageOffset[i]);
    }
 
@@ -1227,13 +1227,13 @@ HB_FUNC( C_SAVEHICONTOFILE )
    int nLen;
 
    if( pArray && ((nLen = hb_arrayLen(pArray)) > 0) ) {
-      for( int i = 0; i < nLen; i++ ) {
+      for( auto i = 0; i < nLen; i++ ) {
          hIcon[i] = reinterpret_cast<HICON>(hb_arrayGetNL( pArray, i + 1 ));
       }
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)) ) {
          hb_retl(true);
          // clean up
-         for( int i = 0; i < nLen; i++ ) {
+         for( auto i = 0; i < nLen; i++ ) {
             DestroyIcon(hIcon[i]);
          }
       } else {

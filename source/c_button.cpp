@@ -404,7 +404,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    HBRUSH hBrush;
    HBRUSH hBrushOld;
 
-   for( int i = 0; i < nCount; i++ ) {
+   for( auto i = 0; i < nCount; i++ ) {
       hBrush = CreateSolidBrush(RGB(r1 + (i * (r2 - r1) / nCount), g1 + (i * (g2 - g1) / nCount), b1 + (i * (b2 - b1) / nCount)));
       hBrushOld = reinterpret_cast<HBRUSH>(SelectObject(hDCComp, hBrush));
       FillRect(hDCComp, &rcF, hBrush);

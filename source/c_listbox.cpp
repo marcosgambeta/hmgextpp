@@ -213,7 +213,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
    int n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
-   for( int i = 0; i < n; i++ ) {
+   for( auto i = 0; i < n; i++ ) {
       SendMessage(hwnd, LB_SETSEL, 0, i);
    }
 
@@ -221,7 +221,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
    int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
 
    // SET NEW SELECTIONS
-   for( int i = 0; i <= l; i++ ) {
+   for( auto i = 0; i <= l; i++ ) {
       SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI(wArray, i + 1) - 1);
    }
 }
@@ -234,7 +234,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
    DWORD dwDlgBase = GetDialogBaseUnits();
    int baseunitX = LOWORD(dwDlgBase);
 
-   for( int i = 0; i <= l; i++ ) {
+   for( auto i = 0; i <= l; i++ ) {
       nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 

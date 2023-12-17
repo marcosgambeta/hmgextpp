@@ -1760,7 +1760,7 @@ HB_FUNC( ADDTREEITEMS )
    LI.pszText = caption;
    ListView_InsertItem(h, &LI);
 
-   for( int s = 1; s <= l; ++s ) {
+   for( auto s = 1; s <= l; ++s ) {
       caption = const_cast<char*>(hb_arrayGetCPtr(hArray, s + 1));
       ListView_SetItemText(h, c, s, caption);
    }

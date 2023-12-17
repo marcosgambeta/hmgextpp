@@ -1611,7 +1611,7 @@ HB_FUNC( DRAGQUERYFILES )
 
    hb_reta(iFiles);
 
-   for( int i = 0; i < iFiles; i++ ) {
+   for( auto i = 0; i < iFiles; i++ ) {
       DragQueryFile(hDrop, i, ( TCHAR * ) bBuffer, 249);
    #ifndef UNICODE
       HB_STORC( ( TCHAR * ) bBuffer, -1, i + 1 );

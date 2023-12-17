@@ -1156,7 +1156,7 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
    auto number = static_cast<int>(hb_parinfa(1, 0));
    POINT apoints[1024];
 
-   for( int i = 0; i <= number - 1; i++ ) {
+   for( auto i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }
@@ -1587,7 +1587,7 @@ HB_FUNC( RR_POLYGON )
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
 
-   for( int i = 0; i <= number - 1; i++ ) {
+   for( auto i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }

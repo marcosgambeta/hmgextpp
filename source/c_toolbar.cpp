@@ -337,7 +337,7 @@ HB_FUNC( INITTOOLBUTTONEX )
       hb_strfree(str);
       tSize = WidestBtn(static_cast<LPCTSTR>(hb_parc(2)), hwndTB);
       tmax  = HIWORD(tSize);
-      for( int i = 0; i < xBtn; i++ ) {
+      for( auto i = 0; i < xBtn; i++ ) {
          SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
          SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, reinterpret_cast<LPARAM>(cBuff));
          tSize = WidestBtn(cBuff, hwndTB);
@@ -492,7 +492,7 @@ HB_FUNC( GETSIZETOOLBAR )
 
    int nBtn = SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
    TBBUTTON lpBtn;
-   for( int i = 0; i < nBtn; i++ ) {
+   for( auto i = 0; i < nBtn; i++ ) {
       SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 ) {
          if( lpBtn.fsStyle & TBSTYLE_SEP ) {
@@ -520,7 +520,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    int      ty   = 0;
    int      tmax = 0;
 
-   for( int i = 0; i < nBtn; i++ ) {
+   for( auto i = 0; i < nBtn; i++ ) {
       SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
       SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, reinterpret_cast<LPARAM>(cString));
       tSize = WidestBtn(cString, hwndTB);
@@ -742,7 +742,7 @@ int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
    RECT rcDst, rcBt;
    int  nBtnV = 0;
 
-   for( int i = 0; i < nBtn; i++ ) {
+   for( auto i = 0; i < nBtn; i++ ) {
       SendMessage(tbHwnd, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&rcBt));
 
       rcBt.left   += dv;
@@ -962,7 +962,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                nResetCount = SendMessage(lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0);
                buttonCount = nResetCount;
                lpSaveButtons = static_cast<LPTBBUTTON>(GlobalAlloc(GPTR, sizeof(TBBUTTON) * nResetCount));
-               for( int i = 0; i < nResetCount; i++ ) {
+               for( auto i = 0; i < nResetCount; i++ ) {
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(lpSaveButtons + i));
                }
                hb_retl(true);

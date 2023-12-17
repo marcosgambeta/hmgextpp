@@ -207,7 +207,7 @@ HB_FUNC( HMG_C_GETFILE )
          if( iNumSelected > 1 ) {
             hb_reta(iNumSelected - 1);
 
-            for( int n = 1; n < iNumSelected; n++ ) {
+            for( auto n = 1; n < iNumSelected; n++ ) {
 #ifndef UNICODE
                HB_STORC(cFullName[n], -1, n);
 #else
@@ -420,7 +420,7 @@ HMG_CHOOSECOLOR(HWND, nColor, ap3, np4) --> nColor|-1
 HB_FUNC( HMG_CHOOSECOLOR )
 {
    COLORREF crCustClr[16];
-   for( int i = 0; i < 16; i++ ) {
+   for( auto i = 0; i < 16; i++ ) {
       crCustClr[i] = (HB_ISARRAY(3) ? static_cast<COLORREF>(HB_PARVNL(3, i + 1)) : GetSysColor(COLOR_BTNFACE));
    }
 

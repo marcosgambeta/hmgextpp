@@ -858,7 +858,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
       fnPolyFillMode = ALTERNATE;
    }
 
-   for( int i = 0; i <= cPoints - 1; i++ ) {
+   for( auto i = 0; i <= cPoints - 1; i++ ) {
       lppt[i].x = HB_PARNI(2, i + 1);
       lppt[i].y = HB_PARNI(3, i + 1);
    }

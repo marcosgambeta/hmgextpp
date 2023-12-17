@@ -309,7 +309,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
 
       MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
 
-      for( int i = 0; i < nDstLen; i++ ) {
+      for( auto i = 0; i < nDstLen; i++ ) {
          *(lpWCStr + i) = *(pszDst + i);
       }
 
@@ -334,7 +334,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
    PHB_ITEM iArray;
    int nItem = hb_arrayLen(cArray);
 
-   for( int s = 0; s < nItem; s++ ) {
+   for( auto s = 0; s < nItem; s++ ) {
       iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
       lTemplateSize += 36;
       ln = hb_arrayGetCLen(iArray, 3);  //class
@@ -402,7 +402,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       pw        += nchar;
    }
 
-   for( int s = 0; s < nItem; s = s + 1 ) {
+   for( auto s = 0; s < nItem; s = s + 1 ) {
       iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
       pw     = lpwAlign(pw);
 

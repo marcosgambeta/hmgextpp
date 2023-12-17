@@ -496,7 +496,7 @@ HB_FUNC( HMG_CREATEDLGFOLDER )
 
    auto hfpi = static_cast<HFLDPAGEINFO*>(malloc(sizeof(HFLDPAGEINFO) * nPages));
 
-   for( int s = 0; s < nPages; s = s + 1 ) {
+   for( auto s = 0; s < nPages; s = s + 1 ) {
       hfpi[s] = static_cast<HFLDPAGEINFO>(reinterpret_cast<PHB_ITEM>(HB_arrayGetNL(sArray, s + 1)));
    }
 
@@ -622,7 +622,7 @@ HB_FUNC( HMG_FOLDER_ISDIRTY )
       return;
    }
 
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
 
@@ -763,7 +763,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = -1;
 
-   for( int s = 0; s < nPages; s = s + 1 ) {
+   for( auto s = 0; s < nPages; s = s + 1 ) {
       fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[s]);
       tie.pszText = const_cast<LPTSTR>(fpi->pszText);
       TabCtrl_InsertItem(pFhi->hwndTab, s, &tie);
@@ -773,7 +773,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    SetRectEmpty(&rcTab);
 
    //The x, y, cx, and cy members specify values in dialog box units.
-   for( int i = 0; i < nPages; i++ ) {
+   for( auto i = 0; i < nPages; i++ ) {
       fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       if( !pFhi->isInDirect ) {
          pTemplate = static_cast<DLGTEMPLATE*>(fpi->apRes);
@@ -1123,7 +1123,7 @@ static void FLD_Changed(HWND hWndParent, HWND hwndDirtyPage)
    }
 
    /* Set the dirty flag of this page.  */
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       if( fpi->hwndPage == hwndDirtyPage ) {
@@ -1152,7 +1152,7 @@ static void FLD_UnChanged(HWND hWndParent, HWND hwndCleanPage)
       return;
    }
 
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       /* set the specified page as clean */
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
@@ -1272,7 +1272,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    fln.hdr.code = FLN_APPLY;
    fln.lParam = lParam;
 
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       hfpi = pFhi->fhpage;
       fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       hwndPage = fpi->hwndPage;
@@ -1336,7 +1336,7 @@ static void FLD_Cancel(HWND hWndDlg, LPARAM lParam)
    fln.hdr.code = FLN_RESET;
    fln.lParam = lParam;
 
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       hfpi = pFhi->fhpage;
       fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
       hwndPage = fpi->hwndPage;
@@ -1442,7 +1442,7 @@ static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
 {
    auto pFhi = reinterpret_cast<FLDHDRINFO*>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
 
-   for( int index = 0; index < pFhi->nPages; index++ ) {
+   for( auto index = 0; index < pFhi->nPages; index++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[index]);
       if( fpi->hwndPage == hPageDlg ) {
@@ -1464,7 +1464,7 @@ static void FLD_CleanUp(HWND hWndDlg)
       return;
    }
 
-   for( int i = 0; i < pFhi->nPages; i++ ) {
+   for( auto i = 0; i < pFhi->nPages; i++ ) {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       auto fpi = reinterpret_cast<FLDPAGEINFO*>(hfpi[i]);
 
@@ -1499,7 +1499,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
    l = pFhi->nPages - 1;
 
-   for( int s = 0; s <= l; s++ ) {
+   for( auto s = 0; s <= l; s++ ) {
       pfpi = reinterpret_cast<FLDPAGEINFO*>(pFhi->fhpage[s]);
       if( pfpi->hasIcon ) {
          i = s + 1;
@@ -1526,7 +1526,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
          himl = ImageList_Create(cx, cy, ILC_COLOR8 | ILC_MASK, l + 1, l + 1);
 
          if( himl != nullptr ) {
-            for( int s = 0; s <= l; s++ ) {
+            for( auto s = 0; s <= l; s++ ) {
                pfpi = reinterpret_cast<FLDPAGEINFO*>(pFhi->fhpage[s]);
 
                hbmp = nullptr;
@@ -1553,7 +1553,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
             SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
 
-            for( int s = 0; s <= l; s++ ) {
+            for( auto s = 0; s <= l; s++ ) {
                tie.mask = TCIF_IMAGE;
                tie.iImage = s;
                TabCtrl_SetItem(static_cast<HWND>(pFhi->hwndTab), s, &tie);

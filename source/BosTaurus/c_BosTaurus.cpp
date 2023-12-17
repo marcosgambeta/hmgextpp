@@ -2193,15 +2193,15 @@ static HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHe
    double d;
    double Color;
 
-   for( int Row = 0; Row < Image2.Height; Row++ ) {
-      for( int Col = 0; Col < Image2.Width; Col++ ) {
+   for( auto Row = 0; Row < Image2.Height; Row++ ) {
+      for( auto Col = 0; Col < Image2.Width; Col++ ) {
          x = static_cast<int>(x_ratio * Col);
          y = static_cast<int>(y_ratio * Row);
 
          x_diff = static_cast<double>((x_ratio * Col) - x);
          y_diff = static_cast<double>((y_ratio * Row) - y);
 
-         for( int Channel = 0; Channel < 3; Channel++ ) { // color channel C = R,G,B
+         for( auto Channel = 0; Channel < 3; Channel++ ) { // color channel C = R,G,B
             a = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 0), Channel));
             b = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 1), (y + 0), Channel));
             c = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 1), Channel));
