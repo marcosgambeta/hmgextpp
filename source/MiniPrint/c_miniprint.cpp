@@ -195,7 +195,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
 
       auto hfont = CreateFont(FontHeight, 0, FontAngle, FontAngle, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 
-      HGDIOBJ hgdiobj = SelectObject(hdcPrint, hfont);
+      auto hgdiobj = SelectObject(hdcPrint, hfont);
 
       SetTextColor(hdcPrint, RGB(r, g, b));
       SetBkMode(hdcPrint, TRANSPARENT);
