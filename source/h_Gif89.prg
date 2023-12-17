@@ -258,7 +258,7 @@ CLASS TGif
 ENDCLASS
 
 
-METHOD New(cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName) CLASS TGif
+METHOD TGif:New(cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName)
 
    LOCAL nId
    LOCAL aPictures := {}
@@ -302,7 +302,7 @@ METHOD New(cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlNa
 RETURN Self
 
 
-METHOD PlayGif() CLASS TGif
+METHOD TGif:PlayGif()
 
    IF ::nCurrentFrame < ::nTotalFrames
       ::nCurrentFrame++
@@ -316,7 +316,7 @@ METHOD PlayGif() CLASS TGif
 RETURN NIL
 
 
-METHOD Update() CLASS TGif
+METHOD TGif:Update()
 
    IF !Empty(::hGif) .AND. _IsControlDefined(::hGif, ::cParentName)
       IF      GetProperty(::cParentName, ::hGif, "Row") != GetProperty(::cParentName, ::cControlName, "Row") ;
@@ -333,7 +333,7 @@ METHOD Update() CLASS TGif
 RETURN NIL
 
 
-METHOD RestartGif() CLASS TGif
+METHOD TGif:RestartGif()
 
    LOCAL aPictures := {}
    LOCAL aImageInfo := {}
@@ -358,7 +358,7 @@ METHOD RestartGif() CLASS TGif
 RETURN NIL
 
 
-METHOD End() CLASS TGif
+METHOD TGif:End()
 
    IF _IsControlDefined(::cControlName, ::cParentName)
 

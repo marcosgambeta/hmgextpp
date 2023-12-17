@@ -49,7 +49,7 @@ CLASS THmgData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD GetAll(lAll) CLASS THmgData
+METHOD THmgData:GetAll(lAll)
 
    LOCAL aRet := {}
 
@@ -61,7 +61,7 @@ METHOD GetAll(lAll) CLASS THmgData
 
 RETURN aRet
 
-METHOD Eval(Block) CLASS THmgData
+METHOD THmgData:Eval(Block)
 
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
@@ -81,7 +81,7 @@ METHOD Eval(Block) CLASS THmgData
 RETURN a
 
 #if 0
-METHOD Destroy() CLASS THmgData
+METHOD THmgData:Destroy()
 
    LOCAL i
    LOCAL k
@@ -110,7 +110,7 @@ RETURN NIL
 
 #endif
 
-METHOD ControlAssign(xValue) CLASS THmgData
+METHOD THmgData:ControlAssign(xValue)
 
    LOCAL cMessage
    LOCAL uRet
@@ -169,7 +169,7 @@ CLASS TIniData INHERIT THmgData
 
 END CLASS
 
-METHOD Def( cIni, lMacro, lUtf8, cChar ) CLASS TIniData
+METHOD TIniData:Def( cIni, lMacro, lUtf8, cChar )
 
    ::cIni   := hb_defaultValue(cIni, ::cIni)
    ::lMacro := hb_defaultValue(lMacro, ::lMacro)
@@ -186,7 +186,7 @@ METHOD Def( cIni, lMacro, lUtf8, cChar ) CLASS TIniData
 
 RETURN Self
 
-METHOD Read() CLASS TIniData
+METHOD TIniData:Read()
 
    LOCAL hIni
    LOCAL cStr
@@ -284,7 +284,7 @@ METHOD Read() CLASS TIniData
 
 RETURN Self
 
-METHOD ToValue(cStr) CLASS TIniData
+METHOD TIniData:ToValue(cStr)
 
    LOCAL xVal
 
@@ -318,7 +318,7 @@ METHOD ToValue(cStr) CLASS TIniData
 
 RETURN xVal
 
-METHOD ToString(xVal) CLASS TIniData
+METHOD TIniData:ToString(xVal)
 
    LOCAL cStr
    LOCAL lE := .F.
@@ -350,7 +350,7 @@ METHOD ToString(xVal) CLASS TIniData
 
 RETURN cStr
 
-METHOD Write(cFile, lUtf8) CLASS TIniData
+METHOD TIniData:Write(cFile, lUtf8)
 
    LOCAL lRet
    LOCAL aSec
@@ -703,7 +703,7 @@ CLASS TDlu2Pix
 
 ENDCLASS
 
-METHOD UnitsToPixels(nPrcW, nPrcH) CLASS TDlu2Pix
+METHOD TDlu2Pix:UnitsToPixels(nPrcW, nPrcH)
 
    DEFAULT nPrcW := hb_defaultValue(nPrcW, ::nScaleWidth), ;
            nPrcH := hb_defaultValue(nPrcH, ::nScaleHeight)
@@ -726,7 +726,7 @@ METHOD UnitsToPixels(nPrcW, nPrcH) CLASS TDlu2Pix
 
 RETURN NIL
 
-METHOD Kfc(nKfcW, nKfcH) CLASS TDlu2Pix
+METHOD TDlu2Pix:Kfc(nKfcW, nKfcH)
 
    If !Empty(nKfcW)
       ::nPixWidth += Int(::nPixWidth * nKfcW)
@@ -746,7 +746,7 @@ METHOD Kfc(nKfcW, nKfcH) CLASS TDlu2Pix
 
 RETURN NIL
 
-METHOD ToVal(nKfc, nVal) CLASS TDlu2Pix
+METHOD TDlu2Pix:ToVal(nKfc, nVal)
 
    IF hb_IsNumeric(nKfc) .AND. nKfc > 0
       nVal := Int(nKfc * nVal)
@@ -754,7 +754,7 @@ METHOD ToVal(nKfc, nVal) CLASS TDlu2Pix
 
 RETURN nVal
 
-METHOD GetGaps(aGaps, oWnd) CLASS TDlu2Pix
+METHOD TDlu2Pix:GetGaps(aGaps, oWnd)
 
    LOCAL oApp
    LOCAL nGapW
@@ -821,7 +821,7 @@ METHOD GetGaps(aGaps, oWnd) CLASS TDlu2Pix
 
 RETURN ::LTRB
 
-METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
+METHOD TDlu2Pix:TextWidth(cText, nSize, cFont, lBold, cChar)
 
    LOCAL hFont
    LOCAL nWidth
@@ -839,7 +839,7 @@ METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
 
 RETURN nWidth
 
-METHOD Breadth(nW, k) CLASS TDlu2Pix
+METHOD TDlu2Pix:Breadth(nW, k)
 
    LOCAL nWidth := 0
 
@@ -851,7 +851,7 @@ METHOD Breadth(nW, k) CLASS TDlu2Pix
 
 RETURN nWidth
 
-METHOD D(nKfc) CLASS TDlu2Pix
+METHOD TDlu2Pix:D(nKfc)
 
    LOCAL nVal := ::nPixWidthDT
 
@@ -1083,7 +1083,7 @@ CLASS TWndData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD ControlAssign(xValue) CLASS TWndData
+METHOD TWndData:ControlAssign(xValue)
 
    LOCAL cMessage
    LOCAL uRet
@@ -1115,7 +1115,7 @@ METHOD ControlAssign(xValue) CLASS TWndData
 
 RETURN uRet
 
-METHOD GetListType() CLASS TWndData
+METHOD TWndData:GetListType()
 
    LOCAL oType := oKeyData()
    LOCAL aType
@@ -1127,7 +1127,7 @@ METHOD GetListType() CLASS TWndData
 
 RETURN aType
 
-METHOD GetObj4Type(cType, lEque) CLASS TWndData
+METHOD TWndData:GetObj4Type(cType, lEque)
 
    LOCAL aObj := {}
    LOCAL aRet := {}
@@ -1149,7 +1149,7 @@ METHOD GetObj4Type(cType, lEque) CLASS TWndData
 
 RETURN aRet
 
-METHOD GetObj4Name(cName) CLASS TWndData
+METHOD TWndData:GetObj4Name(cName)
 
    LOCAL aObj := {}
 
@@ -1161,7 +1161,7 @@ METHOD GetObj4Name(cName) CLASS TWndData
 
 RETURN aObj
 
-METHOD DoEvent(Key, nHandle) CLASS TWndData
+METHOD TWndData:DoEvent(Key, nHandle)
 
    LOCAL o := Self
    LOCAL i := o:Index
@@ -1191,7 +1191,7 @@ METHOD DoEvent(Key, nHandle) CLASS TWndData
 
 RETURN Do_ControlEventProcedure(::oEvent:Get(Key), i, o, Key, p)
 
-METHOD PROCEDURE DestroyObject() CLASS TWndData
+METHOD PROCEDURE TWndData:DestroyObject()
 
    ::Destroy()
 
@@ -1298,13 +1298,13 @@ CLASS TCnlData INHERIT TWndData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD DoEvent(Key, nHandle) CLASS TCnlData
+METHOD TCnlData:DoEvent(Key, nHandle)
 
    LOCAL o := iif(hmg_IsWindowObject(nHandle), hmg_GetWindowObject(nHandle), Self)
 
 RETURN Do_ControlEventProcedure(::oEvent:Get(Key), o:Index, o, Key, ::oParam:Get(Key))
 
-METHOD PROCEDURE DestroyObject() CLASS TCnlData
+METHOD PROCEDURE TCnlData:DestroyObject()
 
    ::Destroy()
 
@@ -1418,7 +1418,7 @@ CLASS TWmEData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD Do(nMsg, wParam, lParam) CLASS TWmEData
+METHOD TWmEData:Do(nMsg, wParam, lParam)
 
    LOCAL o
    LOCAL r
@@ -1435,7 +1435,7 @@ METHOD Do(nMsg, wParam, lParam) CLASS TWmEData
 
 RETURN iif(Empty(r), 0, 1)
 
-METHOD Destroy() CLASS TWmEData
+METHOD TWmEData:Destroy()
 
    LOCAL i
    LOCAL k
@@ -1504,7 +1504,7 @@ CLASS TKeyData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD GetAll(lAll) CLASS TKeyData
+METHOD TKeyData:GetAll(lAll)
 
    LOCAL aRet := {}
 
@@ -1516,7 +1516,7 @@ METHOD GetAll(lAll) CLASS TKeyData
 
 RETURN aRet
 
-METHOD Eval(Block) CLASS TKeyData
+METHOD TKeyData:Eval(Block)
 
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
@@ -1535,7 +1535,7 @@ METHOD Eval(Block) CLASS TKeyData
 
 RETURN a
 
-METHOD Sum(Key, xSum) CLASS TKeyData
+METHOD TKeyData:Sum(Key, xSum)
 
    LOCAL Sum := ::Get(Key, 0)
 
@@ -1555,7 +1555,7 @@ METHOD Sum(Key, xSum) CLASS TKeyData
 
 RETURN NIL
 
-METHOD Destroy() CLASS TKeyData
+METHOD TKeyData:Destroy()
 
    LOCAL i
    LOCAL k
@@ -1584,7 +1584,7 @@ METHOD Destroy() CLASS TKeyData
 
 RETURN NIL
 
-METHOD ControlAssign(xValue) CLASS TKeyData
+METHOD TKeyData:ControlAssign(xValue)
 
    LOCAL cMessage
    LOCAL uRet
@@ -1649,7 +1649,7 @@ CLASS TThrData
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
 
-METHOD SGD(n, k, v) CLASS TThrData
+METHOD TThrData:SGD(n, k, v)
 
    SWITCH n
 
@@ -1670,7 +1670,7 @@ METHOD SGD(n, k, v) CLASS TThrData
 
 RETURN NIL
 
-METHOD GetAll(lAll) CLASS TThrData
+METHOD TThrData:GetAll(lAll)
 
    LOCAL aRet := {}
 
@@ -1682,7 +1682,7 @@ METHOD GetAll(lAll) CLASS TThrData
 
 RETURN aRet
 
-METHOD Eval(Block) CLASS TThrData
+METHOD TThrData:Eval(Block)
 
    LOCAL m
    LOCAL i
@@ -1713,7 +1713,7 @@ METHOD Eval(Block) CLASS TThrData
 
 RETURN a
 
-METHOD Sum(Key, xSum) CLASS TThrData
+METHOD TThrData:Sum(Key, xSum)
 
    LOCAL Sum := ::Get(Key, 0)
 
@@ -1733,7 +1733,7 @@ METHOD Sum(Key, xSum) CLASS TThrData
 
 RETURN NIL
 
-METHOD Destroy() CLASS TThrData
+METHOD TThrData:Destroy()
 
    LOCAL i
    LOCAL k

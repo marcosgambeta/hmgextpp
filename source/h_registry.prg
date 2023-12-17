@@ -79,7 +79,7 @@ CREATE CLASS TReg32
 ENDCLASS
 
 
-METHOD New(nKey, cRegKey, lShowError) CLASS TReg32
+METHOD TReg32:New(nKey, cRegKey, lShowError)
 
    LOCAL nHandle := 0
    LOCAL nReturn
@@ -105,7 +105,7 @@ METHOD New(nKey, cRegKey, lShowError) CLASS TReg32
 RETURN Self
 
 
-METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
+METHOD TReg32:Create(nKey, cRegKey, lShowError)
 
    LOCAL nHandle := 0
    LOCAL nReturn
@@ -128,7 +128,7 @@ METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
 RETURN Self
 
 
-METHOD Get(cRegVar, uVar) CLASS TReg32
+METHOD TReg32:Get(cRegVar, uVar)
 
    LOCAL cValue := ""
    LOCAL nType := 0
@@ -161,7 +161,7 @@ METHOD Get(cRegVar, uVar) CLASS TReg32
 RETURN uVar
 
 
-METHOD Set(cRegVar, uVar) CLASS TReg32
+METHOD TReg32:Set(cRegVar, uVar)
 
    LOCAL cType
    LOCAL nType
@@ -191,7 +191,7 @@ METHOD Set(cRegVar, uVar) CLASS TReg32
 RETURN NIL
 
 
-METHOD Delete(cRegVar) CLASS TReg32
+METHOD TReg32:Delete(cRegVar)
 
    IF !::lError
       ::nError := RegDeleteValueA(::nHandle, cRegVar)

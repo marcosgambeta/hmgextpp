@@ -306,7 +306,7 @@ CLASS TActiveX
 
 ENDCLASS
 
-METHOD New(cWindowName, cProgId, nRow, nCol, nWidth, nHeight) CLASS TActiveX
+METHOD TActiveX:New(cWindowName, cProgId, nRow, nCol, nWidth, nHeight)
 
    // TODO: revisar as 4 linhas abaixo
    iif(Empty(nRow)   , nRow    := 0, NIL)
@@ -324,7 +324,7 @@ METHOD New(cWindowName, cProgId, nRow, nCol, nWidth, nHeight) CLASS TActiveX
 
 RETURN Self
 
-METHOD Load() CLASS TActiveX
+METHOD TActiveX:Load()
 
    LOCAL oError
    LOCAL xObjeto
@@ -347,7 +347,7 @@ METHOD Load() CLASS TActiveX
 
 RETURN ::oOle
 
-METHOD ReSize(nRow, nCol, nWidth, nHeight) CLASS TActiveX
+METHOD TActiveX:ReSize(nRow, nCol, nWidth, nHeight)
 
    IF !::bHide
       MoveWindow(::hWnd, nCol, nRow, nWidth, nHeight, .T.)
@@ -361,7 +361,7 @@ METHOD ReSize(nRow, nCol, nWidth, nHeight) CLASS TActiveX
 
 RETURN .T.
 
-METHOD Adjust() CLASS TActiveX
+METHOD TActiveX:Adjust()
 
    LOCAL nAuxRight
    LOCAL nAuxBottom
@@ -376,32 +376,32 @@ METHOD Adjust() CLASS TActiveX
 
 RETURN .T.
 
-METHOD GetRow() CLASS TActiveX
+METHOD TActiveX:GetRow()
 RETURN ::nRow
 
-METHOD GetCol() CLASS TActiveX
+METHOD TActiveX:GetCol()
 RETURN ::nCol
 
-METHOD GetWidth() CLASS TActiveX
+METHOD TActiveX:GetWidth()
 RETURN ::nWidth
 
-METHOD GetHeight() CLASS TActiveX
+METHOD TActiveX:GetHeight()
 RETURN ::nHeight
 
-METHOD Hide() CLASS TActiveX
+METHOD TActiveX:Hide()
    MoveWindow(::hWnd, 0, 0, 0, 0, .T.)
    ::bHide := .T.
 
 RETURN .T.
 
-METHOD Show() CLASS TActiveX
+METHOD TActiveX:Show()
 
    MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    ::bHide := .F.
 
 RETURN .T.
 
-METHOD Release() CLASS TActiveX
+METHOD TActiveX:Release()
 
    IF ::hWnd != NIL
       DestroyWindow(::hWnd)
@@ -414,14 +414,14 @@ METHOD Release() CLASS TActiveX
 
 RETURN .T.
 
-METHOD Refresh() CLASS TActiveX
+METHOD TActiveX:Refresh()
 
    ::Hide()
    ::Show()
 
 RETURN .T.
 
-METHOD EventMap(nMsg, xExec, oSelf)
+METHOD TActiveX:EventMap(nMsg, xExec, oSelf)
 
    LOCAL nAt
 
@@ -435,7 +435,7 @@ METHOD EventMap(nMsg, xExec, oSelf)
 
 RETURN NIL
 
-METHOD OnError(...)
+METHOD TActiveX:OnError(...)
    
    LOCAL cMethod := __GetMessage() 
 

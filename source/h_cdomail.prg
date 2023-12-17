@@ -41,7 +41,7 @@ CLASS TCDOMail
 ENDCLASS
 
 
-METHOD New(cServer, nPort, cUser, cPass, cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, aFiles) CLASS TCDOMail
+METHOD TCDOMail:New(cServer, nPort, cUser, cPass, cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, aFiles)
 
    DEFAULT cText := "", cSubject := "", ;
       cServer := "", nPort := 465, cUser := "", cPass := "", ;
@@ -63,7 +63,7 @@ METHOD New(cServer, nPort, cUser, cPass, cSubject, cText, nPriority, lReceipt, a
 RETURN Self
 
 
-METHOD Activate() CLASS TCDOMail
+METHOD TCDOMail:Activate()
 
    LOCAL oEmailMsg
    LOCAL oError

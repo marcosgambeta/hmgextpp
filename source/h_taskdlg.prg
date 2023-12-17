@@ -39,7 +39,7 @@ CREATE CLASS TSimpleTaskDialog FUNCTION SimpleTaskDialog
 ENDCLASS
 ////////////////////////////////////////////////////////////////////////////////
 
-METHOD New(cTitle, cInstruction, cContent, nCommonButtons, nMainIcon) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:New(cTitle, cInstruction, cContent, nCommonButtons, nMainIcon)
 
    ::cTitle       := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
    ::cInstruction := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
@@ -55,7 +55,7 @@ METHOD New(cTitle, cInstruction, cContent, nCommonButtons, nMainIcon) CLASS TSim
 
 RETURN Self
 
-METHOD Execute() CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:Execute()
 
    LOCAL nResult
    LOCAL nButton // := NIL
@@ -76,7 +76,7 @@ METHOD Execute() CLASS TSimpleTaskDialog
 
 RETURN !::lError
 
-METHOD Title(cTitle) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:Title(cTitle)
 
    LOCAL cOldVal := ::cTitle
 
@@ -86,7 +86,7 @@ METHOD Title(cTitle) CLASS TSimpleTaskDialog
 
 RETURN cOldVal
 
-METHOD Instruction(cInstruction) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:Instruction(cInstruction)
 
    LOCAL cOldVal := ::cInstruction
 
@@ -96,7 +96,7 @@ METHOD Instruction(cInstruction) CLASS TSimpleTaskDialog
 
 RETURN cOldVal
 
-METHOD Content(cContent) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:Content(cContent)
 
    LOCAL cOldVal := ::cContent
 
@@ -106,7 +106,7 @@ METHOD Content(cContent) CLASS TSimpleTaskDialog
 
 RETURN cOldVal
 
-METHOD CommonButtons(nCBs) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:CommonButtons(nCBs)
 
    LOCAL nOldVal := ::nCommonButtons
 
@@ -116,7 +116,7 @@ METHOD CommonButtons(nCBs) CLASS TSimpleTaskDialog
 
 RETURN nOldVal
 
-METHOD MainIcon(nIcon) CLASS TSimpleTaskDialog
+METHOD TSimpleTaskDialog:MainIcon(nIcon)
 
    LOCAL nOldVal := ::nMainIcon
 
@@ -199,7 +199,7 @@ CREATE CLASS TTaskDialog FUNCTION TaskDialog
 ENDCLASS
 ////////////////////////////////////////////////////////////////////////////////
 
-METHOD New(cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon) CLASS TTaskDialog
+METHOD TTaskDialog:New(cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon)
 
    ::aConfig[TDC_WINDOWTITLE]     := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
    ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
@@ -222,7 +222,7 @@ RETURN Self
    NOTE: Returns true if everything worked right. Returns false if creation of dialog failed.
    Requires Windows Vista or newer.
  */
-METHOD ShowDialog() CLASS TTaskDialog
+METHOD TTaskDialog:ShowDialog()
 
    LOCAL nResult
    LOCAL nButton      := NIL
@@ -265,13 +265,13 @@ RETURN !::lError
 
    NOTE: This is only valid (and non NIL) while dialog is visible (read only).
  */
-METHOD DialogHandle() CLASS TTaskDialog
+METHOD TTaskDialog:DialogHandle()
 RETURN ::HWND
 
 /*
    Whether dialog is currently showing (read/write).
  */
-METHOD Showing(lState) CLASS TTaskDialog
+METHOD TTaskDialog:Showing(lState)
 
    hb_default(@lState, .F.)
 
@@ -284,7 +284,7 @@ RETURN ::lActive
 /*
    Indicates that the Task Dialog has been created.
 */
-METHOD OnCreated(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
+METHOD TTaskDialog:OnCreated(hWnd, nNotify, nWParam, nLParam)
 
    HB_SYMBOL_UNUSED(nWParam)
    HB_SYMBOL_UNUSED(nLParam)
@@ -299,7 +299,7 @@ RETURN .F.
 /*
    Indicates that the Task Dialog has been destroyed.
 */
-METHOD OnDestroyed(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
+METHOD TTaskDialog:OnDestroyed(hWnd, nNotify, nWParam, nLParam)
 
    HB_SYMBOL_UNUSED(hWnd)
    HB_SYMBOL_UNUSED(nWParam)
@@ -315,7 +315,7 @@ RETURN .F.
 /*
    The default Events Listener.
 */
-METHOD Listener(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
+METHOD TTaskDialog:Listener(hWnd, nNotify, nWParam, nLParam)
 
    HB_SYMBOL_UNUSED(hWnd)
 
@@ -332,7 +332,7 @@ RETURN .T.
    specified through buttons array, the task dialog will contain the OK button
    by default.
  */
-METHOD CommonButtons(nCBs) CLASS TTaskDialog
+METHOD TTaskDialog:CommonButtons(nCBs)
 
    LOCAL nOldCBS := ::aConfig[TDC_COMMON_BUTTON_FLAGS]
 
@@ -347,7 +347,7 @@ RETURN nOldCBS
 /*
    The string to be used for the task dialog title (read/write, LIVE).
  */
-METHOD WindowTitle(cTitle) CLASS TTaskDialog
+METHOD TTaskDialog:WindowTitle(cTitle)
 
    LOCAL cOldVal := ::aConfig[TDC_WINDOWTITLE]
 
@@ -360,13 +360,13 @@ METHOD WindowTitle(cTitle) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD Title(cTitle) CLASS TTaskDialog
+METHOD TTaskDialog:Title(cTitle)
 RETURN ::WindowTitle(cTitle)
 
 /*
    TODO
 */
-METHOD MainIcon(nIcon) CLASS TTaskDialog
+METHOD TTaskDialog:MainIcon(nIcon)
 
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_MAINICON] := nIcon
@@ -381,7 +381,7 @@ RETURN ::aConfig[TDC_MAINICON]
 
    The string to be used for the main instruction (read/write, LIVE).
  */
-METHOD MainInstruction(cInstruction) CLASS TTaskDialog
+METHOD TTaskDialog:MainInstruction(cInstruction)
 
    LOCAL cOldVal := ::aConfig[TDC_MAININSTRUCTION]
 
@@ -394,13 +394,13 @@ METHOD MainInstruction(cInstruction) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD Instruction(cInstruction) CLASS TTaskDialog
+METHOD TTaskDialog:Instruction(cInstruction)
 RETURN ::MainInstruction(cInstruction)
 
 /*
    The string to be used for the dialog's primary content (read/write, LIVE).
  */
-METHOD Content(cContent) CLASS TTaskDialog
+METHOD TTaskDialog:Content(cContent)
 
    LOCAL cOldVal := ::aConfig[TDC_CONTENT]
 
@@ -416,7 +416,7 @@ RETURN cOldVal
 /*
    TODO
 */
-METHOD CustomButtons(aCustButton) CLASS TTaskDialog
+METHOD TTaskDialog:CustomButtons(aCustButton)
 
    LOCAL aOldVal := ::aConfig[TDC_TASKDIALOG_BUTTON]
 
@@ -436,7 +436,7 @@ RETURN aOldVal
    or   one  of  the  IDs  corresponding  to  the  buttons  specified  in  the
    CommonButtons property.
 */
-METHOD DefaultButton(nDefaultButton) CLASS TTaskDialog
+METHOD TTaskDialog:DefaultButton(nDefaultButton)
 
    LOCAL nOldVal := ::aConfig[TDC_DEFAULTBUTTON]
 
@@ -451,7 +451,7 @@ RETURN nOldVal
 /*
    TODO
 */
-METHOD CustomRadioButtons(aCustButton) CLASS TTaskDialog
+METHOD TTaskDialog:CustomRadioButtons(aCustButton)
 
    LOCAL aOldVal := ::aConfig[TDC_TASKDIALOG_RADIOBUTTON]
 
@@ -469,7 +469,7 @@ RETURN aOldVal
 
    NOTE: If this value does not correspond to a button ID, the first button in the array is selected by default.
  */
-METHOD DefaultRadioButton(nDefaultButton) CLASS TTaskDialog
+METHOD TTaskDialog:DefaultRadioButton(nDefaultButton)
 
    LOCAL nOldVal := ::aConfig[TDC_DEFAULTRADIOBUTTON]
 
@@ -484,7 +484,7 @@ RETURN nOldVal
 /*
    The string to be used to label the verification checkbox (read/write).
 */
-METHOD VerificationText(cText) CLASS TTaskDialog
+METHOD TTaskDialog:VerificationText(cText)
 
    LOCAL cOldVal := ::aConfig[TDC_VERIFICATIONTEXT]
 
@@ -510,7 +510,7 @@ RETURN cOldVal
    WARNING:  Enabling  hyperlinks when using content from an unsafe source may
    cause security vulnerabilities.
  */
-METHOD ExpandedInfo(cText) CLASS TTaskDialog
+METHOD TTaskDialog:ExpandedInfo(cText)
 
    LOCAL cOldVal := ::aConfig[TDC_EXPANDEDINFORMATION]
 
@@ -531,7 +531,7 @@ RETURN cOldVal
    If this member is empty and the CollapsedControlText is specified, then the
    CollapsedControlText value will be used for this member as well.
  */
-METHOD ExpandedControlText(cText) CLASS TTaskDialog
+METHOD TTaskDialog:ExpandedControlText(cText)
 
    LOCAL cOldVal := ::aConfig[TDC_EXPANDEDCONTROLTEXT]
 
@@ -543,7 +543,7 @@ METHOD ExpandedControlText(cText) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD ExpandedCtrlText(cText) CLASS TTaskDialog
+METHOD TTaskDialog:ExpandedCtrlText(cText)
 RETURN ::ExpandedControlText(cText)
 
 /* CollapsedControlText
@@ -554,7 +554,7 @@ RETURN ::ExpandedControlText(cText)
    If this member is empty and the CollapsedControlText is specified, then the
    CollapsedControlText value will be used for this member as well.
  */
-METHOD CollapsedControlText(cText) CLASS TTaskDialog
+METHOD TTaskDialog:CollapsedControlText(cText)
 
    LOCAL cOldVal := ::aConfig[TDC_COLLAPSEDCONTROLTEXT]
 
@@ -566,13 +566,13 @@ METHOD CollapsedControlText(cText) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD CollapsedCtrlText(cText) CLASS TTaskDialog
+METHOD TTaskDialog:CollapsedCtrlText(cText)
 RETURN ::CollapsedControlText(cText)
 
 /*
    TODO
 */
-METHOD FooterIcon(nIcon) CLASS TTaskDialog
+METHOD TTaskDialog:FooterIcon(nIcon)
 
    LOCAL nOldVal := ::aConfig[TDC_FOOTERICON]
 
@@ -590,7 +590,7 @@ RETURN nOldVal
 
    NOTE: If EnableHyperlinks is true, this can show clickable links.
  */
-METHOD Footer(cFooter) CLASS TTaskDialog
+METHOD TTaskDialog:Footer(cFooter)
 
    LOCAL cOldVal := ::aConfig[TDC_FOOTER]
 
@@ -608,7 +608,7 @@ RETURN cOldVal
 
    NOTE: If 0, the task dialog manager will calculate the ideal width.
  */
-METHOD Width(nWidth) CLASS TTaskDialog
+METHOD TTaskDialog:Width(nWidth)
 
    LOCAL nOldVal := ::aConfig[TDC_WIDTH]
 
@@ -621,7 +621,7 @@ RETURN nOldVal
 /*
    Parent window handle (read/write).
  */
-METHOD ParentHandle(nHandle) CLASS TTaskDialog
+METHOD TTaskDialog:ParentHandle(nHandle)
 
    LOCAL nOldVal := ::aConfig[TDC_HWND]
 
@@ -634,13 +634,13 @@ RETURN nOldVal
 /*
    Parent window name (read/write).
  */
-METHOD Parent(cFormName) CLASS TTaskDialog
+METHOD TTaskDialog:Parent(cFormName)
 RETURN _HMG_aFormNames[AScan(_HMG_aFormHandles, ::ParentHandle(GetFormHandle(cFormName)))]
 
 /*
    NOTE: Method CallBackBlock will be deleted in future (not near)
 */
-METHOD CallBackBlock(bCode) CLASS TTaskDialog
+METHOD TTaskDialog:CallBackBlock(bCode)
 
    IF !::lActive
       IF HB_ISEVALITEM(bCode)
@@ -657,7 +657,7 @@ RETURN ::aConfig[TDC_CALLBACK]
    NOTE:  Maybe You should not need to set flags as we have properties for all
    relevant flags.
  */
-METHOD Flags(nFlags) CLASS TTaskDialog
+METHOD TTaskDialog:Flags(nFlags)
 
    LOCAL nOldVal := ::aConfig[TDC_TASKDIALOG_FLAGS]
    
@@ -676,7 +676,7 @@ RETURN nOldVal
    Escape,  and  the  title  bar's  close  button  even if no cancel button is
    specified  in  either the CommonButtons or Buttons members.
  */
-METHOD AllowDialogCancellation(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:AllowDialogCancellation(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -699,7 +699,7 @@ RETURN lOldVal
 /*
    Indicates that the task dialog can be minimized (read/write).
  */
-METHOD CanBeMinimized(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:CanBeMinimized(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -734,7 +734,7 @@ RETURN lOldVal
    WARNING:  Enabling  hyperlinks when using content from an unsafe source may
    cause security vulnerabilities.
  */
-METHOD EnableHyperlinks(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:EnableHyperlinks(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -760,7 +760,7 @@ RETURN lOldVal
 
    NOTE: This flag is ignored if the ExpandedInformation member is empty.
  */
-METHOD ExpandedByDefault(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:ExpandedByDefault(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -788,7 +788,7 @@ RETURN lOldVal
    immediately  after  the  dialog's  content.  This  flag  is  ignored if the
    ExpandedInformation member is empty.
  */
-METHOD ExpandFooterArea(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:ExpandFooterArea(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -811,7 +811,7 @@ RETURN lOldVal
 /*
    Indicates that no default item will be selected (read/write)
  */
-METHOD NoDefaultRadioButton(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:NoDefaultRadioButton(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -838,7 +838,7 @@ RETURN lOldVal
    NOTE:  If  the flag is not supplied (or no parent member is specified), the
    task dialog is positioned (centered) relative to the monitor.
  */
-METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:PositionRelativeToWindow(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -861,7 +861,7 @@ RETURN lOldVal
 /*
    Indicates that text is displayed reading right to left (read/write).
  */
-METHOD RightToLeftLayout(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:RightToLeftLayout(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -886,7 +886,7 @@ RETURN lOldVal
 
    NOTE: Can be true to enable the checkbox or false to disable.
  */
-METHOD VerificationEnabled(lNewVal) CLASS TTaskDialog
+METHOD TTaskDialog:VerificationEnabled(lNewVal)
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -912,7 +912,7 @@ RETURN lOldVal
 
    NOTE: In Milliseconds. The dialog closes after given time.
  */
-METHOD timeoutMS(nMS) CLASS TTaskDialog
+METHOD TTaskDialog:timeoutMS(nMS)
 
    LOCAL nOldVal := ::nTimeOutMS
 
@@ -925,7 +925,7 @@ RETURN nOldVal
 /*
    Whether we got a timeout (read/write, read only in future, maybe)
  */
-METHOD TimedOut(lOut) CLASS TTaskDialog
+METHOD TTaskDialog:TimedOut(lOut)
 
    IF ::lActive .AND. hb_IsLogical(lOut)
       ::lTimeOut := lOut
