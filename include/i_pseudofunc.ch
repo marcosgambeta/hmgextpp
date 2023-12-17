@@ -202,7 +202,7 @@
 
 #xtranslate GetHotKeyName(<ControlName>, <FormName>) => _GetHotKeyName(<(ControlName)>, <(FormName)>)
 #xtranslate GetHotKeyValue(<ControlName>, <FormName>) => _GetHotKeyValue(<(ControlName)>, <(FormName)>)
-#xtranslate _GetHotKeyValue(<ControlName>, <FormName>) => C_GetHotKeyValue(GetControlHandle(<ControlName>, <FormName>))
+#xtranslate _GetHotKeyValue(<ControlName>, <FormName>) => hmg_C_GetHotKeyValue(GetControlHandle(<ControlName>, <FormName>))
 
 // ============================================================================
 

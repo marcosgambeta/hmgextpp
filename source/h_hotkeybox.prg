@@ -96,7 +96,7 @@ FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, 
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := InitHotKeyBox(ParentForm, x, y, w, h, "", 0, invisible, notabstop)
+   ControlHandle := hmg_InitHotKeyBox(ParentForm, x, y, w, h, "", 0, invisible, notabstop)
 
    IF !empty(FontHandle)
       hmg__SetFontHandle(ControlHandle, FontHandle)
@@ -112,7 +112,7 @@ FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, 
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   SetHotKeyValue(ControlHandle, value)
+   hmg_SetHotKeyValue(ControlHandle, value)
 
    IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
@@ -177,6 +177,6 @@ RETURN NIL
 FUNCTION _GetHotKeyName(cControlName, cFormName)
 //---------------------------------------------------------------------------//
    
-   LOCAL cKeyName := C_GETHOTKEYNAME(GetControlHandle(cControlName, cFormName))
+   LOCAL cKeyName := hmg_C_GETHOTKEYNAME(GetControlHandle(cControlName, cFormName))
 
 RETURN SubStr(cKeyName, 1, At(Chr(0), cKeyName) - 1)

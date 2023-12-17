@@ -273,7 +273,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
 #endif
 
    CASE CONTROL_TYPE_HOTKEYBOX
-      retval := C_GetHotKey(c)
+      retval := hmg_C_GetHotKey(c)
       EXIT
 
    OTHERWISE
@@ -663,7 +663,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 #endif
 
    CASE CONTROL_TYPE_HOTKEYBOX
-      SetHotKeyValue(c, value)
+      hmg_SetHotKeyValue(c, value)
       EXIT
 
    OTHERWISE

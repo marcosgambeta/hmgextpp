@@ -95,7 +95,7 @@ void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 #endif
 }
 
-HB_FUNC( C_GETHOTKEYNAME )
+HB_FUNC( HMG_C_GETHOTKEYNAME )
 {
 #ifdef UNICODE
    LPSTR pStr;
@@ -115,7 +115,11 @@ HB_FUNC( C_GETHOTKEYNAME )
 #endif
 }
 
-HB_FUNC( INITHOTKEYBOX )
+#if 1
+HB_FUNC_TRANSLATE( C_GETHOTKEYNAME, HMG_C_GETHOTKEYNAME )
+#endif
+
+HB_FUNC( HMG_INITHOTKEYBOX )
 {
    DWORD style = WS_CHILD;
 
@@ -144,7 +148,11 @@ HB_FUNC( INITHOTKEYBOX )
    hmg_ret_HWND(hwndHotKey);
 }
 
-HB_FUNC( SETHOTKEYVALUE )
+#if 1
+HB_FUNC_TRANSLATE( INITHOTKEYBOX, HMG_INITHOTKEYBOX )
+#endif
+
+HB_FUNC( HMG_SETHOTKEYVALUE )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -157,7 +165,11 @@ HB_FUNC( SETHOTKEYVALUE )
    SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S, /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
 }
 
-HB_FUNC( C_GETHOTKEYVALUE )
+#if 1
+HB_FUNC_TRANSLATE( SETHOTKEYVALUE, HMG_SETHOTKEYVALUE )
+#endif
+
+HB_FUNC( HMG_C_GETHOTKEYVALUE )
 {
    auto wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
    UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
@@ -171,7 +183,15 @@ HB_FUNC( C_GETHOTKEYVALUE )
    HB_STORNI(static_cast<UINT>(iModifierKeys), -1, 2);
 }
 
-HB_FUNC( C_GETHOTKEY )
+#if 1
+HB_FUNC_TRANSLATE( C_GETHOTKEYVALUE, HMG_C_GETHOTKEYVALUE )
+#endif
+
+HB_FUNC( HMG_C_GETHOTKEY )
 {
    hb_retnl(static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_GETHOTKEY, HMG_C_GETHOTKEY )
+#endif
