@@ -1774,7 +1774,7 @@ INITPROPGRIDIMAGELIST(HWND, HIMAGELIST) --> numeric
 HB_FUNC( INITPROPGRIDIMAGELIST )
 {
    auto cx = 0;
-   HIMAGELIST himl = hmg_par_HIMAGELIST(2);
+   auto himl = hmg_par_HIMAGELIST(2);
    if( himl != nullptr ) {
       SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
       cx = ImageList_GetImageCount(himl);
@@ -1845,7 +1845,7 @@ PGCOMBOADDSTRING(HWND, text, HIMAGELIST) --> NIL
 */
 HB_FUNC( PGCOMBOADDSTRING )
 {
-   HIMAGELIST hILst = hmg_par_HIMAGELIST(3);
+   auto hILst = hmg_par_HIMAGELIST(3);
    auto cString = const_cast<char*>(hb_parc(2));
    DWORD dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM) cString);
    if( hb_parnl(3) ) {

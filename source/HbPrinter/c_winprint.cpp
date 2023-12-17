@@ -1551,7 +1551,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
 
 HB_FUNC( RR_DRAWIMAGELIST )
 {
-   HIMAGELIST himl = hmg_par_HIMAGELIST(1);
+   auto himl = hmg_par_HIMAGELIST(1);
    RECT       rect;
    HWND       hwnd = GetActiveWindow();
 
