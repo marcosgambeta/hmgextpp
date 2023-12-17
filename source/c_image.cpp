@@ -270,7 +270,7 @@ LRESULT APIENTRY ImageSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
    return CallWindowProc(s_Image_WNDPROC, hWnd, Msg, wParam, lParam);
 }
 
-HB_FUNC( INITIMAGE )
+HB_FUNC( HMG_INITIMAGE )
 {
    DWORD style = WS_CHILD | SS_BITMAP;
 
@@ -303,7 +303,11 @@ HB_FUNC( INITIMAGE )
    hmg_ret_HWND(hWnd);
 }
 
-HB_FUNC( C_SETPICTURE )
+#if 1
+HB_FUNC_TRANSLATE( INITIMAGE, HMG_INITIMAGE )
+#endif
+
+HB_FUNC( HMG_C_SETPICTURE )
 {
    auto hWnd = hmg_par_HWND(1);
    HBITMAP hBitmap = nullptr;
@@ -324,7 +328,11 @@ HB_FUNC( C_SETPICTURE )
    hmg_ret_HBITMAP(hBitmap);
 }
 
-HB_FUNC( LOADIMAGE )
+#if 1
+HB_FUNC_TRANSLATE( C_SETPICTURE, HMG_C_SETPICTURE )
+#endif
+
+HB_FUNC( HMG_LOADIMAGE )
 {
    HWND hWnd = HB_ISNIL(2) ? GetActiveWindow() : hmg_par_HWND(2);
    HBITMAP hBitmap = nullptr;
@@ -340,7 +348,11 @@ HB_FUNC( LOADIMAGE )
    hmg_ret_HBITMAP(hBitmap);
 }
 
-HB_FUNC( C_GETRESPICTURE )
+#if 1
+HB_FUNC_TRANSLATE( LOADIMAGE, HMG_LOADIMAGE )
+#endif
+
+HB_FUNC( HMG_C_GETRESPICTURE )
 {
    HBITMAP hBitmap = HMG_LoadImage(hb_parc(1), hb_parc(2));
 
@@ -350,6 +362,10 @@ HB_FUNC( C_GETRESPICTURE )
 
    hmg_ret_HBITMAP(hBitmap);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_GETRESPICTURE, HMG_C_GETRESPICTURE )
+#endif
 
 //****************************************************************************************************************
 // HMG_LoadImage (const char *FileName) -> hBitmap (Load: JPG, GIF, ICO, TIF, PNG, WMF)
@@ -714,7 +730,7 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char * pszURLorPath)
 /*
  * Get encoders
  */
-HB_FUNC( GPLUSGETENCODERSNUM )
+HB_FUNC( HMG_GPLUSGETENCODERSNUM )
 {
    UINT num = 0; // number of image encoders
    UINT size = 0; // size of the image encoder array in bytes
@@ -722,7 +738,11 @@ HB_FUNC( GPLUSGETENCODERSNUM )
    hb_retni(num);
 }
 
-HB_FUNC( GPLUSGETENCODERSSIZE )
+#if 1
+HB_FUNC_TRANSLATE( GPLUSGETENCODERSNUM, HMG_GPLUSGETENCODERSNUM )
+#endif
+
+HB_FUNC( HMG_GPLUSGETENCODERSSIZE )
 {
    UINT num = 0;
    UINT size = 0;
@@ -730,7 +750,11 @@ HB_FUNC( GPLUSGETENCODERSSIZE )
    hb_retni(size);
 }
 
-HB_FUNC( GPLUSGETENCODERSMIMETYPE )
+#if 1
+HB_FUNC_TRANSLATE( GPLUSGETENCODERSSIZE, HMG_GPLUSGETENCODERSSIZE )
+#endif
+
+HB_FUNC( HMG_GPLUSGETENCODERSMIMETYPE )
 {
    UINT num = 0;
    UINT size = 0;
@@ -777,6 +801,10 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
    // return a result array
    hb_itemReturnRelease(pResult);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GPLUSGETENCODERSMIMETYPE, HMG_GPLUSGETENCODERSMIMETYPE )
+#endif
 
 static bool GetEnCodecClsid(const char * MimeType, CLSID * Clsid)
 {
@@ -937,7 +965,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
    return TRUE;
 }
 
-HB_FUNC( C_SAVEHBITMAPTOFILE )
+HB_FUNC( HMG_C_SAVEHBITMAPTOFILE )
 {
    void * str1;
    void * str2;
@@ -945,6 +973,10 @@ HB_FUNC( C_SAVEHBITMAPTOFILE )
    hb_strfree(str1);
    hb_strfree(str2);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_SAVEHBITMAPTOFILE, HMG_C_SAVEHBITMAPTOFILE )
+#endif
 
 //*************************************************************************************************
 //        ICONS (.ICO type 1) are structured like this:
@@ -1216,9 +1248,9 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
 //*************************************************************************************************
 
 /*
-C_SAVEHICONTOFILE(cIconFile, ap2, np3) --> .T.|.F.
+HMG_C_SAVEHICONTOFILE(cIconFile, ap2, np3) --> .T.|.F.
 */
-HB_FUNC( C_SAVEHICONTOFILE )
+HB_FUNC( HMG_C_SAVEHICONTOFILE )
 {
    void * str;
    auto szIconFile = static_cast<TCHAR*>(const_cast<char*>(HB_PARSTR(1, &str, nullptr)));
@@ -1245,6 +1277,10 @@ HB_FUNC( C_SAVEHICONTOFILE )
 
    hb_strfree(str);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_SAVEHICONTOFILE, HMG_C_SAVEHICONTOFILE )
+#endif
 
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName)
 {

@@ -2791,7 +2791,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       ENDIF
       hmg_DeleteObject(_hmg_aControlBrushHandle[i])
       _HMG_aControlPicture[i] := FileName
-      _HMG_aControlBrushHandle[i] := C_SetPicture(c, FileName, w, h, _HMG_aControlValue[i], _HMG_aControlInputMask[i], ;
+      _HMG_aControlBrushHandle[i] := hmg_C_SetPicture(c, FileName, w, h, _HMG_aControlValue[i], _HMG_aControlInputMask[i], ;
          _HMG_aControlSpacing[i], _HMG_aControlCaption[i], _HMG_aControlDblClick[i] .AND. HasAlpha(FileName), _HMG_aControlMiscData1[i])
       IF Empty(_HMG_aControlValue[i])
          _HMG_aControlWidth[i] := GetWindowWidth(c)

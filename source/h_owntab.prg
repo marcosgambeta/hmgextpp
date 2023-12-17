@@ -129,7 +129,7 @@ FUNCTION OwnTabPaint(lParam)
 
       hImage := hmg_LoadBitmap(_HMG_aControlPicture[i][nItemId])
       IF Empty(hImage)
-         hImage := LoadImage(_HMG_aControlPicture[i][nItemId], , , , , , bkColor)
+         hImage := hmg_LoadImage(_HMG_aControlPicture[i][nItemId], , , , , , bkColor)
       ENDIF
 
       aBmp := hmg_GetBitmapSize(hImage)

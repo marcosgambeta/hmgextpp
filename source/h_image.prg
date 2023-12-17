@@ -152,7 +152,7 @@ FUNCTION _DefineImage(ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitImage(ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString(tooltip) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ))
+      ControlHandle := hmg_InitImage(ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString(tooltip) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ))
 
    ENDIF
 
@@ -237,7 +237,7 @@ FUNCTION InitDialogImage(ParentName, ControlHandle, k)
 
    IF ParentName != NIL
 
-      _HMG_aControlBrushHandle[k] := C_SetPicture(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlWidth[k], ;
+      _HMG_aControlBrushHandle[k] := hmg_C_SetPicture(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlWidth[k], ;
          _HMG_aControlHeight[k], _HMG_aControlValue[k], _HMG_aControlInputMask[k], _HMG_aControlSpacing[k], ;
          _HMG_aControlCaption[k], _HMG_aControlDblClick[k] .AND. HasAlpha(_HMG_aControlPicture[k]), _HMG_aControlMiscData1[k])
 
@@ -266,7 +266,7 @@ FUNCTION BmpSize(xBitmap)
       aRet := hmg_GetBitmapSize(xBitmap)
 
       IF Empty(aRet[1]) .AND. Empty(aRet[2])
-         xBitmap := C_GetResPicture(xBitmap)
+         xBitmap := hmg_C_GetResPicture(xBitmap)
          aRet := hmg_GetBitmapSize(xBitmap)
          hmg_DeleteObject(xBitmap)
       ENDIF
@@ -286,7 +286,7 @@ FUNCTION HasAlpha(FileName)
    LOCAL hBitmap
    LOCAL lResult := .F.
 
-   hBitmap := C_GetResPicture(FileName)
+   hBitmap := hmg_C_GetResPicture(FileName)
 
    IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
       lResult := hmg_C_HasAlpha(hBitmap)
@@ -302,14 +302,14 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
    LOCAL hBitmap
    LOCAL lResult := .F.
 
-   hBitmap := iif(hb_IsString(FileName), C_GetResPicture(FileName), FileName)
+   hBitmap := iif(hb_IsString(FileName), hmg_C_GetResPicture(FileName), FileName)
 
    IF GetObjectType(hBitmap) == OBJ_BITMAP
       hb_default(@cEncoder, "BMP")
       hb_default(@nJpgQuality, 100)
       __defaultNIL(@aOutSize, BmpSize(hBitmap))
 
-      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower(cEncoder), nJpgQuality)
+      lResult := hmg_C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower(cEncoder), nJpgQuality)
 
       IF hb_IsString(FileName)
          hmg_DeleteObject(hBitmap)

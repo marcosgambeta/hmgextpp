@@ -272,7 +272,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
    IF aImages != NIL .AND. hb_IsArray(aImages)
       aBmp := Array(Len(aImages))
-      AEval(aImages, {| cImage, nEle | aBmp[nEle] := LoadImage(cImage) })
+      AEval(aImages, {| cImage, nEle | aBmp[nEle] := hmg_LoadImage(cImage) })
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -983,7 +983,7 @@ CLASS TSBrowse FROM TControl
    DATA lUpDown AS LOGICAL INIT .F. // enable/disable UpDown DatePicker in inplace Editing
    DATA lPhantArrRow AS LOGICAL INIT .F. // Flag for initial empty row in array
    DATA lEnum AS LOGICAL INIT .F. // activates SpecHeader as Enumerator
-   DATA lDestroyAll AS LOGICAL INIT .F. // flag to destroy all bitmaps created with using of function LoadImage()
+   DATA lDestroyAll AS LOGICAL INIT .F. // flag to destroy all bitmaps created with using of function hmg_LoadImage()
    DATA lMoreFields AS LOGICAL INIT .F. // flag to activate of support for multi-column tables
 
    DATA nAdjColumn AS NUMERIC // column expands to flush table window right
@@ -1392,7 +1392,7 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
    DO CASE // TODO: switch
    CASE hb_IsChar(uSelector)
       ::lSelector := .T.
-      ::hBmpCursor := LoadImage(uSelector)
+      ::hBmpCursor := hmg_LoadImage(uSelector)
    CASE ValType(uSelector) == "N"
       ::lSelector := .T.
       ::hBmpCursor := StockBmp(3)
@@ -14786,7 +14786,7 @@ METHOD TSBrowse:SetSelectMode(lOnOff, bSelected, uBmpSel, nColSel, nAlign)
       IF !hb_isChar(uBmpSel)
          ::uBmpSel := uBmpSel
       ELSE
-         ::uBmpSel := LoadImage(uBmpSel)
+         ::uBmpSel := hmg_LoadImage(uBmpSel)
          ::lDestroy := .T.
       ENDIF
 
@@ -17083,7 +17083,7 @@ FUNCTION StockBmp(uAnsi, oWnd, cPath, lNew)
       FClose(nHandle)
    ENDIF
 
-   hBmp := LoadImage(cBmpFile)
+   hBmp := hmg_LoadImage(cBmpFile)
 
    FErase(cBmpFile)
 

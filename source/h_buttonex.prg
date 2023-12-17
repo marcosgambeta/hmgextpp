@@ -174,7 +174,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
 
    IF !Empty(image) .AND. Empty(aRet[2])
       aRet[2] := iif(_HMG_IsThemed .AND. hb_UAt(".", image) == 0 .AND. imagewidth < 0 .AND. imageheight < 0, ;
-         C_GetResPicture(image), hmg__SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
+         hmg_C_GetResPicture(image), hmg__SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
    ENDIF
 
    IF !empty(FontHandle)
