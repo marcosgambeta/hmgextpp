@@ -172,7 +172,7 @@ CLASS TControl
 
 ENDCLASS
 
-METHOD Init(hDlg) CLASS TControl
+METHOD TControl:Init(hDlg)
 
    LOCAL oRect
 
@@ -204,7 +204,7 @@ METHOD Init(hDlg) CLASS TControl
 
 RETURN NIL
 
-METHOD AddVars(hControl) CLASS TControl
+METHOD TControl:AddVars(hControl)
 
    AAdd(_TSB_aControlhWnd, hControl)
    AAdd(_TSB_aControlObjects, Self)
@@ -212,7 +212,7 @@ METHOD AddVars(hControl) CLASS TControl
 
 RETURN NIL
 
-METHOD DelVars(hControl) CLASS TControl
+METHOD TControl:DelVars(hControl)
 
    LOCAL nAt := iif(!Empty(_TSB_aControlhWnd), AScan(_TSB_aControlhWnd, {|hCtrl|hCtrl == Self:hWnd}), 0)
 
@@ -229,7 +229,7 @@ METHOD DelVars(hControl) CLASS TControl
 
 RETURN NIL
 
-METHOD _BeginPaint() CLASS TControl
+METHOD TControl:_BeginPaint()
 
    LOCAL cPS
 
@@ -244,7 +244,7 @@ METHOD _BeginPaint() CLASS TControl
 
 RETURN NIL
 
-METHOD Colors(hDC) CLASS TControl
+METHOD TControl:Colors(hDC)
 
    DEFAULT ::nClrText := GetTextColor(hDC)
    DEFAULT ::nClrPane := GetBkColor(hDC)
@@ -255,7 +255,7 @@ METHOD Colors(hDC) CLASS TControl
 
 RETURN ::hBrush
 
-METHOD CoorsUpdate() CLASS TControl
+METHOD TControl:CoorsUpdate()
 
    LOCAL aRect := {0,0,0,0}
 
@@ -268,7 +268,7 @@ METHOD CoorsUpdate() CLASS TControl
 */
 RETURN NIL
 
-METHOD Create(cClsName) CLASS TControl
+METHOD TControl:Create(cClsName)
 
    LOCAL xStyle := 0
 
@@ -313,13 +313,13 @@ METHOD Create(cClsName) CLASS TControl
 
 RETURN NIL
 
-METHOD Default() CLASS TControl
+METHOD TControl:Default()
 
    ::lCaptured := .F.
 
 RETURN NIL
 
-METHOD End() CLASS TControl
+METHOD TControl:End()
 
    LOCAL ix
    LOCAL nAt := IIf(!Empty(::oWnd:aControls), AScan(::oWnd:aControls, {|hCtrl|hCtrl == Self:hWnd}), 0)
@@ -348,7 +348,7 @@ METHOD End() CLASS TControl
 
 RETURN ::EndCtrl()
 
-METHOD EraseBkGnd(hDC) CLASS TControl
+METHOD TControl:EraseBkGnd(hDC)
 
    LOCAL aRect
 
@@ -369,7 +369,7 @@ METHOD EraseBkGnd(hDC) CLASS TControl
 
 RETURN 0   //NIL JP
 
-METHOD ForWhen() CLASS TControl
+METHOD TControl:ForWhen()
 
    ::oWnd:AEvalWhen()
 
@@ -392,13 +392,13 @@ METHOD ForWhen() CLASS TControl
 
 RETURN NIL
 
-METHOD GetCliRect() CLASS TControl
+METHOD TControl:GetCliRect()
 
    LOCAL aRect := _GetClientRect(::hWnd)
 
 RETURN aRect
 
-METHOD GetDlgCode(nLastKey) CLASS TControl
+METHOD TControl:GetDlgCode(nLastKey)
 
    IF !::oWnd:lValidating
       IF nLastKey == VK_RETURN .OR. nLastKey == VK_TAB
@@ -412,7 +412,7 @@ METHOD GetDlgCode(nLastKey) CLASS TControl
 
 RETURN DLGC_WANTALLKEYS // It is the only way to have 100% control using Folders
 
-METHOD GetRect() CLASS TControl
+METHOD TControl:GetRect()
 
    LOCAL aRect := {0,0,0,0}
 
@@ -420,7 +420,7 @@ METHOD GetRect() CLASS TControl
 
 RETURN aRect
 
-METHOD GotFocus(hCtlLost)
+METHOD TControl:GotFocus(hCtlLost)
 
    HB_SYMBOL_UNUSED(hCtlLost)
 
@@ -433,7 +433,7 @@ METHOD GotFocus(hCtlLost)
 
 RETURN NIL
 
-METHOD GoNextCtrl(hCtrl) CLASS TControl
+METHOD TControl:GoNextCtrl(hCtrl)
 
    LOCAL  hCtlNext
 
@@ -447,7 +447,7 @@ METHOD GoNextCtrl(hCtrl) CLASS TControl
 
 RETURN NIL
 
-METHOD GoPrevCtrl(hCtrl) CLASS TControl
+METHOD TControl:GoPrevCtrl(hCtrl)
 
    LOCAL hCtlPrev
 
@@ -461,7 +461,7 @@ METHOD GoPrevCtrl(hCtrl) CLASS TControl
 
 RETURN NIL
 
-METHOD KeyChar(nKey, nFlags) CLASS TControl
+METHOD TControl:KeyChar(nKey, nFlags)
 
    LOCAL bKeyAction := SetKey(nKey)
 
@@ -484,7 +484,7 @@ METHOD KeyChar(nKey, nFlags) CLASS TControl
 
 RETURN 0
 
-METHOD KeyDown(nKey, nFlags) CLASS TControl
+METHOD TControl:KeyDown(nKey, nFlags)
 
    LOCAL bKeyAction := SetKey(nKey)
 
@@ -509,13 +509,13 @@ METHOD KeyDown(nKey, nFlags) CLASS TControl
 
 RETURN 0
 
-METHOD KillFocus(hCtlFocus) CLASS TControl
+METHOD TControl:KillFocus(hCtlFocus)
 
    HB_SYMBOL_UNUSED(hCtlFocus)
 
 RETURN ::LostFocus()
 
-METHOD LButtonDown(nRow, nCol, nKeyFlags) CLASS TControl
+METHOD TControl:LButtonDown(nRow, nCol, nKeyFlags)
 
    ::lMouseDown := .T.
    ::nLastRow   := nRow
@@ -527,7 +527,7 @@ METHOD LButtonDown(nRow, nCol, nKeyFlags) CLASS TControl
 
 RETURN NIL
 
-METHOD LButtonUp(nRow, nCol, nKeyFlags) CLASS TControl
+METHOD TControl:LButtonUp(nRow, nCol, nKeyFlags)
 
    IF ::bLButtonUp != NIL
       RETURN Eval(::bLButtonUp, nRow, nCol, nKeyFlags)
@@ -535,7 +535,7 @@ METHOD LButtonUp(nRow, nCol, nKeyFlags) CLASS TControl
 
 RETURN NIL
 
-METHOD LostFocus(hWndGetFocus) CLASS TControl
+METHOD TControl:LostFocus(hWndGetFocus)
 
    ::lFocused := .F.
    ::SetMsg()
@@ -545,7 +545,7 @@ METHOD LostFocus(hWndGetFocus) CLASS TControl
 
 RETURN NIL
 
-METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TControl
+METHOD TControl:MouseMove(nRow, nCol, nKeyFlags)
 
    IF ::oCursor != NIL
       hmg_SetResCursor(::oCursor:hCursor)
@@ -563,7 +563,7 @@ METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TControl
 
 RETURN 0
 
-METHOD Move(nTop, nLeft, nWidth, nHeight, lRepaint) CLASS TControl
+METHOD TControl:Move(nTop, nLeft, nWidth, nHeight, lRepaint)
 
    MoveWindow(::hWnd, nTop, nLeft, nWidth, nHeight, lRepaint)
 
@@ -571,7 +571,7 @@ METHOD Move(nTop, nLeft, nWidth, nHeight, lRepaint) CLASS TControl
 
 RETURN NIL
 
-METHOD RButtonUp(nRow, nCol, nKeyFlags) CLASS TControl
+METHOD TControl:RButtonUp(nRow, nCol, nKeyFlags)
 
    IF ::bRButtonUp != NIL
       Eval(::bRButtonUp, nRow, nCol, nKeyFlags)
@@ -579,7 +579,7 @@ METHOD RButtonUp(nRow, nCol, nKeyFlags) CLASS TControl
 
 RETURN NIL
 
-METHOD Register(nClsStyle)  CLASS TControl
+METHOD TControl:Register(nClsStyle)
 
    LOCAL hUser
    LOCAL ClassName
@@ -608,7 +608,7 @@ METHOD Register(nClsStyle)  CLASS TControl
 
 RETURN ::hBrush
 
-METHOD ReSize(nSizeType, nWidth, nHeight) CLASS TControl
+METHOD TControl:ReSize(nSizeType, nWidth, nHeight)
 
    ::CoorsUpdate()
    IF ::bResized != NIL
@@ -617,7 +617,7 @@ METHOD ReSize(nSizeType, nWidth, nHeight) CLASS TControl
 
 RETURN NIL
 
-METHOD SetMsg(cText, lDefault) CLASS TControl
+METHOD TControl:SetMsg(cText, lDefault)
 
    LOCAL cOldText
    LOCAL cParentWnd
@@ -646,7 +646,7 @@ METHOD SetMsg(cText, lDefault) CLASS TControl
 
 RETURN NIL
 
-METHOD SetColor(nClrFore, nClrBack, hBrush) CLASS TControl
+METHOD TControl:SetColor(nClrFore, nClrBack, hBrush)
 
    ::nClrText = nClrFore
    ::nClrPane = nClrBack
@@ -665,7 +665,7 @@ RETURN NIL
 
 //==========From TWindow ===============================
 
-METHOD SuperKeyDown(nKey, nFlags, xObj) CLASS TControl
+METHOD TControl:SuperKeyDown(nKey, nFlags, xObj)
 
    LOCAL bKeyAction := SetKey(nKey)
 
@@ -685,7 +685,7 @@ METHOD SuperKeyDown(nKey, nFlags, xObj) CLASS TControl
 
 RETURN NIL
 
-METHOD __SetFocus() CLASS TControl
+METHOD TControl:__SetFocus()
 
    IF ::lWhen()
       hmg_SetFocus(::hWnd)
@@ -694,7 +694,7 @@ METHOD __SetFocus() CLASS TControl
 
 RETURN NIL
 
-METHOD VScroll(nWParam, nLParam) CLASS TControl
+METHOD TControl:VScroll(nWParam, nLParam)
 
    LOCAL nScrHandle := HiWord(nLParam)
 
@@ -723,7 +723,7 @@ METHOD VScroll(nWParam, nLParam) CLASS TControl
 
 RETURN 0
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TControl
+METHOD TControl:HandleEvent(nMsg, nWParam, nLParam)
 
    SWITCH nMsg
 
@@ -801,7 +801,7 @@ METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TControl
 
 RETURN 0
 
-METHOD Command(nWParam, nLParam) CLASS TControl
+METHOD TControl:Command(nWParam, nLParam)
 
    LOCAL nNotifyCode
    LOCAL hWndCtl
@@ -836,7 +836,7 @@ METHOD Command(nWParam, nLParam) CLASS TControl
 
 RETURN NIL
 
-METHOD Notify(nWParam, nLParam) CLASS TControl
+METHOD TControl:Notify(nWParam, nLParam)
 
    HB_SYMBOL_UNUSED(nWParam)
 

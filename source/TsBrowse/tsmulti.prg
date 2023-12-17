@@ -36,7 +36,7 @@ ENDCLASS
 // METHOD TSMulti:New() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, nClrFore, nClrBack, cControl, cWnd) CLASS TSMulti
+METHOD TSMulti:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, nClrFore, nClrBack, cControl, cWnd)
 
    DEFAULT nClrFore := GetSysColor(COLOR_WINDOWTEXT)
    DEFAULT nClrBack := GetSysColor(COLOR_WINDOW)
@@ -93,7 +93,7 @@ RETURN Self
 // METHOD TSMulti:Default() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD Default() CLASS TSMulti
+METHOD TSMulti:Default()
 
    LOCAL VALUE := Eval(::bSetGet)
 
@@ -107,7 +107,7 @@ RETURN NIL
 // METHOD TSMulti:HandleEvent() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSMulti
+METHOD TSMulti:HandleEvent(nMsg, nWParam, nLParam)
 
 RETURN ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
@@ -115,7 +115,7 @@ RETURN ::Super:HandleEvent(nMsg, nWParam, nLParam)
 // METHOD TSMulti:GetDlgCode() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD GetDlgCode(nLastKey, nFlags) CLASS TSMulti
+METHOD TSMulti:GetDlgCode(nLastKey, nFlags)
 
    HB_SYMBOL_UNUSED(nFlags)
 
@@ -127,7 +127,7 @@ RETURN DLGC_WANTALLKEYS + DLGC_WANTCHARS
 // METHOD TSMulti:KeyChar() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TSMulti
+METHOD TSMulti:KeyChar(nKey, nFlags)
 
    HB_SYMBOL_UNUSED(nFlags)
 
@@ -145,7 +145,7 @@ RETURN ::Super:KeyChar(nKey, nFlags)
 // METHOD TSMulti:Save() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD Save() CLASS TSMulti
+METHOD TSMulti:Save()
 
    LOCAL cText
 
@@ -175,7 +175,7 @@ RETURN NIL
 // METHOD TSMulti:KeyDown() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TSMulti
+METHOD TSMulti:KeyDown(nKey, nFlags)
 
    IF _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -204,7 +204,7 @@ RETURN 0
 // METHOD TSMulti:lValid() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD lValid() CLASS TSMulti
+METHOD TSMulti:lValid()
 
    LOCAL lRet := .T.
 
@@ -218,7 +218,7 @@ RETURN lRet
 // METHOD TSMulti:LostFocus() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD LostFocus(hCtlFocus) CLASS TSMulti
+METHOD TSMulti:LostFocus(hCtlFocus)
 
    ::lFocused := .F.
 
@@ -233,7 +233,7 @@ RETURN 0
 // METHOD TSMulti:Command() Version 7.0 Jul/15/2004
 //============================================================================
 
-METHOD Command(nWParam, nLParam) CLASS TSMulti
+METHOD TSMulti:Command(nWParam, nLParam)
 
    LOCAL nNotifyCode
    LOCAL hWndCtl

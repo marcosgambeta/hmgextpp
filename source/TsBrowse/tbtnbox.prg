@@ -43,9 +43,9 @@ ENDCLASS
 * ============================================================================
 
 
-METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
+METHOD TBtnBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
            nClrFore, nClrBack, hFont, cControl, cWnd, cMsg, bChanged, bValid,;
-           cResName, bAction, lSpinner, bUp, bDown, bMin, bMax, nBmpWidth, nCell) CLASS TBtnBox
+           cResName, bAction, lSpinner, bUp, bDown, bMin, bMax, nBmpWidth, nCell)
 
    LOCAL invisible    := .F.
    LOCAL notabstop    := .F.
@@ -126,7 +126,7 @@ Return Self
 * METHOD TBtnBox:Default() Version 7.0
 * ============================================================================
 
-METHOD Default() CLASS TBtnBox
+METHOD TBtnBox:Default()
 
    LOCAL cValue
  
@@ -145,7 +145,7 @@ Return NIL
 * METHOD TBtnBox:HandleEvent() Version 7.0
 * ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TBtnBox
+METHOD TBtnBox:HandleEvent(nMsg, nWParam, nLParam)
 
    // just used for some testings
    If nMsg == WM_NOTIFY
@@ -160,7 +160,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TBtnBox:GetDlgCode() Version 7.0
 * ============================================================================
 
-METHOD GetDlgCode(nLastKey, nFlags) CLASS TBtnBox
+METHOD TBtnBox:GetDlgCode(nLastKey, nFlags)
 
    HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
@@ -172,7 +172,7 @@ Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
 * METHOD TBtnBox:KeyChar() Version 7.0
 * ============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TBtnBox
+METHOD TBtnBox:KeyChar(nKey, nFlags)
 
    If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -188,7 +188,7 @@ RETURN ::Super:KeyChar(nKey, nFlags)
 * METHOD TBtnBox:KeyDown() Version 7.0
 * ============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TBtnBox
+METHOD TBtnBox:KeyDown(nKey, nFlags)
 
    ::nLastKey := nKey
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
@@ -208,7 +208,7 @@ RETURN 0
 * METHOD TBtnBox:lValid() Version 7.0
 * ============================================================================
 
-METHOD lValid() CLASS TBtnBox
+METHOD TBtnBox:lValid()
 
    Local lRet := .T.
 
@@ -222,7 +222,7 @@ Return lRet
 * METHOD TBtnBox:LostFocus() Version 7.0
 * ============================================================================
 
-METHOD LostFocus(hCtlFocus) CLASS TBtnBox
+METHOD TBtnBox:LostFocus(hCtlFocus)
 
    DEFAULT ::lAppend := .F.
 
@@ -245,7 +245,7 @@ Return 0
 * METHOD TBtnBox:LButtonDown() Version 7.0
 * ============================================================================
 
-METHOD LButtonDown(nRow, nCol) CLASS TBtnBox
+METHOD TBtnBox:LButtonDown(nRow, nCol)
 
    HB_SYMBOL_UNUSED(nRow)
    HB_SYMBOL_UNUSED(nCol)
@@ -262,7 +262,7 @@ Return 0
 * METHOD TBtnBox:VarGet() Version 7.0
 * ============================================================================
 
-METHOD GetVal() CLASS TBtnBox
+METHOD TBtnBox:GetVal()
 
    LOCAL retVal
 
@@ -277,7 +277,7 @@ RETURN retVal
 * METHOD TBtnBox:Command() Version 7.0
 * ============================================================================
 
-METHOD Command(nWParam, nLParam) CLASS TBtnBox
+METHOD TBtnBox:Command(nWParam, nLParam)
 
    LOCAL nNotifyCode
    LOCAL nID

@@ -86,9 +86,9 @@ ENDCLASS
 * METHOD TSBScrlBar:New() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
+METHOD TSBScrlBar:New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
            bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText,;
-           nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign) CLASS TSBScrlBar
+           nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign)
 
    Default nRow := 0, nCol := 0,;
            nMin := 0, nMax := 0, nPgStep := 1,;
@@ -145,9 +145,9 @@ Return Self
 * They are NOT controls but we consider them as real Objects!
 * ============================================================================
 
-METHOD WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
+METHOD TSBScrlBar:WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
               bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack,;
-              lUpdate, bWhen, bValid) CLASS TSBScrlBar
+              lUpdate, bWhen, bValid)
 
    Default nMin := 1, nMax := 2, nPgStep := 1, lVertical := .T.,;
            nClrText  := GetSysColor(COLOR_WINDOW),;
@@ -183,7 +183,7 @@ Return Self
 * METHOD TSBScrlBar:HandleEvent() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSBScrlBar
+METHOD TSBScrlBar:HandleEvent(nMsg, nWParam, nLParam)
 
    SWITCH nMsg
 
@@ -219,7 +219,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TSBScrlBar:MouseMove() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TSBScrlBar
+METHOD TSBScrlBar:MouseMove(nRow, nCol, nKeyFlags)
 
    Local nResult := ::Super:MouseMove(nRow, nCol, nKeyFlags)
 
@@ -229,7 +229,7 @@ Return IIf(::lDrag, nResult, NIL)    // We want standard behavior !!!
 * METHOD TSBScrlBar:SetPage() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD SetPage(nSize, lReDraw) CLASS TSBScrlBar
+METHOD TSBScrlBar:SetPage(nSize, lReDraw)
 
    Local nFlags
 
@@ -255,7 +255,7 @@ Return NIL
 * METHOD TSBScrlBar:SetMode() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD SetMode(l32Bit) CLASS TSBScrlBar
+METHOD TSBScrlBar:SetMode(l32Bit)
 
    LOCAL lWin32 := .T. //IsWin95()  // W2K also returns TRUE. NT 4 doesn't support SetScrollInfo
 

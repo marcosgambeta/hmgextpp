@@ -243,9 +243,9 @@ ENDCLASS
 // METHOD TSColumn:New() Version 9.0 Nov/01/2009
 //============================================================================
 
-METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, bValid, lNoLite, cOrder, cFooting, bPrevEdit, bPostEdit, ;
+METHOD TSColumn:New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, bValid, lNoLite, cOrder, cFooting, bPrevEdit, bPostEdit, ;
            nEditMove, lFixLite, a3DLook, bWhen, oBrw, cData, cWhen, cValid, cPrevEdit, cPostEdit, cMsg, cToolTip, lTotal, lSpinner, ;
-           bUp, bDown, bMin, bMax, cError, cSpcHeading, cDefData, cName, cAlias, DefineCol) CLASS TSColumn
+           bUp, bDown, bMin, bMax, cError, cSpcHeading, cDefData, cName, cAlias, DefineCol)
 
    LOCAL nEle
    LOCAL uAlign
@@ -492,7 +492,7 @@ RETURN Self
 // METHOD TSColumn:Load() Version 9.0 Nov/01/2009
 //============================================================================
 
-METHOD Load(cInfo) CLASS TSColumn
+METHOD TSColumn:Load(cInfo)
 
    LOCAL nPos := 1
    LOCAL nProps
@@ -530,7 +530,7 @@ RETURN NIL
 // METHOD TSColumn:Save() Version 9.0 Nov/01/2009
 //============================================================================
 
-METHOD Save() CLASS TSColumn
+METHOD TSColumn:Save()
 
    LOCAL n
    LOCAL cType
@@ -574,7 +574,7 @@ RETURN "O" + I2Bin(2 + Len(::ClassName()) + 2 + Len(cInfo)) + I2Bin(Len(::ClassN
 // METHOD TSColumn:SaveColor() Version 7.0 Adaption
 //============================================================================
 
-METHOD SaveColor() CLASS TSColumn
+METHOD TSColumn:SaveColor()
 
    IF ::aColorsBack != NIL .AND. hb_IsArray(::aColorsBack)
       ::aColorsBack[1] := ::nClrFore
@@ -602,7 +602,7 @@ RETURN NIL
 // METHOD TSColumn:RestColor() Version 7.0 Adaption
 //============================================================================
 
-METHOD RestColor() CLASS TSColumn
+METHOD TSColumn:RestColor()
 
    IF ::aColorsBack != NIL .AND. hb_IsArray(::aColorsBack)
       ::nClrFore        := ::aColorsBack[1]
@@ -630,7 +630,7 @@ RETURN NIL
 // METHOD TSColumn:DefFont() Version 9.0 Adaption
 //============================================================================
 
-METHOD DefFont(oBrw) CLASS TSColumn
+METHOD TSColumn:DefFont(oBrw)
 
    LOCAL hFont
    LOCAL hFontHead
@@ -660,7 +660,7 @@ RETURN Self
 // METHOD TSColumn:DefColor() Version 9.0 Adaption
 //============================================================================
 
-METHOD DefColor(oBrw, aTmpColor) CLASS TSColumn
+METHOD TSColumn:DefColor(oBrw, aTmpColor)
 
    DEFAULT aTmpColor := Array(20)
 
@@ -745,7 +745,7 @@ RETURN Self
 // METHOD TSColumn:SetKeyEvent() Version 9.0 Adaption
 //============================================================================
 
-METHOD SetKeyEvent(nKey, bKey, lCtrl, lShift, lAlt) CLASS TSColumn
+METHOD TSColumn:SetKeyEvent(nKey, bKey, lCtrl, lShift, lAlt)
 
    AAdd(::aKeyEvent, {nKey, bKey, lCtrl, lShift, lAlt})
 
@@ -755,7 +755,7 @@ RETURN NIL
 // METHOD TSColumn:ToWidth() Version 9.0 Adaption
 //============================================================================
 
-METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
+METHOD TSColumn:ToWidth(uLen, nKfc, lHeader)
 
    LOCAL nWidth
    LOCAL nLen

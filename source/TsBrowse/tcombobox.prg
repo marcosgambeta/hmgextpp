@@ -43,8 +43,8 @@ ENDCLASS
 * METHOD TComboBox:New() Version 7.0
 * ============================================================================
 
-METHOD New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
-           nClrFore, nClrBack, hFont, cMsg, cControl, cWnd) CLASS TComboBox
+METHOD TComboBox:New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
+           nClrFore, nClrBack, hFont, cMsg, cControl, cWnd)
 
    LOCAL invisible     := .F.
    LOCAL sort          := .F.
@@ -114,7 +114,7 @@ return Self
 * METHOD TComboBox:Default() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD Default() CLASS TComboBox
+METHOD TComboBox:Default()
 
    LOCAL i
 
@@ -131,7 +131,7 @@ Return NIL
 * METHOD TComboBox:GetDlgCode() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD GetDlgCode(nLastKey, nFlags) CLASS TComboBox
+METHOD TComboBox:GetDlgCode(nLastKey, nFlags)
 
    HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
@@ -142,7 +142,7 @@ Return DLGC_WANTALLKEYS
 * METHOD TComboBox:HandleEvent() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TComboBox
+METHOD TComboBox:HandleEvent(nMsg, nWParam, nLParam)
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
@@ -157,7 +157,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TComboBox:KeyDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TComboBox
+METHOD TComboBox:KeyDown(nKey, nFlags)
 
    LOCAL nAt := ::SendMsg(CB_GETCURSEL)
 
@@ -178,7 +178,7 @@ Return ::Super:KeyDown(nKey, nFlags)
 * METHOD TComboBox:LostFocus() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LostFocus() CLASS TComboBox
+METHOD TComboBox:LostFocus()
 
    LOCAL nAt
 
@@ -215,7 +215,7 @@ Return 0
 * METHOD TComboBox:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TComboBox
+METHOD TComboBox:KeyChar(nKey, nFlags)
 
    SWITCH nKey
 
@@ -239,7 +239,7 @@ Return 0
 * METHOD TComboBox:LButtonDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LButtonDown(nRow, nCol) CLASS TComboBox
+METHOD TComboBox:LButtonDown(nRow, nCol)
 
    LOCAL nShow := 1
    

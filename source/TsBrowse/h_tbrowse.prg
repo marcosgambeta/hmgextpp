@@ -1274,13 +1274,13 @@ ENDCLASS
 // METHOD TSBrowse:New() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSizes, cParentWnd, ;
+METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSizes, cParentWnd, ;
       bChange, bLDblClick, bRClick, cFont, nFontSize, ;
       hCursor, aColors, aImages, cMsg, lUpdate, uAlias, ;
       bWhen, nValue, lCellBrw, nStyle, bLClick, aLine, ;
       aActions, nLineStyle, lRePaint, lDelete, aJust, ;
       lLock, lAppend, lEnum, lAutoSearch, uUserSearch, lAutoFilter, uUserFilter, aPicture, ;
-      lTransparent, uSelector, lEditable, lAutoCol, aColSel, cTooltip) CLASS TSBrowse
+      lTransparent, uSelector, lEditable, lAutoCol, aColSel, cTooltip)
 
    LOCAL aSuperHeaders
    LOCAL ParentHandle
@@ -1570,7 +1570,7 @@ RETURN Self
 // METHOD TSBrowse:AddColumn() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD AddColumn(oColumn) CLASS TSBrowse
+METHOD TSBrowse:AddColumn(oColumn)
 
    LOCAL nHeight
    LOCAL nAt
@@ -1671,7 +1671,7 @@ RETURN Self
 // METHOD TSBrowse:FastDrawClear()  by SergKis
 // ============================================================================
 
-METHOD FastDrawClear(cCell) CLASS TSBrowse
+METHOD TSBrowse:FastDrawClear(cCell)
 
    LOCAL oCell
    LOCAL oCol
@@ -1710,7 +1710,7 @@ RETURN Self
 // METHOD TSBrowse:AppendRow()  by SergKis & Igor Nazarov
 // ============================================================================
 
-METHOD AppendRow(lUnlock) CLASS TSBrowse
+METHOD TSBrowse:AppendRow(lUnlock)
 
    LOCAL cAlias
    LOCAL bAddRec
@@ -1782,7 +1782,7 @@ RETURN lAdd
 // METHOD TSBrowse:bDataEval()  by SergKis
 // ============================================================================
 
-METHOD bDataEval(oCol, xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:bDataEval(oCol, xVal, nCol)
 
    LOCAL cAlias
    LOCAL lNoAls
@@ -1847,7 +1847,7 @@ RETURN xVal
 // METHOD TSBrowse:MoreFields()  by SergKis
 // ============================================================================
 
-METHOD MoreFields(nMsg, nWParam) CLASS TSBrowse
+METHOD TSBrowse:MoreFields(nMsg, nWParam)
 
    LOCAL nRet := 0
    LOCAL nCol
@@ -1908,7 +1908,7 @@ RETURN nRet
 // METHOD TSBrowse:GetValProp()  by SergKis
 // ============================================================================
 
-METHOD GetValProp(xVal, xDef, nCol, nAt) CLASS TSBrowse
+METHOD TSBrowse:GetValProp(xVal, xDef, nCol, nAt)
 
    DEFAULT nCol := ::nCell
 
@@ -1930,7 +1930,7 @@ RETURN xVal
 // METHOD TSBrowse:ToolTipSet()  by SergKis
 // ============================================================================
 
-METHOD ToolTipSet(nToolTipTime, nToolTipLen) CLASS TSBrowse
+METHOD TSBrowse:ToolTipSet(nToolTipTime, nToolTipLen)
 
    IF hb_IsNumeric(nToolTipLen) .AND. nToolTipLen > 0
       ::nToolTipLen := nToolTipLen
@@ -1948,7 +1948,7 @@ RETURN NIL
 // METHOD TSBrowse:hFontGet()  by SergKis
 // ============================================================================
 
-METHOD hFontGet(xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:hFontGet(xVal, nCol)
 
    LOCAL xDef := iif(::hFont == NIL, 0, ::hFont)
 
@@ -1972,7 +1972,7 @@ RETURN xVal
 // METHOD TSBrowse:hFontHeadGet()  by SergKis
 // ============================================================================
 
-METHOD hFontHeadGet(xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:hFontHeadGet(xVal, nCol)
 
    LOCAL xDef := iif(::hFont == NIL, 0, ::hFont)
 
@@ -1996,7 +1996,7 @@ RETURN xVal
 // METHOD TSBrowse:hFontFootGet()  by SergKis
 // ============================================================================
 
-METHOD hFontFootGet(xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:hFontFootGet(xVal, nCol)
 
    LOCAL xDef := iif(::hFont == NIL, 0, ::hFont)
 
@@ -2020,7 +2020,7 @@ RETURN xVal
 // METHOD TSBrowse:hFontSpcHdGet()  by SergKis
 // ============================================================================
 
-METHOD hFontSpcHdGet(xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:hFontSpcHdGet(xVal, nCol)
 
    LOCAL xDef := iif(::hFont == NIL, 0, ::hFont)
 
@@ -2044,7 +2044,7 @@ RETURN xVal
 // METHOD TSBrowse:hFontSupHdGet()  by SergKis
 // ============================================================================
 
-METHOD hFontSupHdGet(nCol, aSuperHead) CLASS TSBrowse
+METHOD TSBrowse:hFontSupHdGet(nCol, aSuperHead)
 
    LOCAL xDef := iif(::hFont == NIL, 0, ::hFont)
    LOCAL xVal
@@ -2067,7 +2067,7 @@ RETURN xVal
 // METHOD TSBrowse:cTextSupHdGet()  by SergKis
 // ============================================================================
 
-METHOD cTextSupHdGet(nCol, aSuperHead) CLASS TSBrowse
+METHOD TSBrowse:cTextSupHdGet(nCol, aSuperHead)
 
    LOCAL xDef := ""
    LOCAL xVal
@@ -2089,7 +2089,7 @@ RETURN xVal
 // METHOD TSBrowse:nForeSupHdGet()  by SergKis
 // ============================================================================
 
-METHOD nForeSupHdGet(nCol, aSuperHead) CLASS TSBrowse
+METHOD TSBrowse:nForeSupHdGet(nCol, aSuperHead)
 
    LOCAL xDef := ::nClrText
    LOCAL xVal
@@ -2112,7 +2112,7 @@ RETURN xVal
 // METHOD TSBrowse:nBackSupHdGet()  by SergKis
 // ============================================================================
 
-METHOD nBackSupHdGet(nCol, aSuperHead) CLASS TSBrowse
+METHOD TSBrowse:nBackSupHdGet(nCol, aSuperHead)
 
    LOCAL xDef := ::nClrPane
    LOCAL xVal
@@ -2151,7 +2151,7 @@ RETURN xVal
 // METHOD TSBrowse:nAlignSupHdGet()  by SergKis
 // ============================================================================
 
-METHOD nAlignSupHdGet(nCol, lHAlign, aSuperHead) CLASS TSBrowse
+METHOD TSBrowse:nAlignSupHdGet(nCol, lHAlign, aSuperHead)
 
    LOCAL xDef := DT_CENTER
    LOCAL xVal
@@ -2251,7 +2251,7 @@ RETURN NIL
 // METHOD TSBrowse:GetDeltaLen()  by SergKis
 // ============================================================================
 
-METHOD GetDeltaLen(nCol, nStartCol, nMaxWidth, aColSizes) CLASS TSBrowse
+METHOD TSBrowse:GetDeltaLen(nCol, nStartCol, nMaxWidth, aColSizes)
 
    LOCAL nDeltaLen := 0
 
@@ -2273,7 +2273,7 @@ RETURN nDeltaLen
 // METHOD TSBrowse:nAlignGet()  by SergKis
 // ============================================================================
 
-METHOD nAlignGet(xVal, nCol, xDef) CLASS TSBrowse
+METHOD TSBrowse:nAlignGet(xVal, nCol, xDef)
 
 RETURN ::GetValProp(xVal, hb_defaultValue(xDef, DT_LEFT), nCol)
 
@@ -2281,7 +2281,7 @@ RETURN ::GetValProp(xVal, hb_defaultValue(xDef, DT_LEFT), nCol)
 // METHOD TSBrowse:nColorGet()  by SergKis
 // ============================================================================
 
-METHOD nColorGet(xVal, nCol, nAt, lPos) CLASS TSBrowse
+METHOD TSBrowse:nColorGet(xVal, nCol, nAt, lPos)
 
    LOCAL xDef := ::nClrPane
    LOCAL nPos := 0
@@ -2305,7 +2305,7 @@ RETURN xVal
 // METHOD TSBrowse:cPictureGet()  by SergKis
 // ============================================================================
 
-METHOD cPictureGet(xVal, nCol) CLASS TSBrowse
+METHOD TSBrowse:cPictureGet(xVal, nCol)
 
    IF hb_IsObject(xVal)
       xVal := xVal:cPicture
@@ -2317,7 +2317,7 @@ RETURN ::GetValProp(xVal, NIL, nCol, ::nAt)
 // METHOD TSBrowse:nClrBackArr()  by SergKis
 // ============================================================================
 
-METHOD nClrBackArr(aClrBack, nCol, nAt) CLASS TSBrowse
+METHOD TSBrowse:nClrBackArr(aClrBack, nCol, nAt)
 
    LOCAL nClrBack
    LOCAL nClrTo
@@ -2353,7 +2353,7 @@ RETURN {nClrBack, nClrTo}
 // METHOD TSBrowse:AddSuperHead() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD AddSuperHead(nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, uBitMap, lAdjust, lTransp, lNoLines, nHAlign, nVAlign, nBmpMask) CLASS TSBrowse // SergKis 11.11.21
+METHOD TSBrowse:AddSuperHead(nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, uBitMap, lAdjust, lTransp, lNoLines, nHAlign, nVAlign, nBmpMask) // SergKis 11.11.21
 
    LOCAL cHeading
    LOCAL nAt
@@ -2513,7 +2513,7 @@ RETURN Self
 // METHOD TSBrowse:BiClr() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD BiClr(uClrOdd, uClrPair) CLASS TSBrowse
+METHOD TSBrowse:BiClr(uClrOdd, uClrPair)
 
    uClrOdd := iif(hb_IsBlock(uClrOdd), Eval(uClrOdd, Self), uClrOdd)
 
@@ -2525,7 +2525,7 @@ RETURN iif(::nAt % 2 > 0, uClrOdd, uClrPair)
 // METHOD TSBrowse:ChangeFont() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ChangeFont(hFont, nColumn, nLevel) CLASS TSBrowse
+METHOD TSBrowse:ChangeFont(hFont, nColumn, nLevel)
 
    LOCAL nEle
    LOCAL lDrawFooters := iif(::lDrawFooters != NIL, ::lDrawFooters, .F.)
@@ -2656,7 +2656,7 @@ RETURN Self
 // METHOD TSBrowse:DbSkipper() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DbSkipper(nToSkip) CLASS TSBrowse
+METHOD TSBrowse:DbSkipper(nToSkip)
 
    LOCAL nSkipped := 0
    LOCAL nRecNo := (::cAlias)->(RecNo())
@@ -2727,7 +2727,7 @@ RETURN nSkipped
 // METHOD TSBrowse:Default() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Default() CLASS TSBrowse
+METHOD TSBrowse:Default()
 
    LOCAL nI
    LOCAL nTemp
@@ -3015,7 +3015,7 @@ RETURN Self
 // Only for ARRAY browse. (ListBox behavior)
 // ============================================================================
 
-METHOD Del(nItem) CLASS TSBrowse
+METHOD TSBrowse:Del(nItem)
 
    DEFAULT nItem := ::nAt
 
@@ -3039,7 +3039,7 @@ RETURN Self
 // METHOD TSBrowse:DelColumn() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DelColumn(nPos) CLASS TSBrowse
+METHOD TSBrowse:DelColumn(nPos)
 
    LOCAL oCol
    LOCAL nMin
@@ -3132,7 +3132,7 @@ RETURN oCol
 // METHOD TSBrowse:DeleteRow() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
+METHOD TSBrowse:DeleteRow(lAll, lUpStable)
 
    LOCAL lRecall
    LOCAL nAt
@@ -3318,7 +3318,7 @@ RETURN ::lHasChanged
 // METHOD TSBrowse:Destroy() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Destroy() CLASS TSBrowse
+METHOD TSBrowse:Destroy()
 
    LOCAL oCol
 
@@ -3400,7 +3400,7 @@ RETURN 0
 // METHOD TSBrowse:Display() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Display() CLASS TSBrowse
+METHOD TSBrowse:Display()
 
    DEFAULT ::lFirstPaint := .T.
 
@@ -3418,7 +3418,7 @@ RETURN 0
 // METHOD TSBrowse:DrawHeaders() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DrawHeaders(lFooters, lDrawCell) CLASS TSBrowse
+METHOD TSBrowse:DrawHeaders(lFooters, lDrawCell)
 
    LOCAL nI
    LOCAL nJ
@@ -3981,7 +3981,7 @@ RETURN Self
 // METHOD TSBrowse:DrawIcons() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DrawIcons() CLASS TSBrowse
+METHOD TSBrowse:DrawIcons()
 
    LOCAL cText
    LOCAL nWidth := ::nWidth()
@@ -4030,7 +4030,7 @@ RETURN NIL
 // METHOD TSBrowse:DrawLine() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DrawLine(xRow, lDrawCell) CLASS TSBrowse
+METHOD TSBrowse:DrawLine(xRow, lDrawCell)
 
    LOCAL nI
    LOCAL nJ
@@ -4380,7 +4380,7 @@ RETURN Self
 // METHOD TSBrowse:TSDrawCell()  by SergKis
 // ============================================================================
 
-METHOD TSDrawCell(oCell, oCol) CLASS TSBrowse
+METHOD TSBrowse:TSDrawCell(oCell, oCol)
 
    LOCAL lDraw
 
@@ -4431,7 +4431,7 @@ RETURN lDraw
 // METHOD TSBrowse:CellMarginLeftRight()  by SergKis
 // ============================================================================
 
-METHOD CellMarginLeftRight(nJ, cData, oColumn, nAlign, lMultiLine, nOut) CLASS TSBrowse
+METHOD TSBrowse:CellMarginLeftRight(nJ, cData, oColumn, nAlign, lMultiLine, nOut)
 
    LOCAL nCellMarginLR
    LOCAL aTmp
@@ -4480,7 +4480,7 @@ RETURN cData
 // Header pressed effect
 // ============================================================================
 
-METHOD DrawPressed(nCell, lPressed) CLASS TSBrowse
+METHOD TSBrowse:DrawPressed(nCell, lPressed)
 
    LOCAL nI
    LOCAL nLeft
@@ -4544,7 +4544,7 @@ RETURN Self
 // METHOD TSBrowse:DrawSelect()  Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DrawSelect(xRow, lDrawCell) CLASS TSBrowse
+METHOD TSBrowse:DrawSelect(xRow, lDrawCell)
 
    LOCAL nI
    LOCAL nJ
@@ -4976,7 +4976,7 @@ RETURN Self
 // METHOD TSBrowse:DrawSuper() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD DrawSuper(lDrawCell) CLASS TSBrowse
+METHOD TSBrowse:DrawSuper(lDrawCell)
 
    LOCAL nI
    LOCAL nJ
@@ -5286,7 +5286,7 @@ RETURN aSupHd
 // METHOD TSBrowse:Edit() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack) CLASS TSBrowse
+METHOD TSBrowse:Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack)
 
    LOCAL nRow
    LOCAL nHeight
@@ -5811,7 +5811,7 @@ RETURN NIL
 // METHOD TSBrowse:EditExit() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD EditExit(nCol, nKey, uVar, bValid, lLostFocus) CLASS TSBrowse
+METHOD TSBrowse:EditExit(nCol, nKey, uVar, bValid, lLostFocus)
 
    LOCAL uValue
    LOCAL cType
@@ -6114,7 +6114,7 @@ RETURN NIL
 // METHOD TSBrowse:Excel2() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow) CLASS TSBrowse
+METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
 
    LOCAL i
    LOCAL nRow
@@ -6543,7 +6543,7 @@ RETURN NIL
 // Many thanks to Victor Manuel Tomás for the core of this method
 // ============================================================================
 
-METHOD ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, aColSel, bPrintRow) CLASS TSBrowse
+METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, aColSel, bPrintRow)
 
    LOCAL oExcel
    LOCAL oBook
@@ -6917,7 +6917,7 @@ RETURN NIL
 // METHOD TSBrowse:ExpLocate() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ExpLocate(cExp, nCol) CLASS TSBrowse
+METHOD TSBrowse:ExpLocate(cExp, nCol)
 
    LOCAL uExp
    LOCAL bExp
@@ -7014,7 +7014,7 @@ RETURN .T.
 // METHOD TSBrowse:GotoRec()  by Igor Nazarov
 // ============================================================================
 
-METHOD GotoRec(nRec, nRowPos) CLASS TSBrowse
+METHOD TSBrowse:GotoRec(nRec, nRowPos)
 
    LOCAL cAlias
    LOCAL nSkip
@@ -7102,7 +7102,7 @@ RETURN lRet
 // METHOD TSBrowse:SeekRec()  by Igor Nazarov
 // ============================================================================
 
-METHOD SeekRec(xVal, lSoftSeek, lFindLast, nRowPos) CLASS TSBrowse
+METHOD TSBrowse:SeekRec(xVal, lSoftSeek, lFindLast, nRowPos)
 
    LOCAL cAlias
    LOCAL nRecOld
@@ -7128,7 +7128,7 @@ RETURN lRet
 // METHOD TSBrowse:FindRec()  by Igor Nazarov
 // ============================================================================
 
-METHOD FindRec(Block, lNext, nRowPos) CLASS TSBrowse
+METHOD TSBrowse:FindRec(Block, lNext, nRowPos)
 
    LOCAL i
    LOCAL n := 0
@@ -7180,7 +7180,7 @@ RETURN lRet
 // METHOD TSBrowse:ScopeRec()  by Igor Nazarov
 // ============================================================================
 
-METHOD ScopeRec(xScopeTop, xScopeBottom, lBottom) CLASS TSBrowse
+METHOD TSBrowse:ScopeRec(xScopeTop, xScopeBottom, lBottom)
 
    LOCAL cAlias := ::cAlias
 
@@ -7195,7 +7195,7 @@ RETURN NIL
 // METHOD TSBrowse:ExpSeek() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ExpSeek(cExp, lSoft) CLASS TSBrowse
+METHOD TSBrowse:ExpSeek(cExp, lSoft)
 
    LOCAL nQuote
    LOCAL uExp
@@ -7305,7 +7305,7 @@ RETURN .T.
 // METHOD TSBrowse:FreezeCol() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD FreezeCol(lNext) CLASS TSBrowse
+METHOD TSBrowse:FreezeCol(lNext)
 
    LOCAL nFreeze := ::nFreeze
 
@@ -7328,7 +7328,7 @@ RETURN Self
 // METHOD TSBrowse:GetAllColsWidth() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GetAllColsWidth() CLASS TSBrowse
+METHOD TSBrowse:GetAllColsWidth()
 
    LOCAL nWidth := 0
    LOCAL nPos
@@ -7344,7 +7344,7 @@ RETURN nWidth
 // METHOD TSBrowse:GetColumn() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GetColumn(nCol) CLASS TSBrowse
+METHOD TSBrowse:GetColumn(nCol)
 
    DEFAULT nCol := 1
 
@@ -7364,7 +7364,7 @@ RETURN ::aColumns[nCol] // returns a Column object
 // METHOD TSBrowse:AdjColumns() Version 9.0 Mar/20/2018
 // ============================================================================
 
-METHOD AdjColumns(aColumns, nDelta) CLASS TSBrowse
+METHOD TSBrowse:AdjColumns(aColumns, nDelta)
 
    LOCAL c
    LOCAL i
@@ -7427,7 +7427,7 @@ RETURN NIL
 // METHOD TSBrowse:GetDlgCode() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GetDlgCode(nLastKey) CLASS TSBrowse
+METHOD TSBrowse:GetDlgCode(nLastKey)
 
    IF nLastKey == VK_ESCAPE .AND. ::bOnEscape != NIL
       Eval(::bOnEscape, Self)
@@ -7447,7 +7447,7 @@ RETURN iif(IsWindowEnabled(::hWnd) .AND. nLastKey != VK_ESCAPE, DLGC_WANTALLKEYS
 // METHOD TSBrowse:GetRealPos() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GetRealPos(nRelPos) CLASS TSBrowse
+METHOD TSBrowse:GetRealPos(nRelPos)
 
    LOCAL nLen
 
@@ -7465,7 +7465,7 @@ RETURN nRelPos
 // METHOD TSBrowse:GoBottom() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoBottom() CLASS TSBrowse
+METHOD TSBrowse:GoBottom()
 
    LOCAL nLines := ::nRowCount()
 
@@ -7530,7 +7530,7 @@ RETURN Self
 // METHOD TSBrowse:GoDown() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoDown() CLASS TSBrowse
+METHOD TSBrowse:GoDown()
 
    LOCAL nFirst
    LOCAL lRePaint
@@ -7670,7 +7670,7 @@ RETURN Self
 // METHOD TSBrowse:GoEnd() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoEnd() CLASS TSBrowse
+METHOD TSBrowse:GoEnd()
 
    LOCAL nTxtWid
    LOCAL nI
@@ -7746,7 +7746,7 @@ RETURN Self
 // METHOD TSBrowse:GoHome() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoHome() CLASS TSBrowse
+METHOD TSBrowse:GoHome()
 
    ::nOldCell := ::nCell
 
@@ -7799,7 +7799,7 @@ RETURN Self
 // METHOD TSBrowse:GoLeft() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoLeft() CLASS TSBrowse
+METHOD TSBrowse:GoLeft()
 
    LOCAL nCell
    LOCAL nSkip
@@ -7900,7 +7900,7 @@ RETURN Self
 // set to 5 (DT_MOVE_NEXT)
 // ============================================================================
 
-METHOD GoNext() CLASS TSBrowse
+METHOD TSBrowse:GoNext()
 
    LOCAL nEle
    LOCAL nFirst := 0
@@ -8005,7 +8005,7 @@ RETURN Self
 // METHOD TSBrowse:GoPos() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
+METHOD TSBrowse:GoPos(nNewRow, nNewCol)
 
    LOCAL nSkip
    LOCAL cAlias
@@ -8172,7 +8172,7 @@ RETURN NIL
 // METHOD TSBrowse:GoRight() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoRight() CLASS TSBrowse
+METHOD TSBrowse:GoRight()
 
    LOCAL nTxtWid
    LOCAL nWidth
@@ -8280,7 +8280,7 @@ RETURN Self
 // METHOD TSBrowse:GotFocus() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GotFocus(hCtlLost) CLASS TSBrowse
+METHOD TSBrowse:GotFocus(hCtlLost)
 
    LOCAL cMsg
 
@@ -8355,7 +8355,7 @@ RETURN 0
 // METHOD TSBrowse:GoTop() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoTop() CLASS TSBrowse
+METHOD TSBrowse:GoTop()
 
    LOCAL nAt := ::nAt
    LOCAL nLines := ::nRowCount()
@@ -8430,7 +8430,7 @@ RETURN Self
 // METHOD TSBrowse:GoUp() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD GoUp() CLASS TSBrowse
+METHOD TSBrowse:GoUp()
 
    LOCAL nSkipped
    LOCAL nLines := ::nRowCount()
@@ -8536,7 +8536,7 @@ RETURN Self
 // METHOD TSBrowse:KeyChar()  Version 9.0 Nov/30/2009
 // ==============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TSBrowse
+METHOD TSBrowse:KeyChar(nKey, nFlags)
 
    /* Next lines were added to filter keys according with
       the data type of columns to start editing cells. Also were defined
@@ -8612,7 +8612,7 @@ RETURN 0
 // METHOD TSBrowse:KeyDown() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TSBrowse
+METHOD TSBrowse:KeyDown(nKey, nFlags)
 
    LOCAL uTemp
    LOCAL uVal
@@ -8914,7 +8914,7 @@ RETURN 0
 // METHOD TSBrowse:UserKeys()  by SergKis
 // ============================================================================
 
-METHOD UserKeys(nKey, bKey, lCtrl, lShift) CLASS TSBrowse
+METHOD TSBrowse:UserKeys(nKey, bKey, lCtrl, lShift)
 
    LOCAL cKey := "other"
    LOCAL uVal
@@ -8953,7 +8953,7 @@ RETURN cKey
 // METHOD TSBrowse:Selection()  Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Selection() CLASS TSBrowse
+METHOD TSBrowse:Selection()
 
    LOCAL uTemp
    LOCAL uVal
@@ -9001,7 +9001,7 @@ RETURN Self
 // METHOD TSBrowse:KeyUp()  Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD KeyUp(nKey, nFlags) CLASS TSBrowse
+METHOD TSBrowse:KeyUp(nKey, nFlags)
 
    IF !::lEnabled
       RETURN 0
@@ -9029,7 +9029,7 @@ RETURN ::Super:KeyUp(nKey, nFlags)
 // METHOD TSBrowse:LButtonDown() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LButtonDown(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
+METHOD TSBrowse:LButtonDown(nRowPix, nColPix, nKeyFlags)
 
    LOCAL nClickRow
    LOCAL nSkipped
@@ -9329,7 +9329,7 @@ RETURN 0
 // METHOD TSBrowse:LButtonUp() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LButtonUp(nRowPix, nColPix, nFlags) CLASS TSBrowse
+METHOD TSBrowse:LButtonUp(nRowPix, nColPix, nFlags)
 
    LOCAL nClickRow
    LOCAL nDestCol
@@ -9390,7 +9390,7 @@ RETURN 0
 // METHOD TSBrowse:LDblClick() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LDblClick(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
+METHOD TSBrowse:LDblClick(nRowPix, nColPix, nKeyFlags)
 
    LOCAL nClickRow := ::GetTxtRow(nRowPix)
    LOCAL nCol := ::nAtColActual(nColPix)
@@ -9462,7 +9462,7 @@ RETURN Self
 // METHOD TSBrowse:LoadFields() Version 9.0 Nov/30/2009 // modified by SergKis
 // ============================================================================
 
-METHOD LoadFields(lEditable, aColSel, cAlsSel, aNameSel, aHeadSel) CLASS TSBrowse
+METHOD TSBrowse:LoadFields(lEditable, aColSel, cAlsSel, aNameSel, aHeadSel)
 
    LOCAL n
    LOCAL nE
@@ -9669,7 +9669,7 @@ RETURN Self
 // METHOD TSBrowse:nAtCol() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD nAtCol(nColPixel, lActual) CLASS TSBrowse
+METHOD TSBrowse:nAtCol(nColPixel, lActual)
 
    LOCAL nColumn := ::nColPos - 1
    LOCAL aSizes := ::GetColSizes()
@@ -9702,7 +9702,7 @@ RETURN nColumn
 // METHOD TSBrowse:nAtColActual()
 // ============================================================================
 
-METHOD nAtColActual(nColPixel) CLASS TSBrowse
+METHOD TSBrowse:nAtColActual(nColPixel)
 
    LOCAL nColumn := 0
    LOCAL aSizes := ::GetColSizes()
@@ -9731,7 +9731,7 @@ RETURN nColumn
 // METHOD TSBrowse:nAtIcon() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD nAtIcon(nRow, nCol) CLASS TSBrowse
+METHOD TSBrowse:nAtIcon(nRow, nCol)
 
    LOCAL nIconsByRow := Int(::nWidth() / 50)
 
@@ -9750,7 +9750,7 @@ RETURN NIL
 // METHOD TSBrowse:nLogicPos() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD nLogicPos() CLASS TSBrowse
+METHOD TSBrowse:nLogicPos()
 
    LOCAL cAlias
    LOCAL cOrderName
@@ -9790,7 +9790,7 @@ RETURN nLogicPos
 // METHOD TSBrowse:HandleEvent() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSBrowse
+METHOD TSBrowse:HandleEvent(nMsg, nWParam, nLParam)
 
    LOCAL nDelta
    LOCAL ix
@@ -9869,7 +9869,7 @@ RETURN ::Super:HandleEvent(nMsg, nWParam, nLParam)
 // METHOD TSBrowse:HiliteCell() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD HiliteCell(nCol, nColPix) CLASS TSBrowse
+METHOD TSBrowse:HiliteCell(nCol, nColPix)
 
    LOCAL nI
    LOCAL nAbsCell
@@ -9972,7 +9972,7 @@ RETURN lDraw
 // METHOD TSBrowse:HScroll() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD HScroll(nWParam, nLParam) CLASS TSBrowse
+METHOD TSBrowse:HScroll(nWParam, nLParam)
 
    LOCAL nCol
    LOCAL nMsg
@@ -10052,7 +10052,7 @@ RETURN 0
 // METHOD TSBrowse:HThumbDrag() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD HThumbDrag(nPos) CLASS TSBrowse
+METHOD TSBrowse:HThumbDrag(nPos)
 
    LOCAL nI
    LOCAL nLeftPix
@@ -10112,7 +10112,7 @@ RETURN Self
 // METHOD TSBrowse:InsColumn() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD InsColumn(nPos, oColumn) CLASS TSBrowse
+METHOD TSBrowse:InsColumn(nPos, oColumn)
 
    LOCAL nI
    LOCAL nCell := ::nCell
@@ -10195,7 +10195,7 @@ RETURN oColumn // returns reference to Column object
 // METHOD TSBrowse:InsColNumber()
 // ============================================================================
 
-METHOD InsColNumber(nWidth, nColumn, cName) CLASS TSBrowse
+METHOD TSBrowse:InsColNumber(nWidth, nColumn, cName)
 
    LOCAL oCol
 
@@ -10253,7 +10253,7 @@ RETURN oCol
 // METHOD TSBrowse:IsColVisible() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD IsColVisible(nCol) CLASS TSBrowse
+METHOD TSBrowse:IsColVisible(nCol)
 
    LOCAL nCols
    LOCAL nFirstCol
@@ -10294,7 +10294,7 @@ RETURN .F.
 // METHOD TSBrowse:IsColVis2() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD IsColVis2(nCol) CLASS TSBrowse
+METHOD TSBrowse:IsColVis2(nCol)
 
    LOCAL nCols
    LOCAL nFirstCol
@@ -10334,7 +10334,7 @@ RETURN .F.
 // METHOD TSBrowse:Insert() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Insert(cItem, nAt) CLASS TSBrowse
+METHOD TSBrowse:Insert(cItem, nAt)
 
    LOCAL nMin
    LOCAL nMax
@@ -10379,7 +10379,7 @@ RETURN Self
 // METHOD TSBrowse:AddItem() Version 7.0 Oct/10/2007
 // ============================================================================
 
-METHOD AddItem(cItem) CLASS TSBrowse // delete in V90
+METHOD TSBrowse:AddItem(cItem) // delete in V90
 
    LOCAL nMin
    LOCAL nMax
@@ -10429,7 +10429,7 @@ RETURN Self
 // METHOD TSBrowse:lEditCol() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD lEditCol(uVar, nCol, cPicture, bValid, nClrFore, nClrBack) CLASS TSBrowse
+METHOD TSBrowse:lEditCol(uVar, nCol, cPicture, bValid, nClrFore, nClrBack)
 
 RETURN ::Edit(uVar, nCol, , , cPicture, bValid, nClrFore, nClrBack) // just for compatibility
 
@@ -10451,7 +10451,7 @@ RETURN ::Edit(uVar, nCol, , , cPicture, bValid, nClrFore, nClrBack) // just for 
 // If called directly, you must specify the parameter nKey (nFlags is always ignored)
 // ============================================================================
 
-METHOD lIgnoreKey(nKey, nFlags) CLASS TSBrowse
+METHOD TSBrowse:lIgnoreKey(nKey, nFlags)
 
    LOCAL lIgnore := .F.
    LOCAL nAsync := 2 // key by itself
@@ -10485,7 +10485,7 @@ RETURN lIgnore
 // METHOD TSBrowse:LoadRecordSet() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LoadRecordSet() CLASS TSBrowse
+METHOD TSBrowse:LoadRecordSet()
 
    LOCAL n
    LOCAL nE
@@ -10582,7 +10582,7 @@ RETURN Self
 // METHOD TSBrowse:LoadRelated() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LoadRelated(cAlias, lEditable, aNames, aHeaders) CLASS TSBrowse
+METHOD TSBrowse:LoadRelated(cAlias, lEditable, aNames, aHeaders)
 
    LOCAL n
    LOCAL nE
@@ -10665,7 +10665,7 @@ RETURN Self
 // METHOD TSBrowse:Look3D() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Look3D(lOnOff, nColumn, nLevel, lPhantom) CLASS TSBrowse
+METHOD TSBrowse:Look3D(lOnOff, nColumn, nLevel, lPhantom)
 
    DEFAULT lOnOff := .T.
    DEFAULT nColumn := 0
@@ -10708,7 +10708,7 @@ RETURN Self
 // METHOD TSBrowse:LostFocus() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD LostFocus(hCtlFocus) CLASS TSBrowse
+METHOD TSBrowse:LostFocus(hCtlFocus)
 
    LOCAL nRecNo
    LOCAL uTag
@@ -10773,7 +10773,7 @@ RETURN 0
 // METHOD TSBrowse:MButtonDown() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD MButtonDown(nRow, nCol, nKeyFlags) CLASS TSBrowse
+METHOD TSBrowse:MButtonDown(nRow, nCol, nKeyFlags)
 
    IF ::bMButtonDown != NIL
       Eval(::bMButtonDown, nRow, nCol, nKeyFlags)
@@ -10785,7 +10785,7 @@ RETURN 0
 // METHOD TSBrowse:MouseMove() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD MouseMove(nRowPix, nColPix, nKeyFlags) CLASS TSBrowse
+METHOD TSBrowse:MouseMove(nRowPix, nColPix, nKeyFlags)
 
    LOCAL nI
    LOCAL nIcon
@@ -10963,7 +10963,7 @@ RETURN 0
 // METHOD TSBrowse:MouseWheel() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos) CLASS TSBrowse
+METHOD TSBrowse:MouseWheel(nKeys, nDelta, nXPos, nYPos)
 
    LOCAL nWParam
    LOCAL aCoors := {0, 0, 0, 0}
@@ -11011,7 +11011,7 @@ RETURN ::VScroll(nWParam, 0)
 // METHOD TSBrowse:MoveColumn() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD MoveColumn(nColPos, nNewPos) CLASS TSBrowse
+METHOD TSBrowse:MoveColumn(nColPos, nNewPos)
 
    LOCAL oCol
    LOCAL cOrder
@@ -11055,7 +11055,7 @@ RETURN Self
 // METHOD TSBrowse:PageDown() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PageDown(nLines) CLASS TSBrowse
+METHOD TSBrowse:PageDown(nLines)
 
    LOCAL nSkipped
    LOCAL nI
@@ -11186,7 +11186,7 @@ RETURN NIL
 // METHOD TSBrowse:PageUp() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PageUp(nLines) CLASS TSBrowse
+METHOD TSBrowse:PageUp(nLines)
 
    LOCAL nSkipped
    LOCAL nRecNo
@@ -11304,7 +11304,7 @@ RETURN NIL
 // METHOD TSBrowse:Paint() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Paint() CLASS TSBrowse
+METHOD TSBrowse:Paint()
 
    LOCAL lAppendMode
    LOCAL nRecNo
@@ -11505,7 +11505,7 @@ RETURN 0
 // METHOD TSBrowse:PanEnd() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PanEnd() CLASS TSBrowse
+METHOD TSBrowse:PanEnd()
 
    LOCAL nI
    LOCAL nTxtWid
@@ -11570,7 +11570,7 @@ RETURN Self
 // METHOD TSBrowse:PanHome() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PanHome() CLASS TSBrowse
+METHOD TSBrowse:PanHome()
 
    LOCAL nColChk
    LOCAL nEle
@@ -11630,7 +11630,7 @@ RETURN Self
 // METHOD TSBrowse:PanLeft() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PanLeft() CLASS TSBrowse
+METHOD TSBrowse:PanLeft()
 
    LOCAL nI
    LOCAL nWidth := ::nWidth() - iif(::oVScroll != NIL, GetSysMetrics(2), 0)
@@ -11713,7 +11713,7 @@ RETURN Self
 // METHOD TSBrowse:PanRight() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PanRight() CLASS TSBrowse
+METHOD TSBrowse:PanRight()
 
    LOCAL nTxtWid
    LOCAL nI
@@ -11816,7 +11816,7 @@ RETURN Self
 // METHOD TSBrowse:Proper() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Proper(cString) CLASS TSBrowse
+METHOD TSBrowse:Proper(cString)
 
    LOCAL nPos
    LOCAL cChr
@@ -11849,7 +11849,7 @@ RETURN PadR(cTxt, nLen)
 // METHOD TSBrowse:PostEdit() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD PostEdit(uTemp, nCol, bValid) CLASS TSBrowse
+METHOD TSBrowse:PostEdit(uTemp, nCol, bValid)
 
    LOCAL aMoveCell
    LOCAL bRecLock
@@ -12143,7 +12143,7 @@ RETURN NIL
 // METHOD TSBrowse:RButtonDown() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD RButtonDown(nRowPix, nColPix, nFlags) CLASS TSBrowse
+METHOD TSBrowse:RButtonDown(nRowPix, nColPix, nFlags)
 
    LOCAL nRow
    LOCAL nCol
@@ -12350,7 +12350,7 @@ RETURN 0
 // METHOD TSBrowse:Refresh() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Refresh(lPaint, lRecount, lClearHash) CLASS TSBrowse
+METHOD TSBrowse:Refresh(lPaint, lRecount, lClearHash)
 
    DEFAULT lPaint := .T.
    DEFAULT lRecount := .F.
@@ -12377,7 +12377,7 @@ RETURN ::Super:Refresh(lPaint)
 // Calculates the relative position of vertical scroll box in huge databases
 // ============================================================================
 
-METHOD RelPos(nLogicPos) CLASS TSBrowse
+METHOD TSBrowse:RelPos(nLogicPos)
 
    LOCAL nRet
 
@@ -12393,7 +12393,7 @@ RETURN nRet
 // METHOD TSBrowse:Report() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Report(cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal) CLASS TSBrowse
+METHOD TSBrowse:Report(cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal)
 
    LOCAL nI
    LOCAL nRecNo
@@ -12519,7 +12519,7 @@ RETURN Self
 // METHOD TSBrowse:Reset() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Reset(lBottom) CLASS TSBrowse
+METHOD TSBrowse:Reset(lBottom)
 
    LOCAL nMin
    LOCAL nMax
@@ -12570,7 +12570,7 @@ RETURN Self
 // METHOD TSBrowse:ResetVScroll() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ResetVScroll(lInit) CLASS TSBrowse
+METHOD TSBrowse:ResetVScroll(lInit)
 
    LOCAL nMin
    LOCAL nMax
@@ -12607,7 +12607,7 @@ RETURN Self
 // METHOD TSBrowse:ResetSeek() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ResetSeek() CLASS TSBrowse
+METHOD TSBrowse:ResetSeek()
 
    IF ::nColOrder > 0
       IF ::cOrderType == "D"
@@ -12629,7 +12629,7 @@ RETURN ::cSeek
 // METHOD TSBrowse:ReSize() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ReSize(nSizeType, nWidth, nHeight) CLASS TSBrowse
+METHOD TSBrowse:ReSize(nSizeType, nWidth, nHeight)
 
    LOCAL nTotPix := 0
 
@@ -12659,7 +12659,7 @@ RETURN ::Super:ReSize(nSizeType, nWidth, nHeight)
 // METHOD TSBrowse:Seek() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Seek(nKey) CLASS TSBrowse
+METHOD TSBrowse:Seek(nKey)
 
    LOCAL nIdxLen
    LOCAL cPrefix
@@ -12947,7 +12947,7 @@ RETURN Self
 // METHOD TSBrowse:Set3DText() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Set3DText(lOnOff, lRaised, nColumn, nLevel, nClrLight, nClrShadow) CLASS TSBrowse
+METHOD TSBrowse:Set3DText(lOnOff, lRaised, nColumn, nLevel, nClrLight, nClrShadow)
 
    LOCAL nEle
 
@@ -13063,7 +13063,7 @@ RETURN Self
 // METHOD TSBrowse:SetAlign() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetAlign(nColumn, nLevel, nAlign) CLASS TSBrowse
+METHOD TSBrowse:SetAlign(nColumn, nLevel, nAlign)
 
    DEFAULT nColumn := 0
    DEFAULT nLevel := 0
@@ -13101,7 +13101,7 @@ RETURN Self
 // to work and like direct cell editing.
 // ============================================================================
 
-METHOD SetAppendMode(lMode) CLASS TSBrowse
+METHOD TSBrowse:SetAppendMode(lMode)
 
    LOCAL lPrevMode := ::lCanAppend
 
@@ -13118,7 +13118,7 @@ RETURN lPrevMode
 // METHOD TSBrowse:SetArray() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetArray(aArray, lAutoCols, aHead, aSizes) CLASS TSBrowse
+METHOD TSBrowse:SetArray(aArray, lAutoCols, aHead, aSizes)
 
    LOCAL nColumns
    LOCAL nI
@@ -13251,7 +13251,7 @@ RETURN Self
 
 // ============================================================================
 
-METHOD SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aName) CLASS TSBrowse
+METHOD TSBrowse:SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aName)
 
    LOCAL nColumns
    LOCAL nI
@@ -13555,7 +13555,7 @@ RETURN Self
 // METHOD TSBrowse:SetBtnGet() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetBtnGet(nColumn, cResName, bAction, nBmpWidth) CLASS TSBrowse
+METHOD TSBrowse:SetBtnGet(nColumn, cResName, bAction, nBmpWidth)
 
    DEFAULT nBmpWidth := 16
 
@@ -13576,7 +13576,7 @@ RETURN Self
 // METHOD TSBrowse:SetColMsg() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetColMsg(cMsg, cEditMsg, nCol) CLASS TSBrowse
+METHOD TSBrowse:SetColMsg(cMsg, cEditMsg, nCol)
 
    IF Empty(::aColumns) .OR. (cMsg == NIL .AND. cEditMsg == NIL)
       RETURN Self
@@ -13600,7 +13600,7 @@ RETURN Self
 // METHOD TSBrowse:SetColor() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetColor(xColor1, xColor2, nColumn) CLASS TSBrowse
+METHOD TSBrowse:SetColor(xColor1, xColor2, nColumn)
 
    LOCAL nEle
    LOCAL nI
@@ -13901,7 +13901,7 @@ RETURN 0
 // METHOD TSBrowse:SetColumns() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetColumns(aData, aHeaders, aColSizes) CLASS TSBrowse
+METHOD TSBrowse:SetColumns(aData, aHeaders, aColSizes)
 
    LOCAL aFields
    LOCAL nElements
@@ -13934,7 +13934,7 @@ RETURN Self
 // METHOD TSBrowse:SetColSize() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetColSize(nCol, nWidth) CLASS TSBrowse
+METHOD TSBrowse:SetColSize(nCol, nWidth)
 
    LOCAL nI
    LOCAL nSize
@@ -13963,7 +13963,7 @@ RETURN Self
 // METHOD TSBrowse:SetData() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetData(nColumn, bData, aList) CLASS TSBrowse
+METHOD TSBrowse:SetData(nColumn, bData, aList)
 
    IF hb_IsChar(nColumn)
       nColumn := ::nColumn(nColumn) // 21.07.2015
@@ -14003,7 +14003,7 @@ RETURN Self
 // METHOD TSBrowse:SetDbf() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetDbf(cAlias) CLASS TSBrowse
+METHOD TSBrowse:SetDbf(cAlias)
 
    LOCAL cAdsKeyNo
    LOCAL cAdsKeyCount
@@ -14065,7 +14065,7 @@ RETURN Self
 // METHOD TSBrowse:SetDeleteMode()  Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetDeleteMode(lOnOff, lConfirm, bDelete, bPostDel) CLASS TSBrowse
+METHOD TSBrowse:SetDeleteMode(lOnOff, lConfirm, bDelete, bPostDel)
 
    DEFAULT lOnOff := .T.
    DEFAULT lConfirm := .T.
@@ -14081,7 +14081,7 @@ RETURN Self
 // METHOD TSBrowse:SetFilter() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD SetFilter(cField, uVal1, uVal2) CLASS TSBrowse
+METHOD TSBrowse:SetFilter(cField, uVal1, uVal2)
 
    LOCAL cIndexType
    LOCAL cAlias
@@ -14152,7 +14152,7 @@ RETURN NIL
 // METHOD TSBrowse:FilterData()  by SergKis
 // ============================================================================
 
-METHOD FilterData(cFilter, lBottom, lFocus) CLASS TSBrowse
+METHOD TSBrowse:FilterData(cFilter, lBottom, lFocus)
 
    LOCAL nLen := 0
    LOCAL cAlias := ::cAlias
@@ -14185,7 +14185,7 @@ RETURN NIL
 // METHOD TSBrowse:FilterFTS()  by SergKis
 // ============================================================================
 
-METHOD FilterFTS(cFind, lUpper, lBottom, lFocus, lAll) CLASS TSBrowse
+METHOD TSBrowse:FilterFTS(cFind, lUpper, lBottom, lFocus, lAll)
 
    LOCAL nLen := 0
    LOCAL cAlias := ::cAlias
@@ -14226,7 +14226,7 @@ RETURN NIL
 // METHOD TSBrowse:FilterFTS_Line()  by SergKis
 // ============================================================================
 
-METHOD FilterFTS_Line(cFind, lUpper, lAll) CLASS TSBrowse
+METHOD TSBrowse:FilterFTS_Line(cFind, lUpper, lAll)
 
    LOCAL nCol
    LOCAL oCol
@@ -14267,7 +14267,7 @@ RETURN lRet
 // METHOD TSBrowse:SetFont() Version 7.0 Jul/15/2004
 // ============================================================================
 
-METHOD SetFont(hFont) CLASS TSBrowse
+METHOD TSBrowse:SetFont(hFont)
 
    IF hFont != NIL
       ::hFont := hFont
@@ -14280,7 +14280,7 @@ RETURN 0
 // METHOD TSBrowse:SetHeaders() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetHeaders(nHeight, aCols, aTitles, aAlign, al3DLook, aFonts, aActions) CLASS TSBrowse
+METHOD TSBrowse:SetHeaders(nHeight, aCols, aTitles, aAlign, al3DLook, aFonts, aActions)
 
    LOCAL nI
 
@@ -14357,7 +14357,7 @@ RETURN Self
 // METHOD TSBrowse:SetIndexCols() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetIndexCols(nCol1, nCol2, nCol3, nCol4, nCol5) CLASS TSBrowse
+METHOD TSBrowse:SetIndexCols(nCol1, nCol2, nCol3, nCol4, nCol5)
 
    LOCAL aCol
 
@@ -14379,7 +14379,7 @@ RETURN NIL
 // METHOD TSBrowse:OnReSize()  by SergKis
 // ============================================================================
 
-METHOD OnReSize(nWidth, nHeight, lTop) CLASS TSBrowse
+METHOD TSBrowse:OnReSize(nWidth, nHeight, lTop)
 
    LOCAL nCnt
    LOCAL aCol
@@ -14494,7 +14494,7 @@ RETURN lRet
 // METHOD TSBrowse:SetNoHoles() adjusts TBrowse height to the whole cells amount
 // ============================================================================
 
-METHOD SetNoHoles(nDelta, lSet) CLASS TSBrowse
+METHOD TSBrowse:SetNoHoles(nDelta, lSet)
 
    LOCAL nH
    LOCAL nK
@@ -14603,7 +14603,7 @@ RETURN nHeight
 // METHOD TSBrowse:SetOrder() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetOrder(nColumn, cPrefix, lDescend) CLASS TSBrowse
+METHOD TSBrowse:SetOrder(nColumn, cPrefix, lDescend)
 
    LOCAL nDotPos
    LOCAL cAlias
@@ -14767,7 +14767,7 @@ RETURN lReturn
 // METHOD TSBrowse:SetSelectMode() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetSelectMode(lOnOff, bSelected, uBmpSel, nColSel, nAlign) CLASS TSBrowse
+METHOD TSBrowse:SetSelectMode(lOnOff, bSelected, uBmpSel, nColSel, nAlign)
 
    DEFAULT lOnOff := .T.
    DEFAULT nColSel := 1
@@ -14812,7 +14812,7 @@ RETURN Self
 // METHOD TSBrowse:SetSpinner() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetSpinner(nColumn, lOnOff, bUp, bDown, bMin, bMax) CLASS TSBrowse
+METHOD TSBrowse:SetSpinner(nColumn, lOnOff, bUp, bDown, bMin, bMax)
 
    DEFAULT lOnOff := .T.
    DEFAULT bUp := {| oGet | oGet++ }
@@ -14836,7 +14836,7 @@ RETURN Self
 // METHOD TSBrowse:ShowSizes() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD ShowSizes() CLASS TSBrowse
+METHOD TSBrowse:ShowSizes()
 
    LOCAL cText := ""
    LOCAL nTotal := 0
@@ -14858,7 +14858,7 @@ RETURN Self
 // METHOD TSBrowse:Skip() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD Skip(n) CLASS TSBrowse
+METHOD TSBrowse:Skip(n)
 
    LOCAL nSkipped
 
@@ -14892,7 +14892,7 @@ RETURN nSkipped
 // METHOD TSBrowse:SortArray() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SortArray(nCol, lDescend) CLASS TSBrowse
+METHOD TSBrowse:SortArray(nCol, lDescend)
 
    LOCAL aLine := ::aArray[::nAt]
 
@@ -14938,7 +14938,7 @@ RETURN Self
 // This method is dedicated to John Stolte by the 'arry
 // ============================================================================
 
-METHOD SwitchCols(nCol1, nCol2) CLASS TSBrowse
+METHOD TSBrowse:SwitchCols(nCol1, nCol2)
 
    LOCAL oHolder
    LOCAL nHolder
@@ -14971,7 +14971,7 @@ RETURN Self
 // METHOD TSBrowse:SyncChild() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SyncChild(aoChildBrw, abAction) CLASS TSBrowse
+METHOD TSBrowse:SyncChild(aoChildBrw, abAction)
 
    IF aoChildBrw != NIL
       IF ValType(aoChildBrw) == "O"
@@ -14997,7 +14997,7 @@ RETURN Self
 // METHOD TSBrowse:UpStable() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD UpStable() CLASS TSBrowse
+METHOD TSBrowse:UpStable()
 
    LOCAL nRow := ::nRowPos
    LOCAL nRecNo := (::cAlias)->(RecNo())
@@ -15079,7 +15079,7 @@ RETURN Self
 // Thanks to Gianni Santamarina
 // ============================================================================
 
-METHOD VertLine(nColPixPos, nColInit, nGapp) CLASS TSBrowse
+METHOD TSBrowse:VertLine(nColPixPos, nColInit, nGapp)
 
    LOCAL hDC := GetDC(::hWnd)
    LOCAL aRect := ::GetRect()
@@ -15123,7 +15123,7 @@ RETURN NIL
 // METHOD TSBrowse:VScroll() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD VScroll(nMsg, nPos) CLASS TSBrowse
+METHOD TSBrowse:VScroll(nMsg, nPos)
 
    LOCAL oCol
    LOCAL nLines := Min(::nLen, ::nRowCount())
@@ -15267,7 +15267,7 @@ RETURN 0
 // METHOD TSBrowse:Enabled() Version 7.0 Adaptation Version
 // ============================================================================
 
-METHOD Enabled(lEnab) CLASS TSBrowse
+METHOD TSBrowse:Enabled(lEnab)
 
    LOCAL nI
 
@@ -15339,7 +15339,7 @@ RETURN 0
 // METHOD TSBrowse:HideColumns() Version 7.0 Adaptation Version
 // ============================================================================
 
-METHOD HideColumns(nColumn, lHide) CLASS TSBrowse
+METHOD TSBrowse:HideColumns(nColumn, lHide)
 
    LOCAL aColumn
    LOCAL nI
@@ -15382,7 +15382,7 @@ RETURN NIL
 // METHOD TSBrowse:UserPopup() Version 9.0 Adaptation Version
 // ============================================================================
 
-METHOD UserPopup(bUserPopupItem, aColumn) CLASS TSBrowse
+METHOD TSBrowse:UserPopup(bUserPopupItem, aColumn)
 
    IF !hb_isArray(aColumn)
       aColumn := iif(hb_IsNumeric(aColumn), {aColumn}, {0})
@@ -16041,7 +16041,7 @@ RETURN nVar
 // METHOD TSBrowse:SetRecordSet() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD SetRecordSet(oRSet) CLASS TSBrowse
+METHOD TSBrowse:SetRecordSet(oRSet)
 
    DEFAULT ::oRSet := oRSet
    DEFAULT ::bGoTop := {|| ::oRSet:MoveFirst() }
@@ -16399,7 +16399,7 @@ RETURN aSuperHeaders
 // METHOD TSBrowse:RefreshARow() Version 9.0 Nov/30/2009   JP Ver 1.90
 // ============================================================================
 
-METHOD RefreshARow(xRow) CLASS TSBrowse
+METHOD TSBrowse:RefreshARow(xRow)
 
    LOCAL nRow := ::nRowPos
    LOCAL nSkip
@@ -16425,7 +16425,7 @@ RETURN NIL
 // METHOD TSBrowse:UpAStable() Version 9.0 Nov/30/2009
 // ============================================================================
 
-METHOD UpAStable() CLASS TSBrowse
+METHOD TSBrowse:UpAStable()
 
    LOCAL nRow := ::nRowPos
    LOCAL nRows := ::nRowCount()
@@ -16506,7 +16506,7 @@ RETURN Self
 // METHOD TSBrowse:lSeek() Version 9.0 Nov/30/2009 dichotomic search with recordsets
 // =================================================================================
 
-METHOD lRSeek(uData, nFld, lSoft) CLASS TSBrowse
+METHOD TSBrowse:lRSeek(uData, nFld, lSoft)
 
    LOCAL nCen
    LOCAL lFound := .F.
@@ -16539,7 +16539,7 @@ RETURN lFound
 // METHOD TSBrowse:UpRStable() Version 9.0 Nov/30/2009 recorset cursor repositioned
 // ================================================================================
 
-METHOD UpRStable(nRecNo) CLASS TSBrowse
+METHOD TSBrowse:UpRStable(nRecNo)
 
    LOCAL nRow := ::nRowPos
    LOCAL nRows := ::nRowCount()
@@ -16617,7 +16617,7 @@ RETURN Self
 // METHOD TSBrowse:nField() Version 9.0 Nov/30/2009 returns field number from field name in recordsets
 // ===================================================================================================
 
-METHOD nField(cName) CLASS TSBrowse
+METHOD TSBrowse:nField(cName)
 
    LOCAL nEle
    LOCAL nCount := ::oRSet:Fields:Count()
@@ -16690,7 +16690,7 @@ ENDCLASS
 // METHOD TSBrowse:GetCellInfo() returns the cell coordinates for auxiliary TSBcell class
 // ===================================================================================================
 
-METHOD GetCellInfo(nRowPos, nCell, lColSpecHd) CLASS TSBrowse
+METHOD TSBrowse:GetCellInfo(nRowPos, nCell, lColSpecHd)
 
    LOCAL nI
    LOCAL ix
@@ -16787,7 +16787,7 @@ RETURN oCell
 // METHOD TSBrowse:GetCellSize() returns the cell coordinates taking into account a position of the parent window
 // ===================================================================================================
 
-METHOD GetCellSize(nRowPos, nCell, lColSpecHd) CLASS TSBrowse
+METHOD TSBrowse:GetCellSize(nRowPos, nCell, lColSpecHd)
 
    LOCAL nI
    LOCAL nStartX := 0

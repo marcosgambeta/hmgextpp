@@ -30,10 +30,10 @@ ENDCLASS
 * METHOD TGetBox:New() Version 7.0
 * ============================================================================
 
-METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
            lUpdate, bWhen, lCenter, lRight, bChanged,;
-           lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus) CLASS TGetBox
+           lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus)
 
    LOCAL cText          := Space(50), uValue, ix
    LOCAL Fontname       := _HMG_DefaultFontName
@@ -129,7 +129,7 @@ return Self
 * METHOD TGetBox:HandleEvent() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TGetBox
+METHOD TGetBox:HandleEvent(nMsg, nWParam, nLParam)
 
 Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
@@ -137,7 +137,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TGetBox:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TGetBox
+METHOD TGetBox:KeyChar(nKey, nFlags)
 
    If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -153,7 +153,7 @@ RETURN ::Super:KeyChar(nKey, nFlags)
 * METHOD TGetBox:KeyDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TGetBox
+METHOD TGetBox:KeyDown(nKey, nFlags)
 
    ::nLastKey := nKey
 
@@ -168,7 +168,7 @@ RETURN 0
 * METHOD TGetBox:lValid() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD lValid() CLASS TGetBox
+METHOD TGetBox:lValid()
 
    Local lRet := .T.
 
@@ -182,7 +182,7 @@ Return lRet
 * METHOD TGetBox:LostFocus() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LostFocus(hCtlFocus) CLASS TGetBox
+METHOD TGetBox:LostFocus(hCtlFocus)
 
    ::lFocused := .F.
 
@@ -196,6 +196,6 @@ Return 0
 * METHOD TGetBox:VarGet() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD VarGet() CLASS TGetBox
+METHOD TGetBox:VarGet()
 
 RETURN _GetValue(::cControlName, ::oWnd:cParentWnd)

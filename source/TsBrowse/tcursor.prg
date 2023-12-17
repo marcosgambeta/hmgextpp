@@ -11,7 +11,7 @@ CLASS TCursor
 
 ENDCLASS
 
-METHOD New(cResName, cPredef) CLASS TCursor
+METHOD TCursor:New(cResName, cPredef)
 
    LOCAL nAt
    LOCAL aTypes

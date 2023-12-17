@@ -34,10 +34,10 @@ ENDCLASS
 * METHOD TDatePicker:New() Version 7.0
 * ============================================================================
 
-METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+METHOD TDatePicker:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            nClrFore, nClrBack, hFont, cControl, oCursor, cWnd, cMsg,;
            lUpdate, bWhen, lCenter, lRight, bChanged,;
-           lNoBorder, nHelpId, shownone, updown) CLASS TDatePicker
+           lNoBorder, nHelpId, shownone, updown)
 
    Local invisible   := .F.
    Local rightalign  := .F.
@@ -117,7 +117,7 @@ return Self
 * METHOD TDatePicker:Default()
 * ============================================================================
 
-METHOD Default() CLASS TDatePicker
+METHOD TDatePicker:Default()
 
    Local Value
 
@@ -134,7 +134,7 @@ Return NIL
 * METHOD TDatePicker:HandleEvent()
 * ============================================================================
 
-METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TDatePicker
+METHOD TDatePicker:HandleEvent(nMsg, nWParam, nLParam)
 
    If nMsg == WM_NOTIFY
       If HiWord(nWParam) == NM_KILLFOCUS
@@ -148,7 +148,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TDatePicker:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar(nKey, nFlags) CLASS TDatePicker
+METHOD TDatePicker:KeyChar(nKey, nFlags)
 
    If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -164,7 +164,7 @@ RETURN ::Super:KeyChar(nKey, nFlags)
 * METHOD TDatePicker:KeyDown()
 * ============================================================================
 
-METHOD KeyDown(nKey, nFlags) CLASS TDatePicker
+METHOD TDatePicker:KeyDown(nKey, nFlags)
 
    ::nLastKey := nKey
 
@@ -179,7 +179,7 @@ RETURN 0
 * METHOD TDatePicker:lValid() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD lValid() CLASS TDatePicker
+METHOD TDatePicker:lValid()
 
    Local lRet := .T.
 
@@ -193,7 +193,7 @@ Return lRet
 * METHOD TDatePicker:VarGet() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD VarGet() CLASS TDatePicker
+METHOD TDatePicker:VarGet()
 
 RETURN hb_Date(hmg_GetDatePickYear(::hWnd), hmg_GetDatePickMonth(::hWnd), hmg_GetDatePickDay(::hWnd))
 
@@ -201,7 +201,7 @@ RETURN hb_Date(hmg_GetDatePickYear(::hWnd), hmg_GetDatePickMonth(::hWnd), hmg_Ge
 * METHOD TDatePicker:LostFocus() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LostFocus() CLASS TDatePicker
+METHOD TDatePicker:LostFocus()
 
    Default ::lAppend := .F.
 
