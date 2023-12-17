@@ -123,7 +123,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitFrame(ParentFormHandle, 0, x, y, w, h, caption, "", 0, opaque)
+      Controlhandle := hmg_InitFrame(ParentFormHandle, 0, x, y, w, h, caption, "", 0, opaque)
 
    ENDIF
 

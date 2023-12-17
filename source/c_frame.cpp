@@ -55,9 +55,9 @@
 /* Modified by P.Ch. 16.12. */
 
 /*
-INITFRAME(HWND, HMENU, nX, nY, nWidth, nHeight, cp7, p8, p9, lp10) --> HANDLE
+HMG_INITFRAME(HWND, HMENU, nX, nY, nWidth, nHeight, cp7, p8, p9, lp10) --> HANDLE
 */
-HB_FUNC( INITFRAME )
+HB_FUNC( HMG_INITFRAME )
 {
    auto hwnd = hmg_par_HWND(1);
    HWND hbutton = nullptr;
@@ -87,3 +87,7 @@ HB_FUNC( INITFRAME )
 
    hmg_ret_HWND(hbutton);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITFRAME, HMG_INITFRAME )
+#endif
