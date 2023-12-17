@@ -244,7 +244,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          h := GetWindowHeight(Controlhandle)
 
          IF ownerdata
-            LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
+            hmg_LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
          ENDIF
 
          SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, 1) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP + iif(lCheckboxes, LVS_EX_CHECKBOXES, 0))
@@ -268,7 +268,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          IF i > 0
 
             x := y := 0
-            ControlHandle := InitListView(_HMG_aFormReBarHandle[i], 0, x, y, w, h, ownerdata, itemcount, multiselect, showheaders, nosortheaders, NoTabStop)
+            ControlHandle := hmg_InitListView(_HMG_aFormReBarHandle[i], 0, x, y, w, h, ownerdata, itemcount, multiselect, showheaders, nosortheaders, NoTabStop)
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
@@ -276,7 +276,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
 
       ELSE
 
-         ControlHandle := InitListView(ParentFormHandle, 0, x, y, w, h, ownerdata, itemcount, multiselect, showheaders, nosortheaders, NoTabStop)
+         ControlHandle := hmg_InitListView(ParentFormHandle, 0, x, y, w, h, ownerdata, itemcount, multiselect, showheaders, nosortheaders, NoTabStop)
 
       ENDIF
 
@@ -290,7 +290,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       ENDIF
 
       IF Len(aImageHeader) > 0
-         nHeaderImageListHandle := AddListViewBitmapHeader(ControlHandle, aImageHeader)
+         nHeaderImageListHandle := hmg_AddListViewBitmapHeader(ControlHandle, aImageHeader)
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -441,25 +441,25 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
    autosizeW    := _HMG_aControlMiscData1[k, 28]
 
    IF ownerdata
-      LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
+      hmg_LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
    ENDIF
 
    SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + ;
       LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + iif(lockcolumns > 0, 0, LVS_EX_HEADERDRAGDROP) + iif(lcheckboxes, LVS_EX_CHECKBOXES, 0))
 
    IF IsArrayRGB(backcolor)
-      ListView_SetBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
-      ListView_SetTextBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
+      hmg_ListView_SetBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
+      hmg_ListView_SetTextBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    IF IsArrayRGB(fontcolor)
-      ListView_SetTextColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
+      hmg_ListView_SetTextColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 
-   wBitmap := iif(Len(_HMG_aControlBkColor[k]) > 0, AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[k]), 0) // Add Bitmap Column
+   wBitmap := iif(Len(_HMG_aControlBkColor[k]) > 0, hmg_AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[k]), 0) // Add Bitmap Column
    aWidths[1] := Max(aWidths[1], wBitmap + GetBorderWidth() / 2)  // Set Column 1 width to Bitmap width
 
-   InitListViewColumns(ControlHandle, _HMG_aControlCaption[k], aWidths, aJust)
+   hmg_InitListViewColumns(ControlHandle, _HMG_aControlCaption[k], aWidths, aJust)
 
    AEval(aRows, {|r|_AddGridRow(ControlName, ParentName, r)})
 
@@ -481,7 +481,7 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
    IF Len(_HMG_aControlPicture[k]) == Len(_HMG_aControlPageMap[k])
 
       FOR z := 1 TO Len(_HMG_aControlPageMap[k])
-         SetGridColumnHeaderImage(_HMG_aControlHandles[k], z, z, (aJust[z] == 1))
+         hmg_SetGridColumnHeaderImage(_HMG_aControlHandles[k], z, z, (aJust[z] == 1))
       NEXT z
 
    ENDIF
@@ -489,7 +489,7 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
    IF multiselect
 
       IF hb_IsArray(Value)
-         ListViewSetMultiSel(ControlHandle, Value)
+         hmg_ListViewSetMultiSel(ControlHandle, Value)
       ENDIF
 
    ELSE
@@ -561,12 +561,12 @@ FUNCTION _AddGridRow(ControlName, ParentForm, aRow)
 #endif
 
    h := _HMG_aControlHandles[i]
-   AddListViewItems(h, aGridRow, iIm)
+   hmg_AddListViewItems(h, aGridRow, iIm)
 
    IF hb_IsArray(_HMG_aControlMiscData1[i][13])
-      _SetItem(ControlName, ParentForm, ListViewGetItemCount(h), aGridRow)
+      _SetItem(ControlName, ParentForm, hmg_ListViewGetItemCount(h), aGridRow)
       IF Len(_HMG_aControlBkColor[i]) > 0
-         SetImageListViewItems(h, ListViewGetItemCount(h), iIm)
+         hmg_SetImageListViewItems(h, hmg_ListViewGetItemCount(h), iIm)
       ENDIF
    ENDIF
 
@@ -592,7 +592,7 @@ PROCEDURE HMG_SortColumn(nColumnNo)
       _EnableListViewUpdate(cControlName, cFormName, .F.)
 
       aImages := Array(Len(_HMG_aControlRangeMax[ix]))
-      nCount := ListViewGetItemCount(_HMG_aControlHandles[ix])
+      nCount := hmg_ListViewGetItemCount(_HMG_aControlHandles[ix])
 
       FOR i := 1 TO nCount
          AAdd(aItems, GetProperty(cFormName, cControlName, "Item", i))
@@ -664,7 +664,7 @@ FUNCTION _EditItem(GridHandle)
 
    g := _GetItem(ControlName, FormName, Item)
 
-   IRow := ListViewGetItemRow(h, Item)
+   IRow := hmg_ListViewGetItemRow(h, Item)
 
    GetWindowRect(h, actpos)
 
@@ -748,7 +748,7 @@ PROCEDURE _AddGridColumn(cControlName, cParentForm, nColIndex, cCaption, nWidth,
    ASize(_HMG_aControlMiscData1[i][25], Len(atemp))
 
    // Call C-Level Routine
-   ListView_AddColumn(_HMG_aControlHandles[i], nColIndex, nWidth, cCaption, nJustify)
+   hmg_ListView_AddColumn(_HMG_aControlHandles[i], nColIndex, nWidth, cCaption, nJustify)
 
 RETURN
 
@@ -781,7 +781,7 @@ PROCEDURE _DeleteGridColumn(cControlName, cParentForm, nColIndex)
    hb_ADel(_HMG_aControlMiscData1[i][25], nColIndex, .T.)
 
    // Call C-Level Routine
-   ListView_DeleteColumn(_HMG_aControlHandles[i], nColIndex)
+   hmg_ListView_DeleteColumn(_HMG_aControlHandles[i], nColIndex)
 
 RETURN
 
@@ -803,8 +803,8 @@ PROCEDURE _UpdateGridColors(i)
    ENDIF
 
    h := _HMG_aControlHandles[i]
-   Rows := ListViewGetItemCount(h)
-   Cols := ListView_GetColumnCount(h)
+   Rows := hmg_ListViewGetItemCount(h)
+   Cols := hmg_ListView_GetColumnCount(h)
 
    IF processdbc
       ProcessDynamicArray(i, Rows, Cols, dBc, 22)
@@ -917,7 +917,7 @@ FUNCTION _GridInplaceEdit(idx)
          RETURN .F.
       ENDIF
    ELSE
-      IF This.CellRowIndex != LISTVIEW_GETFIRSTITEM(_hmg_acontrolhandles[idx])
+      IF This.CellRowIndex != hmg_LISTVIEW_GETFIRSTITEM(_hmg_acontrolhandles[idx])
          RETURN .F.
       ENDIF
    ENDIF
@@ -1378,7 +1378,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
    ELSE
 
-      Cols := ListView_GetColumnCount(_HMG_aControlHandles[idx])
+      Cols := hmg_ListView_GetColumnCount(_HMG_aControlHandles[idx])
 
       aTemp := AFill(Array(Cols), "")
 
@@ -1448,7 +1448,7 @@ _GridInplaceKbdEdit(i)
 PROCEDURE _GridInplaceKbdEdit(i)
 
    LOCAL h := _HMG_aControlHandles[i]
-   LOCAL IPE_MAXCOL := ListView_GetColumnCount(h)
+   LOCAL IPE_MAXCOL := hmg_ListView_GetColumnCount(h)
    LOCAL TmpRow
    LOCAL XS
    LOCAL XD
@@ -1456,7 +1456,7 @@ PROCEDURE _GridInplaceKbdEdit(i)
 
    DO WHILE .T.
 
-      TmpRow := LISTVIEW_GETFIRSTITEM(h)
+      TmpRow := hmg_LISTVIEW_GETFIRSTITEM(h)
 
       IF TmpRow != _HMG_IPE_ROW
          _HMG_IPE_ROW := TmpRow
@@ -1467,9 +1467,9 @@ PROCEDURE _GridInplaceKbdEdit(i)
       _HMG_ThisItemColIndex := _HMG_IPE_COL
 
       IF _HMG_IPE_COL == 1
-         r := LISTVIEW_GETITEMRECT(h, _HMG_IPE_ROW - 1)
+         r := hmg_LISTVIEW_GETITEMRECT(h, _HMG_IPE_ROW - 1)
       ELSE
-         r := LISTVIEW_GETSUBITEMRECT(h, _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
+         r := hmg_LISTVIEW_GETSUBITEMRECT(h, _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
       ENDIF
 
       xs := (_HMG_aControlCol[i] + r[2] + r[3]) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
@@ -1477,17 +1477,17 @@ PROCEDURE _GridInplaceKbdEdit(i)
       xd := 20
 
       IF xs > - xd
-         ListView_Scroll(h, xs + xd, 0)
+         hmg_ListView_Scroll(h, xs + xd, 0)
       ELSE
          IF r[2] < 0
-            ListView_Scroll(h, r[2], 0)
+            hmg_ListView_Scroll(h, r[2], 0)
          ENDIF
       ENDIF
 
       IF _HMG_IPE_COL == 1
-         r := LISTVIEW_GETITEMRECT(h, _HMG_IPE_ROW - 1)
+         r := hmg_LISTVIEW_GETITEMRECT(h, _HMG_IPE_ROW - 1)
       ELSE
-         r := LISTVIEW_GETSUBITEMRECT(h, _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
+         r := hmg_LISTVIEW_GETSUBITEMRECT(h, _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
       ENDIF
 
       _HMG_ThisItemCellRow := iif(hb_IsNumeric(_HMG_aControlRow[i]), _HMG_aControlRow[i], 0) + r[1]
@@ -1523,7 +1523,7 @@ PROCEDURE _GridInplaceKbdEdit(i)
 
          IF _HMG_IPE_COL == IPE_MAXCOL
             _HMG_IPE_COL := 1
-            ListView_Scroll(h, -10000, 0)
+            hmg_ListView_Scroll(h, -10000, 0)
          ENDIF
          EXIT
 
@@ -1533,7 +1533,7 @@ PROCEDURE _GridInplaceKbdEdit(i)
 
          IF _HMG_IPE_COL > IPE_MAXCOL
             _HMG_IPE_COL := 1
-            ListView_Scroll(h, -10000, 0)
+            hmg_ListView_Scroll(h, -10000, 0)
             EXIT
          ENDIF
 
@@ -1663,8 +1663,8 @@ FUNCTION _GetColumnWidth(ControlName, ParentForm, nColumnNo)
 
    Assign z := nColumnNo
 
-   IF z > 0 .AND. z <= ListView_GetColumnCount(h)
-      nWidth := ListView_GetColumnWidth(h, z - 1)
+   IF z > 0 .AND. z <= hmg_ListView_GetColumnCount(h)
+      nWidth := hmg_ListView_GetColumnWidth(h, z - 1)
    ENDIF
 
 RETURN nWidth
@@ -1684,8 +1684,8 @@ FUNCTION _SetColumnWidth(ControlName, ParentForm, nColumnNo, nWidth)
 
    Assign z := nColumnNo
 
-   IF z > 0 .AND. z <= ListView_GetColumnCount(h)
-      lSuccess := ListView_SetColumnWidth(h, z - 1, nWidth)
+   IF z > 0 .AND. z <= hmg_ListView_GetColumnCount(h)
+      lSuccess := hmg_ListView_SetColumnWidth(h, z - 1, nWidth)
    ENDIF
 
 RETURN lSuccess
@@ -1705,7 +1705,7 @@ FUNCTION _SetColumnWidthAuto(ControlName, ParentForm, nColumnNo)
 
    Assign z := nColumnNo
 
-   IF z > 0 .AND. z <= ListView_GetColumnCount(h)
+   IF z > 0 .AND. z <= hmg_ListView_GetColumnCount(h)
       lSuccess := ListView_SetColumnWidthAuto(h, z - 1)
    ENDIF
 
@@ -1726,7 +1726,7 @@ FUNCTION _SetColumnWidthAutoH(ControlName, ParentForm, nColumnNo)
 
    Assign z := nColumnNo
 
-   IF z > 0 .AND. z <= ListView_GetColumnCount(h)
+   IF z > 0 .AND. z <= hmg_ListView_GetColumnCount(h)
       lSuccess := ListView_SetColumnWidthAutoH(h, z - 1)
    ENDIF
 
@@ -1746,7 +1746,7 @@ FUNCTION _SetColumnsWidthAuto(ControlName, ParentForm)
    i := GetControlIndex(ControlName, ParentForm)
    h := _HMG_aControlHandles[i]
 
-   IF (ColumnCount := ListView_GetColumnCount(h)) > 0
+   IF (ColumnCount := hmg_ListView_GetColumnCount(h)) > 0
       FOR z := 1 TO ColumnCount
          lSuccess := ListView_SetColumnWidthAuto(h, z - 1)
       NEXT z
@@ -1768,7 +1768,7 @@ FUNCTION _SetColumnsWidthAutoH(ControlName, ParentForm)
    i := GetControlIndex(ControlName, ParentForm)
    h := _HMG_aControlHandles[i]
 
-   IF (ColumnCount := ListView_GetColumnCount(h)) > 0
+   IF (ColumnCount := hmg_ListView_GetColumnCount(h)) > 0
       FOR z := 1 TO ColumnCount
          lSuccess := ListView_SetColumnWidthAutoH(h, z - 1)
       NEXT z
@@ -1791,15 +1791,15 @@ PROCEDURE _GridPgDn(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
-   PageLength   := LISTVIEWGETCOUNTPERPAGE(GridHandle)
-   IF s + PageLength <=  LISTVIEWGETITEMCOUNT(GridHandle)
-      ListView_SetCursel(GridHandle, s + PageLength)
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * PageLength)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
+   PageLength   := hmg_LISTVIEWGETCOUNTPERPAGE(GridHandle)
+   IF s + PageLength <=  hmg_LISTVIEWGETITEMCOUNT(GridHandle)
+      hmg_ListView_SetCursel(GridHandle, s + PageLength)
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * PageLength)
    ELSE
-      ListView_SetCursel(GridHandle, LISTVIEWGETITEMCOUNT(GridHandle))
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (LISTVIEWGETITEMCOUNT(GridHandle) - s))
+      hmg_ListView_SetCursel(GridHandle, hmg_LISTVIEWGETITEMCOUNT(GridHandle))
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (hmg_LISTVIEWGETITEMCOUNT(GridHandle) - s))
    ENDIF
 
 RETURN
@@ -1818,16 +1818,16 @@ PROCEDURE _GridPgUp(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
-   PageLength   := LISTVIEWGETCOUNTPERPAGE(GridHandle)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
+   PageLength   := hmg_LISTVIEWGETCOUNTPERPAGE(GridHandle)
 
    IF s - PageLength >= 1
-      ListView_SetCursel(GridHandle, s - PageLength)
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * PageLength * (-1))
+      hmg_ListView_SetCursel(GridHandle, s - PageLength)
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * PageLength * (-1))
    ELSE
-      ListView_SetCursel(GridHandle, 1)
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * s * (-1))
+      hmg_ListView_SetCursel(GridHandle, 1)
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * s * (-1))
    ENDIF
 
 RETURN
@@ -1845,12 +1845,12 @@ PROCEDURE _GridHome(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
 
-   ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1) * s)
+   hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1) * s)
 
-   ListView_SetCursel(GridHandle, 1)
+   hmg_ListView_SetCursel(GridHandle, 1)
 
 RETURN
 
@@ -1868,13 +1868,13 @@ PROCEDURE _GridEnd(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   _BottomPos   := LISTVIEWGETITEMCOUNT(GridHandle)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   _BottomPos   := hmg_LISTVIEWGETITEMCOUNT(GridHandle)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
 
-   ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (_BottomPos - s))
+   hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (_BottomPos - s))
 
-   ListView_SetCursel(GridHandle, _BottomPos)
+   hmg_ListView_SetCursel(GridHandle, _BottomPos)
 
 RETURN
 
@@ -1892,14 +1892,14 @@ PROCEDURE _GridPrior(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   TopInx       := LISTVIEW_GETTOPINDEX(GridHandle)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   TopInx       := hmg_LISTVIEW_GETTOPINDEX(GridHandle)
 
-   s := LISTVIEW_GETFIRSTITEM(GridHandle)
-   ListView_SetCursel(GridHandle, s - 1)
+   s := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
+   hmg_ListView_SetCursel(GridHandle, s - 1)
 
    IF s <= TopInx + 1
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1))
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1))
    ENDIF
 
 RETURN
@@ -1919,14 +1919,14 @@ PROCEDURE _GridNext(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
-   TopInx       := LISTVIEW_GETTOPINDEX(GridHandle)
-   PageLength   := LISTVIEWGETCOUNTPERPAGE(GridHandle)
-   ListView_SetCursel(GridHandle, s + 1)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
+   TopInx       := hmg_LISTVIEW_GETTOPINDEX(GridHandle)
+   PageLength   := hmg_LISTVIEWGETCOUNTPERPAGE(GridHandle)
+   hmg_ListView_SetCursel(GridHandle, s + 1)
 
    IF s - TopInx == PageLength
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4])
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4])
    ENDIF
 
 RETURN
@@ -1946,16 +1946,16 @@ PROCEDURE _GridScrollToPos(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    GridHandle   := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(GridHandle, 0, 0)
-   s            := LISTVIEW_GETFIRSTITEM(GridHandle)
-   TopInx       := LISTVIEW_GETTOPINDEX(GridHandle)
-   PageLength   := LISTVIEWGETCOUNTPERPAGE(GridHandle)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(GridHandle, 0, 0)
+   s            := hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
+   TopInx       := hmg_LISTVIEW_GETTOPINDEX(GridHandle)
+   PageLength   := hmg_LISTVIEWGETCOUNTPERPAGE(GridHandle)
    IF topInx < s
       IF s - TopInx > PageLength
-         ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (s - TopInx - PageLength))
+         hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (s - TopInx - PageLength))
       ENDIF
    ELSE
-      ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1) * (s - TopInx))
+      hmg_ListView_Scroll(GridHandle, 0, _DeltaScroll[4] * (-1) * (s - TopInx))
    ENDIF
 
 RETURN
@@ -1991,8 +1991,8 @@ _GRIDINPLACEKBDEDIT_2(i)
 */
 PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
 
-   LOCAL IPE_MAXCOL := ListView_GetColumnCount(_HMG_aControlHandles[i])
-   LOCAL IPE_MAXROW := ListViewGetItemCount(_HMG_aControlHandles[i])
+   LOCAL IPE_MAXCOL := hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])
+   LOCAL IPE_MAXROW := hmg_ListViewGetItemCount(_HMG_aControlHandles[i])
    LOCAL ownerdata := _HMG_aControlMiscData1[i][5]
    LOCAL aColumnWhen := _HMG_aControlMiscData1[i][15]
    LOCAL aTemp
@@ -2005,9 +2005,9 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
    _GRID_KBDSCROLL(i)
 
    IF _HMG_ThisItemColIndex == 1
-      r := LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1)
+      r := hmg_LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1)
    ELSE
-      r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1, _HMG_ThisItemColIndex - 1)
+      r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1, _HMG_ThisItemColIndex - 1)
    ENDIF
 
    _HMG_ThisItemCellRow := iif(hb_IsNumeric(_HMG_aControlRow[i]), _HMG_aControlRow[i], 0) + r[1]
@@ -2123,7 +2123,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
 
       ENDIF
 
-      LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
+      hmg_LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
 
    ENDIF
@@ -2158,9 +2158,9 @@ PROCEDURE _GRID_KBDSCROLL(i)
    _HMG_ThisItemColIndex := _HMG_aControlMiscData1[i][17]
 
    IF _HMG_ThisItemColIndex == 1
-      r := LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1)
+      r := hmg_LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1)
    ELSE
-      r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1, _HMG_ThisItemColIndex - 1)
+      r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1, _HMG_ThisItemColIndex - 1)
    ENDIF
 
    xs := (_HMG_aControlCol[i] + r[2] + r[3]) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
@@ -2168,10 +2168,10 @@ PROCEDURE _GRID_KBDSCROLL(i)
    xd := 20
 
    IF xs > -xd
-      ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
+      hmg_ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
    ELSE
       IF r[2] < 0
-         ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
+         hmg_ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
       ENDIF
    ENDIF
 

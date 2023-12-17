@@ -224,7 +224,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF Len(aImages) > 0
-      AddListViewBitmap(ControlHandle, aImages)
+      hmg_AddListViewBitmap(ControlHandle, aImages)
    ENDIF
 
    k := _GetControlFree()

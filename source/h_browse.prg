@@ -222,12 +222,12 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
    IF !lDialogInMemory
 
       IF IsArrayRGB(backcolor)
-         ListView_SetBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
-         ListView_SetTextBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
+         hmg_ListView_SetBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
+         hmg_ListView_SetTextBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
       ENDIF
 
       IF IsArrayRGB(fontcolor)
-         ListView_SetTextColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
+         hmg_ListView_SetTextColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
       ENDIF
 
       IF lsort
@@ -390,26 +390,26 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + ;
       iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP)
 
-   wBitmap := iif(Len(_HMG_aControlBkColor[i]) > 0, AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[i]), 0) // Add Bitmap Column
+   wBitmap := iif(Len(_HMG_aControlBkColor[i]) > 0, hmg_AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[i]), 0) // Add Bitmap Column
    _HMG_aControlProcedures[i, 1] := Max(_HMG_aControlProcedures[i, 1], wBitmap + GetBorderWidth() / 2) // Set Column 1 width to Bitmap width
 
    IF Len(aImageHeader) > 0
-      _HMG_aControlMiscData1[i, 15] := AddListViewBitmapHeader(ControlHandle, aImageHeader) // Add Header Bitmaps
+      _HMG_aControlMiscData1[i, 15] := hmg_AddListViewBitmapHeader(ControlHandle, aImageHeader) // Add Header Bitmaps
    ENDIF
 
-   InitListViewColumns(ControlHandle, _HMG_aControlCaption[i], _HMG_aControlProcedures[i], aJust)
+   hmg_InitListViewColumns(ControlHandle, _HMG_aControlCaption[i], _HMG_aControlProcedures[i], aJust)
 
    // Add to browselist array to update on window activation
    AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], i)
 
    FOR z := 1 TO Len(_HMG_aControlProcedures[i])
-      hsum += ListView_GetColumnWidth(_HMG_aControlHandles[i], z - 1)
-      _HMG_aControlProcedures[i][z] := ListView_GetColumnWidth(_HMG_aControlHandles[i], z - 1)
+      hsum += hmg_ListView_GetColumnWidth(_HMG_aControlHandles[i], z - 1)
+      _HMG_aControlProcedures[i][z] := hmg_ListView_GetColumnWidth(_HMG_aControlHandles[i], z - 1)
    NEXT z
 
    IF Len(aImageHeader) == Len(_HMG_aControlPageMap[i])
       FOR z := 1 TO Len(_HMG_aControlPageMap[i])
-         SetGridColumnHeaderImage(_HMG_aControlHandles[i], z, z, (aJust[z] == 1))
+         hmg_SetGridColumnHeaderImage(_HMG_aControlHandles[i], z, z, (aJust[z] == 1))
       NEXT z
    ENDIF
 
@@ -538,7 +538,7 @@ PROCEDURE HMG_SetOrder(nColumn, lDescend)
 
       _BrowseHandle := _HMG_aControlHandles[i]
 
-      ListView_SetSortHeader(_BrowseHandle, nOrder, 0, _HMG_IsThemed)
+      hmg_ListView_SetSortHeader(_BrowseHandle, nOrder, 0, _HMG_IsThemed)
 
       IF !hb_isLogical(lDescend)
          lDescend := iif(nOrder == nColumn, !ordDescend(nOrder), .F.)
@@ -546,7 +546,7 @@ PROCEDURE HMG_SetOrder(nColumn, lDescend)
 
       nOrder := nColumn
 
-      ListView_SetSortHeader(_BrowseHandle, nColumn, iif(lDescend, -1, 1), _HMG_IsThemed)
+      hmg_ListView_SetSortHeader(_BrowseHandle, nColumn, iif(lDescend, -1, 1), _HMG_IsThemed)
 
       ordSetFocus(nOrder)
       ordDescend(nOrder, NIL, lDescend)
@@ -634,7 +634,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
    ListViewReset(_HMG_aControlhandles[i])
 
-   PageLength := ListViewGetCountPerPage(_HMG_aControlhandles[i])
+   PageLength := hmg_ListViewGetCountPerPage(_HMG_aControlhandles[i])
 
    IF processdfc
       fcolormap := {}
@@ -732,7 +732,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
       NEXT
 
-      AddListViewItems(_HMG_aControlhandles[i], aTemp, Image)
+      hmg_AddListViewItems(_HMG_aControlhandles[i], aTemp, Image)
 
       _Rec := RecNo()
 
@@ -876,13 +876,13 @@ PROCEDURE _BrowseNext(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   PageLength := LISTVIEWGETCOUNTPERPAGE(_BrowseHandle)
+   PageLength := hmg_LISTVIEWGETCOUNTPERPAGE(_BrowseHandle)
 
-   s := LISTVIEW_GETFIRSTITEM(_BrowseHandle)
+   s := hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle)
 
    IF s == PageLength
 
@@ -903,15 +903,15 @@ PROCEDURE _BrowseNext(ControlName, ParentForm, z)
       _BrowseUpdate("", "", i)
       _BrowseVscrollUpdate(i)
 
-      ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
-      ListView_SetCursel(_BrowseHandle, Len(_HMG_aControlRangeMax[i]))
+      hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+      hmg_ListView_SetCursel(_BrowseHandle, Len(_HMG_aControlRangeMax[i]))
 
       dbGoTo(_RecNo)
       RestoreWorkArea(_Alias)
 
    ELSE
 
-      ListView_SetCursel(_BrowseHandle, Len(_BrowseRecMap))
+      hmg_ListView_SetCursel(_BrowseHandle, Len(_BrowseRecMap))
       _BrowseVscrollFastUpdate(i, PageLength - s)
 
    ENDIF
@@ -935,11 +935,11 @@ PROCEDURE _BrowsePrior(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   IF LISTVIEW_GETFIRSTITEM(_BrowseHandle) == 1
+   IF hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle) == 1
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
@@ -950,23 +950,23 @@ PROCEDURE _BrowsePrior(ControlName, ParentForm, z)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
-      dbSkip(-LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
+      dbSkip(-hmg_LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
 
       _BrowseVscrollUpdate(i)
       _BrowseUpdate("", "", i)
 
-      ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+      hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
 
       dbGoTo(_RecNo)
       RestoreWorkArea(_Alias)
 
    ELSE
 
-      _BrowseVscrollFastUpdate(i, 1 - LISTVIEW_GETFIRSTITEM(_BrowseHandle))
+      _BrowseVscrollFastUpdate(i, 1 - hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle))
 
    ENDIF
 
-   ListView_SetCursel(_BrowseHandle, 1)
+   hmg_ListView_SetCursel(_BrowseHandle, 1)
 
    _BrowseOnChange(i)
 
@@ -986,7 +986,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
@@ -1003,12 +1003,12 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    _BrowseVscrollUpdate(i)
    _BrowseUpdate("", "", i)
 
-   ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+   hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
 
    dbGoTo(_RecNo)
    RestoreWorkArea(_Alias)
 
-   ListView_SetCursel(_BrowseHandle, 1)
+   hmg_ListView_SetCursel(_BrowseHandle, 1)
 
    _BrowseOnChange(i)
 
@@ -1029,7 +1029,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
@@ -1045,15 +1045,15 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    _BottomRec := RecNo()
 
    _BrowseVscrollUpdate(i)
-   dbSkip(-LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
+   dbSkip(-hmg_LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
 
    _BrowseUpdate("", "", i)
-   ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+   hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
 
    dbGoTo(_RecNo)
    RestoreWorkArea(_Alias)
 
-   ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , _BottomRec))
+   hmg_ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , _BottomRec))
 
    _BrowseOnChange(i)
 
@@ -1075,11 +1075,11 @@ PROCEDURE _BrowseUp(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   s := LISTVIEW_GETFIRSTITEM(_BrowseHandle)
+   s := hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle)
 
    IF s == 1
       _Alias := Alias()
@@ -1098,18 +1098,18 @@ PROCEDURE _BrowseUp(ControlName, ParentForm, z)
       IF !(_BrowseRecMap[1] == RecNo())  // BAA 18-Mar-2012
          _BrowseVscrollUpdate(i)
          _BrowseUpdate("", "", i)
-         ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+         hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
       ENDIF
 
       dbGoTo(_RecNo)
       RestoreWorkArea(_Alias)
 
-      ListView_SetCursel(_BrowseHandle, 1)
+      hmg_ListView_SetCursel(_BrowseHandle, 1)
 
    ELSE
 
       IF _HMG_ActiveDlgProcHandle == 0
-         ListView_SetCursel(_BrowseHandle, s - 1)
+         hmg_ListView_SetCursel(_BrowseHandle, s - 1)
       ENDIF
       _BrowseVscrollFastUpdate(i, -1)
 
@@ -1118,7 +1118,7 @@ PROCEDURE _BrowseUp(ControlName, ParentForm, z)
    _BrowseOnChange(i)
 
    IF _HMG_ActiveMDIChildIndex > 0  // BAA 15-Apr-2012
-      ListView_SetCursel(_BrowseHandle, s)
+      hmg_ListView_SetCursel(_BrowseHandle, s)
    ENDIF
 
 RETURN
@@ -1140,13 +1140,13 @@ PROCEDURE _BrowseDown(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   s := LISTVIEW_GETFIRSTITEM(_BrowseHandle)
+   s := hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle)
 
-   PageLength := LISTVIEWGETCOUNTPERPAGE(_BrowseHandle)
+   PageLength := hmg_LISTVIEWGETCOUNTPERPAGE(_BrowseHandle)
 
    IF s == PageLength
 
@@ -1170,17 +1170,17 @@ PROCEDURE _BrowseDown(ControlName, ParentForm, z)
       _BrowseUpdate("", "", i)
       _BrowseVscrollUpdate(i)
 
-      ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+      hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
 
       dbGoTo(_RecNo)
       RestoreWorkArea(_Alias)
 
-      ListView_SetCursel(_BrowseHandle, Len(_HMG_aControlRangeMax[i]))
+      hmg_ListView_SetCursel(_BrowseHandle, Len(_HMG_aControlRangeMax[i]))
 
    ELSE
 
       IF _HMG_ActiveDlgProcHandle == 0
-         ListView_SetCursel(_BrowseHandle, s + 1)
+         hmg_ListView_SetCursel(_BrowseHandle, s + 1)
       ENDIF
       _BrowseVscrollFastUpdate(i, 1)
 
@@ -1189,7 +1189,7 @@ PROCEDURE _BrowseDown(ControlName, ParentForm, z)
    _BrowseOnChange(i)
 
    IF _HMG_ActiveMDIChildIndex > 0  // BAA 15-Apr-2012
-      ListView_SetCursel(_BrowseHandle, s)
+      hmg_ListView_SetCursel(_BrowseHandle, s)
    ENDIF
 
 RETURN
@@ -1212,9 +1212,9 @@ PROCEDURE _BrowseRefresh(ControlName, ParentForm, z)
    v := _BrowseGetValue("", "", i)
 
    _BrowseHandle := _HMG_aControlHandles[i]
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
-   s := LISTVIEW_GETFIRSTITEM(_BrowseHandle)
+   s := hmg_LISTVIEW_GETFIRSTITEM(_BrowseHandle)
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
@@ -1272,8 +1272,8 @@ PROCEDURE _BrowseRefresh(ControlName, ParentForm, z)
 
    _BrowseUpdate("", "", i)
 
-   ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
-   ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , v))
+   hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+   hmg_ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , v))
 
    dbGoTo(_RecNo)
    RestoreWorkArea(_Alias)
@@ -1325,12 +1325,12 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    ENDIF
 
    IF mp == NIL
-      m := Int(ListViewGetCountPerPage(_BrowseHandle) / 2)
+      m := Int(hmg_ListViewGetCountPerPage(_BrowseHandle) / 2)
    ELSE
       m := mp
    ENDIF
 
-   _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle, 0, 0)
+   _DeltaScroll := hmg_ListView_GetSubItemRect(_BrowseHandle, 0, 0)
 
    dbSelectArea(_BrowseArea)
 
@@ -1368,8 +1368,8 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    dbGoTo(_RecNo)
    RestoreWorkArea(_Alias)
 
-   ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
-   ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , Value))
+   hmg_ListView_Scroll(_BrowseHandle, _DeltaScroll[2] * (-1) , 0)
+   hmg_ListView_SetCursel(_BrowseHandle, AScan(_HMG_aControlRangeMax[i] , Value))
 
    _HMG_ThisEventType := "BROWSE_ONCHANGE"
    _BrowseOnChange(i)
@@ -1395,8 +1395,8 @@ FUNCTION _BrowseGetValue(ControlName, ParentForm, z)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   IF LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) != 0
-      RETURN _BrowseRecMap[LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
+   IF hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) != 0
+      RETURN _BrowseRecMap[hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
    ENDIF
 
 RETURN 0
@@ -1415,13 +1415,13 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
-   IF LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) == 0
+   IF hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) == 0
       RETURN NIL
    ENDIF
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   Value := _BrowseRecMap[LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
+   Value := _BrowseRecMap[hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
 
    IF Value == 0
       RETURN NIL
@@ -1474,7 +1474,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 
       ENDIF
 
-      _BrowseSetValue("" , "" , RecNo() , i, LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]))
+      _BrowseSetValue("" , "" , RecNo() , i, hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]))
 
    ENDIF
 
@@ -1522,7 +1522,7 @@ FUNCTION _BrowseEdit(GridHandle, aValid, aValidMessages, aReadOnly, lock, append
    hb_default(@inplace, .T.)
 #endif
 
-   IF LISTVIEW_GETFIRSTITEM(GridHandle) == 0
+   IF hmg_LISTVIEW_GETFIRSTITEM(GridHandle) == 0
       IF append != NIL
          IF !append
             RETURN NIL
@@ -2097,7 +2097,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle, aValid, aValidMessages, aReadOnly
       RETURN NIL
    ENDIF
 
-   IF This.CellRowIndex != LISTVIEW_GETFIRSTITEM(GridHandle)
+   IF This.CellRowIndex != hmg_LISTVIEW_GETFIRSTITEM(GridHandle)
       RETURN NIL
    ENDIF
 
@@ -2606,7 +2606,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
    LOCAL xs
    LOCAL xd
 
-   IF LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) == 0
+   IF hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i]) == 0
       RETURN
    ENDIF
 
@@ -2614,7 +2614,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
 
    DO WHILE .T.
 
-      TmpRow := LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])
+      TmpRow := hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])
 
       IF TmpRow != _HMG_IPE_ROW
 
@@ -2627,9 +2627,9 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
       _HMG_ThisItemColIndex := _HMG_IPE_COL
 
       IF _HMG_IPE_COL == 1
-         r := LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1)
+         r := hmg_LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1)
       ELSE
-         r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
+         r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
       ENDIF
 
       xs := (_HMG_aControlCol[i] + r[2] + r[3]) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
@@ -2637,19 +2637,19 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
       xd := 20
 
       IF xs > - xd
-         ListView_Scroll(_HMG_aControlHandles[i] , xs + xd, 0)
+         hmg_ListView_Scroll(_HMG_aControlHandles[i] , xs + xd, 0)
       ELSE
 
          IF r[2] < 0
-            ListView_Scroll(_HMG_aControlHandles[i] , r[2] , 0)
+            hmg_ListView_Scroll(_HMG_aControlHandles[i] , r[2] , 0)
          ENDIF
 
       ENDIF
 
       IF _HMG_IPE_COL == 1
-         r := LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1)
+         r := hmg_LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1)
       ELSE
-         r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
+         r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
       ENDIF
 
       _HMG_ThisItemCellRow := _HMG_aControlRow[i] + r[1]
@@ -2675,7 +2675,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
 
             _HMG_IPE_COL := iif(Len(_HMG_aControlBkColor[i]) > 0, 2, 1)
 
-            ListView_Scroll(_HMG_aControlHandles[i] , -10000, 0)
+            hmg_ListView_Scroll(_HMG_aControlHandles[i] , -10000, 0)
 
          ENDIF
 
@@ -2689,7 +2689,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
 
             _HMG_IPE_COL := iif(Len(_HMG_aControlBkColor[i]) > 0, 2, 1)
 
-            ListView_Scroll(_HMG_aControlHandles[i] , -10000, 0)
+            hmg_ListView_Scroll(_HMG_aControlHandles[i] , -10000, 0)
 
             EXIT
 
@@ -2767,9 +2767,9 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
 
    _NewRec := RecCount() + 1
 
-   IF LISTVIEWGETITEMCOUNT(_HMG_aControlhandles[i]) != 0
+   IF hmg_LISTVIEWGETITEMCOUNT(_HMG_aControlhandles[i]) != 0
       _BrowseVscrollUpdate(i)
-      dbSkip(-LISTVIEWGETCOUNTPERPAGE(_HMG_aControlhandles[i]) + 2)
+      dbSkip(-hmg_LISTVIEWGETCOUNTPERPAGE(_HMG_aControlhandles[i]) + 2)
       _BrowseUpdate("" , "" , i)
    ENDIF
 
@@ -2783,9 +2783,9 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
       AFill(aTemp, "")
       AAdd(_HMG_aControlRangeMax[i], _NewRec)
 
-      AddListViewItems(_HMG_aControlHandles[i] , aTemp, 0)
+      hmg_AddListViewItems(_HMG_aControlHandles[i] , aTemp, 0)
 
-      ListView_SetCursel(_HMG_aControlHandles[i] , Len(_HMG_aControlRangeMax[i]))
+      hmg_ListView_SetCursel(_HMG_aControlHandles[i] , Len(_HMG_aControlRangeMax[i]))
 
       _BrowseOnChange(i)
    ENDIF

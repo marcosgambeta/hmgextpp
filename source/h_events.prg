@@ -2623,16 +2623,16 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 #else
          IF i > 0
 #endif
-            IF GetHwndFrom(lParam) == ListView_GetHeader(x)
+            IF GetHwndFrom(lParam) == hmg_ListView_GetHeader(x)
 
                // https://thomasfreudenberg.com/archive/2004/03/14/hdn-track-and-hds-fulldrag
                IF GetNotifyCode(lParam) == HDN_ITEMCHANGING
 
-                  k := GetHeaderListViewItemCX(lParam)
+                  k := hmg_GetHeaderListViewItemCX(lParam)
 
                   IF k >= 0
 
-                     z := GetHeaderListViewItem(lParam) + 1
+                     z := hmg_GetHeaderListViewItem(lParam) + 1
 
                      aCellData := _HMG_aControlMiscData1[i][25]
 
@@ -2642,10 +2642,10 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         NewVPos := aCellData[z][2]
 
                         IF k < NewHPos
-                           ListView_SetColumnWidth(x, z - 1, NewHPos)
+                           hmg_ListView_SetColumnWidth(x, z - 1, NewHPos)
                            RETURN 1
                         ELSEIF k > NewVPos
-                           ListView_SetColumnWidth(x, z - 1, NewVPos)
+                           hmg_ListView_SetColumnWidth(x, z - 1, NewVPos)
                            RETURN 1
                         ENDIF
 
@@ -2776,7 +2776,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                FOR EACH r IN _HMG_aControlProcedures[i]
 
                   x := hb_enumindex(r)
-                  hws += (lvc := ListView_GetColumnWidth(_HMG_aControlHandles[i], x - 1))
+                  hws += (lvc := hmg_ListView_GetColumnWidth(_HMG_aControlHandles[i], x - 1))
                   IF _HMG_aControlProcedures[i][x] != lvc
                      hwm := .T.
                      _HMG_aControlProcedures[i][x] := lvc
@@ -2873,7 +2873,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == NM_CLICK .OR. GetNotifyCode(lParam) == LVN_BEGINDRAG .OR. GetNotifyCode(lParam) == NM_RCLICK
 
-               IF (r := LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])) > 0
+               IF (r := hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])) > 0
 
                   DeltaSelect := r - AScan(_HMG_aControlRangeMax[i], _HMG_aControlValue[i])
                   nr := _HMG_aControlValue[i]
@@ -2957,31 +2957,31 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                _HMG_ThisIndex := i
                _HMG_ThisFormName :=  _HMG_aFormNames[_HMG_ThisFormIndex]
                _HMG_ThisControlName := _HMG_aControlNames[_HMG_THISIndex ]
-               r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+               r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
                IF r[2] == 1
-                  ListView_Scroll(_HMG_aControlHandles[i], -10000, 0)
-                  r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+                  hmg_ListView_Scroll(_HMG_aControlHandles[i], -10000, 0)
+                  r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
                ELSE
-                  r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
+                  r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
                   //                CellCol            CellWidth
                   xs := (_HMG_aControlCol[i] + r[2] + r[3]) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
                   xd := 20
                   IF xs > - xd
-                     ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
+                     hmg_ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
                   ELSE
                      IF r[2] < 0
-                        ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
+                        hmg_ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
                      ENDIF
                   ENDIF
-                  r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+                  r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
                ENDIF
 
                _HMG_ThisItemRowIndex := r[1]
                _HMG_ThisItemColIndex := r[2]
                IF r[2] == 1
-                  r := LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], r[1] - 1)
+                  r := hmg_LISTVIEW_GETITEMRECT(_HMG_aControlHandles[i], r[1] - 1)
                ELSE
-                  r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
+                  r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
                ENDIF
                _HMG_ThisItemCellRow := _HMG_aControlRow[i] + r[1]
                _HMG_ThisItemCellCol := _HMG_aControlCol[i] + r[2]
@@ -3168,13 +3168,13 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                            IF nDestinationColumn >= nFrozenColumnCount + 1
                               aOriginalColumnWidths := _HMG_aControlMiscData1[i][2]
                               // Set Destination Column Width To Original
-                              LISTVIEW_SETCOLUMNWIDTH(_HMG_aControlHandles[i], nDestinationColumn - 1, aOriginalColumnWidths[nDestinationColumn])
+                              hmg_LISTVIEW_SETCOLUMNWIDTH(_HMG_aControlHandles[i], nDestinationColumn - 1, aOriginalColumnWidths[nDestinationColumn])
                            ENDIF
                         ENDIF
 
                         _GRID_KBDSCROLL(i)
 
-                        LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
+                        hmg_LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3186,20 +3186,20 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         IF nFrozenColumnCount > 0
                            nDestinationColumn := _HMG_aControlMiscData1[i][17]
                            FOR k := nDestinationColumn TO Len(_HMG_aControlCaption[i]) - 1
-                              IF LISTVIEW_GETCOLUMNWIDTH(_HMG_aControlHandles[i], k - 1) == 0
+                              IF hmg_LISTVIEW_GETCOLUMNWIDTH(_HMG_aControlHandles[i], k - 1) == 0
                                  _HMG_aControlMiscData1[i][17]++
                               ENDIF
                            NEXT k
 
                            IF nDestinationColumn > nFrozenColumnCount + 1
                               // Set Current Column Width To 0
-                              LISTVIEW_SETCOLUMNWIDTH(_HMG_aControlHandles[i], nDestinationColumn - 2, 0)
+                              hmg_LISTVIEW_SETCOLUMNWIDTH(_HMG_aControlHandles[i], nDestinationColumn - 2, 0)
                            ENDIF
                         ENDIF
 
                         _GRID_KBDSCROLL(i)
 
-                        LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
+                        hmg_LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1, _HMG_aControlMiscData1[i][1] - 1)
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3388,7 +3388,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   aCellData := _GetGridCellData(i)
                   r := aCellData[1]
 
-                  IF r > 0 .AND. r <= ListViewGetItemCount(_HMG_aControlHandles[i]) .OR. SpaceKeyIsPressedInGrid == _HMG_aControlHandles[i]
+                  IF r > 0 .AND. r <= hmg_ListViewGetItemCount(_HMG_aControlHandles[i]) .OR. SpaceKeyIsPressedInGrid == _HMG_aControlHandles[i]
                      _DoControlEventProcedure(_HMG_aControlMiscData1[i][23], i, "CONTROL_ONCHANGE", SpaceKeyIsPressedInGrid, r)
                      SpaceKeyIsPressedInGrid := 0
                      RETURN 0
@@ -3407,7 +3407,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF _HMG_aControlFontColor[i]
                      lCellGridRowChanged := .T.
-                     _HMG_aControlMiscData1[i][1] := LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])
+                     _HMG_aControlMiscData1[i][1] := hmg_LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])
                   ELSE
                      _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE")
                   ENDIF
@@ -3451,7 +3451,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      IF lCellGridRowChanged .OR. x != NewPos
                         lCellGridRowChanged := .F.
-                        LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], nGridRowValue - 1, nGridRowValue - 1)
+                        hmg_LISTVIEW_REDRAWITEMS(_HMG_aControlHandles[i], nGridRowValue - 1, nGridRowValue - 1)
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
 
@@ -4277,8 +4277,8 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
    LOCAL aTemp
    LOCAL aTemp2
 
-   IF a[1] >= 1 .AND. a[1] <= ListViewGetItemCount(_HMG_aControlHandles[i]) .AND. ; // MaxGridRows
-      a[2] >= 1 .AND. a[2] <= ListView_GetColumnCount(_HMG_aControlHandles[i])      // MaxGridCols
+   IF a[1] >= 1 .AND. a[1] <= hmg_ListViewGetItemCount(_HMG_aControlHandles[i]) .AND. ; // MaxGridRows
+      a[2] >= 1 .AND. a[2] <= hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])      // MaxGridCols
 
       aTemp  := _HMG_aControlMiscData1[i, 22]
       aTemp2 := _HMG_aControlMiscData1[i, 21]
@@ -4338,35 +4338,35 @@ STATIC FUNCTION _GetGridCellData(i)
    LOCAL xd
    LOCAL aCellData
 
-   r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+   r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
 
    IF r[2] == 1
 
-      ListView_Scroll(_HMG_aControlHandles[i], -10000, 0)
-      r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+      hmg_ListView_Scroll(_HMG_aControlHandles[i], -10000, 0)
+      r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
 
    ELSEIF r[1] > 0 .AND. r[2] > 0
 
-      r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
+      r := hmg_LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
 
       //          CellCol                      CellWidth
       xs := ((_HMG_aControlCol[i] + r[2]) + (r[3])) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
 
-      IF ListViewGetItemCount(_HMG_aControlHandles[i]) > ListViewGetCountPerPage(_HMG_aControlHandles[i])
+      IF hmg_ListViewGetItemCount(_HMG_aControlHandles[i]) > hmg_ListViewGetCountPerPage(_HMG_aControlHandles[i])
          xd := 20
       ELSE
          xd := 0
       ENDIF
 
       IF xs > -xd
-         ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
+         hmg_ListView_Scroll(_HMG_aControlHandles[i], xs + xd, 0)
       ELSE
          IF r[2] < 0
-            ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
+            hmg_ListView_Scroll(_HMG_aControlHandles[i], r[2], 0)
          ENDIF
       ENDIF
 
-      r := ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
+      r := hmg_ListView_HitTest(_HMG_aControlHandles[i], GetCursorRow() - GetWindowRow(_HMG_aControlHandles[i]), GetCursorCol() - GetWindowCol(_HMG_aControlHandles[i]))
 
    ELSE
 
@@ -4379,11 +4379,11 @@ STATIC FUNCTION _GetGridCellData(i)
 
    IF r[2] == 1
 
-      r := ListView_GetItemRect(_HMG_aControlHandles[i], r[1] - 1)
+      r := hmg_ListView_GetItemRect(_HMG_aControlHandles[i], r[1] - 1)
 
    ELSEIF r[1] > 0 .AND. r[2] > 0
 
-      r := ListView_GetSubItemRect(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
+      r := hmg_ListView_GetSubItemRect(_HMG_aControlHandles[i], r[1] - 1, r[2] - 1)
 
    ENDIF
 

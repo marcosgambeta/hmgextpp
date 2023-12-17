@@ -224,7 +224,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_GRID
-      retval := iif(_HMG_aControlFontColor[ix], {_HMG_aControlMiscData1[ix][1], _HMG_aControlMiscData1[ix][17]}, LISTVIEW_GETFIRSTITEM(c))
+      retval := iif(_HMG_aControlFontColor[ix], {_HMG_aControlMiscData1[ix][1], _HMG_aControlMiscData1[ix][17]}, hmg_LISTVIEW_GETFIRSTITEM(c))
       EXIT
 
    CASE CONTROL_TYPE_TAB
@@ -253,7 +253,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_MULTIGRID
-      retval := ListViewGetMultiSel(c)
+      retval := hmg_ListViewGetMultiSel(c)
       EXIT
 
    CASE CONTROL_TYPE_TOOLBUTTON
@@ -548,8 +548,8 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_GRID
       IF !_HMG_aControlFontColor[ix]
-         ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
-         ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
+         hmg_ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
+         hmg_ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
       ELSE
          x := (hb_IsArray(Value) .AND. (_HMG_aControlMiscData1[ix][1] != value[1] .OR. _HMG_aControlMiscData1[ix][17] != value[2]))
          _HMG_aControlMiscData1[ix][1] := iif(hb_IsArray(Value), value[1], value)
@@ -560,8 +560,8 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
             hmg_RedrawWindow(c)
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
          ELSEIF x .OR. !hb_IsArray(Value)
-            ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
-            ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
+            hmg_ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
+            hmg_ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
             hmg_RedrawWindow(c)
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
          ENDIF
@@ -630,9 +630,9 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       IF hb_IsNumeric(value)  // GF 09/02/2013
          Value := {Value}
       ENDIF
-      LISTVIEWSETMULTISEL(c, value)
+      hmg_LISTVIEWSETMULTISEL(c, value)
       IF Len(value) > 0
-         ListView_EnsureVisible(c, value[1])
+         hmg_ListView_EnsureVisible(c, value[1])
       ENDIF
       EXIT
 
@@ -994,7 +994,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
                _HMG_aControlMiscData1[ix][1]--
                _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
             ENDIF
-            AfterCount := ListViewGetItemCount(c)
+            AfterCount := hmg_ListViewGetItemCount(c)
             IF value > AfterCount .AND. AfterCount > 0
                _HMG_aControlMiscData1[ix][1] := AfterCount
             ENDIF
@@ -1912,7 +1912,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
 #ifdef _HMG_COMPAT_
             aTemp := AClone(Value)
             AEval(aTemp, {|x, i|iif(hb_IsString(x) .OR. HB_ISNIL(x), NIL, aTemp[i] := hb_ValToStr(x))})
-            ListViewSetItem(c, aTemp, Item)
+            hmg_ListViewSetItem(c, aTemp, Item)
 #endif
          ELSE
             aTemp := Array(Len(Value))
@@ -1976,10 +1976,10 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
                   ENDIF
                ENDSWITCH
             NEXT ci
-            ListViewSetItem(c, aTemp, Item)
+            hmg_ListViewSetItem(c, aTemp, Item)
          ENDIF
          IF Len(_HMG_aControlBkColor[i]) > 0
-            SetImageListViewItems(c, Item, Value[1])
+            hmg_SetImageListViewItems(c, Item, Value[1])
          ENDIF
          _UpdateGridColors(i)
       ENDIF
@@ -2066,15 +2066,15 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      ColumnCount := ListView_GetColumnCount(c)
+      ColumnCount := hmg_ListView_GetColumnCount(c)
       IF _HMG_aControlMiscData1[i][5]
          RetVal := _GetIVirtualItem(Item, i, ColumnCount)
       ELSE
          AEDITCONTROLS := _HMG_aControlMiscData1[i][13]
          IF !hb_isArray(AEDITCONTROLS)
-            RetVal := ListViewGetItem(c, Item, ColumnCount)
+            RetVal := hmg_ListViewGetItem(c, Item, ColumnCount)
          ELSE
-            V := ListViewGetItem(c, Item, ColumnCount)
+            V := hmg_ListViewGetItem(c, Item, ColumnCount)
             ATEMP := Array(ColumnCount)
             FOR CI := 1 TO ColumnCount
                XRES := _ParseGridControls(AEDITCONTROLS, CI, Item)
@@ -2127,7 +2127,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
          ENDIF
          IF Len(_HMG_aControlBkColor[i]) > 0
             IF Len(RetVal) >= 1
-               RetVal[1] := GetImageListViewItems(c, Item)
+               RetVal[1] := hmg_GetImageListViewItems(c, Item)
             ENDIF
          ENDIF
       ENDIF
@@ -2232,7 +2232,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
                      hws := 0
                      FOR b := 1 TO Len(_HMG_aControlProcedures[p])
-                        hws += ListView_GetColumnWidth(_HMG_aControlHandles[p], b - 1)
+                        hws += hmg_ListView_GetColumnWidth(_HMG_aControlHandles[p], b - 1)
                      NEXT b
 
                      IF hws > _HMG_aControlWidth[p] - GETVSCROLLBARWIDTH() - 4
@@ -2400,7 +2400,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
             hws := 0
             FOR b := 1 TO Len(_HMG_aControlProcedures[x])
-               hws += ListView_GetColumnWidth(_HMG_aControlHandles[x], b - 1)
+               hws += hmg_ListView_GetColumnWidth(_HMG_aControlHandles[x], b - 1)
             NEXT b
 
             IF hws > _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - 4
@@ -2435,7 +2435,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
             hws := 0
             FOR b := 1 TO Len(_HMG_aControlProcedures[x])
-               hws += ListView_GetColumnWidth(_HMG_aControlHandles[x], b - 1)
+               hws += hmg_ListView_GetColumnWidth(_HMG_aControlHandles[x], b - 1)
             NEXT b
 
             IF hws > _HMG_aControlWidth[x] - GETVSCROLLBARWIDTH() - 4
@@ -2626,7 +2626,7 @@ FUNCTION _GetItemCount(ControlName, ParentForm)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      nRetVal := ListViewGetItemCount(c)
+      nRetVal := hmg_ListViewGetItemCount(c)
       EXIT
 
    CASE CONTROL_TYPE_TAB
@@ -3418,11 +3418,11 @@ FUNCTION _SetMultiCaption(ControlName, ParentForm, Column, Value)
       CASE CONTROL_TYPE_GRID
       CASE CONTROL_TYPE_MULTIGRID
       CASE CONTROL_TYPE_PROPGRID
-         SetGridColumnHeader(h, nColumn, Value, _HMG_aControlMiscData1[i, 3][nColumn])
+         hmg_SetGridColumnHeader(h, nColumn, Value, _HMG_aControlMiscData1[i, 3][nColumn])
          EXIT
 
       CASE CONTROL_TYPE_BROWSE
-         SetGridColumnHeader(h, nColumn, Value, _HMG_aControlMiscData1[i, 16][nColumn])
+         hmg_SetGridColumnHeader(h, nColumn, Value, _HMG_aControlMiscData1[i, 16][nColumn])
          EXIT
 
       CASE CONTROL_TYPE_RADIOGROUP
@@ -3471,7 +3471,7 @@ FUNCTION _SetMultiImage(ControlName, ParentForm, Column, Value, lRightAlign)
       //CASE t $ "MULTIGRID,BROWSE"  // EF 01/09/2008
       CASE CONTROL_TYPE_MULTIGRID
       CASE CONTROL_TYPE_BROWSE
-         SetGridColumnHeaderImage(h, Column, Value, hb_defaultValue(lRightAlign, .F.))
+         hmg_SetGridColumnHeaderImage(h, Column, Value, hb_defaultValue(lRightAlign, .F.))
          EXIT
 
       CASE CONTROL_TYPE_TAB  // JD 11/30/2006
@@ -4422,7 +4422,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_GRID
             ix := GetControlIndex(Arg2, Arg1)
             _HMG_aControlFontColor[ix] := Arg4
-            _HMG_aControlMiscData1[ix][1] := LISTVIEW_GETFOCUSEDITEM(_HMG_aControlHandles[ix])
+            _HMG_aControlMiscData1[ix][1] := hmg_LISTVIEW_GETFOCUSEDITEM(_HMG_aControlHandles[ix])
             _RedrawControl(ix)
          ENDIF
          EXIT
@@ -4448,9 +4448,9 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 #endif
       CASE "CHECKBOXENABLED"
          IF Arg4
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_CHECKBOXES, NIL)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_CHECKBOXES, NIL)
          ELSE
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_CHECKBOXES)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_CHECKBOXES)
          ENDIF
          _HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)][18] := Arg4
          EXIT
@@ -4458,22 +4458,22 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 //       CASE "DOUBLEBUFFER" $ Arg3
 //
 //          IF Arg4
-//             ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER, NIL)
+//             hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER, NIL)
 //          ELSE
-//             ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_DOUBLEBUFFER)
+//             hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_DOUBLEBUFFER)
 //          ENDIF
       CASE "HEADERDRAGDROP"
          IF Arg4
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_HEADERDRAGDROP, NIL)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_HEADERDRAGDROP, NIL)
          ELSE
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_HEADERDRAGDROP)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_HEADERDRAGDROP)
          ENDIF
          EXIT
       CASE "INFOTIP"
          IF Arg4
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_INFOTIP, NIL)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_INFOTIP, NIL)
          ELSE
-            ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_INFOTIP)
+            hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_INFOTIP)
          ENDIF
          EXIT
       CASE "READONLY"
@@ -4495,7 +4495,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          ENDIF
          EXIT
       CASE "ITEMCOUNT"
-         ListView_SetItemCount(GetControlHandle(Arg2, Arg1), Arg4)
+         hmg_ListView_SetItemCount(GetControlHandle(Arg2, Arg1), Arg4)
          _HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)][6] := Arg4
          EXIT
       CASE "COLUMNWIDTHLIMITS"  // GF 16/07/18
@@ -4533,9 +4533,9 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          // TODO: veja nota acima
          IF "DOUBLEBUFFER" $ Arg3
             IF Arg4
-               ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER, NIL)
+               hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER, NIL)
             ELSE
-               ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_DOUBLEBUFFER)
+               hmg_ListView_ChangeExtendedStyle(GetControlHandle(Arg2, Arg1), NIL, LVS_EX_DOUBLEBUFFER)
             ENDIF
          ENDIF
          //
@@ -4685,7 +4685,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             IF Arg3 == "CELL"
                VerifyControlDefined(Arg1, Arg2)
                IF Len(_HMG_aControlBkColor[GetControlIndex(Arg2, Arg1)]) > 0 .AND. Arg5 == 1
-                  SetImageListViewItems(GetControlHandle(Arg2, Arg1), Arg4, Arg6)
+                  hmg_SetImageListViewItems(GetControlHandle(Arg2, Arg1), Arg4, Arg6)
                ELSE
                   _SetGridCellValue(Arg2, Arg1, Arg4, Arg5, Arg6)
                ENDIF
@@ -4729,15 +4729,15 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
       SWITCH Arg3
       CASE "GROUPENABLED"
          IF _HMG_IsXPorLater .AND. _HMG_IsThemed
-            ListView_EnableGroupView(GetControlHandle(Arg2, Arg1), Arg4)
+            hmg_ListView_EnableGroupView(GetControlHandle(Arg2, Arg1), Arg4)
          ENDIF
          EXIT
       CASE "GROUPINFO"
          ASize(Arg5, 5)
-         ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, Arg5[1], Arg5[2], Arg5[3], Arg5[4], Arg5[5])
+         hmg_ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, Arg5[1], Arg5[2], Arg5[3], Arg5[4], Arg5[5])
          EXIT
       CASE "GROUPITEMID"
-         ListView_GroupItemSetID(GetControlHandle(Arg2, Arg1), (Arg4 - 1), Arg5)
+         hmg_ListView_GroupItemSetID(GetControlHandle(Arg2, Arg1), (Arg4 - 1), Arg5)
          EXIT
       CASE "GROUPCHECKBOXALLITEMS"
          GroupCheckBoxAllItems(Arg2, Arg1, Arg4, Arg5)
@@ -5218,23 +5218,23 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := IsTabStop(iif(hb_IsArray(ix), ix[1], ix))
          EXIT
       CASE "CHECKBOXENABLED"
-         RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_CHECKBOXES)
+         RetVal := hmg_ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_CHECKBOXES)
          EXIT
 //       CASE "DOUBLEBUFFER" $ Arg3
 //
-//          RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER)
+//          RetVal := hmg_ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER)
       CASE "HEADERDRAGDROP"
-         RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_HEADERDRAGDROP)
+         RetVal := hmg_ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_HEADERDRAGDROP)
          EXIT
       CASE "INFOTIP"
-         RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_INFOTIP)
+         RetVal := hmg_ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_INFOTIP)
          EXIT
 #ifdef _HMG_COMPAT_
       CASE "COLUMNCOUNT"
-         RetVal := ListView_GetColumnCount(GetControlHandle(Arg2, Arg1))
+         RetVal := hmg_ListView_GetColumnCount(GetControlHandle(Arg2, Arg1))
          EXIT
       CASE "ROWSPERPAGE"
-         RetVal := ListViewGetCountPerPage(GetControlHandle(Arg2, Arg1))
+         RetVal := hmg_ListViewGetCountPerPage(GetControlHandle(Arg2, Arg1))
          EXIT
 #endif
       CASE "READONLY"
@@ -5297,7 +5297,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       OTHERWISE
          IF "DOUBLEBUFFER" $ Arg3
-            RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER)
+            RetVal := hmg_ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_DOUBLEBUFFER)
          ENDIF
       ENDSWITCH
 
@@ -5424,7 +5424,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             Arg3 := Upper(Arg3)
             IF Arg3 == "CELL"
                IF Len(_HMG_aControlBkColor[GetControlIndex(Arg2, Arg1)]) > 0 .AND. Arg5 == 1
-                  RetVal := GetImageListViewItems(GetControlHandle(Arg2, Arg1), Arg4)
+                  RetVal := hmg_GetImageListViewItems(GetControlHandle(Arg2, Arg1), Arg4)
                ELSE
                   RetVal := _GetGridCellValue(Arg2, Arg1, Arg4, Arg5)
                ENDIF
@@ -5467,18 +5467,18 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 
       SWITCH Arg3
       CASE "GROUPENABLED"
-         RetVal := ListView_IsGroupViewEnabled(GetControlHandle(Arg2, Arg1))
+         RetVal := hmg_ListView_IsGroupViewEnabled(GetControlHandle(Arg2, Arg1))
          EXIT
       CASE "GROUPINFO"
          cHeader := nAlignHeader := cFooter := nAlingFooter := nState := NIL
-         ListView_GroupGetInfo(GetControlHandle(Arg2, Arg1), Arg4, @cHeader, @nAlignHeader, @cFooter, @nAlingFooter, @nState)
+         hmg_ListView_GroupGetInfo(GetControlHandle(Arg2, Arg1), Arg4, @cHeader, @nAlignHeader, @cFooter, @nAlingFooter, @nState)
          RetVal := {cHeader, nAlignHeader, cFooter, nAlingFooter, nState}
          EXIT
       CASE "GROUPITEMID"
-         RetVal := ListView_GroupItemGetID(GetControlHandle(Arg2, Arg1), (Arg4 - 1))
+         RetVal := hmg_ListView_GroupItemGetID(GetControlHandle(Arg2, Arg1), (Arg4 - 1))
          EXIT
       CASE "GROUPEXIST"
-         RetVal := ListView_HasGroup(GetControlHandle(Arg2, Arg1), Arg4)
+         RetVal := hmg_ListView_HasGroup(GetControlHandle(Arg2, Arg1), Arg4)
          EXIT
       CASE "GROUPGETALLITEMINDEX"
          RetVal := GroupGetAllItemIndex(Arg2, Arg1, Arg4)
@@ -5828,11 +5828,11 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 #ifdef _HMG_COMPAT_
    IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlTypeAsString(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
       SWITCH Arg3
-      CASE "GROUPDELETEALL"      ; ListView_GroupDeleteAll(GetControlHandle(Arg2, Arg1))                                               ; EXIT
-      CASE "GROUPDELETE"         ; ListView_GroupDelete(GetControlHandle(Arg2, Arg1), Arg4)                                            ; EXIT
-      CASE "GROUPADD"            ; ListView_GroupAdd(GetControlHandle(Arg2, Arg1), Arg4, Arg5)                                         ; EXIT
-      CASE "GROUPEXPAND"         ; ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, NIL, NIL, NIL, NIL, GRID_GROUP_NORMAL)    ; EXIT
-      CASE "GROUPCOLLAPSED"      ; ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, NIL, NIL, NIL, NIL, GRID_GROUP_COLLAPSED) ; EXIT
+      CASE "GROUPDELETEALL"      ; hmg_ListView_GroupDeleteAll(GetControlHandle(Arg2, Arg1))                                               ; EXIT
+      CASE "GROUPDELETE"         ; hmg_ListView_GroupDelete(GetControlHandle(Arg2, Arg1), Arg4)                                            ; EXIT
+      CASE "GROUPADD"            ; hmg_ListView_GroupAdd(GetControlHandle(Arg2, Arg1), Arg4, Arg5)                                         ; EXIT
+      CASE "GROUPEXPAND"         ; hmg_ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, NIL, NIL, NIL, NIL, GRID_GROUP_NORMAL)    ; EXIT
+      CASE "GROUPCOLLAPSED"      ; hmg_ListView_GroupSetInfo(GetControlHandle(Arg2, Arg1), Arg4, NIL, NIL, NIL, NIL, GRID_GROUP_COLLAPSED) ; EXIT
       CASE "GROUPDELETEALLITEMS" ; GroupDeleteAllItems(Arg2, Arg1, Arg4)                                                               ; EXIT
       OTHERWISE
          MsgMiniGuiError("Grid Group: unrecognized method '" + Arg3 + "'.")
@@ -6545,7 +6545,7 @@ STATIC FUNCTION _SetGetColumnHeadClick(ControlName, ParentForm, nColIndex, bActi
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. "GRID" $ _HMG_aControlType[i]
 
-      nColumnCount := ListView_GetColumnCount(_HMG_aControlHandles[i])
+      nColumnCount := hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])
 
       IF Len(_HMG_aControlHeadClick[i]) < nColumnCount
          ASize(_HMG_aControlHeadClick[i], nColumnCount)
@@ -6572,9 +6572,9 @@ STATIC FUNCTION _GetColumnDisplayPosition(ControlName, ParentForm, nColIndex)
    LOCAL aOrder
 
    i := GetControlIndex(ControlName, ParentForm)
-   nColumns := ListView_GetColumnCount(_HMG_aControlHandles[i])
+   nColumns := hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])
 
-   aOrder := ListView_GetColumnOrderArray(_HMG_aControlHandles[i], nColumns)
+   aOrder := hmg_ListView_GetColumnOrderArray(_HMG_aControlHandles[i], nColumns)
 
 RETURN AScan(aOrder, nColIndex)
 
@@ -6586,16 +6586,16 @@ STATIC FUNCTION _SetColumnDisplayPosition(ControlName, ParentForm, nColIndex, nD
    LOCAL nOld
 
    i := GetControlIndex(ControlName, ParentForm)
-   nColumns := ListView_GetColumnCount(_HMG_aControlHandles[i])
+   nColumns := hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])
 
-   aOrder := ListView_GetColumnOrderArray(_HMG_aControlHandles[i], nColumns)
+   aOrder := hmg_ListView_GetColumnOrderArray(_HMG_aControlHandles[i], nColumns)
 
    IF (nOld := AScan(aOrder, nColIndex)) > 0 .AND. nDisplayPos != nOld
 
       ADel(aOrder, nOld)
       AIns(aOrder, nDisplayPos, nColIndex, .F.)
 
-      ListView_SetColumnOrderArray(_HMG_aControlHandles[i], nColumns, aOrder)
+      hmg_ListView_SetColumnOrderArray(_HMG_aControlHandles[i], nColumns, aOrder)
 
    ENDIF
 
@@ -6614,7 +6614,7 @@ STATIC FUNCTION _SetGetGridProperty(ControlName, ParentForm, nControl, nColIndex
 
       Assign z := nColIndex
 
-      IF z > 0 .AND. z <= (nColumnCount := ListView_GetColumnCount(_HMG_aControlHandles[i]))
+      IF z > 0 .AND. z <= (nColumnCount := hmg_ListView_GetColumnCount(_HMG_aControlHandles[i]))
 
          IF PCount() > 4
 
@@ -6628,12 +6628,12 @@ STATIC FUNCTION _SetGetGridProperty(ControlName, ParentForm, nControl, nColIndex
             _HMG_aControlMiscData1[i][nControl][z] := Value
 
             IF nControl == _GRID_COLUMN_CONTROL_
-               FOR nRow := 1 TO ListViewGetItemCount(_HMG_aControlHandles[i])
+               FOR nRow := 1 TO hmg_ListViewGetItemCount(_HMG_aControlHandles[i])
                   xCellValue := _GetGridCellValue(ControlName, ParentForm, nRow, nColIndex)
                   _SetGridCellValue(ControlName, ParentForm, nRow, nColIndex, xCellValue)
                NEXT
             ELSEIF nControl == _GRID_COLUMN_JUSTIFY_
-               SetGridColumnJustify(_HMG_aControlHandles[i], z, Value)
+               hmg_SetGridColumnJustify(_HMG_aControlHandles[i], z, Value)
             ENDIF
 
             DoMethod(ParentForm, ControlName, "Refresh")
@@ -6727,7 +6727,7 @@ PROCEDURE _Refresh(i)
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
       IF _HMG_aControlMiscData1[i][5]
-         ListView_SetItemCount(_HMG_aControlHandles[i], ListViewGetItemCount(_HMG_aControlHandles[i]))
+         hmg_ListView_SetItemCount(_HMG_aControlHandles[i], hmg_ListViewGetItemCount(_HMG_aControlHandles[i]))
       ENDIF
       _UpdateGridColors(i)
       EXIT
@@ -6935,7 +6935,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
    CASE CONTROL_TYPE_BROWSE
-      ListView_SetTextColor(c, value[1], value[2], value[3])
+      hmg_ListView_SetTextColor(c, value[1], value[2], value[3])
       hmg_RedrawWindow(c)
       EXIT
 
@@ -7027,8 +7027,8 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
 
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_BROWSE
-      ListView_SetBkColor(c, Value[1], Value[2], Value[3])
-      ListView_SetTextBkColor(c, Value[1], Value[2], Value[3])
+      hmg_ListView_SetBkColor(c, Value[1], Value[2], Value[3])
+      hmg_ListView_SetTextBkColor(c, Value[1], Value[2], Value[3])
       hmg_RedrawWindow(c)
       EXIT
 
@@ -7116,7 +7116,7 @@ STATIC FUNCTION _GetFontColor(ControlName, ParentForm)
       t := GetControlType(ControlName, ParentForm)
 
       IF t == CONTROL_TYPE_GRID .OR. t == CONTROL_TYPE_MULTIGRID .OR. t == CONTROL_TYPE_PROPGRID .OR. t == CONTROL_TYPE_BROWSE
-         nTmp := ListView_GetTextColor(_HMG_aControlHandles[i])
+         nTmp := hmg_ListView_GetTextColor(_HMG_aControlHandles[i])
          RetVal := nRGB2Arr(nTmp)
       ELSE
          RetVal := _HMG_aControlFontColor[i]
@@ -7138,7 +7138,7 @@ FUNCTION _GetBackColor(ControlName, ParentForm)
       t := GetControlType(ControlName, ParentForm)
 
       IF t == CONTROL_TYPE_MULTIGRID .OR. t == CONTROL_TYPE_BROWSE
-         nTmp := ListView_GetBkColor(_HMG_aControlHandles[i])
+         nTmp := hmg_ListView_GetBkColor(_HMG_aControlHandles[i])
          RetVal := nRGB2Arr(nTmp)
       ELSE
          RetVal := _HMG_aControlBkColor[i]
@@ -7157,7 +7157,7 @@ STATIC PROCEDURE _SetGridColumnWidthLimits(ControlName, ParentForm, aLimits)
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0
       IF hb_IsArray(aLimits)
-         IF Len(aLimits) == ListView_GetColumnCount(_HMG_aControlHandles[i])
+         IF Len(aLimits) == hmg_ListView_GetColumnCount(_HMG_aControlHandles[i])
             FOR z := 1 TO Len(aLimits)
                IF !hb_isArray(aLimits[z]) .OR. !hb_isNumeric(aLimits[z][1]) .OR. !hb_isNumeric(aLimits[z][2])
                   lError := .T.
@@ -7553,9 +7553,9 @@ STATIC FUNCTION _SetGetCheckboxItemState(ControlName, ParentForm, Item, lState)
       IF _HMG_aControlMiscData1[i][18]  // if checkboxes mode was activated
 
          IF hb_IsLogical(lState)
-            ListView_SetCheckState(_HMG_aControlHandles[i], Item, lState)
+            hmg_ListView_SetCheckState(_HMG_aControlHandles[i], Item, lState)
          ELSE
-            RetVal := ListView_GetCheckState(_HMG_aControlHandles[i], Item)
+            RetVal := hmg_ListView_GetCheckState(_HMG_aControlHandles[i], Item)
          ENDIF
 
       ENDIF
