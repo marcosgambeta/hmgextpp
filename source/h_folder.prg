@@ -290,7 +290,7 @@ FUNCTION _DefineFolderPage(FolderName, Id, cTitle, cImageName)
    _HMG_DialogInMemory        := .F.
 
    _HMG_aFolderInfo[_HMG_FldID,FLD_PGT] := {cTitle, Id, Style, cImageName}
-   _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := CreateFolderPage(_HMG_aFolderInfo[_HMG_FldID,FLD_PGT])
+   _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := hmg_CreateFolderPage(_HMG_aFolderInfo[_HMG_FldID,FLD_PGT])
    AAdd(aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH])
    AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_HFP], 0)
    AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_FPG], {FolderName, Id, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], 0, _HMG_DialogInMemory})
@@ -340,7 +340,7 @@ FUNCTION _EndFolderPage()
       aFldPageTemp := AClone(_HMG_aFolderInfo[_HMG_FldID,FLD_FLT])
       aFldPageTemp[4] := _HMG_aFolderInfo[_HMG_FldID,FLD_PGT, 3]
       aFldPageTemp[5] := WS_EX_CONTROLPARENT
-      _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := CreateFolderPageIndirect(_HMG_aFolderInfo[_HMG_FldID,FLD_PGT], aFldPageTemp, _HMG_aDialogItems)
+      _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := hmg_CreateFolderPageIndirect(_HMG_aFolderInfo[_HMG_FldID,FLD_PGT], aFldPageTemp, _HMG_aDialogItems)
 
       AAdd(aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH])
       AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_HFP], 0)
@@ -371,7 +371,7 @@ FUNCTION _EndFolder()
    _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := 0
 
    IF _HMG_aFolderInfo[_HMG_FldID, FLD_FLT, 3]
-      ModalFolderReturn := CreateDlgFolder(_HMG_FldID, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_FLT], _HMG_aFolderInfo[_HMG_FldID,FLD_FIT], _HMG_aFolderInfo[_HMG_FldID,FLD_INM])
+      ModalFolderReturn := hmg_CreateDlgFolder(_HMG_FldID, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_FLT], _HMG_aFolderInfo[_HMG_FldID,FLD_FIT], _HMG_aFolderInfo[_HMG_FldID,FLD_INM])
       IF ModalFolderReturn != 0
          MsgMiniGuiError("MODAL FOLDER from " + iif(_HMG_aFolderInfo[_HMG_FldID,FLD_INM], "memory", "resouces") + " can't be created with success.")
       ENDIF
@@ -380,7 +380,7 @@ FUNCTION _EndFolder()
       _HMG_aDialogItems := {}
       RETURN NIL
    ELSE
-      Formhandle := CreateDlgFolder(_HMG_FldID, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_FLT], _HMG_aFolderInfo[_HMG_FldID,FLD_FIT], _HMG_aFolderInfo[_HMG_FldID,FLD_INM])
+      Formhandle := hmg_CreateDlgFolder(_HMG_FldID, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_FLT], _HMG_aFolderInfo[_HMG_FldID,FLD_FIT], _HMG_aFolderInfo[_HMG_FldID,FLD_INM])
       IF _HMG_aFolderInfo[_HMG_FldID, FLD_FLT, 1] > 0
          _HMG_aFormHandles[_HMG_aFolderInfo[_HMG_FldID, FLD_FLT, 1]] := FormHandle
       ENDIF
@@ -391,7 +391,7 @@ FUNCTION _EndFolder()
       _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := Formhandle
       _HMG_aFormHandles[k]      := FormHandle
       _HMG_aFormToolTipHandle[k] := InitToolTip(FormHandle, SetToolTipBalloon())
-      _SetFont(Folder_GetTabHandle(FormHandle), _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 11], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 12], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 13], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 14], .F., .F.)   //,bold,italic,underline,strikeout)
+      _SetFont(hmg_Folder_GetTabHandle(FormHandle), _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 11], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 12], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 13], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 14], .F., .F.)   //,bold,italic,underline,strikeout)
    ENDIF
 
 RETURN NIL
@@ -498,7 +498,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
    _HMG_BeginDialogActive     := .T.
    _HMG_ActiveDlgProcHandle   := hwndDlg
    _HMG_ActiveDlgProcId       := idDlg
-   _HMG_FldID                 := Folder_GetIdFld(hWndParent, _HMG_FldID)
+   _HMG_FldID                 := hmg_Folder_GetIdFld(hWndParent, _HMG_FldID)
 
    i := AScan(_HMG_aFolderInfo[_HMG_FldID,FLD_FPG], {|x|x[2] == idDlg})
    IF i > 0
@@ -589,7 +589,7 @@ FUNCTION FolderProc(hwndDlg, nMsg, wParam, lParam)
 
    SWITCH nMsg
    CASE WM_INITDIALOG
-      _HMG_FldID  := Folder_GetIdFld(hwndDlg, _HMG_FldID)
+      _HMG_FldID  := hmg_Folder_GetIdFld(hwndDlg, _HMG_FldID)
       IF _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 1] > 0
          _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 2] :=  hwndDlg
          _HMG_aFormHandles[_HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 1]] := hwndDlg
@@ -603,7 +603,7 @@ FUNCTION FolderProc(hwndDlg, nMsg, wParam, lParam)
       ENDIF
       EXIT
    CASE WM_CLOSE
-      _HMG_FldID  := Folder_GetIdFld(hwndDlg, _HMG_FldID)
+      _HMG_FldID  := hmg_Folder_GetIdFld(hwndDlg, _HMG_FldID)
       ret := EraseFolder(hwndDlg, _HMG_aFolderInfo[_HMG_FldID,FLD_MOD])
       EXIT
    CASE WM_COMMAND
@@ -654,7 +654,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
    _HMG_ActiveDlgProcModal     := .F.
 
    hwndFolder := GetFolderHandle(hwndDlg)
-   nFldID     := Folder_GetIdFld(hwndFolder, _HMG_FldID)
+   nFldID     := hmg_Folder_GetIdFld(hwndFolder, _HMG_FldID)
 
    SWITCH nMsg
 
@@ -665,7 +665,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
             IF HIWORD(wParam) == BN_CLICKED .OR. HIWORD(wParam) == EN_CHANGE .OR. ;
                   HIWORD(wParam) == CBN_SELCHANGE .OR. HIWORD(wParam) == LBN_SELCHANGE .OR. ;
                   HIWORD(wParam) == DTN_DATETIMECHANGE
-               Folder_Changed(hwndFolder, hWndDlg)
+               hmg_Folder_Changed(hwndFolder, hWndDlg)
             ENDIF
          ELSE
             IF _HMG_aFolderInfo[nFldID,FLD_INM]
@@ -674,7 +674,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
                      IF hb_IsArray(_HMG_aControlHandles[i]) .AND. _HMG_aControlParentHandles[i] == hwndDlg
                         FOR x := 1 TO Len(_HMG_aControlHandles[i])
                            IF _HMG_aControlHandles[i][x] == lParam
-                              Folder_Changed(hwndFolder, hWndDlg)
+                              hmg_Folder_Changed(hwndFolder, hWndDlg)
                            ENDIF
                         NEXT
                      ENDIF
@@ -685,7 +685,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
                   IF HIWORD(wParam) == BN_CLICKED .OR. HIWORD(wParam) == EN_CHANGE .OR. ;
                         HIWORD(wParam) == CBN_SELCHANGE .OR. HIWORD(wParam) == LBN_SELCHANGE .OR. ;
                         HIWORD(wParam) == DTN_DATETIMECHANGE
-                     Folder_Changed(hwndFolder, hWndDlg)
+                     hmg_Folder_Changed(hwndFolder, hWndDlg)
                   ENDIF
                ENDIF
             ENDIF
@@ -704,7 +704,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
       SWITCH GetNotifyCode(lParam)
 
       CASE FLN_APPLY
-         Folder_UnChanged(hwndFolder, hWndDlg)
+         hmg_Folder_UnChanged(hwndFolder, hWndDlg)
          i := AScan(_HMG_aFormhandles, hwndFolder)  // find FolderProcedure
          IF i > 0
             IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "F"
@@ -744,7 +744,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
 
       CASE FLN_FINISH
          _ReleaseFolder(hwndFolder)
-         Folder_CleanUp(hwndFolder)
+         hmg_Folder_CleanUp(hwndFolder)
          EXIT
 
       CASE FLN_HELP
@@ -894,7 +894,7 @@ FUNCTION _ReleaseFolder(hwndFolder)
    LOCAL n
    LOCAL nFldID
 
-   nFldID := Folder_GetIdFld(hwndFolder, _HMG_FldID)
+   nFldID := hmg_Folder_GetIdFld(hwndFolder, _HMG_FldID)
    IF hwndFolder != 0
       FOR n := 1 TO Len(_HMG_aFormParentHandle)
          IF _HMG_aFormParentHandle[n] == hwndFolder
