@@ -185,7 +185,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
          IF i > 0
 
-            ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
+            ControlHandle := hmg_InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
 
             IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
@@ -213,7 +213,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
+         ControlHandle := hmg_InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
 
          IF hb_IsChar(Value) ;
                .OR. ;
