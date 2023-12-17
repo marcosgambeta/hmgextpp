@@ -3859,7 +3859,7 @@ FUNCTION _EraseControl(i, p)
    SWITCH t
 
    CASE CONTROL_TYPE_HOTKEY
-      ReleaseHotKey(_HMG_aControlParentHandles[i], _HMG_aControlIds[i])
+      hmg_ReleaseHotKey(_HMG_aControlParentHandles[i], _HMG_aControlIds[i])
       EXIT
 
    // CASE "LABEL" $ t

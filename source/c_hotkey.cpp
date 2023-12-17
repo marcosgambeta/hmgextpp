@@ -47,17 +47,25 @@
 #include "mgdefs.hpp"
 
 /*
-INITHOTKEY(HWND, nId, nFsModifiers, nVk) --> .T.|.F.
+HMG_INITHOTKEY(HWND, nId, nFsModifiers, nVk) --> .T.|.F.
 */
-HB_FUNC( INITHOTKEY )
+HB_FUNC( HMG_INITHOTKEY )
 {
    hb_retl(RegisterHotKey(hmg_par_HWND(1), hmg_par_int(4), hmg_par_UINT(2), hmg_par_UINT(3)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITHOTKEY, HMG_INITHOTKEY )
+#endif
+
 /*
-RELEASEHOTKEY(HWND, nId) --> .T.|.F.
+HMG_RELEASEHOTKEY(HWND, nId) --> .T.|.F.
 */
-HB_FUNC( RELEASEHOTKEY )
+HB_FUNC( HMG_RELEASEHOTKEY )
 {
    hb_retl(UnregisterHotKey(hmg_par_HWND(1), hmg_par_int(2)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( RELEASEHOTKEY, HMG_RELEASEHOTKEY )
+#endif

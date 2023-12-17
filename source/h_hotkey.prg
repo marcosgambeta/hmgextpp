@@ -89,7 +89,7 @@ FUNCTION _DefineHotKey(cParentForm, nMod, nKey, bAction)
 
    nId := _GetId(49151)
 
-   lSuccess := InitHotKey(nParentForm, nMod, nKey, nId)
+   lSuccess := hmg_InitHotKey(nParentForm, nMod, nKey, nId)
 
    k := _GetControlFree()
 

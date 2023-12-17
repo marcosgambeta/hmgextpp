@@ -2253,7 +2253,7 @@ FUNCTION ReleaseAllWindows()
          DO CASE
          CASE ControlType == CONTROL_TYPE_HOTKEY
 
-            ReleaseHotKey(_HMG_aControlParentHandles[i], _HMG_aControlIds[i])
+            hmg_ReleaseHotKey(_HMG_aControlParentHandles[i], _HMG_aControlIds[i])
 
          CASE ControlType == CONTROL_TYPE_FONT
 

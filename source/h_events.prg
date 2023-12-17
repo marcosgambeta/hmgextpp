@@ -901,7 +901,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF r == CONTROL_TYPE_HOTKEY
                      x := hb_enumindex(r)
-                     ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
+                     hmg_ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
                   ENDIF
 
                NEXT
@@ -939,9 +939,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _HMG_aControlType[x] == CONTROL_TYPE_HOTKEY
 
                IF !_HMG_BeginWindowMDIActive
-                  ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
+                  hmg_ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
                ELSEIF _HMG_aControlParentHandles[x] != GetFormHandle(_HMG_MainClientMDIName) .OR. _HMG_InplaceParentHandle != 0
-                  ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
+                  hmg_ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
                ENDIF
 
             ENDIF
@@ -953,7 +953,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _HMG_aControlType[x] == CONTROL_TYPE_HOTKEY
 
                IF _HMG_aControlParentHandles[x] == hWnd
-                  InitHotKey(hWnd, _HMG_aControlPageMap[x], _HMG_aControlValue[x], _HMG_aControlIds[x])
+                  hmg_InitHotKey(hWnd, _HMG_aControlPageMap[x], _HMG_aControlValue[x], _HMG_aControlIds[x])
                ENDIF
 
             ENDIF
