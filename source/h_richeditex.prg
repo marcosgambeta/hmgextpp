@@ -144,9 +144,9 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
 
          ControlHandle := InitRichEditBoxEx(_HMG_aFormReBarHandle[i], 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll)
          IF fontname != NIL .AND. fontsize != NIL
-            FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
-            FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
          ENDIF
 
          AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -163,9 +163,9 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
       ControlHandle := InitRichEditBoxEx(ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll)
       IF IsWindowHandle(ControlHandle)
          IF fontname != NIL .AND. fontsize != NIL
-            FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
-            FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 

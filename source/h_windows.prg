@@ -2730,7 +2730,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          nY := iif(IsVistaOrLater(), 4, 7)
          nX := 12
 
-         hFont := InitFont(cFont, nSize)
+         hFont := hmg_InitFont(cFont, nSize)
          nHeight := GetTextHeight(NIL, "A", hFont)
 
          IF lWidth

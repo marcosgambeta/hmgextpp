@@ -96,7 +96,7 @@ PROCEDURE _DefineFont(FontName, fName, fSize, bold, italic, underline, strikeout
    PUBLIC &mVar. := k
 #endif
 
-   FontHandle := InitFont(fName, fSize, bold, italic, underline, strikeout, nAngle * 10, charset)
+   FontHandle := hmg_InitFont(fName, fSize, bold, italic, underline, strikeout, nAngle * 10, charset)
 
    _HMG_aControlType               [k] := CONTROL_TYPE_FONT
    _HMG_aControlNames              [k] := FontName
@@ -338,17 +338,17 @@ FUNCTION _SetFontAttr(ControlName, ParentForm, Value, nType)
    SWITCH t
 
    CASE CONTROL_TYPE_SPINNER
-      _HMG_aControlFontHandle[i] := _SetFont(h[1], n, s, ab, ai, au, as, aa)
+      _HMG_aControlFontHandle[i] := hmg__SetFont(h[1], n, s, ab, ai, au, as, aa)
       EXIT
 
    CASE CONTROL_TYPE_RADIOGROUP
-      _HMG_aControlFontHandle[i] := _SetFont(h[1], n, s, ab, ai, au, as, aa)
+      _HMG_aControlFontHandle[i] := hmg__SetFont(h[1], n, s, ab, ai, au, as, aa)
       AEval(h, {|x|SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1)}, 2)
       EXIT
 
    OTHERWISE
       IF IsWindowHandle(h)
-         _HMG_aControlFontHandle[i] := _SetFont(h, n, s, ab, ai, au, as, aa)
+         _HMG_aControlFontHandle[i] := hmg__SetFont(h, n, s, ab, ai, au, as, aa)
          IF t == CONTROL_TYPE_MONTHCAL
             SetPosMonthCal(h, _HMG_aControlCol[i], _HMG_aControlRow[i])
             _HMG_aControlWidth[i] := GetWindowWidth(h)
@@ -412,4 +412,4 @@ FUNCTION GetFontList(hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCas
       SortCodeBlock := {|x, y|Upper(x[1]) < Upper(y[1])}
    ENDIF
 
-RETURN EnumFontsEx(hDC, cFontFamilyName, nCharSet, nPitch, nFontType, SortCodeBlock, @aFontName)
+RETURN hmg_EnumFontsEx(hDC, cFontFamilyName, nCharSet, nPitch, nFontType, SortCodeBlock, @aFontName)

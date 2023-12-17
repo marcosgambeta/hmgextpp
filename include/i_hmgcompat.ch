@@ -268,7 +268,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate SetWindowFont ( <hWnd>, <hFont> [, <lRedraw> ] ) ;
    => ;
-   _SetFontHandle( <hWnd>, <hFont> )
+   hmg__SetFontHandle( <hWnd>, <hFont> )
 
 #xtranslate SetCursorSystem ( <nCursor> ) ;
    => ;

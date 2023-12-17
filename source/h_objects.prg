@@ -833,7 +833,7 @@ METHOD TDlu2Pix:TextWidth(cText, nSize, cFont, lBold, cChar)
    nSize := hb_defaultValue(nSize, iif(Empty(::nSize), _HMG_DefaultFontSize, ::nSize))
    IF hb_IsNumeric(cText) ; cText := Replicate(cChar, cText)
    ENDIF
-   hFont := InitFont(cFont, nSize, lBold)
+   hFont := hmg_InitFont(cFont, nSize, lBold)
    nWidth := hmg_GetTextWidth(NIL, cText, hFont)
    hmg_DeleteObject(hFont)
 

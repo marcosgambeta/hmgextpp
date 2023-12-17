@@ -103,7 +103,7 @@ METHOD TDatePicker:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
-         _SetFontHandle(::hWnd, hFont)
+         hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 

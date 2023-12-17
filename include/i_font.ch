@@ -137,8 +137,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#xtranslate GetDefaultFontName() => GetSystemFont()\[1\]
-#xtranslate GetDefaultFontSize() => GetSystemFont()\[2\]
+#xtranslate GetDefaultFontName() => hmg_GetSystemFont()\[1\]
+#xtranslate GetDefaultFontSize() => hmg_GetSystemFont()\[2\]
 
 ///////////////////////////////////////////////////////////////////////////////
 

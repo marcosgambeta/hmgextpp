@@ -188,12 +188,12 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
             ControlHandle := hmg_InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
 
             IF !empty(FontHandle)
-               _SetFontHandle(ControlHandle, FontHandle)
+               hmg__SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle(ControlHandle)
-                  FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+                  FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -235,12 +235,12 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF !empty(FontHandle)
-         _SetFontHandle(ControlHandle, FontHandle)
+         hmg__SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle(ControlHandle)
-            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 

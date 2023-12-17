@@ -391,7 +391,7 @@ FUNCTION _EndFolder()
       _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := Formhandle
       _HMG_aFormHandles[k]      := FormHandle
       _HMG_aFormToolTipHandle[k] := InitToolTip(FormHandle, SetToolTipBalloon())
-      _SetFont(hmg_Folder_GetTabHandle(FormHandle), _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 11], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 12], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 13], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 14], .F., .F.)   //,bold,italic,underline,strikeout)
+      hmg__SetFont(hmg_Folder_GetTabHandle(FormHandle), _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 11], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 12], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 13], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 14], .F., .F.)   //,bold,italic,underline,strikeout)
    ENDIF
 
 RETURN NIL
@@ -519,12 +519,12 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
          ControlHandle := hmg_GetDialogItemHandle(hwndDlg, nId)
          FontHandle := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
-            _SetFontHandle(ControlHandle, FontHandle)
+            hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL
-               FontHandle := _SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
+               FontHandle := hmg__SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ELSE
-               FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
+               FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ENDIF
             IF k > 0
                _HMG_aControlFontHandle[k] :=  FontHandle

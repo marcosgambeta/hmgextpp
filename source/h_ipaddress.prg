@@ -98,12 +98,12 @@ FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
    ControlHandle := InitIPAddress(ParentForm, 0, x, y, w, h, invisible, notabstop)
 
    IF !empty(FontHandle)
-      _SetFontHandle(ControlHandle, FontHandle)
+      hmg__SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       IF IsWindowHandle(ControlHandle)
-         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+         FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 

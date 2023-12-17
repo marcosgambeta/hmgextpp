@@ -59,9 +59,9 @@ HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic
 }
 
 /*
-INITFONT(cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, nCharSet) --> HANDLE
+HMG_INITFONT(cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, nCharSet) --> HANDLE
 */
-HB_FUNC( INITFONT )
+HB_FUNC( HMG_INITFONT )
 {
    int   bold      = hb_parl(3) ? FW_BOLD : FW_NORMAL;
    auto italic    = static_cast<DWORD>(hb_parl(4));
@@ -76,10 +76,14 @@ HB_FUNC( INITFONT )
    hmg_ret_HFONT(hFont);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITFONT, HMG_INITFONT )
+#endif
+
 /*
-_SETFONT(HWND, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, nCharSet) --> HANDLE
+HMG__SETFONT(HWND, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, nCharSet) --> HANDLE
 */
-HB_FUNC( _SETFONT )
+HB_FUNC( HMG__SETFONT )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -101,10 +105,14 @@ HB_FUNC( _SETFONT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETFONT, HMG__SETFONT )
+#endif
+
 /*
-_SETFONTHANDLE(HWND, HFONT) --> NIL
+HMG__SETFONTHANDLE(HWND, HFONT) --> NIL
 */
-HB_FUNC( _SETFONTHANDLE )
+HB_FUNC( HMG__SETFONTHANDLE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -119,10 +127,14 @@ HB_FUNC( _SETFONTHANDLE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETFONTHANDLE, HMG__SETFONTHANDLE )
+#endif
+
 /*
-GETSYSTEMFONT() --> array ([1]=name [2]=height)
+HMG_GETSYSTEMFONT() --> array ([1]=name [2]=height)
 */
-HB_FUNC( GETSYSTEMFONT )
+HB_FUNC( HMG_GETSYSTEMFONT )
 {
    NONCLIENTMETRICS ncm;
    ncm.cbSize = sizeof(ncm);
@@ -133,6 +145,10 @@ HB_FUNC( GETSYSTEMFONT )
    HB_ARRAYSETSTR(hb_stackReturnItem(), 1, lfDlgFont.lfFaceName);
    HB_STORNI(lfDlgFont.lfHeight + 21, -1, 2);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETSYSTEMFONT, HMG_GETSYSTEMFONT )
+#endif
 
 /*
    Added by P.Ch. for 16.12.
@@ -145,9 +161,9 @@ HB_FUNC( GETSYSTEMFONT )
 int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam);
 
 /*
-ENUMFONTSEX(HDC, cp2, nCharSet, nPitchAndFamily, p5, bp6, ap7) --> array
+HMG_ENUMFONTSEX(HDC, cp2, nCharSet, nPitchAndFamily, p5, bp6, ap7) --> array
 */
-HB_FUNC( ENUMFONTSEX )
+HB_FUNC( HMG_ENUMFONTSEX )
 {
    HDC      hdc;
    auto pArray = hb_itemArrayNew(0);
@@ -195,6 +211,10 @@ HB_FUNC( ENUMFONTSEX )
 
    hb_itemReturnRelease(pArray);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ENUMFONTSEX, HMG_ENUMFONTSEX )
+#endif
 
 int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam)
 {

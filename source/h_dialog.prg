@@ -320,12 +320,12 @@ FUNCTION _EndDialog()
             FontHandle    := GetFontHandle(_HMG_aDialogItems[n, 13])
 
             IF !empty(FontHandle)
-               _SetFontHandle(ControlHandle, FontHandle)
+               hmg__SetFontHandle(ControlHandle, FontHandle)
             ELSE
                IF _HMG_aDialogItems[n, 13] != NIL .AND. _HMG_aDialogItems[n, 14] != NIL
-                  FontHandle := _SetFont(ControlHandle, _HMG_aDialogItems[n, 13], _HMG_aDialogItems[n, 14], _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
+                  FontHandle := hmg__SetFont(ControlHandle, _HMG_aDialogItems[n, 13], _HMG_aDialogItems[n, 14], _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
                ELSE
-                  FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
+                  FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
                ENDIF
             ENDIF
             IF hb_IsLogical(_HMG_aDialogItems[n, 20]) .AND. _HMG_aDialogItems[n, 20] //_HMG_BeginTabActive

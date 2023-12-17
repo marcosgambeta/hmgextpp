@@ -243,7 +243,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
          aControlHandle := InitPropGrid(_HMG_aFormReBarHandle[i], col, row, width, height, indent, datawidth, readonly, lInfo, infoHeight, aheadname, singleexpand)
 
          IF !empty(FontHandle)
-            _SetFontHandle(aControlHandle[1], FontHandle)
+            hmg__SetFontHandle(aControlHandle[1], FontHandle)
          ELSE
             IF fontname == NIL
                FontName := _HMG_DefaultFontName
@@ -251,7 +251,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
             IF fontsize == NIL
                FontSize := _HMG_DefaultFontSize
             ENDIF
-            FontHandle := _SetFont(aControlHandle[1], FontName, FontSize)
+            FontHandle := hmg__SetFont(aControlHandle[1], FontName, FontSize)
          ENDIF
 
          AddSplitBoxItem(aControlhandle[1], _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -269,8 +269,8 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
    _HMG_ActivePropGridHandle := aControlHandle[1]
 
    IF FontHandle != HMG_NULLHANDLE
-      _SetFontHandle(aControlHandle[1], FontHandle)
-      _SetFontHandle(aControlHandle[2], FontHandle)
+      hmg__SetFontHandle(aControlHandle[1], FontHandle)
+      hmg__SetFontHandle(aControlHandle[2], FontHandle)
    ELSE
       IF fontname == NIL
          fontname := _HMG_DefaultFontName
@@ -278,12 +278,12 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
       IF fontsize == NIL
          fontsize := _HMG_DefaultFontSize
       ENDIF
-      _SetFont(aControlHandle[2], fontname, _HMG_DefaultFontSize, .T., italic, underline, strikeout)
-      _SetFont(aControlHandle[3], fontname, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
+      hmg__SetFont(aControlHandle[2], fontname, _HMG_DefaultFontSize, .T., italic, underline, strikeout)
+      hmg__SetFont(aControlHandle[3], fontname, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
       IF aControlHandle[5] != HMG_NULLHANDLE
-         _SetFont(aControlHandle[5], fontname, _HMG_DefaultFontSize, .T., italic, underline, strikeout)
+         hmg__SetFont(aControlHandle[5], fontname, _HMG_DefaultFontSize, .T., italic, underline, strikeout)
       ENDIF
-      FontHandle := _SetFont(aControlHandle[1], fontname, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
+      FontHandle := hmg__SetFont(aControlHandle[1], fontname, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
    ENDIF
 
    IF _HMG_BeginTabActive

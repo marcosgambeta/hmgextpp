@@ -743,12 +743,12 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
          ControlHandle := hmg_GetDialogItemHandle(_HMG_ActiveDialogHandle, nId)
          FontHandle    := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
-            _SetFontHandle(ControlHandle, FontHandle)
+            hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSEIF IsWindowHandle(ControlHandle)
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL
-               FontHandle := _SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
+               FontHandle := hmg__SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ELSE
-               FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
+               FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ENDIF
          ENDIF
          IF _HMG_ActivePropSheetModeless

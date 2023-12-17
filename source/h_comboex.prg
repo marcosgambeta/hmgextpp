@@ -180,12 +180,12 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
          ControlHandle := hmg_InitComboBoxEx(_HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
          IF !empty(FontHandle)
-            _SetFontHandle(ControlHandle, FontHandle)
+            hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle(ControlHandle)
-               FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+               FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
@@ -200,12 +200,12 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       ControlHandle := hmg_InitComboBoxEx(ParentForm, 0, x, y, w, "", notrans, h, invisible, notabstop, .F., displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
       IF !empty(FontHandle)
-         _SetFontHandle(ControlHandle, FontHandle)
+         hmg__SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle(ControlHandle)
-            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 

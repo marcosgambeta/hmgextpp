@@ -100,7 +100,7 @@ METHOD TComboBox:New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChan
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
-         _SetFontHandle(::hWnd, hFont)
+         hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 

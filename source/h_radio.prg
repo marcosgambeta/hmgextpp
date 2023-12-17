@@ -180,12 +180,12 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
             ENDIF
 
             IF !empty(FontHandle)
-               _SetFontHandle(ControlHandle, FontHandle)
+               hmg__SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle(ControlHandle)
-                  FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+                  FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
 
@@ -205,12 +205,12 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       ControlHandle := InitRadioGroup(ParentFormHandle, aOptions[1], 0, x, y, "", 0, width, invisible, notabstop, leftjustify)
 
       IF !empty(FontHandle)
-         _SetFontHandle(ControlHandle, FontHandle)
+         hmg__SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle(ControlHandle)
-            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -233,10 +233,10 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          ControlHandle := InitRadioButton(ParentFormHandle, aOptions[i], 0, x, y, "", 0, width, invisible, leftjustify)
 
          IF !empty(FontHandle)
-            _SetFontHandle(ControlHandle, FontHandle)
+            hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
             IF IsWindowHandle(ControlHandle)
-               FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+               FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 

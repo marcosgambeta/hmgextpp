@@ -178,12 +178,12 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF !empty(FontHandle)
-      _SetFontHandle(ControlHandle, FontHandle)
+      hmg__SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       IF IsWindowHandle(ControlHandle)
-         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+         FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 

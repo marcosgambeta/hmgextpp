@@ -100,11 +100,11 @@ FUNCTION _DefineQhtm(ControlName, ParentForm, x, y, w, h, Value, fname, resname,
    ControlHandle := CreateQHTM(ParentFormHandle, nId, Iif(lBorder, WS_BORDER, 0), y, x, w, h)
 
    IF FontHandle != 0
-      _SetFontHandle(ControlHandle, FontHandle)
+      hmg__SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+      FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
    ENDIF
 
    IF hb_IsChar(Value)

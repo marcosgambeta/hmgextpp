@@ -114,7 +114,7 @@ METHOD TBtnBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
-         _SetFontHandle(::hWnd, hFont)
+         hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
       oWnd:AddControl(::hWnd)

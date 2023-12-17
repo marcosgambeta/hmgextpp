@@ -223,12 +223,12 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
    IF !lDialogInMemory
 
       IF !empty(FontHandle)
-         _SetFontHandle(aControlHandle[1], FontHandle)
+         hmg__SetFontHandle(aControlHandle[1], FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle(aControlHandle[1])
-            FontHandle := _SetFont(aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
          SetTbBtnMargin(aControlHandle[1], BtnWidth, .T., lBtn2)
       ENDIF

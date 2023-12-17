@@ -145,12 +145,12 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
          SetWindowStyle(aControlHandle[1], style, .T.)
 
          IF aControlHandle[2] != 0
-            _SetFontHandle(aControlHandle[1], aControlHandle[2])
+            hmg__SetFontHandle(aControlHandle[1], aControlHandle[2])
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle(aControlHandle[1])
-               aControlHandle[2] := _SetFont(aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout)
+               aControlHandle[2] := hmg__SetFont(aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 

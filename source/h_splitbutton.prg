@@ -71,11 +71,11 @@ PROCEDURE _DefineSplitButton(cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF !empty(FontHandle)
-      _SetFontHandle(hControlHandle, FontHandle)
+      hmg__SetFontHandle(hControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      FontHandle := _SetFont(hControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+      FontHandle := hmg__SetFont(hControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
    ENDIF
 
 #ifdef _NAMES_LIST_

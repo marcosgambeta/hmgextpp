@@ -195,12 +195,12 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
          h := GetWindowHeight(Controlhandle)
 
          IF !empty(FontHandle)
-            _SetFontHandle(ControlHandle, FontHandle)
+            hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle(ControlHandle)
-               FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+               FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
@@ -223,12 +223,12 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
             ControlHandle := InitComboBox(_HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
             IF !empty(FontHandle)
-               _SetFontHandle(ControlHandle, FontHandle)
+               hmg__SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle(ControlHandle)
-                  FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+                  FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
 
@@ -249,12 +249,12 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
    IF !lDialogInMemory
 
       IF !empty(FontHandle)
-         _SetFontHandle(ControlHandle, FontHandle)
+         hmg__SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle(ControlHandle)
-            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+            FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 

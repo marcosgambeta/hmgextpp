@@ -544,7 +544,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       ENDIF
 
       IF !empty(FontHandle)
-         _SetFontHandle(ControlHandle, FontHandle)
+         hmg__SetFontHandle(ControlHandle, FontHandle)
          oBrw:hFont := FontHandle
       ELSE
          IF fontname == NIL
@@ -553,7 +553,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
          IF fontsize == NIL
             FONTSIZE := _HMG_DefaultFontSize
          ENDIF
-         oBrw:hFont := _SetFont(ControlHandle, FONTNAME, FONTSIZE, BOLD, italic, underline, strikeout)
+         oBrw:hFont := hmg__SetFont(ControlHandle, FONTNAME, FONTSIZE, BOLD, italic, underline, strikeout)
       ENDIF
 
    ENDIF
@@ -1512,7 +1512,7 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
          ::SetFont(::hFont)
          ::nHeightCell := ::nHeightHead := SBGetHeight(::hWnd, ::hFont, 0)
       ELSE
-         hFont := InitFont(::cFont, ::nFontSize) // SergKis addition
+         hFont := hmg_InitFont(::cFont, ::nFontSize) // SergKis addition
          ::nHeightCell := ::nHeightHead := GetTextHeight(0, "B", hFont) + 1
          hmg_DeleteObject(hFont)
       ENDIF
@@ -3575,7 +3575,7 @@ METHOD TSBrowse:DrawHeaders(lFooters, lDrawCell)
          IF LoWord(oColumn:nHAlign) == DT_VERT
             cHeading := "Arial"
 
-            hFont := InitFont(cHeading, -11, .F., .F., .F., .F., 900)
+            hFont := hmg_InitFont(cHeading, -11, .F., .F., .F., .F., 900)
 
             nVAlign := 2
             nVertText := 1
