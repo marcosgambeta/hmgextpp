@@ -97,12 +97,12 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
          EXIT
 
       CASE 2  // box
-         WndBoxIn(hDC, row, col, rowr, colr)
+         hmg_WndBoxIn(hDC, row, col, rowr, colr)
          FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
          EXIT
 
       CASE 3  // panel
-         WndBoxRaised(hDC, row, col, rowr, colr)
+         hmg_WndBoxRaised(hDC, row, col, rowr, colr)
          FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
          EXIT
 
@@ -121,7 +121,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
       CASE 2  // box
          AAdd(_HMG_aFormGraphTasks[i], ;
             {||hDC := GetDC(FormHandle), ;
-            WndBoxIn(hDC, row, col, rowr, colr), ;
+            hmg_WndBoxIn(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
             ReleaseDC(FormHandle, hDC)})
          EXIT
@@ -129,7 +129,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
       CASE 3  // panel
          AAdd(_HMG_aFormGraphTasks[i], ;
             {||hDC := GetDC(FormHandle), ;
-            WndBoxRaised(hDC, row, col, rowr, colr), ;
+            hmg_WndBoxRaised(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
             ReleaseDC(FormHandle, hDC)})
          EXIT
