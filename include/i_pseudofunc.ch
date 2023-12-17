@@ -224,12 +224,12 @@
 
 #xtranslate _DestroyImageList(<ControlName>, <ParentFormName>) => hmg_ImageList_Destroy(GetControlHandle(<ControlName>, <ParentFormName>)) ;; _ReleaseControl(<ControlName>, <ParentFormName>)
 #xtranslate IL_DESTROY(<h>) => hmg_ImageList_Destroy(<h>)
-#xtranslate _DragEnterImage(<ix>, <iy>) => IL_DragEnter(_HMG_ActiveDragImageHandle, <ix>, <iy>)
-#xtranslate _MoveImage(<ix>, <iy>) => IL_DragMove(<ix>, <iy>)
-#xtranslate _EndDragImage() => IL_EndDrag(_HMG_ActiveDragImageHandle)
-#xtranslate _GetImageCount(<ControlName>, <ParentFormName>) => IL_GetImageCount(GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _RemoveImageFromImageList(<ControlName>, <ParentFormName>, <ImageIndex>) => IL_Remove(GetControlHandle(<ControlName>, <ParentFormName>), <ImageIndex>)
-#xtranslate _DrawImageFromImageList(<ControlName>, <ParentFormName>, <ImageIndex>, <cx>, <cy>) => IL_Draw(GetFormHandle(<ParentFormName>), GetControlHandle(<ControlName>, <ParentFormName>), <ImageIndex>, <cx>, <cy>)
+#xtranslate _DragEnterImage(<ix>, <iy>) => hmg_IL_DragEnter(_HMG_ActiveDragImageHandle, <ix>, <iy>)
+#xtranslate _MoveImage(<ix>, <iy>) => hmg_IL_DragMove(<ix>, <iy>)
+#xtranslate _EndDragImage() => hmg_IL_EndDrag(_HMG_ActiveDragImageHandle)
+#xtranslate _GetImageCount(<ControlName>, <ParentFormName>) => hmg_IL_GetImageCount(GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _RemoveImageFromImageList(<ControlName>, <ParentFormName>, <ImageIndex>) => hmg_IL_Remove(GetControlHandle(<ControlName>, <ParentFormName>), <ImageIndex>)
+#xtranslate _DrawImageFromImageList(<ControlName>, <ParentFormName>, <ImageIndex>, <cx>, <cy>) => hmg_IL_Draw(GetFormHandle(<ParentFormName>), GetControlHandle(<ControlName>, <ParentFormName>), <ImageIndex>, <cx>, <cy>)
 
 // ============================================================================
 

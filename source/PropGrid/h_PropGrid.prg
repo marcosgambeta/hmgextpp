@@ -310,7 +310,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
       itemheight := TreeView_GetItemHeight(aControlHandle[1])
    ENDIF
 
-   hColorIL := InitImageList(( itemheight - 4 ) * 1.4, itemheight - 4, .T.)
+   hColorIL := hmg_InitImageList(( itemheight - 4 ) * 1.4, itemheight - 4, .T.)
 
    InitPropGridImageList(aControlHandle[1], hColorIL)  // Init Color Image List
 
@@ -2847,7 +2847,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          aSysColor := PgIdentColor(1)
          ComboBoxReset(hEdit)
          IF hIListSys == HMG_NULLHANDLE
-            hIListSys := InitImageList(ItHeight * 1.4, ItHeight, .F., 0)
+            hIListSys := hmg_InitImageList(ItHeight * 1.4, ItHeight, .F., 0)
             FOR n := 1 TO Len(aSysColor)
                nColor := GetSysColor(aSysColor[n, 1])
                hImage := CREATECOLORBMP(hWnd, nColor, ItHeight * 1.4, ItHeight)
