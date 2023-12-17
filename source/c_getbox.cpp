@@ -74,7 +74,7 @@ LRESULT CALLBACK  OwnGetProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-HB_FUNC( INITGETBOX )
+HB_FUNC( HMG_INITGETBOX )
 {
    int  style;                   // GETBOX window base style.
    int  ibtnStyle1, ibtnStyle2;  // BUTTON window base style.
@@ -280,12 +280,20 @@ HB_FUNC( INITGETBOX )
    hmg_storvhandle(himage2, -1, 5);
 }
 
-HB_FUNC( CHECKBIT )
+#if 1
+HB_FUNC_TRANSLATE( INITGETBOX, HMG_INITGETBOX )
+#endif
+
+HB_FUNC( HMG_CHECKBIT )
 {
    hb_retl(hb_parnl(1) & (1 << (hb_parni(2) - 1)));
 }
 
-HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixels
+#if 1
+HB_FUNC_TRANSLATE( CHECKBIT, HMG_CHECKBIT )
+#endif
+
+HB_FUNC( HMG_GETTEXTHEIGHT )               // returns the height of a string in pixels
 {
    auto hDC = hmg_par_HDC(1);
    HWND  hWnd       = nullptr;
@@ -326,6 +334,10 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
    hb_xfree(static_cast<TCHAR*>(lpString));
 #endif
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETTEXTHEIGHT, HMG_GETTEXTHEIGHT )
+#endif
 
 LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
@@ -496,7 +508,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 
             return r ? TRUE : CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
          }
-      }   
+      }
    }
 
    return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);

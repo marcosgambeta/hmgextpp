@@ -102,7 +102,7 @@
 
 // ============================================================================
 
-#xtranslate _GetKeyState(<VKey>) => CheckBit(GetKeyState(<VKey>), 32768)
+#xtranslate _GetKeyState(<VKey>) => hmg_CheckBit(GetKeyState(<VKey>), 32768)
 #xtranslate GetEscapeState() => GetKeyState(VK_ESCAPE)
 #xtranslate GetAltState() => GetKeyState(VK_MENU)
 #xtranslate IsInsertActive() => (GetKeyState(VK_INSERT) > 0)

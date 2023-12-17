@@ -243,7 +243,7 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      aControlHandle := InitGetBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
+      aControlHandle := hmg_InitGetBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
          .F., .F., .F., lPassword, right, readonly, invisible, notabstop, abitmap[1], BtnWidth, lBtns, abitmap[2], lBtn2, noborder)
 
       ControlHandle := aControlHandle[1]

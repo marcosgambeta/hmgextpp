@@ -2731,7 +2731,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          nX := 12
 
          hFont := hmg_InitFont(cFont, nSize)
-         nHeight := GetTextHeight(NIL, "A", hFont)
+         nHeight := hmg_GetTextHeight(NIL, "A", hFont)
 
          IF lWidth
             nWidth := hmg_GetTextWidth(NIL, cTmp, hFont) + nX * 2

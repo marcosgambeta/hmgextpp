@@ -1513,7 +1513,7 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
          ::nHeightCell := ::nHeightHead := SBGetHeight(::hWnd, ::hFont, 0)
       ELSE
          hFont := hmg_InitFont(::cFont, ::nFontSize) // SergKis addition
-         ::nHeightCell := ::nHeightHead := GetTextHeight(0, "B", hFont) + 1
+         ::nHeightCell := ::nHeightHead := hmg_GetTextHeight(0, "B", hFont) + 1
          hmg_DeleteObject(hFont)
       ENDIF
       ::nHeightFoot := 0

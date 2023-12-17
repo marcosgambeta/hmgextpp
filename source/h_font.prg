@@ -118,7 +118,7 @@ PROCEDURE _DefineFont(FontName, fName, fSize, bold, italic, underline, strikeout
    _HMG_aControlRow                [k] := 0
    _HMG_aControlCol                [k] := 0
    _HMG_aControlWidth              [k] := hmg_GetTextWidth(NIL, "B", FontHandle)
-   _HMG_aControlHeight             [k] := GetTextHeight(NIL, "B", FontHandle)
+   _HMG_aControlHeight             [k] := hmg_GetTextHeight(NIL, "B", FontHandle)
    _HMG_aControlSpacing            [k] := 0
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel ], -1)

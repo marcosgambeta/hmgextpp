@@ -2479,7 +2479,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
             IF _HMG_aControlHeadClick[x]
                Width := hmg_GetTextWidth(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 21
                p[i] := Width
-               height := GetTextHeight(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 8
+               height := hmg_GetTextHeight(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 8
             ENDIF
             IF _HMG_aControlMiscData1[x]
                IF _HMG_aControlHeadClick[x] .AND. i > 1
@@ -2506,7 +2506,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
             IF _HMG_aControlHeadClick[x]
                Width := hmg_GetTextWidth(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 21
                p[i] := Width
-               height := GetTextHeight(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 8
+               height := hmg_GetTextHeight(NIL, _HMG_aControlCaption[x][i], _HMG_aControlFontHandle[x]) + 8
             ENDIF
             IF _HMG_aControlMiscData1[x]
                IF _HMG_aControlHeadClick[x] .AND. i > 1

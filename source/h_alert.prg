@@ -293,7 +293,7 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
 
    // calculate the character height for the dialog font
 
-   nChrHeight := GetTextHeight(hDC, aOptions[1], hDlgFont) + nVMARGIN_BUTTON / 2
+   nChrHeight := hmg_GetTextHeight(hDC, aOptions[1], hDlgFont) + nVMARGIN_BUTTON / 2
 
    // calculate the maximum width of the lines
 
