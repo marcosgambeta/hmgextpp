@@ -75,7 +75,7 @@ FUNCTION _DefinePlayer(ControlName, ParentFormName, file, x, y, w, h, noasw, noa
 
    mVar := "_" + ParentFormName + "_" + ControlName
 
-   ControlHandle := InitPlayer(GetFormHandle(ParentFormName), file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp)
+   ControlHandle := hmg_InitPlayer(GetFormHandle(ParentFormName), file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
@@ -143,7 +143,7 @@ FUNCTION PlayWave(wave, r, s, ns, l, nd)
       r := s := ns := l := nd := .F.
    ENDIF
 
-RETURN C_PlayWave(wave, r, s, ns, l, nd)
+RETURN hmg_C_PlayWave(wave, r, s, ns, l, nd)
 
 //---------------------------------------------------------------------------//
 FUNCTION GetAviFileSize(cFile)
@@ -273,7 +273,7 @@ FUNCTION _DefineAnimateBox(ControlName, ParentFormName, x, y, w, h, autoplay, ce
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitAnimate(ParentFormHandle, x, y, w, h, autoplay, center, transparent, border, invisible)
+      ControlHandle := hmg_InitAnimate(ParentFormHandle, x, y, w, h, autoplay, center, transparent, border, invisible)
 
    ENDIF
 

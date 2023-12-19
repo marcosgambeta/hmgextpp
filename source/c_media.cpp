@@ -70,12 +70,16 @@ HWND MCIWndCreateW(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCWSTR 
 
 #include <vfw.h>
 
-HB_FUNC( MESSAGEBEEP )
+HB_FUNC( HMG_MESSAGEBEEP )
 {
    hb_retl(MessageBeep(hb_parni(1)));
 }
 
-HB_FUNC( C_PLAYWAVE )
+#if 1
+HB_FUNC_TRANSLATE( MESSAGEBEEP, HMG_MESSAGEBEEP )
+#endif
+
+HB_FUNC( HMG_C_PLAYWAVE )
 {
    int style = SND_ASYNC;
    HMODULE hmod  = nullptr;
@@ -108,12 +112,20 @@ HB_FUNC( C_PLAYWAVE )
    hb_strfree(str);
 }
 
-HB_FUNC( STOPWAVE )
+#if 1
+HB_FUNC_TRANSLATE( C_PLAYWAVE, HMG_C_PLAYWAVE )
+#endif
+
+HB_FUNC( HMG_STOPWAVE )
 {
    hb_retl(PlaySound(nullptr, GetResources(), SND_PURGE));
 }
 
-HB_FUNC( INITPLAYER )
+#if 1
+HB_FUNC_TRANSLATE( STOPWAVE, HMG_STOPWAVE )
+#endif
+
+HB_FUNC( HMG_INITPLAYER )
 {
    DWORD style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
@@ -170,7 +182,11 @@ HB_FUNC( INITPLAYER )
    hmg_ret_HWND(hwnd);
 }
 
-HB_FUNC( MCIFUNC )
+#if 1
+HB_FUNC_TRANSLATE( INITPLAYER, HMG_INITPLAYER )
+#endif
+
+HB_FUNC( HMG_MCIFUNC )
 {
    auto mcihand = hmg_par_HWND(1);
    auto func = hb_parni(2);
@@ -200,7 +216,11 @@ HB_FUNC( MCIFUNC )
    }
 }
 
-HB_FUNC( INITANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( MCIFUNC, HMG_MCIFUNC )
+#endif
+
+HB_FUNC( HMG_INITANIMATE )
 {
    DWORD style = WS_CHILD;
 
@@ -235,29 +255,53 @@ HB_FUNC( INITANIMATE )
    hmg_ret_HWND(hwnd);
 }
 
-HB_FUNC( OPENANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( INITANIMATE, HMG_INITANIMATE )
+#endif
+
+HB_FUNC( HMG_OPENANIMATE )
 {
    void * str;
    Animate_Open(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr));
    hb_strfree(str);
 }
 
-HB_FUNC( PLAYANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( OPENANIMATE, HMG_OPENANIMATE )
+#endif
+
+HB_FUNC( HMG_PLAYANIMATE )
 {
    Animate_Play(hmg_par_HWND(1), 0, -1, 1);
 }
 
-HB_FUNC( SEEKANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( PLAYANIMATE, HMG_PLAYANIMATE )
+#endif
+
+HB_FUNC( HMG_SEEKANIMATE )
 {
    Animate_Seek(hmg_par_HWND(1), hb_parni(2));
 }
 
-HB_FUNC( STOPANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( SEEKANIMATE, HMG_SEEKANIMATE )
+#endif
+
+HB_FUNC( HMG_STOPANIMATE )
 {
    Animate_Stop(hmg_par_HWND(1));
 }
 
-HB_FUNC( CLOSEANIMATE )
+#if 1
+HB_FUNC_TRANSLATE( STOPANIMATE, HMG_STOPANIMATE )
+#endif
+
+HB_FUNC( HMG_CLOSEANIMATE )
 {
    Animate_Close(hmg_par_HWND(1));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CLOSEANIMATE, HMG_CLOSEANIMATE )
+#endif

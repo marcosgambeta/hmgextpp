@@ -226,4 +226,4 @@ _DestroyAnimateBox ( <"ControlName"> , <"ParentForm"> )
                           [<nd: NODEFAULT>] ;
         => playwave(<wave>,<.r.>,<.s.>,<.ns.>,<.l.>,<.nd.>)
 
-#command STOP WAVE [ NODEFAULT ] => stopwave()
+#command STOP WAVE [ NODEFAULT ] => hmg_stopwave()
