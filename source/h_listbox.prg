@@ -190,9 +190,9 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
          IF i > 0
 
             IF multiselect
-               ControlHandle := InitMultiListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
+               ControlHandle := hmg_InitMultiListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ELSE
-               ControlHandle := InitListBox(_HMG_aFormReBarHandle[i] , 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
+               ControlHandle := hmg_InitListBox(_HMG_aFormReBarHandle[i] , 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ENDIF
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -204,9 +204,9 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       ELSE
 
          IF multiselect
-            ControlHandle := InitMultiListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
+            ControlHandle := hmg_InitMultiListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ELSE
-            ControlHandle := InitListBox(ParentFormHandle, 0, x, y, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
+            ControlHandle := hmg_InitListBox(ParentFormHandle, 0, x, y, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ENDIF
 
       ENDIF
@@ -288,10 +288,10 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
 
    IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
 
-      AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
+      AEval(Rows, {|r|hmg_ListboxAddString(ControlHandle, r)})
       IF multiselect
          IF hb_IsArray(value)
-            LISTBOXSETMULTISEL(ControlHandle, Value)
+            hmg_LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
          IF hb_IsNumeric(value) .AND. value != 0
@@ -299,7 +299,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
          ENDIF
       ENDIF
       IF multitabs
-         LISTBOXSETMULTITAB(ControlHandle, aWidth)
+         hmg_LISTBOXSETMULTITAB(ControlHandle, aWidth)
       ENDIF
    ENDIF
 
@@ -321,11 +321,11 @@ FUNCTION InitDialogListBox(ParentName, ControlHandle, k)
    aWidth := _HMG_aControlRangeMax[k]
    multitabs := _HMG_aControlMiscData1[k][2]
 
-   AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
+   AEval(Rows, {|r|hmg_ListboxAddString(ControlHandle, r)})
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTILIST
       IF hb_IsArray(value)
-         LISTBOXSETMULTISEL(ControlHandle, Value)
+         hmg_LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
       IF hb_IsNumeric(value) .AND. value != 0
@@ -333,7 +333,7 @@ FUNCTION InitDialogListBox(ParentName, ControlHandle, k)
       ENDIF
    ENDIF
    IF multitabs
-      LISTBOXSETMULTITAB(ControlHandle, aWidth)
+      hmg_LISTBOXSETMULTITAB(ControlHandle, aWidth)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

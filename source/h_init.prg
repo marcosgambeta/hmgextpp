@@ -437,7 +437,7 @@ PROCEDURE Init()
    _HMG_aControlMiscData1          := {}
    _HMG_aControlMiscData2          := {}
 
-   _HMG_ListBoxDragNotification := _GetDDLMessage()
+   _HMG_ListBoxDragNotification := hmg__GetDDLMessage()
    _HMG_FindReplaceOptions := Array(6)
    _HMG_CharRange_Min := 0
    _HMG_CharRange_Max := 0

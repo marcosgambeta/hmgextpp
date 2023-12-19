@@ -249,7 +249,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
 
    CASE CONTROL_TYPE_MULTILIST
    CASE CONTROL_TYPE_MULTICHKLIST
-      retval := ListBoxGetMultiSel(c)
+      retval := hmg_ListBoxGetMultiSel(c)
       EXIT
 
    CASE CONTROL_TYPE_MULTIGRID
@@ -623,7 +623,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_MULTILIST
    CASE CONTROL_TYPE_MULTICHKLIST
-      LISTBOXSETMULTISEL(c, value)
+      hmg_LISTBOXSETMULTISEL(c, value)
       EXIT
 
    CASE CONTROL_TYPE_MULTIGRID
@@ -852,7 +852,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
       IF _HMG_aControlMiscData1[ix][2] .AND. hb_IsArray(value)
          value := LB_Array2String(value)
       ENDIF
-      ListBoxAddstring(c, value)
+      hmg_ListBoxAddstring(c, value)
       EXIT
 
    CASE CONTROL_TYPE_CHKLIST
@@ -1866,7 +1866,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
          value := LB_Array2String(value)
       ENDIF
       ListBoxDeleteString(c, Item)
-      ListBoxInsertString(c, value, Item)
+      hmg_ListBoxInsertString(c, value, Item)
       ListBoxSetCurSel(c, Item)
       EXIT
 
@@ -1878,18 +1878,18 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_MULTILIST
-      aTemp := ListBoxGetMultiSel(c)
+      aTemp := hmg_ListBoxGetMultiSel(c)
       ListBoxDeleteString(c, Item)
-      ListBoxInsertString(c, value, Item)
-      ListBoxSetMultiSel(c, aTemp)
+      hmg_ListBoxInsertString(c, value, Item)
+      hmg_ListBoxSetMultiSel(c, aTemp)
       EXIT
 
    CASE CONTROL_TYPE_MULTICHKLIST
       Pos := iif(ChkList_GetCheckBox(c, Item), 2, 1)
-      aTemp := ListBoxGetMultiSel(c)
+      aTemp := hmg_ListBoxGetMultiSel(c)
       ListBoxDeleteString(c, Item)
       ChkListBoxInsertItem(c, value, Item, Pos)
-      ListBoxSetMultiSel(c, aTemp)
+      hmg_ListBoxSetMultiSel(c, aTemp)
       EXIT
 
    CASE CONTROL_TYPE_COMBO
@@ -2052,7 +2052,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
    CASE CONTROL_TYPE_LIST
    CASE CONTROL_TYPE_MULTICHKLIST
    CASE CONTROL_TYPE_MULTILIST
-      RetVal := ListBoxGetString(c, Item)
+      RetVal := hmg_ListBoxGetString(c, Item)
       IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. _HMG_aControlMiscData1[i][2]
          RetVal := LB_String2Array(RetVal)
       ENDIF
@@ -2968,7 +2968,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
 
             IF hb_IsLogical(lState)
                IF T == CONTROL_TYPE_MULTICHKLIST
-                  uSel := ListBoxGetMultiSel(_HMG_aControlHandles[i])
+                  uSel := hmg_ListBoxGetMultiSel(_HMG_aControlHandles[i])
                ELSE
                   uSel := ListBoxGetCursel(_HMG_aControlHandles[i])
                ENDIF
@@ -2976,7 +2976,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
                ChkList_SetCheckBox(_HMG_aControlHandles[i], Item, iif(lState, 2, 1))
 
                IF T == CONTROL_TYPE_MULTICHKLIST
-                  ListBoxSetMultiSel(_HMG_aControlHandles[i], uSel)
+                  hmg_ListBoxSetMultiSel(_HMG_aControlHandles[i], uSel)
                ELSE
                   ListBoxSetCursel(_HMG_aControlHandles[i], uSel)
                ENDIF

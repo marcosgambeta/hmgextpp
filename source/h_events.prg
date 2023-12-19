@@ -4073,21 +4073,21 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       ELSEIF nMsg == _HMG_ListBoxDragNotification
 
-         SWITCH GET_DRAG_LIST_NOTIFICATION_CODE(lParam)
+         SWITCH hmg_GET_DRAG_LIST_NOTIFICATION_CODE(lParam)
 
          CASE DL_BEGINDRAG
             // Original Item
-            _HMG_ListBoxDragItem := GET_DRAG_LIST_DRAGITEM(lParam)
+            _HMG_ListBoxDragItem := hmg_GET_DRAG_LIST_DRAGITEM(lParam)
             RETURN 1
 
          CASE DL_DRAGGING
             // Current Item
-            _HMG_ListBoxDragListId := GET_DRAG_LIST_DRAGITEM(lParam)
+            _HMG_ListBoxDragListId := hmg_GET_DRAG_LIST_DRAGITEM(lParam)
 
             IF _HMG_ListBoxDragListId > _HMG_ListBoxDragItem
-               DRAG_LIST_DRAWINSERT(hWnd, lParam, _HMG_ListBoxDragListId + 1)
+               hmg_DRAG_LIST_DRAWINSERT(hWnd, lParam, _HMG_ListBoxDragListId + 1)
             ELSE
-               DRAG_LIST_DRAWINSERT(hWnd, lParam, _HMG_ListBoxDragListId)
+               hmg_DRAG_LIST_DRAWINSERT(hWnd, lParam, _HMG_ListBoxDragListId)
             ENDIF
 
             IF _HMG_ListBoxDragListId != -1
@@ -4109,13 +4109,13 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             EXIT
 
          CASE DL_DROPPED
-            _HMG_ListBoxDragListId := GET_DRAG_LIST_DRAGITEM(lParam)
+            _HMG_ListBoxDragListId := hmg_GET_DRAG_LIST_DRAGITEM(lParam)
 
             IF _HMG_ListBoxDragListId != -1
-               DRAG_LIST_MOVE_ITEMS(lParam, _HMG_ListBoxDragItem, _HMG_ListBoxDragListId)
+               hmg_DRAG_LIST_MOVE_ITEMS(lParam, _HMG_ListBoxDragItem, _HMG_ListBoxDragListId)
             ENDIF
 
-            DRAG_LIST_DRAWINSERT(hWnd, lParam, -1)
+            hmg_DRAG_LIST_DRAWINSERT(hWnd, lParam, -1)
             _HMG_ListBoxDragItem := -1
 
          END SWITCH

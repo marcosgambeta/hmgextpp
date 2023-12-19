@@ -283,7 +283,7 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
 
       IF multiselect
          IF hb_IsArray(value)
-            LISTBOXSETMULTISEL(ControlHandle, Value)
+            hmg_LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
          IF hb_IsNumeric(value) .AND. value != 0
@@ -309,7 +309,7 @@ FUNCTION InitDialogChkListBox(ParentName, ControlHandle, k)
    FontHandle  := _HMG_aControlFontHandle[k]
 
    IF Len(Rows) > 0
-      AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
+      AEval(Rows, {|r|hmg_ListboxAddString(ControlHandle, r)})
    ENDIF
 
    IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
@@ -318,7 +318,7 @@ FUNCTION InitDialogChkListBox(ParentName, ControlHandle, k)
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST
       IF hb_IsArray(value)
-         LISTBOXSETMULTISEL(ControlHandle, Value)
+         hmg_LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
       IF hb_IsNumeric(value) .AND. value != 0

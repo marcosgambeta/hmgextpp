@@ -2945,7 +2945,7 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
             EnableDialogItem(DLG_HWND, 105)
             hmg_SetDialogItemText(DLG_HWND, 101, "")
             AAdd(aItem, cValue)
-            ListboxAddString(hListBox, cValue)
+            hmg_ListboxAddString(hListBox, cValue)
             DisableDialogItem(DLG_HWND, 110)
          ENDIF
          EXIT
@@ -3027,7 +3027,7 @@ STATIC FUNCTION SetInitItem(aItem, met)
    ENDIF
    hListBox := hmg_Getdialogitemhandle(DLG_HWND, 102)
    FOR i = 1 TO Len(aItem)
-      ListboxAddString(hListBox, aItem[i])
+      hmg_ListboxAddString(hListBox, aItem[i])
    NEXT i
 
 RETURN NIL
