@@ -1344,7 +1344,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle)
+            hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle)
 
             RETURN 1
          ENDIF

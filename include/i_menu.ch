@@ -125,47 +125,47 @@ HMG_SetMenuTheme( MNUCLR_THEME_USER_DEFINED , <(parent)> , <aUser> )
 
 #xcommand SET MENUCURSOR FULL ;
 => ;
-SetMenuCursorType( 0 )
+hmg_SetMenuCursorType( 0 )
 
 #xcommand SET MENUCURSOR SHORT ;
 => ;
-SetMenuCursorType( 1 )
+hmg_SetMenuCursorType( 1 )
 
 #xcommand SET MENUSEPARATOR SINGLE LEFTALIGN ;
 => ;
-SetMenuSeparatorType( 0, 0 )
+hmg_SetMenuSeparatorType( 0, 0 )
 
 #xcommand SET MENUSEPARATOR SINGLE CENTERALIGN ;
 => ;
-SetMenuSeparatorType( 0, 1 )
+hmg_SetMenuSeparatorType( 0, 1 )
 
 #xcommand SET MENUSEPARATOR SINGLE RIGHTALIGN ;
 => ;
-SetMenuSeparatorType( 0, 2 )
+hmg_SetMenuSeparatorType( 0, 2 )
 
 #xcommand SET MENUSEPARATOR DOUBLE LEFTALIGN ;
 => ;
-SetMenuSeparatorType( 1, 0 )
+hmg_SetMenuSeparatorType( 1, 0 )
 
 #xcommand SET MENUSEPARATOR DOUBLE CENTERALIGN ;
 => ;
-SetMenuSeparatorType( 1, 1 )
+hmg_SetMenuSeparatorType( 1, 1 )
 
 #xcommand SET MENUSEPARATOR DOUBLE RIGHTALIGN ;
 => ;
-SetMenuSeparatorType( 1, 2 )
+hmg_SetMenuSeparatorType( 1, 2 )
 
 #xcommand SET MENUITEM BORDER 3D ;
 => ;
-SetMenuSelectedItem3d( .T. )
+hmg_SetMenuSelectedItem3d( .T. )
 
 #xcommand SET MENUITEM BORDER 3DSTYLE ;
 => ;
-SetMenuSelectedItem3d( .T. )
+hmg_SetMenuSelectedItem3d( .T. )
 
 #xcommand SET MENUITEM BORDER FLAT ;
 => ;
-SetMenuSelectedItem3d( .F. )
+hmg_SetMenuSelectedItem3d( .F. )
 
 
 #xcommand DEFINE MAIN MENU [ OF <parent> ] ;

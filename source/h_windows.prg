@@ -282,7 +282,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    ENDIF
 
    IF Empty(_HMG_InteractiveClose) .AND. !Main .AND. !nosysmenu .AND. !nocaption
-      xDisableCloseButton(FormHandle, .F.)
+      hmg_xDisableCloseButton(FormHandle, .F.)
    ENDIF
 
    IF mdi .AND. cursor != NIL  /* P.Ch. 16.10. */
@@ -532,7 +532,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    Formhandle := InitModalWindow(Caption, x, y, w, h, Parent, nosize, nosysmenu, nocaption, ClassName, vscroll, hscroll, helpbutton)
 
    IF Empty(_HMG_InteractiveClose) .AND. !nosysmenu .AND. !nocaption
-      xDisableCloseButton(FormHandle, .F.)
+      hmg_xDisableCloseButton(FormHandle, .F.)
    ENDIF
 
    IF cursor != NIL
@@ -2240,8 +2240,8 @@ FUNCTION ReleaseAllWindows()
 
    NEXT
 
-   IF IsExtendedMenuStyleActive() .AND. IsMenu(hMenu := GetMenu(_HMG_MainHandle))
-      _OnDestroyMenu(hMenu)  // Release OwnerDraw Main Menu
+   IF IsExtendedMenuStyleActive() .AND. hmg_IsMenu(hMenu := hmg_GetMenu(_HMG_MainHandle))
+      hmg__OnDestroyMenu(hMenu)  // Release OwnerDraw Main Menu
    ENDIF
 
    FOR EACH ControlType IN _HMG_aControlType

@@ -378,14 +378,14 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    _ActivateWindow ( \{<(name)>\}, .T., .T. )
 
 
-#xtranslate IsMainMenuDefined ( <FormName> ) => ( Empty( GetMenu( GetFormHandle( <FormName> ) ) ) == .F. )
+#xtranslate IsMainMenuDefined ( <FormName> ) => ( Empty( hmg_GetMenu( GetFormHandle( <FormName> ) ) ) == .F. )
 
-#xtranslate IsNotifyMenuDefined ( <FormName> ) => IsMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <FormName> ) ] )
+#xtranslate IsNotifyMenuDefined ( <FormName> ) => hmg_IsMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <FormName> ) ] )
 
-#xtranslate IsContextMenuDefined ( <FormName> ) => IsMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <FormName> ) ] )
+#xtranslate IsContextMenuDefined ( <FormName> ) => hmg_IsMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <FormName> ) ] )
 
 
-#xcommand RELEASE MAIN MENU OF <form> => DestroyMenu( GetMenu( GetFormHandle( <(form)> ) ) ) ; SetMenu( GetFormHandle( <(form)> ), 0 )
+#xcommand RELEASE MAIN MENU OF <form> => DestroyMenu( hmg_GetMenu( GetFormHandle( <(form)> ) ) ) ; hmg_SetMenu( GetFormHandle( <(form)> ), 0 )
 
 #xcommand RELEASE CONTEXT MENU OF <form> => DEFINE CONTEXT MENU OF <form> ; END MENU ; DestroyMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <(form)> ) ] )
 

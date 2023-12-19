@@ -4128,7 +4128,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "CLOSABLE"
          IF IsWindowHasStyle(GetFormHandle(Arg1), WS_CAPTION) .AND. IsWindowHasStyle(GetFormHandle(Arg1), WS_SYSMENU)
-            xDisableCloseButton(GetFormHandle(Arg1), Arg3)
+            hmg_xDisableCloseButton(GetFormHandle(Arg1), Arg3)
          ENDIF
          EXIT
       CASE "VISIBLE"
@@ -4866,7 +4866,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := IsWindowHasStyle(GetFormHandle(Arg1), WS_MINIMIZEBOX)
          EXIT
       CASE "CLOSABLE"
-         RetVal := xGetMenuEnabledState(GetSystemMenu(GetFormHandle(Arg1)), SC_CLOSE)
+         RetVal := hmg_xGetMenuEnabledState(hmg_GetSystemMenu(GetFormHandle(Arg1)), SC_CLOSE)
          EXIT
       CASE "VISIBLE"
          RetVal := IsWindowVisible(GetFormHandle(Arg1))

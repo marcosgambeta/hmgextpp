@@ -488,7 +488,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
       aChevronInfo := CreatePopUpChevron(_HMG_aFormReBarHandle[i], lParam)
 
       TbHwnd := aChevronInfo[5]
-      hMenu := CreatePopupMenu()
+      hMenu := hmg_CreatePopupMenu()
 
       FOR n := aChevronInfo[6] TO aChevronInfo[7] - 1
 
@@ -506,17 +506,17 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
                cMenu := "Button " + hb_ntos(n)
             ENDIF
 
-            AppendMenuString(hMenu, aBtnInfo[2], cMenu)
+            hmg_AppendMenuString(hMenu, aBtnInfo[2], cMenu)
 
             image := _HMG_aControlPicture  [k]
             IF Len(image) != 0
-               MenuItem_SetBitMaps(hMenu, aBtnInfo[2], image, NIL)
+               hmg_MenuItem_SetBitMaps(hMenu, aBtnInfo[2], image, NIL)
             ELSE
                SetChevronImage(hMenu, aBtnInfo[2], hImage)
             ENDIF
 
             IF !lEnable
-               xDisableMenuItem(hMenu, aBtnInfo[2])
+               hmg_xDisableMenuItem(hMenu, aBtnInfo[2])
             ENDIF
 
          ENDIF
@@ -526,7 +526,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
       aPos := { 0, 0, 0, 0 }
       GetWindowRect(_HMG_aFormReBarHandle[i], aPos)
 
-      TrackPopupMenu(hMenu, aPos[1] + aChevronInfo[1], aPos[2] + aChevronInfo[4] + 3, hWnd)
+      hmg_TrackPopupMenu(hMenu, aPos[1] + aChevronInfo[1], aPos[2] + aChevronInfo[4] + 3, hWnd)
    ENDIF
 
    DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
@@ -550,7 +550,7 @@ STATIC PROCEDURE _DropDownShortcut(nToolButtonId, nParentWindowHandle, i, nButto
 
       aSize := GetButtonBarRect(_HMG_aControlHandles[i] , nButtonPos - 1)
 
-      TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
+      hmg_TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
          iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - HiWord(aSize) ) / 2), nParentWindowHandle)
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)

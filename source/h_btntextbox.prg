@@ -410,7 +410,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
             IF _HMG_aControlsContextMenu[i][4]
                hmg_setfocus(aHandle[1])
                _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
-               TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(HwndBtn), HIWORD(HwndBtn), ParentForm)
+               hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(HwndBtn), HIWORD(HwndBtn), ParentForm)
                RETURN 1
             ENDIF
          ENDIF

@@ -160,7 +160,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       SWITCH GETMISCTLTYPE(lParam)
 
       CASE ODT_MENU
-         _OnMeasureMenuItem(hWnd, nMsg, wParam, lParam)
+         hmg__OnMeasureMenuItem(hWnd, nMsg, wParam, lParam)
          EXIT
 
       CASE ODT_LISTBOX
@@ -183,7 +183,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             _OnDrawStatusItem(hWnd, lParam)
             RETURN 0
          ELSE
-            _OnDrawMenuItem(lParam)
+            hmg__OnDrawMenuItem(lParam)
             RETURN 0
          ENDIF
 
@@ -761,7 +761,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF _HMG_aControlType[i] == CONTROL_TYPE_HOTKEY
 
             IF _HMG_aControlValue[i] == VK_ESCAPE .AND. IsInitMenuPopup
-               _CloseMenu()
+               hmg__CloseMenu()
                RETURN 0
             ENDIF
 
@@ -1285,7 +1285,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                IF (i := AScan(_HMG_aFormHandles, hWnd)) > 0
 
                   IF _HMG_aFormNotifyMenuHandle[i] != 0
-                     TrackPopupMenu(_HMG_aFormNotifyMenuHandle[i], aPos[2], aPos[1], hWnd, .T.)
+                     hmg_TrackPopupMenu(_HMG_aFormNotifyMenuHandle[i], aPos[2], aPos[1], hWnd, .T.)
                   ENDIF
 
                ENDIF
@@ -1663,7 +1663,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ENDIF
 
-         TrackPopupMenu(_HMG_aControlsContextMenu[i, 2], _HMG_MouseCol, _HMG_MouseRow, hWnd)
+         hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i, 2], _HMG_MouseCol, _HMG_MouseRow, hWnd)
 
       ELSEIF _HMG_ShowContextMenus
 
@@ -1676,7 +1676,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                _HMG_MouseRow := aPos[1]
                _HMG_MouseCol := aPos[2]
                _MouseCoordCorr(hWnd, i)
-               TrackPopupMenu(_HMG_aFormContextMenuHandle[i], _HMG_MouseCol, _HMG_MouseRow, hWnd)
+               hmg_TrackPopupMenu(_HMG_aFormContextMenuHandle[i], _HMG_MouseCol, _HMG_MouseRow, hWnd)
             ENDIF
 
          ENDIF
@@ -1811,7 +1811,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                ELSE
 
-                  IF _HMG_aFormType[i] == "M" .AND. IsMenu(GetMenu(hWnd)) .AND. !_IsWindowActive(_HMG_aFormNames[i])
+                  IF _HMG_aFormType[i] == "M" .AND. hmg_IsMenu(hmg_GetMenu(hWnd)) .AND. !_IsWindowActive(_HMG_aFormNames[i])
                   ELSE
                      _DoWindowEventProcedure(_HMG_aFormSizeProcedure[i], i)
                   ENDIF
@@ -1870,7 +1870,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          IF HiWord(wParam) == 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_MENU
             IF _HMG_aControlMiscData1[i] == 1
-               _CloseMenu()
+               hmg__CloseMenu()
             ENDIF
             _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
             RETURN 0
@@ -3055,9 +3055,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF _HMG_ActiveSplitBoxInverted .OR. ;  // a tool button into an inverted splitbox
                   (k > 0 .AND. _HMG_aControlType[k] == CONTROL_TYPE_PAGER .AND. _HMG_aControlMiscData1[k])  // a tool button into a vertical pagerbox
-                  TrackPopupMenu(_HMG_aControlRangeMax[x], aPos[1] + LoWord(r), aPos[2] + HiWord(r), hWnd)
+                  hmg_TrackPopupMenu(_HMG_aControlRangeMax[x], aPos[1] + LoWord(r), aPos[2] + HiWord(r), hWnd)
                ELSE
-                  TrackPopupMenu(_HMG_aControlRangeMax[x], aPos[1] + LoWord(r), aPos[2] + HiWord(r) + (aPos[4] - aPos[2] - HiWord(r)) / 2, hWnd)
+                  hmg_TrackPopupMenu(_HMG_aControlRangeMax[x], aPos[1] + LoWord(r), aPos[2] + HiWord(r) + (aPos[4] - aPos[2] - HiWord(r)) / 2, hWnd)
                ENDIF
 
             ENDIF

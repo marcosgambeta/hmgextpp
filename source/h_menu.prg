@@ -62,7 +62,7 @@ PROCEDURE _DefineMainMenu(Parent)
    _HMG_xMenuType := "MAIN"
    _HMG_xMainMenuParentName := Parent
    _HMG_xMainMenuParentHandle := GetFormHandle(Parent)
-   _HMG_xMainMenuHandle := CreateMenu()
+   _HMG_xMainMenuHandle := hmg_CreateMenu()
    _HMG_xMenuPopupLevel := 0
 
 RETURN
@@ -96,11 +96,11 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          _HMG_xMenuPopupLevel++
 
-         _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel] := CreatePopupMenu(1)
+         _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel] := hmg_CreatePopupMenu(1)
          _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel] := Caption
 
          IF _HMG_xMenuPopupLevel > 1
-            AppendMenuPopup(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel - 1], _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel], _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel], 2, Font)
+            hmg_AppendMenuPopup(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel - 1], _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel], _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel], 2, Font)
          ENDIF
          EXIT
 
@@ -133,11 +133,11 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          _HMG_xContextPopupLevel++
 
-         _HMG_xContextPopupHandle[_HMG_xContextPopupLevel] := CreatePopupMenu(k)
+         _HMG_xContextPopupHandle[_HMG_xContextPopupLevel] := hmg_CreatePopupMenu(k)
          _HMG_xContextPopupCaption[_HMG_xContextPopupLevel] := Caption
 
          IF _HMG_xContextPopupLevel > 1
-            AppendMenuPopup(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel - 1], _HMG_xContextPopupHandle[_HMG_xContextPopupLevel], _HMG_xContextPopupCaption[_HMG_xContextPopupLevel], k, Font)
+            hmg_AppendMenuPopup(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel - 1], _HMG_xContextPopupHandle[_HMG_xContextPopupLevel], _HMG_xContextPopupCaption[_HMG_xContextPopupLevel], k, Font)
          ENDIF
 
       ENDSWITCH
@@ -234,7 +234,7 @@ PROCEDURE _EndMenuPopup()
    IF _HMG_xMenuType == "MAIN"
       _HMG_xMenuPopupLevel--
       IF _HMG_xMenuPopupLevel == 0
-         AppendMenuPopup(_HMG_xMainMenuHandle, _HMG_xMenuPopupHandle[1], _HMG_xMenuPopupCaption[1], 1, _HMG_xPopupMenuFont)
+         hmg_AppendMenuPopup(_HMG_xMainMenuHandle, _HMG_xMenuPopupHandle[1], _HMG_xMenuPopupCaption[1], 1, _HMG_xPopupMenuFont)
       ENDIF
    ELSEIF _HMG_xMenuType $ "CONTEXT,OWNCONTEXT,NOTIFY,DROPDOWN"
       _HMG_xContextPopupLevel--
@@ -250,7 +250,7 @@ PROCEDURE _EndMenuPopup()
          CASE "D"
             k := 5
          ENDSWITCH
-         AppendMenuPopup(_HMG_xContextMenuHandle, _HMG_xContextPopupHandle[1], _HMG_xContextPopupCaption[1], k, _HMG_xContextPopupMenuFont)
+         hmg_AppendMenuPopup(_HMG_xContextMenuHandle, _HMG_xContextPopupHandle[1], _HMG_xContextPopupCaption[1], k, _HMG_xContextPopupMenuFont)
       ENDIF
    ELSE
       MsgMiniGuiError("Menu type incorrect.")
@@ -293,21 +293,21 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
 
       IF !(caption == "-")
          ControlHandle := _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel]
-         AppendMenuString(ControlHandle, id, caption, nBreakCode)
+         hmg_AppendMenuString(ControlHandle, id, caption, nBreakCode)
       ENDIF
 
       IF image != NIL
-         hBitmap := MenuItem_SetBitMaps(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, image, "")
+         hBitmap := hmg_MenuItem_SetBitMaps(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, image, "")
       ELSEIF icon != NIL
-         hBitmap := MenuItem_SetIcon(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, icon)
+         hBitmap := hmg_MenuItem_SetIcon(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, icon)
       ENDIF
 
       IF check_image != NIL
-         MenuItem_SetCheckMarks(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, check_image, "")
+         hmg_MenuItem_SetCheckMarks(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, check_image, "")
       ENDIF
 
       IF font != NIL
-         MenuItem_SetFont(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, font)
+         hmg_MenuItem_SetFont(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, font)
       ENDIF
 
       k := _GetControlFree()
@@ -375,16 +375,16 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       ENDIF
 
       IF checked
-         xCheckMenuItem(ControlHandle, id)
+         hmg_xCheckMenuItem(ControlHandle, id)
       ENDIF
 
       IF disabled
-         xDisableMenuItem(ControlHandle, id)
+         hmg_xDisableMenuItem(ControlHandle, id)
          _HMG_aControlEnabled[k] := .F.
       ENDIF
 
       IF default
-         SetMenuDefaultItem(ControlHandle, id)
+         hmg_SetMenuDefaultItem(ControlHandle, id)
       ENDIF
 
    ELSE
@@ -392,24 +392,24 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       IF !(caption == "-")
          IF _HMG_xContextPopupLevel > 0
             ContextMenuHandle := _HMG_xContextPopupHandle[_HMG_xContextPopupLevel]
-            AppendMenuString(ContextMenuHandle, id, caption, iif(lBreakMenu, nBreakCode, 7))
+            hmg_AppendMenuString(ContextMenuHandle, id, caption, iif(lBreakMenu, nBreakCode, 7))
          ELSE
             ContextMenuHandle := _HMG_xContextMenuHandle
-            AppendMenuString(ContextMenuHandle, id, caption, iif(lBreakMenu, nBreakCode, 8))
+            hmg_AppendMenuString(ContextMenuHandle, id, caption, iif(lBreakMenu, nBreakCode, 8))
          ENDIF
          ControlHandle := ContextMenuHandle
       ENDIF
 
       IF image != NIL
-         hBitmap := MenuItem_SetBitMaps(ContextMenuHandle, id, image, "")
+         hBitmap := hmg_MenuItem_SetBitMaps(ContextMenuHandle, id, image, "")
       ENDIF
 
       IF check_image != NIL
-         MenuItem_SetCheckMarks(ContextMenuHandle, id, check_image, "")
+         hmg_MenuItem_SetCheckMarks(ContextMenuHandle, id, check_image, "")
       ENDIF
 
       IF font != NIL
-         MenuItem_SetFont(ContextMenuHandle, id, font)
+         hmg_MenuItem_SetFont(ContextMenuHandle, id, font)
       ENDIF
 
       k := _GetControlFree()
@@ -477,16 +477,16 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       ENDIF
 
       IF checked
-         xCheckMenuItem(ContextMenuHandle, id)
+         hmg_xCheckMenuItem(ContextMenuHandle, id)
       ENDIF
 
       IF disabled
-         xDisableMenuItem(ContextMenuHandle, id)
+         hmg_xDisableMenuItem(ContextMenuHandle, id)
          _HMG_aControlEnabled[k] := .F.
       ENDIF
 
       IF default
-         SetMenuDefaultItem(ContextMenuHandle, id)
+         hmg_SetMenuDefaultItem(ContextMenuHandle, id)
       ENDIF
 
    ENDIF
@@ -499,12 +499,12 @@ _DefineSeparator()
 PROCEDURE _DefineSeparator()
 
    IF _HMG_xMenuType == "MAIN"
-      AppendMenuSeparator(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ])
+      hmg_AppendMenuSeparator(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ])
    ELSE
       IF _HMG_xContextPopupLevel > 0
-         AppendMenuSeparator(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel])
+         hmg_AppendMenuSeparator(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel])
       ELSE
-         AppendMenuSeparator(_HMG_xContextMenuHandle)
+         hmg_AppendMenuSeparator(_HMG_xContextMenuHandle)
       ENDIF
    ENDIF
 
@@ -526,7 +526,7 @@ PROCEDURE _EndMenu()
    SWITCH Left(_HMG_xMenuType, 1)
 
    CASE "M" // MAIN
-      SetMenu(_HMG_xMainMenuParentHandle, _HMG_xMainMenuHandle)
+      hmg_SetMenu(_HMG_xMainMenuParentHandle, _HMG_xMainMenuHandle)
       EXIT
 
    CASE "C" // CONTEXT
@@ -581,7 +581,7 @@ PROCEDURE _EndMenu()
       IF _HMG_aControlType[i] == CONTROL_TYPE_POPUP
          image := _HMG_aControlPicture[i]
          IF image != NIL
-            _HMG_aControlBrushHandle[i] := MenuItem_SetBitMaps(_HMG_aControlPageMap[i], _HMG_aControlSpacing[i], image, "")
+            _HMG_aControlBrushHandle[i] := hmg_MenuItem_SetBitMaps(_HMG_aControlPageMap[i], _HMG_aControlSpacing[i], image, "")
          ENDIF
       ENDIF
    NEXT
@@ -615,7 +615,7 @@ FUNCTION _DefaultMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   SetMenuDefaultItem(a[1], a[2])
+   hmg_SetMenuDefaultItem(a[1], a[2])
 
 RETURN NIL
 
@@ -626,7 +626,7 @@ FUNCTION _DisableMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   xDisableMenuItem(a[1], a[2])
+   hmg_xDisableMenuItem(a[1], a[2])
 
 RETURN NIL
 
@@ -637,7 +637,7 @@ FUNCTION _EnableMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   xEnableMenuItem(a[1], a[2])
+   hmg_xEnableMenuItem(a[1], a[2])
 
 RETURN NIL
 
@@ -648,7 +648,7 @@ FUNCTION _CheckMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   xCheckMenuItem(a[1], a[2])
+   hmg_xCheckMenuItem(a[1], a[2])
 
 RETURN NIL
 
@@ -659,7 +659,7 @@ FUNCTION _UncheckMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   xUncheckMenuItem(a[1], a[2])
+   hmg_xUncheckMenuItem(a[1], a[2])
 
 RETURN NIL
 
@@ -670,7 +670,7 @@ FUNCTION _IsMenuItemChecked(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN xGetMenuCheckState(a[1], a[2])
+RETURN hmg_xGetMenuCheckState(a[1], a[2])
 
 /*
 _IsMenuItemEnabled(ItemName, FormName) -->
@@ -679,7 +679,7 @@ FUNCTION _IsMenuItemEnabled(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN xGetMenuEnabledState(a[1], a[2])
+RETURN hmg_xGetMenuEnabledState(a[1], a[2])
 
 /*
 _DefineContextMenu(Parent)
@@ -699,7 +699,7 @@ PROCEDURE _DefineContextMenu(Parent)
 
    _HMG_xContextMenuParentHandle := GetFormHandle(Parent)
    _HMG_xContextMenuParentName := Parent
-   _HMG_xContextMenuHandle := CreatePopupMenu(3)
+   _HMG_xContextMenuHandle := hmg_CreatePopupMenu(3)
 
 RETURN
 
@@ -729,7 +729,7 @@ PROCEDURE _ShowContextMenu(Parent, nRow, nCol)
       nCol := aPos[2]
    ENDIF
 
-   TrackPopupMenu(_HMG_xContextMenuHandle, nCol, nRow, xContextMenuParentHandle)
+   hmg_TrackPopupMenu(_HMG_xContextMenuHandle, nCol, nRow, xContextMenuParentHandle)
    DoEvents()
 
 RETURN
@@ -752,7 +752,7 @@ PROCEDURE _DefineNotifyMenu(Parent)
 
    _HMG_xContextMenuParentHandle := GetFormHandle(Parent)
    _HMG_xContextMenuParentName := Parent
-   _HMG_xContextMenuHandle := CreatePopupMenu(4)
+   _HMG_xContextMenuHandle := hmg_CreatePopupMenu(4)
 
 RETURN
 
@@ -775,7 +775,7 @@ PROCEDURE _DefineDropDownMenu(Button, Parent)
    _HMG_xContextMenuButtonIndex := GetControlIndex(Button, Parent)
    _HMG_xContextMenuParentHandle := GetFormHandle(Parent)
    _HMG_xContextMenuParentName := Parent
-   _HMG_xContextMenuHandle := CreatePopupMenu(5)
+   _HMG_xContextMenuHandle := hmg_CreatePopupMenu(5)
 
 RETURN
 
@@ -806,7 +806,7 @@ PROCEDURE _DefineControlContextMenu(Control, Parent)
 
    _HMG_xContextMenuParentHandle := GetFormHandle(Parent)
    _HMG_xContextMenuParentName := Parent
-   _HMG_xContextMenuHandle := CreatePopupMenu(5)
+   _HMG_xContextMenuHandle := hmg_CreatePopupMenu(5)
 
 RETURN
 
@@ -846,7 +846,7 @@ FUNCTION _GetMenuItemCaption(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN xGetMenuCaption(a[1], a[2])
+RETURN hmg_xGetMenuCaption(a[1], a[2])
 
 /*
 _SetMenuItemCaption(ItemName, FormName, Caption) -->
@@ -855,7 +855,7 @@ FUNCTION _SetMenuItemCaption(ItemName, FormName, Caption)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN xSetMenuCaption(a[1], a[2], Caption)
+RETURN hmg_xSetMenuCaption(a[1], a[2], Caption)
 
 /*
 _SetMenuItemBitmap(ItemName, FormName, Bitmap)
@@ -864,7 +864,7 @@ PROCEDURE _SetMenuItemBitmap(ItemName, FormName, Bitmap)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   _HMG_aControlBrushHandle[GetControlIndex(ItemName, FormName)] := MenuItem_SetBitMaps(a[1], a[2], Bitmap, "")
+   _HMG_aControlBrushHandle[GetControlIndex(ItemName, FormName)] := hmg_MenuItem_SetBitMaps(a[1], a[2], Bitmap, "")
 
 RETURN
 
@@ -875,7 +875,7 @@ PROCEDURE _SetMenuItemIcon(ItemName, FormName, Icon)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-   _HMG_aControlBrushHandle[GetControlIndex(ItemName, FormName)] := MenuItem_SetIcon(a[1], a[2], Icon)
+   _HMG_aControlBrushHandle[GetControlIndex(ItemName, FormName)] := hmg_MenuItem_SetIcon(a[1], a[2], Icon)
 
 RETURN
 
@@ -886,7 +886,7 @@ FUNCTION _SetMenuItemFont(ItemName, FormName, Font)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN MenuItem_SetFont(a[1], a[2], iif(hb_IsString(Font), GetFontHandle(Font), Font))
+RETURN hmg_MenuItem_SetFont(a[1], a[2], iif(hb_IsString(Font), GetFontHandle(Font), Font))
 
 /*
 _InsertMenuItem(ItemName, FormName, caption, action, name, Image) --> NIL
@@ -917,10 +917,10 @@ FUNCTION _InsertMenuItem(ItemName, FormName, caption, action, name, Image)
 #endif
    ENDIF
 
-   InsertMenuItem(Controlhandle, a[2], Id, caption)
+   hmg_InsertMenuItem(Controlhandle, a[2], Id, caption)
 
    IF image != NIL
-      hBitmap := MenuItem_SetBitMaps(Controlhandle, Id, image, "")
+      hBitmap := hmg_MenuItem_SetBitMaps(Controlhandle, Id, image, "")
    ENDIF
 
    AAdd(_HMG_aControlType              , CONTROL_TYPE_MENU         )
@@ -998,11 +998,11 @@ FUNCTION _ModifyMenuItem(ItemName, FormName, Caption, action, name, Image)
 #endif
    ENDIF
 
-   ModifyMenuItem(a[1], a[2], Id, Caption)
+   hmg_ModifyMenuItem(a[1], a[2], Id, Caption)
 
    IF image != NIL
       hmg_DeleteObject(_HMG_aControlBrushHandle[x])
-      _HMG_aControlBrushHandle[x] := MenuItem_SetBitMaps(a[1], Id, image, "")
+      _HMG_aControlBrushHandle[x] := hmg_MenuItem_SetBitMaps(a[1], Id, image, "")
    ENDIF
 
    _HMG_aControlNames[x] := Name
@@ -1018,14 +1018,14 @@ FUNCTION _RemoveMenuItem(ItemName, FormName)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN RemoveMenuItem(a[1], a[2])
+RETURN hmg_RemoveMenuItem(a[1], a[2])
 
 /*
 HMG_SetMenuTheme(nType, cFormName, aUserDefined) --> nType
 */
 FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
-   LOCAL aColors := GetMenuColors()
+   LOCAL aColors := hmg_GetMenuColors()
 
    hb_default(@nType, MNUCLR_THEME_DEFAULT)
 
@@ -1224,11 +1224,11 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
    ENDSWITCH
 
-   SetMenuColors(aColors)
+   hmg_SetMenuColors(aColors)
 
    IF hb_IsString(cFormName)
       SetProperty(cFormName, "BackColor", aColors[MNUCLR_MENUBARBACKGROUND1])
-      _ColorMenu(GetFormHandle(cFormName), nRGB2Arr(aColors[MNUCLR_MENUBARBACKGROUND2]))
+      hmg__ColorMenu(GetFormHandle(cFormName), nRGB2Arr(aColors[MNUCLR_MENUBARBACKGROUND2]))
    ENDIF
 
 RETURN nType
