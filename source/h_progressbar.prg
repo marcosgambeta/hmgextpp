@@ -140,7 +140,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitProgressBar(ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, smooth, invisible, value)
+      ControlHandle := hmg_InitProgressBar(ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, smooth, invisible, value)
 
    ENDIF
 

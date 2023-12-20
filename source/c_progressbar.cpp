@@ -49,7 +49,7 @@
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-HB_FUNC( INITPROGRESSBAR )
+HB_FUNC( HMG_INITPROGRESSBAR )
 {
    INITCOMMONCONTROLSEX i;
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -89,3 +89,7 @@ HB_FUNC( INITPROGRESSBAR )
 
    hmg_ret_HWND(hbutton);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITPROGRESSBAR, HMG_INITPROGRESSBAR )
+#endif
