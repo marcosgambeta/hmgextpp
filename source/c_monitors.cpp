@@ -57,27 +57,39 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
 //BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
 static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags);
 
-HB_FUNC( COUNTMONITORS )
+HB_FUNC( HMG_COUNTMONITORS )
 {
    hb_retni(GetSystemMetrics(SM_CMONITORS));
 }
 
-HB_FUNC( ISSAMEDISPLAYFORMAT )
+#if 1
+HB_FUNC_TRANSLATE( COUNTMONITORS, HMG_COUNTMONITORS )
+#endif
+
+HB_FUNC( HMG_ISSAMEDISPLAYFORMAT )
 {
    hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? true : false);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ISSAMEDISPLAYFORMAT, HMG_ISSAMEDISPLAYFORMAT )
+#endif
 
 // The  EnumDisplayMonitors  function  enumerates  display monitors
 // (including invisible pseudo-monitors associated with the mirroring drivers)
 
 // BOOL EnumDisplayMonitors(HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData)
 
-HB_FUNC( ENUMDISPLAYMONITORS )
+HB_FUNC( HMG_ENUMDISPLAYMONITORS )
 {
    auto pMonitorEnum = hb_itemArrayNew(0);
    EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
    hb_itemReturnRelease(pMonitorEnum);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ENUMDISPLAYMONITORS, HMG_ENUMDISPLAYMONITORS )
+#endif
 
 BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
@@ -93,7 +105,7 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
 }
 
 //        BOOL GetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpmi)
-HB_FUNC( GETMONITORINFO )
+HB_FUNC( HMG_GETMONITORINFO )
 {
    MONITORINFO mi;
    mi.cbSize = sizeof(MONITORINFO);
@@ -113,8 +125,12 @@ HB_FUNC( GETMONITORINFO )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETMONITORINFO, HMG_GETMONITORINFO )
+#endif
+
 // HMONITOR MonitorFromPoint(POINT pt, DWORD dwFlags)
-HB_FUNC( MONITORFROMPOINT )
+HB_FUNC( HMG_MONITORFROMPOINT )
 {
    POINT pt;
 
@@ -133,8 +149,12 @@ HB_FUNC( MONITORFROMPOINT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( MONITORFROMPOINT, HMG_MONITORFROMPOINT )
+#endif
+
 // HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
-HB_FUNC( MONITORFROMWINDOW )
+HB_FUNC( HMG_MONITORFROMWINDOW )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -144,6 +164,10 @@ HB_FUNC( MONITORFROMWINDOW )
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( MONITORFROMWINDOW, HMG_MONITORFROMWINDOW )
+#endif
 
 // Based on
 // https://msdn.microsoft.com/ru-ru/library/windows/desktop/dd162826(v=vs.85).aspx
@@ -160,7 +184,7 @@ HB_FUNC( MONITORFROMWINDOW )
 #define MONITOR_WORKAREA  0x0002       // use monitor work area
 #define MONITOR_AREA      0x0000       // use monitor entire area
 
-HB_FUNC( WINDOWTOMONITOR )
+HB_FUNC( HMG_WINDOWTOMONITOR )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -175,6 +199,10 @@ HB_FUNC( WINDOWTOMONITOR )
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( WINDOWTOMONITOR, HMG_WINDOWTOMONITOR )
+#endif
 
 static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
 {
