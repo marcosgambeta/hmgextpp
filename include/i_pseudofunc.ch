@@ -264,11 +264,11 @@
 
 // ============================================================================
 
-#xtranslate GetWindowBorderSize() => GetNonClient()\[1\]
-#xtranslate GetScrollBarSize() => GetNonClient()\[3\]
-#xtranslate GetTitleBarWidth() => GetNonClient()\[4\]
-#xtranslate GetTitleBarHeight() => GetNonClient()\[5\]
-#xtranslate GetMenuBarSize() => GetNonClient()\[7\]
+#xtranslate GetWindowBorderSize() => hmg_GetNonClient()\[1\]
+#xtranslate GetScrollBarSize() => hmg_GetNonClient()\[3\]
+#xtranslate GetTitleBarWidth() => hmg_GetNonClient()\[4\]
+#xtranslate GetTitleBarHeight() => hmg_GetNonClient()\[5\]
+#xtranslate GetMenuBarSize() => hmg_GetNonClient()\[7\]
 
 // ============================================================================
 

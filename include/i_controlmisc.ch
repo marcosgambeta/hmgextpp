@@ -401,20 +401,20 @@ GetWindowRect( <hWnd>, 4 )
 
 #command SET WINDOW BORDER TO <nPixels> ;
    => ;
-   SetNonClient( 1 , <nPixels> )
+   hmg_SetNonClient( 1 , <nPixels> )
 
 #command SET SCROLLBAR [SIZES] TO <nPixels> ;
    => ;
-   SetNonClient( 2 , <nPixels> )
+   hmg_SetNonClient( 2 , <nPixels> )
 
 #command SET TITLEBAR WIDTH TO <nPixels> ;
    => ;
-   SetNonClient( 3 , <nPixels> )
+   hmg_SetNonClient( 3 , <nPixels> )
 
 #command SET TITLEBAR HEIGHT TO <nPixels> ;
    => ;
-   SetNonClient( 4 , <nPixels> )
+   hmg_SetNonClient( 4 , <nPixels> )
 
 #command SET [STANDARD] MENU [SIZES] TO <nPixels> ;
    => ;
-   SetNonClient( 5 , <nPixels> )
+   hmg_SetNonClient( 5 , <nPixels> )

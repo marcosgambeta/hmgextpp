@@ -144,16 +144,16 @@
 
 #command SET TITLEBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        SetNonClientFont( 1 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        hmg_SetNonClientFont( 1 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET [STANDARD] MENU FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        SetNonClientFont( 2 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        hmg_SetNonClientFont( 2 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET STATUSBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        SetNonClientFont( 3 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        hmg_SetNonClientFont( 3 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET MESSAGEBOX FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        SetNonClientFont( 4 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        hmg_SetNonClientFont( 4 , <fontname> , <fontsize> , <.bold.> , <charset> )
