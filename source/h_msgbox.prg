@@ -188,4 +188,4 @@ STATIC FUNCTION _MsgBox(cMessage, cTitle, nStyle, nIcon, lSysModal, lTopMost)
       nStyle += MB_TOPMOST
    ENDIF
 
-RETURN MessageBoxIndirect(NIL, cMessage, cTitle, nStyle, nIcon)
+RETURN hmg_MessageBoxIndirect(NIL, cMessage, cTitle, nStyle, nIcon)

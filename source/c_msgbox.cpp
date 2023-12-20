@@ -55,7 +55,7 @@ extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 // MessageBoxIndirect([hWnd], [cText], [cCaption], [nStyle], [xIcon], [hInst], [nHelpId], [nProc], [nLang])
 // Contributed by Andy Wos <andywos@unwired.com.au>
 
-HB_FUNC( MESSAGEBOXINDIRECT )
+HB_FUNC( HMG_MESSAGEBOXINDIRECT )
 {
    MSGBOXPARAMS mbp;
 
@@ -79,8 +79,12 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    hb_retni(MessageBoxIndirect(&mbp));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( MESSAGEBOXINDIRECT, HMG_MESSAGEBOXINDIRECT )
+#endif
+
 // MessageBoxTimeout (Text, Caption, nTypeButton, nMilliseconds) ---> Return iRetButton
-HB_FUNC( MESSAGEBOXTIMEOUT )
+HB_FUNC( HMG_MESSAGEBOXTIMEOUT )
 {
    auto hWnd = GetActiveWindow();
 
@@ -97,6 +101,10 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
 
    hb_retni( MessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds) );
 }
+
+#if 1
+HB_FUNC_TRANSLATE( MESSAGEBOXTIMEOUT, HMG_MESSAGEBOXTIMEOUT )
+#endif
 
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds)
 {
