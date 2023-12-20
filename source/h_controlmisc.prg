@@ -111,7 +111,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_MONTHCAL
-      retval := GetMonthCalDate(c)
+      retval := hmg_GetMonthCalDate(c)
       EXIT
 
    CASE CONTROL_TYPE_TREE
@@ -351,7 +351,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_MONTHCAL
       Value := iif(empty(Value), BLANK_DATE, Value)
-      SetMonthCalValue(c, Year(value), Month(value), Day(value))
+      hmg_SetMonthCalValue(c, Year(value), Month(value), Day(value))
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       IF hb_Version(HB_VERSION_BITWIDTH) >= 64
          SetDayState(_HMG_aControlNames[ix], GetParentFormName(ix))
@@ -6954,7 +6954,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
       _HMG_aControlFontColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
          SetWindowTheme(c, "", "")
-         SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
+         hmg_SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
          _HMG_aControlWidth[i] := GetWindowWidth(c)
          _HMG_aControlHeight[i] := GetWindowHeight(c)
       ENDIF
@@ -7046,7 +7046,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
       _HMG_aControlBkColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
          SetWindowTheme(c, "", "")
-         SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
+         hmg_SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
          _HMG_aControlWidth[i] := GetWindowWidth(c)
          _HMG_aControlHeight[i] := GetWindowHeight(c)
       ENDIF

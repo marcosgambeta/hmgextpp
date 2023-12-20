@@ -220,12 +220,12 @@ LOWORD(SendMessage( <hWnd>, MCM_GETFIRSTDAYOFWEEK, 0, 0 ))
 
 #xtranslate GetMonthCalYear ( <h> ) ;
 => ;
-GetMonthCalValue( <h>, 1 )
+hmg_GetMonthCalValue( <h>, 1 )
 
 #xtranslate GetMonthCalMonth ( <h> ) ;
 => ;
-GetMonthCalValue( <h>, 2 )
+hmg_GetMonthCalValue( <h>, 2 )
 
 #xtranslate GetMonthCalDay ( <h> ) ;
 => ;
-GetMonthCalValue( <h>, 3 )
+hmg_GetMonthCalValue( <h>, 3 )

@@ -3587,7 +3587,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   aPos := {0, 0, 0, 0}
                   GetWindowRect(hWnd, aPos)
                   // set the ideal size of the month calendar control
-                  SetPosMonthCal(GetParent(hWnd), aPos[1], aPos[2], .T.)
+                  hmg_SetPosMonthCal(GetParent(hWnd), aPos[1], aPos[2], .T.)
                   hmg_setfocus(hWnd)
                ENDIF
                RETURN 0
@@ -4613,7 +4613,7 @@ STATIC PROCEDURE RetDayState(i, lParam)
 
    aBoldDays := _HMG_aControlPageMap[i]
 
-   aData := GetDayStateData(lParam)
+   aData := hmg_GetDayStateData(lParam)
    nCount := aData[1]
 
    IF nCount < 1 .OR. Empty(Len(aBoldDays))
@@ -4651,7 +4651,7 @@ STATIC PROCEDURE RetDayState(i, lParam)
 
    ENDIF
 
-   C_RETDAYSTATE(lParam, nCount, aDays)
+   hmg_C_RETDAYSTATE(lParam, nCount, aDays)
 
 RETURN
 

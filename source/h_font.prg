@@ -350,7 +350,7 @@ FUNCTION _SetFontAttr(ControlName, ParentForm, Value, nType)
       IF IsWindowHandle(h)
          _HMG_aControlFontHandle[i] := hmg__SetFont(h, n, s, ab, ai, au, as, aa)
          IF t == CONTROL_TYPE_MONTHCAL
-            SetPosMonthCal(h, _HMG_aControlCol[i], _HMG_aControlRow[i])
+            hmg_SetPosMonthCal(h, _HMG_aControlCol[i], _HMG_aControlRow[i])
             _HMG_aControlWidth[i] := GetWindowWidth(h)
             _HMG_aControlHeight[i] := GetWindowHeight(h)
          ENDIF

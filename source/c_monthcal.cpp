@@ -60,9 +60,9 @@ extern HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD
 LRESULT CALLBACK OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 /*
-INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
+HMG_INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
 */
-HB_FUNC( INITMONTHCAL )
+HB_FUNC( HMG_INITMONTHCAL )
 {
    int  bold      = FW_NORMAL;
    auto italic    = 0;
@@ -145,10 +145,14 @@ HB_FUNC( INITMONTHCAL )
    hmg_storvhandle(hfont, -1, 2);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMONTHCAL, HMG_INITMONTHCAL )
+#endif
+
 /*
-SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
+HMG_SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
 */
-HB_FUNC( SETMONTHCALVALUE )
+HB_FUNC( HMG_SETMONTHCALVALUE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -165,10 +169,14 @@ HB_FUNC( SETMONTHCALVALUE )
    MonthCal_SetCurSel(hwnd, &sysTime);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETMONTHCALVALUE, HMG_SETMONTHCALVALUE )
+#endif
+
 /*
-GETMONTHCALVALUE(HWND, np2) --> numeric
+HMG_GETMONTHCALVALUE(HWND, np2) --> numeric
 */
-HB_FUNC( GETMONTHCALVALUE )
+HB_FUNC( HMG_GETMONTHCALVALUE )
 {
    SYSTEMTIME st;
 
@@ -181,10 +189,14 @@ HB_FUNC( GETMONTHCALVALUE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETMONTHCALVALUE, HMG_GETMONTHCALVALUE )
+#endif
+
 /*
-GETMONTHCALDATE(HWND) --> data
+HMG_GETMONTHCALDATE(HWND) --> data
 */
-HB_FUNC( GETMONTHCALDATE )
+HB_FUNC( HMG_GETMONTHCALDATE )
 {
    SYSTEMTIME st;
    SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
@@ -192,10 +204,14 @@ HB_FUNC( GETMONTHCALDATE )
    hb_retdl(lJulian);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETMONTHCALDATE, HMG_GETMONTHCALDATE )
+#endif
+
 /*
-SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
+HMG_SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
 */
-HB_FUNC( SETPOSMONTHCAL )
+HB_FUNC( HMG_SETPOSMONTHCAL )
 {
    auto hWndMonthCal = hmg_par_HWND(1);
 
@@ -215,10 +231,14 @@ HB_FUNC( SETPOSMONTHCAL )
    SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETPOSMONTHCAL, HMG_SETPOSMONTHCAL )
+#endif
+
 /*
-GETMONTHRANGE(HWND) --> array
+HMG_GETMONTHRANGE(HWND) --> array
 */
-HB_FUNC( GETMONTHRANGE )
+HB_FUNC( HMG_GETMONTHRANGE )
 {
    SYSTEMTIME sysTime[2];
    memset(&sysTime, 0, sizeof(sysTime));
@@ -230,14 +250,18 @@ HB_FUNC( GETMONTHRANGE )
    HB_STORDL(hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETMONTHRANGE, HMG_GETMONTHRANGE )
+#endif
+
 #ifndef BOLDDAY
 #define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= (0x00000001 << (iDay - 1))
 #endif
 
 /*
-C_SETDAYSTATE(HWND, np2, ap3) --> NIL
+HMG_C_SETDAYSTATE(HWND, np2, ap3) --> NIL
 */
-HB_FUNC( C_SETDAYSTATE )
+HB_FUNC( HMG_C_SETDAYSTATE )
 {
    auto iCount = hb_parni(2);
    auto hArray = hb_param(3, Harbour::Item::ARRAY);
@@ -257,10 +281,14 @@ HB_FUNC( C_SETDAYSTATE )
    hb_xfree(rgMonths);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( C_SETDAYSTATE, HMG_C_SETDAYSTATE )
+#endif
+
 /*
-C_RETDAYSTATE(p1, p2, p3) --> NIL
+HMG_C_RETDAYSTATE(p1, p2, p3) --> NIL
 */
-HB_FUNC( C_RETDAYSTATE )
+HB_FUNC( HMG_C_RETDAYSTATE )
 {
    LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
    auto iCount = hb_parni(2);
@@ -281,16 +309,24 @@ HB_FUNC( C_RETDAYSTATE )
    hb_xfree(rgMonths);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( C_RETDAYSTATE, HMG_C_RETDAYSTATE )
+#endif
+
 /*
-GETDAYSTATEDATA(p1) --> array
+HMG_GETDAYSTATEDATA(p1) --> array
 */
-HB_FUNC( GETDAYSTATEDATA )
+HB_FUNC( HMG_GETDAYSTATEDATA )
 {
    LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
    hb_reta(2);
    HB_STORNI(pData->cDayState, -1, 1);
    HB_STORDL(hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETDAYSTATEDATA, HMG_GETDAYSTATEDATA )
+#endif
 
 LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {

@@ -166,7 +166,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
 
-      aControlHandle := InitMonthCal(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, notoday, notodaycircle, weeknumbers, invisible, notabstop, bold, italic, underline, strikeout)
+      aControlHandle := hmg_InitMonthCal(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, notoday, notodaycircle, weeknumbers, invisible, notabstop, bold, italic, underline, strikeout)
 
    ENDIF
 
@@ -179,7 +179,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, aControlhandle[1])
       ENDIF
 
-      SetMonthCalValue(aControlHandle[1], Year(value), Month(value), Day(value))
+      hmg_SetMonthCalValue(aControlHandle[1], Year(value), Month(value), Day(value))
 
       IF tooltip != NIL
          SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
@@ -242,7 +242,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
          SetWindowTheme(aControlHandle[1], "", "")
          // set the ideal size of the month calendar control
-         SetPosMonthCal(aControlHandle[1], x, y)
+         hmg_SetPosMonthCal(aControlHandle[1], x, y)
          _HMG_aControlWidth[k] := GetWindowWidth(aControlHandle[1])
          _HMG_aControlHeight[k] := GetWindowHeight(aControlHandle[1])
 
@@ -292,7 +292,7 @@ FUNCTION InitDialogMonthCalendar(ParentFormName, ControlHandle, k)
 
    AddMonthCalBoldDay(_HMG_aControlNames[k], ParentFormName, Date())
 
-   SetPosMonthCal(ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k])
+   hmg_SetPosMonthCal(ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k])
    // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
       _HMG_aControlDeleted[k] := .T.
@@ -395,7 +395,7 @@ FUNCTION SetDayState(ControlName, ParentFormName)
 
    hWnd := GetControlHandle(ControlName, ParentFormName)
 
-   aData := GetMonthRange(hWnd)
+   aData := hmg_GetMonthRange(hWnd)
    nCount := aData[1]
    IF nCount < 1
       RETURN NIL
@@ -432,6 +432,6 @@ FUNCTION SetDayState(ControlName, ParentFormName)
       ENDDO
    ENDIF
 
-   C_SETDAYSTATE(hWnd, nCount, aDays)
+   hmg_C_SETDAYSTATE(hWnd, nCount, aDays)
 
 RETURN NIL
