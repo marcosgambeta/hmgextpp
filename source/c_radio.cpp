@@ -52,9 +52,9 @@
 #endif
 
 /*
-INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
+HMG_INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
 */
-HB_FUNC( INITRADIOGROUP )
+HB_FUNC( HMG_INITRADIOGROUP )
 {
    void * str;
 
@@ -91,10 +91,14 @@ HB_FUNC( INITRADIOGROUP )
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITRADIOGROUP, HMG_INITRADIOGROUP )
+#endif
+
 /*
-INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
+HMG_INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
 */
-HB_FUNC( INITRADIOBUTTON )
+HB_FUNC( HMG_INITRADIOBUTTON )
 {
    void * str;
 
@@ -126,3 +130,7 @@ HB_FUNC( INITRADIOBUTTON )
 
    hb_strfree(str);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITRADIOBUTTON, HMG_INITRADIOBUTTON )
+#endif

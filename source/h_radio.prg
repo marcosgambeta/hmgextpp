@@ -202,7 +202,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       BackCol := x
       BackRow := y
 
-      ControlHandle := InitRadioGroup(ParentFormHandle, aOptions[1], 0, x, y, "", 0, width, invisible, notabstop, leftjustify)
+      ControlHandle := hmg_InitRadioGroup(ParentFormHandle, aOptions[1], 0, x, y, "", 0, width, invisible, notabstop, leftjustify)
 
       IF !empty(FontHandle)
          hmg__SetFontHandle(ControlHandle, FontHandle)
@@ -230,7 +230,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
             y += Spacing
          ENDIF
 
-         ControlHandle := InitRadioButton(ParentFormHandle, aOptions[i], 0, x, y, "", 0, width, invisible, leftjustify)
+         ControlHandle := hmg_InitRadioButton(ParentFormHandle, aOptions[i], 0, x, y, "", 0, width, invisible, leftjustify)
 
          IF !empty(FontHandle)
             hmg__SetFontHandle(ControlHandle, FontHandle)
