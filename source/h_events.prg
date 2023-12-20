@@ -2748,15 +2748,15 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF GetNotifyCode(lParam) == PGN_CALCSIZE
 
                IF _HMG_aControlMiscData1[i]
-                  PagerCalcSize(lParam, _HMG_aControlHeight[i])
+                  hmg_PagerCalcSize(lParam, _HMG_aControlHeight[i])
                ELSE
-                  PagerCalcSize(lParam, _HMG_aControlWidth[i])
+                  hmg_PagerCalcSize(lParam, _HMG_aControlWidth[i])
                ENDIF
 
             ENDIF
 
             IF GetNotifyCode(lParam) == PGN_SCROLL
-               PagerScroll(lParam, _HMG_aControlSpacing[i])
+               hmg_PagerScroll(lParam, _HMG_aControlSpacing[i])
             ENDIF
 
          ENDIF

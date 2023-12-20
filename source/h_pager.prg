@@ -92,7 +92,7 @@ FUNCTION _BeginPager(ControlName, ParentName, nWidth, nHeight, nScroll, cCaption
 
    ParentForm := GetFormHandle(ParentName)
 
-   ControlHandle := InitPager(hRebar, nWidth, nHeight, vertical, autoscroll, cCaption)
+   ControlHandle := hmg_InitPager(hRebar, nWidth, nHeight, vertical, autoscroll, cCaption)
 
    _HMG_ActivePagerForm := ControlHandle
 
@@ -104,7 +104,7 @@ FUNCTION _BeginPager(ControlName, ParentName, nWidth, nHeight, nScroll, cCaption
    ENDIF
 
    IF IsArrayRGB(backcolor)
-      SetBkColorPager(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
+      hmg_SetBkColorPager(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    k := _GetControlFree()

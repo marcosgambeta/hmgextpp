@@ -234,13 +234,13 @@
 // ============================================================================
 
 #xtranslate _AddChildToPager(<ControlName>, <ParentFormName>) => AddToPager(_HMG_ActivePagerForm, GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _Pager_ForwardMouse(<ControlName>, <ParentFormName>, <lEnable>) => PagerForwardMouse(GetControlHandle(<ControlName>, <ParentFormName>), iif(hb_IsLogical(<lEnable>), <lEnable>, .F.))
-#xtranslate _Pager_GetButtonSize(<ControlName>, <ParentFormName>) => PagerGetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _Pager_SetButtonSize(<ControlName>, <ParentFormName>, <nSize>) => PagerSetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>), <nSize>)
-#xtranslate _Pager_GetBorder(<ControlName>, <ParentFormName>) => PagerGetBorder(GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _Pager_SetBorder(<ControlName>, <ParentFormName>, <nSize>) => PagerSetBorder(GetControlHandle(<ControlName>, <ParentFormName>), <nSize>)
-#xtranslate _Pager_GetPos(<ControlName>, <ParentFormName>) => PagerGetPos(GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _Pager_SetPos(<ControlName>, <ParentFormName>, <nPos>) => PagerSetPos(GetControlHandle(<ControlName>, <ParentFormName>), <nPos>)
+#xtranslate _Pager_ForwardMouse(<ControlName>, <ParentFormName>, <lEnable>) => hmg_PagerForwardMouse(GetControlHandle(<ControlName>, <ParentFormName>), iif(hb_IsLogical(<lEnable>), <lEnable>, .F.))
+#xtranslate _Pager_GetButtonSize(<ControlName>, <ParentFormName>) => hmg_PagerGetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _Pager_SetButtonSize(<ControlName>, <ParentFormName>, <nSize>) => hmg_PagerSetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>), <nSize>)
+#xtranslate _Pager_GetBorder(<ControlName>, <ParentFormName>) => hmg_PagerGetBorder(GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _Pager_SetBorder(<ControlName>, <ParentFormName>, <nSize>) => hmg_PagerSetBorder(GetControlHandle(<ControlName>, <ParentFormName>), <nSize>)
+#xtranslate _Pager_GetPos(<ControlName>, <ParentFormName>) => hmg_PagerGetPos(GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _Pager_SetPos(<ControlName>, <ParentFormName>, <nPos>) => hmg_PagerSetPos(GetControlHandle(<ControlName>, <ParentFormName>), <nPos>)
 
 // ============================================================================
 
