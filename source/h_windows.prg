@@ -2277,7 +2277,7 @@ FUNCTION ReleaseAllWindows()
 
    hmg_OleDataRelease()
 
-   UnloadRichEditLib()
+   hmg_UnloadRichEditLib()
    UnloadRichEditExLib()
 
    GdiplusShutdown()

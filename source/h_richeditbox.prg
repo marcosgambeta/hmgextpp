@@ -128,7 +128,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
 
       IF i > 0
 
-         ControlHandle := InitRichEditBox(_HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
+         ControlHandle := hmg_InitRichEditBox(_HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
          IF !empty(FontHandle)
             hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
@@ -146,7 +146,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
 
    ELSE
 
-      ControlHandle := InitRichEditBox(ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
+      ControlHandle := hmg_InitRichEditBox(ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
       IF !empty(FontHandle)
          hmg__SetFontHandle(ControlHandle, FontHandle)
       ELSE
@@ -157,7 +157,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
          ENDIF
       ENDIF
 
-      SetFontRTF(ControlHandle, iif(hb_IsArray(fontcolor), -1, 0), FontName, FontSize, bold, italic, ;
+      hmg_SetFontRTF(ControlHandle, iif(hb_IsArray(fontcolor), -1, 0), FontName, FontSize, bold, italic, ;
          iif(IsArrayRGB(fontcolor), RGB(fontcolor[1], fontcolor[2], fontcolor[3]), NIL), underline, strikeout)
 
    ENDIF
@@ -171,11 +171,11 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF IsArrayRGB(backcolor)
-      SetBkgndColor(ControlHandle, .T., backcolor[1], backcolor[2], backcolor[3])
+      hmg_SetBkgndColor(ControlHandle, .T., backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    IF File(file)
-      StreamIn(ControlHandle, File, iif(plaintext, 1, 2))
+      hmg_StreamIn(ControlHandle, File, iif(plaintext, 1, 2))
    ELSE
       file := ""
    ENDIF
@@ -311,7 +311,7 @@ PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
 
       _HMG_aControlCaption[i] := cFile
 
-      StreamIn(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
+      hmg_StreamIn(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
 
    ENDIF
 
@@ -329,7 +329,7 @@ PROCEDURE _DataRichEditBoxSave(ControlName, ParentForm, cFile, typ)
          cFile := _HMG_aControlCaption[i]
       ENDIF
 
-      StreamOut(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
+      hmg_StreamOut(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
 
    ENDIF
 

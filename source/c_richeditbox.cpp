@@ -70,7 +70,7 @@ LPSTR  WideToAnsi(LPWSTR);
 
 static HINSTANCE hRELib = nullptr;
 
-HB_FUNC( INITRICHEDITBOX )
+HB_FUNC( HMG_INITRICHEDITBOX )
 {
    HWND    hRE = nullptr;
    int style;
@@ -134,13 +134,21 @@ HB_FUNC( INITRICHEDITBOX )
    hmg_ret_HWND(hRE);
 }
 
-HB_FUNC( UNLOADRICHEDITLIB )
+#if 1
+HB_FUNC_TRANSLATE( INITRICHEDITBOX, HMG_INITRICHEDITBOX )
+#endif
+
+HB_FUNC( HMG_UNLOADRICHEDITLIB )
 {
    if( hRELib ) {
       FreeLibrary(hRELib);
       hRELib = nullptr;
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( UNLOADRICHEDITLIB, HMG_UNLOADRICHEDITLIB )
+#endif
 
 DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb )
 {
@@ -164,7 +172,7 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
    return 0;
 }
 
-HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
+HB_FUNC( HMG_STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 {
    HANDLE hFile;
 
@@ -215,7 +223,11 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    }
 }
 
-HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
+#if 1
+HB_FUNC_TRANSLATE( STREAMIN, HMG_STREAMIN )
+#endif
+
+HB_FUNC( HMG_STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 {
    HANDLE hFile;
 
@@ -265,7 +277,11 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    }
 }
 
-HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
+#if 1
+HB_FUNC_TRANSLATE( STREAMOUT, HMG_STREAMOUT )
+#endif
+
+HB_FUNC( HMG_GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
 {
    LRESULT lAuto;
 
@@ -279,7 +295,11 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
    }
 }
 
-HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
+#if 1
+HB_FUNC_TRANSLATE( GETAUTOFONTRTF, HMG_GETAUTOFONTRTF )
+#endif
+
+HB_FUNC( HMG_SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
 {
    LRESULT lOpt, lResult;
 
@@ -301,7 +321,11 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
    }
 }
 
-HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nBlue)
+#if 1
+HB_FUNC_TRANSLATE( SETAUTOFONTRTF, HMG_SETAUTOFONTRTF )
+#endif
+
+HB_FUNC( HMG_SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nBlue)
 {
    LRESULT  lResult;
    COLORREF bkgcolor;
@@ -317,7 +341,11 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
    hb_retnl( lResult );
 }
 
-HB_FUNC( GETFONTRTF )
+#if 1
+HB_FUNC_TRANSLATE( SETBKGNDCOLOR, HMG_SETBKGNDCOLOR )
+#endif
+
+HB_FUNC( HMG_GETFONTRTF )
 {
    CHARFORMAT cF;
    long       PointSize;
@@ -365,7 +393,11 @@ HB_FUNC( GETFONTRTF )
    HB_STORNI( cF.bCharSet, -1, 8 );
 }
 
-HB_FUNC( SETFONTRTF )
+#if 1
+HB_FUNC_TRANSLATE( GETFONTRTF, HMG_GETFONTRTF )
+#endif
+
+HB_FUNC( HMG_SETFONTRTF )
 {
    LRESULT    lResult;
    CHARFORMAT cF;
@@ -429,6 +461,10 @@ HB_FUNC( SETFONTRTF )
       hb_retl(false);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETFONTRTF, HMG_SETFONTRTF )
+#endif
 
 #if defined(_MSC_VER)
 #pragma warning ( disable:4996 )

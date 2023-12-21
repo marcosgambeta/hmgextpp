@@ -6940,7 +6940,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
       EXIT
 
    CASE CONTROL_TYPE_RICHEDIT
-      SetFontRTF(c, -1, _HMG_aControlFontName[i], _HMG_aControlFontSize[i], _HMG_aControlFontAttributes[i][1], _HMG_aControlFontAttributes[i][2], ;
+      hmg_SetFontRTF(c, -1, _HMG_aControlFontName[i], _HMG_aControlFontSize[i], _HMG_aControlFontAttributes[i][1], _HMG_aControlFontAttributes[i][2], ;
          RGB(Value[1], Value[2], Value[3]), _HMG_aControlFontAttributes[i][3], _HMG_aControlFontAttributes[i][4])
       hmg_RedrawWindow(c)
       EXIT
@@ -7531,9 +7531,9 @@ STATIC FUNCTION _SetGetAutoFont(ControlName, ParentForm, lAuto)
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_RICHEDIT
 
       IF hb_IsLogical(lAuto)
-         SetAutoFontRTF(GetControlHandle(ControlName, ParentForm), lAuto)
+         hmg_SetAutoFontRTF(GetControlHandle(ControlName, ParentForm), lAuto)
       ELSE
-         RetVal := GetAutoFontRTF(GetControlHandle(ControlName, ParentForm))
+         RetVal := hmg_GetAutoFontRTF(GetControlHandle(ControlName, ParentForm))
       ENDIF
 
    ENDIF
