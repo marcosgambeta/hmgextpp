@@ -74,7 +74,7 @@ CREATE CLASS TReg32
    METHOD Get(cRegVar, uVar)
    METHOD Set(cRegVar, uVar)
    METHOD Delete(cRegVar)
-   METHOD Close() BLOCK {|Self|iif(::lError, NIL, RegCloseKey(::nHandle))}
+   METHOD Close() BLOCK {|Self|iif(::lError, NIL, hmg_RegCloseKey(::nHandle))}
 
 ENDCLASS
 
@@ -86,10 +86,10 @@ METHOD TReg32:New(nKey, cRegKey, lShowError)
 
    DEFAULT cRegKey TO ""
 
-   nReturn := RegOpenKeyExA(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
+   nReturn := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
 
    IF nReturn != ERROR_SUCCESS
-      nReturn := RegOpenKeyExA(nKey, cRegKey, , KEY_READ, @nHandle)
+      nReturn := hmg_RegOpenKeyEx(nKey, cRegKey, , KEY_READ, @nHandle)
    ENDIF
 
    ::lError := ( nReturn != ERROR_SUCCESS )
@@ -112,7 +112,7 @@ METHOD TReg32:Create(nKey, cRegKey, lShowError)
 
    DEFAULT cRegKey TO ""
 
-   nReturn := RegCreateKey(nKey, cRegKey, @nHandle)
+   nReturn := hmg_RegCreateKey(nKey, cRegKey, @nHandle)
 
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
@@ -120,7 +120,7 @@ METHOD TReg32:Create(nKey, cRegKey, lShowError)
          MsgStop("Error creating TReg32 object (" + hb_ntos(nReturn) + ")")
       ENDIF
    ELSE
-      ::nError := RegOpenKeyExA(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
+      ::nError := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
       ::cRegKey := cRegKey
       ::nHandle := nHandle
    ENDIF
@@ -140,7 +140,7 @@ METHOD TReg32:Get(cRegVar, uVar)
       DEFAULT cRegVar TO ""
       cType := ValType(uVar)
 
-      ::nError := RegQueryValueExA(::nHandle, cRegVar, 0, @nType, @cValue, @nLen)
+      ::nError := hmg_RegQueryValueEx(::nHandle, cRegVar, 0, @nType, @cValue, @nLen)
 
       IF Empty(::nError)
          uVar := cValue
@@ -184,7 +184,7 @@ METHOD TReg32:Set(cRegVar, uVar)
          ENDSWITCH
       ENDIF
 
-      ::nError := RegSetValueExA(::nHandle, cRegVar, 0, nType, @uVar)
+      ::nError := hmg_RegSetValueEx(::nHandle, cRegVar, 0, nType, @uVar)
 
    ENDIF
 
@@ -194,7 +194,7 @@ RETURN NIL
 METHOD TReg32:Delete(cRegVar)
 
    IF !::lError
-      ::nError := RegDeleteValueA(::nHandle, cRegVar)
+      ::nError := hmg_RegDeleteValue(::nHandle, cRegVar)
    ENDIF
 
 RETURN NIL
@@ -312,7 +312,7 @@ FUNCTION DeleteRegistryKey(nKey, cRegKey)
 
    LOCAL lSuccess
 
-   lSuccess := ( RegDeleteKey(nKey, cRegKey) == ERROR_SUCCESS )
+   lSuccess := ( hmg_RegDeleteKey(nKey, cRegKey) == ERROR_SUCCESS )
 
 RETURN lSuccess
 

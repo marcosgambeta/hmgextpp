@@ -54,17 +54,21 @@
 #endif
 
 /*
-REGCLOSEKEY(HKEY) --> numeric
+HMG_REGCLOSEKEY(HKEY) --> numeric
 */
-HB_FUNC( REGCLOSEKEY )
+HB_FUNC( HMG_REGCLOSEKEY )
 {
    hb_retnl((RegCloseKey(hmg_par_HKEY(1)) == ERROR_SUCCESS) ? ERROR_SUCCESS : -1);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGCLOSEKEY, HMG_REGCLOSEKEY )
+#endif
+
 /*
-REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
+HMG_REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
 */
-HB_FUNC( REGOPENKEYEX )
+HB_FUNC( HMG_REGOPENKEYEX )
 {
    HKEY phwHandle;
 
@@ -81,15 +85,19 @@ HB_FUNC( REGOPENKEYEX )
 
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGOPENKEYEX, HMG_REGOPENKEYEX )
+#endif
+
 HB_FUNC( REGOPENKEYEXA ) // INFO: deprecated
 {
-   HB_FUNC_EXEC( REGOPENKEYEX );
+   HB_FUNC_EXEC( HMG_REGOPENKEYEX );
 }
 
 /*
-REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
+HMG_REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
 */
-HB_FUNC( REGQUERYVALUEEX )
+HB_FUNC( HMG_REGQUERYVALUEEX )
 {
    DWORD lpType = hb_parnl(4);
    DWORD lpcbData = 0;
@@ -120,15 +128,19 @@ HB_FUNC( REGQUERYVALUEEX )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGQUERYVALUEEX, HMG_REGQUERYVALUEEX )
+#endif
+
 HB_FUNC( REGQUERYVALUEEXA ) // INFO: deprecated
 {
-  HB_FUNC_EXEC( REGQUERYVALUEEX );
+  HB_FUNC_EXEC( HMG_REGQUERYVALUEEX );
 }
 
 /*
-REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
+HMG_REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
 */
-HB_FUNC( REGENUMKEYEX )
+HB_FUNC( HMG_REGENUMKEYEX )
 {
    TCHAR Buffer[255];
    DWORD dwBuffSize = 255;
@@ -149,15 +161,19 @@ HB_FUNC( REGENUMKEYEX )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGENUMKEYEX, HMG_REGENUMKEYEX )
+#endif
+
 HB_FUNC( REGENUMKEYEXA ) // INFO: deprecated
 {
-  HB_FUNC_EXEC( REGENUMKEYEX );
+  HB_FUNC_EXEC( HMG_REGENUMKEYEX );
 }
 
 /*
-REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
+HMG_REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
 */
-HB_FUNC( REGSETVALUEEX )
+HB_FUNC( HMG_REGSETVALUEEX )
 {
    DWORD nType = hb_parnl(4);
 
@@ -173,15 +189,19 @@ HB_FUNC( REGSETVALUEEX )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGSETVALUEEX, HMG_REGSETVALUEEX )
+#endif
+
 HB_FUNC( REGSETVALUEEXA ) // INFO: deprecated
 {
-  HB_FUNC_EXEC( REGSETVALUEEX );
+  HB_FUNC_EXEC( HMG_REGSETVALUEEX );
 }
 
 /*
-REGCREATEKEY(HKEY, cKey, np3) --> numeric
+HMG_REGCREATEKEY(HKEY, cKey, np3) --> numeric
 */
-HB_FUNC( REGCREATEKEY )
+HB_FUNC( HMG_REGCREATEKEY )
 {
    void * str;
    HKEY hKey;
@@ -196,10 +216,14 @@ HB_FUNC( REGCREATEKEY )
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGCREATEKEY, HMG_REGCREATEKEY )
+#endif
+
 /*
-REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
+HMG_REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
 */
-HB_FUNC( REGENUMVALUE )
+HB_FUNC( HMG_REGENUMVALUE )
 {
    DWORD lpType = 1;
    TCHAR Buffer[255];
@@ -219,40 +243,52 @@ HB_FUNC( REGENUMVALUE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGENUMVALUE, HMG_REGENUMVALUE )
+#endif
+
 HB_FUNC( REGENUMVALUEA ) // INFO: deprecated
 {
-  HB_FUNC_EXEC( REGENUMVALUE );
+  HB_FUNC_EXEC( HMG_REGENUMVALUE );
 }
 
 /*
-REGDELETEKEY(HKEY, cKey) --> numeric
+HMG_REGDELETEKEY(HKEY, cKey) --> numeric
 */
-HB_FUNC( REGDELETEKEY )
+HB_FUNC( HMG_REGDELETEKEY )
 {
    void * str;
    hb_retnl(RegDeleteKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)));
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGDELETEKEY, HMG_REGDELETEKEY )
+#endif
+
 /*
-REGDELETEVALUE(HKEY, cKey) --> numeric
+HMG_REGDELETEVALUE(HKEY, cKey) --> numeric
 */
-HB_FUNC( REGDELETEVALUE )
+HB_FUNC( HMG_REGDELETEVALUE )
 {
    void * str;
    hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0 : -1);
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGDELETEVALUE, HMG_REGDELETEVALUE )
+#endif
+
 HB_FUNC( REGDELETEVALUEA ) // INFO: deprecated
 {
-  HB_FUNC_EXEC( REGDELETEVALUE );
+  HB_FUNC_EXEC( HMG_REGDELETEVALUE );
 }
 
 /*
-REGCONNECTREGISTRY(cp1, HKEY) --> numeric
+HMG_REGCONNECTREGISTRY(cp1, HKEY) --> numeric
 */
-HB_FUNC( REGCONNECTREGISTRY )
+HB_FUNC( HMG_REGCONNECTREGISTRY )
 {
    void * str;
    HKEY phwHandle;
@@ -268,3 +304,7 @@ HB_FUNC( REGCONNECTREGISTRY )
 
    hb_strfree(str);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( REGCONNECTREGISTRY, HMG_REGCONNECTREGISTRY )
+#endif
