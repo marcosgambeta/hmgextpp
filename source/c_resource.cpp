@@ -85,12 +85,16 @@ HINSTANCE GetResources(void)
    return ( hResources ) ? ( hResources ) : ( GetInstance() );
 }
 
-HB_FUNC( GETRESOURCES )
+HB_FUNC( HMG_GETRESOURCES )
 {
    hmg_ret_HANDLE(GetResources());
 }
 
-HB_FUNC( SETRESOURCES )
+#if 1
+HB_FUNC_TRANSLATE( GETRESOURCES, HMG_GETRESOURCES )
+#endif
+
+HB_FUNC( HMG_SETRESOURCES )
 {
    if( HB_ISCHAR(1) ) {
       hResources = HMG_LoadDll(const_cast<char*>(hb_parc(1)));
@@ -101,7 +105,11 @@ HB_FUNC( SETRESOURCES )
    hmg_ret_HANDLE(hResources);
 }
 
-HB_FUNC( FREERESOURCES )
+#if 1
+HB_FUNC_TRANSLATE( SETRESOURCES, HMG_SETRESOURCES )
+#endif
+
+HB_FUNC( HMG_FREERESOURCES )
 {
    HMG_UnloadDll();
 
@@ -110,7 +118,11 @@ HB_FUNC( FREERESOURCES )
    }
 }
 
-HB_FUNC( RCDATATOFILE )
+#if 1
+HB_FUNC_TRANSLATE( FREERESOURCES, HMG_FREERESOURCES )
+#endif
+
+HB_FUNC( HMG_RCDATATOFILE )
 {
    HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources() );
 
@@ -178,3 +190,7 @@ HB_FUNC( RCDATATOFILE )
    }
 #endif
 }
+
+#if 1
+HB_FUNC_TRANSLATE( RCDATATOFILE, HMG_RCDATATOFILE )
+#endif

@@ -97,6 +97,6 @@
 
 #xcommand SET RESOURCES TO <cNameDll> ;
     => ;
-    SetResources( <cNameDll> )
+    hmg_SetResources( <cNameDll> )
 
-#xcommand SET RESOURCES TO => FreeResources()
+#xcommand SET RESOURCES TO => hmg_FreeResources()

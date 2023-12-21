@@ -299,7 +299,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    IF NotifyIconName == NIL
       NotifyIconName := ""
    ELSE
-      hnotifyicon := LoadTrayIcon(GetResources(), NotifyIconName)
+      hnotifyicon := LoadTrayIcon(hmg_GetResources(), NotifyIconName)
       ShowNotifyIcon(FormHandle, .T., hnotifyicon, NotifyIconTooltip)
    ENDIF
 
@@ -921,7 +921,7 @@ FUNCTION _SetNotifyIconName(FormName, IconName)
          hmg_DestroyIcon(_HMG_aFormMiscData1[i][1])
       ENDIF
 
-      _HMG_aFormMiscData1[i][1] := LoadTrayIcon(GetResources(), IconName)
+      _HMG_aFormMiscData1[i][1] := LoadTrayIcon(hmg_GetResources(), IconName)
 
       ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], _HMG_aFormNotifyIconTooltip[i])
 
@@ -941,7 +941,7 @@ FUNCTION _SetNotifyIconTooltip(FormName, TooltipText)
    IF (i := GetFormIndex(FormName)) > 0 .AND. _HMG_aFormType[i] == "A"
 
       IF _HMG_aFormMiscData1[i][1] == NIL .AND. !Empty(_HMG_aFormNotifyIconName[i])
-         _HMG_aFormMiscData1[i][1] := LoadTrayIcon(GetResources(), _HMG_aFormNotifyIconName[i])
+         _HMG_aFormMiscData1[i][1] := LoadTrayIcon(hmg_GetResources(), _HMG_aFormNotifyIconName[i])
       ENDIF
 
       ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], TooltipText)
@@ -2282,7 +2282,7 @@ FUNCTION ReleaseAllWindows()
 
    GdiplusShutdown()
 
-   FreeResources()
+   hmg_FreeResources()
 
    TRY
       dbCloseAll()

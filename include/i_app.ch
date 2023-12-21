@@ -19,7 +19,7 @@
 #translate <p:Application,App>.Title           => GetWindowText ( <p>.Handle )
 #translate <p:Application,App>.Title := <arg>  => SetWindowText ( <p>.Handle, <arg> )
 #translate <p:Application,App>.Icon            => _HMG_DefaultIconName
-#translate <p:Application,App>.Icon.Handle     => LoadTrayIcon( GetResources(), _HMG_DefaultIconName, 32, 32 )
+#translate <p:Application,App>.Icon.Handle     => LoadTrayIcon( hmg_GetResources(), _HMG_DefaultIconName, 32, 32 )
 #translate <p:Application,App>.Cursor := <arg> => SetWindowCursor ( <p>.Handle, <arg> )
 #translate <p:Application,App>.FontName        => _HMG_DefaultFontName
 #translate <p:Application,App>.FontSize        => _HMG_DefaultFontSize

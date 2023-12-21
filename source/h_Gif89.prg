@@ -45,7 +45,7 @@ FUNCTION _DefineAniGif(cControlName, cParentForm, cFilename, nRow, nCol, nWidth,
 
    IF !hb_FileExists(cFileName)
       cDiskFile := TempFile(GetTempFolder(), "gif")
-      IF RCDataToFile(cFilename, cDiskFile, "GIF") > 0
+      IF hmg_RCDataToFile(cFilename, cDiskFile, "GIF") > 0
          IF hb_FileExists(cDiskFile)
             cResName := cFileName
             cFilename := cDiskFile

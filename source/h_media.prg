@@ -190,7 +190,7 @@ FUNCTION GetAviResSize(cResName)
    aAviSize := Array(2)
    cDiskFile := TempFile(GetTempFolder(), "avi")
 
-   IF RCDataToFile(cResName, cDiskFile, "AVI") > 0
+   IF hmg_RCDataToFile(cResName, cDiskFile, "AVI") > 0
 
       IF hb_FileExists(cDiskFile)
          aAviSize := GetAviFileSize(cDiskFile)

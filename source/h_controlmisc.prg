@@ -2811,7 +2811,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       _HMG_aControlPicture[i] := FileName
       IF !hb_FileExists(FileName)
          cDiskFile := TempFile(GetTempFolder(), "gif")
-         IF RCDataToFile(Filename, cDiskFile, "GIF") > 0
+         IF hmg_RCDataToFile(Filename, cDiskFile, "GIF") > 0
             IF hb_FileExists(cDiskFile)
                FileName := cDiskFile
             ENDIF
