@@ -45,6 +45,7 @@
  */
 
 #include "mgdefs.hpp"
+#include <hbwinuni.hpp>
 
 #include <commctrl.h>
 #if defined(_MSC_VER)
@@ -72,11 +73,7 @@ static HINSTANCE hRELib = nullptr;
 
 HB_FUNC( HMG_INITRICHEDITBOX )
 {
-   HWND    hRE = nullptr;
-   int style;
-   TCHAR * lpClassName;
-
-   style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
+   DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
    if( hb_parl(10) ) {
       style |= ES_READONLY;
@@ -96,23 +93,26 @@ HB_FUNC( HMG_INITRICHEDITBOX )
 
    style |= hb_parl(14) ? ES_AUTOVSCROLL : WS_VSCROLL;
 
+   TCHAR * lpClassName;
+
    if( IsWinxpSp1Min() ) {
       if( !hRELib ) {
          hRELib = LoadLibrary(TEXT("Msftedit.dll"));
       }
 
-      lpClassName = MSFTEDIT_CLASS;
+      lpClassName = MSFTEDIT_CLASS; // TODO: fix warning 'ISO C++ forbids converting a string constant to 'TCHAR*'
    } else {
       if( !hRELib ) {
          hRELib = LoadLibrary(TEXT("RichEd20.dll"));
       }
 
-      lpClassName = RICHEDIT_CLASS;
+      lpClassName = RICHEDIT_CLASS; // TODO: fix warning 'ISO C++ forbids converting a string constant to 'TCHAR*'
    }
 
+   HWND hRE = nullptr;
+
    if( hRELib ) {
-      hRE = CreateWindowEx
-            (
+      hRE = CreateWindowEx(
          WS_EX_CLIENTEDGE,
          lpClassName,
          TEXT(""),
@@ -124,8 +124,7 @@ HB_FUNC( HMG_INITRICHEDITBOX )
          hmg_par_HWND(1),
          hmg_par_HMENU(2),
          GetInstance(),
-         nullptr
-            );
+         nullptr);
 
       SendMessage(hRE, EM_EXLIMITTEXT, hmg_par_WPARAM(9), 0);
       SendMessage(hRE, EM_SETEVENTMASK, 0, ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
@@ -174,43 +173,54 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 
 HB_FUNC( HMG_STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 {
-   HANDLE hFile;
+   long Flag, Mode;
 
-#ifndef UNICODE
-   LPCSTR cFileName = const_cast<char*>(hb_parc(2));
-#else
-   LPCWSTR cFileName = AnsiToWide(static_cast<char*>(hb_parc(2)));
-#endif
-   EDITSTREAM es;
-   long       Flag, Mode;
-
-   auto hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) ) {
-      case 1:    Flag = SF_TEXT; Mode = TM_PLAINTEXT; break;
-      case 2:    Flag = SF_RTF; Mode = TM_RICHTEXT; break;
-      case 3:    Flag = SF_TEXT | SF_UNICODE; Mode = TM_PLAINTEXT; break;
-      case 4:    Flag = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_TEXT; Mode = TM_PLAINTEXT; break;
-      case 5:    Flag = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_RTF; Mode = TM_RICHTEXT; break;
-      case 6:    Flag = ( CP_UTF7 << 16 ) | SF_USECODEPAGE | SF_TEXT; Mode = TM_PLAINTEXT; break;
-      default:   Flag = SF_TEXT; Mode = TM_PLAINTEXT;
+      case 1:
+         Flag = SF_TEXT;
+         Mode = TM_PLAINTEXT;
+         break;
+      case 2:
+         Flag = SF_RTF;
+         Mode = TM_RICHTEXT;
+         break;
+      case 3:
+         Flag = SF_TEXT | SF_UNICODE;
+         Mode = TM_PLAINTEXT;
+         break;
+      case 4:
+         Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
+         Mode = TM_PLAINTEXT;
+         break;
+      case 5:
+         Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
+         Mode = TM_RICHTEXT;
+         break;
+      case 6:
+         Flag = (CP_UTF7 << 16) | SF_USECODEPAGE | SF_TEXT;
+         Mode = TM_PLAINTEXT;
+         break;
+      default:
+         Flag = SF_TEXT;
+         Mode = TM_PLAINTEXT;
    }
 
    // open the source file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE ) {
+   void * str;
+   HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+   hb_strfree(str);
+   if( hFile == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
-#ifdef UNICODE
-   else {
-      hb_xfree(static_cast<TCHAR*>(cFileName));
-   }
-#endif
 
+   EDITSTREAM es;
    es.pfnCallback = EditStreamCallbackR;
    es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
+   auto hwnd = hmg_par_HWND(1);
    SendMessage(hwnd, EM_STREAMIN, Flag, reinterpret_cast<LPARAM>(&es));
    SendMessage(hwnd, EM_SETTEXTMODE, Mode, 0);
 
@@ -229,44 +239,47 @@ HB_FUNC_TRANSLATE( STREAMIN, HMG_STREAMIN )
 
 HB_FUNC( HMG_STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 {
-   HANDLE hFile;
+   long Flag;
 
-#ifndef UNICODE
-   LPCSTR cFileName = const_cast<char*>(hb_parc(2));
-#else
-   LPCWSTR cFileName = AnsiToWide(static_cast<char*>(hb_parc(2)));
-#endif
-   EDITSTREAM es;
-   long       Flag;
-
-   auto hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) ) {
-      case 1:  Flag = SF_TEXT; break;
-      case 2:  Flag = SF_RTF; break;
-      case 3:  Flag = SF_TEXT | SF_UNICODE; break;
-      case 4:  Flag = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_TEXT; break;
-      case 5:  Flag = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_RTF; break;
-      case 6:  Flag = ( CP_UTF7 << 16 ) | SF_USECODEPAGE | SF_TEXT; break;
-      default: Flag = SF_TEXT;
+      case 1:
+         Flag = SF_TEXT;
+         break;
+      case 2:
+         Flag = SF_RTF;
+         break;
+      case 3:
+         Flag = SF_TEXT | SF_UNICODE;
+         break;
+      case 4:
+         Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
+         break;
+      case 5:
+         Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
+         break;
+      case 6:
+         Flag = (CP_UTF7 << 16) | SF_USECODEPAGE | SF_TEXT;
+         break;
+      default:
+        Flag = SF_TEXT;
    }
 
    // open the destination file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE ) {
+   void * str;
+   HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+   hb_strfree(str);
+   if( hFile == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
-#ifdef UNICODE
-   else {
-      hb_xfree(static_cast<TCHAR*>(cFileName));
-   }
-#endif
 
+   EDITSTREAM es;
    es.pfnCallback = EditStreamCallbackW;
    es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
 
    // send EM_STREAMOUT message to the Rich Edit Control.
-   SendMessage(hwnd, EM_STREAMOUT, Flag, reinterpret_cast<LPARAM>(&es));
+   SendMessage(hmg_par_HWND(1), EM_STREAMOUT, Flag, reinterpret_cast<LPARAM>(&es));
 
    CloseHandle(hFile);
 
@@ -283,10 +296,7 @@ HB_FUNC_TRANSLATE( STREAMOUT, HMG_STREAMOUT )
 
 HB_FUNC( HMG_GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
 {
-   LRESULT lAuto;
-
-   auto hwnd  = hmg_par_HWND(1);
-   lAuto = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
+   LRESULT lAuto = SendMessage(hmg_par_HWND(1), EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
    if( lAuto ) {
       hb_retl(true);
@@ -301,10 +311,9 @@ HB_FUNC_TRANSLATE( GETAUTOFONTRTF, HMG_GETAUTOFONTRTF )
 
 HB_FUNC( HMG_SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
 {
-   LRESULT lOpt, lResult;
-
    auto hwnd = hmg_par_HWND(1);
-   lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
+
+   LRESULT lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
    if( hb_parl(2) ) {
       lOpt &= IMF_AUTOFONT;
@@ -312,7 +321,7 @@ HB_FUNC( HMG_SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
       lOpt &= ~IMF_AUTOFONT;
    }
 
-   lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
+   LRESULT lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
 
    if( lResult ) {
       hb_retl(true);
@@ -327,18 +336,16 @@ HB_FUNC_TRANSLATE( SETAUTOFONTRTF, HMG_SETAUTOFONTRTF )
 
 HB_FUNC( HMG_SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nBlue)
 {
-   LRESULT  lResult;
-   COLORREF bkgcolor;
-   INT      syscol = 1;
-
-   bkgcolor = static_cast<COLORREF>(RGB(hb_parni(3), hb_parni(4), hb_parni(5)));
+   auto syscol = 1;
    if( hb_parl(2) ) {
       syscol = 0;
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor);
+   auto bkgcolor = static_cast<COLORREF>(RGB(hb_parni(3), hb_parni(4), hb_parni(5)));
 
-   hb_retnl( lResult );
+   LRESULT lResult = SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor);
+
+   hb_retnl(lResult);
 }
 
 #if 1
@@ -347,7 +354,6 @@ HB_FUNC_TRANSLATE( SETBKGNDCOLOR, HMG_SETBKGNDCOLOR )
 
 HB_FUNC( HMG_GETFONTRTF )
 {
-   CHARFORMAT cF;
    long       PointSize;
    int        bold;
    int        Italic;
@@ -359,6 +365,7 @@ HB_FUNC( HMG_GETFONTRTF )
    LPSTR pStr;
 #endif
 
+   CHARFORMAT cF;
    cF.cbSize = sizeof(CHARFORMAT);
    cF.dwMask = CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_SIZE;
    if( hb_parni(2) > 0 ) {
