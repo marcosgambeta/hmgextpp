@@ -2857,7 +2857,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       EXIT
 
    CASE CONTROL_TYPE_SPINNER
-      SetSpinnerIncrement(_HMG_aControlHandles[i][2], FileName)
+      hmg_SetSpinnerIncrement(_HMG_aControlHandles[i][2], FileName)
       _HMG_aControlPicture[i] := FileName
       EXIT
 

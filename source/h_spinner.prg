@@ -111,7 +111,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
 
    ParentForm := GetFormHandle(ParentForm)
 
-   RetArray := InitSpinner(ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal)
+   RetArray := hmg_InitSpinner(ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal)
 
    ControlHandle := RetArray[1]
 
@@ -192,7 +192,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
    ENDIF
 
    IF increment != 1
-      SetSpinnerIncrement(RetArray[2], increment)
+      hmg_SetSpinnerIncrement(RetArray[2], increment)
    ENDIF
 
    IF _HMG_lOOPEnabled

@@ -60,7 +60,7 @@
 
 LRESULT CALLBACK  OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam);
 
-HB_FUNC( INITSPINNER )
+HB_FUNC( HMG_INITSPINNER )
 {
    INITCOMMONCONTROLSEX i;
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -135,13 +135,21 @@ HB_FUNC( INITSPINNER )
    hmg_storvhandle(hupdown, -1, 2);
 }
 
-HB_FUNC( SETSPINNERINCREMENT )
+#if 1
+HB_FUNC_TRANSLATE( INITSPINNER, HMG_INITSPINNER )
+#endif
+
+HB_FUNC( HMG_SETSPINNERINCREMENT )
 {
    UDACCEL inc;
    inc.nSec = 0;
    inc.nInc = hb_parni(2);
    SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, reinterpret_cast<LPARAM>(&inc));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETSPINNERINCREMENT, HMG_SETSPINNERINCREMENT )
+#endif
 
 // 2006.08.13 JD
 LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
