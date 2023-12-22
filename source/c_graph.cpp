@@ -48,7 +48,7 @@
 #include <commctrl.h>
 #include <hbwinuni.hpp>
 
-extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
 
 /*
@@ -91,12 +91,12 @@ HB_FUNC( HMG_TEXTDRAW )
       } else {
          iBkMode = SetBkMode(hDC, OPAQUE);
 
-         if( Array2ColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor) ) {
+         if( hmg_ArrayToColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor) ) {
             crBkColor = SetBkColor(hDC, crBkColor);
          }
       }
 
-      if( Array2ColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor) ) {
+      if( hmg_ArrayToColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor) ) {
          SetTextColor(hDC, crFgColor);
       }
 

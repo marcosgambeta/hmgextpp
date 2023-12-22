@@ -56,7 +56,7 @@ WINGDIAPI BOOL WINAPI GdiFlush(void);
 #endif
 #endif
 
-extern HB_EXPORT BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
@@ -140,7 +140,7 @@ HB_FUNC( HMG_DRAWSTATE )
       auto wData = static_cast<WPARAM>(hb_parclen(4));
       HB_ISIZ fuFlags = hb_parns(10);
 
-      if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
+      if( hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
          hBrush = CreateSolidBrush(crBrush);
       }
 
@@ -239,7 +239,7 @@ HB_FUNC( HMG_GRAYSTRING )
          COLORREF crBrush;
          const char * lpData = hb_parc(4);
 
-         if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
+         if( hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
             hBrush = CreateSolidBrush(crBrush);
          }
 
@@ -337,7 +337,7 @@ HB_FUNC( HMG_C_SETBACKCOLOR )
    if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
       COLORREF cr;
 
-      if( !Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
+      if( !hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
          cr = static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
       }
 

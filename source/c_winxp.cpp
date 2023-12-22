@@ -202,7 +202,7 @@ HRESULT WINAPI SetWindowTheme(HWND, LPCWSTR, LPCWSTR);
 
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
-BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
 
 using fnOpenThemeData = HTHEME (WINAPI *)(HWND hwnd, LPCWSTR pszClassList);
 using fnCloseThemeData = HRESULT (WINAPI *)(HTHEME hTheme);
@@ -508,20 +508,17 @@ bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt)
    return false;
 }
 
-BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr)
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr)
 {
    if( HB_IS_ARRAY(aCRef) && hb_arrayLen(aCRef) == 3 ) {
-
       auto r = static_cast<USHORT>(HB_arrayGetNL(aCRef, 1));
       auto g = static_cast<USHORT>(HB_arrayGetNL(aCRef, 2));
       auto b = static_cast<USHORT>(HB_arrayGetNL(aCRef, 3));
-
       *cr = RGB(r, g, b);
-
-      return TRUE;
+      return true;
    }
 
-   return FALSE;
+   return false;
 }
 
 HB_EXPORT PHB_ITEM Rect2Array(RECT * rc)

@@ -91,7 +91,7 @@ extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 bool hmg_ArrayToRect(PHB_ITEM aPoint, RECT * rect);
-extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
 static auto g_bIsToolTipActive = true;
@@ -613,7 +613,7 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
       auto cr = static_cast<COLORREF>(0);
 
-      if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ARRAY), &cr) ) {
+      if( HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ARRAY), &cr) ) {
          if( HB_ISNUM(2) ) {
             cr = static_cast<COLORREF>(HB_PARNL(2));
          }
@@ -637,7 +637,7 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
       auto cr = static_cast<COLORREF>(0);
 
-      if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
+      if( HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
          if( HB_ISNUM(2) ) {
             cr = static_cast<COLORREF>(HB_PARNL(2));
          }
