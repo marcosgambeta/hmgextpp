@@ -72,7 +72,7 @@
 #endif
 
 
-extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
@@ -1262,7 +1262,7 @@ HB_FUNC( FILLRECT )
       RECT rc;
       auto iParam = 6;
 
-      if( Array2Rect(hb_param(2, Harbour::Item::ANY), &rc) ) {
+      if( hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rc) ) {
          iParam = 3;
       } else {
          rc.left   = hb_parni(2);

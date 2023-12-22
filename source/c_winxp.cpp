@@ -200,7 +200,7 @@ HRESULT WINAPI SetWindowTheme(HWND, LPCWSTR, LPCWSTR);
 
 #endif /* __WINE_UXTHEME_H */
 
-BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 
@@ -371,8 +371,8 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    RECT pRect;
    RECT pClipRect;
 
-   Array2Rect(hb_param(5, Harbour::Item::ARRAY), &pRect);
-   Array2Rect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
+   hmg_ArrayToRect(hb_param(5, Harbour::Item::ARRAY), &pRect);
+   hmg_ArrayToRect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
 
    if( hUxTheme == nullptr ) {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
@@ -400,7 +400,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    RECT pRect;
 
    if( HB_ISARRAY(7) ) {
-      Array2Rect(hb_param(3, Harbour::Item::ARRAY), &pRect);
+      hmg_ArrayToRect(hb_param(3, Harbour::Item::ARRAY), &pRect);
    }
 
    if( hUxTheme == nullptr ) {
@@ -477,25 +477,24 @@ HB_FUNC( PTINRECT )
    POINT point;
    RECT rect;
 
-   if( (hmg_ArrayToPoint(hb_param(1, Harbour::Item::ANY), &point) && Array2Rect(hb_param(2, Harbour::Item::ANY), &rect)) ) {
+   if( (hmg_ArrayToPoint(hb_param(1, Harbour::Item::ANY), &point) && hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect)) ) {
       hb_retl(PtInRect(&rect, point) ? true : false);
    } else {
      hb_retl(false);
    }
 }
 
-BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc)
 {
    if( HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4 ) {
       rc->left   = hb_arrayGetNI(aRect, 1);
       rc->top    = hb_arrayGetNI(aRect, 2);
       rc->right  = hb_arrayGetNI(aRect, 3);
       rc->bottom = hb_arrayGetNI(aRect, 4);
-
-      return TRUE;
+      return true;
    }
 
-   return FALSE;
+   return false;
 }
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt)

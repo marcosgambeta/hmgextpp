@@ -57,7 +57,7 @@ WINGDIAPI BOOL WINAPI GdiFlush(void);
 #endif
 
 extern HB_EXPORT BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
-extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
 /*
@@ -272,7 +272,7 @@ HB_FUNC( HMG_INVALIDATERECT )
       RECT rc;
 
       if( (hb_pcount() > 2) && (!HB_ISNIL(3)) ) {
-         bRect = Array2Rect(hb_param(3, Harbour::Item::ANY), &rc);
+         bRect = hmg_ArrayToRect(hb_param(3, Harbour::Item::ANY), &rc);
 
          if( !bRect ) {
             rc.left   = hmg_par_LONG(3);
@@ -416,7 +416,7 @@ HB_FUNC( HMG_VALIDATERECT )
       RECT rc;
 
       if( (hb_pcount() > 1) && (!HB_ISNIL(2)) ) {
-         bRect = Array2Rect(hb_param(2, Harbour::Item::ANY), &rc);
+         bRect = hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rc);
 
          if( !bRect ) {
             rc.left   = hmg_par_LONG(2);

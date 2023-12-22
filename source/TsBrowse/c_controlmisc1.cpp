@@ -8,7 +8,7 @@
    LPWSTR AnsiToWide(LPCSTR);
    LPSTR  WideToAnsi(LPWSTR);
 #endif
-BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 PHB_ITEM             Rect2Array(RECT * rc);
 
 static far BYTE HandXor[] = {
@@ -166,7 +166,7 @@ HB_FUNC( INVERTRECT )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &rc);
+      hmg_ArrayToRect(hb_param(2, Harbour::Item::ARRAY), &rc);
       InvertRect(hmg_par_HDC(1), &rc);
    }
 }

@@ -90,7 +90,7 @@ typedef struct _tagEDITBALLOONTIP
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
-extern BOOL Array2Rect(PHB_ITEM aPoint, RECT * rect);
+bool hmg_ArrayToRect(PHB_ITEM aPoint, RECT * rect);
 extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
@@ -276,7 +276,7 @@ HB_FUNC( INITTOOLTIPEX )
       auto aRect = hb_param(2, Harbour::Item::ANY);
 
       RECT rect;
-      if( !Array2Rect(aRect, &rect) ) {
+      if( !hmg_ArrayToRect(aRect, &rect) ) {
          GetClientRect(hwndParent, &rect);
       }
 
@@ -579,7 +579,7 @@ HB_FUNC( TTM_SETMARGIN )
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
       RECT rect;
 
-      if( Array2Rect(hb_param(2, Harbour::Item::ANY), &rect) ) {
+      if( hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect) ) {
          SendMessage(hwndToolTip, TTM_SETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
       } else {
          hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
