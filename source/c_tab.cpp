@@ -50,7 +50,7 @@
 #include <commctrl.h>
 #include <hbwinuni.hpp>
 
-extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
@@ -229,7 +229,7 @@ HB_FUNC_TRANSLATE( ADDTABBITMAP, HMG_ADDTABBITMAP )
 HB_FUNC( HMG_WINDOWFROMPOINT )
 {
    POINT Point;
-   Array2Point(hb_param(1, Harbour::Item::ARRAY), &Point);
+   hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &Point);
    hmg_ret_HWND(WindowFromPoint(Point));
 }
 

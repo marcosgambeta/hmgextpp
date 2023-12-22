@@ -201,7 +201,7 @@ HRESULT WINAPI SetWindowTheme(HWND, LPCWSTR, LPCWSTR);
 #endif /* __WINE_UXTHEME_H */
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
-BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 
 using fnOpenThemeData = HTHEME (WINAPI *)(HWND hwnd, LPCWSTR pszClassList);
@@ -477,7 +477,7 @@ HB_FUNC( PTINRECT )
    POINT point;
    RECT rect;
 
-   if( (Array2Point(hb_param(1, Harbour::Item::ANY), &point) && Array2Rect(hb_param(2, Harbour::Item::ANY), &rect)) ) {
+   if( (hmg_ArrayToPoint(hb_param(1, Harbour::Item::ANY), &point) && Array2Rect(hb_param(2, Harbour::Item::ANY), &rect)) ) {
       hb_retl(PtInRect(&rect, point) ? true : false);
    } else {
      hb_retl(false);
@@ -498,16 +498,15 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
    return FALSE;
 }
 
-BOOL Array2Point(PHB_ITEM aPoint, POINT * pt)
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt)
 {
    if( HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2 ) {
       pt->x = hb_arrayGetNI(aPoint, 1);
       pt->y = hb_arrayGetNI(aPoint, 2);
-
-      return TRUE;
+      return true;
    }
 
-   return FALSE;
+   return false;
 }
 
 BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr)

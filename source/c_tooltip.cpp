@@ -89,7 +89,7 @@ typedef struct _tagEDITBALLOONTIP
 
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
-extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 extern BOOL Array2Rect(PHB_ITEM aPoint, RECT * rect);
 extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
@@ -692,7 +692,7 @@ HB_FUNC( TTM_TRACKPOSITION )
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
       POINT point;
 
-      if( Array2Point(hb_param(3, Harbour::Item::ARRAY), &point) ) {
+      if( hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point) ) {
          ClientToScreen(hwndTool, &point);
 
          SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, MAKELONG(point.x, point.y));
@@ -756,7 +756,7 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
       POINT point;
 
-      if( Array2Point(hb_param(3, Harbour::Item::ARRAY), &point) ) {
+      if( hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point) ) {
          ClientToScreen(hwndTool, &point);
 
          HB_RETNL( static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))) );
