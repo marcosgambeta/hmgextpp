@@ -1544,7 +1544,7 @@ PROCEDURE _SetActivationFlag(i)
       NEXT
 
       IF !NoAutoReleaseFound .AND. _HMG_AutoScroll
-         iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))
+         iif(_HMG_IsXPorLater, hmg_KeyToggleNT(VK_INSERT), hmg_KeyToggle(VK_INSERT))
       ENDIF
 
    ENDIF

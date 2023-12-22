@@ -634,7 +634,7 @@ METHOD TControl:SetMsg(cText, lDefault)
    IF _IsWindowActive(cParentWnd)
       IF _IsControlDefined("StatusBar", cParentWnd)
          IF !lDefault
-            cOldText := GetItemBar(_HMG_ActiveStatusHandle, ::nStatusItem)
+            cOldText := hmg_GetItemBar(_HMG_ActiveStatusHandle, ::nStatusItem)
             IF !(AllTrim(cOldText) == AllTrim(cText))
                SetProperty(cParentWnd, "StatusBar", "Item", ::nStatusItem, cText)
             ENDIF

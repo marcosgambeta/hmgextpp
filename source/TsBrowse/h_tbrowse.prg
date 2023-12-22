@@ -5341,7 +5341,7 @@ METHOD TSBrowse:Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, n
 
    IF hb_IsLogical(::lInsertMode) // Igor Nazarov
       IF IsInsertActive() != ::lInsertMode
-         iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))
+         iif(_HMG_IsXPorLater, hmg_KeyToggleNT(VK_INSERT), hmg_KeyToggle(VK_INSERT))
       ENDIF
    ENDIF
 

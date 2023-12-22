@@ -1768,10 +1768,10 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   IF _HMG_aControlType[x] == CONTROL_TYPE_MESSAGEBAR
 
                      MoveWindow(_HMG_aControlHandles[x], 0, 0, 0, 0, .T.)
-                     RefreshItemBar(_HMG_aControlHandles[x], _GetStatusItemWidth(hWnd, 1))
+                     hmg_RefreshItemBar(_HMG_aControlHandles[x], _GetStatusItemWidth(hWnd, 1))
 
                      IF (k := GetControlIndex("ProgressMessage", GetParentFormName(x))) != 0
-                        RefreshProgressItem(_HMG_aControlMiscData1[k, 1], _HMG_aControlHandles[k], _HMG_aControlMiscData1[k, 2])
+                        hmg_RefreshProgressItem(_HMG_aControlMiscData1[k, 1], _HMG_aControlHandles[k], _HMG_aControlMiscData1[k, 2])
                      ENDIF
                      EXIT
 

@@ -1353,7 +1353,7 @@ CLASS TStbData INHERIT TCnlData
    METHOD Say(cText, nItem) INLINE _SetItem(::cName, ::oWin:cName, hb_defaultValue(nItem, 1), ;
       hb_defaultValue(cText, ""))
 
-   METHOD Icon(cIcon, nItem) INLINE SetStatusItemIcon(::nHandle, hb_defaultValue(nItem, 1), cIcon)
+   METHOD Icon(cIcon, nItem) INLINE hmg_SetStatusItemIcon(::nHandle, hb_defaultValue(nItem, 1), cIcon)
 
    METHOD Width(nItem, nWidth) INLINE iif(hb_IsNumeric(nWidth) .AND. nWidth > 0, ;
       _SetStatusWidth(::oWin:cName, hb_defaultValue(nItem, 1), nWidth), ;

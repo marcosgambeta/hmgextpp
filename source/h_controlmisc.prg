@@ -1989,7 +1989,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
       IF _IsOwnerDrawStatusBarItem(c, Item, Value, .T.)
          MoveWindow(c, 0, 0, 0, 0, .T.)
       ELSE
-         SetItemBar(c, value, Item - 1)
+         hmg_SetItemBar(c, value, Item - 1)
       ENDIF
       EXIT
 
@@ -2137,7 +2137,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
       IF _IsOwnerDrawStatusBarItem(c, Item, @i)
          RetVal := _HMG_aControlCaption[i]
       ELSE
-         RetVal := GetItemBar(c, Item)
+         RetVal := hmg_GetItemBar(c, Item)
       ENDIF
 
    ENDSWITCH
@@ -3721,7 +3721,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
       ENDIF
       IF (z := SendMessage(_HMG_aControlHandles[i], SB_GETPARTS, 0, 0)) > 0
          FOR x := 1 TO z
-            SetStatusItemIcon(_HMG_aControlHandles[i], x, NIL)
+            hmg_SetStatusItemIcon(_HMG_aControlHandles[i], x, NIL)
          NEXT x
       ENDIF
       ReleaseControl(_HMG_aControlHandles[i])
@@ -7338,7 +7338,7 @@ PROCEDURE _SetStatusIcon(ControlName, ParentForm, Item, Icon)
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0
       Assign nItem := Item
-      SetStatusItemIcon(_HMG_aControlHandles[i], nItem, Icon)
+      hmg_SetStatusItemIcon(_HMG_aControlHandles[i], nItem, Icon)
    ENDIF
 
 RETURN
@@ -7360,8 +7360,8 @@ PROCEDURE _SetStatusWidth(ParentForm, Item, Size)
       _SetStatusItemWidth(nItem, nSize, FormHandle)
 
       aWidths[nItem] := nSize
-      SetStatusBarSize(StatusHandle, aWidths)
-      RefreshItemBar(StatusHandle, _GetStatusItemWidth(FormHandle, 1))
+      hmg_SetStatusBarSize(StatusHandle, aWidths)
+      hmg_RefreshItemBar(StatusHandle, _GetStatusItemWidth(FormHandle, 1))
    ENDIF
 
 RETURN

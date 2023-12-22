@@ -92,7 +92,7 @@ FUNCTION _BeginMessageBar(ControlName, ParentForm, kbd, fontname, fontsize, bold
 
    ParentFormHandle := GetFormHandle(ParentForm)
 
-   ControlHandle := InitMessageBar(ParentFormHandle, ID_STATUSBAR)
+   ControlHandle := hmg_InitMessageBar(ParentFormHandle, ID_STATUSBAR)
 
    _HMG_ActiveStatusHandle := ControlHandle // New Public Value JP MDI
 
@@ -180,7 +180,7 @@ FUNCTION _EndMessageBar()
    ENDIF
 
    IF (i := GetControlIndex(PROGRESSNAME, _HMG_ActiveFormName)) != 0
-      RefreshProgressItem(_HMG_aControlMiscData1[i, 1], _HMG_aControlHandles[i], _HMG_aControlMiscData1[i, 2])
+      hmg_RefreshProgressItem(_HMG_aControlMiscData1[i, 1], _HMG_aControlHandles[i], _HMG_aControlMiscData1[i, 2])
    ENDIF
 
    _HMG_ActiveMessageBarName := ""
@@ -247,7 +247,7 @@ FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, Procedure
 
    hb_default(@cStyl, "")
 
-   ControlHandle := InitItemBar(ParentForm, Caption, 0, w, h, Icon, ToolTip, iif(Upper(cStyl) == "RAISED", 1, iif(Upper(cStyl) == "FLAT", 2, 0)))
+   ControlHandle := hmg_InitItemBar(ParentForm, Caption, 0, w, h, Icon, ToolTip, iif(Upper(cStyl) == "RAISED", 1, iif(Upper(cStyl) == "FLAT", 2, 0)))
 
    k := _GetControlFree()
 
@@ -338,15 +338,15 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
    __defaultNIL(@Action, "")
 
    nrItem1 := _DefineItemMessage("TimerNum", BarName, 0, 0, "NumLock", ;
-      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_NUMLOCK), KeyToggle(VK_NUMLOCK))}, Action), Width + 20, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, hmg_KeyToggleNT(VK_NUMLOCK), hmg_KeyToggle(VK_NUMLOCK))}, Action), Width + 20, 0, ;
       iif(IsNumLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    nrItem2 := _DefineItemMessage("TimerCaps", BarName, 0, 0, "CapsLock", ;
-      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_CAPITAL), KeyToggle(VK_CAPITAL))}, Action), Width + 25, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, hmg_KeyToggleNT(VK_CAPITAL), hmg_KeyToggle(VK_CAPITAL))}, Action), Width + 25, 0, ;
       iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    nrItem3 := _DefineItemMessage("TimerInsert", BarName, 0, 0, "Insert", ;
-      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))}, Action), Width, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, hmg_KeyToggleNT(VK_INSERT), hmg_KeyToggle(VK_INSERT))}, Action), Width, 0, ;
       iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    _DefineTimer("StatusKeyBrd" , FormName, 250, ;
@@ -516,7 +516,7 @@ FUNCTION _SetStatusProgressMessage(BarName, FormName, Width, ToolTip, Action, nV
    hwndStatus := GetControlHandle(BarName, FormName)
    nrItem := _DefineItemMessage(PROGRESSNAME, BarName, 0, 0, "", Action, Width, 0, , "", ToolTip)
 
-   hwndProgress := CreateProgressBarItem(hwndStatus, nrItem, nValue, nMin, nMax)
+   hwndProgress := hmg_CreateProgressBarItem(hwndStatus, nrItem, nValue, nMin, nMax)
    i := GetControlIndex(PROGRESSNAME, FormName)
 
    _HMG_aControlMiscData1[i] := {hwndStatus, hwndProgress}
@@ -533,7 +533,7 @@ FUNCTION _SetStatusProgressPos(FormName, nValue)
    LOCAL i
 
    IF (i := GetControlIndex(PROGRESSNAME, FormName)) > 0
-      SetPosProgressBarItem(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0))
+      hmg_SetPosProgressBarItem(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0))
    ENDIF
 
 RETURN NIL

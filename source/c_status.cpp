@@ -54,7 +54,7 @@
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
-HB_FUNC( INITMESSAGEBAR )
+HB_FUNC( HMG_INITMESSAGEBAR )
 {
    HWND hWndSB;
    int  ptArray[40];  // Array defining the number of parts/sections
@@ -69,7 +69,11 @@ HB_FUNC( INITMESSAGEBAR )
    hmg_ret_HWND(hWndSB);
 }
 
-HB_FUNC( INITITEMBAR )
+#if 1
+HB_FUNC_TRANSLATE( INITMESSAGEBAR, HMG_INITMESSAGEBAR )
+#endif
+
+HB_FUNC( HMG_INITITEMBAR )
 {
    auto cSpaceInBetween = 8;
    int   ptArray[40]; // Array defining the number of parts/sections
@@ -152,7 +156,11 @@ HB_FUNC( INITITEMBAR )
    hb_strfree(str3);
 }
 
-HB_FUNC( SETITEMBAR )
+#if 1
+HB_FUNC_TRANSLATE( INITITEMBAR, HMG_INITITEMBAR )
+#endif
+
+HB_FUNC( HMG_SETITEMBAR )
 {
    auto hWnd = hmg_par_HWND(1);
    auto iPos = hb_parni(3);
@@ -163,7 +171,11 @@ HB_FUNC( SETITEMBAR )
    hb_strfree(str);
 }
 
-HB_FUNC( GETITEMBAR )
+#if 1
+HB_FUNC_TRANSLATE( SETITEMBAR, HMG_SETITEMBAR )
+#endif
+
+HB_FUNC( HMG_GETITEMBAR )
 {
 #ifdef UNICODE
    LPSTR pStr;
@@ -184,7 +196,11 @@ HB_FUNC( GETITEMBAR )
    hb_xfree(cString);
 }
 
-HB_FUNC( REFRESHITEMBAR )
+#if 1
+HB_FUNC_TRANSLATE( GETITEMBAR, HMG_GETITEMBAR )
+#endif
+
+HB_FUNC( HMG_REFRESHITEMBAR )
 {
    int  ptArray[40];  // Array defining the number of parts/sections
    int  nDev;
@@ -233,7 +249,11 @@ HB_FUNC( REFRESHITEMBAR )
    hb_retni( nrOfParts );
 }
 
-HB_FUNC( KEYTOGGLE )
+#if 1
+HB_FUNC_TRANSLATE( REFRESHITEMBAR, HMG_REFRESHITEMBAR )
+#endif
+
+HB_FUNC( HMG_KEYTOGGLE )
 {
    BYTE pBuffer[256];
    WORD wKey = hmg_par_WORD(1);
@@ -249,7 +269,11 @@ HB_FUNC( KEYTOGGLE )
    SetKeyboardState(pBuffer);
 }
 
-HB_FUNC( KEYTOGGLENT )
+#if 1
+HB_FUNC_TRANSLATE( KEYTOGGLE, HMG_KEYTOGGLE )
+#endif
+
+HB_FUNC( HMG_KEYTOGGLENT )
 {
    auto wKey = hmg_par_BYTE(1);
 
@@ -257,7 +281,11 @@ HB_FUNC( KEYTOGGLENT )
    keybd_event(wKey, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 }
 
-HB_FUNC( SETSTATUSITEMICON )
+#if 1
+HB_FUNC_TRANSLATE( KEYTOGGLENT, HMG_KEYTOGGLENT )
+#endif
+
+HB_FUNC( HMG_SETSTATUSITEMICON )
 {
    RECT  rect;
    int   cx;
@@ -288,7 +316,11 @@ HB_FUNC( SETSTATUSITEMICON )
    hb_strfree(str);
 }
 
-HB_FUNC( SETSTATUSBARSIZE )
+#if 1
+HB_FUNC_TRANSLATE( SETSTATUSITEMICON, HMG_SETSTATUSITEMICON )
+#endif
+
+HB_FUNC( HMG_SETSTATUSBARSIZE )
 {
    HLOCAL hloc;
 
@@ -316,7 +348,11 @@ HB_FUNC( SETSTATUSBARSIZE )
    LocalFree(hloc);
 }
 
-HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, hProgress)
+#if 1
+HB_FUNC_TRANSLATE( SETSTATUSBARSIZE, HMG_SETSTATUSBARSIZE )
+#endif
+
+HB_FUNC( HMG_REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, hProgress)
 {
    auto hwndStatus = hmg_par_HWND(1);
    RECT rc;
@@ -325,7 +361,11 @@ HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, 
    SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
-HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem)
+#if 1
+HB_FUNC_TRANSLATE( REFRESHPROGRESSITEM, HMG_REFRESHPROGRESSITEM )
+#endif
+
+HB_FUNC( HMG_CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem)
 {
    auto hwndStatus = hmg_par_HWND(1);
    HWND hwndProgressBar;
@@ -359,10 +399,18 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    }
 }
 
-HB_FUNC( SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem(HwndProgressBar, nPos)
+#if 1
+HB_FUNC_TRANSLATE( CREATEPROGRESSBARITEM, HMG_CREATEPROGRESSBARITEM )
+#endif
+
+HB_FUNC( HMG_SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem(HwndProgressBar, nPos)
 {
    auto hwndProgressBar = hmg_par_HWND(1);
 
    ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
    SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(2), 0);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETPOSPROGRESSBARITEM, HMG_SETPOSPROGRESSBARITEM )
+#endif
