@@ -244,7 +244,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitTabControl(ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, hb_IsArray(backcolor[1]), notabstop)
+      ControlHandle := hmg_InitTabControl(ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, hb_IsArray(backcolor[1]), notabstop)
 
       IF hb_IsArray(backcolor[1])
          hBrush := CreateSolidBrush(backcolor[1][1], backcolor[1][2], backcolor[1][3])
@@ -358,7 +358,7 @@ FUNCTION InitDialogTab(ParentName, ControlHandle, k)
    ENDIF
 
    IF _HMG_aControlMiscData1[k, 2] // ImageFlag
-      _HMG_aControlInputMask[k] := AddTabBitMap(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlMiscData1[k, 8])
+      _HMG_aControlInputMask[k] := hmg_AddTabBitMap(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlMiscData1[k, 8])
    ENDIF
 
    FOR EACH c IN aCaptions
@@ -413,7 +413,7 @@ FUNCTION UpdateTab(y) // Internal Function
    NEXT
 
    // Show New Active Page
-   s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
+   s := hmg_TabCtrl_GetCurSel(_HMG_aControlHandles[y])
 
    IF s > 0
       FOR EACH w IN _HMG_aControlPageMap[y][s]
@@ -581,7 +581,7 @@ FUNCTION _AddTabPage(ControlName, ParentForm, Position, Caption, Image, tooltip)
    // JD 11/05/2006
    IF i > 0
 
-      TABCTRL_INSERTITEM(_HMG_aControlHandles[i], Position - 1, Caption)
+      hmg_TABCTRL_INSERTITEM(_HMG_aControlHandles[i], Position - 1, Caption)
 
       AIns(_HMG_aControlPageMap[i], Position, {}, .T.)
       AIns(_HMG_aControlCaption[i], Position, Caption, .T.)
@@ -612,7 +612,7 @@ FUNCTION _AddTabPage(ControlName, ParentForm, Position, Caption, Image, tooltip)
          IF !Empty(_HMG_aControlInputMask[i])
             hmg_IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
          ENDIF
-         _HMG_aControlInputMask[i] := AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
+         _HMG_aControlInputMask[i] := hmg_AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
       ENDIF
       // JR
       IF !hb_isArray(_HMG_aControlTooltip[i])
@@ -779,7 +779,7 @@ FUNCTION _DeleteTabPage(ControlName, ParentForm, Position)
 
       _HMG_aControlTooltip[i] := NewMap
 
-      TabCtrl_DeleteItem(_HMG_aControlhandles[i], Position - 1)
+      hmg_TabCtrl_DeleteItem(_HMG_aControlhandles[i], Position - 1)
 
       // JD 11/05/2006
       FOR EACH NewValue IN _HMG_aControlPicture[i]
@@ -796,12 +796,12 @@ FUNCTION _DeleteTabPage(ControlName, ParentForm, Position)
          IF !Empty(_HMG_aControlInputMask[i])
             hmg_IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
          ENDIF
-         _HMG_aControlInputMask[i] := AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
+         _HMG_aControlInputMask[i] := hmg_AddTabBitMap(_HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
       ENDIF
 
       NewValue := iif(Position-- > Len(NewMap), Max(1, Len(NewMap)), Position)
 
-      TABCTRL_SETCURSEL(_HMG_aControlhandles[i], NewValue)
+      hmg_TABCTRL_SETCURSEL(_HMG_aControlhandles[i], NewValue)
 
       UpdateTab(i)
 

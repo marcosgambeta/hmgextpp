@@ -2696,8 +2696,8 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSE  // JR
 
-            a := GetMessagePos()
-            k := WindowFromPoint({LoWord(a), HiWord(a)})  // control handle
+            a := hmg_GetMessagePos()
+            k := hmg_WindowFromPoint({LoWord(a), HiWord(a)})  // control handle
             x := AScan(_HMG_aControlHandles, k)
 
             IF x > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TAB
@@ -3663,7 +3663,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE", nOldPage)
                      UpdateTab(i)
                   ELSE
-                     TabCtrl_SetCurSel(_HMG_aControlHandles[i], nOldPage)
+                     hmg_TabCtrl_SetCurSel(_HMG_aControlHandles[i], nOldPage)
                   ENDIF
                ENDIF
                RETURN 0

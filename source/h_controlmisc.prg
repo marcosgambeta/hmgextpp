@@ -228,7 +228,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_TAB
-      retval := TABCTRL_GETCURSEL(c)
+      retval := hmg_TABCTRL_GETCURSEL(c)
       EXIT
 
    CASE CONTROL_TYPE_DATEPICK
@@ -573,7 +573,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       IF nValue < 1
          MsgMiniGuiError("TAB: Wrong Value (only value > 0 is allowed).")
       ENDIF
-      TABCTRL_SETCURSEL(c, nValue)
+      hmg_TABCTRL_SETCURSEL(c, nValue)
       IF Len(_HMG_aControlPageMap[ix]) > 0
          UpdateTab(ix)
          _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
@@ -1386,7 +1386,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
          s := iif(nPosition > _GetItemCount(ControlName, ParentForm), 1, nPosition)
       ELSE
          DisableWindow(c)
-         s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
+         s := hmg_TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       ENDIF
       FOR EACH w IN _HMG_aControlPageMap[y][s]
          IF !hb_isArray(w)
@@ -1541,7 +1541,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          s := iif(nPosition > _GetItemCount(ControlName, ParentForm), 1, nPosition)
       ELSE
          EnableWindow(c)
-         s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
+         s := hmg_TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       ENDIF
       FOR EACH w IN _HMG_aControlPageMap[y][s]
          IF !hb_isArray(w)
@@ -1601,7 +1601,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
 
    FOR i := 1 TO Len(_HMG_aControlPageMap)
       IF _HMG_aControlType[i] == CONTROL_TYPE_TAB
-         s := TabCtrl_GetCurSel(_HMG_aControlHandles[i])
+         s := hmg_TabCtrl_GetCurSel(_HMG_aControlHandles[i])
          FOR r := 1 TO Len(_HMG_aControlPageMap[i])
             FOR w := 1 TO Len(_HMG_aControlPageMap[i][r])
                IF t == CONTROL_TYPE_RADIOGROUP
@@ -1680,7 +1680,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
 
    CASE CONTROL_TYPE_TAB
       CShowControl(c)
-      s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
+      s := hmg_TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       FOR EACH w IN _HMG_aControlPageMap[y][s]
          IF !hb_isArray(w)
             CShowControl(w)
@@ -3433,7 +3433,7 @@ FUNCTION _SetMultiCaption(ControlName, ParentForm, Column, Value)
          EXIT
 
       CASE CONTROL_TYPE_TAB
-         SetTabCaption(h, nColumn, Value)
+         hmg_SetTabCaption(h, nColumn, Value)
          UpdateTab(i)
 
       ENDSWITCH
@@ -3481,7 +3481,7 @@ FUNCTION _SetMultiImage(ControlName, ParentForm, Column, Value, lRightAlign)
          IF !Empty(_HMG_aControlInputMask[i])
             hmg_IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
          ENDIF
-         _HMG_aControlInputMask[i] := AddTabBitMap(h, _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
+         _HMG_aControlInputMask[i] := hmg_AddTabBitMap(h, _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8])
          UpdateTab(i)
          EXIT
 

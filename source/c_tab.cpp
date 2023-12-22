@@ -55,7 +55,7 @@ extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
-HB_FUNC( INITTABCONTROL )
+HB_FUNC( HMG_INITTABCONTROL )
 {
    DWORD style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
@@ -123,17 +123,29 @@ HB_FUNC( INITTABCONTROL )
    hmg_ret_HWND(hbutton);
 }
 
-HB_FUNC( TABCTRL_SETCURSEL )
+#if 1
+HB_FUNC_TRANSLATE( INITTABCONTROL, HMG_INITTABCONTROL )
+#endif
+
+HB_FUNC( HMG_TABCTRL_SETCURSEL )
 {
    TabCtrl_SetCurSel(hmg_par_HWND(1), hb_parni(2) - 1);
 }
 
-HB_FUNC( TABCTRL_GETCURSEL )
+#if 1
+HB_FUNC_TRANSLATE( TABCTRL_SETCURSEL, HMG_TABCTRL_SETCURSEL )
+#endif
+
+HB_FUNC( HMG_TABCTRL_GETCURSEL )
 {
    hb_retni(TabCtrl_GetCurSel(hmg_par_HWND(1)) + 1);
 }
 
-HB_FUNC( TABCTRL_INSERTITEM )
+#if 1
+HB_FUNC_TRANSLATE( TABCTRL_GETCURSEL, HMG_TABCTRL_GETCURSEL )
+#endif
+
+HB_FUNC( HMG_TABCTRL_INSERTITEM )
 {
    void * str;
    TC_ITEM tie{};
@@ -144,12 +156,20 @@ HB_FUNC( TABCTRL_INSERTITEM )
    hb_strfree(str);
 }
 
-HB_FUNC( TABCTRL_DELETEITEM )
+#if 1
+HB_FUNC_TRANSLATE( TABCTRL_INSERTITEM, HMG_TABCTRL_INSERTITEM )
+#endif
+
+HB_FUNC( HMG_TABCTRL_DELETEITEM )
 {
    TabCtrl_DeleteItem(hmg_par_HWND(1), hb_parni(2));
 }
 
-HB_FUNC( SETTABCAPTION )
+#if 1
+HB_FUNC_TRANSLATE( TABCTRL_DELETEITEM, HMG_TABCTRL_DELETEITEM )
+#endif
+
+HB_FUNC( HMG_SETTABCAPTION )
 {
    void * str;
    TC_ITEM tie{};
@@ -159,7 +179,11 @@ HB_FUNC( SETTABCAPTION )
    hb_strfree(str);
 }
 
-HB_FUNC( ADDTABBITMAP )
+#if 1
+HB_FUNC_TRANSLATE( SETTABCAPTION, HMG_SETTABCAPTION )
+#endif
+
+HB_FUNC( HMG_ADDTABBITMAP )
 {
    auto hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = nullptr;
@@ -198,14 +222,26 @@ HB_FUNC( ADDTABBITMAP )
    hmg_ret_HIMAGELIST(himl);
 }
 
-HB_FUNC( WINDOWFROMPOINT )
+#if 1
+HB_FUNC_TRANSLATE( ADDTABBITMAP, HMG_ADDTABBITMAP )
+#endif
+
+HB_FUNC( HMG_WINDOWFROMPOINT )
 {
    POINT Point;
    Array2Point(hb_param(1, Harbour::Item::ARRAY), &Point);
    hmg_ret_HWND(WindowFromPoint(Point));
 }
 
-HB_FUNC( GETMESSAGEPOS )
+#if 1
+HB_FUNC_TRANSLATE( WINDOWFROMPOINT, HMG_WINDOWFROMPOINT )
+#endif
+
+HB_FUNC( HMG_GETMESSAGEPOS )
 {
    hb_retnl(GetMessagePos());
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETMESSAGEPOS, HMG_GETMESSAGEPOS )
+#endif
