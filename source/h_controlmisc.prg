@@ -6183,11 +6183,11 @@ PROCEDURE FindTextDlg(OnActionCodeBlock, cFind, lNoUpDown, lNoMatchCase, lNoWhol
    ENDIF
 
    IF !FindReplaceDlgIsRelease ()
-      FindReplaceDlgRelease(.T.)
+      hmg_FindReplaceDlgRelease(.T.)
    ENDIF
 
    _HMG_FindReplaceOnAction := OnActionCodeBlock
-   FindReplaceDlg(NIL, lNoUpDown, lNoMatchCase, lNoWholeWord, lCheckDown, lCheckMatchCase, lCheckWholeWord, cFind, cReplace, .F., cTitle)
+   hmg_FindReplaceDlg(NIL, lNoUpDown, lNoMatchCase, lNoWholeWord, lCheckDown, lCheckMatchCase, lCheckWholeWord, cFind, cReplace, .F., cTitle)
 
 RETURN
 
@@ -6209,11 +6209,11 @@ PROCEDURE ReplaceTextDlg(OnActionCodeBlock, cFind, cReplace, lNoMatchCase, lNoWh
    ENDIF
 
    IF !FindReplaceDlgIsRelease ()
-      FindReplaceDlgRelease(.T.)
+      hmg_FindReplaceDlgRelease(.T.)
    ENDIF
 
    _HMG_FindReplaceOnAction := OnActionCodeBlock
-   FindReplaceDlg(NIL, lNoUpDown, lNoMatchCase, lNoWholeWord, lCheckDown, lCheckMatchCase, lCheckWholeWord, cFind, cReplace, .T., cTitle)
+   hmg_FindReplaceDlg(NIL, lNoUpDown, lNoMatchCase, lNoWholeWord, lCheckDown, lCheckMatchCase, lCheckWholeWord, cFind, cReplace, .T., cTitle)
 
 RETURN
 
@@ -6254,8 +6254,8 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    nAlignment := nNumbering := nNumberingStyle := nNumberingStart := ndOffset := ndLineSpacing := ndStartIndent := NIL
 
    hWndControl := GetControlHandle(Arg2, Arg1)
-   RichEditBox_GetFont(hWndControl, @cFONTNAME, @nFONTSIZE, @lBOLD, @lItalic, @lUnderline, @lStrikeout, @aTextColor, @aBACKCOLOR, @nScript, @lLink)
-   RichEditBox_GetParaFormat(hWndControl, @nALIGNMENT, @nNumbering, @nNumberingStyle, @nNumberingStart, @ndOffset, @ndLineSpacing, @ndStartIndent)
+   hmg_RichEditBox_GetFont(hWndControl, @cFONTNAME, @nFONTSIZE, @lBOLD, @lItalic, @lUnderline, @lStrikeout, @aTextColor, @aBACKCOLOR, @nScript, @lLink)
+   hmg_RichEditBox_GetParaFormat(hWndControl, @nALIGNMENT, @nNumbering, @nNumberingStyle, @nNumberingStart, @ndOffset, @ndLineSpacing, @ndStartIndent)
 
    Arg3 := Upper(AllTrim(Arg3))
 
@@ -6269,20 +6269,20 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    CASE "FONTCOLOR"          ; xData := aTextColor                                                                     ; RetVal := .T. ; EXIT
    CASE "FONTBACKCOLOR"      ; xData := aBackColor                                                                     ; RetVal := .T. ; EXIT
    CASE "FONTSCRIPT"         ; xData := nScript                                                                        ; RetVal := .T. ; EXIT
-   CASE "RTFTEXTMODE"        ; xData := RichEditBox_IsRTFTextMode(hWndControl)                                         ; RetVal := .T. ; EXIT
-   CASE "AUTOURLDETECT"      ; xData := RichEditBox_GetAutoURLDetect(hWndControl)                                      ; RetVal := .T. ; EXIT
+   CASE "RTFTEXTMODE"        ; xData := hmg_RichEditBox_IsRTFTextMode(hWndControl)                                         ; RetVal := .T. ; EXIT
+   CASE "AUTOURLDETECT"      ; xData := hmg_RichEditBox_GetAutoURLDetect(hWndControl)                                      ; RetVal := .T. ; EXIT
    CASE "ZOOM"
-      RichEditBox_GetZoom(hWndControl, @nNumerator, @nDenominator)
+      hmg_RichEditBox_GetZoom(hWndControl, @nNumerator, @nDenominator)
       xData := (nNumerator / nDenominator) * 100
       RetVal := .T.
       EXIT
-   CASE "SELECTRANGE"        ; xData := RichEditBox_GetSelRange(hWndControl)                                            ; RetVal := .T. ; EXIT
+   CASE "SELECTRANGE"        ; xData := hmg_RichEditBox_GetSelRange(hWndControl)                                            ; RetVal := .T. ; EXIT
    CASE "CARETPOS"           ; xData := RichEditBox_GetCaretPos(hWndControl)                                            ; RetVal := .T. ; EXIT
-   CASE "VALUE"              ; xData := RichEditBox_GetText(hWndControl, .F.)                                           ; RetVal := .T. ; EXIT
-   CASE "GETSELECTTEXT"      ; xData := RichEditBox_GetText(hWndControl, .T.)                                           ; RetVal := .T. ; EXIT
-   CASE "GETTEXTRANGE"       ; xData := RichEditBox_GetTextRange(hWndControl, Arg4)                                     ; RetVal := .T. ; EXIT
-   CASE "GETTEXTLENGTH"      ; xData := RichEditBox_GetTextLength(hWndControl)                                          ; RetVal := .T. ; EXIT
-   CASE "GETPOSCHAR"         ; xData := RichEditBox_PosFromChar(hWndControl, Arg4)                                      ; RetVal := .T. ; EXIT // return {nRowScreen, nColScreen} or {-1, -1} if character is not displayed
+   CASE "VALUE"              ; xData := hmg_RichEditBox_GetText(hWndControl, .F.)                                           ; RetVal := .T. ; EXIT
+   CASE "GETSELECTTEXT"      ; xData := hmg_RichEditBox_GetText(hWndControl, .T.)                                           ; RetVal := .T. ; EXIT
+   CASE "GETTEXTRANGE"       ; xData := hmg_RichEditBox_GetTextRange(hWndControl, Arg4)                                     ; RetVal := .T. ; EXIT
+   CASE "GETTEXTLENGTH"      ; xData := hmg_RichEditBox_GetTextLength(hWndControl)                                          ; RetVal := .T. ; EXIT
+   CASE "GETPOSCHAR"         ; xData := hmg_RichEditBox_PosFromChar(hWndControl, Arg4)                                      ; RetVal := .T. ; EXIT // return {nRowScreen, nColScreen} or {-1, -1} if character is not displayed
    CASE "PARAALIGNMENT"      ; xData := nAlignment                                                                      ; RetVal := .T. ; EXIT
    CASE "PARANUMBERING"      ; xData := nNumbering                                                                      ; RetVal := .T. ; EXIT
    CASE "PARANUMBERINGSTYLE" ; xData := nNumberingStyle                                                                 ; RetVal := .T. ; EXIT
@@ -6290,16 +6290,16 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    CASE "PARAOFFSET"         ; xData := ndOffset                                                                        ; RetVal := .T. ; EXIT // in millimeters
    CASE "PARALINESPACING"    ; xData := ndLineSpacing                                                                   ; RetVal := .T. ; EXIT
    CASE "PARAINDENT"         ; xData := ndStartIndent                                                                   ; RetVal := .T. ; EXIT // in millimeters
-   CASE "CANPASTE"           ; xData := RichEditBox_CanPaste(hWndControl)                                               ; RetVal := .T. ; EXIT
-   CASE "CANUNDO"            ; xData := RichEditBox_CanUnDo(hWndControl)                                                ; RetVal := .T. ; EXIT
-   CASE "CANREDO"            ; xData := RichEditBox_CanReDo(hWndControl)                                                ; RetVal := .T. ; EXIT
-   CASE "FINDTEXT"           ; xData := RichEditBox_FindText(hWndControl, Arg4, Arg5, Arg6, Arg7, Arg8)                 ; RetVal := .T. ; EXIT
+   CASE "CANPASTE"           ; xData := hmg_RichEditBox_CanPaste(hWndControl)                                               ; RetVal := .T. ; EXIT
+   CASE "CANUNDO"            ; xData := hmg_RichEditBox_CanUnDo(hWndControl)                                                ; RetVal := .T. ; EXIT
+   CASE "CANREDO"            ; xData := hmg_RichEditBox_CanReDo(hWndControl)                                                ; RetVal := .T. ; EXIT
+   CASE "FINDTEXT"           ; xData := hmg_RichEditBox_FindText(hWndControl, Arg4, Arg5, Arg6, Arg7, Arg8)                 ; RetVal := .T. ; EXIT
    CASE "REPLACETEXT"        ; xData := RichEditBox_ReplaceText(hWndControl, Arg4, Arg5, Arg6, Arg7, Arg8)              ; RetVal := .T. ; EXIT
    CASE "REPLACEALLTEXT"     ; xData := RichEditBox_ReplaceAllText(hWndControl, Arg4, Arg5, Arg6, Arg7, Arg8)           ; RetVal := .T. ; EXIT
    CASE "LINK"               ; xData := lLink                                                                           ; RetVal := .T. ; EXIT
    CASE "GETCLICKLINKRANGE"  ; xData := {_HMG_CharRange_Min, _HMG_CharRange_Max}                                        ; RetVal := .T. ; EXIT // This Value is valid only into ON LINK procedure
-   CASE "GETCLICKLINKTEXT"   ; xData := RichEditBox_GetTextRange(hWndControl, {_HMG_CharRange_Min, _HMG_CharRange_Max}) ; RetVal := .T. ; EXIT // This Value is valid only into ON LINK procedure
-   CASE "VIEWRECT"           ; xData := RichEditBox_GetRect(hWndControl)                                                ; RetVal := .T.
+   CASE "GETCLICKLINKTEXT"   ; xData := hmg_RichEditBox_GetTextRange(hWndControl, {_HMG_CharRange_Min, _HMG_CharRange_Max}) ; RetVal := .T. ; EXIT // This Value is valid only into ON LINK procedure
+   CASE "VIEWRECT"           ; xData := hmg_RichEditBox_GetRect(hWndControl)                                                ; RetVal := .T.
    ENDSWITCH
 
 RETURN RetVal
@@ -6355,20 +6355,20 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    CASE "FONTCOLOR"          ; aTextColor := Arg4                              ; RetVal := .T. ; EXIT
    CASE "FONTBACKCOLOR"      ; aBackColor := Arg4                              ; RetVal := .T. ; EXIT
    CASE "FONTSCRIPT"         ; nScript := Arg4                                 ; RetVal := .T. ; EXIT
-   CASE "RTFTEXTMODE"        ; RichEditBox_SetRTFTextMode(hWndControl, Arg4)   ; RetVal := .T. ; EXIT
-   CASE "AUTOURLDETECT"      ; RichEditBox_SetAutoURLDetect(hWndControl, Arg4) ; RetVal := .T. ; EXIT
-   CASE "BACKGROUNDCOLOR"    ; RichEditBox_SetBkgndColor(hWndControl, Arg4)    ; RetVal := .T. ; EXIT
+   CASE "RTFTEXTMODE"        ; hmg_RichEditBox_SetRTFTextMode(hWndControl, Arg4)   ; RetVal := .T. ; EXIT
+   CASE "AUTOURLDETECT"      ; hmg_RichEditBox_SetAutoURLDetect(hWndControl, Arg4) ; RetVal := .T. ; EXIT
+   CASE "BACKGROUNDCOLOR"    ; hmg_RichEditBox_SetBkgndColor(hWndControl, Arg4)    ; RetVal := .T. ; EXIT
    CASE "ZOOM"
       nNumerator := Arg4 // in percentage
       nDenominator := 100
-      RichEditBox_SetZoom(hWndControl, nNumerator, nDenominator)               ; RetVal := .T. ; EXIT
-   CASE "SELECTRANGE"        ; RichEditBox_SetSelRange(hWndControl, Arg4)      ; RetVal := .T. ; EXIT
+      hmg_RichEditBox_SetZoom(hWndControl, nNumerator, nDenominator)               ; RetVal := .T. ; EXIT
+   CASE "SELECTRANGE"        ; hmg_RichEditBox_SetSelRange(hWndControl, Arg4)      ; RetVal := .T. ; EXIT
    CASE "CARETPOS"           ; RichEditBox_SetCaretPos(hWndControl, Arg4)      ; RetVal := .T. ; EXIT
-   CASE "VALUE"              ; RichEditBox_SetText(hWndControl, .F., Arg4)     ; RetVal := .T. ; EXIT
+   CASE "VALUE"              ; hmg_RichEditBox_SetText(hWndControl, .F., Arg4)     ; RetVal := .T. ; EXIT
    CASE "ADDTEXT"
       Arg4 := IIF(!hb_isNumeric(Arg4), -1, Arg4)
       RichEditBox_SetCaretPos(hWndControl, Arg4)
-      RichEditBox_SetText(hWndControl, .T., Arg5)                              ; RetVal := .T. ; EXIT
+      hmg_RichEditBox_SetText(hWndControl, .T., Arg5)                              ; RetVal := .T. ; EXIT
    CASE "ADDTEXTANDSELECT"
       Arg4 := IIF(!hb_isNumeric(Arg4), -1, Arg4)
       RichEditBox_AddTextAndSelect(hWndControl, Arg4, Arg5)                    ; RetVal := .T. ; EXIT
@@ -6380,11 +6380,11 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    CASE "PARALINESPACING"    ; ndLineSpacing := Arg4                           ; RetVal := .T. ; EXIT
    CASE "PARAINDENT"         ; ndStartIndent := Arg4 /* in millimeters */      ; RetVal := .T. ; EXIT
    CASE "LINK"               ; lLink := Arg4                                   ; RetVal := .T. ; EXIT
-   CASE "VIEWRECT"           ; RichEditBox_SetRect(hWndControl, Arg4)          ; RetVal := .T.
+   CASE "VIEWRECT"           ; hmg_RichEditBox_SetRect(hWndControl, Arg4)          ; RetVal := .T.
    ENDSWITCH
 
-   RichEditBox_SetFont(hWndControl, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeout, aTextColor, aBackColor, nScript, lLink)
-   RichEditBox_SetParaFormat(hWndControl, nAlignment, nNumbering, nNumberingStyle, nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent)
+   hmg_RichEditBox_SetFont(hWndControl, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeout, aTextColor, aBackColor, nScript, lLink)
+   hmg_RichEditBox_SetParaFormat(hWndControl, nAlignment, nNumbering, nNumberingStyle, nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent)
 
 RETURN RetVal
 
@@ -6411,14 +6411,14 @@ STATIC FUNCTION _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, 
    CASE "RTFSAVEFILE"
    CASE "SAVEFILE"
       RichEditBox_SaveFile(hWndControl, Arg4, Arg5, Arg6) /* by default save in SF_RTF format */  ; RetVal := .T. ; EXIT
-   CASE "SELPASTESPECIAL" ; RichEditBox_PasteSpecial(hWndControl, Arg4)                           ; RetVal := .T. ; EXIT
-   CASE "SELCOPY"         ; RichEditBox_SelCopy(hWndControl)                                      ; RetVal := .T. ; EXIT
-   CASE "SELPASTE"        ; RichEditBox_SelPaste(hWndControl)                                     ; RetVal := .T. ; EXIT
-   CASE "SELCUT"          ; RichEditBox_SelCut(hWndControl)                                       ; RetVal := .T. ; EXIT
-   CASE "SELCLEAR"        ; RichEditBox_SelClear(hWndControl)                                     ; RetVal := .T. ; EXIT
-   CASE "UNDO"            ; RichEditBox_ChangeUndo(hWndControl)                                   ; RetVal := .T. ; EXIT
-   CASE "REDO"            ; RichEditBox_ChangeRedo(hWndControl)                                   ; RetVal := .T. ; EXIT
-   CASE "CLEARUNDOBUFFER" ; RichEditBox_ClearUndoBuffer(hWndControl)                              ; RetVal := .T. ; EXIT
+   CASE "SELPASTESPECIAL" ; hmg_RichEditBox_PasteSpecial(hWndControl, Arg4)                           ; RetVal := .T. ; EXIT
+   CASE "SELCOPY"         ; hmg_RichEditBox_SelCopy(hWndControl)                                      ; RetVal := .T. ; EXIT
+   CASE "SELPASTE"        ; hmg_RichEditBox_SelPaste(hWndControl)                                     ; RetVal := .T. ; EXIT
+   CASE "SELCUT"          ; hmg_RichEditBox_SelCut(hWndControl)                                       ; RetVal := .T. ; EXIT
+   CASE "SELCLEAR"        ; hmg_RichEditBox_SelClear(hWndControl)                                     ; RetVal := .T. ; EXIT
+   CASE "UNDO"            ; hmg_RichEditBox_ChangeUndo(hWndControl)                                   ; RetVal := .T. ; EXIT
+   CASE "REDO"            ; hmg_RichEditBox_ChangeRedo(hWndControl)                                   ; RetVal := .T. ; EXIT
+   CASE "CLEARUNDOBUFFER" ; hmg_RichEditBox_ClearUndoBuffer(hWndControl)                              ; RetVal := .T. ; EXIT
    CASE "RTFPRINT"        ; RichEditBox_RTFPrint(hWndControl, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9) ; RetVal := .T.
    ENDSWITCH
 

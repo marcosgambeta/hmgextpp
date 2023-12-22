@@ -80,7 +80,7 @@ LPSTR  WideToAnsi(LPWSTR);
 
 static HINSTANCE hRELib = nullptr;
 
-HB_FUNC( INITRICHEDITBOXEX )
+HB_FUNC( HMG_INITRICHEDITBOXEX )
 {
    auto hWnd = hmg_par_HWND(1);
    auto hMenu = hmg_par_HMENU(2);
@@ -135,13 +135,21 @@ HB_FUNC( INITRICHEDITBOXEX )
    hmg_ret_HWND(hWndControl);
 }
 
-HB_FUNC( UNLOADRICHEDITEXLIB )
+#if 1
+HB_FUNC_TRANSLATE( INITRICHEDITBOXEX, HMG_INITRICHEDITBOXEX )
+#endif
+
+HB_FUNC( HMG_UNLOADRICHEDITEXLIB )
 {
    if( hRELib ) {
       FreeLibrary(hRELib);
       hRELib = nullptr;
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( UNLOADRICHEDITEXLIB, HMG_UNLOADRICHEDITEXLIB )
+#endif
 
 DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
@@ -155,7 +163,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 }
 
 //        RichEditBox_StreamIn ( hWndControl, cFileName, lSelection, nDataFormat )
-HB_FUNC( RICHEDITBOX_STREAMIN )
+HB_FUNC( HMG_RICHEDITBOX_STREAMIN )
 {
    auto nDataFormat = hmg_par_LONG(4);
    LONG Format;
@@ -190,6 +198,10 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    hb_retl(es.dwError ? false : true);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_STREAMIN, HMG_RICHEDITBOX_STREAMIN )
+#endif
+
 DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
    auto hFile = reinterpret_cast<HANDLE>(dwCookie);
@@ -202,7 +214,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 }
 
 //        RichEditBox_StreamOut ( hWndControl, cFileName, lSelection, nDataFormat )
-HB_FUNC( RICHEDITBOX_STREAMOUT )
+HB_FUNC( HMG_RICHEDITBOX_STREAMOUT )
 {
    auto nDataFormat = hmg_par_LONG(4);
    LONG Format;
@@ -237,8 +249,12 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    hb_retl(es.dwError ? false : true);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_STREAMOUT, HMG_RICHEDITBOX_STREAMOUT )
+#endif
+
 //        RichEditBox_RTFLoadResourceFile ( hWndControl, cFileName, lSelect )
-HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
+HB_FUNC( HMG_RICHEDITBOX_RTFLOADRESOURCEFILE )
 {
    void * str;
    HRSRC hResourceData = FindResource(nullptr, HB_PARSTR(2, &str, nullptr), TEXT("RTF"));
@@ -267,33 +283,53 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
    hb_retl((lpGlobalResource == nullptr) ? false : true);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_RTFLOADRESOURCEFILE, HMG_RICHEDITBOX_RTFLOADRESOURCEFILE )
+#endif
+
 //        RichEditBox_SetRTFTextMode ( hWndControl, lRTF )
-HB_FUNC( RICHEDITBOX_SETRTFTEXTMODE )
+HB_FUNC( HMG_RICHEDITBOX_SETRTFTEXTMODE )
 {
    BOOL lRTF = HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE;
    SendMessage(hmg_par_HWND(1), EM_SETTEXTMODE, (lRTF ? TM_RICHTEXT : TM_PLAINTEXT) | TM_MULTILEVELUNDO | TM_MULTICODEPAGE, 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETRTFTEXTMODE, HMG_RICHEDITBOX_SETRTFTEXTMODE )
+#endif
+
 //        RichEditBox_IsRTFTextMode ( hWndControl ) --> return lRTF
-HB_FUNC( RICHEDITBOX_ISRTFTEXTMODE )
+HB_FUNC( HMG_RICHEDITBOX_ISRTFTEXTMODE )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_GETTEXTMODE, 0, 0) & TM_RICHTEXT);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_ISRTFTEXTMODE, HMG_RICHEDITBOX_ISRTFTEXTMODE )
+#endif
+
 //        RichEditBox_SetAutoURLDetect ( hWndControl, lLink )
-HB_FUNC( RICHEDITBOX_SETAUTOURLDETECT )
+HB_FUNC( HMG_RICHEDITBOX_SETAUTOURLDETECT )
 {
    SendMessage(hmg_par_HWND(1), EM_AUTOURLDETECT, HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE, 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETAUTOURLDETECT, HMG_RICHEDITBOX_SETAUTOURLDETECT )
+#endif
+
 //        RichEditBox_GetAutoURLDetect ( hWndControl ) --> return lLink
-HB_FUNC( RICHEDITBOX_GETAUTOURLDETECT )
+HB_FUNC( HMG_RICHEDITBOX_GETAUTOURLDETECT )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_GETAUTOURLDETECT, 0, 0));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETAUTOURLDETECT, HMG_RICHEDITBOX_GETAUTOURLDETECT )
+#endif
+
 //        RichEditBox_SetBkgndColor ( hWndControl, [aBkgndColor] )
-HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
+HB_FUNC( HMG_RICHEDITBOX_SETBKGNDCOLOR )
 {
    auto hWndControl = hmg_par_HWND(1);
 
@@ -304,14 +340,22 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETBKGNDCOLOR, HMG_RICHEDITBOX_SETBKGNDCOLOR )
+#endif
+
 //        RichEditBox_SetZoom ( hWndControl, nNumerator, nDenominator )
-HB_FUNC( RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
+HB_FUNC( HMG_RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
 {
    SendMessage(hmg_par_HWND(1), EM_SETZOOM, hmg_par_WPARAM(2), hb_parni(3)); //    1/64 < ZoomRatio < 64
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETZOOM, HMG_RICHEDITBOX_SETZOOM )
+#endif
+
 //        RichEditBox_GetZoom ( hWndControl, @nNumerator, @nDenominator )
-HB_FUNC( RICHEDITBOX_GETZOOM )
+HB_FUNC( HMG_RICHEDITBOX_GETZOOM )
 {
    int  nNumerator, nDenominator;
    SendMessage(hmg_par_HWND(1), EM_GETZOOM, ( WPARAM ) &nNumerator, reinterpret_cast<LPARAM>(&nDenominator));
@@ -323,8 +367,12 @@ HB_FUNC( RICHEDITBOX_GETZOOM )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETZOOM, HMG_RICHEDITBOX_GETZOOM )
+#endif
+
 //        RichEditBox_SetFont(hWndControl, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeout, aTextColor, aBackColor, nScript, lLink)
-HB_FUNC( RICHEDITBOX_SETFONT )
+HB_FUNC( HMG_RICHEDITBOX_SETFONT )
 {
    CHARFORMAT2 CharFormat2{};
    CharFormat2.cbSize = sizeof(CHARFORMAT2);
@@ -412,8 +460,12 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    hb_retl(SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2)) ? true : false);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETFONT, HMG_RICHEDITBOX_SETFONT )
+#endif
+
 //        RichEditBox_GetFont(hWndControl, @cFontName, @nFontSize, @lBold, @lItalic, @lUnderline, @lStrikeout, @aTextColor, @aBackColor, @nScript, @lLink)
-HB_FUNC( RICHEDITBOX_GETFONT )
+HB_FUNC( HMG_RICHEDITBOX_GETFONT )
 {
 #ifdef UNICODE
    LPSTR pStr;
@@ -488,8 +540,12 @@ HB_FUNC( RICHEDITBOX_GETFONT )
 
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETFONT, HMG_RICHEDITBOX_GETFONT )
+#endif
+
 //        RichEditBox_SetSelRange ( hWndControl, { nMin, nMax } )
-HB_FUNC( RICHEDITBOX_SETSELRANGE )
+HB_FUNC( HMG_RICHEDITBOX_SETSELRANGE )
 {
    CHARRANGE CharRange;
    CharRange.cpMin = HB_PARVNL(2, 1);
@@ -497,8 +553,12 @@ HB_FUNC( RICHEDITBOX_SETSELRANGE )
    SendMessage(hmg_par_HWND(1), EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETSELRANGE, HMG_RICHEDITBOX_SETSELRANGE )
+#endif
+
 //        RichEditBox_GetSelRange ( hWndControl ) --> return { nMin, nMax }
-HB_FUNC( RICHEDITBOX_GETSELRANGE )
+HB_FUNC( HMG_RICHEDITBOX_GETSELRANGE )
 {
    CHARRANGE CharRange;
    SendMessage(hmg_par_HWND(1), EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
@@ -507,8 +567,12 @@ HB_FUNC( RICHEDITBOX_GETSELRANGE )
    HB_STORVNL( CharRange.cpMax, -1, 2 );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETSELRANGE, HMG_RICHEDITBOX_GETSELRANGE )
+#endif
+
 //        RichEditBox_ReplaceSel ( hWndControl, cText )   ==   RichEditBox_SetText ( hWndControl , .T. , cText )
-HB_FUNC( RICHEDITBOX_REPLACESEL )
+HB_FUNC( HMG_RICHEDITBOX_REPLACESEL )
 {
    void * str;
    LPCTSTR cBuffer = HB_PARSTR(2, &str, nullptr);
@@ -516,8 +580,12 @@ HB_FUNC( RICHEDITBOX_REPLACESEL )
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_REPLACESEL, HMG_RICHEDITBOX_REPLACESEL )
+#endif
+
 //        RichEditBox_SetText ( hWndControl , lSelect , cText )
-HB_FUNC( RICHEDITBOX_SETTEXT )
+HB_FUNC( HMG_RICHEDITBOX_SETTEXT )
 {
    void * str;
    LPCTSTR cBuffer = HB_PARSTR(3, &str, nullptr);
@@ -532,8 +600,12 @@ HB_FUNC( RICHEDITBOX_SETTEXT )
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETTEXT, HMG_RICHEDITBOX_SETTEXT )
+#endif
+
 //        RichEditBox_GetText ( hWndControl , lSelect )
-HB_FUNC( RICHEDITBOX_GETTEXT )
+HB_FUNC( HMG_RICHEDITBOX_GETTEXT )
 {
    TCHAR cBuffer[4096];
    GETTEXTEX GT;
@@ -550,8 +622,12 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
    HB_RETSTR(cBuffer);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXT, HMG_RICHEDITBOX_GETTEXT )
+#endif
+
 //        RichEditBox_GetTextLength ( hWndControl )
-HB_FUNC( RICHEDITBOX_GETTEXTLENGTH )
+HB_FUNC( HMG_RICHEDITBOX_GETTEXTLENGTH )
 {
    GETTEXTLENGTHEX GTL;
    GTL.flags = GTL_NUMCHARS;
@@ -564,8 +640,12 @@ HB_FUNC( RICHEDITBOX_GETTEXTLENGTH )
    hb_retnl( nLength );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXTLENGTH, HMG_RICHEDITBOX_GETTEXTLENGTH )
+#endif
+
 //        RichEditBox_GetTextRange ( hWndControl ,  { nMin, nMax }  )
-HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
+HB_FUNC( HMG_RICHEDITBOX_GETTEXTRANGE )
 {
    TCHAR cBuffer[4096];
    TEXTRANGE TextRange;
@@ -576,8 +656,12 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
    HB_RETSTR(TextRange.lpstrText);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXTRANGE, HMG_RICHEDITBOX_GETTEXTRANGE )
+#endif
+
 //        RichEditBox_FindText ( hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText )
-HB_FUNC( RICHEDITBOX_FINDTEXT )
+HB_FUNC( HMG_RICHEDITBOX_FINDTEXT )
 {
    auto hWndControl = hmg_par_HWND(1);
    BOOL Down           = static_cast<BOOL>(HB_ISNIL(3) ? TRUE  : hb_parl(3));
@@ -639,8 +723,12 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_FINDTEXT, HMG_RICHEDITBOX_FINDTEXT )
+#endif
+
 //        RichEditBox_SetParaFormat ( hWndControl, nAlignment, nNumbering, nNumberingStyle, nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent )
-HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
+HB_FUNC( HMG_RICHEDITBOX_SETPARAFORMAT )
 {
    WORD   Alignment      = ( HB_ISNIL(2) ?    0 : hb_parni(2) );
    WORD   Numbering      = ( HB_ISNIL(3) ?    0 : hb_parni(3) );
@@ -722,8 +810,12 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    SendMessage(hmg_par_HWND(1), EM_SETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETPARAFORMAT, HMG_RICHEDITBOX_SETPARAFORMAT )
+#endif
+
 //        RichEditBox_GetParaFormat ( hWndControl, @nAlignment, @nNumbering, @nNumberingStyle, @nNumberingStart, @Offset, @ndLineSpacing, @ndStartIndent )
-HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
+HB_FUNC( HMG_RICHEDITBOX_GETPARAFORMAT )
 {
    WORD   Alignment   = 0;
    WORD   Numbering   = 0;
@@ -815,58 +907,102 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    }
 }
 
-HB_FUNC( RICHEDITBOX_SELCOPY )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETPARAFORMAT, HMG_RICHEDITBOX_GETPARAFORMAT )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_SELCOPY )
 {
    SendMessage(hmg_par_HWND(1), WM_COPY, 0, 0);    // copy the current selection to the clipboard in CF_TEXT format
 }
 
-HB_FUNC( RICHEDITBOX_SELPASTE )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SELCOPY, HMG_RICHEDITBOX_SELCOPY )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_SELPASTE )
 {
    SendMessage(hmg_par_HWND(1), WM_PASTE, 0, 0);    // copy the current content of the clipboard at the current caret position,
 }                                                 // data is inserted only if the clipboard contains data in CF_TEXT format
 
-HB_FUNC( RICHEDITBOX_SELCUT )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SELPASTE, HMG_RICHEDITBOX_SELPASTE )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_SELCUT )
 {
    SendMessage(hmg_par_HWND(1), WM_CUT, 0, 0);    // delete (cut) the current selection and place the deleted content on the clipboard
 }
 
-HB_FUNC( RICHEDITBOX_SELCLEAR )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SELCUT, HMG_RICHEDITBOX_SELCUT )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_SELCLEAR )
 {
    SendMessage(hmg_par_HWND(1), WM_CLEAR, 0, 0);    // delete (cut) the current selection
 }
 
-HB_FUNC( RICHEDITBOX_CHANGEUNDO )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SELCLEAR, HMG_RICHEDITBOX_SELCLEAR )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CHANGEUNDO )
 {
    SendMessage(hmg_par_HWND(1), EM_UNDO, 0, 0);
 }
 
-HB_FUNC( RICHEDITBOX_CHANGEREDO )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CHANGEUNDO, HMG_RICHEDITBOX_CHANGEUNDO )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CHANGEREDO )
 {
    SendMessage(hmg_par_HWND(1), EM_REDO, 0, 0);
 }
 
-HB_FUNC( RICHEDITBOX_CLEARUNDOBUFFER )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CHANGEREDO, HMG_RICHEDITBOX_CHANGEREDO )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CLEARUNDOBUFFER )
 {
    SendMessage(hmg_par_HWND(1), EM_EMPTYUNDOBUFFER, 0, 0);
 }
 
-HB_FUNC( RICHEDITBOX_CANPASTE )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CLEARUNDOBUFFER, HMG_RICHEDITBOX_CLEARUNDOBUFFER )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CANPASTE )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_CANPASTE, 0, 0));
 }
 
-HB_FUNC( RICHEDITBOX_CANUNDO )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CANPASTE, HMG_RICHEDITBOX_CANPASTE )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CANUNDO )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_CANUNDO, 0, 0));
 }
 
-HB_FUNC( RICHEDITBOX_CANREDO )
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CANUNDO, HMG_RICHEDITBOX_CANUNDO )
+#endif
+
+HB_FUNC( HMG_RICHEDITBOX_CANREDO )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_CANREDO, 0, 0));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_CANREDO, HMG_RICHEDITBOX_CANREDO )
+#endif
+
 //        RichEditBox_GetRect ( hWndControl ) --> { nLeft, nTop, nRight, nBottom }
-HB_FUNC( RICHEDITBOX_GETRECT )
+HB_FUNC( HMG_RICHEDITBOX_GETRECT )
 {
    RECT rc;
    SendMessage(hmg_par_HWND(1), EM_GETRECT, 0, reinterpret_cast<LPARAM>(&rc));
@@ -877,8 +1013,12 @@ HB_FUNC( RICHEDITBOX_GETRECT )
    HB_STORNI( rc.bottom, -1, 4 );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_GETRECT, HMG_RICHEDITBOX_GETRECT )
+#endif
+
 //        RichEditBox_SetRect ( hWndControl, { nLeft, nTop, nRight, nBottom } )
-HB_FUNC( RICHEDITBOX_SETRECT )
+HB_FUNC( HMG_RICHEDITBOX_SETRECT )
 {
    RECT rc;
    rc.left   = HB_PARNI(2, 1);
@@ -888,8 +1028,12 @@ HB_FUNC( RICHEDITBOX_SETRECT )
    SendMessage(hmg_par_HWND(1), EM_SETRECT, 1, reinterpret_cast<LPARAM>(&rc));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETRECT, HMG_RICHEDITBOX_SETRECT )
+#endif
+
 //        RichEditBox_PastEspecial ( hWndControl , ClipboardFormat )
-HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a rich edit control
+HB_FUNC( HMG_RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a rich edit control
 {
    auto hWndControl = hmg_par_HWND(1);
 
@@ -902,14 +1046,22 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_PASTESPECIAL, HMG_RICHEDITBOX_PASTESPECIAL )
+#endif
+
 //        RichEditBox_SetMargins ( hWndControl, LeftMargin, RightMargin )
-HB_FUNC( RICHEDITBOX_SETMARGINS )
+HB_FUNC( HMG_RICHEDITBOX_SETMARGINS )
 {
    SendMessage(hmg_par_HWND(1), EM_SETMARGINS, EC_USEFONTINFO, MAKELPARAM(hmg_par_WORD(2), hmg_par_WORD(3)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_SETMARGINS, HMG_RICHEDITBOX_SETMARGINS )
+#endif
+
 //        RichEditBox_FormatRange ( hWndControl, hDCPrinter, nLeft, nTop, nRight, nBottom, { cpMin , cpMax } )
-HB_FUNC( RICHEDITBOX_FORMATRANGE )
+HB_FUNC( HMG_RICHEDITBOX_FORMATRANGE )
 {
    RECT        rc;
    rc.left   = hb_parni(3);  // in twips
@@ -933,8 +1085,12 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    hb_retnl( cpMin );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_FORMATRANGE, HMG_RICHEDITBOX_FORMATRANGE )
+#endif
+
 //        RichEditBox_PosFromChar ( hWndControl , nPosChar )   return --> { nRowScreen, nColScreen } or { -1, -1 } if character is not displayed
-HB_FUNC( RICHEDITBOX_POSFROMCHAR )
+HB_FUNC( HMG_RICHEDITBOX_POSFROMCHAR )
 {
    auto hWndControl = hmg_par_HWND(1);
    POINTL PointL;
@@ -959,6 +1115,10 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
    HB_STORNI( Point.x, -1, 2 );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( RICHEDITBOX_POSFROMCHAR, HMG_RICHEDITBOX_POSFROMCHAR )
+#endif
+
 //********************************************************************
 // by Dr. Claudio Soto ( January 2014 )
 //********************************************************************
@@ -968,14 +1128,18 @@ static TCHAR       cReplaceWith[1024];
 static FINDREPLACE FindReplace;
 static HWND        hDlgFindReplace = nullptr;
 
-HB_FUNC( REGISTERFINDMSGSTRING )
+HB_FUNC( HMG_REGISTERFINDMSGSTRING )
 {
    UINT MessageID = RegisterWindowMessage(FINDMSGSTRING);
 
    hb_retnl( MessageID );
 }
 
-HB_FUNC( FINDREPLACEDLG )
+#if 1
+HB_FUNC_TRANSLATE( REGISTERFINDMSGSTRING, HMG_REGISTERFINDMSGSTRING )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLG )
 {
    HWND hWnd           = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
    BOOL NoUpDown       = static_cast<BOOL>(HB_ISNIL(2) ? FALSE : hb_parl(2));
@@ -1026,7 +1190,11 @@ HB_FUNC( FINDREPLACEDLG )
    hb_strfree(str3);
 }
 
-HB_FUNC( FINDREPLACEDLGSETTITLE )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLG, HMG_FINDREPLACEDLG )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGSETTITLE )
 {
    if( hDlgFindReplace != nullptr ) {
       void * str;
@@ -1035,7 +1203,11 @@ HB_FUNC( FINDREPLACEDLGSETTITLE )
    }
 }
 
-HB_FUNC( FINDREPLACEDLGGETTITLE )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGSETTITLE, HMG_FINDREPLACEDLGSETTITLE )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGGETTITLE )
 {
    TCHAR cTitle[256];
 
@@ -1047,7 +1219,11 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
    }
 }
 
-HB_FUNC( FINDREPLACEDLGSHOW )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGGETTITLE, HMG_FINDREPLACEDLGGETTITLE )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGSHOW )
 {
    BOOL lShow = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
@@ -1056,17 +1232,29 @@ HB_FUNC( FINDREPLACEDLGSHOW )
    }
 }
 
-HB_FUNC( FINDREPLACEDLGGETHANDLE )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGSHOW, HMG_FINDREPLACEDLGSHOW )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGGETHANDLE )
 {
    hmg_ret_HWND(hDlgFindReplace);
 }
 
-HB_FUNC( FINDREPLACEDLGISRELEASE )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGGETHANDLE, HMG_FINDREPLACEDLGGETHANDLE )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGISRELEASE )
 {
    hb_retl((hDlgFindReplace == nullptr));
 }
 
-HB_FUNC( FINDREPLACEDLGRELEASE )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGISRELEASE, HMG_FINDREPLACEDLGISRELEASE )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGRELEASE )
 {
    BOOL lDestroy = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
@@ -1076,7 +1264,11 @@ HB_FUNC( FINDREPLACEDLGRELEASE )
    hDlgFindReplace = nullptr;
 }
 
-HB_FUNC( FINDREPLACEDLGGETOPTIONS )
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGRELEASE, HMG_FINDREPLACEDLGRELEASE )
+#endif
+
+HB_FUNC( HMG_FINDREPLACEDLGGETOPTIONS )
 {
    LPARAM        lParam = HB_PARNL(1);
    FINDREPLACE * FR     = ( FINDREPLACE * ) lParam;
@@ -1107,3 +1299,7 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
    hb_arraySetL(pArray, 6, ( FR->Flags & FR_WHOLEWORD ));
    hb_itemReturnRelease(pArray);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( FINDREPLACEDLGGETOPTIONS, HMG_FINDREPLACEDLGGETOPTIONS )
+#endif

@@ -441,7 +441,7 @@ PROCEDURE Init()
    _HMG_FindReplaceOptions := Array(6)
    _HMG_CharRange_Min := 0
    _HMG_CharRange_Max := 0
-   _HMG_MsgIDFindDlg := RegisterFindMsgString()
+   _HMG_MsgIDFindDlg := hmg_RegisterFindMsgString()
 
 #ifdef _USERINIT_
    _HMG_aCustomEventProcedure := {}

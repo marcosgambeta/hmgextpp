@@ -1647,7 +1647,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             nEnd := HiWord(SendMessage(hEdit, EM_GETSEL, 0, 0))
 
             // Undo:
-            SetProperty(cParent, "mnuEditUndo", "Enabled", RichEditBox_CanUndo(hEdit))
+            SetProperty(cParent, "mnuEditUndo", "Enabled", hmg_RichEditBox_CanUndo(hEdit))
 
             // Cut, Copy & Delete: enable if a selection, disable if no selection
             SetProperty(cParent, "mnuEditCut", "Enabled", (nStart < nEnd))
@@ -1655,7 +1655,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             SetProperty(cParent, "mnuEditDelete", "Enabled", (nStart < nEnd))
 
             // Paste:
-            SetProperty(cParent, "mnuEditPaste", "Enabled", RichEditBox_CanPaste(hEdit))
+            SetProperty(cParent, "mnuEditPaste", "Enabled", hmg_RichEditBox_CanPaste(hEdit))
 
             // Select All: disable if everything's already selected, enable otherwise.
             TxtLen := SendMessage(hEdit, WM_GETTEXTLENGTH, 0, 0)
@@ -4061,12 +4061,12 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
      IF nMsg == _HMG_MsgIDFindDlg   // FindReplace Dialog Notification ( by Dr. Claudio Soto, January 2014 )
 
-         _HMG_FindReplaceOptions := FindReplaceDlgGetOptions(lParam)
+         _HMG_FindReplaceOptions := hmg_FindReplaceDlgGetOptions(lParam)
 
          Eval(_HMG_FindReplaceOnAction)
 
          IF _HMG_FindReplaceOptions[1] == 0   // User CANCEL or CLOSE Dialog
-            FindReplaceDlgRelease(.T.)      // Destroy Dialog Window and Set NULL Dialog Handle
+            hmg_FindReplaceDlgRelease(.T.)      // Destroy Dialog Window and Set NULL Dialog Handle
          ENDIF
 
          AFill(_HMG_FindReplaceOptions, NIL)
