@@ -56,7 +56,7 @@ extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 typedef BOOL ( WINAPI * VERIFYSCREENSAVEPWD )( HWND hwnd );
 typedef VOID ( WINAPI * PWDCHANGEPASSWORD )( LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1, UINT uiReserved2 );
 
-HB_FUNC( VERIFYPASSWORD )
+HB_FUNC( HMG_VERIFYPASSWORD )
 {
    // Under NT, we return TRUE immediately. This lets the saver quit,
    // and the system manages passwords. Under '95, we call VerifyScreenSavePwd.
@@ -95,7 +95,11 @@ HB_FUNC( VERIFYPASSWORD )
    hb_retl(bres);
 }
 
-HB_FUNC( CHANGEPASSWORD )
+#if 1
+HB_FUNC_TRANSLATE( VERIFYPASSWORD, HMG_VERIFYPASSWORD )
+#endif
+
+HB_FUNC( HMG_CHANGEPASSWORD )
 {
    // This only ever gets called under '95, when started with the /a option.
 
@@ -120,15 +124,27 @@ HB_FUNC( CHANGEPASSWORD )
    hb_retl(true);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CHANGEPASSWORD, HMG_CHANGEPASSWORD )
+#endif
+
 /*
    Moved from c_controlmisc.c
  */
-HB_FUNC( SETCURSORPOS )
+HB_FUNC( HMG_SETCURSORPOS )
 {
    SetCursorPos(hb_parni(1), hb_parni(2));
 }
 
-HB_FUNC( SHOWCURSOR )
+#if 1
+HB_FUNC_TRANSLATE( SETCURSORPOS, HMG_SETCURSORPOS )
+#endif
+
+HB_FUNC( HMG_SHOWCURSOR )
 {
    hb_retni( ShowCursor(hb_parl(1)) );
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SHOWCURSOR, HMG_SHOWCURSOR )
+#endif

@@ -79,8 +79,8 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
          WIDTH x HEIGHT y;
          MAIN NOSHOW;
          TOPMOST NOSIZE NOCAPTION;
-         ON GOTFOCUS SetCursorPos(x / 2, y / 2);
-         ON INIT ( ShowCursor(.F.), ;
+         ON GOTFOCUS hmg_SetCursorPos(x / 2, y / 2);
+         ON INIT ( hmg_ShowCursor(.F.), ;
             hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
@@ -93,8 +93,8 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
          WIDTH x HEIGHT y;
          MAIN;
          TOPMOST NOSIZE NOCAPTION;
-         ON GOTFOCUS SetCursorPos(x / 2, y / 2);
-         ON INIT ( ShowCursor(.F.), ;
+         ON GOTFOCUS hmg_SetCursorPos(x / 2, y / 2);
+         ON INIT ( hmg_ShowCursor(.F.), ;
             hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
@@ -145,7 +145,7 @@ FUNCTION _ActivateScrSaver(aForm, cParam)
 
    CASE cParam == "/a" .OR. cParam == "-a"
 
-      ChangePassword(GetActiveWindow())
+      hmg_ChangePassword(GetActiveWindow())
 
    CASE cParam == "/i" .OR. cParam == "-i"
 
@@ -200,7 +200,7 @@ FUNCTION _ReleaseScrSaver(cRelease, cSSaver, cPaint)
       Eval(cRelease)
    ENDIF
 
-   ShowCursor(.T.)
+   hmg_ShowCursor(.T.)
 
    IF cPaint != NIL
       SetProperty(cSSaver, "Timer_SSaver", "Enabled", .F.)
@@ -226,7 +226,7 @@ FUNCTION _lValidScrSaver()
    CLOSE REGISTRY oReg
 
    IF nValue == 1
-      lRet := VerifyPassword(GetActiveWindow())
+      lRet := hmg_VerifyPassword(GetActiveWindow())
    ELSE
       lRet := .T.
    ENDIF
