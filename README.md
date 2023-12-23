@@ -40,3 +40,15 @@ Questões sobre o projeto serão respondidas **somente por email**.
 Siga o blog abaixo para se manter informado:
 
 https://magsoftinfo.com/blog/
+
+### Harbour MiniGUI Extended
+
+Este projeto é um 'fork' (projeto derivado). Você encontrará o projeto original nos links abaixo:  
+
+Site oficial
+http://hmgextended.com/  
+http://hmgextended.org/  
+
+Grupo de usuários  
+https://groups.google.com/g/minigui-forum  
+
