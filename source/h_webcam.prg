@@ -162,7 +162,7 @@ FUNCTION _DefineWebCam(ControlName, ParentForm, x, y, w, h, lStart, nRate, TOOLT
 RETURN NIL
 
 FUNCTION _CreateWebCam(ParentForm, x, y, w, h)
-RETURN cap_CreateCaptureWindow("WebCam", hb_bitOr(WS_CHILD, WS_VISIBLE), y, x, w, h, ParentForm, 0)
+RETURN hmg_cap_CreateCaptureWindow("WebCam", hb_bitOr(WS_CHILD, WS_VISIBLE), y, x, w, h, ParentForm, 0)
 
 FUNCTION _StartWebCam(cWindow, cControl)
 
@@ -175,15 +175,15 @@ FUNCTION _StartWebCam(cWindow, cControl)
    hWnd := GetControlHandle(cControl, cWindow)
 
    REPEAT
-      lSuccess := cap_DriverConnect(hWnd, 0)
+      lSuccess := hmg_cap_DriverConnect(hWnd, 0)
       DO EVENTS
    UNTIL (!lSuccess .AND. nTry++ < 3)
 
    IF lSuccess
       w := _GetControlWidth(cControl, cWindow)
       h := _GetControlHeight(cControl, cWindow)
-      cap_SetVideoFormat(hWnd, Min(w, 320), Min(h, 240))
-      lSuccess := (cap_PreviewScale(hWnd, .T.) .AND. cap_PreviewRate(hWnd, GetControlValue(cControl, cWindow)) .AND. cap_Preview(hWnd, .T.))
+      hmg_cap_SetVideoFormat(hWnd, Min(w, 320), Min(h, 240))
+      lSuccess := (hmg_cap_PreviewScale(hWnd, .T.) .AND. hmg_cap_PreviewRate(hWnd, GetControlValue(cControl, cWindow)) .AND. hmg_cap_Preview(hWnd, .T.))
    ELSE
       // error connecting to video source
       DestroyWindow(hWnd)
@@ -202,7 +202,7 @@ PROCEDURE _ReleaseWebCam(cWindow, cControl)
       hWnd := GetControlHandle(cControl, cWindow)
 
       IF !Empty(hWnd)
-         cap_DriverDisconnect(hWnd)
+         hmg_cap_DriverDisconnect(hWnd)
          DestroyWindow(hWnd)
          _EraseControl(GetControlIndex(cControl, cWindow), GetFormIndex(cWindow))
       ENDIF

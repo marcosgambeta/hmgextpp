@@ -61,35 +61,47 @@
 #endif
 
 /*
-CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent, nID) --> handle
+HMG_CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent, nID) --> handle
 */
-HB_FUNC( CAP_CREATECAPTUREWINDOW )
+HB_FUNC( HMG_CAP_CREATECAPTUREWINDOW )
 {
    void * str;
    hmg_ret_HWND(capCreateCaptureWindow(HB_PARSTR(1, &str, nullptr), hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_CREATECAPTUREWINDOW, HMG_CAP_CREATECAPTUREWINDOW )
+#endif
+
 /*
-CAP_DRIVERCONNECT(nWnd, nIndex) --> .T.|.F.
+HMG_CAP_DRIVERCONNECT(nWnd, nIndex) --> .T.|.F.
 */
-HB_FUNC( CAP_DRIVERCONNECT )
+HB_FUNC( HMG_CAP_DRIVERCONNECT )
 {
    hb_retl(capDriverConnect(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_DRIVERCONNECT, HMG_CAP_DRIVERCONNECT )
+#endif
+
 /*
-CAP_DRIVERDISCONNECT(nWnd) --> .T.|.F.
+HMG_CAP_DRIVERDISCONNECT(nWnd) --> .T.|.F.
 */
-HB_FUNC( CAP_DRIVERDISCONNECT )
+HB_FUNC( HMG_CAP_DRIVERDISCONNECT )
 {
    hb_retl(capDriverDisconnect(hmg_par_HWND(1)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_DRIVERDISCONNECT, HMG_CAP_DRIVERDISCONNECT )
+#endif
+
 /*
-CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
+HMG_CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
 */
-HB_FUNC( CAP_SETVIDEOFORMAT )
+HB_FUNC( HMG_CAP_SETVIDEOFORMAT )
 {
    auto hCapWnd = hmg_par_HWND(1);
    BITMAPINFO binf;
@@ -105,36 +117,56 @@ HB_FUNC( CAP_SETVIDEOFORMAT )
    hb_retl(capSetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_SETVIDEOFORMAT, HMG_CAP_SETVIDEOFORMAT )
+#endif
+
 /*
-CAP_PREVIEWRATE(nWnd, nRate) --> .T.|.F.
+HMG_CAP_PREVIEWRATE(nWnd, nRate) --> .T.|.F.
 */
-HB_FUNC( CAP_PREVIEWRATE )
+HB_FUNC( HMG_CAP_PREVIEWRATE )
 {
    hb_retl(capPreviewRate(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_PREVIEWRATE, HMG_CAP_PREVIEWRATE )
+#endif
+
 /*
-CAP_PREVIEWSCALE(nWnd, lPreviewScale) --> .T.|.F.
+HMG_CAP_PREVIEWSCALE(nWnd, lPreviewScale) --> .T.|.F.
 */
-HB_FUNC( CAP_PREVIEWSCALE )
+HB_FUNC( HMG_CAP_PREVIEWSCALE )
 {
    hb_retl(capPreviewScale(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_PREVIEWSCALE, HMG_CAP_PREVIEWSCALE )
+#endif
+
 /*
-CAP_PREVIEW(nWnd, lPreviewMode) --> .T.|.F.
+HMG_CAP_PREVIEW(nWnd, lPreviewMode) --> .T.|.F.
 */
-HB_FUNC( CAP_PREVIEW )
+HB_FUNC( HMG_CAP_PREVIEW )
 {
    hb_retl(capPreview(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CAP_PREVIEW, HMG_CAP_PREVIEW )
+#endif
+
 /*
-CAP_EDITCOPY(nWnd) --> .T.|.F.
+HMG_CAP_EDITCOPY(nWnd) --> .T.|.F.
 */
-HB_FUNC( CAP_EDITCOPY )
+HB_FUNC( HMG_CAP_EDITCOPY )
 {
    hb_retl(capEditCopy(hmg_par_HWND(1)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CAP_EDITCOPY, HMG_CAP_EDITCOPY )
+#endif
 
 // #endif
