@@ -65,7 +65,7 @@ METHOD TSimpleTaskDialog:Execute()
    ::nResult       := E_FAIL
 
    IF os_IsWinVista_Or_Later()
-      nResult := win_TaskDialog0( ,, ::cTitle, ::cInstruction, ::cContent, ::nCommonButtons, ::nMainIcon, @nButton )
+      nResult := hmg_win_TaskDialog0( ,, ::cTitle, ::cInstruction, ::cContent, ::nCommonButtons, ::nMainIcon, @nButton )
    ELSE
       nResult := E_NOTIMPL // Not implemented yet
    ENDIF
@@ -246,7 +246,7 @@ METHOD TTaskDialog:ShowDialog()
 
       IF os_IsWinVista_Or_Later()
          ::aConfig[23] := self
-         nResult := win_TaskDialogIndirect0(::aConfig, @nButton, @nRadioButton, @lVerificationFlagChecked)
+         nResult := hmg_win_TaskDialogIndirect0(::aConfig, @nButton, @nRadioButton, @lVerificationFlagChecked)
       ELSE
          nResult := E_NOTIMPL // Not implemented yet
       ENDIF
@@ -354,7 +354,7 @@ METHOD TTaskDialog:WindowTitle(cTitle)
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
       ::aConfig[TDC_WINDOWTITLE] := iif(hb_IsString(cTitle) .AND. HB_ISNULL(cTitle), NIL, cTitle)
       IF ::lActive
-         _SetWindowTitle(::HWND, ::aConfig[TDC_WINDOWTITLE])
+         hmg__SetWindowTitle(::HWND, ::aConfig[TDC_WINDOWTITLE])
       ENDIF
    ENDIF
 
@@ -371,7 +371,7 @@ METHOD TTaskDialog:MainIcon(nIcon)
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_MAINICON] := nIcon
       IF ::lActive
-         _UpdateMainIcon(::HWND, ::aConfig[TDC_MAINICON])
+         hmg__UpdateMainIcon(::HWND, ::aConfig[TDC_MAINICON])
       ENDIF
    ENDIF
 
@@ -388,7 +388,7 @@ METHOD TTaskDialog:MainInstruction(cInstruction)
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
       ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsString(cInstruction) .AND. HB_ISNULL(cInstruction), NIL, cInstruction)
       IF ::lActive
-         _SetMainInstruction(::HWND, ::aConfig[TDC_MAININSTRUCTION])
+         hmg__SetMainInstruction(::HWND, ::aConfig[TDC_MAININSTRUCTION])
       ENDIF
    ENDIF
 
@@ -407,7 +407,7 @@ METHOD TTaskDialog:Content(cContent)
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
       ::aConfig[TDC_CONTENT] := iif(hb_IsString(cContent) .AND. HB_ISNULL(cContent), NIL, cContent)
       IF ::lActive
-         _SetContent(::HWND, ::aConfig[TDC_CONTENT])
+         hmg__SetContent(::HWND, ::aConfig[TDC_CONTENT])
       ENDIF
    ENDIF
 
@@ -517,7 +517,7 @@ METHOD TTaskDialog:ExpandedInfo(cText)
    IF hb_IsString(cText) .OR. hb_IsNumeric(cText)
       ::aConfig[TDC_EXPANDEDINFORMATION] := cText
       IF ::lActive
-         _SetExpandedInformation(::HWND, ::aConfig[TDC_EXPANDEDINFORMATION])
+         hmg__SetExpandedInformation(::HWND, ::aConfig[TDC_EXPANDEDINFORMATION])
       ENDIF
    ENDIF
 
@@ -579,7 +579,7 @@ METHOD TTaskDialog:FooterIcon(nIcon)
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_FOOTERICON] := nIcon
       IF ::lActive
-         _UpdateFooterIcon(::HWND, ::aConfig[TDC_FOOTERICON])
+         hmg__UpdateFooterIcon(::HWND, ::aConfig[TDC_FOOTERICON])
       ENDIF
    ENDIF
 
@@ -597,7 +597,7 @@ METHOD TTaskDialog:Footer(cFooter)
    IF hb_IsString(cFooter) .OR. hb_IsNumeric(cFooter)
       ::aConfig[TDC_FOOTER] := cFooter
       IF ::lActive
-         _SetFooter(::HWND, ::aConfig[TDC_FOOTER])
+         hmg__SetFooter(::HWND, ::aConfig[TDC_FOOTER])
       ENDIF
    ENDIF
 

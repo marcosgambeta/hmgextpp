@@ -74,7 +74,7 @@ HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton,
 }
 #endif /* defined(__BORLANDC__) && __BORLANDC__ <= 1410 */
 
-HB_FUNC( WIN_TASKDIALOG0 )
+HB_FUNC( HMG_WIN_TASKDIALOG0 )
 {
    HWND      hWndParent = nullptr;
    HINSTANCE hInstance  = nullptr;
@@ -145,7 +145,11 @@ HB_FUNC( WIN_TASKDIALOG0 )
    hb_xfree(hText);
 }
 
-HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
+#if 1
+HB_FUNC_TRANSLATE( WIN_TASKDIALOG0, HMG_WIN_TASKDIALOG0 )
+#endif
+
+HB_FUNC( HMG_WIN_TASKDIALOGINDIRECT0 )
 {
    auto pConfig = hb_param(1, Harbour::Item::ARRAY);
 
@@ -458,6 +462,10 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( WIN_TASKDIALOGINDIRECT0, HMG_WIN_TASKDIALOGINDIRECT0 )
+#endif
+
 static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
 {
    PHB_ITEM button;
@@ -627,7 +635,7 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRe
    return FALSE;
 }
 
-HB_FUNC( _SETWINDOWTITLE )
+HB_FUNC( HMG__SETWINDOWTITLE )
 {
    void * hText = nullptr;
    PCWSTR pszText;
@@ -643,46 +651,74 @@ HB_FUNC( _SETWINDOWTITLE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETWINDOWTITLE, HMG__SETWINDOWTITLE )
+#endif
+
 /* Task Dialog Messages  */
 
 // TDM_CLICK_BUTTON - Simulates the action of a button click in a task dialog
-HB_FUNC( _CLICKBUTTON )
+HB_FUNC( HMG__CLICKBUTTON )
 {
    SendMessage(hmg_par_HWND(1), TDM_CLICK_BUTTON, hmg_par_WPARAM(2), 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _CLICKBUTTON, HMG__CLICKBUTTON )
+#endif
+
 // TDM_CLICK_RADIO_BUTTON - Simulates the action of a radio button click in a task dialog
-HB_FUNC( _CLICKRADIOBUTTON )
+HB_FUNC( HMG__CLICKRADIOBUTTON )
 {
    SendMessage(hmg_par_HWND(1), TDM_CLICK_RADIO_BUTTON, hmg_par_WPARAM(2), 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _CLICKRADIOBUTTON, HMG__CLICKRADIOBUTTON )
+#endif
+
 // TDM_CLICK_VERIFICATION - Simulates a click of the verification checkbox of a task dialog, if it exists.
-HB_FUNC( _CLICKVERIFICATION )
+HB_FUNC( HMG__CLICKVERIFICATION )
 {
    SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, hmg_par_BOOL(2), hmg_par_BOOL(3));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _CLICKVERIFICATION, HMG__CLICKVERIFICATION )
+#endif
+
 // TDM_ENABLE_BUTTON - Enables or disables a push button in a task dialog
-HB_FUNC( _ENABLEBUTTON )
+HB_FUNC( HMG__ENABLEBUTTON )
 {
    SendMessage(hmg_par_HWND(1), TDM_ENABLE_BUTTON, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _ENABLEBUTTON, HMG__ENABLEBUTTON )
+#endif
+
 // TDM_ENABLE_RADIO_BUTTON - Enables or disables a push button in a task dialog
-HB_FUNC( _ENABLERADIOBUTTON )
+HB_FUNC( HMG__ENABLERADIOBUTTON )
 {
    SendMessage(hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _ENABLERADIOBUTTON, HMG__ENABLERADIOBUTTON )
+#endif
+
 // TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE - Specifies whether a given task dialog button or command link should have a UAC shield icon
-HB_FUNC( _SETBUTTONELEVATIONREQUIRED )
+HB_FUNC( HMG__SETBUTTONELEVATIONREQUIRED )
 {
    SendMessage(hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETBUTTONELEVATIONREQUIRED, HMG__SETBUTTONELEVATIONREQUIRED )
+#endif
+
 // TDM_SET_ELEMENT_TEXT - Updates a text element in a task dialog
-HB_FUNC( _SETMAININSTRUCTION )
+HB_FUNC( HMG__SETMAININSTRUCTION )
 {
    void * hText = nullptr;
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -695,7 +731,11 @@ HB_FUNC( _SETMAININSTRUCTION )
    }
 }
 
-HB_FUNC( _SETCONTENT )
+#if 1
+HB_FUNC_TRANSLATE( _SETMAININSTRUCTION, HMG__SETMAININSTRUCTION )
+#endif
+
+HB_FUNC( HMG__SETCONTENT )
 {
    void * hText      = nullptr;
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -708,7 +748,11 @@ HB_FUNC( _SETCONTENT )
    }
 }
 
-HB_FUNC( _SETFOOTER )
+#if 1
+HB_FUNC_TRANSLATE( _SETCONTENT, HMG__SETCONTENT )
+#endif
+
+HB_FUNC( HMG__SETFOOTER )
 {
    void * hText     = nullptr;
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -721,7 +765,11 @@ HB_FUNC( _SETFOOTER )
    }
 }
 
-HB_FUNC( _SETEXPANDEDINFORMATION )
+#if 1
+HB_FUNC_TRANSLATE( _SETFOOTER, HMG__SETFOOTER )
+#endif
+
+HB_FUNC( HMG__SETEXPANDEDINFORMATION )
 {
    void * hText = nullptr;
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -734,41 +782,65 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETEXPANDEDINFORMATION, HMG__SETEXPANDEDINFORMATION )
+#endif
+
 // TDM_SET_PROGRESS_BAR_POS - Sets the position of the progress bar in a task dialog
-HB_FUNC( _SETPROGRESSBARPOS )
+HB_FUNC( HMG__SETPROGRESSBARPOS )
 {
    SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_POS, hmg_par_WPARAM(2), 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETPROGRESSBARPOS, HMG__SETPROGRESSBARPOS )
+#endif
+
 // TDM_SET_PROGRESS_BAR_RANGE - Sets the minimum and maximum values for the progress bar in a task dialog
-HB_FUNC( _SETPROGRESSBARRANGE )
+HB_FUNC( HMG__SETPROGRESSBARRANGE )
 {
    LPARAM range = MAKELPARAM(hmg_par_WORD(2), hmg_par_WORD(3));
 
    SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, 0, range);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETPROGRESSBARRANGE, HMG__SETPROGRESSBARRANGE )
+#endif
+
 // TDM_SET_PROGRESS_BAR_STATE - Sets the state of the progress bar in a task dialog.
-HB_FUNC( _SETPROGRESSBARSTATE )
+HB_FUNC( HMG__SETPROGRESSBARSTATE )
 {
    SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_STATE, hmg_par_WPARAM(2), 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETPROGRESSBARSTATE, HMG__SETPROGRESSBARSTATE )
+#endif
+
 // TDM_SET_PROGRESS_BAR_MARQUEE - Starts and stops the marquee display of the progress bar in a task dialog,
 //                                and sets the speed of the marquee.
-HB_FUNC( _SETPROGRESSBARMARQUEE )
+HB_FUNC( HMG__SETPROGRESSBARMARQUEE )
 {
    SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, hb_parl(2), hb_parni(3));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETPROGRESSBARMARQUEE, HMG__SETPROGRESSBARMARQUEE )
+#endif
+
 // TDM_SET_MARQUEE_PROGRESS_BAR - Indicates whether the hosted progress bar of a task dialog should be displayed in marquee mode
-HB_FUNC( _SETMARQUEEPROGRESSBAR )
+HB_FUNC( HMG__SETMARQUEEPROGRESSBAR )
 {
    SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, hb_parl(2), 0);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _SETMARQUEEPROGRESSBAR, HMG__SETMARQUEEPROGRESSBAR )
+#endif
+
 // TDM_UPDATE_ELEMENT_TEXT - Updates a text element in a task dialog
-HB_FUNC( _UPDATEMAININSTRUCTION )
+HB_FUNC( HMG__UPDATEMAININSTRUCTION )
 {
    void * hText = nullptr;
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -781,7 +853,11 @@ HB_FUNC( _UPDATEMAININSTRUCTION )
    }
 }
 
-HB_FUNC( _UPDATECONTENT )
+#if 1
+HB_FUNC_TRANSLATE( _UPDATEMAININSTRUCTION, HMG__UPDATEMAININSTRUCTION )
+#endif
+
+HB_FUNC( HMG__UPDATECONTENT )
 {
    void * hText      = nullptr;
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -794,7 +870,11 @@ HB_FUNC( _UPDATECONTENT )
    }
 }
 
-HB_FUNC( _UPDATEFOOTER )
+#if 1
+HB_FUNC_TRANSLATE( _UPDATECONTENT, HMG__UPDATECONTENT )
+#endif
+
+HB_FUNC( HMG__UPDATEFOOTER )
 {
    void * hText     = nullptr;
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -807,7 +887,11 @@ HB_FUNC( _UPDATEFOOTER )
    }
 }
 
-HB_FUNC( _UPDATEEXPANDEDINFORMATION )
+#if 1
+HB_FUNC_TRANSLATE( _UPDATEFOOTER, HMG__UPDATEFOOTER )
+#endif
+
+HB_FUNC( HMG__UPDATEEXPANDEDINFORMATION )
 {
    void * hText = nullptr;
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
@@ -820,8 +904,12 @@ HB_FUNC( _UPDATEEXPANDEDINFORMATION )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _UPDATEEXPANDEDINFORMATION, HMG__UPDATEEXPANDEDINFORMATION )
+#endif
+
 /* TODO */
-HB_FUNC( _UPDATEMAINICON )
+HB_FUNC( HMG__UPDATEMAINICON )
 {
    if( HB_ISNUM(2) ) {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
@@ -838,8 +926,12 @@ HB_FUNC( _UPDATEMAINICON )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _UPDATEMAINICON, HMG__UPDATEMAINICON )
+#endif
+
 /* TODO */
-HB_FUNC( _UPDATEFOOTERICON )
+HB_FUNC( HMG__UPDATEFOOTERICON )
 {
    if( HB_ISNUM(2) ) {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
@@ -855,3 +947,7 @@ HB_FUNC( _UPDATEFOOTERICON )
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, reinterpret_cast<LPARAM>(nullptr));
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( _UPDATEFOOTERICON, HMG__UPDATEFOOTERICON )
+#endif
