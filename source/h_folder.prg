@@ -390,7 +390,7 @@ FUNCTION _EndFolder()
       k := _HMG_aFolderInfo[_HMG_FldID, FLD_FLT, 1]
       _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] := Formhandle
       _HMG_aFormHandles[k]      := FormHandle
-      _HMG_aFormToolTipHandle[k] := InitToolTip(FormHandle, SetToolTipBalloon())
+      _HMG_aFormToolTipHandle[k] := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
       hmg__SetFont(hmg_Folder_GetTabHandle(FormHandle), _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 11], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 12], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 13], _HMG_aFolderInfo[_HMG_FldID,FLD_FLT, 14], .F., .F.)   //,bold,italic,underline,strikeout)
    ENDIF
 
@@ -544,7 +544,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
             ENDIF
          ENDIF
          IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
-            SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
+            hmg_SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
          ENDIF
          IF k > 0
             IF !hb_isArray(_HMG_aControlHandles[k])

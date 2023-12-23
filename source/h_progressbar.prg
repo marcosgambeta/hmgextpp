@@ -164,7 +164,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

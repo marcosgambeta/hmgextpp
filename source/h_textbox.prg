@@ -208,7 +208,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       // Add a tooltip if param has value
       IF ToolTip != NIL
-         SetToolTip(ControlHandle, ToolTip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, ToolTip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
 
@@ -490,7 +490,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
 
@@ -776,7 +776,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

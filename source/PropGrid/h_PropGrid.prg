@@ -291,7 +291,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
+      hmg_SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
    ENDIF
 
    IF hb_IsArray(backcolor)

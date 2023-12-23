@@ -240,7 +240,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
       // Add a ToolTip if param has value
       FOR tmp := 1 TO 3
          IF aToolTip[tmp] != NIL
-            SetToolTip(aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName))
+            hmg_SetToolTip(aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName))
          ENDIF
       NEXT
 

@@ -167,7 +167,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    IF IsArrayRGB(backcolor)

@@ -115,7 +115,7 @@ FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, 
    hmg_SetHotKeyValue(ControlHandle, value)
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()

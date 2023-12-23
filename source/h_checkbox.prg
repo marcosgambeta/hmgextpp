@@ -202,7 +202,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -392,7 +392,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -570,7 +570,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

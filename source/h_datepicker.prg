@@ -199,7 +199,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       IF Field != NIL
@@ -432,7 +432,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       IF Field != NIL

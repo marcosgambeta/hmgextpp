@@ -116,7 +116,7 @@ FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()

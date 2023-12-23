@@ -308,7 +308,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
 

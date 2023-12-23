@@ -248,7 +248,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          AAdd(aHandles, ControlHandle)
 
          IF tooltip != NIL
-            SetToolTip(aHandles[i] , tooltip, GetFormToolTipHandle(ParentFormName))
+            hmg_SetToolTip(aHandles[i] , tooltip, GetFormToolTipHandle(ParentFormName))
          ENDIF
 
       NEXT i
@@ -266,7 +266,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(aHandles[1], tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(aHandles[1], tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

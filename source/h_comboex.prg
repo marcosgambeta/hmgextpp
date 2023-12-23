@@ -220,7 +220,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    IF Len(aImages) > 0
@@ -280,13 +280,13 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       // handle for ComboBoxEx edit window
       _hmg_acontrolrangemin[k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
       IF tooltip != NIL
-         SetToolTip(_hmg_acontrolrangemin[k] , tooltip, GetFormToolTipHandle(cParentForm))
+         hmg_SetToolTip(_hmg_acontrolrangemin[k] , tooltip, GetFormToolTipHandle(cParentForm))
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
    _hmg_acontrolrangemax[k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
    IF tooltip != NIL
-      SetToolTip(_hmg_acontrolrangemax[k] , tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(_hmg_acontrolrangemax[k] , tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    SetDropDownWidth(_hmg_acontrolrangemax[k] , hb_defaultValue(ListWidth, w))

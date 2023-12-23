@@ -3279,33 +3279,33 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
          h := GetFormToolTipHandle(ParentForm)
          IF t == CONTROL_TYPE_RADIOGROUP .OR. t == CONTROL_TYPE_SPINNER
             Assign cValue := Value
-            AEval(c, {|x|SetToolTip(x, cValue, h)})
+            AEval(c, {|x|hmg_SetToolTip(x, cValue, h)})
          ELSEIF hb_IsArray(Value)  // GF 25/07/2019
             IF hb_IsArray(_HMG_aControlSpacing[i])  // BTNTEXTBOX
                FOR c := 1 TO Len(Value)
                   IF Value[c] != NIL
-                     SetToolTip(_HMG_aControlSpacing[i][c], Value[c], h)
+                     hmg_SetToolTip(_HMG_aControlSpacing[i][c], Value[c], h)
                   ENDIF
                NEXT
             ELSEIF hb_IsArray(_HMG_aControlRangeMin[i])  // GETBOX
                FOR c := 1 TO Len(Value)
                   IF Value[c] != NIL
-                     SetToolTip(_HMG_aControlRangeMin[i][c], Value[c], h)
+                     hmg_SetToolTip(_HMG_aControlRangeMin[i][c], Value[c], h)
                   ENDIF
                NEXT
             ENDIF
          ELSEIF !(t == CONTROL_TYPE_TOOLBUTTON)  // GF 15/11/2016
             Assign cValue := Value
-            SetToolTip(c, cValue, h)
+            hmg_SetToolTip(c, cValue, h)
          ENDIF
          // HMG 1.0 Experimental Build 8
          IF t == CONTROL_TYPE_COMBO  // tooltips for editable or/and extend combo
             Assign cValue := Value
             IF !Empty(_hmg_acontrolrangemin[i])
-               SetToolTip(_hmg_acontrolrangemin[i], cValue, h)
+               hmg_SetToolTip(_hmg_acontrolrangemin[i], cValue, h)
             ENDIF
             IF !Empty(_hmg_acontrolrangemax[i])
-               SetToolTip(_hmg_acontrolrangemax[i], cValue, h)
+               hmg_SetToolTip(_hmg_acontrolrangemax[i], cValue, h)
             ENDIF
          ENDIF
 

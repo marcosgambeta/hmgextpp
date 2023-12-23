@@ -1548,8 +1548,8 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
       ctooltip := Eval(ctooltip, Self)
    ENDIF
 
-   SetToolTip(::hWnd, cToolTip, hToolTip)
-   TTM_SetMaxTipWidth(hToolTip, ::nToolTipLen)
+   hmg_SetToolTip(::hWnd, cToolTip, hToolTip)
+   hmg_TTM_SetMaxTipWidth(hToolTip, ::nToolTipLen)
 
    IF nValue > 0 .AND. nValue <= ::nLen
       IF Len(::aColumns) > 0 // JP 1.59
@@ -1934,12 +1934,12 @@ METHOD TSBrowse:ToolTipSet(nToolTipTime, nToolTipLen)
 
    IF hb_IsNumeric(nToolTipLen) .AND. nToolTipLen > 0
       ::nToolTipLen := nToolTipLen
-      TTM_SetMaxTipWidth(hToolTip, ::nToolTipLen)
+      hmg_TTM_SetMaxTipWidth(hToolTip, ::nToolTipLen)
    ENDIF
 
    IF hb_IsNumeric(nToolTipTime) .AND. nToolTipTime > 0
       ::nToolTipTime := nToolTipTime
-      TTM_SetDelayTime(hToolTip, TTDT_AUTOPOP, ::nToolTipTime * 1000)
+      hmg_TTM_SetDelayTime(hToolTip, TTDT_AUTOPOP, ::nToolTipTime * 1000)
    ENDIF
 
 RETURN NIL
@@ -10852,7 +10852,7 @@ METHOD TSBrowse:MouseMove(nRowPix, nColPix, nKeyFlags)
             cToolTip := Eval(cToolTip, Self, nColumn, nRowLine)
          ENDIF
 
-         SetToolTip(::hWnd, cToolTip, hToolTip)
+         hmg_SetToolTip(::hWnd, cToolTip, hToolTip)
          SysRefresh()
 
          ::nToolTipRow := nRowLine

@@ -303,10 +303,10 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       ShowNotifyIcon(FormHandle, .T., hnotifyicon, NotifyIconTooltip)
    ENDIF
 
-   htooltip := InitToolTip(FormHandle, SetToolTipBalloon())
+   htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
+   IF hmg_SetToolTipMaxWidth() != -1
+      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    cType := iif(Main, "A", iif(Child, "C", iif(Panel, "P", "S")))
@@ -539,10 +539,10 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       hmg_SetWindowCursor(FormHandle, cursor)
    ENDIF
 
-   htooltip := InitToolTip(NIL, SetToolTipBalloon())
+   htooltip := hmg_InitToolTip(NIL, hmg_SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
+   IF hmg_SetToolTipMaxWidth() != -1
+      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    k := _GetFormFree()
@@ -734,10 +734,10 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    __defaultNIL(@hscrollbox, "")
    __defaultNIL(@vscrollbox, "")
 
-   htooltip := InitToolTip(FormHandle, SetToolTipBalloon())
+   htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
+   IF hmg_SetToolTipMaxWidth() != -1
+      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    k := _GetFormFree()

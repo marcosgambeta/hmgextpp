@@ -563,7 +563,7 @@ FUNCTION _EndPropSheet()
       k := _HMG_aPropSheetTemplate[1]
       _HMG_ActivePropSheetHandle := Formhandle
       _HMG_aFormHandles[k]       := FormHandle
-      _HMG_aFormToolTipHandle[k] := InitToolTip(FormHandle)
+      _HMG_aFormToolTipHandle[k] := hmg_InitToolTip(FormHandle)
    ENDIF
 
 RETURN NIL
@@ -753,7 +753,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
          ENDIF
          IF _HMG_ActivePropSheetModeless
             IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
-               SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
+               hmg_SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
             ENDIF
             IF  k > 0
                IF k_old != k

@@ -229,7 +229,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       _SetHotKeyByName(ParentFormName, key, ProcedureName)
@@ -401,7 +401,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       _SetHotKeyByName(ParentFormName, key, ProcedureName)

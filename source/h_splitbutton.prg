@@ -130,7 +130,7 @@ PROCEDURE _DefineSplitButton(cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(hControlHandle, tooltip, GetFormToolTipHandle(cParent))
+      hmg_SetToolTip(hControlHandle, tooltip, GetFormToolTipHandle(cParent))
    ENDIF
 
 RETURN

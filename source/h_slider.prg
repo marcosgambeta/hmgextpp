@@ -171,7 +171,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
       SendMessage(ControlHandle, TBM_SETPOS, 1, value)
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

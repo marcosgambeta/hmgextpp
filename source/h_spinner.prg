@@ -130,7 +130,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
    ENDIF
 
    IF tooltip != NIL
-      AEval(RetArray, {|x|SetToolTip(x, tooltip, GetFormToolTipHandle(cParentForm))})
+      AEval(RetArray, {|x|hmg_SetToolTip(x, tooltip, GetFormToolTipHandle(cParentForm))})
    ENDIF
 
    k := _GetControlFree()

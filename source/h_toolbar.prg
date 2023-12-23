@@ -103,7 +103,7 @@ FUNCTION _DefineToolBar(ControlName, ParentForm, x, y, caption, ProcedureName, w
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()

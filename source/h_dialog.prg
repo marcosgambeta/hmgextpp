@@ -167,7 +167,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
       SetWindowText(FormHandle, caption)
    ENDIF
 
-   htooltip := InitToolTip(FormHandle, SetToolTipBalloon())
+   htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
 
    k := _GetFormFree()
 
@@ -340,7 +340,7 @@ FUNCTION _EndDialog()
             ENDIF
 
             IF _HMG_aDialogItems[n, 12] != NIL
-               SetToolTip(ControlHandle, _HMG_aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
+               hmg_SetToolTip(ControlHandle, _HMG_aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
             ENDIF
             IF k > 0
                IF k_old != k

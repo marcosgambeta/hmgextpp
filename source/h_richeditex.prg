@@ -180,7 +180,7 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    hmg_RichEditBox_SetRTFTextMode(ControlHandle, .T.)

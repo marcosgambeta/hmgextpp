@@ -182,7 +182,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       hmg_SetMonthCalValue(aControlHandle[1], Year(value), Month(value), Day(value))
 
       IF tooltip != NIL
-         SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF

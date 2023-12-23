@@ -263,7 +263,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -361,7 +361,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
       _HMG_aControlRangeMin[k] := FindWindowEx(ControlHandle, 0, "Edit", NIL)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
       IF _HMG_aControlToolTip[k] != NIL
-         SetToolTip(_HMG_aControlRangeMin[k], _HMG_aControlToolTip[k], GetFormToolTipHandle(ParentName))
+         hmg_SetToolTip(_HMG_aControlRangeMin[k], _HMG_aControlToolTip[k], GetFormToolTipHandle(ParentName))
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()

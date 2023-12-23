@@ -350,7 +350,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
 
    ENDIF
 
-   htooltip := InitToolTip(FormHandle, SetToolTipBalloon())  //JP MDI ToolTip
+   htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())  //JP MDI ToolTip
 //JP MDI Background
    IF aRGB[1] != -1
       SetWindowBackground(Formhandle, PaintBkGnd(Formhandle, aRGB))

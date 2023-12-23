@@ -695,7 +695,7 @@ STATIC PROCEDURE CreateThumbNails()
          .T.;
          )
 
-      SetToolTip(GetControlHandle(cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages[01] + " " + hb_ntos(i) + " [Click]", ttHandle)
+      hmg_SetToolTip(GetControlHandle(cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages[01] + " " + hb_ntos(i) + " [Click]", ttHandle)
 
    NEXT i
 

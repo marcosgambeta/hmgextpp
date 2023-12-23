@@ -100,7 +100,7 @@ FUNCTION _BeginPager(ControlName, ParentName, nWidth, nHeight, nScroll, cCaption
    Id := _GetId()
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentName))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentName))
    ENDIF
 
    IF IsArrayRGB(backcolor)

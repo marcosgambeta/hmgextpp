@@ -109,7 +109,7 @@ FUNCTION _DefineWebCam(ControlName, ParentForm, x, y, w, h, lStart, nRate, TOOLT
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    _HMG_aControlType               [k] := CONTROL_TYPE_WEBCAM

@@ -249,7 +249,7 @@ FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       IF hb_IsArray(backcolor)

@@ -269,7 +269,7 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
 
       FOR tmp := 1 TO 3
          IF aToolTip[tmp] != NIL
-            SetToolTip(aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName))
+            hmg_SetToolTip(aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName))
          ENDIF
       NEXT
 

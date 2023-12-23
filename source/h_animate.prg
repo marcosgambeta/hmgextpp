@@ -109,7 +109,7 @@ FUNCTION _DefineAnimateRes(ControlName, ParentForm, x, y, w, h, cFile, nRes, too
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
+      hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    _HMG_aControlType               [k] := CONTROL_TYPE_ANIMATERES

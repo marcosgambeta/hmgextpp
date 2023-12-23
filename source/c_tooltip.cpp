@@ -99,7 +99,7 @@ static auto g_bIsToolTipBalloon = false;
 
 static int g_iToolTipMaxWidth = -1;
 
-HB_FUNC( SETTOOLTIPACTIVATE )
+HB_FUNC( HMG_SETTOOLTIPACTIVATE )
 {
    bool g_bOldToolTipActive = g_bIsToolTipActive;
 
@@ -111,7 +111,11 @@ HB_FUNC( SETTOOLTIPACTIVATE )
    hb_retl(g_bOldToolTipActive);
 }
 
-HB_FUNC( SETTOOLTIPBALLOON )
+#if 1
+HB_FUNC_TRANSLATE( SETTOOLTIPACTIVATE, HMG_SETTOOLTIPACTIVATE )
+#endif
+
+HB_FUNC( HMG_SETTOOLTIPBALLOON )
 {
    bool g_bOldToolTipBalloon = g_bIsToolTipBalloon;
 
@@ -123,7 +127,11 @@ HB_FUNC( SETTOOLTIPBALLOON )
    hb_retl(g_bOldToolTipBalloon);
 }
 
-HB_FUNC( SETTOOLTIPMAXWIDTH )
+#if 1
+HB_FUNC_TRANSLATE( SETTOOLTIPBALLOON, HMG_SETTOOLTIPBALLOON )
+#endif
+
+HB_FUNC( HMG_SETTOOLTIPMAXWIDTH )
 {
    bool g_iOldToolTipMaxWidth = g_iToolTipMaxWidth;
 
@@ -134,6 +142,10 @@ HB_FUNC( SETTOOLTIPMAXWIDTH )
    hb_retni(g_iOldToolTipMaxWidth);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH )
+#endif
+
 /*
    nToolTip := InitToolTip (nFormHandle, SetToolTipBalloon())
 
@@ -141,9 +153,9 @@ HB_FUNC( SETTOOLTIPMAXWIDTH )
  */
 
 /*
-INITTOOLTIP(HWND, lBalloon) --> hTooltip
+HMG_INITTOOLTIP(HWND, lBalloon) --> hTooltip
 */
-HB_FUNC( INITTOOLTIP )
+HB_FUNC( HMG_INITTOOLTIP )
 {
    HWND hwndParent = HB_ISNIL(1) ? nullptr : hmg_par_HWND(1);
 
@@ -182,10 +194,14 @@ HB_FUNC( INITTOOLTIP )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITTOOLTIP, HMG_INITTOOLTIP )
+#endif
+
 /*
-SETTOOLTIP(hwndTool, cText, hwndToolTip) -->
+HMG_SETTOOLTIP(hwndTool, cText, hwndToolTip) -->
 */
-HB_FUNC( SETTOOLTIP )
+HB_FUNC( HMG_SETTOOLTIP )
 {
    auto hwndTool = hmg_par_HWND(1);
    auto hwndToolTip = hmg_par_HWND(3);
@@ -213,10 +229,14 @@ HB_FUNC( SETTOOLTIP )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETTOOLTIP, HMG_SETTOOLTIP )
+#endif
+
 /*
-   ShowBalloonTip(hWnd, cText [, cTitle] [, nTypeIcon])
+   hmg_ShowBalloonTip(hWnd, cText [, cTitle] [, nTypeIcon])
  */
-HB_FUNC( SHOWBALLOONTIP )
+HB_FUNC( HMG_SHOWBALLOONTIP )
 {
    WCHAR Text[512];
    WCHAR Title[512];
@@ -256,7 +276,11 @@ HB_FUNC( SHOWBALLOONTIP )
    }
 }
 
-HB_FUNC( HIDEBALLOONTIP )
+#if 1
+HB_FUNC_TRANSLATE( SHOWBALLOONTIP, HMG_SHOWBALLOONTIP )
+#endif
+
+HB_FUNC( HMG_HIDEBALLOONTIP )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -265,10 +289,14 @@ HB_FUNC( HIDEBALLOONTIP )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( HIDEBALLOONTIP, HMG_HIDEBALLOONTIP )
+#endif
+
 /*
-   nToolTip := InitToolTipEx ( nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ] )
+   nToolTip := hmg_InitToolTipEx ( nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ] )
  */
-HB_FUNC( INITTOOLTIPEX )
+HB_FUNC( HMG_INITTOOLTIPEX )
 {
    auto hwndParent = hmg_par_HWND(1);
 
@@ -352,6 +380,10 @@ HB_FUNC( INITTOOLTIPEX )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITTOOLTIPEX, HMG_INITTOOLTIPEX )
+#endif
+
 /*
    ToolTip messages - TTM_messages
  */
@@ -361,7 +393,7 @@ HB_FUNC( INITTOOLTIPEX )
 
    has no effect if g_bIsToolTipActive == FALSE ( after SetToolTipActivate(.F.) )
  */
-HB_FUNC( TTM_ACTIVATE )
+HB_FUNC( HMG_TTM_ACTIVATE )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -373,6 +405,13 @@ HB_FUNC( TTM_ACTIVATE )
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
+
+#if 1
+#ifdef TTM_ACTIVATE
+#undef TTM_ACTIVATE
+#endif
+HB_FUNC_TRANSLATE( TTM_ACTIVATE, HMG_TTM_ACTIVATE )
+#endif
 
 /* TODO
    TTM_ADDTOOL - registers a tool with a tooltip control
@@ -400,7 +439,7 @@ HB_FUNC( TTM_ACTIVATE )
    retrieves  the initial, pop-up, and reshow durations currently set for a
    tooltip control
  */
-HB_FUNC( TTM_GETDELAYTIME )
+HB_FUNC( HMG_TTM_GETDELAYTIME )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -411,13 +450,20 @@ HB_FUNC( TTM_GETDELAYTIME )
    }
 }
 
+#if 1
+#ifdef TTM_GETDELAYTIME
+#undef TTM_GETDELAYTIME
+#endif
+HB_FUNC_TRANSLATE( TTM_GETDELAYTIME, HMG_TTM_GETDELAYTIME )
+#endif
+
 /*
    TTM_GETMARGIN -
    retrieves  the  top,  left,  bottom, and right margins set for a tooltip
    window.  A margin is the distance, in pixels, between the tooltip window
    border and the text contained within the tooltip window
  */
-HB_FUNC( TTM_GETMARGIN )
+HB_FUNC( HMG_TTM_GETMARGIN )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -432,10 +478,17 @@ HB_FUNC( TTM_GETMARGIN )
    }
 }
 
+#if 1
+#ifdef TTM_GETMARGIN
+#undef TTM_GETMARGIN
+#endif
+HB_FUNC_TRANSLATE( TTM_GETMARGIN, HMG_TTM_GETMARGIN )
+#endif
+
 /*
    TTM_GETMAXTIPWIDTH - retrieves the maximum width for a tooltip window
  */
-HB_FUNC( TTM_GETMAXTIPWIDTH )
+HB_FUNC( HMG_TTM_GETMAXTIPWIDTH )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -446,6 +499,13 @@ HB_FUNC( TTM_GETMAXTIPWIDTH )
    }
 }
 
+#if 1
+#ifdef TTM_GETMAXTIPWIDTH
+#undef TTM_GETMAXTIPWIDTH
+#endif
+HB_FUNC_TRANSLATE( TTM_GETMAXTIPWIDTH, HMG_TTM_GETMAXTIPWIDTH )
+#endif
+
 /* TODO
    TTM_GETTEXT -
    retrieves the information a tooltip control maintains about a tool
@@ -454,7 +514,7 @@ HB_FUNC( TTM_GETMAXTIPWIDTH )
 /*
    TTM_GETTIPBKCOLOR - retrieves the background color in a tooltip window
  */
-HB_FUNC( TTM_GETTIPBKCOLOR )
+HB_FUNC( HMG_TTM_GETTIPBKCOLOR )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -465,10 +525,17 @@ HB_FUNC( TTM_GETTIPBKCOLOR )
    }
 }
 
+#if 1
+#ifdef TTM_GETTIPBKCOLOR
+#undef TTM_GETTIPBKCOLOR
+#endif
+HB_FUNC_TRANSLATE( TTM_GETTIPBKCOLOR, HMG_TTM_GETTIPBKCOLOR )
+#endif
+
 /*
    TTM_GETTIPTEXTCOLOR  - retrieves the text color in a tooltip window
  */
-HB_FUNC( TTM_GETTIPTEXTCOLOR )
+HB_FUNC( HMG_TTM_GETTIPTEXTCOLOR )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -479,6 +546,13 @@ HB_FUNC( TTM_GETTIPTEXTCOLOR )
    }
 }
 
+#if 1
+#ifdef TTM_GETTIPTEXTCOLOR
+#undef TTM_GETTIPTEXTCOLOR
+#endif
+HB_FUNC_TRANSLATE( TTM_GETTIPTEXTCOLOR, HMG_TTM_GETTIPTEXTCOLOR )
+#endif
+
 /* TODO
    TTM_GETTITLE -
    retrieve information concerning the title of a tooltip control
@@ -488,7 +562,7 @@ HB_FUNC( TTM_GETTIPTEXTCOLOR )
    TTM_GETTOOLCOUNT -
    retrieves a count of the tools maintained by a tooltip control
  */
-HB_FUNC( TTM_GETTOOLCOUNT )
+HB_FUNC( HMG_TTM_GETTOOLCOUNT )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -498,6 +572,13 @@ HB_FUNC( TTM_GETTOOLCOUNT )
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
+
+#if 1
+#ifdef TTM_GETTOOLCOUNT
+#undef TTM_GETTOOLCOUNT
+#endif
+HB_FUNC_TRANSLATE( TTM_GETTOOLCOUNT, HMG_TTM_GETTOOLCOUNT )
+#endif
 
 /* TODO
    TTM_GETTOOLINFO -
@@ -514,7 +595,7 @@ HB_FUNC( TTM_GETTOOLCOUNT )
 /*
    TTM_POP - removes a displayed tooltip window from view
  */
-HB_FUNC( TTM_POP )
+HB_FUNC( HMG_TTM_POP )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -525,11 +606,18 @@ HB_FUNC( TTM_POP )
    }
 }
 
+#if 1
+#ifdef TTM_POP
+#undef TTM_POP
+#endif
+HB_FUNC_TRANSLATE( TTM_POP, HMG_TTM_POP )
+#endif
+
 /*
    TTM_POPUP -
    causes the tooltip to display at the coordinates of the last mouse message
  */
-HB_FUNC( TTM_POPUP )
+HB_FUNC( HMG_TTM_POPUP )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -540,6 +628,13 @@ HB_FUNC( TTM_POPUP )
    }
 }
 
+#if 1
+#ifdef TTM_POPUP
+#undef TTM_POPUP
+#endif
+HB_FUNC_TRANSLATE( TTM_POPUP, HMG_TTM_POPUP )
+#endif
+
 /* TODO
    TTM_RELAYEVENT -
    passes a mouse message to a tooltip control for processing
@@ -549,7 +644,7 @@ HB_FUNC( TTM_POPUP )
    TTM_SETDELAYTIME
    sets the initial, pop-up, and reshow durations for a tooltip control
  */
-HB_FUNC( TTM_SETDELAYTIME )
+HB_FUNC( HMG_TTM_SETDELAYTIME )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -566,13 +661,20 @@ HB_FUNC( TTM_SETDELAYTIME )
    }
 }
 
+#if 1
+#ifdef TTM_SETDELAYTIME
+#undef TTM_SETDELAYTIME
+#endif
+HB_FUNC_TRANSLATE( TTM_SETDELAYTIME, HMG_TTM_SETDELAYTIME )
+#endif
+
 /*
    TTM_SETMARGIN  -
    sets  the  top,  left, bottom, and right margins for a tooltip window. A
    margin is the distance, in pixels, between the tooltip window border and
    the text contained within the tooltip window.
  */
-HB_FUNC( TTM_SETMARGIN )
+HB_FUNC( HMG_TTM_SETMARGIN )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -589,10 +691,17 @@ HB_FUNC( TTM_SETMARGIN )
    }
 }
 
+#if 1
+#ifdef TTM_SETMARGIN
+#undef TTM_SETMARGIN
+#endif
+HB_FUNC_TRANSLATE( TTM_SETMARGIN, HMG_TTM_SETMARGIN )
+#endif
+
 /*
    TTM_SETMAXTIPWIDTH - sets the maximum width for a tooltip window
  */
-HB_FUNC( TTM_SETMAXTIPWIDTH )
+HB_FUNC( HMG_TTM_SETMAXTIPWIDTH )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -603,10 +712,17 @@ HB_FUNC( TTM_SETMAXTIPWIDTH )
    }
 }
 
+#if 1
+#ifdef TTM_SETMAXTIPWIDTH
+#undef TTM_SETMAXTIPWIDTH
+#endif
+HB_FUNC_TRANSLATE( TTM_SETMAXTIPWIDTH, HMG_TTM_SETMAXTIPWIDTH )
+#endif
+
 /*
    TTM_SETTIPBKCOLOR - sets the background color in a tooltip window
  */
-HB_FUNC( TTM_SETTIPBKCOLOR )
+HB_FUNC( HMG_TTM_SETTIPBKCOLOR )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -627,10 +743,17 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
    }
 }
 
+#if 1
+#ifdef TTM_SETTIPBKCOLOR
+#undef TTM_SETTIPBKCOLOR
+#endif
+HB_FUNC_TRANSLATE( TTM_SETTIPBKCOLOR, HMG_TTM_SETTIPBKCOLOR )
+#endif
+
 /*
    TTM_SETTIPTEXTCOLOR - sets the text color in a tooltip window
  */
-HB_FUNC( TTM_SETTIPTEXTCOLOR )
+HB_FUNC( HMG_TTM_SETTIPTEXTCOLOR )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -651,6 +774,13 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
    }
 }
 
+#if 1
+#ifdef TTM_SETTIPTEXTCOLOR
+#undef TTM_SETTIPTEXTCOLOR
+#endif
+HB_FUNC_TRANSLATE( TTM_SETTIPTEXTCOLOR, HMG_TTM_SETTIPTEXTCOLOR )
+#endif
+
 /* TODO
    TTM_SETTITLE - adds a standard icon and title string to a tooltip
 
@@ -663,7 +793,7 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
 /*
    TTM_TRACKACTIVATE - activates or deactivates a tracking tooltip
  */
-HB_FUNC( TTM_TRACKACTIVATE )
+HB_FUNC( HMG_TTM_TRACKACTIVATE )
 {
    auto hwndToolTip = hmg_par_HWND(1);
    auto hwndTool = hmg_par_HWND(2);
@@ -681,10 +811,17 @@ HB_FUNC( TTM_TRACKACTIVATE )
    }
 }
 
+#if 1
+#ifdef TTM_TRACKACTIVATE
+#undef TTM_TRACKACTIVATE
+#endif
+HB_FUNC_TRANSLATE( TTM_TRACKACTIVATE, HMG_TTM_TRACKACTIVATE )
+#endif
+
 /*
    TTM_TRACKPOSITION - sets the position of a tracking tooltip
  */
-HB_FUNC( TTM_TRACKPOSITION )
+HB_FUNC( HMG_TTM_TRACKPOSITION )
 {
    auto hwndToolTip = hmg_par_HWND(1);
    auto hwndTool = hmg_par_HWND(2);
@@ -704,10 +841,17 @@ HB_FUNC( TTM_TRACKPOSITION )
    }
 }
 
+#if 1
+#ifdef TTM_TRACKPOSITION
+#undef TTM_TRACKPOSITION
+#endif
+HB_FUNC_TRANSLATE( TTM_TRACKPOSITION, HMG_TTM_TRACKPOSITION )
+#endif
+
 /*
    TTM_UPDATE - forces the current tooltip to be redrawn
  */
-HB_FUNC( TTM_UPDATE )
+HB_FUNC( HMG_TTM_UPDATE )
 {
    auto hwndToolTip = hmg_par_HWND(1);
 
@@ -718,10 +862,17 @@ HB_FUNC( TTM_UPDATE )
    }
 }
 
+#if 1
+#ifdef TTM_UPDATE
+#undef TTM_UPDATE
+#endif
+HB_FUNC_TRANSLATE( TTM_UPDATE, HMG_TTM_UPDATE )
+#endif
+
 /*
    TTM_UPDATETIPTEXT - sets the tooltip text for a tool
  */
-HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
+HB_FUNC( HMG_TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
 {
    auto hwndToolTip = hmg_par_HWND(1);
    auto hwndTool = hmg_par_HWND(2);
@@ -743,12 +894,19 @@ HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
    }
 }
 
+#if 1
+#ifdef TTM_UPDATETIPTEXT
+#undef TTM_UPDATETIPTEXT
+#endif
+HB_FUNC_TRANSLATE( TTM_UPDATETIPTEXT, HMG_TTM_UPDATETIPTEXT )
+#endif
+
 /*
    TTM_WINDOWFROMPOINT -
    allows  a  subclass  procedure  to cause a tooltip to display text for a
    window other than the one beneath the mouse cursor
  */
-HB_FUNC( TTM_WINDOWFROMPOINT )
+HB_FUNC( HMG_TTM_WINDOWFROMPOINT )
 {
    auto hwndToolTip = hmg_par_HWND(1);
    auto hwndTool = hmg_par_HWND(2);
@@ -767,3 +925,10 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
    }
 }
+
+#if 1
+#ifdef TTM_WINDOWFROMPOINT
+#undef TTM_WINDOWFROMPOINT
+#endif
+HB_FUNC_TRANSLATE( TTM_WINDOWFROMPOINT, HMG_TTM_WINDOWFROMPOINT )
+#endif

@@ -230,7 +230,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
+         hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
