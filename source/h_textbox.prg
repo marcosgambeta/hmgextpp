@@ -186,7 +186,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
       // Creates the control window
-      ControlHandle := InitTextBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, lUpper, lLower, .F. , lPassword, right, readonly, invisible, notabstop, noborder)
+      ControlHandle := hmg_InitTextBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, lUpper, lLower, .F. , lPassword, right, readonly, invisible, notabstop, noborder)
 
    ENDIF
 
@@ -469,7 +469,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitMaskedTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, .T., readonly, invisible, notabstop, noborder)
+      ControlHandle := hmg_InitMaskedTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, .T., readonly, invisible, notabstop, noborder)
 
    ENDIF
 
@@ -755,7 +755,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitCharMaskTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, rightalign, readonly, invisible, notabstop, noborder)
+      ControlHandle := hmg_InitCharMaskTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, rightalign, readonly, invisible, notabstop, noborder)
 
    ENDIF
 
