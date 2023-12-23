@@ -777,7 +777,7 @@ FUNCTION _AddPropertyItem(ControlName, ParentForm, cCategory, cType, cName, cVal
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    nIndex := GetControlIndex(ControlName, ParentForm)
    IF Empty(cCategory)
-      hItem := TreeView_GetSelection(hWndPG)
+      hItem := hmg_TreeView_GetSelection(hWndPG)
    ELSE
       hItem := PG_SearchCategory(hWndPG, cCategory)
    ENDIF
@@ -792,7 +792,7 @@ FUNCTION _AddPropertyItem(ControlName, ParentForm, cCategory, cType, cName, cVal
                AAdd(aNodeHandle, hItem)
                PgAddItem(hWndPG, aRowItem, 1, aNodeHandle, nIndex, .T.)
             ELSEIF Empty(cCategory)
-               hItem := TREEVIEW_GETPARENT(hWndPG, hItem)
+               hItem := hmg_TREEVIEW_GETPARENT(hWndPG, hItem)
                AAdd(aNodeHandle, hItem)
                PgAddItem(hWndPG, aRowItem, 1, aNodeHandle, nIndex, .T.)
             ELSE
@@ -847,7 +847,7 @@ FUNCTION _AddPropertyCategory(ControlName, ParentForm, cCategory, cName, id, Inf
             AAdd(aNodeHandle, hItem)
             PgAddItem(hWndPG, aRowItem, nLev, aNodeHandle, nIndex, .T.)
          ELSEIF Empty(cCategory)
-            hItem := TREEVIEW_GETPARENT(hWndPG, hItem)
+            hItem := hmg_TREEVIEW_GETPARENT(hWndPG, hItem)
             AAdd(aNodeHandle, hItem)
             PgAddItem(hWndPG, aRowItem, nLev, aNodeHandle, nIndex, .T.)
          ELSE
@@ -873,14 +873,14 @@ FUNCTION PgInitItem(aRowItem, k)
 
 //INFO aRowItem  => (Type,PropertyName,Value,Data,Disabled,changed,DisableEdit, ItemID, ItemInfo, ValueName
 //                     1        2        3     4     5       6       7           8          9        10
-   TreeView_DeleteAllItems(ControlHandle)
+   hmg_TreeView_DeleteAllItems(ControlHandle)
    FOR n := 1 TO Len(aRowItem)
       nLev := PgAddItem(ControlHandle, aRowItem[n], nLev, aNodeHandle, k)
    NEXT n
    IF _HMG_aControlInputMask[k]
       ExpandPG(ControlHandle, 1)
    ENDIF
-   TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
+   hmg_TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
    hmg_SetFocus(ControlHandle)
 
 RETURN NIL
@@ -900,7 +900,7 @@ FUNCTION PgInitItemXml(cFile, k)
    LOCAL oXmlSubNode
 
    oXmlDoc := HXMLDoc():Read(cFile)
-   TreeView_DeleteAllItems(ControlHandle)
+   hmg_TreeView_DeleteAllItems(ControlHandle)
    nLev := 0
 //INFO aRowItem  => (Type,PropertyName,Value,Data,Disabled,changed,DisableEdit,ItemID, ItemInfo, ValueName
 //                     1        2        3     4     5       6       7           8          9       10
@@ -926,7 +926,7 @@ FUNCTION PgInitItemXml(cFile, k)
    IF _HMG_aControlInputMask[k]
       ExpandPG(ControlHandle, 1)
    ENDIF
-   TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
+   hmg_TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
    hmg_SetFocus(ControlHandle)
 
 RETURN NIL
@@ -1159,7 +1159,7 @@ FUNCTION PgAddItem(ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect)
       ENDIF
    ENDCASE
    IF lSelect
-      TreeView_SelectItem(ControlHandle, nNodeH)
+      hmg_TreeView_SelectItem(ControlHandle, nNodeH)
    ENDIF
 
 RETURN nLev
@@ -1525,7 +1525,7 @@ FUNCTION CreatePropXml(ParentForm, ControlName)
    LOCAL hWndPG := GetPGControlHandle(ControlName, ParentForm)
 
    hItem := PG_GetRoot(hWndPG)
-   hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
+   hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
 
    oXmlNodeAkt := HXMLNode():New("ROOT")
    oXmlNodeAkt:SetAttribute("Title", "PropertyGrid")
@@ -1533,7 +1533,7 @@ FUNCTION CreatePropXml(ParentForm, ControlName)
    AAdd(aNode, oXmlNodeAkt)
    AAdd(aLev, hParentItem)
    DO WHILE !empty(hItem)
-      hParentItem := TreeView_GetParent(hWndPG, hItem)   // Parent Item
+      hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)   // Parent Item
       aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
       IF aItemRt[PGI_CHG]
          Pg_ChangeItem(hWndPG, hItem, .F.)
@@ -1572,7 +1572,7 @@ FUNCTION GetNextItemPG(hWndPG, hItem)
    hItemParent := hItem
    hItem := PG_GetNextItem(hWndPG, hItem)
    IF TypePG == PG_FONT .OR. TypePG == PG_FLAG .OR. TypePG == PG_SIZE
-      DO WHILE hItemParent == TreeView_GetParent(hWndPG, hItem)
+      DO WHILE hItemParent == hmg_TreeView_GetParent(hWndPG, hItem)
          hItem := PG_GetNextItem(hWndPG, hItem)
       ENDDO
    ENDIF
@@ -1661,7 +1661,7 @@ FUNCTION CreatePropFile(ParentForm, ControlName, cFile)
    IF FError() == 0
       lret := .T.
       hItem := PG_GetRoot(hWndPG)
-      hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
+      hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
       AAdd(aLev, hParentItem)
       DO WHILE !empty(hItem)
          aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
@@ -1676,7 +1676,7 @@ FUNCTION CreatePropFile(ParentForm, ControlName, cFile)
             lret := ItemRt2File(hand, aItemRt)
          ENDIF
          hItem := GetNextItemPG(hWndPG, hItem)
-         hParentItem := TreeView_GetParent(hWndPG, hItem)   // Parent Item
+         hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)   // Parent Item
          DO WHILE ATail(aLev) != hParentItem
             aLev := ASize(aLev, Len(aLev) - 1)
             lret := ItemRt2File(hand, { "end", "", "", "", "", "", 1, 0, "", "" })
@@ -2020,7 +2020,7 @@ FUNCTION SetPropGridValue(ParentForm, ControlName, nID, cValue, cData, lExp)
    ENDIF
    IF hWndPG > 0
       IF nId == 0
-         hItem := TreeView_GetSelection(hWndPG)
+         hItem := hmg_TreeView_GetSelection(hWndPG)
       ELSE
          hItem := PG_SearchID(hWndPG, nID)
       ENDIF
@@ -2064,11 +2064,11 @@ FUNCTION EnablePropGridItem(ParentForm, ControlName, nID, lEnabled)
          MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
-   hItemSel := TreeView_GetSelection(hWndPG)
+   hItemSel := hmg_TreeView_GetSelection(hWndPG)
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    IF hWndPG > 0
       IF nId == 0
-         hItem := TreeView_GetSelection(hWndPG)
+         hItem := hmg_TreeView_GetSelection(hWndPG)
       ELSE
          hItem := PG_SearchID(hWndPG, nID)
       ENDIF
@@ -2104,7 +2104,7 @@ FUNCTION RedrawPropGridItem(ParentForm, ControlName, nID)
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    IF hWndPG > 0
       IF nId == 0
-         hItem := TreeView_GetSelection(hWndPG)
+         hItem := hmg_TreeView_GetSelection(hWndPG)
       ELSE
          hItem := PG_SearchID(hWndPG, nID)
       ENDIF
@@ -2136,7 +2136,7 @@ FUNCTION GetPropGridValue(ParentForm, ControlName, nID, lAllData, nSubItem)
    ENDIF
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    IF nId == 0
-      hItem := TreeView_GetSelection(hWndPG)
+      hItem := hmg_TreeView_GetSelection(hWndPG)
    ELSE
       hItem := PG_SearchID(hWndPG, nID)
    ENDIF
@@ -2449,8 +2449,8 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       ENDIF
       EXIT
    CASE WM_COMMAND
-      hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
-      hChildItem  := TreeView_GetChild(hWndPG, hParentItem) // First Child Item
+      hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
+      hChildItem  := hmg_TreeView_GetChild(hWndPG, hParentItem) // First Child Item
       cValue := GetWindowText(hWnd)
       SWITCH HIWORD(wParam)
       CASE BN_CLICKED
@@ -2557,8 +2557,8 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       EXIT
    CASE WM_KILLFOCUS
       ItemType   := PG_GETITEM(hWndPG, hItem, PGI_TYPE)
-      hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
-      hChildItem  := TreeView_GetChild(hWndPG, hParentItem) // First Child Item
+      hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
+      hChildItem  := hmg_TreeView_GetChild(hWndPG, hParentItem) // First Child Item
       //    _HMG_aControlMiscData2[i] := 0
       SWITCH ItemType
       CASE PG_DEFAULT
@@ -2590,8 +2590,8 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             cData  := cValue
             lChg   := .F.
             n := 1
-            DO WHILE ( hChildItem := TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
-               IF TreeView_GetParent(hWndPG, hChildItem) == hParentItem
+            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+               IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   n++
                   lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                   cVal := PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
@@ -2611,7 +2611,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
                IF PG_GETITEM(hWndPG, hParentItem, PGI_CHG)
                   _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
                ENDIF
-               TreeView_SelectItem(hWndPG, hItem)
+               hmg_TreeView_SelectItem(hWndPG, hItem)
                lChg   := .F.
             ENDIF
             EXIT
@@ -2626,8 +2626,8 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
                PG_SETDATAITEM(hWndPG, hChildItem, "false", "", .F.)
                cValue := "["
             ENDIF
-            DO WHILE ( hChildItem := TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
-               IF TreeView_GetParent(hWndPG, hChildItem) == hParentItem
+            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+               IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   IF lAll
                      PG_SETDATAITEM(hWndPG, hChildItem, "false", "", .F.)
                   ENDIF
@@ -2645,19 +2645,19 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
                IF PG_GETITEM(hWndPG, hParentItem, PGI_CHG)
                   _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
                ENDIF
-               TreeView_SelectItem(hWndPG, hItem)
+               hmg_TreeView_SelectItem(hWndPG, hItem)
                lChg   := .F.
             ENDIF
             EXIT
          CASE PG_SIZE
             lChg   := .F.
-            hParentItem := TreeView_GetParent(hWndPG, hItem)
-            hChildItem  := TreeView_GetChild(hWndPG, hParentItem)
+            hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)
+            hChildItem  := hmg_TreeView_GetChild(hWndPG, hParentItem)
             cData  := PG_GETITEM(hWndPG, hParentItem, PGI_DATA)
             cValue := "(" + PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
             lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
-            DO WHILE ( hChildItem := TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
-               IF TreeView_GetParent(hWndPG, hChildItem) == hParentItem
+            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+               IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                   cValue += "," + PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
                ENDIF
@@ -2681,18 +2681,18 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
          IF PG_GETITEM(hWndPG, hItem, PGI_CHG)
             aData := PgIdentData(cData, PG_FONT, , ";")
-            hChildItem  := TreeView_GetChild(hWndPG, hItem)
+            hChildItem  := hmg_TreeView_GetChild(hWndPG, hItem)
             PG_SETDATAITEM(hWndPG, hChildItem, aData[1, 3], "FONT", .T.)
             PG_REDRAWITEM(hWndPG, hChildItem)
             IF PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
             ENDIF
-            DO WHILE ( hChildItem := TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0 // TODO:
-               IF TreeView_GetParent(hWndPG, hChildItem) == hItem
+            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0 // TODO:
+               IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hItem
                   IF  ( pos := AScan(aData,{|fIt|fIt[2] == PG_GETITEM(hWndPG, hChildItem, PGI_NAME)}) ) > 0
                      PG_SETDATAITEM(hWndPG, hChildItem, aData[pos, 3], "FONT", .T.)
                      PG_REDRAWITEM(hWndPG, hChildItem)
-                     TreeView_SelectItem(hWndPG, hItem)
+                     hmg_TreeView_SelectItem(hWndPG, hItem)
                   ENDIF
                ENDIF
             ENDDO
@@ -2816,7 +2816,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          EXIT
       CASE PG_ENUM
       CASE PG_LIST
-         hParentItem := TreeView_GetParent(hWnd, hWndItem)      // Parent Item
+         hParentItem := hmg_TreeView_GetParent(hWnd, hWndItem)      // Parent Item
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ComboBoxReset(hEdit)
          IF PG_GETITEM(hWnd, hParentItem, PGI_TYPE) == PG_FONT
@@ -2830,7 +2830,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
             NEXT
             ComboSetCurSel(hEdit, AScan(aData, PG_GETITEM(hWnd, hWndItem, PGI_VALUE)))
          ENDIF
-         TreeView_SelectItem(hWnd, hWndItem)
+         hmg_TreeView_SelectItem(hWnd, hWndItem)
          EXIT
       CASE PG_FONT
       CASE PG_FLAG

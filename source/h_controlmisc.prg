@@ -115,7 +115,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_TREE
-      retval := iif(!_HMG_aControlInputMask[ix], AScan(_HMG_aControlPageMap[ix], TreeView_GetSelection(c)), TreeView_GetSelectionId(c))
+      retval := iif(!_HMG_aControlInputMask[ix], AScan(_HMG_aControlPageMap[ix], hmg_TreeView_GetSelection(c)), hmg_TreeView_GetSelectionId(c))
       EXIT
 
    CASE CONTROL_TYPE_MASKEDTEXT
@@ -363,7 +363,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          RETURN NIL
       ENDIF
       IF !_HMG_aControlInputMask[ix]
-         IF Value > TreeView_GetCount(c)
+         IF Value > hmg_TreeView_GetCount(c)
             RETURN NIL
          ENDIF
          TreeItemHandle := _HMG_aControlPageMap[ix][Value]
@@ -374,7 +374,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          ENDIF
          TreeItemHandle := _HMG_aControlPageMap[ix][aPos]
       ENDIF
-      TreeView_SelectItem(c, TreeItemHandle)
+      hmg_TreeView_SelectItem(c, TreeItemHandle)
       EXIT
 
    CASE CONTROL_TYPE_MASKEDTEXT
@@ -707,7 +707,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
 
    CASE CONTROL_TYPE_TREE
       IF !_HMG_aControlInputmask[ix]
-         IF Parent > TreeView_GetCount(c) .OR. Parent < 0
+         IF Parent > hmg_TreeView_GetCount(c) .OR. Parent < 0
             MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
          ENDIF
       ENDIF
@@ -730,15 +730,15 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
             iUnsel := 2  // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 3
          ELSE
-            iUnSel := AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
-            iSel   := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
+            iUnSel := hmg_AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
+            iSel   := iif(ImgDef == 1, iUnSel, hmg_AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
             // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
          ENDIF
 
-         NewHandle := AddTreeItem(c, TreeItemHandle, Value, iUnsel, iSel, Id)
+         NewHandle := hmg_AddTreeItem(c, TreeItemHandle, Value, iUnsel, iSel, Id)
 
          // Determine Position of New Item
-         TempHandle := TreeView_GetChild(c, TreeItemHandle)
+         TempHandle := hmg_TreeView_GetChild(c, TreeItemHandle)
 
          i := 0
 
@@ -750,22 +750,22 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
                EXIT
             ENDIF
 
-            ChildHandle := TreeView_GetChild(c, TempHandle)
+            ChildHandle := hmg_TreeView_GetChild(c, TempHandle)
 
             IF ChildHandle == 0
                BackHandle := TempHandle
-               TempHandle := TreeView_GetNextSibling(c, TempHandle)
+               TempHandle := hmg_TreeView_GetNextSibling(c, TempHandle)
             ELSE
                i++
                BackHandle := Childhandle
-               TempHandle := TreeView_GetNextSibling(c, ChildHandle)
+               TempHandle := hmg_TreeView_GetNextSibling(c, ChildHandle)
             ENDIF
 
             DO WHILE TempHandle == 0
 
-               ParentHandle := TreeView_GetParent(c, BackHandle)
+               ParentHandle := hmg_TreeView_GetParent(c, BackHandle)
 
-               TempHandle := TreeView_GetNextSibling(c, ParentHandle)
+               TempHandle := hmg_TreeView_GetNextSibling(c, ParentHandle)
 
                IF TempHandle == 0
                   BackHandle := ParentHandle
@@ -776,9 +776,9 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
          ENDDO
 
          // Resize Array
-         ASize(_HMG_aControlPageMap[ix], TreeView_GetCount(c))
-         ASize(_HMG_aControlPicture[ix], TreeView_GetCount(c))
-         ASize(_HMG_aControlHeadClick[ix], TreeView_GetCount(c))
+         ASize(_HMG_aControlPageMap[ix], hmg_TreeView_GetCount(c))
+         ASize(_HMG_aControlPicture[ix], hmg_TreeView_GetCount(c))
+         ASize(_HMG_aControlHeadClick[ix], hmg_TreeView_GetCount(c))
 
          // Insert New Element
          IF !_HMG_aControlInputmask[ix]
@@ -814,12 +814,12 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
             iUnsel := 0  // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 1
          ELSE
-            iUnSel := AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
-            iSel   := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
+            iUnSel := hmg_AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
+            iSel   := iif(ImgDef == 1, iUnSel, hmg_AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
             // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
          ENDIF
 
-         NewHandle := AddTreeItem(c, 0, Value, iUnsel, iSel, Id)
+         NewHandle := hmg_AddTreeItem(c, 0, Value, iUnsel, iSel, Id)
 
          AAdd(_HMG_aControlPageMap[ix], NewHandle)
 
@@ -907,7 +907,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
    SWITCH T
 
    CASE CONTROL_TYPE_TREE
-      BeforeCount := TreeView_GetCount(c)
+      BeforeCount := hmg_TreeView_GetCount(c)
 
       IF !_HMG_aControlInputmask[ix]
 
@@ -916,7 +916,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
          ENDIF
 
          TreeItemHandle := _HMG_aControlPageMap[ix][Value]
-         TreeView_DeleteItem(c, TreeItemHandle)
+         hmg_TreeView_DeleteItem(c, TreeItemHandle)
 
       ELSE
 
@@ -927,11 +927,11 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
          ENDIF
 
          TreeItemHandle := _HMG_aControlPageMap[ix][aPos]
-         TreeView_DeleteItem(c, TreeItemHandle)
+         hmg_TreeView_DeleteItem(c, TreeItemHandle)
 
       ENDIF
 
-      AfterCount := TreeView_GetCount(c)
+      AfterCount := hmg_TreeView_GetCount(c)
       DeletedCount := BeforeCount - AfterCount
 
       IF !_HMG_aControlInputmask[ix]
@@ -1033,7 +1033,7 @@ FUNCTION _DeleteAllItems(ControlName, ParentForm)
    SWITCH t
 
    CASE CONTROL_TYPE_TREE
-      TreeView_DeleteAllItems(c, _HMG_aControlPageMap[i]) // Tree+
+      hmg_TreeView_DeleteAllItems(c, _HMG_aControlPageMap[i]) // Tree+
       ASize(_HMG_aControlPageMap[i], 0)
       ASize(_HMG_aControlPicture[i], 0)
       ASize(_HMG_aControlHeadClick[i], 0)
@@ -1844,7 +1844,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
 
    CASE CONTROL_TYPE_TREE
       IF !_HMG_aControlInputmask[i]
-         IF Item > TreeView_GetCount(c) .OR. Item < 1
+         IF Item > hmg_TreeView_GetCount(c) .OR. Item < 1
             MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
@@ -1858,7 +1858,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
          ENDIF
          ItemHandle := _HMG_aControlPageMap[i][Pos]
       ENDIF
-      TreeView_SetItem(TreeHandle, ItemHandle, Value)
+      hmg_TreeView_SetItem(TreeHandle, ItemHandle, Value)
       EXIT
 
    CASE CONTROL_TYPE_LIST
@@ -2029,7 +2029,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
 
    CASE CONTROL_TYPE_TREE
       IF !_HMG_aControlInputmask[i]
-         IF Item > TreeView_GetCount(c) .OR. Item < 1
+         IF Item > hmg_TreeView_GetCount(c) .OR. Item < 1
             MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
@@ -2043,7 +2043,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
          ENDIF
          ItemHandle := _HMG_aControlPageMap[i][Pos]
       ENDIF
-      RetVal := TreeView_GetItem(TreeHandle, ItemHandle)
+      RetVal := hmg_TreeView_GetItem(TreeHandle, ItemHandle)
       EXIT
 
    // CASE "LIST" $ T
@@ -2606,7 +2606,7 @@ FUNCTION _GetItemCount(ControlName, ParentForm)
    SWITCH t
 
    CASE CONTROL_TYPE_TREE
-      nRetVal := TreeView_GetCount(c)
+      nRetVal := hmg_TreeView_GetCount(c)
       EXIT
 
    // CASE "LIST" $ t
