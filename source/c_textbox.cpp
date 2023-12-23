@@ -45,27 +45,21 @@
  */
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
-
 #include <hbvm.hpp>
 
 #ifndef WC_EDIT
 #define WC_EDIT  "Edit"
 #endif
 
-LRESULT CALLBACK  OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
+/*
+HMG_INITMASKEDTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
+*/
 HB_FUNC( HMG_INITMASKEDTEXTBOX )
 {
-   HWND hbutton;
-
-   int style;
-   int ExStyle;
-
-   auto hwnd = hmg_par_HWND(1);
-
-   style = WS_CHILD | ES_AUTOHSCROLL;
+   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) ) {
       style |= ES_UPPERCASE;
@@ -91,10 +85,9 @@ HB_FUNC( HMG_INITMASKEDTEXTBOX )
       style |= WS_TABSTOP;
    }
 
-   ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
+   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-   hbutton = CreateWindowEx
-             (
+   auto hbutton = CreateWindowEx(
       ExStyle,
       WC_EDIT,
       TEXT(""),
@@ -103,11 +96,10 @@ HB_FUNC( HMG_INITMASKEDTEXTBOX )
       hb_parni(4),
       hb_parni(5),
       hb_parni(11),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    hmg_ret_HWND(hbutton);
 }
@@ -116,17 +108,12 @@ HB_FUNC( HMG_INITMASKEDTEXTBOX )
 HB_FUNC_TRANSLATE( INITMASKEDTEXTBOX, HMG_INITMASKEDTEXTBOX )
 #endif
 
+/*
+HMG_INITTEXTBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, np9, lUpperCase, lLowerCase, lNumber, lPassword, lRight, lReadOnly, lVisible, lTabStop, lp18) --> HWND
+*/
 HB_FUNC( HMG_INITTEXTBOX )
 {
-   HWND hedit;          // Handle of the child window/control.
-
-   int style;          // TEXTBOX window base style.
-   int iExStyle;        // TEXTBOX window extended style.
-
-   // Get the handle of the parent window/form.
-   auto hwnd = hmg_par_HWND(1); // Handle of the parent window/form.
-
-   style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
+   DWORD style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT; // TEXTBOX window base style.
 
    if( hb_parl(12) ) {            // if <lNumeric> is TRUE, then ES_NUMBER style is added.
       style |= ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
@@ -134,7 +121,6 @@ HB_FUNC( HMG_INITTEXTBOX )
       if( hb_parl(10) ) { // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
          style |= ES_UPPERCASE;
       }
-
       if( hb_parl(11) ) { // if <lLower> is TRUE, then ES_LOWERCASE style is added.
          style |= ES_LOWERCASE;
       }
@@ -160,11 +146,11 @@ HB_FUNC( HMG_INITTEXTBOX )
       style |= WS_TABSTOP;
    }
 
-   iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE;
+   DWORD iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE; // TEXTBOX window extended style.
 
+   // Handle of the child window/control.
    // Creates the child control.
-   hedit = CreateWindowEx
-           (
+   auto hedit = CreateWindowEx(
       iExStyle,
       WC_EDIT,
       TEXT(""),
@@ -173,11 +159,10 @@ HB_FUNC( HMG_INITTEXTBOX )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-           );
+      nullptr);
 
    SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
@@ -191,16 +176,12 @@ HB_FUNC( HMG_INITTEXTBOX )
 HB_FUNC_TRANSLATE( INITTEXTBOX, HMG_INITTEXTBOX )
 #endif
 
+/*
+HMG_INITCHARMASKTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
+*/
 HB_FUNC( HMG_INITCHARMASKTEXTBOX )
 {
-   HWND hbutton;
-
-   int style;
-   int ExStyle;
-
-   auto hwnd = hmg_par_HWND(1);
-
-   style = WS_CHILD | ES_AUTOHSCROLL;
+   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) ) {
       style |= ES_UPPERCASE;
@@ -226,10 +207,9 @@ HB_FUNC( HMG_INITCHARMASKTEXTBOX )
       style |= WS_TABSTOP;
    }
 
-   ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
+   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-   hbutton = CreateWindowEx
-             (
+   auto hbutton = CreateWindowEx(
       ExStyle,
       WC_EDIT,
       TEXT(""),
@@ -238,11 +218,10 @@ HB_FUNC( HMG_INITCHARMASKTEXTBOX )
       hb_parni(4),
       hb_parni(5),
       hb_parni(11),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    hmg_ret_HWND(hbutton);
 }
