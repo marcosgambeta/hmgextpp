@@ -27,13 +27,18 @@ Para compilar programas:
 hbmk2 programa hmgextpp.hbc  
 hbmk2 projeto.hbp hmgextpp.hbc
 
+### Questões sobre o projeto  
+
+Utilize as seções 'Issues' ou 'Discussions':  
+
+https://github.com/marcosgambeta/hmgextpp/issues  
+https://github.com/marcosgambeta/hmgextpp/discussions  
+
 ### Contato
 
 Envie sua mensagem para:
 
 marcosgambeta@outlook.com
-
-Questões sobre o projeto serão respondidas **somente por email**.  
 
 ### Mais informações e conteúdo extra
 
@@ -45,10 +50,9 @@ https://magsoftinfo.com/blog/
 
 Este projeto é um 'fork' (projeto derivado). Você encontrará o projeto original nos links abaixo:  
 
-Site oficial
+Site oficial  
 http://hmgextended.com/  
 http://hmgextended.org/  
 
 Grupo de usuários  
 https://groups.google.com/g/minigui-forum  
-
