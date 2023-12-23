@@ -1527,7 +1527,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF k > 0 .AND. _IsControlDefined("StatusBar", _HMG_aFormNames[i]) .AND. _HMG_SplitLastControl != "TOOLBAR"
             aPos := {0, 0, 0, 0}
             GetClientRect(_HMG_aFormHandles[i], /*@*/ aPos)
-            SetWindowPos(k, 0, 0, aPos[4] - LoWord(GetSizeToolBar(k)) - GetBorderHeight() - GetProperty(_HMG_aFormNames[i], "StatusBar", "Height"), 0, 0, SWP_NOSIZE + SWP_NOZORDER)
+            SetWindowPos(k, 0, 0, aPos[4] - LoWord(hmg_GetSizeToolBar(k)) - GetBorderHeight() - GetProperty(_HMG_aFormNames[i], "StatusBar", "Height"), 0, 0, SWP_NOSIZE + SWP_NOZORDER)
          ENDIF
 
          RETURN 0
@@ -2677,7 +2677,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF x > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
 
             IF hb_IsString(_HMG_aControlToolTip[x])
-               SetButtonTip(lParam, _HMG_aControlToolTip[x])
+               hmg_SetButtonTip(lParam, _HMG_aControlToolTip[x])
             ENDIF
 
             k := GetHwndFrom(lParam)  // control handle
@@ -2704,9 +2704,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF hb_IsArray(_HMG_aControlTooltip[x])
                   i := GetNotifyId(lParam)  // page number
-                  SetButtonTip(lParam, _HMG_aControlTooltip[x, i + 1])
+                  hmg_SetButtonTip(lParam, _HMG_aControlTooltip[x, i + 1])
                ELSE
-                  SetButtonTip(lParam, _HMG_aControlTooltip[x])
+                  hmg_SetButtonTip(lParam, _HMG_aControlTooltip[x])
                ENDIF
 
             ENDIF
@@ -3042,14 +3042,14 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             DefWindowProc(hWnd, TBN_DROPDOWN, wParam, lParam)
 
-            x := AScan(_HMG_aControlIds, GetButtonPos(lParam))
+            x := AScan(_HMG_aControlIds, hmg_GetButtonPos(lParam))
 
             IF x > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
 
                aPos := {0, 0, 0, 0}
                GetWindowRect(_HMG_aControlHandles[i], aPos)
 
-               r := GetButtonBarRect(_HMG_aControlHandles[i], _HMG_aControlValue[x] - 1)
+               r := hmg_GetButtonBarRect(_HMG_aControlHandles[i], _HMG_aControlValue[x] - 1)
 
                k := AScan(_HMG_aControlHandles, _HMG_aControlParentHandles[i])
 
@@ -3719,7 +3719,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                RETURN TBNRF_HIDEHELP
             ENDIF
 
-            RETURN iif(ToolBarExCustFunc(hWnd, nMsg, wParam, lParam), 1, 0)
+            RETURN iif(hmg_ToolBarExCustFunc(hWnd, nMsg, wParam, lParam), 1, 0)
 
          ENDIF
 #endif

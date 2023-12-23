@@ -257,7 +257,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_TOOLBUTTON
-      retval := IsButtonBarChecked(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1)
+      retval := hmg_IsButtonBarChecked(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1)
       EXIT
 
    CASE CONTROL_TYPE_GETBOX
@@ -637,7 +637,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_TOOLBUTTON
-      CheckButtonBar(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1, value)
+      hmg_CheckButtonBar(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1, value)
       EXIT
 
    CASE CONTROL_TYPE_GETBOX
@@ -2734,7 +2734,7 @@ FUNCTION _SetControlCaption(ControlName, ParentForm, Value)
 
          ENDIF
 
-         SetToolButtonCaption(_HMG_aControlContainerHandle[i], _HMG_aControlIds[i], cValue)
+         hmg_SetToolButtonCaption(_HMG_aControlContainerHandle[i], _HMG_aControlIds[i], cValue)
 
          cCaption := Upper(cValue)
 
@@ -2748,7 +2748,7 @@ FUNCTION _SetControlCaption(ControlName, ParentForm, Value)
 
          IF _IsControlSplitBoxed(ControlName, ParentForm)
             x := GetFormIndex(ParentForm)
-            SetCaptionSplitBoxItem(_HMG_aFormReBarHandle[x], _HMG_aControlMiscData1[i] - 1, cValue)
+            hmg_SetCaptionSplitBoxItem(_HMG_aFormReBarHandle[x], _HMG_aControlMiscData1[i] - 1, cValue)
             _HMG_aControlCaption[i] := cValue
          ENDIF
 
@@ -2839,10 +2839,10 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
 
    CASE CONTROL_TYPE_TOOLBUTTON
       IF _HMG_aControlMiscData1[i] == 1 .AND. hb_IsNumeric(Filename)
-         SetToolButtonImage(_HMG_aControlContainerHandle[i], _HMG_aControlIds[i], hb_defaultValue(Filename, 0))
+         hmg_SetToolButtonImage(_HMG_aControlContainerHandle[i], _HMG_aControlIds[i], hb_defaultValue(Filename, 0))
       ELSE
          h := _HMG_aControlHandles[i]
-         _HMG_aControlHandles[i] := ReplaceToolButtonImage(_HMG_aControlContainerHandle[i], c, Filename, Empty(Filename), _HMG_aControlIds[i])
+         _HMG_aControlHandles[i] := hmg_ReplaceToolButtonImage(_HMG_aControlContainerHandle[i], c, Filename, Empty(Filename), _HMG_aControlIds[i])
          hmg_ReDrawWindow(_HMG_aControlContainerHandle[i])
          _HMG_aControlPicture[i] := FileName
          IF !Empty(_HMG_aControlHandles[i])
@@ -8198,7 +8198,7 @@ RETURN CurrValue
 
 STATIC FUNCTION SetWindowGripperText(i, cValue)
 
-   SetCaptionSplitBoxItem(_HMG_aFormNotifyMenuHandle[i], _HMG_aFormMiscData1[i][4] - 1, cValue)
+   hmg_SetCaptionSplitBoxItem(_HMG_aFormNotifyMenuHandle[i], _HMG_aFormMiscData1[i][4] - 1, cValue)
    _HMG_aFormMiscData1[i][5] := cValue
 
 RETURN NIL

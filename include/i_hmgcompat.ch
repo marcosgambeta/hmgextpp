@@ -385,11 +385,11 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate IsContextMenuDefined ( <FormName> ) => hmg_IsMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <FormName> ) ] )
 
 
-#xcommand RELEASE MAIN MENU OF <form> => DestroyMenu( hmg_GetMenu( GetFormHandle( <(form)> ) ) ) ; hmg_SetMenu( GetFormHandle( <(form)> ), 0 )
+#xcommand RELEASE MAIN MENU OF <form> => hmg_DestroyMenu( hmg_GetMenu( GetFormHandle( <(form)> ) ) ) ; hmg_SetMenu( GetFormHandle( <(form)> ), 0 )
 
-#xcommand RELEASE CONTEXT MENU OF <form> => DEFINE CONTEXT MENU OF <form> ; END MENU ; DestroyMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <(form)> ) ] )
+#xcommand RELEASE CONTEXT MENU OF <form> => DEFINE CONTEXT MENU OF <form> ; END MENU ; hmg_DestroyMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <(form)> ) ] )
 
-#xcommand RELEASE NOTIFY MENU OF <form>  => DEFINE NOTIFY MENU OF <form> ; END MENU ; DestroyMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <(form)> ) ] )
+#xcommand RELEASE NOTIFY MENU OF <form>  => DEFINE NOTIFY MENU OF <form> ; END MENU ; hmg_DestroyMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <(form)> ) ] )
 
 #xcommand RELEASE DROPDOWN MENU BUTTON <button> OF <form>     => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
 #xcommand RELEASE DROPDOWNMENU OWNERBUTTON <button> OF <form> => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
