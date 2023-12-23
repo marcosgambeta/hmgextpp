@@ -389,12 +389,12 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
    CASE CONTROL_TYPE_TIMER
       x := _HMG_aControlIds[ix]
       IF _HMG_aControlEnabled[ix]
-         KillTimer(_HMG_aControlParentHandles[ix], x)
+         hmg_KillTimer(_HMG_aControlParentHandles[ix], x)
       ENDIF
       FOR EACH h IN _HMG_aControlIds
          IF hb_IsNumeric(h) .AND. h == x
             IF _HMG_aControlEnabled[ix]
-               InitTimer(GetFormHandle(ParentForm), h, Value)
+               hmg_InitTimer(GetFormHandle(ParentForm), h, Value)
             ENDIF
             _HMG_aControlValue[ix] := value
             EXIT
@@ -1364,7 +1364,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
       IF _HMG_aControlEnabled[y]
          w := GetControlParentHandle(ControlName, ParentForm)
          s := GetControlId(ControlName, ParentForm)
-         KillTimer(w, s)
+         hmg_KillTimer(w, s)
       ENDIF
       EXIT
 
@@ -1517,7 +1517,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
       s := GetControlId(ControlName, ParentForm)
       FOR EACH z IN _HMG_aControlIds
          IF hb_IsNumeric(z) .AND. z == s
-            InitTimer(GetFormHandle(ParentForm), z, _HMG_aControlValue[hb_enumindex(z)])
+            hmg_InitTimer(GetFormHandle(ParentForm), z, _HMG_aControlValue[hb_enumindex(z)])
             EXIT
          ENDIF
       NEXT

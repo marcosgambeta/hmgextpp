@@ -77,7 +77,7 @@ FUNCTION _DefineTimer(ControlName, ParentForm, Interval, ProcedureName, Once)
    ParentFormHandle := GetFormHandle(ParentForm)
 
    Id := _GetId()
-   lSuccess := InitTimer(ParentFormHandle, id, Interval)
+   lSuccess := hmg_InitTimer(ParentFormHandle, id, Interval)
 
    k := _GetControlFree()
 
