@@ -9,7 +9,7 @@
    LPSTR  WideToAnsi(LPWSTR);
 #endif
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
-PHB_ITEM             Rect2Array(RECT * rc);
+PHB_ITEM hmg_RectToArray(RECT * rc);
 
 static far BYTE HandXor[] = {
    0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,

@@ -73,7 +73,7 @@
 
 
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
-extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
+PHB_ITEM hmg_RectToArray(RECT * rc);
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
 typedef HMODULE ( __stdcall * SHGETFOLDERPATH )( HWND, int, HANDLE, DWORD, LPTSTR );
@@ -1531,7 +1531,7 @@ HB_FUNC( _GETCLIENTRECT )
    if( IsWindow(hWnd) ) {
       GetClientRect(hWnd, &rc);
 
-      hb_itemReturnRelease(Rect2Array(&rc));
+      hb_itemReturnRelease(hmg_RectToArray(&rc));
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }

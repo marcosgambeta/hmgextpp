@@ -92,7 +92,7 @@ extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
 bool hmg_ArrayToRect(PHB_ITEM aPoint, RECT * rect);
 bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
-extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
+PHB_ITEM hmg_RectToArray(RECT * rc);
 
 static auto g_bIsToolTipActive = true;
 static auto g_bIsToolTipBalloon = false;
@@ -426,7 +426,7 @@ HB_FUNC( TTM_GETMARGIN )
 
       SendMessage(hwndToolTip, TTM_GETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
 
-      hb_itemReturnRelease(Rect2Array(&rect));
+      hb_itemReturnRelease(hmg_RectToArray(&rect));
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }

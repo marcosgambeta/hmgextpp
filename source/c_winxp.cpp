@@ -521,7 +521,7 @@ bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr)
    return false;
 }
 
-HB_EXPORT PHB_ITEM Rect2Array(RECT * rc)
+PHB_ITEM hmg_RectToArray(RECT * rc)
 {
    auto aRect = hb_itemArrayNew(4);
 

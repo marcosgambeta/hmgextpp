@@ -58,7 +58,7 @@ WINGDIAPI BOOL WINAPI GdiFlush(void);
 
 bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
-extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
+PHB_ITEM hmg_RectToArray(RECT * rc);
 
 /*
 HMG_BEGINPAINT(HWND, cp2) --> HANDLE
@@ -185,7 +185,7 @@ HB_FUNC( HMG_GETUPDATERECT )
       } else {
          RECT rc;
          hb_retl(GetUpdateRect(hWnd, &rc, hmg_par_BOOL(3)) ? true : false);
-         hb_itemParamStoreRelease(2, Rect2Array(&rc));
+         hb_itemParamStoreRelease(2, hmg_RectToArray(&rc));
       }
    } else {
       hb_retl(false);
