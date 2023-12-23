@@ -533,7 +533,7 @@ HB_EXPORT PHB_ITEM Rect2Array(RECT * rc)
    return aRect;
 }
 
-HB_EXPORT PHB_ITEM Point2Array(POINT * pt)
+PHB_ITEM hmg_PointToArray(POINT * pt)
 {
    auto aPoint = hb_itemArrayNew(2);
 
