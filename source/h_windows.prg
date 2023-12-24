@@ -247,7 +247,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       hscroll := .T.
    ENDIF
 
-   IF MSC_VER() > 0
+   IF hmg_MSC_VER() > 0
       IF nosize .AND. _HMG_IsThemed
          w += 10
          h += 10
@@ -270,15 +270,15 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    _HMG_BeginWindowActive := .T.
 
    ClassName := "HMG_FORM_" + FormName
-   UnRegisterWindow(ClassName)
+   hmg_UnRegisterWindow(ClassName)
 
    IF mdi
       _HMG_BeginWindowMDIActive := .T.  // JP MDI
       BrushHandle := RegisterMDIWindow(icon, FormName, aRGB)
       Formhandle := InitMDIWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, FormName, ParentHandle, vscroll, hscroll, helpbutton)
    ELSE
-      BrushHandle := RegisterWindow(icon, ClassName, aRGB, cursor)  /* P.Ch. 16.10. */
-      Formhandle := InitWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, ClassName, ParentHandle, vscroll, hscroll, helpbutton, palette, panel)
+      BrushHandle := hmg_RegisterWindow(icon, ClassName, aRGB, cursor)  /* P.Ch. 16.10. */
+      Formhandle := hmg_InitWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, ClassName, ParentHandle, vscroll, hscroll, helpbutton, palette, panel)
    ENDIF
 
    IF Empty(_HMG_InteractiveClose) .AND. !Main .AND. !nosysmenu .AND. !nocaption
@@ -389,7 +389,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    ENDIF
 
    IF !mdi  // JP MDI
-      InitDummy(FormHandle)
+      hmg_InitDummy(FormHandle)
    ENDIF
 
    IF VirtualHeight > 0
@@ -501,7 +501,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       hscroll := .T.
    ENDIF
 
-   IF MSC_VER() > 0
+   IF hmg_MSC_VER() > 0
       IF nosize .AND. !nocaption .AND. _HMG_IsThemed
          w += 10
          h += 10
@@ -526,10 +526,10 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    _HMG_BeginWindowActive := .T.
 
    ClassName := "HMG_FORM_" + FormName
-   UnRegisterWindow(ClassName)
+   hmg_UnRegisterWindow(ClassName)
 
-   BrushHandle := RegisterWindow(icon, ClassName, aRGB)
-   Formhandle := InitModalWindow(Caption, x, y, w, h, Parent, nosize, nosysmenu, nocaption, ClassName, vscroll, hscroll, helpbutton)
+   BrushHandle := hmg_RegisterWindow(icon, ClassName, aRGB)
+   Formhandle := hmg_InitModalWindow(Caption, x, y, w, h, Parent, nosize, nosysmenu, nocaption, ClassName, vscroll, hscroll, helpbutton)
 
    IF Empty(_HMG_InteractiveClose) .AND. !nosysmenu .AND. !nocaption
       hmg_xDisableCloseButton(FormHandle, .F.)
@@ -613,7 +613,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       Eval(_HMG_bOnFormInit, k, mVar)
    ENDIF
 
-   InitDummy(FormHandle)
+   hmg_InitDummy(FormHandle)
 
    IF VirtualHeight > 0
       SetScrollRange(Formhandle, SB_VERT, 0, VirtualHeight - h, .T.)
@@ -702,14 +702,14 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    _HMG_ActiveFormName := FormName
    _HMG_BeginWindowActive := .T.
 
-   UnRegisterWindow(FormName)
-   BrushHandle := RegisterSplitChildWindow("", FormName, aRGB)
+   hmg_UnRegisterWindow(FormName)
+   BrushHandle := hmg_RegisterSplitChildWindow("", FormName, aRGB)
 
    i := GetFormIndex(ParentForm)
 
    IF i > 0
 
-      Formhandle := InitSplitChildWindow(w, h, FormName, nocaption, title, 0, vscroll, hscroll)
+      Formhandle := hmg_InitSplitChildWindow(w, h, FormName, nocaption, title, 0, vscroll, hscroll)
 
       IF cursor != NIL
          hmg_SetWindowCursor(FormHandle, cursor)
@@ -809,7 +809,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
       Eval(_HMG_bOnFormInit, k, mVar)
    ENDIF
 
-   InitDummy(FormHandle)
+   hmg_InitDummy(FormHandle)
 
    AAdd(_HMG_aFormSplitChildList[i] , _HMG_ActiveSplitChildIndex)
 
@@ -984,7 +984,7 @@ FUNCTION _DefineSplitBox(ParentForm, bottom, inverted)
    _HMG_ActiveSplitBox := .T.
    _HMG_ActiveSplitBoxParentFormName := ParentForm
 
-   ControlHandle := InitSplitBox(GetFormHandle(ParentForm), bottom, inverted)
+   ControlHandle := hmg_InitSplitBox(GetFormHandle(ParentForm), bottom, inverted)
 
    IF (i := GetFormIndex(ParentForm)) > 0
       _HMG_aFormReBarHandle[i] := ControlHandle

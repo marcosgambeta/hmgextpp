@@ -306,7 +306,7 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 #command SET EVENTS FUNCTION TO <fname> [ RESULT TO <lSuccess> ] ;
 => ;
-[ <lSuccess> := ] SetGlobalListener( <"fname"> )
+[ <lSuccess> := ] hmg_SetGlobalListener( <"fname"> )
 
 #xcommand @ <row>,<col> ANIGIF <ControlName> ;
       [ OBJ <oGif> ] ;

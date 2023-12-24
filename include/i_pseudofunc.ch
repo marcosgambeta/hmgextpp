@@ -392,7 +392,7 @@
 #translate FIELD-><!name!> => _FIELD-><name>
 #define BLANK_DATE hb_SToD()
 #translate HMG_TimeMS(<dTS1> [,<dTS2>]) => LTrim(hb_TSToStr((hb_StrToTS("") + (hb_defaultValue(<dTS2>, hb_DateTime()) - <dTS1>)), .T.))
-#xtranslate hb_Ccompiler() => iif(Empty(BorlandC()), hb_Compiler(), BorlandC())
+#xtranslate hb_Ccompiler() => iif(Empty(hmg_BorlandC()), hb_Compiler(), hmg_BorlandC())
 #xtranslate HMG_SysWait([<nSeconds>]) => hb_idleSleep(hb_defaultValue(<nSeconds>, 0.105))
 #translate oHmgData([<lUpper>]) => THmgData():New(hb_defaultValue(<lUpper>, .T.))
 

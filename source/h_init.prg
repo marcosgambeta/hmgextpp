@@ -476,7 +476,7 @@ PROCEDURE Init()
 
    InitMessages()
 
-   ResetGlobalListener() // set default Events function
+   hmg_ResetGlobalListener() // set default Events function
 
    _HMG_IsMultiple := hmg_IsExeRunning(StrTran(GetExeFileName(), "\", "_"))
 

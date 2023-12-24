@@ -151,7 +151,7 @@ static HB_CRITICAL_NEW(s_lst_mtx);
 #define HMG_LISTENER_LOCK    hb_threadEnterCriticalSection(&s_lst_mtx)
 #define HMG_LISTENER_UNLOCK  hb_threadLeaveCriticalSection(&s_lst_mtx)
 
-HB_FUNC( GETGLOBALLISTENER )
+HB_FUNC( HMG_GETGLOBALLISTENER )
 {
    if( g_ListenerDyns != nullptr ) {
       hb_retc( hb_dynsymName(g_ListenerDyns) );
@@ -160,7 +160,11 @@ HB_FUNC( GETGLOBALLISTENER )
    }
 }
 
-HB_FUNC( SETGLOBALLISTENER )
+#if 1
+HB_FUNC_TRANSLATE( GETGLOBALLISTENER, HMG_GETGLOBALLISTENER )
+#endif
+
+HB_FUNC( HMG_SETGLOBALLISTENER )
 {
    const char * pszNewName = hb_parc(1);
 
@@ -173,12 +177,20 @@ HB_FUNC( SETGLOBALLISTENER )
    }
 }
 
-HB_FUNC( RESETGLOBALLISTENER )
+#if 1
+HB_FUNC_TRANSLATE( SETGLOBALLISTENER, HMG_SETGLOBALLISTENER )
+#endif
+
+HB_FUNC( HMG_RESETGLOBALLISTENER )
 {
    HMG_LISTENER_LOCK;
    g_ListenerDyns = hb_dynsymGet(DEFAULT_LISTENER);
    HMG_LISTENER_UNLOCK;
 }
+
+#if 1
+HB_FUNC_TRANSLATE( RESETGLOBALLISTENER, HMG_RESETGLOBALLISTENER )
+#endif
 
 static size_t AppEventScan(EVENTSHOLDER * events, UINT message)
 {
@@ -299,7 +311,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
    return r;
 }
 
-HB_FUNC( APPEVENTS )
+HB_FUNC( HMG_APPEVENTS )
 {
    BOOL bRes = FALSE;
    auto hWnd = hmg_par_HWND(1);
@@ -362,7 +374,11 @@ HB_FUNC( APPEVENTS )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( APPEVENTSREMOVE )
+#if 1
+HB_FUNC_TRANSLATE( APPEVENTS, HMG_APPEVENTS )
+#endif
+
+HB_FUNC( HMG_APPEVENTSREMOVE )
 {
    auto bDel = false;
    auto hWnd = hmg_par_HWND(1);
@@ -377,7 +393,11 @@ HB_FUNC( APPEVENTSREMOVE )
    hb_retl(bDel);
 }
 
-HB_FUNC( APPEVENTSUPDATE )
+#if 1
+HB_FUNC_TRANSLATE( APPEVENTSREMOVE, HMG_APPEVENTSREMOVE )
+#endif
+
+HB_FUNC( HMG_APPEVENTSUPDATE )
 {
    auto bUpd = false;
    auto hWnd = hmg_par_HWND(1);
@@ -420,7 +440,11 @@ HB_FUNC( APPEVENTSUPDATE )
    hb_retl(bUpd);
 }
 
-HB_FUNC( ENUMAPPEVENTS )
+#if 1
+HB_FUNC_TRANSLATE( APPEVENTSUPDATE, HMG_APPEVENTSUPDATE )
+#endif
+
+HB_FUNC( HMG_ENUMAPPEVENTS )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
@@ -460,7 +484,11 @@ HB_FUNC( ENUMAPPEVENTS )
    hb_itemReturnRelease(aEvents);
 }
 
-HB_FUNC( GETAPPEVENTSINFO )
+#if 1
+HB_FUNC_TRANSLATE( ENUMAPPEVENTS, HMG_ENUMAPPEVENTS )
+#endif
+
+HB_FUNC( HMG_GETAPPEVENTSINFO )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
@@ -491,6 +519,10 @@ HB_FUNC( GETAPPEVENTSINFO )
 
    hb_itemReturnRelease(aInfo);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETAPPEVENTSINFO, HMG_GETAPPEVENTSINFO )
+#endif
 
 static size_t WinEventScan(WINEVENTSHOLDER * events, UINT message)
 {
@@ -612,7 +644,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
    return r;
 }
 
-HB_FUNC( WINEVENTS )
+HB_FUNC( HMG_WINEVENTS )
 {
    BOOL bRes = FALSE;
    auto hWnd = hmg_par_HWND(1);
@@ -675,7 +707,11 @@ HB_FUNC( WINEVENTS )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( WINEVENTSREMOVE )
+#if 1
+HB_FUNC_TRANSLATE( WINEVENTS, HMG_WINEVENTS )
+#endif
+
+HB_FUNC( HMG_WINEVENTSREMOVE )
 {
    auto bDel = false;
    auto hWnd = hmg_par_HWND(1);
@@ -690,7 +726,11 @@ HB_FUNC( WINEVENTSREMOVE )
    hb_retl(bDel);
 }
 
-HB_FUNC( WINEVENTSUPDATE )
+#if 1
+HB_FUNC_TRANSLATE( WINEVENTSREMOVE, HMG_WINEVENTSREMOVE )
+#endif
+
+HB_FUNC( HMG_WINEVENTSUPDATE )
 {
    auto bUpd = false;
    auto hWnd = hmg_par_HWND(1);
@@ -733,7 +773,11 @@ HB_FUNC( WINEVENTSUPDATE )
    hb_retl(bUpd);
 }
 
-HB_FUNC( ENUMWINEVENTS )
+#if 1
+HB_FUNC_TRANSLATE( WINEVENTSUPDATE, HMG_WINEVENTSUPDATE )
+#endif
+
+HB_FUNC( HMG_ENUMWINEVENTS )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
@@ -773,7 +817,11 @@ HB_FUNC( ENUMWINEVENTS )
    hb_itemReturnRelease(aEvents);
 }
 
-HB_FUNC( GETWINEVENTSINFO )
+#if 1
+HB_FUNC_TRANSLATE( ENUMWINEVENTS, HMG_ENUMWINEVENTS )
+#endif
+
+HB_FUNC( HMG_GETWINEVENTSINFO )
 {
    auto hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
@@ -804,6 +852,10 @@ HB_FUNC( GETWINEVENTSINFO )
 
    hb_itemReturnRelease(aInfo);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETWINEVENTSINFO, HMG_GETWINEVENTSINFO )
+#endif
 
 LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -870,7 +922,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
    return ( result != 0 ) ? result : DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-HB_FUNC( INITMESSAGEONLYWINDOW )
+HB_FUNC( HMG_INITMESSAGEONLYWINDOW )
 {
    HWND hwnd = nullptr;
 
@@ -908,11 +960,19 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
    hmg_ret_HWND(hwnd);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMESSAGEONLYWINDOW, HMG_INITMESSAGEONLYWINDOW )
+#endif
+
 /* Modified by P.Ch. 17.06. */
-HB_FUNC( INITDUMMY )
+HB_FUNC( HMG_INITDUMMY )
 {
    hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITDUMMY, HMG_INITDUMMY )
+#endif
 
 /* Modified by P.Ch. 17.06. */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -951,7 +1011,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
    return ( r != 0 ) ? r : DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-HB_FUNC( INITWINDOW )
+HB_FUNC( HMG_INITWINDOW )
 {
    DWORD style = WS_POPUP;
    DWORD ExStyle;
@@ -1029,7 +1089,11 @@ HB_FUNC( INITWINDOW )
    }
 }
 
-HB_FUNC( INITMODALWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( INITWINDOW, HMG_INITWINDOW )
+#endif
+
+HB_FUNC( HMG_INITMODALWINDOW )
 {
    DWORD ExStyle = 0;
 
@@ -1086,7 +1150,11 @@ HB_FUNC( INITMODALWINDOW )
    }
 }
 
-HB_FUNC( INITSPLITCHILDWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( INITMODALWINDOW, HMG_INITMODALWINDOW )
+#endif
+
+HB_FUNC( HMG_INITSPLITCHILDWINDOW )
 {
    DWORD style = WS_POPUP;
 
@@ -1129,7 +1197,11 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    }
 }
 
-HB_FUNC( INITSPLITBOX )
+#if 1
+HB_FUNC_TRANSLATE( INITSPLITCHILDWINDOW, HMG_INITSPLITCHILDWINDOW )
+#endif
+
+HB_FUNC( HMG_INITSPLITBOX )
 {
    INITCOMMONCONTROLSEX icex{};
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -1170,8 +1242,12 @@ HB_FUNC( INITSPLITBOX )
    hmg_ret_HWND(hwndRB);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITSPLITBOX, HMG_INITSPLITBOX )
+#endif
+
 /* Modified by P.Ch. 16.10.-16.12.,17.06. */
-HB_FUNC( REGISTERWINDOW )
+HB_FUNC( HMG_REGISTERWINDOW )
 {
    void * str1 = nullptr;
    LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) : nullptr );
@@ -1242,8 +1318,12 @@ HB_FUNC( REGISTERWINDOW )
    hmg_ret_HBRUSH(hBrush);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGISTERWINDOW, HMG_REGISTERWINDOW )
+#endif
+
 /* Modified by P.Ch. 17.06. */
-HB_FUNC( REGISTERSPLITCHILDWINDOW )
+HB_FUNC( HMG_REGISTERSPLITCHILDWINDOW )
 {
    void * str1 = nullptr;
    LPCTSTR lpIcon = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNIL(1) ? nullptr : MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) );
@@ -1289,15 +1369,23 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    hmg_ret_HBRUSH(hbrush);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGISTERSPLITCHILDWINDOW, HMG_REGISTERSPLITCHILDWINDOW )
+#endif
+
 /* Modified by P.Ch. 17.06. */
-HB_FUNC( UNREGISTERWINDOW )
+HB_FUNC( HMG_UNREGISTERWINDOW )
 {
    void * str;
    UnregisterClass(HB_PARSTR(1, &str, nullptr), GetInstance());
    hb_strfree(str);
 }
 
-HB_FUNC( MSC_VER )
+#if 1
+HB_FUNC_TRANSLATE( UNREGISTERWINDOW, HMG_UNREGISTERWINDOW )
+#endif
+
+HB_FUNC( HMG_MSC_VER )
 {
 #if defined(_MSC_VER)
    hb_retnl( _MSC_VER );
@@ -1306,9 +1394,13 @@ HB_FUNC( MSC_VER )
 #endif
 }
 
+#if 1
+HB_FUNC_TRANSLATE( MSC_VER, HMG_MSC_VER )
+#endif
+
 #define COMPILER_BUF_SIZE  80
 
-HB_FUNC( BORLANDC )
+HB_FUNC( HMG_BORLANDC )
 {
    #ifdef __BORLANDC__
 
@@ -1368,6 +1460,10 @@ HB_FUNC( BORLANDC )
    hb_retc_buffer(pszCompiler);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( BORLANDC, HMG_BORLANDC )
+#endif
+
 #include "mgver.h"
 
 HB_FUNC( HMG_VERSION )
@@ -1394,6 +1490,7 @@ HB_FUNC( HMG_ISDIGIT )
 }
 
 #ifdef UNICODE
+
 HB_FUNC( HMG_LOWER )
 {
    LPSTR pStr;
