@@ -6,7 +6,7 @@ FUNCTION _GetTextHeight(hwnd, hDC)
 
    HB_SYMBOL_UNUSED(hwnd)
 
-RETURN GetTextMetric(hDC)[1]
+RETURN hmg_GetTextMetric(hDC)[1]
 
 FUNCTION _InvertRect(hDC, aRec) // Temporary
 

@@ -177,8 +177,8 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       (uAlias)->(AEval(Array(FCount()), {|cn, nn|cn := FieldName(nn), AAdd(aHeaders, cn), AAdd(aNames, cn), AAdd(aColSel, cn)}))
       IF cell .AND. Empty(aColors)
          aColors := {}
-         AAdd(aColors, {CLR_FOCUSF, {| c, n, b | c := n, iif(b:nCell == n, GetSysColor(COLOR_WINDOWTEXT), GetSysColor(COLOR_CAPTIONTEXT)) }})
-         AAdd(aColors, {CLR_FOCUSB, {| c, n, b | c := n, iif(b:nCell == n, GetSysColor(COLOR_ACTIVECAPTION), -GetSysColor(COLOR_ACTIVECAPTION)) }})
+         AAdd(aColors, {CLR_FOCUSF, {| c, n, b | c := n, iif(b:nCell == n, hmg_GetSysColor(COLOR_WINDOWTEXT), hmg_GetSysColor(COLOR_CAPTIONTEXT)) }})
+         AAdd(aColors, {CLR_FOCUSB, {| c, n, b | c := n, iif(b:nCell == n, hmg_GetSysColor(COLOR_ACTIVECAPTION), -hmg_GetSysColor(COLOR_ACTIVECAPTION)) }})
       ENDIF
    ENDIF
 
@@ -286,7 +286,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
       IF _HMG_DialogInMemory // Dialog Template
          IF GetClassInfo(hmg_GetInstance(), ControlName) == NIL
-            IF !Register_Class(ControlName, CreateSolidBrush(GetRed(GetSysColor(COLOR_BTNFACE)), GetGreen(GetSysColor(COLOR_BTNFACE)), GetBlue(GetSysColor(COLOR_BTNFACE))))
+            IF !Register_Class(ControlName, hmg_CreateSolidBrush(hmg_GetRed(hmg_GetSysColor(COLOR_BTNFACE)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNFACE)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNFACE))))
                RETURN NIL
             ENDIF
          ENDIF
@@ -354,7 +354,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       ENDIF
 
       IF hb_IsArray(aBrush) .AND. Len(aBrush) > 2
-         oBrw:hBrush := CreateSolidBrush(aBrush[1], aBrush[2], aBrush[3])
+         oBrw:hBrush := hmg_CreateSolidBrush(aBrush[1], aBrush[2], aBrush[3])
       ENDIF
       /* BK end */
       ControlHandle := oBrw:hWnd
@@ -1041,7 +1041,7 @@ CLASS TSBrowse FROM TControl
    DATA nSortColDir AS NUMERIC INIT 0 // Sorting table columns ascending or descending
    DATA nClr_Gray AS NUMERIC INIT CLR_GRAY
    DATA nClr_HGray AS NUMERIC INIT CLR_HGRAY
-   DATA nClr_Lines AS NUMERIC INIT GetSysColor(COLOR_BTNSHADOW)
+   DATA nClr_Lines AS NUMERIC INIT hmg_GetSysColor(COLOR_BTNSHADOW)
    DATA nCntKeysLR AS NUMERIC INIT 0
    DATA nMaxKeysLR AS NUMERIC INIT 3
    DATA nCntScroll AS NUMERIC INIT 0
@@ -1334,25 +1334,25 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
       cParentWnd := _HMG_ActiveFormName
    ENDIF
 
-   DEFAULT aTmpColor[01] := GetSysColor(COLOR_WINDOWTEXT)    // nClrText
-   DEFAULT aTmpColor[02] := GetSysColor(COLOR_WINDOW)        // nClrPane
-   DEFAULT aTmpColor[03] := GetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
-   DEFAULT aTmpColor[04] := GetSysColor(COLOR_BTNFACE)       // nClrHeadBack
-   DEFAULT aTmpColor[05] := GetSysColor(COLOR_CAPTIONTEXT)   // nClrForeFocu
-   DEFAULT aTmpColor[06] := GetSysColor(COLOR_ACTIVECAPTION) // nClrFocuBack
-   DEFAULT aTmpColor[07] := GetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
-   DEFAULT aTmpColor[08] := GetSysColor(COLOR_WINDOW)        // nClrEditBack
-   DEFAULT aTmpColor[09] := GetSysColor(COLOR_BTNTEXT)       // nClrFootFore
-   DEFAULT aTmpColor[10] := GetSysColor(COLOR_BTNFACE)       // nClrFootBack
+   DEFAULT aTmpColor[01] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrText
+   DEFAULT aTmpColor[02] := hmg_GetSysColor(COLOR_WINDOW)        // nClrPane
+   DEFAULT aTmpColor[03] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
+   DEFAULT aTmpColor[04] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrHeadBack
+   DEFAULT aTmpColor[05] := hmg_GetSysColor(COLOR_CAPTIONTEXT)   // nClrForeFocu
+   DEFAULT aTmpColor[06] := hmg_GetSysColor(COLOR_ACTIVECAPTION) // nClrFocuBack
+   DEFAULT aTmpColor[07] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
+   DEFAULT aTmpColor[08] := hmg_GetSysColor(COLOR_WINDOW)        // nClrEditBack
+   DEFAULT aTmpColor[09] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrFootFore
+   DEFAULT aTmpColor[10] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrFootBack
    DEFAULT aTmpColor[11] := CLR_HGRAY                        // nClrSeleFore inactive focused
    DEFAULT aTmpColor[12] := CLR_GRAY                         // nClrSeleBack inactive focused
-   DEFAULT aTmpColor[13] := GetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
-   DEFAULT aTmpColor[14] := GetSysColor(COLOR_BTNFACE)       // nClrOrdeBack
-   DEFAULT aTmpColor[15] := GetSysColor(COLOR_BTNSHADOW)     // nClrLine
-   DEFAULT aTmpColor[16] := GetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
-   DEFAULT aTmpColor[17] := GetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
-   DEFAULT aTmpColor[18] := GetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
-   DEFAULT aTmpColor[19] := GetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
+   DEFAULT aTmpColor[13] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
+   DEFAULT aTmpColor[14] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrOrdeBack
+   DEFAULT aTmpColor[15] := hmg_GetSysColor(COLOR_BTNSHADOW)     // nClrLine
+   DEFAULT aTmpColor[16] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
+   DEFAULT aTmpColor[17] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
+   DEFAULT aTmpColor[18] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
+   DEFAULT aTmpColor[19] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
    DEFAULT aTmpColor[20] := CLR_HRED                         // nClrSpecHeadActive
 
    DEFAULT lUpdate := .F.
@@ -1362,9 +1362,9 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
    DEFAULT nStyle := nOr(WS_CHILD, WS_BORDER, WS_VISIBLE, WS_CLIPCHILDREN, WS_TABSTOP, WS_3DLOOK)
 
    IF lAutoFilter
-      aTmpColor[19] := GetSysColor(COLOR_INACTCAPTEXT)
+      aTmpColor[19] := hmg_GetSysColor(COLOR_INACTCAPTEXT)
    ELSEIF lAutoSearch
-      aTmpColor[19] := GetSysColor(COLOR_INFOBK)
+      aTmpColor[19] := hmg_GetSysColor(COLOR_INFOBK)
    ENDIF
    IF hb_IsArray(uAlias)
       cAlias := "ARRAY"
@@ -1861,7 +1861,7 @@ METHOD TSBrowse:MoreFields(nMsg, nWParam)
    ENDIF
 
    nCol := ::nCell
-   nKey := Loword(nWParam)
+   nKey := hmg_Loword(nWParam)
 
    IF nMsg == WM_KEYDOWN
 
@@ -3572,7 +3572,7 @@ METHOD TSBrowse:DrawHeaders(lFooters, lDrawCell)
          lOrder := ::nColOrder == nJ
          lDescend := oColumn:lDescend
 
-         IF LoWord(oColumn:nHAlign) == DT_VERT
+         IF hmg_LoWord(oColumn:nHAlign) == DT_VERT
             cHeading := "Arial"
 
             hFont := hmg_InitFont(cHeading, -11, .F., .F., .F., .F., 900)
@@ -3708,7 +3708,7 @@ METHOD TSBrowse:DrawHeaders(lFooters, lDrawCell)
 
          nVAlign := 1
 
-         IF LoWord(oColumn:nHAlign) == DT_VERT
+         IF hmg_LoWord(oColumn:nHAlign) == DT_VERT
             hmg_DeleteObject(hFont)
          ENDIF
 
@@ -3992,8 +3992,8 @@ METHOD TSBrowse:DrawIcons()
    LOCAL nIcons := Int(nWidth / 50) * Int(nHeight / 50)
    LOCAL hIcon := hmg_ExtractIcon("user.exe", 0)
 
-   SetBkColor(::hDC, CLR_BLUE)
-   SetTextColor(::hDC, CLR_WHITE)
+   hmg_SetBkColor(::hDC, CLR_BLUE)
+   hmg_SetTextColor(::hDC, CLR_WHITE)
 
    DO WHILE n <= nIcons .AND. !(::cAlias)->(Eof())
       IF ::bIconDraw != NIL .AND. ::aIcons != NIL
@@ -4008,7 +4008,7 @@ METHOD TSBrowse:DrawIcons()
          cText := Str((::cAlias)->(RecNo()))
       ENDIF
 
-      DrawText(::hDC, cText, {nRow + 35, nCol - 5, nRow + 48, nCol + 40}, 1)
+      hmg_DrawText(::hDC, cText, {nRow + 35, nCol - 5, nRow + 48, nCol + 40}, 1)
 
       nCol += 50
 
@@ -4221,7 +4221,7 @@ METHOD TSBrowse:DrawLine(xRow, lDrawCell)
 
          IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
             uBmpCell := ::uBmpSel
-            nAlign := nMakeLong(LoWord(nAlign), ::nAligBmp)
+            nAlign := nMakeLong(hmg_LoWord(nAlign), ::nAligBmp)
          ELSEIF oColumn:lBitMap .AND. hb_IsNumeric(uData)
             aBitMaps := iif(hb_IsArray(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps)
             IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
@@ -4490,7 +4490,7 @@ METHOD TSBrowse:DrawPressed(nCell, lPressed)
    LOCAL hDC
    LOCAL hOldPen
    LOCAL hGrayPen := CreatePen(PS_SOLID, 1, ::nClrLine)
-   LOCAL hWhitePen := CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT))
+   LOCAL hWhitePen := CreatePen(PS_SOLID, 1, hmg_GetSysColor(COLOR_BTNHIGHLIGHT))
 
    DEFAULT lPressed := .T.
 
@@ -4503,7 +4503,7 @@ METHOD TSBrowse:DrawPressed(nCell, lPressed)
       RETURN Self
    ENDIF
 
-   hDC := GetDC(::hWnd)
+   hDC := hmg_GetDC(::hWnd)
    nLeft := 0
 
    IF ::nFreeze > 0
@@ -4520,19 +4520,19 @@ METHOD TSBrowse:DrawPressed(nCell, lPressed)
    nTop -= iif(nTop > 0, 1, 0)
    nRight := nLeft + ::aColSizes[nCell]
    nBottom := nTop + ::nHeightHead
-   hOldPen := SelectObject(hDC, iif(lPressed, hGrayPen, hWhitePen))
+   hOldPen := hmg_SelectObject(hDC, iif(lPressed, hGrayPen, hWhitePen))
 
    MoveTo(hDC, nLeft, nBottom)
    LineTo(hDC, nLeft, nTop)
    LineTo(hDC, nRight, nTop)
-   SelectObject(hDC, iif(lPressed, hWhitePen, hGrayPen))
+   hmg_SelectObject(hDC, iif(lPressed, hWhitePen, hGrayPen))
    MoveTo(hDC, nLeft, nBottom - 1)
    LineTo(hDC, nRight - 1, nBottom - 1)
    LineTo(hDC, nRight - 1, nTop - 1)
-   SelectObject(hDC, hOldPen)
+   hmg_SelectObject(hDC, hOldPen)
    hmg_DeleteObject(hGrayPen)
    hmg_DeleteObject(hWhitePen)
-   ReleaseDC(::hWnd, hDC)
+   hmg_ReleaseDC(::hWnd, hDC)
 
    IF lPressed
       nKeyPressed := nCell
@@ -4765,13 +4765,13 @@ METHOD TSBrowse:DrawSelect(xRow, lDrawCell)
 
             IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
                uBmpCell := ::uBmpSel
-               nAlign := nMakeLong(LoWord(nAlign), ::nAligBmp)
+               nAlign := nMakeLong(hmg_LoWord(nAlign), ::nAligBmp)
             ELSEIF oColumn:lBitMap .AND. hb_IsNumeric(uData)
                aBitMaps := iif(hb_IsArray(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps)
                IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                   uBmpCell := aBitMaps[uData]
                ENDIF
-               nAlign := nMakeLong(LoWord(nAlign), nAlign)
+               nAlign := nMakeLong(hmg_LoWord(nAlign), nAlign)
                uData := ""
             ELSEIF !lCheck .AND. oColumn:lEmptyValToChar .AND. Empty(uData)
                uData := ""
@@ -5839,7 +5839,7 @@ METHOD TSBrowse:EditExit(nCol, nKey, uVar, bValid, lLostFocus)
 
       CASE "TBTNBOX" $ Upper(oCol:oEdit:ClassName()) .AND. lSpinner
          IF oCol:oEdit:hWndChild != NIL
-            PostMessage(oCol:oEdit:hWndChild, WM_CLOSE)
+            hmg_PostMessage(oCol:oEdit:hWndChild, WM_CLOSE)
          ENDIF
          hmg_SetFocus(::hWnd)
       ENDCASE
@@ -6379,7 +6379,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
             ENDIF
 
             uData := Trim(StrTran(uData, CRLF, Chr(10)))
-            nAlign := Min(LoWord(::aColumns[nCol]:nHAlign), 2)
+            nAlign := Min(hmg_LoWord(::aColumns[nCol]:nHAlign), 2)
             nAlign := iif(Chr(10) $ uData, 4, nAlign)
             hFont := ::aColumns[nCol]:hFontHead
             aFontTmp := GetFontParam(hFont)
@@ -6422,7 +6422,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
          ENDIF
 
          uData := ::bDataEval(::aColumns[nCol])
-         nAlign := LoWord(::aColumns[nCol]:nAlign)
+         nAlign := hmg_LoWord(::aColumns[nCol]:nAlign)
          hFont := ::aColumns[nCol]:hFont
          aFontTmp := GetFontParam(hFont)
          nFont := AScan(aFont, {| e | e[1] == aFontTmp[1] .AND. e[2] == aFontTmp[2] .AND. ;
@@ -6472,7 +6472,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
          ENDIF
 
          uData := Trim(StrTran(uData, CRLF, Chr(10)))
-         nAlign := Min(LoWord(::aColumns[nCol]:nFAlign), 2)
+         nAlign := Min(hmg_LoWord(::aColumns[nCol]:nFAlign), 2)
          nAlign := iif(Chr(10) $ uData, 4, nAlign)
          hFont := ::aColumns[nCol]:hFontFoot
          aFontTmp := GetFontParam(hFont)
@@ -6526,7 +6526,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
    ::nAt := nAt
 
    IF lActivate
-      ShellExecute(0, "Open", iif(lSave, cFile, cWork),,, 3)
+      hmg_ShellExecute(0, "Open", iif(lSave, cFile, cWork),,, 3)
    ENDIF
 
    ::Display()
@@ -6793,7 +6793,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
       */
 
       IF Len(cText) > 20000
-         CopyToClipboard(cText)
+         CopyToClipboard(cText) // TODO: hmg_CopyToClipboard ?
          cCell := "A" + AllTrim(Str(nStart))
          oRange := oSheet:Range(cCell)
          oRange:Select()
@@ -6820,7 +6820,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
    ENDIF
 
    IF Len(cText) > 0
-      CopyToClipboard(cText)
+      CopyToClipboard(cText) // TODO: hmg_CopyToClipboard ?
       cCell := "A" + AllTrim(Str(nStart))
       oRange := oSheet:Range(cCell)
       oRange:Select()
@@ -8585,7 +8585,7 @@ METHOD TSBrowse:KeyChar(nKey, nFlags)
       ELSE
          ix := ::aColumns[::nCell]:oEdit:Atx
          IF ix > 0
-            PostMessage(_HMG_aControlHandles[ix], WM_CHAR, nKey, nFlags)
+            hmg_PostMessage(_HMG_aControlHandles[ix], WM_CHAR, nKey, nFlags)
          ENDIF
       ENDIF
 
@@ -8599,7 +8599,7 @@ METHOD TSBrowse:KeyChar(nKey, nFlags)
       ELSE
          ix := ::aColumns[::nCell]:oEditSpec:Atx
          IF ix > 0
-            PostMessage(_HMG_aControlHandles[ix], WM_CHAR, nKey, nFlags)
+            hmg_PostMessage(_HMG_aControlHandles[ix], WM_CHAR, nKey, nFlags)
          ENDIF
       ENDIF
    ELSE
@@ -8730,7 +8730,7 @@ METHOD TSBrowse:KeyDown(nKey, nFlags)
       CASE VK_INSERT
          IF ::lCellBrw
             uTemp := cValToChar(::bDataEval(::aColumns[nCol]))
-            CopyToClipboard(uTemp)
+            CopyToClipboard(uTemp) // TODO: hmg_CopyToClipboard ?
             SysRefresh()
          ELSE
             ::SuperKeyDown(nKey, nFlags, Self)
@@ -9099,10 +9099,10 @@ METHOD TSBrowse:LButtonDown(nRowPix, nColPix, nKeyFlags)
             CASE "TSMULTI" $ Upper(oCol:oEdit:ClassName())
                RETURN 0
             CASE "TCOMBOBOX" $ Upper(oCol:oEdit:ClassName())
-               PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
+               hmg_PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
                RETURN 0
             CASE "TBTNBOX" $ Upper(oCol:oEdit:ClassName()) // JP 1.64
-               PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
+               hmg_PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
                RETURN 0
             OTHERWISE
                ix := GetControlIndex(::cChildControl, ::cParentWnd)
@@ -9112,7 +9112,7 @@ METHOD TSBrowse:LButtonDown(nRowPix, nColPix, nKeyFlags)
                IF nCol > nColPix
                   nCol := 0
                ENDIF
-               PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
+               hmg_PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
                RETURN 0
             ENDCASE
          ELSE
@@ -9225,7 +9225,7 @@ METHOD TSBrowse:LButtonDown(nRowPix, nColPix, nKeyFlags)
                IF nCol > nColPix
                   nCol := 0
                ENDIF
-               PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
+               hmg_PostMessage(::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong(nColPix - nCol, nRowPix))
                RETURN 0
             ENDIF
          ENDIF
@@ -9827,7 +9827,7 @@ METHOD TSBrowse:HandleEvent(nMsg, nWParam, nLParam)
          RETURN NIL
       ENDIF
       IF nLParam == 0 .AND. ::lEnabled
-         RETURN ::VScroll(Loword(nWParam), HiWord(nWParam))
+         RETURN ::VScroll(hmg_Loword(nWParam), hmg_HiWord(nWParam))
       ENDIF
    ELSEIF nMsg == WM_HSCROLL
       IF !::lEnabled
@@ -9835,14 +9835,14 @@ METHOD TSBrowse:HandleEvent(nMsg, nWParam, nLParam)
       ELSEIF ::lDontchange
          RETURN NIL
       ENDIF
-      RETURN ::HScroll(Loword(nWParam), HiWord(nWParam))
+      RETURN ::HScroll(hmg_Loword(nWParam), hmg_HiWord(nWParam))
    ELSEIF nMsg == WM_ERASEBKGND .AND. !::lEditing
       ::lNoPaint := .F.
    ELSEIF nMsg == WM_DESTROY
       IF !Empty(::aColumns) .AND. ::aColumns[::nCell]:oEdit != NIL
          ix := ::aColumns[::nCell]:oEdit:Atx
          IF ix > 0
-            PostMessage(_HMG_aControlHandles[ix], WM_KEYDOWN, VK_ESCAPE, 0)
+            hmg_PostMessage(_HMG_aControlHandles[ix], WM_KEYDOWN, VK_ESCAPE, 0)
          ENDIF
       ENDIF
 #ifdef __EXT_SELECTION__
@@ -9852,12 +9852,12 @@ METHOD TSBrowse:HandleEvent(nMsg, nWParam, nLParam)
       ENDIF
 #endif
    ELSEIF nMsg == WM_LBUTTONDBLCLK
-      RETURN ::LDblClick(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::LDblClick(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    ELSEIF nMsg == WM_MOUSEWHEEL
       IF ::hWnd != 0 .AND. ::lEnabled .AND. !::lDontChange
-         nDelta := Bin2I(I2Bin(HiWord(nWParam))) / 120
-         ::MouseWheel(nMsg, nDelta, LoWord(nLParam), HiWord(nLParam))
+         nDelta := Bin2I(I2Bin(hmg_HiWord(nWParam))) / 120
+         ::MouseWheel(nMsg, nDelta, hmg_LoWord(nLParam), hmg_HiWord(nLParam))
       ENDIF
       RETURN 0
 
@@ -12953,8 +12953,8 @@ METHOD TSBrowse:Set3DText(lOnOff, lRaised, nColumn, nLevel, nClrLight, nClrShado
 
    DEFAULT lOnOff := .T.
    DEFAULT lRaised := .T.
-   DEFAULT nClrLight := GetSysColor(COLOR_BTNHIGHLIGHT)
-   DEFAULT nClrShadow := GetSysColor(COLOR_BTNSHADOW)
+   DEFAULT nClrLight := hmg_GetSysColor(COLOR_BTNHIGHLIGHT)
+   DEFAULT nClrShadow := hmg_GetSysColor(COLOR_BTNSHADOW)
 
    IF Empty(::aColumns)
       RETURN Self
@@ -13624,7 +13624,7 @@ METHOD TSBrowse:SetColor(xColor1, xColor2, nColumn)
 
    IF Len(::aColumns) == 0 .AND. !::lTransparent .AND. ::hBrush == NIL
       nColor := iif(hb_IsBlock(xColor2[2]), Eval(xColor2[2], 1, 1, Self), xColor2[2])
-      ::hBrush := CreateSolidBrush(GetRed(nColor), GetGreen(nColor), GetBlue(nColor))
+      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(nColor), hmg_GetGreen(nColor), hmg_GetBlue(nColor))
    ENDIF
 
    IF nColumn == 0 .AND. hb_IsNumeric(xColor2[1]) .AND. hb_IsArray(xColor1) .AND. xColor1[1] == 1 .AND. ;
@@ -14406,7 +14406,7 @@ METHOD TSBrowse:OnReSize(nWidth, nHeight, lTop)
    IF _HMG_MouseState == 1
 
       aCol := Array(Len(::aColumns))
-      nW := _GetClientRect(::hWnd)[3]
+      nW := hmg__GetClientRect(::hWnd)[3]
 
       IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
          nW -= GetVScrollBarWidth()
@@ -14454,7 +14454,7 @@ METHOD TSBrowse:OnReSize(nWidth, nHeight, lTop)
       ::lEnabled := .F.
       ::Move(::nLeft, ::nTop, nWidth, nHeight - nTop, .T.)
 
-      nW := _GetClientRect(::hWnd)[3]
+      nW := hmg__GetClientRect(::hWnd)[3]
       nN := nS := 0
 
       IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
@@ -14515,7 +14515,7 @@ METHOD TSBrowse:SetNoHoles(nDelta, lSet)
       ::nHeightFoot := ::aOldParams[5]
    ENDIF
 
-   nHole := _GetClientRect(::hWnd)[4] - ::nHeightHead - ::nHeightSuper - ::nHeightFoot - ::nHeightSpecHd
+   nHole := hmg__GetClientRect(::hWnd)[4] - ::nHeightHead - ::nHeightSuper - ::nHeightFoot - ::nHeightSpecHd
 
    nHole -= (Int(nHole / ::nHeightCell) * ::nHeightCell)
    nHole -= nDelta
@@ -14555,7 +14555,7 @@ METHOD TSBrowse:SetNoHoles(nDelta, lSet)
 
          ::Display()
 
-         aRect := _GetClientRect(::hWnd)
+         aRect := hmg__GetClientRect(::hWnd)
 
          IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
             aRect[3] -= GetVScrollBarWidth()
@@ -15081,7 +15081,7 @@ RETURN Self
 
 METHOD TSBrowse:VertLine(nColPixPos, nColInit, nGapp)
 
-   LOCAL hDC := GetDC(::hWnd)
+   LOCAL hDC := hmg_GetDC(::hWnd)
    LOCAL aRect := ::GetRect()
 
    IF nColInit != NIL
@@ -15115,7 +15115,7 @@ METHOD TSBrowse:VertLine(nColPixPos, nColInit, nGapp)
       nsOldPixPos := nColPixPos + nGap
    ENDIF
 
-   ReleaseDC(::hWnd, hDC)
+   hmg_ReleaseDC(::hWnd, hDC)
 
 RETURN NIL
 
@@ -15301,7 +15301,7 @@ METHOD TSBrowse:Enabled(lEnab)
          ::SetColor({18, 19}, {::nCLR_GRAY, ::nCLR_HGRAY})
          ::nClrPane := ::nCLR_HGRAY
          ::nClrLine := ::nCLR_Lines
-         ::hBrush := CreateSolidBrush(GetRed(::nClrPane), GetGreen(::nClrPane), GetBlue(::nClrPane))
+         ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
 
       ELSE
 
@@ -16179,7 +16179,7 @@ STATIC FUNCTION SetHeights(oBrw)
                nHHeight := nHeight + 1
             ENDIF
 
-         ELSEIF hb_IsChar(cHeading) .AND. LoWord(oBrw:aColumns[nEle]:nHAlign) == DT_VERT
+         ELSEIF hb_IsChar(cHeading) .AND. hmg_LoWord(oBrw:aColumns[nEle]:nHAlign) == DT_VERT
 
             nHeight := hmg_GetTextWidth(oBrw:hDC, cHeading, hFont)
 
@@ -16758,7 +16758,7 @@ METHOD TSBrowse:GetCellInfo(nRowPos, nCell, lColSpecHd)
       nRow := ::nHeightSuper + iif(oCol:l3DLook, 2, 0) + 1
       nHeight := ::nHeightHead
    ELSEIF lFoot
-      nRow := _GetClientRect(::hWnd)[4] - ::nHeightFoot + 1
+      nRow := hmg__GetClientRect(::hWnd)[4] - ::nHeightFoot + 1
       nHeight := ::nHeightFoot
    ENDIF
 
@@ -16862,7 +16862,7 @@ METHOD TSBrowse:GetCellSize(nRowPos, nCell, lColSpecHd)
       nRow := ::nHeightSuper + iif(oCol:l3DLook, 2, 0) + 1
       nHeight := ::nHeightHead
    ELSEIF lFoot
-      nRow := _GetClientRect(::hWnd)[4] - ::nHeightFoot + 1
+      nRow := hmg__GetClientRect(::hWnd)[4] - ::nHeightFoot + 1
       nHeight := ::nHeightFoot
    ENDIF
 

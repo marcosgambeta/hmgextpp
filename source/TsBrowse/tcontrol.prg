@@ -150,9 +150,9 @@ CLASS TControl
    MESSAGE SetFocus METHOD __SetFocus()   //TWindow
    METHOD RButtonUp(nRow, nCol, nKeyFlags)    //TWindow
    METHOD Capture() INLINE SetCapture(::hWnd) //TWindow
-   METHOD GetDC() INLINE IIf(::hDC == NIL, ::hDC := GetDC(::hWnd), NIL), IIf(::nPaintCount == NIL, ::nPaintCount := 1, ::nPaintCount++), ::hDC
-   METHOD ReleaseDC() INLINE ::nPaintCount--, IIf(::nPaintCount == 0, IIf(ReleaseDC(::hWnd, ::hDC), ::hDC := NIL, NIL), NIL)
-   METHOD PostMsg(nMsg, nWParam, nLParam) INLINE PostMessage(::hWnd, nMsg, nWParam, nLParam)
+   METHOD GetDC() INLINE IIf(::hDC == NIL, ::hDC := hmg_GetDC(::hWnd), NIL), IIf(::nPaintCount == NIL, ::nPaintCount := 1, ::nPaintCount++), ::hDC
+   METHOD ReleaseDC() INLINE ::nPaintCount--, IIf(::nPaintCount == 0, IIf(hmg_ReleaseDC(::hWnd, ::hDC), ::hDC := NIL, NIL), NIL)
+   METHOD PostMsg(nMsg, nWParam, nLParam) INLINE hmg_PostMessage(::hWnd, nMsg, nWParam, nLParam)
    METHOD lValid() INLINE IIf(::bValid != NIL, Eval(::bValid), .T.)
    METHOD SetMsg(cText, lDefault)
    METHOD lWhen() INLINE IIf(::bWhen != NIL, Eval(::bWhen), .T.)
@@ -166,7 +166,7 @@ CLASS TControl
    METHOD Command(nWParam, nLParam)
    METHOD Notify(nWParam, nLParam)
    METHOD Refresh(lErase) INLINE hmg_InvalidateRect(::hWnd, IIf(lErase == NIL .OR. !lErase, 0, 1))
-   METHOD nGetChrHeight() INLINE ::hDC := GetDC(::hWnd), ::nChrHeight := _GetTextHeight(::hWnd, ::hDC) // Temp
+   METHOD nGetChrHeight() INLINE ::hDC := hmg_GetDC(::hWnd), ::nChrHeight := _GetTextHeight(::hWnd, ::hDC) // Temp
    METHOD GetText() INLINE GetWindowText(::hWnd)   //TWindow
    METHOD VScroll(nWParam, nLParam)                //TWindow
 
@@ -248,10 +248,10 @@ METHOD TControl:Colors(hDC)
 
    DEFAULT ::nClrText := GetTextColor(hDC)
    DEFAULT ::nClrPane := GetBkColor(hDC)
-   DEFAULT ::hBrush   := CreateSolidBrush(GetRed(::nClrPane), GetGreen(::nClrPane), GetBlue(::nClrPane))
+   DEFAULT ::hBrush   := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
 
-   SetTextColor(hDC, ::nClrText)
-   SetBkColor(hDC, ::nClrPane)
+   hmg_SetTextColor(hDC, ::nClrText)
+   hmg_SetBkColor(hDC, ::nClrPane)
 
 RETURN ::hBrush
 
@@ -286,7 +286,7 @@ METHOD TControl:Create(cClsName)
    ENDIF
 
    IF ::hBrush == NIL
-      ::hBrush := CreateSolidBrush(GetRed(::nClrPane), GetGreen(::nClrPane), GetBlue(::nClrPane))
+      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
    ENDIF
 
    IF GetClassInfo(hmg_GetInstance(), cClsName) == NIL
@@ -340,7 +340,7 @@ METHOD TControl:End()
    ENDIF
    IF "TBTNBOX" $ Upper(Self:ClassName())
       IF ::hWndChild != NIL
-         PostMessage(::hWndChild, WM_CLOSE)
+         hmg_PostMessage(::hWndChild, WM_CLOSE)
       ENDIF
       ::PostMsg(WM_CLOSE)
       RETURN .T.
@@ -355,7 +355,7 @@ METHOD TControl:EraseBkGnd(hDC)
    IF IsIconic(::hWnd)
       IF ::hWnd != NIL
          aRect := ::GetCliRect(::hWnd)
-         FillRect(hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush )
+         hmg_FillRect(hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush )
          RETURN 1
       ENDIF
       RETURN 0
@@ -363,7 +363,7 @@ METHOD TControl:EraseBkGnd(hDC)
 
    IF ::hBrush != NIL .AND. !Empty(::hBrush)   //JP
         aRect := ::GetCliRect(::hWnd)
-        FillRect(hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush)
+        hmg_FillRect(hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush)
       RETURN 1
    ENDIF
 
@@ -394,7 +394,7 @@ RETURN NIL
 
 METHOD TControl:GetCliRect()
 
-   LOCAL aRect := _GetClientRect(::hWnd)
+   LOCAL aRect := hmg__GetClientRect(::hWnd)
 
 RETURN aRect
 
@@ -437,7 +437,7 @@ METHOD TControl:GoNextCtrl(hCtrl)
 
    LOCAL  hCtlNext
 
-   hCtlNext    := GetNextDlgTabITem(GetActiveWindow(), GetFocus(), .F.)
+   hCtlNext    := hmg_GetNextDlgTabITem(GetActiveWindow(), GetFocus(), .F.)
 
    ::hCtlFocus := hCtlNext
 
@@ -451,7 +451,7 @@ METHOD TControl:GoPrevCtrl(hCtrl)
 
    LOCAL hCtlPrev
 
-   hCtlPrev := GetNextDlgTabItem(GetActiveWindow(), GetFocus(), .T.)
+   hCtlPrev := hmg_GetNextDlgTabItem(GetActiveWindow(), GetFocus(), .T.)
 
    ::hCtlFocus := hCtlPrev
 
@@ -595,8 +595,8 @@ METHOD TControl:Register(nClsStyle)
    ClassName := ::cControlName
 
    DEFAULT nClsStyle  := nOr(CS_VREDRAW, CS_HREDRAW)
-   DEFAULT ::nClrPane := GetSysColor(COLOR_WINDOW)
-   DEFAULT ::hBrush   := CreateSolidBrush(GetRed(::nClrPane), GetGreen(::nClrPane), GetBlue(::nClrPane))
+   DEFAULT ::nClrPane := hmg_GetSysColor(COLOR_WINDOW)
+   DEFAULT ::hBrush   := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
 
    nClsStyle := nOr(nClsStyle, CS_GLOBALCLASS, CS_DBLCLKS)
 
@@ -658,7 +658,7 @@ METHOD TControl:SetColor(nClrFore, nClrBack, hBrush)
    IF hBrush != NIL
       ::hBrush := hBrush
    ELSE
-      ::hBrush := CreateSolidBrush(GetRed(nClrBack), GetGreen(nClrBack), GetBlue(nClrBack))
+      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(nClrBack), hmg_GetGreen(nClrBack), hmg_GetBlue(nClrBack))
    ENDIF
 
 RETURN NIL
@@ -696,7 +696,7 @@ RETURN NIL
 
 METHOD TControl:VScroll(nWParam, nLParam)
 
-   LOCAL nScrHandle := HiWord(nLParam)
+   LOCAL nScrHandle := hmg_HiWord(nLParam)
 
    IF nScrHandle == 0                   // Window ScrollBar
       IF ::oVScroll != NIL
@@ -705,8 +705,8 @@ METHOD TControl:VScroll(nWParam, nLParam)
          CASE SB_LINEDOWN      ; ::oVScroll:GoDown()                    ; EXIT
          CASE SB_PAGEUP        ; ::oVScroll:PageUp()                    ; EXIT
          CASE SB_PAGEDOWN      ; ::oVScroll:PageDown()                  ; EXIT
-         CASE SB_THUMBPOSITION ; ::oVScroll:ThumbPos(LoWord(nLParam))   ; EXIT
-         CASE SB_THUMBTRACK    ; ::oVScroll:ThumbTrack(LoWord(nLParam)) ; EXIT
+         CASE SB_THUMBPOSITION ; ::oVScroll:ThumbPos(hmg_LoWord(nLParam))   ; EXIT
+         CASE SB_THUMBTRACK    ; ::oVScroll:ThumbTrack(hmg_LoWord(nLParam)) ; EXIT
          CASE SB_ENDSCROLL     ; RETURN 0
          ENDSWITCH
       ENDIF
@@ -716,8 +716,8 @@ METHOD TControl:VScroll(nWParam, nLParam)
       CASE SB_LINEDOWN      ; SendMessage(nScrHandle, FM_SCROLLDOWN)                ; EXIT
       CASE SB_PAGEUP        ; SendMessage(nScrHandle, FM_SCROLLPGUP)                ; EXIT
       CASE SB_PAGEDOWN      ; SendMessage(nScrHandle, FM_SCROLLPGDN)                ; EXIT
-      CASE SB_THUMBPOSITION ; SendMessage(nScrHandle, FM_THUMBPOS, LoWord(nLParam)) ; EXIT
-      CASE SB_THUMBTRACK    ; SendMessage(nScrHandle, FM_THUMBTRACK, LoWord(nLParam))
+      CASE SB_THUMBPOSITION ; SendMessage(nScrHandle, FM_THUMBPOS, hmg_LoWord(nLParam)) ; EXIT
+      CASE SB_THUMBTRACK    ; SendMessage(nScrHandle, FM_THUMBTRACK, hmg_LoWord(nLParam))
       ENDSWITCH
    ENDIF
 
@@ -768,19 +768,19 @@ METHOD TControl:HandleEvent(nMsg, nWParam, nLParam)
       RETURN ::LostFocus(nWParam) // LostFocus(), not KillFocus()!!!
 
    CASE WM_LBUTTONDOWN
-      RETURN ::LButtonDown(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::LButtonDown(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    CASE WM_LBUTTONUP
-      RETURN ::LButtonUp(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::LButtonUp(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    CASE WM_MOUSEMOVE
-      RETURN ::MouseMove(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::MouseMove(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    CASE WM_RBUTTONDOWN
-      RETURN ::RButtonDown(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::RButtonDown(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    CASE WM_RBUTTONUP
-      RETURN ::RButtonUp(HiWord(nLParam), LoWord(nLParam), nWParam)
+      RETURN ::RButtonUp(hmg_HiWord(nLParam), hmg_LoWord(nLParam), nWParam)
 
    CASE WM_SETFOCUS
       RETURN ::GotFocus(nWParam)
@@ -789,7 +789,7 @@ METHOD TControl:HandleEvent(nMsg, nWParam, nLParam)
       RETURN ::VScroll(nWParam, nLParam)
 
    CASE WM_SIZE
-      RETURN ::ReSize(nWParam, LoWord(nLParam), HiWord(nLParam))
+      RETURN ::ReSize(nWParam, hmg_LoWord(nLParam), hmg_HiWord(nLParam))
 
    CASE WM_TIMER
       RETURN ::Timer(nWParam, nLParam)
@@ -806,8 +806,8 @@ METHOD TControl:Command(nWParam, nLParam)
    LOCAL nNotifyCode
    LOCAL hWndCtl
 
-   nNotifyCode := HiWord(nWParam)
-//   nID         := LoWord(nWParam)
+   nNotifyCode := hmg_HiWord(nWParam)
+//   nID         := hmg_LoWord(nWParam)
    hWndCtl     := nLParam
 
    DO CASE
@@ -815,11 +815,11 @@ METHOD TControl:Command(nWParam, nLParam)
    CASE hWndCtl == 0
 
       // TGet Enter ......................................
-      IF HiWord(nWParam) == 0 .AND. LoWord(nWParam) == 1
+      IF hmg_HiWord(nWParam) == 0 .AND. hmg_LoWord(nWParam) == 1
          ::KeyDown(VK_RETURN, 0)
       ENDIF
       // TGet Escape .....................................
-      IF HiWord(nwParam) == 0 .AND. LoWord(nwParam) == 2
+      IF hmg_HiWord(nwParam) == 0 .AND. hmg_LoWord(nwParam) == 2
          ::KeyDown(VK_ESCAPE, 0)
       ENDIF
 

@@ -63,7 +63,7 @@ CLASS TSBScrlBar FROM TControl
 
    METHOD SetPage(nSize, lReDraw)
 
-   METHOD SetPos(nPos) INLINE SetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ;
+   METHOD SetPos(nPos) INLINE hmg_SetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ;
                                   ::hWnd), IIf(::lIsChild, IIf(::lVertical, ;
                                   SB_VERT, SB_HORZ), SB_CTL), ;
                                   nPos, ::lReDraw, ::lShowDisabled, ;
@@ -95,8 +95,8 @@ METHOD TSBScrlBar:New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, 
            lVertical := .T., nWidth := IIf(lVertical, 16, 100),;
            nHeight   := IIf(lVertical, 100, 17),;
            lPixel    := .F.,;
-           nClrText  := GetSysColor(COLOR_WINDOW),;
-           nClrBack  := GetSysColor(COLOR_SCROLLBAR),;
+           nClrText  := hmg_GetSysColor(COLOR_WINDOW),;
+           nClrBack  := hmg_GetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F., lDesign := .F.
 
    ::cCaption   := ""
@@ -150,8 +150,8 @@ METHOD TSBScrlBar:WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
               lUpdate, bWhen, bValid)
 
    Default nMin := 1, nMax := 2, nPgStep := 1, lVertical := .T.,;
-           nClrText  := GetSysColor(COLOR_WINDOW),;
-           nClrBack  := GetSysColor(COLOR_SCROLLBAR),;
+           nClrText  := hmg_GetSysColor(COLOR_WINDOW),;
+           nClrBack  := hmg_GetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F.
 
    ::oWnd          := oWnd

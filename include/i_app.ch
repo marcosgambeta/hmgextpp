@@ -45,8 +45,8 @@
 // System pseudo-properties
 /////////////////////////////////////////////
 
-#translate <p:System,Sys>.Clipboard          => RetrieveTextFromClipboard()
-#translate <p:System,Sys>.Clipboard := <arg> => CopyToClipboard ( <arg> )
+#translate <p:System,Sys>.Clipboard          => hmg_RetrieveTextFromClipboard()
+#translate <p:System,Sys>.Clipboard := <arg> => hmg_CopyToClipboard( <arg> )
 #translate <p:System,Sys>.DesktopWidth       => GetDesktopWidth ()
 #translate <p:System,Sys>.DesktopHeight      => GetDesktopHeight()
 #translate <p:System,Sys>.ClientRow          => GetDesktopArea() \[2]

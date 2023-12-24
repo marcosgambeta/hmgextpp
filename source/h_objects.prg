@@ -695,7 +695,7 @@ CLASS TDlu2Pix
    METHOD Post(nKey, nPar, xPar) INLINE ::PostMsg(nKey, nPar, xPar)
    METHOD PostMsg(nKey, nPar, xPar) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif(::IsMsg, (::oParam:Set(nKey, xPar), ;
-      PostMessage(::hWnd, ::Wm_nApp, nKey, nPar)), NIL) )
+      hmg_PostMessage(::hWnd, ::Wm_nApp, nKey, nPar)), NIL) )
    METHOD Send(nKey, nPar, xPar) INLINE ::SendMsg(nKey, nPar, xPar)
    METHOD SendMsg(nKey, nPar, xPar) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif(::IsMsg, (::oParam:Set(nKey, xPar), ;
@@ -1000,8 +1000,8 @@ CLASS TWndData
    ASSIGN Width(nVal)  INLINE _SetWindowSizePos(::cName, , , nVal,)
    ACCESS Height          INLINE GetWindowHeight(::nHandle)
    ASSIGN Height(nVal)  INLINE _SetWindowSizePos(::cName, , , , nVal)
-   ACCESS ClientWidth     INLINE _GetClientRect(::nHandle)[3]
-   ACCESS ClientHeight    INLINE _GetClientRect(::nHandle)[4]
+   ACCESS ClientWidth     INLINE hmg__GetClientRect(::nHandle)[3]
+   ACCESS ClientHeight    INLINE hmg__GetClientRect(::nHandle)[4]
    ACCESS Title           INLINE GetWindowText(::nHandle)
    ASSIGN Title(cVal)   INLINE SetWindowText(::nHandle, cVal)
    ACCESS Enabled         INLINE IsWindowEnabled(::nHandle)
@@ -1041,12 +1041,12 @@ CLASS TWndData
 
    METHOD Post(nKey, nHandle, xPar) INLINE ::PostMsg(nKey, nHandle, xPar)
    METHOD PostMsg(nKey, nHandle, xPar) INLINE iif(::lAction, (::oParam:Set(nKey, xPar), ;
-      PostMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
+      hmg_PostMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
    METHOD Send(nKey, nHandle, xPar) INLINE ::SendMsg(nKey, nHandle, xPar)
    METHOD SendMsg(nKey, nHandle, xPar) INLINE iif(::lAction, (::oParam:Set(nKey, xPar), ;
       SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
 
-   METHOD Release() INLINE iif(::IsWindow, iif(::lAction, PostMessage(::nHandle, WM_CLOSE, 0, 0), NIL), NIL)
+   METHOD Release() INLINE iif(::IsWindow, iif(::lAction, hmg_PostMessage(::nHandle, WM_CLOSE, 0, 0), NIL), NIL)
 
    METHOD Restore() INLINE ShowWindow(::nHandle, SW_RESTORE)
    METHOD Show() INLINE _ShowWindow(::cName)
@@ -1242,7 +1242,7 @@ CLASS TCnlData INHERIT TWndData
    ACCESS IsControl INLINE .T.
 
    METHOD PostMsg(nKey, xPar) INLINE iif(::oWin:Action, (::oParam:Set(nKey, xPar), ;
-      PostMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)
+      hmg_PostMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)
    METHOD Post(nKey, xPar) INLINE ::PostMsg(nKey, xPar)
    METHOD SendMsg(nKey, xPar) INLINE iif(::oWin:Action, (::oParam:Set(nKey, xPar), ;
       SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)

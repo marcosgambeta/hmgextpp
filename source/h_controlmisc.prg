@@ -1233,7 +1233,7 @@ FUNCTION _SetFocus(ControlName, ParentForm, Index)
             x := hb_enumindex(hControl)
             IF _HMG_aControlType[x] == CONTROL_TYPE_BUTTON
                IF _HMG_aControlParentHandles[x] == ParentFormHandle
-                  SendMessage(hControl, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
+                  SendMessage(hControl, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
                   IF Empty(_HMG_aControlBrushHandle[x])
                      LOOP
                   ENDIF
@@ -1242,7 +1242,7 @@ FUNCTION _SetFocus(ControlName, ParentForm, Index)
             ENDIF
          NEXT
          hmg_setfocus(H)
-         SendMessage(H, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), 1)
+         SendMessage(H, BM_SETSTYLE, hmg_LOWORD(BS_DEFPUSHBUTTON), 1)
       ENDIF
       EXIT
 
@@ -1280,7 +1280,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
    y := GetControlIndex(ControlName, ParentForm)
 
    IF T == CONTROL_TYPE_BUTTON .AND. _HMG_aControlEnabled[y]
-      SendMessage(c, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
+      SendMessage(c, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
       hmg_RedrawWindow(c)
       IF !Empty(_HMG_aControlInputMask[y])
          z := _DetermineKey(_HMG_aControlInputMask[y])
@@ -4027,7 +4027,7 @@ FUNCTION _GetCaretPos(ControlName, FormName)
    LOCAL i
 
    IF (i := GetControlIndex(ControlName, FormName)) > 0
-      RETURN HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      RETURN hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
    ENDIF
 
 RETURN 0
@@ -6842,11 +6842,11 @@ FUNCTION _SetWindowBackColor(FormHandle, aColor)
 
    IF (i := AScan(_HMG_aFormHandles, FormHandle)) > 0
 
-      IF GetObjectType(_HMG_aFormBrushHandle[i]) == OBJ_BRUSH
+      IF hmg_GetObjectType(_HMG_aFormBrushHandle[i]) == OBJ_BRUSH
          hmg_DeleteObject(_HMG_aFormBrushHandle[i])
       ENDIF
 
-      hBrush := PaintBkGnd(FormHandle, aColor)
+      hBrush := hmg_PaintBkGnd(FormHandle, aColor)
 
       SetWindowBackground(FormHandle, hBrush)
 
@@ -6915,7 +6915,7 @@ RETURN cRetVal
 
 STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
 
-   LOCAL default := GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL default := hmg_GetSysColor(COLOR_WINDOWTEXT)
    LOCAL i
    LOCAL t
    LOCAL c
@@ -7001,8 +7001,8 @@ RETURN NIL
 
 STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
 
-   LOCAL f := GetSysColor(COLOR_3DFACE)
-   LOCAL d := GetSysColor(COLOR_WINDOW)
+   LOCAL f := hmg_GetSysColor(COLOR_3DFACE)
+   LOCAL d := hmg_GetSysColor(COLOR_WINDOW)
    LOCAL i
    LOCAL t
    LOCAL c
@@ -7073,7 +7073,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
          ENDIF
          _HMG_aControlBkColor[i] := Value
          hmg_DeleteObject(_HMG_aControlBrushHandle[i])
-         _HMG_aControlBrushHandle[i] := CreateSolidBrush(Value[1], Value[2], Value[3])
+         _HMG_aControlBrushHandle[i] := hmg_CreateSolidBrush(Value[1], Value[2], Value[3])
          SetWindowBrush(c, _HMG_aControlBrushHandle[i])
       ENDIF
       EXIT
@@ -7461,8 +7461,8 @@ FUNCTION _ExtDisableControl(ControlName, ParentForm)
 #endif
    IF IsWindowEnabled(hWnd)
 
-      icp  := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
-      icpe := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      icp  := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      icpe := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       hmg_ChangeStyle(hWnd, WS_DISABLED, NIL, .F.)
       IF icp != icpe
          SendMessage(hWnd, EM_SETSEL, icpe, icpe)
@@ -7669,7 +7669,7 @@ STATIC FUNCTION _SetGetImageHBitmap(ControlName, ParentForm, hBitmap)
 
       ELSE
 
-         IF GetObjectType(_HMG_aControlBrushHandle[i]) == OBJ_BITMAP
+         IF hmg_GetObjectType(_HMG_aControlBrushHandle[i]) == OBJ_BITMAP
             hmg_DeleteObject(_HMG_aControlBrushHandle[i])
          ENDIF
 
@@ -8116,7 +8116,7 @@ STATIC FUNCTION _SetTransparent(ControlName, ParentForm, lTransparent)
                _HMG_aControlBkColor[i] := _HMG_aFormBkColor[ix]
             ELSE
                hmg_ChangeStyle(h, NIL, WS_EX_TRANSPARENT, .T.)
-               _HMG_aControlBkColor[i] := nRGB2Arr(GetSysColor(COLOR_BTNFACE))
+               _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE))
             ENDIF
             EXIT
 
@@ -8124,7 +8124,7 @@ STATIC FUNCTION _SetTransparent(ControlName, ParentForm, lTransparent)
             IF lTransparent
                _HMG_aControlBkColor[i] := NIL
             ELSE
-               _HMG_aControlBkColor[i] := nRGB2Arr(GetSysColor(COLOR_3DFACE))
+               _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_3DFACE))
             ENDIF
 
          ENDSWITCH

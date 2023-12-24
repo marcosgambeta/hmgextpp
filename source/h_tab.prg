@@ -247,7 +247,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
       ControlHandle := hmg_InitTabControl(ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, hb_IsArray(backcolor[1]), notabstop)
 
       IF hb_IsArray(backcolor[1])
-         hBrush := CreateSolidBrush(backcolor[1][1], backcolor[1][2], backcolor[1][3])
+         hBrush := hmg_CreateSolidBrush(backcolor[1][1], backcolor[1][2], backcolor[1][3])
          SetWindowBrush(ControlHandle, hBrush)
       ENDIF
 

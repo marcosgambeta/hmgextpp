@@ -81,7 +81,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
    IF IsEnabledGradient() .AND. ( i := GetFormIndex(window) ) > 0
 
       FormHandle := _HMG_aFormHandles[i]
-      hDC := GetDC(FormHandle)
+      hDC := hmg_GetDC(FormHandle)
 
       hb_default(@aColor1, {0, 0, 0})
       hb_default(@aColor2, {255, 0, 0})
@@ -111,7 +111,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
 
       END SWITCH
 
-      ReleaseDC(FormHandle, hDC)
+      hmg_ReleaseDC(FormHandle, hDC)
     
       SWITCH border
 
@@ -120,23 +120,23 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
  
       CASE 2  // box
          AAdd(_HMG_aFormGraphTasks[i], ;
-            {||hDC := GetDC(FormHandle), ;
+            {||hDC := hmg_GetDC(FormHandle), ;
             hmg_WndBoxIn(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
-            ReleaseDC(FormHandle, hDC)})
+            hmg_ReleaseDC(FormHandle, hDC)})
          EXIT
 
       CASE 3  // panel
          AAdd(_HMG_aFormGraphTasks[i], ;
-            {||hDC := GetDC(FormHandle), ;
+            {||hDC := hmg_GetDC(FormHandle), ;
             hmg_WndBoxRaised(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
-            ReleaseDC(FormHandle, hDC)})
+            hmg_ReleaseDC(FormHandle, hDC)})
          EXIT
 
       DEFAULT // border none
          AAdd(_HMG_aFormGraphTasks[i], ;
-            {||FillGradient(hDC := GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), ReleaseDC(FormHandle, hDC)})
+            {||FillGradient(hDC := hmg_GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), hmg_ReleaseDC(FormHandle, hDC)})
 
       END SWITCH
 

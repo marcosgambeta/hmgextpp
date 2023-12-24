@@ -283,7 +283,7 @@ STATIC PROCEDURE ErrorLog(nHandle, oErr)
 
       Html_LineText(nHandle, "Workstation name...: " + NetName())
       Html_LineText(nHandle, "Active user name...: " + GetUserName())
-      Html_LineText(nHandle, "Available memory...: " + strvalue(MemoryStatus(2)) + " MB")
+      Html_LineText(nHandle, "Available memory...: " + strvalue(hmg_MemoryStatus(2)) + " MB")
       Html_LineText(nHandle, "Current disk.......: " + DiskName())
       Html_LineText(nHandle, "Current directory..: " + CurDir())
       Html_LineText(nHandle, "Free disk space....: " + strvalue(Round(hb_DiskSpace(hb_DirBase()) / (1024 * 1024), 0)) + " MB")

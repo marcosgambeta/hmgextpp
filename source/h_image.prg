@@ -288,7 +288,7 @@ FUNCTION HasAlpha(FileName)
 
    hBitmap := hmg_C_GetResPicture(FileName)
 
-   IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
+   IF hmg_GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
       lResult := hmg_C_HasAlpha(hBitmap)
       hmg_DeleteObject(hBitmap)
    ENDIF
@@ -304,7 +304,7 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
 
    hBitmap := iif(hb_IsString(FileName), hmg_C_GetResPicture(FileName), FileName)
 
-   IF GetObjectType(hBitmap) == OBJ_BITMAP
+   IF hmg_GetObjectType(hBitmap) == OBJ_BITMAP
       hb_default(@cEncoder, "BMP")
       hb_default(@nJpgQuality, 100)
       __defaultNIL(@aOutSize, BmpSize(hBitmap))

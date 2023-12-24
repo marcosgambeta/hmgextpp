@@ -371,14 +371,14 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
            aFoot  := !Empty(aFoot) , ;
            nY := 0, ;
            nX := 0, ;
-           nW := _GetClientRect(hForm)[3] - nX * 2,  ;           // GetClientWidth
-           nH := _GetClientRect(hForm)[4] - nY - 1 - ;           // GetClientHeight
+           nW := hmg__GetClientRect(hForm)[3] - nX * 2,  ;           // GetClientWidth
+           nH := hmg__GetClientRect(hForm)[4] - nY - 1 - ;           // GetClientHeight
                  iif(_IsControlDefined("StatusBar", cForm), GetProperty(cForm, "StatusBar", "Height"), 0)
 
    DEFAULT aColor := { ;
-          { CLR_FOCUSF, GetSysColor(COLOR_WINDOWTEXT) }, ;
+          { CLR_FOCUSF, hmg_GetSysColor(COLOR_WINDOWTEXT) }, ;
           { CLR_FOCUSB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225))} }, ;
-          { CLR_SELEF, GetSysColor(COLOR_WINDOWTEXT) }, ;
+          { CLR_SELEF, hmg_GetSysColor(COLOR_WINDOWTEXT) }, ;
           { CLR_SELEB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225))} } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
@@ -535,7 +535,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
          :nCell   := :nFreeze + 1
       ENDIF
 
-      IF (:GetAllColsWidth() - 1) > (_GetClientRect(:hWnd)[3])
+      IF (:GetAllColsWidth() - 1) > (hmg__GetClientRect(:hWnd)[3])
          :lNoHScroll  := .F.
          :lMoreFields := ( :nColCount() > 30 )
       ELSEIF oParam:uSelector == NIL .AND. oParam:lAdjust == NIL

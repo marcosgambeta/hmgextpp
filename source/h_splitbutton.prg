@@ -162,7 +162,7 @@ FUNCTION SPButtonEventHandler(hWnd, nMsg, wParam, lParam)
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_SPBUTTON
 
-         IF HiWord(wParam) == BN_CLICKED
+         IF hmg_HiWord(wParam) == BN_CLICKED
             xRetVal := 0
             _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
          ENDIF
@@ -196,13 +196,13 @@ PROCEDURE SPButtonSetFocus(cWindow, cControl)
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_SPBUTTON
             IF _HMG_aControlParentHandles[x] == ParentFormHandle
-               SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, BS_SPLITBUTTON, LOWORD(1))
+               SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, BS_SPLITBUTTON, hmg_LOWORD(1))
             ENDIF
          ENDIF
       NEXT
 
       hmg_SetFocus(hWnd)
-      SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, LOWORD(1))
+      SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, hmg_LOWORD(1))
 
    ELSE
 

@@ -76,19 +76,19 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
 
    CASE At("@", url) > 0
 
-      _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "rundll32.exe", "url.dll,FileProtocolHandler mailto:" + url, , 1)}
+      _HMG_aControlProcedures[i] := {||hmg_ShellExecute(0, "open", "rundll32.exe", "url.dll,FileProtocolHandler mailto:" + url, , 1)}
 
    CASE At("http", Lower(url)) > 0 .OR. File(url)
 
-      _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", url, , , 1)}
+      _HMG_aControlProcedures[i] := {||hmg_ShellExecute(0, "open", url, , , 1)}
 
    CASE At("file:\\", Lower(url)) > 0
 
       IF iswinnt()
-         _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "explorer.exe", "/e," + url, , 1)}
+         _HMG_aControlProcedures[i] := {||hmg_ShellExecute(0, "open", "explorer.exe", "/e," + url, , 1)}
       ELSE
          url := StrTran(url, "file:\\", "")
-         _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory(url + hb_ps() + "*.*")[1][1], , 1)}
+         _HMG_aControlProcedures[i] := {||hmg_ShellExecute(0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory(url + hb_ps() + "*.*")[1][1], , 1)}
       ENDIF
 
    CASE At("proc:\\", Lower(url)) > 0

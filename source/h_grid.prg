@@ -528,8 +528,8 @@ FUNCTION ListView_CalculateSize(hLV, nNumberOfRows, /*@*/nWidth, /*@*/nHeight)
    // Calculate size
    nResult := SendMessage(hLV, LVM_APPROXIMATEVIEWRECT, nNumberOfRows, hmg_MAKELONG(-1, -1))
    // Extract, adjust, and return values
-   nWidth  := LOWORD(nResult) + 4
-   nHeight := HIWORD(nResult) + 4
+   nWidth  := hmg_LOWORD(nResult) + 4
+   nHeight := hmg_HIWORD(nResult) + 4
 
 RETURN nHeight
 

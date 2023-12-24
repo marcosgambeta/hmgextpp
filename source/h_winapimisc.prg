@@ -66,7 +66,7 @@ FUNCTION WindowsVersion()
          hb_ntos(GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "UBR", "N"))
       aRetVal[4] := ""
    ELSE
-      aRetVal := WinVersion()
+      aRetVal := hmg_WinVersion()
    ENDIF
 
 RETURN { aRetVal[1] + aRetVal[4] , aRetVal[2] , "Build " + aRetVal[3] }
@@ -74,7 +74,7 @@ RETURN { aRetVal[1] + aRetVal[4] , aRetVal[2] , "Build " + aRetVal[3] }
 //---------------------------------------------------------------------------//
 FUNCTION _Execute(hWnd, cOperation, cFile, cParameters, cDirectory, nState)
 //---------------------------------------------------------------------------//
-RETURN ShellExecute(hb_defaultValue(hWnd, GetActiveWindow()) , ;
+RETURN hmg_ShellExecute(hb_defaultValue(hWnd, GetActiveWindow()) , ;
    cOperation /* possible values are 'edit', 'explore', 'find', 'open', 'print' */ , ;
    hb_defaultValue(cFile, "") , cParameters, cDirectory, hb_defaultValue(nState, SW_SHOWNORMAL))
 
@@ -92,7 +92,7 @@ PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
 
       ASSIGN GLOBAL _HMG_ShellAbout := ++nCount
 
-      IF C_ShellAbout(GetActiveWindow(), cTitle, cMsg, hIcon)
+      IF hmg_C_ShellAbout(GetActiveWindow(), cTitle, cMsg, hIcon)
          hmg_DestroyIcon(hIcon)
          ASSIGN GLOBAL _HMG_ShellAbout := --nCount
       ENDIF

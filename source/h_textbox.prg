@@ -892,7 +892,7 @@ PROCEDURE ProcessCharMask(i, d)
    Mask := _HMG_aControlInputMask[i]
 
    // Store Initial CaretPos
-   icp := HiWord(SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
    InBuffer := GetWindowText(_HMG_aControlHandles[i])
@@ -1178,7 +1178,7 @@ PROCEDURE ProcessNumText(i)
    LOCAL fnb
 
    // Store Initial CaretPos
-   icp := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
    InBuffer := GetWindowText(_HMG_aControlHandles[i])
@@ -1283,8 +1283,8 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
    CASE WM_CHAR
 
       hTextBox := _HMG_aControlHandles[i]
-      icp  := HiWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
-      icpe := LoWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
+      icp  := hmg_HiWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
+      icpe := hmg_LoWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
       InBuffer := GetWindowText(hTextBox)
 
       // simulate overwrite mode
@@ -1332,7 +1332,7 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentForm)
+            hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , hmg_LOWORD(lParam) , hmg_HIWORD(lParam) , ParentForm)
 
             RETURN 1
          ENDIF

@@ -47,8 +47,8 @@ METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    LOCAL aBackColor
    LOCAL ReadOnly       := .F., lPassword := .F.
 
-   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT), ;
-           nClrBack  := GetSysColor(COLOR_WINDOW), ;
+   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT), ;
+           nClrBack  := hmg_GetSysColor(COLOR_WINDOW), ;
            lUpdate   := .F., ;
            lCenter   := .F., ;
            lRight    := .F., ;
@@ -92,8 +92,8 @@ METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ParentFormName  := oWnd:cParentWnd
 
    uValue          := Eval(bSetGet)
-   aFontColor      := { GetRed(nClrFore), GetGreen(nClrFore), GetBlue(nClrFore) }
-   aBackColor      := { GetRed(nClrBack), GetGreen(nClrBack), GetBlue(nClrBack) }
+   aFontColor      := { hmg_GetRed(nClrFore), hmg_GetGreen(nClrFore), hmg_GetBlue(nClrFore) }
+   aBackColor      := { hmg_GetRed(nClrBack), hmg_GetGreen(nClrBack), hmg_GetBlue(nClrBack) }
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 
@@ -114,7 +114,7 @@ METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
       ::AddVars(::hWnd)
 
-      if GetObjectType(hFont) == OBJ_FONT
+      if hmg_GetObjectType(hFont) == OBJ_FONT
          hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif

@@ -423,7 +423,7 @@ FUNCTION OwnButtonPaint(pdis)
       IF IsArrayRGB(_HMG_aControlBkColor[i]) .AND. !lXPThemeActive
          rgbTrans := RGB(_HMG_aControlBkColor[i, 1], _HMG_aControlBkColor[i, 2], _HMG_aControlBkColor[i, 3])
       ELSE
-         rgbTrans := GetSysColor(COLOR_BTNFACE)
+         rgbTrans := hmg_GetSysColor(COLOR_BTNFACE)
       ENDIF
 
    ENDIF
@@ -467,17 +467,17 @@ FUNCTION OwnButtonPaint(pdis)
 
    ENDIF
 
-   hOldFont := SelectObject(hDC, _HMG_aControlFontHandle[i])
-   aMetr := GetTextMetric(hDC)
+   hOldFont := hmg_SelectObject(hDC, _HMG_aControlFontHandle[i])
+   aMetr := hmg_GetTextMetric(hDC)
    oldBkMode := hmg_SetBkMode(hDC, TRANSPARENT)
-   oldTextColor := SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
+   oldTextColor := hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
 
    IF !lDisabled
 
       IF Empty(_HMG_aControlFontColor[i]) .OR. !IsArrayRGB(_HMG_aControlFontColor[i])
-         SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
+         hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
       ELSE
-         SetTextColor(hDC, _HMG_aControlFontColor[i, 1], _HMG_aControlFontColor[i, 2], _HMG_aControlFontColor[i, 3])
+         hmg_SetTextColor(hDC, _HMG_aControlFontColor[i, 1], _HMG_aControlFontColor[i, 2], _HMG_aControlFontColor[i, 3])
       ENDIF
 
       IF !Empty(_HMG_aControlBkColor[i]) .AND. !lXPThemeActive
@@ -507,7 +507,7 @@ FUNCTION OwnButtonPaint(pdis)
                   _HMG_aControlBkColor[i] := aDarkColor
                ELSE
                   hBrush := hmg_CreateButtonBrush(hDC, yp1 - 2, yp2 - 2, aGradient[1][2], aGradient[1][1])
-                  FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 2, yp2 - 2, hBrush)
+                  hmg_FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 2, yp2 - 2, hBrush)
                   hmg_DeleteObject(hBrush)
                ENDIF
 
@@ -517,7 +517,7 @@ FUNCTION OwnButtonPaint(pdis)
                   _GradientFill(hDC, xp2 + 1, xp1 + 1, yp2 - 1, yp1 - 1, aGradient, lvertical)
                ELSE
                   hBrush := hmg_CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][1], aGradient[1][2])
-                  FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
+                  hmg_FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
                   hmg_DeleteObject(hBrush)
                ENDIF
 
@@ -529,7 +529,7 @@ FUNCTION OwnButtonPaint(pdis)
                      iif(hb_IsArray(_HMG_aControlBkColor[i, 1]), _HMG_aControlBkColor[i], ModifGradInfo(aGradient))), lvertical)
                ELSE
                   hBrush := hmg_CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][2], aGradient[1][1])
-                  FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
+                  hmg_FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
                   hmg_DeleteObject(hBrush)
                ENDIF
 
@@ -543,19 +543,19 @@ FUNCTION OwnButtonPaint(pdis)
                aDarkColor := {_HMG_aControlBkColor[i, 1], _HMG_aControlBkColor[i, 2], _HMG_aControlBkColor[i, 3]}
             ENDIF
 
-            hBrush := CreateSolidBrush(aDarkColor[1], aDarkColor[2], aDarkColor[3])
+            hBrush := hmg_CreateSolidBrush(aDarkColor[1], aDarkColor[2], aDarkColor[3])
 
             IF lflat
 
                IF !lfocus .AND. !lSelected .AND. !(_HMG_aControlRangeMax[i][1] == 1)
-                  FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
+                  hmg_FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
                ELSE
-                  FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 2, yp2 - 2, hBrush)
+                  hmg_FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 2, yp2 - 2, hBrush)
                ENDIF
 
             ELSE
 
-               FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 3, yp2 - 3, hBrush)
+               hmg_FillRect(hDC, xp1 + 2, xp2 + 2, yp1 - 3, yp2 - 3, hBrush)
 
             ENDIF
 
@@ -637,7 +637,7 @@ FUNCTION OwnButtonPaint(pdis)
 
             IF lnoadjust
                hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
-               DrawText(hDC, _HMG_aControlCaption[i], xPoz, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
+               hmg_DrawText(hDC, _HMG_aControlCaption[i], xPoz, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
             ELSE
                hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
@@ -646,7 +646,7 @@ FUNCTION OwnButtonPaint(pdis)
 
             IF lnoadjust
                hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
-               DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
+               hmg_DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext - 1, x2, aBtnRc[4], DT_CENTER)
             ELSE
                hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
@@ -657,10 +657,10 @@ FUNCTION OwnButtonPaint(pdis)
 
          IF lnoadjust
             hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
-            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
-            DrawText(hDC, _HMG_aControlCaption[i], 2, pozYtext + 1, x2, aBtnRc[4] + 1, DT_CENTER)
-            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
-            DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext, x2, aBtnRc[4], DT_CENTER)
+            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DHILIGHT)))
+            hmg_DrawText(hDC, _HMG_aControlCaption[i], 2, pozYtext + 1, x2, aBtnRc[4] + 1, DT_CENTER)
+            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DSHADOW)))
+            hmg_DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext, x2, aBtnRc[4], DT_CENTER)
          ELSE
             hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
          ENDIF
@@ -732,7 +732,7 @@ FUNCTION OwnButtonPaint(pdis)
 
             IF lnoadjust
                hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
-               DrawText(hDC, _HMG_aControlCaption[i], x1, y1 + 1, x2, y1 + y2, DT_CENTER)
+               hmg_DrawText(hDC, _HMG_aControlCaption[i], x1, y1 + 1, x2, y1 + y2, DT_CENTER)
             ELSE
                hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
@@ -741,7 +741,7 @@ FUNCTION OwnButtonPaint(pdis)
 
             IF lnoadjust
                hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], rgbTrans, .F., .F.)
-               DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
+               hmg_DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
             ELSE
                hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], rgbTrans, .F., .T.)
             ENDIF
@@ -752,10 +752,10 @@ FUNCTION OwnButtonPaint(pdis)
 
          IF lnoadjust
             hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
-            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
-            DrawText(hDC, _HMG_aControlCaption[i], x1 + 1, y1 + 1, x2 + 1, y1 + y2 + 1, DT_CENTER)
-            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
-            DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
+            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DHILIGHT)))
+            hmg_DrawText(hDC, _HMG_aControlCaption[i], x1 + 1, y1 + 1, x2 + 1, y1 + y2 + 1, DT_CENTER)
+            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DSHADOW)))
+            hmg_DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
          ELSE
             hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
          ENDIF
@@ -765,13 +765,13 @@ FUNCTION OwnButtonPaint(pdis)
    ENDIF
 
    IF (lSelected .OR. lFocus) .AND. !lDisabled .AND. !lXPThemeActive
-      SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
+      hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
       hmg_DrawFocusRect(pdis)
    ENDIF
 
-   SelectObject(hDC, hOldFont)
+   hmg_SelectObject(hDC, hOldFont)
    hmg_SetBkMode(hDC, oldBkMode)
-   SetTextColor(hDC, oldTextColor)
+   hmg_SetTextColor(hDC, oldTextColor)
 
 RETURN 1
 
@@ -789,7 +789,7 @@ RETURN cTemp
 
 FUNCTION _SetBtnPictureMask(hWnd, i /*ControlIndex*/)
    
-   LOCAL hDC := GetDC(hWnd)
+   LOCAL hDC := hmg_GetDC(hWnd)
    LOCAL aBtnRc := Array(4)
    LOCAL aBMP
    LOCAL x
@@ -810,7 +810,7 @@ FUNCTION _SetBtnPictureMask(hWnd, i /*ControlIndex*/)
 
    hmg_DrawGlyphMask(hDC, x, y, aBmp[1], aBmp[2], _HMG_aControlBrushHandle[i], , .T., .F., hWnd)
 
-   ReleaseDC(hWnd, hDC)
+   hmg_ReleaseDC(hWnd, hDC)
 
 RETURN NIL
 

@@ -327,7 +327,7 @@ PROCEDURE _DataEditBoxRefresh(i)
       _SetValue(, , &Field, i)
    ELSE
       // Store Initial CaretPos
-      icp := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      icp := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
       _SetValue(, , _GetValue(, , i), i)
 

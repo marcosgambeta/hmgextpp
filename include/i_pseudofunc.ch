@@ -69,20 +69,20 @@
 
 // ============================================================================
 
-#xtranslate GetSpecialFolder(<nCSIDL>) => C_GetSpecialFolder(<nCSIDL>)
-#xtranslate GetWindowsFolder() => GetWindowsDir()
-#xtranslate GetSystemFolder() => GetSystemDir()
-#xtranslate GetTempFolder() => cFilePath(GetTempDir())
+#xtranslate GetSpecialFolder(<nCSIDL>) => hmg_C_GetSpecialFolder(<nCSIDL>)
+#xtranslate GetWindowsFolder() => hmg_GetWindowsDir()
+#xtranslate GetSystemFolder() => hmg_GetSystemDir()
+#xtranslate GetTempFolder() => cFilePath(hmg_GetTempDir())
 #xtranslate GetMyDocumentsFolder() => GetSpecialFolder(CSIDL_PERSONAL)
 #xtranslate GetDesktopFolder() => GetSpecialFolder(CSIDL_DESKTOPDIRECTORY)
 #xtranslate GetApplicationDataFolder() => GetSpecialFolder(CSIDL_APPDATA)
 #xtranslate GetUserProfileFolder() => GetSpecialFolder(CSIDL_PROFILE)
-#xtranslate GetUserTempFolder() => iif(IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath( GetTempDir()))
+#xtranslate GetUserTempFolder() => iif(IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath( hmg_GetTempDir()))
 
 //#define __WIN98__
 
 #ifdef __WIN98__
-#xtranslate GetProgramFilesFolder() => C_GetDllSpecialFolder(CSIDL_PROGRAM_FILES)
+#xtranslate GetProgramFilesFolder() => hmg_C_GetDllSpecialFolder(CSIDL_PROGRAM_FILES)
 #else
 #xtranslate GetProgramFilesFolder() => GetSpecialFolder(CSIDL_PROGRAM_FILES)
 #endif
@@ -102,13 +102,13 @@
 
 // ============================================================================
 
-#xtranslate _GetKeyState(<VKey>) => hmg_CheckBit(GetKeyState(<VKey>), 32768)
-#xtranslate GetEscapeState() => GetKeyState(VK_ESCAPE)
-#xtranslate GetAltState() => GetKeyState(VK_MENU)
-#xtranslate IsInsertActive() => (GetKeyState(VK_INSERT) > 0)
-#xtranslate IsCapsLockActive() => (GetKeyState(VK_CAPITAL) > 0)
-#xtranslate IsNumLockActive() => (GetKeyState(VK_NUMLOCK) > 0)
-#xtranslate IsScrollLockActive() => (GetKeyState(VK_SCROLL) > 0)
+#xtranslate _GetKeyState(<VKey>) => hmg_CheckBit(hmg_GetKeyState(<VKey>), 32768)
+#xtranslate GetEscapeState() => hmg_GetKeyState(VK_ESCAPE)
+#xtranslate GetAltState() => hmg_GetKeyState(VK_MENU)
+#xtranslate IsInsertActive() => (hmg_GetKeyState(VK_INSERT) > 0)
+#xtranslate IsCapsLockActive() => (hmg_GetKeyState(VK_CAPITAL) > 0)
+#xtranslate IsNumLockActive() => (hmg_GetKeyState(VK_NUMLOCK) > 0)
+#xtranslate IsScrollLockActive() => (hmg_GetKeyState(VK_SCROLL) > 0)
 
 // ============================================================================
 
@@ -118,15 +118,15 @@
 #translate IsVistaOrLater() => os_IsWinVista_Or_Later()
 #translate IsSeven() => os_IsWin7()
 #translate IsWin64() => hb_osIs64Bit()
-#xtranslate hb_osIsWin11() => '11' $ WinVersion()\[1]
+#xtranslate hb_osIsWin11() => '11' $ hmg_WinVersion()\[1]
 #xtranslate IsWin10OrLater() => (hb_osIsWin10() .OR. hb_osIsWin11())
 
 // ============================================================================
 
-#translate GetProperty(<FormName>, "ClientWidth") => _GetClientRect(GetFormHandle(<FormName>))\[3]
-#translate GetProperty(<FormName>, "ClientHeight") => _GetClientRect(GetFormHandle(<FormName>))\[4]
-#translate GetProperty(<FormName>, <ControlName>, "ClientWidth") => _GetClientRect(GetControlHandle(<ControlName>, <FormName>))\[3]
-#translate GetProperty(<FormName>, <ControlName>, "ClientHeight") => _GetClientRect(GetControlHandle(<ControlName>, <FormName>))\[4]
+#translate GetProperty(<FormName>, "ClientWidth") => hmg__GetClientRect(GetFormHandle(<FormName>))\[3]
+#translate GetProperty(<FormName>, "ClientHeight") => hmg__GetClientRect(GetFormHandle(<FormName>))\[4]
+#translate GetProperty(<FormName>, <ControlName>, "ClientWidth") => hmg__GetClientRect(GetControlHandle(<ControlName>, <FormName>))\[3]
+#translate GetProperty(<FormName>, <ControlName>, "ClientHeight") => hmg__GetClientRect(GetControlHandle(<ControlName>, <FormName>))\[4]
 #translate GetProperty(<FormName>, <ControlName>, "ImageWidth") => _HMG_aControlHeadClick\[GetControlIndex(<ControlName>, <FormName>)]\[1]
 #translate GetProperty(<FormName>, <ControlName>, "ImageHeight") => _HMG_aControlHeadClick\[GetControlIndex(<ControlName>, <FormName>)]\[2]
 #translate SetProperty(<FormName>, <ControlName>, "ImageWidth", <w>) => _HMG_aControlHeadClick\[GetControlIndex(<ControlName>, <FormName>)]\[1] := <w>
@@ -282,7 +282,7 @@
 #xtranslate GetFontNameByHandle(<hFont>) => GetFontParam(<hFont>)\[10]
 #translate HMG_RGB2n(<p1>, <p2>, <p3>) => iif(hb_IsNumeric(<p1>), RGB(<p1>, <p2>, <p3>), <p1>)
 #translate HMG_RGB2n(<x>) => iif(hb_IsArray(<x>), RGB(<x>\[1], <x>\[2], <x>\[3]), <x>)
-#translate HMG_n2RGB(<x>) => {GetRed(<x>), GetGreen(<x>), GetBlue(<x>)}
+#translate HMG_n2RGB(<x>) => {hmg_GetRed(<x>), hmg_GetGreen(<x>), hmg_GetBlue(<x>)}
 #translate _DelGlobal(<cVarName>) => _SetGetGlobal(<cVarName>, , .T.)
 #xtranslate _SetNameList(<x>, <v>) => _SetGetNamesList(<x>, <v>)
 #xtranslate _GetNameList(<x>) => _SetGetNamesList(<x>)
@@ -369,8 +369,8 @@
 #include "hbgtinfo.ch"
 #xtranslate gtSetClipboard(<x>) => hb_gtInfo(HB_GTI_CLIPBOARDDATA, <x>)
 #xtranslate gtGetClipboard() => hb_gtInfo(HB_GTI_CLIPBOARDDATA)
-#xtranslate RetrieveTextFromClipboard() => gtGetClipboard()
-#xtranslate CopyToClipboard(<x>) => gtSetClipboard(<x>)
+#xtranslate RetrieveTextFromClipboard() => gtGetClipboard() // TODO: functions HMG_RETRIEVETEXTFROMCLIPBOARD/RETRIEVETEXTFROMCLIPBOARD ?
+#xtranslate CopyToClipboard(<x>) => gtSetClipboard(<x>) // TODO: functions hmg_CopyToClipboard/CopyToClipboard ?
 #xtranslate CopyToClipboard() => gtSetClipboard("")
 #endif
 //#undef __WIN98__
@@ -410,7 +410,7 @@
 #xtranslate __MvGetDef(<x>, <v>) => iif(__MvExist(<x>), __MvGet(<x>), iif(ValType(<v>) <> "U", <v>, NIL))
 #xtranslate __MvGetDef(<x>) => iif(__MvExist(<x>), __MvGet(<x>), NIL)
 #xtranslate hb_cdpCharMax() => 255
-#xtranslate hb_osIsWin10() => '10' $ WinVersion()\[1]
+#xtranslate hb_osIsWin10() => '10' $ hmg_WinVersion()\[1]
 #xtranslate hb_BLen(<c>) => Len(<c>)
 #endif
 

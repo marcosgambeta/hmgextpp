@@ -1350,7 +1350,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
       // JP MDI Background
       IF _HMG_BeginWindowMDIActive
          IF _HMG_aFormBkColor[i][1] != -1
-            SetWindowBackground(_HMG_MainClientMDIHandle, PaintBkGnd(_HMG_MainClientMDIHandle, _HMG_aFormBkColor[i]))
+            SetWindowBackground(_HMG_MainClientMDIHandle, hmg_PaintBkGnd(_HMG_MainClientMDIHandle, _HMG_aFormBkColor[i]))
          ENDIF
       ENDIF
       // JP end
@@ -1519,7 +1519,7 @@ PROCEDURE _SetActivationFlag(i)
    ENDIF
 
    IF hb_IsBlock(_HMG_aFormDropProcedure[i])
-      DragAcceptFiles(_HMG_aFormHandles[i], .T.)
+      hmg_DragAcceptFiles(_HMG_aFormHandles[i], .T.)
    ENDIF
 
    IF _HMG_aFormType[i] == "A" .AND. !_HMG_aFormNoShow[i] .AND. !IsInsertActive()
@@ -1674,8 +1674,8 @@ PROCEDURE _SetActivationFocus(i)
 
    IF !FocusDefined
 
-      IF (x := AScan(_HMG_aControlHandles, GetNextDlgTabItem(hParent, 0, .F.))) > 0 .OR. ;
-         (x := AScan(_HMG_aControlHandles, {|x|iif(hb_IsArray(x), x[1] == GetNextDlgTabItem(hParent, 0, .F.), .F.)})) > 0
+      IF (x := AScan(_HMG_aControlHandles, hmg_GetNextDlgTabItem(hParent, 0, .F.))) > 0 .OR. ;
+         (x := AScan(_HMG_aControlHandles, {|x|iif(hb_IsArray(x), x[1] == hmg_GetNextDlgTabItem(hParent, 0, .F.), .F.)})) > 0
          _SetFocus(, , x)
       ENDIF
 
@@ -1851,7 +1851,7 @@ IsThemed() --> .T.|.F.
 */
 FUNCTION IsThemed()
 
-   LOCAL aRetVal := GetDllVersion("comctl32.dll")
+   LOCAL aRetVal := hmg_GetDllVersion("comctl32.dll")
 
    IF IsXPThemeActive() .AND. (IsAppXPThemed() .AND. aRetVal[1] >= 6 .OR. aRetVal[1] == 6 .AND. aRetVal[2] >= 10)
       RETURN .T.
@@ -2224,7 +2224,7 @@ FUNCTION ReleaseAllWindows()
 
          ENDIF
 
-         IF GetObjectType(_HMG_aFormBrushHandle[i]) == OBJ_BRUSH
+         IF hmg_GetObjectType(_HMG_aFormBrushHandle[i]) == OBJ_BRUSH
             hmg_DeleteObject(_HMG_aFormBrushHandle[i])
          ENDIF
 
@@ -2355,14 +2355,14 @@ FUNCTION _ReleaseWindow(FormName)
    IF _HMG_aFormType[i] == "M" .AND. _HMG_ActiveModalHandle != FormHandle
 
       EnableWindow(FormHandle)
-      PostMessage(FormHandle, WM_CLOSE, 0, 1)
+      hmg_PostMessage(FormHandle, WM_CLOSE, 0, 1)
 
    ELSE
 
       AEval(_HMG_aFormHandles, {|x, i|iif(_HMG_aFormParentHandle[i] == FormHandle, _HMG_aFormParentHandle[i] := _HMG_MainHandle,), HB_SYMBOL_UNUSED(x)})
 
       EnableWindow(FormHandle)
-      PostMessage(FormHandle, WM_CLOSE, 0, 1)
+      hmg_PostMessage(FormHandle, WM_CLOSE, 0, 1)
 
    ENDIF
 
@@ -2510,7 +2510,7 @@ FUNCTION SuppressKeyAndMouseEvents(nWait)
          HMG_MouseClearBuffer()
          DO EVENTS
 
-      UNTIL (InkeyGUI(hb_defaultValue(nWait, 20)) != 0)
+      UNTIL (hmg_InkeyGUI(hb_defaultValue(nWait, 20)) != 0)
 
 RETURN NIL
 
@@ -2759,7 +2759,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
             SetProperty(cFormName, "BackColor", aBackColor)
          ELSEIF hb_osIsWin10() .AND. _HMG_IsThemed
             SetProperty(cFormName, "Height", GetProperty(cFormName, "Height") + 7)
-            SetProperty(cFormName, "BackColor", nRGB2Arr(GetSysColor(COLOR_WINDOW)))
+            SetProperty(cFormName, "BackColor", nRGB2Arr(hmg_GetSysColor(COLOR_WINDOW)))
          ENDIF
 
          nW := GetProperty(cFormName, "ClientWidth") - nX * 2
@@ -2787,7 +2787,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          _HMG_IsModalActive := lIsModal
 
          IF !lNoWait
-            InkeyGUI(0)
+            hmg_InkeyGUI(0)
 
             IF _IsControlDefined("Timer", cFormName)
                nCtEfeito := 0

@@ -861,7 +861,7 @@
 #define COLOR_INFOBK                  24
 #define COLOR_GRADIENTINACTIVECAPTION 28
 #endif
-#define COLOR_GRID                    GetSysColor( COLOR_GRADIENTINACTIVECAPTION )
+#define COLOR_GRID                    hmg_GetSysColor( COLOR_GRADIENTINACTIVECAPTION )
 
 // Styles
 #define DS_3DLOOK           4

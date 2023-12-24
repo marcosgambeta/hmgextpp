@@ -38,8 +38,8 @@ ENDCLASS
 
 METHOD TSMulti:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, nClrFore, nClrBack, cControl, cWnd)
 
-   DEFAULT nClrFore := GetSysColor(COLOR_WINDOWTEXT)
-   DEFAULT nClrBack := GetSysColor(COLOR_WINDOW)
+   DEFAULT nClrFore := hmg_GetSysColor(COLOR_WINDOWTEXT)
+   DEFAULT nClrBack := hmg_GetSysColor(COLOR_WINDOW)
    DEFAULT nHeight := 12
 
    ::nTop    := nRow
@@ -222,7 +222,7 @@ METHOD TSMulti:LostFocus(hCtlFocus)
 
    ::lFocused := .F.
 
-   ::nPos := LoWord(::SendMsg(EM_GETSEL))
+   ::nPos := hmg_LoWord(::SendMsg(EM_GETSEL))
    IF ::bLostFocus != NIL
       Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    ENDIF
@@ -238,20 +238,20 @@ METHOD TSMulti:Command(nWParam, nLParam)
    LOCAL nNotifyCode
    LOCAL hWndCtl
 
-   nNotifyCode := HiWord(nWParam)
-// nID   := LoWord(nWParam)
+   nNotifyCode := hmg_HiWord(nWParam)
+// nID   := hmg_LoWord(nWParam)
    hWndCtl := nLParam
 
    DO CASE
    CASE hWndCtl == 0
 
       // Enter ..........................................
-      IF HiWord(nWParam) == 0 .AND. LoWord(nWParam) == 1
+      IF hmg_HiWord(nWParam) == 0 .AND. hmg_LoWord(nWParam) == 1
          ::KeyDown(VK_RETURN, 0)
       ENDIF
 
       // Escape .........................................
-      IF HiWord(nwParam) == 0 .AND. LoWord(nwParam) == 2
+      IF hmg_HiWord(nwParam) == 0 .AND. hmg_LoWord(nwParam) == 2
          ::KeyDown(VK_ESCAPE, 0)
       ENDIF
 

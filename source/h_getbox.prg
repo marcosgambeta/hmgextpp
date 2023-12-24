@@ -390,13 +390,13 @@ STATIC PROCEDURE _GetBoxSetNextFocus(lPrevious)
    LOCAL NextControlHandle
    LOCAL i
 
-   NextControlHandle := GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
+   NextControlHandle := hmg_GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
    hmg_setfocus(NextControlHandle)
 
    IF (i := AScan(_HMG_aControlHandles, NextControlHandle)) > 0
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_BUTTON
-         SendMessage(NextControlHandle, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), 1)
+         SendMessage(NextControlHandle, BM_SETSTYLE, hmg_LOWORD(BS_DEFPUSHBUTTON), 1)
       ENDIF
 
    ENDIF
@@ -501,10 +501,10 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
    CASE WM_SETFOCUS
 
-      nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       nStart := Min(nStart, hb_ULen(Trim(oGet:buffer)))
 
-      nEnd := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      nEnd := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       nEnd := Min(nEnd, hb_ULen(Trim(oGet:buffer)))
 
       coldbuff := oGet:buffer
@@ -512,13 +512,13 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 #ifdef __CLIPPER_COMPAT__
       IF !lAllowEdit
          Tone(400)
-         PostMessage(hWnd, WM_KEYDOWN, VK_DOWN, 0)
+         hmg_PostMessage(hWnd, WM_KEYDOWN, VK_DOWN, 0)
       ENDIF
 #endif
       IF lClrFocus .AND. !readonly .AND. lAllowEdit
          aOldBackClr := _HMG_aControlBkColor[i]
          IF _HMG_aControlBkColor[i] == NIL
-            _HMG_aControlBkColor[i] := nRGB2Arr(GetSysColor(COLOR_WINDOW))
+            _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_WINDOW))
          ENDIF
          IF hb_IsNumeric(_HMG_aControlBkColor[i, 1])
             _HMG_aControlBkColor[i] := iif(hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus)
@@ -527,7 +527,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
-            _HMG_aControlFontColor[i] := nRGB2Arr(GetSysColor(COLOR_WINDOWTEXT))
+            _HMG_aControlFontColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_WINDOWTEXT))
          ENDIF
          IF aFntFocus != NIL
             IF hb_IsNumeric(_HMG_aControlFontColor[i, 1])
@@ -547,7 +547,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       ENDIF
 
       hmg_InvalidateRect(hWnd, 0)
-      PostMessage(hWnd, WM_CARET, 0, 0)
+      hmg_PostMessage(hWnd, WM_CARET, 0, 0)
       _HMG_aControlMiscData1[i][1] := 1
 
       IF "@K" $ oGet:Picture .OR. oGet:type == "N"
@@ -608,7 +608,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                   ELSE
                      oGet:changed := MsgRetryCancel(_HMG_aControlSpacing[i], _HMG_BRWLangError[11], , .F.)
                      IF !oGet:changed
-                        PostMessage(hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
+                        hmg_PostMessage(hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
                      ENDIF
                      hmg_SetFocus(hWnd)
                   ENDIF
@@ -659,7 +659,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          oGet:BadDate := .F.
          oGet:VarPut(BLANK_DATE)
          oGet:UpdateBuffer()
-         PostMessage(hWnd, WM_INVALID, wParam, 0)
+         hmg_PostMessage(hWnd, WM_INVALID, wParam, 0)
          RETURN 0
       ENDIF
 
@@ -697,15 +697,15 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
       // check post-validation
       IF !lInValid
-         PostMessage(hWnd, WM_INVALID, wParam, 0)
+         hmg_PostMessage(hWnd, WM_INVALID, wParam, 0)
       ENDIF
 
       RETURN 0
 
    CASE WM_CHAR
 
-      nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
-      nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
+      nStart := hmg_LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
+      nEnd   := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       oGet:pos := nEnd
       _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
@@ -733,8 +733,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          System.Clipboard := hb_USubStr(oGet:buffer, nStart, nEnd - nStart)
-         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
 
          oGet:pos := nEnd
 
@@ -990,8 +990,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          RETURN 0
       ENDIF
 
-      nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
-      nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      nStart := hmg_LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      nEnd   := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
       oGet:pos := nEnd + 1
       _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
@@ -1059,7 +1059,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       CASE VK_INSERT
 
          IF lCtrl
-            CopyToClipboard(hb_USubStr(oGet:buffer, nStart, nEnd - nStart))
+            CopyToClipboard(hb_USubStr(oGet:buffer, nStart, nEnd - nStart)) // TODO: hmg_CopyToClipboard ?
             RETURN 0
          ELSEIF lShift
             SendMessage(hWnd, WM_PASTE, 0, 0)
@@ -1138,7 +1138,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             SendMessage(hWnd, EM_SETSEL, nEnd - 1, nEnd - 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         oGet:pos := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          EXIT
 
       CASE VK_RIGHT
@@ -1150,7 +1150,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             SendMessage(hWnd, EM_SETSEL, nStart + 1, nStart + 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         oGet:pos := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          EXIT
 
       CASE VK_HOME
@@ -1187,8 +1187,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             RETURN 0
          ENDIF
 
-         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1240,8 +1240,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
       IF (cText := System.Clipboard) != NIL
 
-         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          nLen   := hb_ULen(oGet:buffer)
 
          IF nStart != nEnd
@@ -1300,8 +1300,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
       IF IsWindowEnabled(hWnd) .AND. !readonly .AND. lAllowEdit
 
-         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1344,7 +1344,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle)
+            hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , hmg_LOWORD(lParam) , hmg_HIWORD(lParam) , ParentHandle)
 
             RETURN 1
          ENDIF
@@ -1369,7 +1369,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
             ENDSWITCH
 
-            SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
+            SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             hmg_setfocus(aHandle[1])
 
          ENDIF

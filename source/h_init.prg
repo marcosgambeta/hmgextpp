@@ -57,8 +57,8 @@ Init()
 */
 PROCEDURE Init()
 
-   LOCAL nCellForeColor := GetSysColor(COLOR_HIGHLIGHTTEXT)
-   LOCAL nCellBackColor := GetSysColor(COLOR_HIGHLIGHT)
+   LOCAL nCellForeColor := hmg_GetSysColor(COLOR_HIGHLIGHTTEXT)
+   LOCAL nCellBackColor := hmg_GetSysColor(COLOR_HIGHLIGHT)
 
    STATIC _HMG_SysInit AS GLOBAL VALUE {Date(), Time()}
 
@@ -478,7 +478,7 @@ PROCEDURE Init()
 
    ResetGlobalListener() // set default Events function
 
-   _HMG_IsMultiple := IsExeRunning(StrTran(GetExeFileName(), "\", "_"))
+   _HMG_IsMultiple := hmg_IsExeRunning(StrTran(GetExeFileName(), "\", "_"))
 
    _SetErrorLogFile(_GetErrorLogFile()) // set default ErrorLog file
 

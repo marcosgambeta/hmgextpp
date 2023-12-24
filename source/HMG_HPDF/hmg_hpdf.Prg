@@ -2004,7 +2004,7 @@ FUNCTION _HMG_HPDF_ExistInLocal(FontName)
 
    LOCAL cFldWindows := GetSpecialFolder(CSIDL_FONTS)
    LOCAL cFileTTF := cFileNoExt(FontName) + ".ttf"
-   LOCAL cFldLocal := GetCurrentFolder()
+   LOCAL cFldLocal := hmg_GetCurrentFolder()
    LOCAL cFntTmp := ""
 
    IF File(FontName)

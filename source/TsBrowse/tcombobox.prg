@@ -52,8 +52,8 @@ METHOD TComboBox:New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChan
    LOCAL notabstop     := .F.
    LOCAL ParentHandle
 
-   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT),;
-           nClrBack  := GetSysColor(COLOR_WINDOW),;
+   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := hmg_GetSysColor(COLOR_WINDOW),;
            nHeight   := 12
 
    ::nTop         := nRow
@@ -99,7 +99,7 @@ METHOD TComboBox:New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChan
       ::AddVars(::hWnd)
       ::Default()
 
-      if GetObjectType(hFont) == OBJ_FONT
+      if hmg_GetObjectType(hFont) == OBJ_FONT
          hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
@@ -144,7 +144,7 @@ Return DLGC_WANTALLKEYS
 
 METHOD TComboBox:HandleEvent(nMsg, nWParam, nLParam)
 
-   If HiWord(nWParam) == CBN_CLOSEUP
+   If hmg_HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
          IIf(hb_IsBlock(::bCloseUp), Eval(::bCloseUp, Self), ::bCloseUp(Self))
          Return 0

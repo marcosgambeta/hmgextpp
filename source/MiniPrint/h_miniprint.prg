@@ -564,8 +564,8 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
    SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 0, 100, .T.)
    SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 0, 100, .T.)
 
-   SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
-   SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
+   hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
+   hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
    _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
@@ -747,7 +747,7 @@ PROCEDURE _hmg_printer_savepages()
    LOCAL x
    LOCAL a
 
-   x := Putfile ( {{"Images","*.emf"}}, , GetCurrentFolder(), .T. )
+   x := Putfile ( {{"Images","*.emf"}}, , hmg_GetCurrentFolder(), .T. )
 
    IF empty(x)
       RETURN
@@ -1984,8 +1984,8 @@ PROCEDURE _HMG_PRINTER_MouseZoom()
       _hmg_printer_Dx := 0
       _hmg_printer_Dy := 0
 
-      SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
-      SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
+      hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
+      hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
       _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
@@ -2012,29 +2012,29 @@ PROCEDURE _HMG_PRINTER_MouseZoom()
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := 100
             _hmg_printer_Dy := 400
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
             EXIT
          CASE 2
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := -100
             _hmg_printer_Dy := 400
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 60, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 60, .T.)
             EXIT
          CASE 3
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := 100
             _hmg_printer_Dy := -400
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 90, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 90, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
             EXIT
          CASE 4
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := -100
             _hmg_printer_Dy := -400
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 90, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 60, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 90, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 60, .T.)
          ENDSWITCH
 
       ELSE
@@ -2046,29 +2046,29 @@ PROCEDURE _HMG_PRINTER_MouseZoom()
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := 500
             _hmg_printer_Dy := 300
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
             EXIT
          CASE 2
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := -500
             _hmg_printer_Dy := 300
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 99, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 99, .T.)
             EXIT
          CASE 3
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := 500
             _hmg_printer_Dy := -300
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 80, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 80, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
             EXIT
          CASE 4
             _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
             _hmg_printer_Dx := -500
             _hmg_printer_Dy := -300
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 80, .T.)
-            SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 99, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 80, .T.)
+            hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 99, .T.)
          ENDSWITCH
 
       ENDIF
@@ -2089,8 +2089,8 @@ PROCEDURE _HMG_PRINTER_Zoom()
       _hmg_printer_Dx := 0
       _hmg_printer_Dy := 0
 
-      SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
-      SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
+      hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
+      hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
       _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
@@ -2101,16 +2101,16 @@ PROCEDURE _HMG_PRINTER_Zoom()
          _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
          _hmg_printer_Dx := 100
          _hmg_printer_Dy := 400
-         SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
-         SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
+         hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 10, .T.)
+         hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 40, .T.)
 
       ELSE
 
          _hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
          _hmg_printer_Dx := 500
          _hmg_printer_Dy := 300
-         SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
-         SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
+         hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 20, .T.)
+         hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 1, .T.)
 
       ENDIF
 

@@ -371,7 +371,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate SET CODEPAGE TO UNICODE => Set (_SET_CODEPAGE, "UTF8")
 
-#xtranslate RELEASE MEMORY => iif(IsVistaOrLater(), ( hb_gcAll(), EmptyWorkingSet() ), NIL)
+#xtranslate RELEASE MEMORY => iif(IsVistaOrLater(), ( hb_gcAll(), hmg_EmptyWorkingSet() ), NIL)
 
 
 #xcommand ACTIVATE WINDOW DEBUGGER <name, ...> => ;
@@ -432,7 +432,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate IsMinimized ( <hWnd> ) => IsIconic(<hWnd>)
 #xtranslate IsMaximized ( <hWnd> ) => IsZoomed ( <hWnd> )
 
-#xtranslate System.EmptyClipboard => ClearClipboard()
+#xtranslate System.EmptyClipboard => hmg_ClearClipboard()
 
 #define TREESORTNODE_FIRST  0
 #define TREESORTNODE_LAST   1

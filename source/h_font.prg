@@ -371,7 +371,7 @@ FUNCTION GetFontParamByRef(FontHandle, FontName, FontSize, bold, italic, underli
    LOCAL lExpr
    LOCAL i := iif((hb_IsNumeric(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0)
 
-   lExpr := (i > 0 .AND. GetObjectType(_HMG_aControlHandles[i]) == OBJ_FONT)
+   lExpr := (i > 0 .AND. hmg_GetObjectType(_HMG_aControlHandles[i]) == OBJ_FONT)
 
    IF hb_PIsByRef(2)
       FontName := iif(lExpr, _HMG_aControlFontName[i], _HMG_DefaultFontName)

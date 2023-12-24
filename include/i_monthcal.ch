@@ -216,7 +216,7 @@ SendMessage( <hWnd>, MCM_SETFIRSTDAYOFWEEK, 0, <d> )
 
 #xtranslate GetMonthCalFirstDayOfWeek ( <hWnd> ) ;
 => ;
-LOWORD(SendMessage( <hWnd>, MCM_GETFIRSTDAYOFWEEK, 0, 0 ))
+hmg_LOWORD(SendMessage( <hWnd>, MCM_GETFIRSTDAYOFWEEK, 0, 0 ))
 
 #xtranslate GetMonthCalYear ( <h> ) ;
 => ;

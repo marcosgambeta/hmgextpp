@@ -361,8 +361,8 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
 
    w := hmg_GetSizeToolBar(c)
 
-   MinWidth  := HiWord(w)
-   MinHeight := LoWord(w)
+   MinWidth  := hmg_HiWord(w)
+   MinHeight := hmg_LoWord(w)
 
    w := GetWindowWidth(c)
 
@@ -371,7 +371,7 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
    IF (_HMG_aControlRangeMax[ix] == 1) .AND. ;
       ( hb_bitand(GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
       MinWidth  := _HMG_aControlWidth[ix]
-      MinHeight := HiWord(w)
+      MinHeight := hmg_HiWord(w)
    ENDIF
    IF i > 0
       AddSplitBoxItem(c, _HMG_aFormReBarHandle[i], w, break, Caption, MinWidth, MinHeight, _HMG_ActiveSplitBoxInverted, _HMG_aControlRangeMin[ix])
@@ -529,7 +529,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
       hmg_TrackPopupMenu(hMenu, aPos[1] + aChevronInfo[1], aPos[2] + aChevronInfo[4] + 3, hWnd)
    ENDIF
 
-   DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
+   hmg_DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
    hmg_DestroyMenu(hMenu)
 
 RETURN NIL
@@ -550,8 +550,8 @@ STATIC PROCEDURE _DropDownShortcut(nToolButtonId, nParentWindowHandle, i, nButto
 
       aSize := hmg_GetButtonBarRect(_HMG_aControlHandles[i] , nButtonPos - 1)
 
-      hmg_TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
-         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - HiWord(aSize) ) / 2), nParentWindowHandle)
+      hmg_TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + hmg_LoWord(aSize) , aPos[2] + hmg_HiWord(aSize) + ;
+         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - hmg_HiWord(aSize) ) / 2), nParentWindowHandle)
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
    ENDIF

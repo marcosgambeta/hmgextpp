@@ -2307,7 +2307,7 @@ METHOD HBPrinter:Preview()
 
       IF iloscstron > 1
          @ 16, ahs[1, 6] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT "Arial" SIZE 8 NOTABSTOP ON CHANGE {||page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow()}
-         @ 20, ahs[1, 6] - 184 LABEL prl VALUE aopisy[12] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif(IsAppXPThemed(), iif(isseven(), { 211, 218, 237 }, iif(_HMG_IsXP, { 239, 235, 219 }, nRGB2Arr(GetSysColor(5)))), NIL) RIGHTALIGN
+         @ 20, ahs[1, 6] - 184 LABEL prl VALUE aopisy[12] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif(IsAppXPThemed(), iif(isseven(), { 211, 218, 237 }, iif(_HMG_IsXP, { 239, 235, 219 }, nRGB2Arr(hmg_GetSysColor(5)))), NIL) RIGHTALIGN
       ENDIF
 
       DEFINE SPLITBOX
@@ -2317,7 +2317,7 @@ METHOD HBPrinter:Preview()
                BUTTON B3 CAPTION aopisy[4] PICTURE "hbprint_save" WHOLEDROPDOWN
                DEFINE DROPDOWN MENU BUTTON B3
                   ITEM aopisy[4] ACTION {||::savemetafiles(::CurPage)}
-                  ITEM aopisy[31] ACTION {||pi := Putfile({{aopisy[33], "*.pdf"}, {aopisy[34], "*.*"}}, , GetCurrentFolder(), .T., ::DOCNAME), iif(Empty(pi), NIL, ::savemetafiles(NIL, pi)) }
+                  ITEM aopisy[31] ACTION {||pi := Putfile({{aopisy[33], "*.pdf"}, {aopisy[34], "*.*"}}, , hmg_GetCurrentFolder(), .T., ::DOCNAME), iif(Empty(pi), NIL, ::savemetafiles(NIL, pi)) }
                   ITEM aopisy[32] ACTION {||::savemetafiles()}
                END MENU
             ENDIF

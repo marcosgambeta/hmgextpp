@@ -71,7 +71,7 @@ FUNCTION _SetWindowBKBrush(cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIma
 
       SWITCH Left(cBrushStyle, 1)
       CASE "S"
-         hBrush := CreateSolidBrush(aColor[1], aColor[2], aColor[3])
+         hBrush := hmg_CreateSolidBrush(aColor[1], aColor[2], aColor[3])
          EXIT
 
       CASE "H"
@@ -87,7 +87,7 @@ FUNCTION _SetWindowBKBrush(cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIma
 
       END SWITCH
 
-      IF GetObjectType(hBrush) == OBJ_BRUSH
+      IF hmg_GetObjectType(hBrush) == OBJ_BRUSH
          hOldBrush := SetWindowBrush(hWnd, hBrush)
          _HMG_aFormBrushHandle[nIndex] := hBrush
 

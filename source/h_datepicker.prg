@@ -554,8 +554,8 @@ FUNCTION OPICKEVENTS(hWnd, nMsg, wParam, lParam)
       IF i > 0
          IF _HMG_aControlBkColor[i] != NIL
             GetClientRect(_HMG_aControlHandles[i], /*@*/aRect)
-            hBrush := CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
-            FillRect(hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush)
+            hBrush := hmg_CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
+            hmg_FillRect(hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush)
             hmg_DeleteObject(hBrush)
             RETURN 1
          ENDIF

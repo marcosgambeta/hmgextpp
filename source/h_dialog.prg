@@ -412,14 +412,14 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
       i := AScan(_HMG_aFormhandles, hwndDlg)  // find DialogProcedure
       IF i > 0
          IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "D"
-            ret := Eval(_HMG_aFormClickProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam))
+            ret := Eval(_HMG_aFormClickProcedure[i], nMsg, hmg_LOWORD(wParam), hmg_HIWORD(wParam))
             IF hb_IsNumeric(ret)
                ret := iif(ret = 0, .F., .T.)
             ELSE
                ret := .F.
             ENDIF
          ELSE
-            IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
+            IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,hmg_LOWORD(wParam))) == 0    //JP 66
                ControlHandle := lParam
             ENDIF
             Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -427,7 +427,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
          ENDIF
       ENDIF
       IF !ret
-         IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
+         IF (ControlHandle := hmg_GetDialogITemHandle(hwndDlg,hmg_LOWORD(wParam))) == 0    //JP 66
             ControlHandle := lParam
          ENDIF
          Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -456,8 +456,8 @@ FUNCTION ModalDialogProc(hwndDlg, nMsg, wParam, lParam)
 
    _HMG_ActiveDlgProcHandle := hwndDlg
    _HMG_ActiveDlgProcMsg    := nMsg
-   _HMG_ActiveDlgProcId     := LOWORD(wParam)
-   _HMG_ActiveDlgProcNotify := HIWORD(wParam)
+   _HMG_ActiveDlgProcId     := hmg_LOWORD(wParam)
+   _HMG_ActiveDlgProcNotify := hmg_HIWORD(wParam)
    _HMG_ActiveDlgProcModal  := .T.
 
    SWITCH nMsg
@@ -473,17 +473,17 @@ FUNCTION ModalDialogProc(hwndDlg, nMsg, wParam, lParam)
       EXIT
    CASE WM_COMMAND
       DO CASE
-      CASE LOWORD(wParam) == IDOK .AND. HIWORD(wParam) == BN_CLICKED
+      CASE hmg_LOWORD(wParam) == IDOK .AND. hmg_HIWORD(wParam) == BN_CLICKED
          hmg_EndDialog(hwndDlg, IDOK)
          ret := .T.
-      CASE LOWORD(wParam) == IDCANCEL .AND. HIWORD(wParam) == BN_CLICKED
+      CASE hmg_LOWORD(wParam) == IDCANCEL .AND. hmg_HIWORD(wParam) == BN_CLICKED
          hmg_EndDialog(hwndDlg, IDCANCEL)
          ret := .T.
-      CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
+      CASE hmg_LOWORD(wParam) == IDIGNORE .AND. hmg_HIWORD(wParam) == BN_CLICKED
          ret := .T.
       OTHERWISE
          IF hb_IsBlock(_HMG_ModalDialogProcedure)
-            Eval(_HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam))
+            Eval(_HMG_ModalDialogProcedure, hwndDlg, nMsg, hmg_LOWORD(wParam), hmg_HIWORD(wParam))
          ENDIF
          ret := .T.
       ENDCASE

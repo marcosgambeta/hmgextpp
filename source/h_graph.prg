@@ -91,8 +91,8 @@ PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
    LOCAL nZero
    LOCAL nRPos
    LOCAL nRNeg
-   LOCAL nClrFore  := GetSysColor(COLOR_WINDOWTEXT)
-   LOCAL nClrBack := GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
    LOCAL atemp
    LOCAL lRedraw := .F.
    LOCAL aClrFore := nRGB2Arr(nClrFore)
@@ -592,7 +592,7 @@ FUNCTION ClrShadow(nColor, nFactor)
    LOCAL aHSL
    LOCAL aRGB
 
-   aHSL := RGB2HSL(GetRed(nColor), GetGreen(nColor), GetBlue(nColor))
+   aHSL := RGB2HSL(hmg_GetRed(nColor), hmg_GetGreen(nColor), hmg_GetBlue(nColor))
    aHSL[3] -= nFactor
    aRGB := HSL2RGB(aHSL[1], aHSL[2], aHSL[3])
 
@@ -609,9 +609,9 @@ FUNCTION RGB2HSL(nR, nG, nB)
 
    IF nR < 0
       nR := Abs(nR)
-      nG := GetGreen(nR)
-      nB := GetBlue(nR)
-      nR := GetRed(nR)
+      nG := hmg_GetGreen(nR)
+      nB := hmg_GetBlue(nR)
+      nR := hmg_GetRed(nR)
    ENDIF
 
    nR /= 255

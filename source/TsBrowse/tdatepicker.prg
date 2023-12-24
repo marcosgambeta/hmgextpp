@@ -43,8 +43,8 @@ METHOD TDatePicker:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid
    Local rightalign  := .F.
    Local notabstop   := .F.
 
-   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT),;
-           nClrBack  := GetSysColor(COLOR_WINDOW),;
+   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := hmg_GetSysColor(COLOR_WINDOW),;
            nHeight   := 12 ,;
            lUpdate   := .F.,;
            lNoBorder := .F.,;
@@ -102,7 +102,7 @@ METHOD TDatePicker:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid
       ::AddVars(::hWnd)
       ::Default()
 
-      if GetObjectType(hFont) == OBJ_FONT
+      if hmg_GetObjectType(hFont) == OBJ_FONT
          hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
@@ -137,7 +137,7 @@ Return NIL
 METHOD TDatePicker:HandleEvent(nMsg, nWParam, nLParam)
 
    If nMsg == WM_NOTIFY
-      If HiWord(nWParam) == NM_KILLFOCUS
+      If hmg_HiWord(nWParam) == NM_KILLFOCUS
          ::LostFocus()
       EndIf
    EndIf

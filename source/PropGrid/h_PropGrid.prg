@@ -1453,7 +1453,7 @@ FUNCTION PgIdentColor(met, cColor)
    CASE met == 0
       cColor := AllTrim(cColor)
       IF (pos := AScan(aSysColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
-         nColor := GetSysColor(aSysColor[pos, 1])
+         nColor := hmg_GetSysColor(aSysColor[pos, 1])
       ELSEIF (pos := AScan(aColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
          nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
@@ -1851,16 +1851,16 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       RETURN 0
 
    CASE WM_COMMAND
-      IF HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
+      IF hmg_HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
          i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hWnd})
          IF i > 0
             _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
             _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
          ENDIF
       ENDIF
-      IF HIWORD(wParam) == BN_CLICKED
+      IF hmg_HIWORD(wParam) == BN_CLICKED
          IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_CHECK
-            iCheck := LOWORD(wParam)
+            iCheck := hmg_LOWORD(wParam)
             cData  := PG_GETITEM(hWnd, hItem, PGI_DATA)
             IF !Empty(cData)
                aData := PgIdentData(cData)
@@ -1875,7 +1875,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
             ENDIF
          ENDIF
       ENDIF
-      IF HIWORD(wParam) == CBN_KILLFOCUS
+      IF hmg_HIWORD(wParam) == CBN_KILLFOCUS
          IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_LIST
             cValue := GetWindowText(hEdit)
             cData  := PG_GETITEM(hWnd, hItem, PGI_DATA)
@@ -1890,7 +1890,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
             ENDIF
          ENDIF
       ENDIF
-      IF HIWORD(wParam) == EN_CHANGE
+      IF hmg_HIWORD(wParam) == EN_CHANGE
          IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_DOUBLE .OR. (PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_STRING .AND. !Empty(PG_GETITEM(hWnd, hItem, PGI_DATA)))
             IF IsWindowHandle(hEdit)
                cValue := GetWindowText(hEdit)
@@ -2039,7 +2039,7 @@ FUNCTION SetPropGridValue(ParentForm, ControlName, nID, cValue, cData, lExp)
             ELSEIF lExp
                PG_ENSUREVISIBLE(hWndPG, hItem)
             ENDIF
-            PostMessage(hWndPG, WM_KEYDOWN, VK_ESCAPE, 0)
+            hmg_PostMessage(hWndPG, WM_KEYDOWN, VK_ESCAPE, 0)
          ENDIF
       ENDIF
    ENDIF
@@ -2197,7 +2197,7 @@ FUNCTION ValueTran(cValue, ItType, cData, nSubIt)
       CASE PG_SYSCOLOR
       CASE PG_COLOR
          xData := PgIdentColor(0, cValue)
-         xData := { GetRed(xData), GetGreen(xData), GetBlue(xData) }
+         xData := { hmg_GetRed(xData), hmg_GetGreen(xData), hmg_GetBlue(xData) }
          EXIT
       CASE PG_LOGIC
          xData := IIF(RTrim(cValue) == "true", .T., .F.)
@@ -2417,8 +2417,8 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
    _HMG_aControlMiscData2[i] := hWnd
    SWITCH nMsg
    CASE WM_CHAR
-      icp :=  HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
-      icpe := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      icp :=  hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      icpe := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       cValue := GetWindowText(hWnd)
       IF wParam == 27
          _PGInitData(hWndPG, hWnd, hItem, PG_GETITEM(hWndPG, hItem, PGI_TYPE))
@@ -2452,10 +2452,10 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
       hChildItem  := hmg_TreeView_GetChild(hWndPG, hParentItem) // First Child Item
       cValue := GetWindowText(hWnd)
-      SWITCH HIWORD(wParam)
+      SWITCH hmg_HIWORD(wParam)
       CASE BN_CLICKED
          lChg := .F.
-         SWITCH LOWORD(wParam)
+         SWITCH hmg_LOWORD(wParam)
          CASE PG_COLOR
             cData := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             aData := PgIdentData(cData, PG_COLOR)
@@ -2849,7 +2849,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          IF hIListSys == HMG_NULLHANDLE
             hIListSys := hmg_InitImageList(ItHeight * 1.4, ItHeight, .F., 0)
             FOR n := 1 TO Len(aSysColor)
-               nColor := GetSysColor(aSysColor[n, 1])
+               nColor := hmg_GetSysColor(aSysColor[n, 1])
                hImage := CREATECOLORBMP(hWnd, nColor, ItHeight * 1.4, ItHeight)
                IL_AddMaskedIndirect(hIListSys, hImage, , ItHeight * 1.4, ItHeight, 1)
             NEXT
@@ -3082,7 +3082,7 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
 
    DEFAULT Mask := ""
 
-   icp := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
    IF Empty(mask)
       SetWindowText(hWnd, FormatDouble(cValue))
       SendMessage(hWnd, EM_SETSEL, icp, icp)

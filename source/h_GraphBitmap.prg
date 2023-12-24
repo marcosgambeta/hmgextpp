@@ -48,10 +48,10 @@ FUNCTION HMG_Graph(nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep, 
    LOCAL nZero
    LOCAL nRPos
    LOCAL nRNeg
-   LOCAL nClrFore  := GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT)
    LOCAL lRedraw
    LOCAL aClrFore := nRGB2Arr(nClrFore)
-   LOCAL nClrBack := GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
    LOCAL aClrBack := nRGB2Arr(nClrBack)
 
    DEFAULT cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
@@ -387,7 +387,7 @@ FUNCTION HMG_PieGraph(nWidth, nHeight, series, aname, colors, ctitle, aTitleColo
    LOCAL hDC
    LOCAL hBitmap
    LOCAL BTStruct
-   LOCAL nClrBack := GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
    LOCAL aClrBack := nRGB2Arr(nClrBack)
 
    DEFAULT cPicture := "999,999.99"
@@ -639,9 +639,9 @@ STATIC PROCEDURE DrawBarInBitmap(hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aCo
    nColTop := ClrShadow(RGB(aColor[1], aColor[2], aColor[3]), 20)
    nShadow := ClrShadow(nColTop, 20)
    nShadow2 := ClrShadow(nColTop, 40)
-   nColTop := { GetRed(nColTop), GetGreen(nColTop), GetBlue(nColTop) }
-   nShadow := { GetRed(nShadow), GetGreen(nShadow ), GetBlue(nShadow) }
-   nShadow2 := { GetRed(nShadow2), GetGreen(nShadow2), GetBlue(nShadow2) }
+   nColTop := { hmg_GetRed(nColTop), hmg_GetGreen(nColTop), hmg_GetBlue(nColTop) }
+   nShadow := { hmg_GetRed(nShadow), hmg_GetGreen(nShadow ), hmg_GetBlue(nShadow) }
+   nShadow2 := { hmg_GetRed(nShadow2), hmg_GetGreen(nShadow2), hmg_GetBlue(nShadow2) }
    BT_DrawGradientFillVertical(hDC, nX + nDeep - nHigh, nY, nWidth + 1, nHigh - nDeep, aColor, nShadow2)
    IF l3DView
       // Lateral

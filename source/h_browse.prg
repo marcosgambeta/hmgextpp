@@ -2819,10 +2819,10 @@ STATIC PROCEDURE _BrowseVscrollUpdate(i)
 
       IF RecordCount < 100
          SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
-         SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
+         hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
       ELSE
          SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, 100, .T.)
-         SetScrollPos(_HMG_aControlIds[i] , SB_CTL, Int(ActualRecord * 100 / RecordCount) , .T.)
+         hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, Int(ActualRecord * 100 / RecordCount) , .T.)
       ENDIF
 
    ENDIF
@@ -2849,7 +2849,7 @@ PROCEDURE _BrowseVscrollFastUpdate(i, d)
          ActualRecord := GetScrollPos(_HMG_aControlIds[i], 2)
          ActualRecord := ActualRecord + d
          SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
-         SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
+         hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
       ENDIF
 
    ENDIF

@@ -114,8 +114,8 @@ FUNCTION HMG_Alert(cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors
       ENDDO
    ENDIF
 
-   hb_default(@aBackColor, nRGB2Arr(GetSysColor(COLOR_BTNFACE)))
-   hb_default(@aFontColor, nRGB2Arr(GetSysColor(COLOR_BTNTEXT)))
+   hb_default(@aBackColor, nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE)))
+   hb_default(@aFontColor, nRGB2Arr(hmg_GetSysColor(COLOR_BTNTEXT)))
    __defaultNIL(@cTitle, "Attention")
    __defaultNIL(@aOptions, {"&OK"})
    hb_default(@lClosable, .F.)
@@ -289,7 +289,7 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
    ENDIF
 
    hWnd := This.Handle
-   hDC := GetDC(hWnd)
+   hDC := hmg_GetDC(hWnd)
 
    // calculate the character height for the dialog font
 
@@ -312,7 +312,7 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
       nMaxBoton := Max(nMaxBoton, hmg_GetTextWidth(hDC, aOptions[n], hDlgFont))
    NEXT
 
-   ReleaseDC(hWnd, hDC)
+   hmg_ReleaseDC(hWnd, hDC)
 
    nMaxBoton += (HMARGIN_BUTTON * iif(!lExt .AND. lIsWin10 .AND. nLenAop > 2, 1.1, iif(nLenAop > 1, 2, 3)))
 

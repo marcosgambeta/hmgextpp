@@ -97,7 +97,7 @@ HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
    Author: Luiz Rafael Culik Guimaraes <culikr@uol.com.br>
    Parameters WaitRunPipe(cCommand,nShowWindow,cFile)
  */
-HB_FUNC( WAITRUNPIPE )
+HB_FUNC( HMG_WAITRUNPIPE )
 {
    HANDLE ReadPipeHandle;
    HANDLE WritePipeHandle;                // not used here
@@ -183,7 +183,11 @@ HB_FUNC( WAITRUNPIPE )
    hb_xfree(Data);
 }
 
-HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in Windows clipboard
+#if 1
+HB_FUNC_TRANSLATE( WAITRUNPIPE, HMG_WAITRUNPIPE )
+#endif
+
+HB_FUNC( HMG_COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in Windows clipboard
 {
    HGLOBAL      hglbCopy;
    UINT         cf;
@@ -214,7 +218,11 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    CloseClipboard();
 }
 
-HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clipboard
+#if 1
+HB_FUNC_TRANSLATE( COPYRTFTOCLIPBOARD, HMG_COPYRTFTOCLIPBOARD )
+#endif
+
+HB_FUNC( HMG_COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clipboard
 {
    HGLOBAL hglbCopy;
 
@@ -242,7 +250,11 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    CloseClipboard();
 }
 
-HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
+#if 1
+HB_FUNC_TRANSLATE( COPYTOCLIPBOARD, HMG_COPYTOCLIPBOARD )
+#endif
+
+HB_FUNC( HMG_RETRIEVETEXTFROMCLIPBOARD )
 {
    HGLOBAL hClipMem;
    LPSTR   lpClip;
@@ -267,7 +279,11 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
    }
 }
 
-HB_FUNC( CLEARCLIPBOARD )
+#if 1
+HB_FUNC_TRANSLATE( RETRIEVETEXTFROMCLIPBOARD, HMG_RETRIEVETEXTFROMCLIPBOARD )
+#endif
+
+HB_FUNC( HMG_CLEARCLIPBOARD )
 {
    if( OpenClipboard(hmg_par_HWND(1)) ) {
       EmptyClipboard();
@@ -278,25 +294,45 @@ HB_FUNC( CLEARCLIPBOARD )
    }
 }
 
-HB_FUNC( GETBLUE )
+#if 1
+HB_FUNC_TRANSLATE( CLEARCLIPBOARD, HMG_CLEARCLIPBOARD )
+#endif
+
+HB_FUNC( HMG_GETBLUE )
 {
    hb_retnl( GetBValue(hb_parnl(1)) );
 }
 
-HB_FUNC( GETRED )
+#if 1
+HB_FUNC_TRANSLATE( GETBLUE, HMG_GETBLUE )
+#endif
+
+HB_FUNC( HMG_GETRED )
 {
    hb_retnl( GetRValue(hb_parnl(1)) );
 }
 
-HB_FUNC( GETGREEN )
+#if 1
+HB_FUNC_TRANSLATE( GETRED, HMG_GETRED )
+#endif
+
+HB_FUNC( HMG_GETGREEN )
 {
    hb_retnl( GetGValue(hb_parnl(1)) );
 }
 
-HB_FUNC( GETKEYSTATE )
+#if 1
+HB_FUNC_TRANSLATE( GETGREEN, HMG_GETGREEN )
+#endif
+
+HB_FUNC( HMG_GETKEYSTATE )
 {
    hb_retni( GetKeyState(hb_parni(1)) );
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETKEYSTATE, HMG_GETKEYSTATE )
+#endif
 
 HB_FUNC( HMG_KEYBOARDCLEARBUFFER )
 {
@@ -319,7 +355,7 @@ HB_FUNC( HMG_MOUSECLEARBUFFER )
 #define USER_TIMER_MAXIMUM  0x7FFFFFFF
 #endif
 
-HB_FUNC( INKEYGUI )
+HB_FUNC( HMG_INKEYGUI )
 {
    UINT     uElapse = hb_parnidef(1, USER_TIMER_MINIMUM);
    UINT_PTR uTimer;
@@ -368,27 +404,47 @@ HB_FUNC( INKEYGUI )
    hb_retns(uRet);
 }
 
-HB_FUNC( GETDC )
+#if 1
+HB_FUNC_TRANSLATE( INKEYGUI, HMG_INKEYGUI )
+#endif
+
+HB_FUNC( HMG_GETDC )
 {
    hmg_ret_HDC(GetDC(hmg_par_HWND(1)));
 }
 
-HB_FUNC( RELEASEDC )
+#if 1
+HB_FUNC_TRANSLATE( GETDC, HMG_GETDC )
+#endif
+
+HB_FUNC( HMG_RELEASEDC )
 {
    hb_retl(ReleaseDC(hmg_par_HWND(1), hmg_par_HDC(2)));
 }
 
-HB_FUNC( HIWORD )
+#if 1
+HB_FUNC_TRANSLATE( RELEASEDC, HMG_RELEASEDC )
+#endif
+
+HB_FUNC( HMG_HIWORD )
 {
    hb_retni( HIWORD(hmg_par_DWORD(1)) );
 }
 
-HB_FUNC( LOWORD )
+#if 1
+HB_FUNC_TRANSLATE( HIWORD, HMG_HIWORD )
+#endif
+
+HB_FUNC( HMG_LOWORD )
 {
    hb_retni( LOWORD(hmg_par_DWORD(1)) );
 }
 
-HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
+#if 1
+HB_FUNC_TRANSLATE( LOWORD, HMG_LOWORD )
+#endif
+
+HB_FUNC( HMG_C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 {
 #ifdef UNICODE
    LPSTR pStr;
@@ -409,13 +465,17 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
    hb_xfree(lpBuffer);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( C_GETSPECIALFOLDER, HMG_C_GETSPECIALFOLDER )
+#endif
+
 //#define __WIN98__
 #ifdef __WIN98__
 /*
    Based Upon Code Contributed By Jacek Kubica <kubica@wssl.wroc.pl>
    Updated by Vailton Renato <vailtom@gmail.com>
  */
-HB_FUNC( C_GETDLLSPECIALFOLDER )
+HB_FUNC( HMG_C_GETDLLSPECIALFOLDER )
 {
    TCHAR   szPath[MAX_PATH];
    HMODULE hModule = LoadLibrary("SHFolder.dll");
@@ -433,12 +493,16 @@ HB_FUNC( C_GETDLLSPECIALFOLDER )
       FreeLibrary(hModule);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( C_GETDLLSPECIALFOLDER, HMG_C_GETDLLSPECIALFOLDER )
+#endif
 #endif /* __WIN98__ */
 
 // Memory Management Functions
 typedef BOOL ( WINAPI * GetPhysicallyInstalledSystemMemory_ptr )( ULONGLONG * );
 
-HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
+HB_FUNC( HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 {
    HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
@@ -458,10 +522,14 @@ HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETPHYSICALLYINSTALLEDSYSTEMMEMORY, HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
+#endif
+
 typedef BOOL ( WINAPI * GlobalMemoryStatusEx_ptr )( MEMORYSTATUSEX * );
 #define DIV  ( 1024 * 1024 )
 
-HB_FUNC( MEMORYSTATUS )
+HB_FUNC( HMG_MEMORYSTATUS )
 {
    HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
@@ -504,10 +572,14 @@ HB_FUNC( MEMORYSTATUS )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( MEMORYSTATUS, HMG_MEMORYSTATUS )
+#endif
+
 /*
-C_SHELLABOUT(HWND, cp2, cp3) --> NIL
+HMG_C_SHELLABOUT(HWND, cp2, cp3) --> NIL
 */
-HB_FUNC( C_SHELLABOUT )
+HB_FUNC( HMG_C_SHELLABOUT )
 {
    void * str1;
    void * str2;
@@ -516,10 +588,14 @@ HB_FUNC( C_SHELLABOUT )
    hb_strfree(str2);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( C_SHELLABOUT, HMG_C_SHELLABOUT )
+#endif
+
 /*
-PAINTBKGND(HWND, p2) --> HANDLE
+HMG_PAINTBKGND(HWND, p2) --> HANDLE
 */
-HB_FUNC( PAINTBKGND )
+HB_FUNC( HMG_PAINTBKGND )
 {
    HBRUSH hBrush;
    RECT recClie;
@@ -543,8 +619,12 @@ HB_FUNC( PAINTBKGND )
    hmg_ret_HBRUSH(hBrush);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( PAINTBKGND, HMG_PAINTBKGND )
+#endif
+
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
-HB_FUNC( GETWINDOWSDIR )
+HB_FUNC( HMG_GETWINDOWSDIR )
 {
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
@@ -563,7 +643,11 @@ HB_FUNC( GETWINDOWSDIR )
 #endif
 }
 
-HB_FUNC( GETSYSTEMDIR )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWSDIR, HMG_GETWINDOWSDIR )
+#endif
+
+HB_FUNC( HMG_GETSYSTEMDIR )
 {
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
@@ -582,7 +666,11 @@ HB_FUNC( GETSYSTEMDIR )
 #endif
 }
 
-HB_FUNC( GETTEMPDIR )
+#if 1
+HB_FUNC_TRANSLATE( GETSYSTEMDIR, HMG_GETSYSTEMDIR )
+#endif
+
+HB_FUNC( HMG_GETTEMPDIR )
 {
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
@@ -601,45 +689,65 @@ HB_FUNC( GETTEMPDIR )
 #endif
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETTEMPDIR, HMG_GETTEMPDIR )
+#endif
+
 /*
-POSTMESSAGE(HWND, p2, p3, p4) --> numeric
+HMG_POSTMESSAGE(HWND, p2, p3, p4) --> numeric
 */
-HB_FUNC( POSTMESSAGE )
+HB_FUNC( HMG_POSTMESSAGE )
 {
    hb_retnl( PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( POSTMESSAGE, HMG_POSTMESSAGE )
+#endif
+
 /*
-DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
+HMG_DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 */
-HB_FUNC( DEFWINDOWPROC )
+HB_FUNC( HMG_DEFWINDOWPROC )
 {
    HB_RETNL(static_cast<LONG_PTR>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DEFWINDOWPROC, HMG_DEFWINDOWPROC )
+#endif
+
 /*
-GETSTOCKOBJECT(np) --> HANDLE
+HMG_GETSTOCKOBJECT(np) --> HANDLE
 */
-HB_FUNC( GETSTOCKOBJECT )
+HB_FUNC( HMG_GETSTOCKOBJECT )
 {
    hmg_ret_HGDIOBJ(GetStockObject(hb_parni(1)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETSTOCKOBJECT, HMG_GETSTOCKOBJECT )
+#endif
+
 /*
-GETNEXTDLGTABITEM(HWND1, HWND2, lp3) --> HANDLE
+HMG_GETNEXTDLGTABITEM(HWND1, HWND2, lp3) --> HANDLE
 */
-HB_FUNC( GETNEXTDLGTABITEM )
+HB_FUNC( HMG_GETNEXTDLGTABITEM )
 {
    hmg_ret_HWND(GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETNEXTDLGTABITEM, HMG_GETNEXTDLGTABITEM )
+#endif
 
 using LPFN_WOW64DISABLEWOW64FSREDIRECTION = BOOL ( WINAPI * )( PVOID * );
 using LPFN_WOW64REVERTWOW64FSREDIRECTION = BOOL ( WINAPI * )( PVOID );
 
 /*
-SHELLEXECUTE(HWND, p2, p3, p4, p5) --> numeric
+HMG_SHELLEXECUTE(HWND, p2, p3, p4, p5) --> numeric
 */
-HB_FUNC( SHELLEXECUTE )
+HB_FUNC( HMG_SHELLEXECUTE )
 {
    void * str1 = nullptr;
    void * str2 = nullptr;
@@ -688,10 +796,14 @@ HB_FUNC( SHELLEXECUTE )
    hb_strfree(str4);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SHELLEXECUTE, HMG_SHELLEXECUTE )
+#endif
+
 /*
-SHELLEXECUTEEX(HWND, cOperation, cFile, cParameters, cDirectory, np6) --> HANDLE
+HMG_SHELLEXECUTEEX(HWND, cOperation, cFile, cParameters, cDirectory, np6) --> HANDLE
 */
-HB_FUNC( SHELLEXECUTEEX )
+HB_FUNC( HMG_SHELLEXECUTEEX )
 {
    void * str1 = nullptr;
    void * str2 = nullptr;
@@ -716,10 +828,14 @@ HB_FUNC( SHELLEXECUTEEX )
    hb_strfree(str4);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SHELLEXECUTEEX, HMG_SHELLEXECUTEEX )
+#endif
+
 /*
-WAITRUN(cp1, np2) --> numeric
+HMG_WAITRUN(cp1, np2) --> numeric
 */
-HB_FUNC( WAITRUN )
+HB_FUNC( HMG_WAITRUN )
 {
    DWORD dwExitCode;
    PROCESS_INFORMATION prInfo;
@@ -745,12 +861,16 @@ HB_FUNC( WAITRUN )
    hb_retnl(dwExitCode);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( WAITRUN, HMG_WAITRUN )
+#endif
+
 /* WaitRunTerm contributed by Kevin Carmody (i@kevincarmody.com) 2007.11.16 */
 
 /*
-WAITRUNTERM(cCommandLine, cCurrentDirectory, nShowWindow, bWaitProc, nWaitMsec) --> numeric
+HMG_WAITRUNTERM(cCommandLine, cCurrentDirectory, nShowWindow, bWaitProc, nWaitMsec) --> numeric
 */
-HB_FUNC( WAITRUNTERM )
+HB_FUNC( HMG_WAITRUNTERM )
 {
    auto pWaitProc = hb_param(4, Harbour::Item::BLOCK);
    BOOL bTerm = FALSE;
@@ -819,10 +939,14 @@ HB_FUNC( WAITRUNTERM )
    hb_retnl(dwExitCode);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( WAITRUNTERM, HMG_WAITRUNTERM )
+#endif
+
 /*
-ISEXERUNNING(cp1) --> .T.|.F.
+HMG_ISEXERUNNING(cp1) --> .T.|.F.
 */
-HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
+HB_FUNC( HMG_ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 {
    void * str;
    HANDLE hMutex = CreateMutex(nullptr, FALSE, HB_PARSTR(1, &str, nullptr));
@@ -835,53 +959,77 @@ HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ISEXERUNNING, HMG_ISEXERUNNING )
+#endif
+
 /*
-SETSCROLLPOS(HWND, np2, np3, lp4) --> numeric
+HMG_SETSCROLLPOS(HWND, np2, np3, lp4) --> numeric
 */
-HB_FUNC( SETSCROLLPOS )
+HB_FUNC( HMG_SETSCROLLPOS )
 {
    hb_retni( SetScrollPos(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parl(4)) );
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETSCROLLPOS, HMG_SETSCROLLPOS )
+#endif
+
 /*
-GETLASTERROR() --> numeric
+HMG_GETLASTERROR() --> numeric
 */
-HB_FUNC( GETLASTERROR )
+HB_FUNC( HMG_GETLASTERROR )
 {
    hb_retnl(GetLastError());
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETLASTERROR, HMG_GETLASTERROR )
+#endif
+
 /*
-CREATEFOLDER(cPathName) --> .T.|.F.
+HMG_CREATEFOLDER(cPathName) --> .T.|.F.
 */
-HB_FUNC( CREATEFOLDER )
+HB_FUNC( HMG_CREATEFOLDER )
 {
    void * str;
    hb_retl(CreateDirectory(HB_PARSTR(1, &str, nullptr), nullptr));
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CREATEFOLDER, HMG_CREATEFOLDER )
+#endif
+
 /*
-SETCURRENTFOLDER(cPathName) --> .T.|.F.
+HMG_SETCURRENTFOLDER(cPathName) --> .T.|.F.
 */
-HB_FUNC( SETCURRENTFOLDER )
+HB_FUNC( HMG_SETCURRENTFOLDER )
 {
    void * str;
    hb_retl(SetCurrentDirectory(HB_PARSTR(1, &str, nullptr)));
    hb_strfree(str);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETCURRENTFOLDER, HMG_SETCURRENTFOLDER )
+#endif
+
 /*
-REMOVEFOLDER(cPathName) --> .T.|.F.
+HMG_REMOVEFOLDER(cPathName) --> .T.|.F.
 */
-HB_FUNC( REMOVEFOLDER )
+HB_FUNC( HMG_REMOVEFOLDER )
 {
    void * str;
    hb_retl(RemoveDirectory(HB_PARSTR(1, &str, nullptr)));
    hb_strfree(str);
 }
 
-HB_FUNC( GETCURRENTFOLDER )
+#if 1
+HB_FUNC_TRANSLATE( REMOVEFOLDER, HMG_REMOVEFOLDER )
+#endif
+
+HB_FUNC( HMG_GETCURRENTFOLDER )
 {
    TCHAR Path[MAX_PATH + 1] = { 0 };
 
@@ -898,39 +1046,59 @@ HB_FUNC( GETCURRENTFOLDER )
 #endif
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETCURRENTFOLDER, HMG_GETCURRENTFOLDER )
+#endif
+
 /*
-CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
+HMG_CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
 */
-HB_FUNC( CREATESOLIDBRUSH )
+HB_FUNC( HMG_CREATESOLIDBRUSH )
 {
    auto hBrush = CreateSolidBrush(static_cast<COLORREF>(RGB(hb_parni(1), hb_parni(2), hb_parni(3))));
    RegisterResource(hBrush, "BRUSH");
    hmg_ret_HBRUSH(hBrush);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CREATESOLIDBRUSH, HMG_CREATESOLIDBRUSH )
+#endif
+
 /*
-SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
+HMG_SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
-HB_FUNC( SETTEXTCOLOR )
+HB_FUNC( HMG_SETTEXTCOLOR )
 {
    hb_retnl(static_cast<ULONG>(SetTextColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETTEXTCOLOR, HMG_SETTEXTCOLOR )
+#endif
+
 /*
-SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
+HMG_SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
-HB_FUNC( SETBKCOLOR )
+HB_FUNC( HMG_SETBKCOLOR )
 {
    hb_retnl(static_cast<ULONG>(SetBkColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETBKCOLOR, HMG_SETBKCOLOR )
+#endif
+
 /*
-GETSYSCOLOR(np1) --> numeric
+HMG_GETSYSCOLOR(np1) --> numeric
 */
-HB_FUNC( GETSYSCOLOR )
+HB_FUNC( HMG_GETSYSCOLOR )
 {
    hb_retnl(GetSysColor(hb_parni(1)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETSYSCOLOR, HMG_GETSYSCOLOR )
+#endif
 
 /**************************************************************************************/
 /*                                                                                    */
@@ -944,9 +1112,9 @@ HB_FUNC( GETSYSCOLOR )
 /**************************************************************************************/
 
 /*
-WINVERSION() --> array
+HMG_WINVERSION() --> array
 */
-HB_FUNC( WINVERSION )
+HB_FUNC( HMG_WINVERSION )
 {
    #if defined(__BORLANDC__)
    #define VER_SUITE_PERSONAL  0x00000200
@@ -1191,10 +1359,14 @@ HB_FUNC( WINVERSION )
    HB_ARRAYSETSTR(hb_stackReturnItem(), 4, szVersionEx.c_str());
 }
 
+#if 1
+HB_FUNC_TRANSLATE( WINVERSION, HMG_WINVERSION )
+#endif
+
 /*
-GETDLLVERSION() --> array
+HMG_GETDLLVERSION() --> array
 */
-HB_FUNC( GETDLLVERSION )
+HB_FUNC( HMG_GETDLLVERSION )
 {
    DWORD dwMajorVersion = 0;
    DWORD dwMinorVersion = 0;
@@ -1231,21 +1403,29 @@ HB_FUNC( GETDLLVERSION )
    HB_STORVNL(dwBuildNumber, -1, 3);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETDLLVERSION, HMG_GETDLLVERSION )
+#endif
+
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.0 Experimental Build 9a
 
 /*
-SELECTOBJECT(HDC, HGDIOBJ) --> HANDLE
+HMG_SELECTOBJECT(HDC, HGDIOBJ) --> HANDLE
 */
-HB_FUNC( SELECTOBJECT )
+HB_FUNC( HMG_SELECTOBJECT )
 {
    hmg_ret_HGDIOBJ(SelectObject(hmg_par_HDC(1), hmg_par_HGDIOBJ(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SELECTOBJECT, HMG_SELECTOBJECT )
+#endif
+
 /*
-FILLRECT(HWND|HDC, aRect, HBRUSH) --> numeric
-FILLRECT(HWND|HDC, nLeft, nTop, nRight, nBottom, HBRUSH) --> numeric
+HMG_FILLRECT(HWND|HDC, aRect, HBRUSH) --> numeric
+HMG_FILLRECT(HWND|HDC, nLeft, nTop, nRight, nBottom, HBRUSH) --> numeric
 */
-HB_FUNC( FILLRECT )
+HB_FUNC( HMG_FILLRECT )
 {
    auto hWnd = hmg_par_HWND(1);
    HDC hDC;
@@ -1280,6 +1460,10 @@ HB_FUNC( FILLRECT )
       hb_retni(0);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( FILLRECT, HMG_FILLRECT )
+#endif
 
 #if defined(__MINGW32__)
 #pragma GCC diagnostic push
@@ -1338,7 +1522,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 #pragma GCC diagnostic pop
 #endif  /* __MINGW32__ */
 
-HB_FUNC( ISAPPHUNG )
+HB_FUNC( HMG_ISAPPHUNG )
 {
    BOOL bIsHung;
 
@@ -1352,12 +1536,16 @@ HB_FUNC( ISAPPHUNG )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ISAPPHUNG, HMG_ISAPPHUNG )
+#endif
+
 #ifndef PROCESS_QUERY_LIMITED_INFORMATION
 #define PROCESS_QUERY_LIMITED_INFORMATION  ( 0x1000 )
 #endif
 
 // EmptyWorkingSet([ProcessID]) ---> lBoolean
-HB_FUNC( EMPTYWORKINGSET )
+HB_FUNC( HMG_EMPTYWORKINGSET )
 {
    // It removes as many pages as possible from the process working set (clean the working set memory).
    // This operation is useful primarily for testing and tuning.
@@ -1393,16 +1581,24 @@ HB_FUNC( EMPTYWORKINGSET )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( EMPTYWORKINGSET, HMG_EMPTYWORKINGSET )
+#endif
+
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 10d
-HB_FUNC( CLEANPROGRAMMEMORY )
+HB_FUNC( HMG_CLEANPROGRAMMEMORY )
 {
    hb_retl(SetProcessWorkingSetSize(GetCurrentProcess(), ( SIZE_T ) -1, ( SIZE_T ) -1));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CLEANPROGRAMMEMORY, HMG_CLEANPROGRAMMEMORY )
+#endif
+
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 11a
 typedef INT ( WINAPI * _GETCOMPACTPATH )( LPTSTR pszOut, LPTSTR pszSrc, INT cchMax, DWORD dwFlags );
 
-HB_FUNC( GETCOMPACTPATH )
+HB_FUNC( HMG_GETCOMPACTPATH )
 {
    HINSTANCE handle = LoadLibrary(TEXT("shlwapi.dll"));
 
@@ -1414,8 +1610,12 @@ HB_FUNC( GETCOMPACTPATH )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETCOMPACTPATH, HMG_GETCOMPACTPATH )
+#endif
+
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.1 Experimental Build 11a
-HB_FUNC( GETSHORTPATHNAME )
+HB_FUNC( HMG_GETSHORTPATHNAME )
 {
    HB_SIZE iRet;
 
@@ -1446,10 +1646,14 @@ HB_FUNC( GETSHORTPATHNAME )
 #endif
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETSHORTPATHNAME, HMG_GETSHORTPATHNAME )
+#endif
+
 /*
-DRAWTEXT(HDC, cText, nLeft, nTop, nRight, nBottom, nStyle) --> NIL
+HMG_DRAWTEXT(HDC, cText, nLeft, nTop, nRight, nBottom, nStyle) --> NIL
 */
-HB_FUNC( DRAWTEXT )
+HB_FUNC( HMG_DRAWTEXT )
 {
 #ifndef UNICODE
    LPCSTR lpchText = hb_parc(2);
@@ -1477,7 +1681,11 @@ HB_FUNC( DRAWTEXT )
 #endif
 }
 
-HB_FUNC( GETTEXTMETRIC )
+#if 1
+HB_FUNC_TRANSLATE( DRAWTEXT, HMG_DRAWTEXT )
+#endif
+
+HB_FUNC( HMG_GETTEXTMETRIC )
 {
    TEXTMETRIC tm;
    auto aMetr = hb_itemArrayNew(7);
@@ -1523,7 +1731,11 @@ HB_FUNC( GETTEXTMETRIC )
    hb_itemReturnRelease(aMetr);
 }
 
-HB_FUNC( _GETCLIENTRECT )
+#if 1
+HB_FUNC_TRANSLATE( GETTEXTMETRIC, HMG_GETTEXTMETRIC )
+#endif
+
+HB_FUNC( HMG__GETCLIENTRECT )
 {
    RECT rc;
    auto hWnd = hmg_par_HWND(1);
@@ -1537,8 +1749,12 @@ HB_FUNC( _GETCLIENTRECT )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _GETCLIENTRECT, HMG__GETCLIENTRECT )
+#endif
+
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 17d
-HB_FUNC( ISOEMTEXT )
+HB_FUNC( HMG_ISOEMTEXT )
 {
    auto pString = reinterpret_cast<LPBYTE>(const_cast<char*>(hb_parc(1)));
    WORD   w = 0;
@@ -1552,6 +1768,10 @@ HB_FUNC( ISOEMTEXT )
 
    hb_retl(bOem);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ISOEMTEXT, HMG_ISOEMTEXT )
+#endif
 
 /*
    Harbour MiniGUI 1.3 Extended (Build 33)
@@ -1585,21 +1805,29 @@ HB_FUNC( ISOEMTEXT )
      OBJ_ENHMETAFILE 13
      OBJ_COLORSPACE  14
  */
-HB_FUNC( GETOBJECTTYPE )
+HB_FUNC( HMG_GETOBJECTTYPE )
 {
    HB_RETNL(static_cast<LONG_PTR>(GetObjectType(hmg_par_HGDIOBJ(1))));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETOBJECTTYPE, HMG_GETOBJECTTYPE )
+#endif
 
 /*
    Harbour MiniGUI 1.4 Extended (Build 47)
    added by Grigory Filatov
  */
-HB_FUNC( DRAGACCEPTFILES )
+HB_FUNC( HMG_DRAGACCEPTFILES )
 {
    DragAcceptFiles(hmg_par_HWND(1), hb_parl(2));
 }
 
-HB_FUNC( DRAGQUERYFILES )
+#if 1
+HB_FUNC_TRANSLATE( DRAGACCEPTFILES, HMG_DRAGACCEPTFILES )
+#endif
+
+HB_FUNC( HMG_DRAGQUERYFILES )
 {
    HDROP hDrop  = ( HDROP ) HB_PARNL(1);
    int   iFiles = DragQueryFile(hDrop, -1, 0, 0);
@@ -1623,10 +1851,18 @@ HB_FUNC( DRAGQUERYFILES )
    }
 }
 
-HB_FUNC( DRAGFINISH )
+#if 1
+HB_FUNC_TRANSLATE( DRAGQUERYFILES, HMG_DRAGQUERYFILES )
+#endif
+
+HB_FUNC( HMG_DRAGFINISH )
 {
    DragFinish(( HDROP ) HB_PARNL(1));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( DRAGFINISH, HMG_DRAGFINISH )
+#endif
 
 /*
 HMG_CHARSETNAME() --> "UNICODE"|"ANSI"
@@ -1777,7 +2013,7 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
 
 /***************************************************************************/
 
-HB_FUNC( CREATELINK )
+HB_FUNC( HMG_CREATELINK )
 {
    int     iShowmode;        /* <Showmode> (optional) */
    int     iIconindex;       /* <Iconindex> (optional) */
@@ -1834,3 +2070,7 @@ HB_FUNC( CREATELINK )
    /* call CoUninitialize() and exit the program. */
    CoUninitialize();
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CREATELINK, HMG_CREATELINK )
+#endif

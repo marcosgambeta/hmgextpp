@@ -391,7 +391,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       CASE TBB1
          IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
             IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
-               SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
+               SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
          EXIT
@@ -399,7 +399,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       CASE TBB2
          IF _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
             IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
-               SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
+               SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
       END SWITCH
@@ -410,7 +410,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
             IF _HMG_aControlsContextMenu[i][4]
                hmg_setfocus(aHandle[1])
                _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
-               hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(HwndBtn), HIWORD(HwndBtn), ParentForm)
+               hmg_TrackPopupMenu(_HMG_aControlsContextMenu[i][2], hmg_LOWORD(HwndBtn), hmg_HIWORD(HwndBtn), ParentForm)
                RETURN 1
             ENDIF
          ENDIF

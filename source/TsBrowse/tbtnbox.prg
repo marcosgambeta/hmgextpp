@@ -58,8 +58,8 @@ METHOD TBtnBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    HB_SYMBOL_UNUSED(bChanged)
    HB_SYMBOL_UNUSED(bDown)
 
-   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT), ;
-           nClrBack  := GetSysColor(COLOR_WINDOW), ;
+   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT), ;
+           nClrBack  := hmg_GetSysColor(COLOR_WINDOW), ;
            nHeight   := 12, ;
            bMin      := {||0}, ;
            bMax      := {||32000}
@@ -113,7 +113,7 @@ METHOD TBtnBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
       ::AddVars(::hWnd)
       ::Default()
 
-      if GetObjectType(hFont) == OBJ_FONT
+      if hmg_GetObjectType(hFont) == OBJ_FONT
          hmg__SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
@@ -149,7 +149,7 @@ METHOD TBtnBox:HandleEvent(nMsg, nWParam, nLParam)
 
    // just used for some testings
    If nMsg == WM_NOTIFY
-      IF HiWord(nWParam) == NM_KILLFOCUS
+      IF hmg_HiWord(nWParam) == NM_KILLFOCUS
          ::LostFocus()
       Endif
    EndIf
@@ -283,20 +283,20 @@ METHOD TBtnBox:Command(nWParam, nLParam)
    LOCAL nID
    LOCAL hWndCtl
 
-   nNotifyCode := HiWord(nWParam)
-   nID         := LoWord(nWParam)
+   nNotifyCode := hmg_HiWord(nWParam)
+   nID         := hmg_LoWord(nWParam)
    hWndCtl     := nLParam
 
    do case
    case hWndCtl == 0
 
       * Enter ........................................
-      If HiWord(nWParam) == 0 .And. LoWord(nWParam) == 1
+      If hmg_HiWord(nWParam) == 0 .And. hmg_LoWord(nWParam) == 1
          ::KeyDown(VK_RETURN, 0)
       EndIf
 
       * Escape .......................................
-      If HiWord(nwParam) == 0 .And. LoWord(nwParam) == 2
+      If hmg_HiWord(nwParam) == 0 .And. hmg_LoWord(nwParam) == 2
          ::KeyDown(VK_ESCAPE, 0)
       EndIf
 

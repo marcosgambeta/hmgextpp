@@ -158,7 +158,7 @@
 #if(WINVER >= 0x0400)
 /* Value for rolling one detent */
 #define WHEEL_DELTA                     120
-#define GET_WHEEL_DELTA_WPARAM(wParam)  (HIWORD(wParam))
+#define GET_WHEEL_DELTA_WPARAM(wParam)  (hmg_HIWORD(wParam))
 #endif /* WINVER >= 0x0400 */
 
 // Generic WM_NOTIFY calls

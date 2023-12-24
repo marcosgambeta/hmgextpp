@@ -54,7 +54,7 @@
    [ ICONINDEX <iconidx> ] ;
    [ RESULT [ TO ] <nSuccess> ] ;
 => ;
-   [ <nSuccess> := ] CreateLink( <target>, <args>, <fname>, <desc>, ;
+   [ <nSuccess> := ] hmg_CreateLink( <target>, <args>, <fname>, <desc>, ;
                                  <nMode>, <curdir>, <iconfile>, <iconidx> )
 
 #command INSERT BEFORE           => dbInsert()
