@@ -47,13 +47,13 @@
 #define _WIN32_IE     0x0501
 
 #include "mgdefs.hpp"
-#if ( defined ( __MINGW32__ ) ) && ( _WIN32_WINNT < 0x0500 )
+#if defined(__MINGW32__) && (_WIN32_WINNT < 0x0500)
 #define _WIN32_WINNT  0x0500
 #endif
 
 #include <commctrl.h>
 #if defined(_MSC_VER)
-#pragma warning ( disable:4201 )
+#pragma warning (disable:4201)
 #endif
 #include <richedit.h>
 #include <shellapi.h>
@@ -61,6 +61,7 @@
 #include <hbapiitm.hpp>
 #include <hbapierr.hpp>
 #include <hbvm.hpp>
+#include <hbwinuni.hpp>
 
 #define WM_TASKBAR  WM_USER + 1043
 
@@ -95,7 +96,7 @@ HB_FUNC( DOMESSAGELOOP )
    MSG Msg;
    int status;
 
-   while( ( status = GetMessage(&Msg, nullptr, 0, 0) ) != 0 ) {
+   while( (status = GetMessage(&Msg, nullptr, 0, 0)) != 0 ) {
       if( status == -1 ) { // Exception
          // handle the error and possibly exit
          if( hb_parldef(1, true) ) {
@@ -106,7 +107,7 @@ HB_FUNC( DOMESSAGELOOP )
 
          if( hDlgModeless == nullptr || (
                 !IsDialogMessage(hDlgModeless, &Msg) &&
-                !TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) ) {
+                !TranslateAccelerator(g_hWndMain, g_hAccel, &Msg) ) ) {
             TranslateMessage(&Msg);
             DispatchMessage(&Msg);
          }
@@ -124,7 +125,7 @@ HB_FUNC( DOEVENTS )
 {
    MSG Msg;
 
-   while( PeekMessage(( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE) ) {
+   while( PeekMessage(static_cast<LPMSG>(&Msg), 0, 0, 0, PM_REMOVE) ) {
       hDlgModeless = GetActiveWindow();
 
       if( hDlgModeless == nullptr || !IsDialogMessage(hDlgModeless, &Msg) ) {
@@ -146,9 +147,7 @@ HB_FUNC( SHOWWINDOW )
 
 HB_FUNC( GETACTIVEWINDOW )
 {
-   auto hwnd = GetActiveWindow();
-
-   hmg_ret_HWND(hwnd);
+   hmg_ret_HWND(GetActiveWindow());
 }
 
 HB_FUNC( SETACTIVEWINDOW )
@@ -198,24 +197,14 @@ HB_FUNC( BRINGWINDOWTOTOP )
 
 HB_FUNC( GETFOREGROUNDWINDOW )
 {
-   HWND hwnd;
-
-   hwnd = GetForegroundWindow();
-   hmg_ret_HWND(hwnd);
+   hmg_ret_HWND(GetForegroundWindow());
 }
 
 HB_FUNC( SETWINDOWTEXT )
 {
-#ifndef UNICODE
-   LPCSTR lpString = static_cast<LPCSTR>(hb_parc(2));
-#else
-   LPCWSTR lpString = AnsiToWide(const_cast<char*>(hb_parc(2)));
-#endif
-   SetWindowText(hmg_par_HWND(1), lpString);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpString);
-#endif
+   void * str;
+   SetWindowText(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr));
+   hb_strfree(str);
 }
 
 HB_FUNC( SETWINDOWTEXTW )
@@ -230,11 +219,7 @@ HB_FUNC( SETWINDOWPOS )
 
 HB_FUNC( ANIMATEWINDOW )
 {
-   auto hWnd = hmg_par_HWND(1);
-   auto dwTime = hmg_par_DWORD(2);
-   auto dwFlags = hmg_par_DWORD(3);
-
-   hb_retl(static_cast<BOOL>(AnimateWindow(hWnd, dwTime, dwFlags)));
+   hb_retl(static_cast<BOOL>(AnimateWindow(hmg_par_HWND(1), hmg_par_DWORD(2), hmg_par_DWORD(3))));
 }
 
 HB_FUNC( FLASHWINDOWEX )
@@ -260,18 +245,17 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
       hb_retl(false);
 
       if( hDll != nullptr ) {
-         typedef BOOL ( __stdcall * SetLayeredWindowAttributes_ptr )( HWND, COLORREF, BYTE, DWORD );
+         typedef BOOL (__stdcall * SetLayeredWindowAttributes_ptr)(HWND, COLORREF, BYTE, DWORD);
 
-         SetLayeredWindowAttributes_ptr fn_SetLayeredWindowAttributes =
-            ( SetLayeredWindowAttributes_ptr ) wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes");
+         auto fn_SetLayeredWindowAttributes = reinterpret_cast<SetLayeredWindowAttributes_ptr>(wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes"));
 
          if( fn_SetLayeredWindowAttributes != nullptr ) {
             auto crKey = hmg_par_COLORREF(2);
             auto bAlpha = hmg_par_BYTE(3);
             auto dwFlags = hmg_par_DWORD(4);
 
-            if( !( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) ) {
-               SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
+            if( !(GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED) ) {
+               SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
             }
 
             hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? true : false);
@@ -284,26 +268,22 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 
 static BOOL CenterIntoParent(HWND hwnd)
 {
-   HWND hwndParent;
-   RECT rect, rectP;
-   int  width, height;
-   int  screenwidth, screenheight;
-   int  x, y;
-
    // make the window relative to its parent
-   hwndParent = GetParent(hwnd);
+   auto hwndParent = GetParent(hwnd);
 
+   RECT rect;
    GetWindowRect(hwnd, &rect);
+   RECT rectP;;
    GetWindowRect(hwndParent, &rectP);
 
-   width  = rect.right - rect.left;
-   height = rect.bottom - rect.top;
+   int width  = rect.right - rect.left;
+   int height = rect.bottom - rect.top;
 
-   x = ( ( rectP.right - rectP.left ) - width ) / 2 + rectP.left;
-   y = ( ( rectP.bottom - rectP.top ) - height ) / 2 + rectP.top;
+   int x = ((rectP.right - rectP.left) - width) / 2 + rectP.left;
+   int y = ((rectP.bottom - rectP.top) - height) / 2 + rectP.top;
 
-   screenwidth  = GetSystemMetrics(SM_CXSCREEN);
-   screenheight = GetSystemMetrics(SM_CYSCREEN);
+   int screenwidth  = GetSystemMetrics(SM_CXSCREEN);
+   int screenheight = GetSystemMetrics(SM_CYSCREEN);
 
    // make sure that the child window never moves outside of the screen
    if( x < 0 ) {
@@ -326,22 +306,19 @@ static BOOL CenterIntoParent(HWND hwnd)
 
 HB_FUNC( C_CENTER )
 {
-   RECT rect;
-   int  w, h, x, y;
-
    auto hwnd = hmg_par_HWND(1);
 
    if( hb_parl(2) ) {
       CenterIntoParent(hwnd);
    } else {
+      RECT rect;
       GetWindowRect(hwnd, &rect);
-      w = rect.right - rect.left;
-      h = rect.bottom - rect.top;
-      x = GetSystemMetrics(SM_CXSCREEN);
+      int w = rect.right - rect.left;
+      int h = rect.bottom - rect.top;
+      int x = GetSystemMetrics(SM_CXSCREEN);
       SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
-      y = rect.bottom - rect.top;
-
-      SetWindowPos(hwnd, HWND_TOP, ( x - w ) / 2, ( y - h ) / 2, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE);
+      int y = rect.bottom - rect.top;
+      SetWindowPos(hwnd, HWND_TOP, (x - w) / 2, (y - h) / 2, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE);
    }
 }
 
@@ -351,16 +328,13 @@ HB_FUNC( GETWINDOWTEXT )
    LPSTR pStr;
 #endif
    auto hWnd = hmg_par_HWND(1);
-   int    iLen   = GetWindowTextLength(hWnd);
-   LPTSTR szText = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR));
-
+   int iLen = GetWindowTextLength(hWnd);
+   auto szText = static_cast<TCHAR*>(hb_xgrab((iLen + 1) * sizeof(TCHAR)));
 #ifndef UNICODE
    iLen = GetWindowText(hWnd, szText, iLen + 1);
-
    hb_retclen(szText, iLen);
 #else
    GetWindowText(hWnd, szText, iLen + 1);
-
    pStr = WideToAnsi(szText);
    hb_retc( pStr );
    hb_xfree(pStr);
@@ -386,44 +360,40 @@ HB_FUNC( SENDMESSAGESTRING )
 
 HB_FUNC( GETNOTIFYCODE )
 {
-   LPARAM  lParam = HB_PARNL(1);
-   NMHDR * nmhdr  = ( NMHDR * ) lParam;
-
-   hb_retni( nmhdr->code );
+   LPARAM lParam = HB_PARNL(1);
+   auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
+   hb_retni(nmhdr->code);
 }
 
 HB_FUNC( GETNOTIFYLINK )
 {
-   LPARAM   lParam  = HB_PARNL(1);
-   ENLINK * pENLink = ( ENLINK * ) lParam;
-
-   hb_retnl( pENLink->msg );
+   LPARAM lParam = HB_PARNL(1);
+   auto pENLink = reinterpret_cast<ENLINK*>(lParam);
+   hb_retnl(pENLink->msg);
    HB_STORNL(static_cast<LONG_PTR>(pENLink->wParam), 2);
    HB_STORNL(static_cast<LONG_PTR>(pENLink->lParam), 3);
-   hb_stornl( pENLink->chrg.cpMin, 4 );
-   hb_stornl( pENLink->chrg.cpMax, 5 );
+   hb_stornl(pENLink->chrg.cpMin, 4);
+   hb_stornl(pENLink->chrg.cpMax, 5);
 }
 
 //JP 107a
 HB_FUNC( GETNOTIFYID )
 {
-   LPARAM  lParam = HB_PARNL(1);
-   NMHDR * nmhdr  = ( NMHDR * ) lParam;
-
+   LPARAM lParam = HB_PARNL(1);
+   auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
    HB_RETNL(static_cast<LONG_PTR>(nmhdr->idFrom)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETHWNDFROM )
 {
-   LPARAM  lParam = HB_PARNL(1);
-   NMHDR * nmhdr  = ( NMHDR * ) lParam;
-
+   LPARAM lParam = HB_PARNL(1);
+   auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
    hmg_ret_HWND(nmhdr->hwndFrom);
 }
 
 HB_FUNC( GETDRAWITEMHANDLE )
 {
-   hmg_ret_HWND(( ( DRAWITEMSTRUCT FAR * ) HB_PARNL(1) )->hwndItem);
+   hmg_ret_HWND((reinterpret_cast<DRAWITEMSTRUCT FAR*>(HB_PARNL(1)))->hwndItem);
 }
 
 HB_FUNC( GETFOCUS )
@@ -433,82 +403,75 @@ HB_FUNC( GETFOCUS )
 
 HB_FUNC( GETGRIDCOLUMN )
 {
-   hb_retnl( ( LPARAM ) ( ( ( NM_LISTVIEW * ) HB_PARNL(1) )->iSubItem ) );
+   hb_retnl(static_cast<LPARAM>((reinterpret_cast<NM_LISTVIEW*>(HB_PARNL(1)))->iSubItem));
 }
 
 HB_FUNC( GETGRIDVKEY )
 {
-   hb_retnl( ( LPARAM ) ( ( ( LV_KEYDOWN * ) HB_PARNL(1) )->wVKey ) );
+   hb_retnl(static_cast<LPARAM>((reinterpret_cast<LV_KEYDOWN*>(HB_PARNL(1)))->wVKey));
 }
 
 HB_FUNC( MOVEWINDOW )
 {
-   hb_retl(MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), ( HB_ISNIL(6) ? TRUE : hb_parl(6) )));
+   hb_retl(MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), (HB_ISNIL(6) ? TRUE : hb_parl(6))));
 }
 
 HB_FUNC( GETSYSTEMMETRICS )
 {
-   hb_retni( GetSystemMetrics(hb_parni(1)) );
+   hb_retni(GetSystemMetrics(hb_parni(1)));
 }
 
 HB_FUNC( GETWINDOWRECT )
 {
    RECT rect;
-
    GetWindowRect(hmg_par_HWND(1), &rect);
 
    if( HB_ISNUM(2) ) {
-      switch( hb_parni(2) )
-      {
-         case 1: hb_retni( rect.top ); break;
-         case 2: hb_retni( rect.left ); break;
-         case 3: hb_retni( rect.right - rect.left ); break;
-         case 4: hb_retni( rect.bottom - rect.top );
+      switch( hb_parni(2) ) {
+         case 1: hb_retni(rect.top); break;
+         case 2: hb_retni(rect.left); break;
+         case 3: hb_retni(rect.right - rect.left); break;
+         case 4: hb_retni(rect.bottom - rect.top);
       }
    } else if( HB_ISARRAY(2) ) {
-      HB_STORVNL( rect.left, 2, 1 );
-      HB_STORVNL( rect.top, 2, 2 );
-      HB_STORVNL( rect.right, 2, 3 );
-      HB_STORVNL( rect.bottom, 2, 4 );
+      HB_STORVNL(rect.left, 2, 1);
+      HB_STORVNL(rect.top, 2, 2);
+      HB_STORVNL(rect.right, 2, 3);
+      HB_STORVNL(rect.bottom, 2, 4);
    }
 }
 
 HB_FUNC( GETCLIENTRECT )
 {
    RECT rect;
-
    hb_retl(GetClientRect(hmg_par_HWND(1), &rect));
-   HB_STORVNL( rect.left, 2, 1 );
-   HB_STORVNL( rect.top, 2, 2 );
-   HB_STORVNL( rect.right, 2, 3 );
-   HB_STORVNL( rect.bottom, 2, 4 );
+   HB_STORVNL(rect.left, 2, 1);
+   HB_STORVNL(rect.top, 2, 2);
+   HB_STORVNL(rect.right, 2, 3);
+   HB_STORVNL(rect.bottom, 2, 4);
 }
 
 HB_FUNC( GETDESKTOPAREA )
 {
    RECT rect;
-
    SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
-
    hb_reta(4);
-   HB_STORNI( rect.left, -1, 1 );
-   HB_STORNI( rect.top, -1, 2 );
-   HB_STORNI( rect.right, -1, 3 );
-   HB_STORNI( rect.bottom, -1, 4 );
+   HB_STORNI(rect.left, -1, 1);
+   HB_STORNI(rect.top, -1, 2);
+   HB_STORNI(rect.right, -1, 3);
+   HB_STORNI(rect.bottom, -1, 4);
 }
 
 HB_FUNC( GETTASKBARHEIGHT )
 {
    RECT rect;
-
    GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), nullptr), &rect);
-   hb_retni( rect.bottom - rect.top );
+   hb_retni(rect.bottom - rect.top);
 }
 
-static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
+static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, const TCHAR * szText)
 {
    NOTIFYICONDATA nid{};
-
    nid.cbSize = sizeof(NOTIFYICONDATA);
    nid.hIcon  = hIcon;
    nid.hWnd   = hWnd;
@@ -516,28 +479,19 @@ static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    nid.uCallbackMessage = WM_TASKBAR;
    lstrcpy(nid.szTip, szText);
-
    return Shell_NotifyIcon(bAdd ? NIM_ADD : NIM_DELETE, &nid);
 }
 
 HB_FUNC( SHOWNOTIFYICON )
 {
-#ifndef UNICODE
-   auto szText = const_cast<char*>(hb_parc(4));
-#else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(4)));
-#endif
-   hb_retl(static_cast<BOOL>(ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText)));
-
-#ifdef UNICODE
-   hb_xfree(szText);
-#endif
+   void * str;
+   hb_retl(static_cast<BOOL>(ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), HB_PARSTR(4, &str, nullptr))));
+   hb_strfree(str);
 }
 
 HB_FUNC( GETCURSORPOS )
 {
    POINT pt;
-
    GetCursorPos(&pt);
    if( hb_pcount() == 1 ) {
       ScreenToClient(hmg_par_HWND(1), &pt);
@@ -545,11 +499,11 @@ HB_FUNC( GETCURSORPOS )
 
    hb_reta(2);
    if( hb_pcount() == 0 ) {
-      HB_STORNI( pt.y, -1, 1 );
-      HB_STORNI( pt.x, -1, 2 );
+      HB_STORNI(pt.y, -1, 1);
+      HB_STORNI(pt.x, -1, 2);
    } else {
-      HB_STORNI( pt.x, -1, 1 );
-      HB_STORNI( pt.y, -1, 2 );
+      HB_STORNI(pt.x, -1, 1);
+      HB_STORNI(pt.y, -1, 2);
    }
 }
 
@@ -557,96 +511,75 @@ HB_FUNC( SCREENTOCLIENT )
 {
    auto x = hmg_par_LONG(2);
    auto y = hmg_par_LONG(3);
-   POINT pt;
 
+   POINT pt;
    pt.x = x;
    pt.y = y;
-
    ScreenToClient(hmg_par_HWND(1), &pt);
 
    hb_reta(2);
-   HB_STORNI( pt.x, -1, 1 );
-   HB_STORNI( pt.y, -1, 2 );
+   HB_STORNI(pt.x, -1, 1);
+   HB_STORNI(pt.y, -1, 2);
 }
 
 HB_FUNC( CLIENTTOSCREEN )
 {
    auto x = hmg_par_LONG(2);
    auto y = hmg_par_LONG(3);
-   POINT pt;
 
+   POINT pt;
    pt.x = x;
    pt.y = y;
-
    hb_retl(ClientToScreen(hmg_par_HWND(1), &pt));
 
    if( HB_ISBYREF(2) ) {
-      hb_storni( pt.x, 2 );
+      hb_storni(pt.x, 2);
    }
    if( HB_ISBYREF(3) ) {
-      hb_storni( pt.y, 3 );
+      hb_storni(pt.y, 3);
    }
 }
 
 HB_FUNC( LOADTRAYICON )
 {
    HINSTANCE hInstance = hmg_par_HINSTANCE(1);                                       // handle to application instance
-
-#ifndef UNICODE
-   LPCTSTR lpIconName = HB_ISCHAR(2) ? hb_parc(2) : MAKEINTRESOURCE(hb_parni(2));   // name string or resource identifier
-#else
-   LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide(const_cast<char*>(hb_parc(2))) : static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parni(2)));
-#endif
+   void * str = nullptr;
+   LPCTSTR lpIconName = HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)); // name string or resource identifier
    int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
    int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
-
    auto hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
-
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
-
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
-
-#ifdef UNICODE
    if( HB_ISCHAR(2) ) {
-      hb_xfree(( TCHAR * ) lpIconName);
+      hb_strfree(str);
    }
-#endif
 }
 
-static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, TCHAR * szText)
+static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, const TCHAR * szText)
 {
    NOTIFYICONDATA nid{};
-
    nid.cbSize = sizeof(NOTIFYICONDATA);
    nid.hIcon  = hIcon;
    nid.hWnd   = hWnd;
    nid.uID    = 0;
    nid.uFlags = NIF_ICON | NIF_TIP;
    lstrcpy(nid.szTip, szText);
-
    return Shell_NotifyIcon(NIM_MODIFY, &nid);
 }
 
 HB_FUNC( CHANGENOTIFYICON )
 {
-#ifndef UNICODE
-   auto szText = const_cast<char*>(hb_parc(3));
-#else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(3)));
-#endif
-   hb_retl(static_cast<BOOL>(ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText)));
-
-#ifdef UNICODE
-   hb_xfree(szText);
-#endif
+   void * str;
+   hb_retl(static_cast<BOOL>(ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), HB_PARSTR(3, &str, nullptr))));
+   hb_strfree(str);
 }
 
 HB_FUNC( GETITEMPOS )
 {
-   HB_RETNL(static_cast<LONG_PTR>( ( ( NMMOUSE FAR * ) HB_PARNL(1) )->dwItemSpec ) ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<NMMOUSE FAR*>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( SETSCROLLRANGE )
@@ -656,18 +589,15 @@ HB_FUNC( SETSCROLLRANGE )
 
 HB_FUNC( GETSCROLLPOS )
 {
-   hb_retni( GetScrollPos(hmg_par_HWND(1), hb_parni(2)) );
+   hb_retni(GetScrollPos(hmg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC( GETWINDOWSTATE )
 {
    WINDOWPLACEMENT wp;
-
    wp.length = sizeof(WINDOWPLACEMENT);
-
    GetWindowPlacement(hmg_par_HWND(1), &wp);
-
-   hb_retni( wp.showCmd );
+   hb_retni(wp.showCmd);
 }
 
 HB_FUNC( GETPARENT )
@@ -683,19 +613,15 @@ HB_FUNC( GETDESKTOPWINDOW )
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
-
    hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(pArray), pHWnd);
    hb_itemRelease(pHWnd);
-
    return TRUE;
 }
 
 HB_FUNC( ENUMWINDOWS )
 {
    auto pArray = hb_itemArrayNew(0);
-
-   EnumWindows(( WNDENUMPROC ) EnumWindowsProc, reinterpret_cast<LPARAM>(pArray));
-
+   EnumWindows(static_cast<WNDENUMPROC>(EnumWindowsProc), reinterpret_cast<LPARAM>(pArray));
    hb_itemReturnRelease(pArray);
 }
 
@@ -726,12 +652,10 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
 HB_FUNC( REDRAWWINDOWCONTROLRECT )
 {
    RECT r;
-
    r.top    = hb_parni(2);
    r.left   = hb_parni(3);
    r.bottom = hb_parni(4);
    r.right  = hb_parni(5);
-
    RedrawWindow(hmg_par_HWND(1), &r, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
@@ -811,30 +735,25 @@ HB_FUNC( C_SETWINDOWRGN )
    if( hb_parni(6) == 0 ) {
       SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
    } else {
-      switch( hb_parni(6) )
-      {
+      switch( hb_parni(6) ) {
          case 1:
             hRgn = CreateRectRgn(hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
             break;
-
          case 2:
             hRgn = CreateEllipticRgn(hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
             break;
-
          case 3:
             hRgn = CreateRoundRectRgn(0, 0, hb_parni(4), hb_parni(5), hb_parni(2), hb_parni(3));
             break;
-
          case 4:
-            hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+            hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), const_cast<TCHAR*>(hb_parc(2)), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
             if( hbmp == nullptr ) {
-               hbmp = static_cast<HBITMAP>(LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
+               hbmp = static_cast<HBITMAP>(LoadImage(nullptr, const_cast<TCHAR*>(hb_parc(2)), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
             }
 
             hRgn = BitmapToRegion(hbmp, static_cast<COLORREF>(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3))), 0x101010);
             DeleteObject(hbmp);
             break;
-
          default:
             break;
       }
@@ -873,22 +792,22 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
 
 HB_FUNC( GETHELPDATA )
 {
-   hmg_ret_HANDLE(( ( HELPINFO FAR * ) HB_PARNL(1) )->hItemHandle);
+   hmg_ret_HANDLE((reinterpret_cast<HELPINFO FAR*>(HB_PARNL(1)))->hItemHandle);
 }
 
 HB_FUNC( GETMSKTEXTMESSAGE )
 {
-   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->msg )); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTWPARAM )
 {
-   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->wParam )); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTLPARAM )
 {
-   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->lParam )); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETWINDOW )
@@ -898,37 +817,35 @@ HB_FUNC( GETWINDOW )
 
 HB_FUNC( GETGRIDOLDSTATE )
 {
-   LPARAM        lParam = HB_PARNL(1);
-   NM_LISTVIEW * NMLV   = ( NM_LISTVIEW * ) lParam;
-
-   hb_retni( NMLV->uOldState );
+   LPARAM lParam = HB_PARNL(1);
+   auto NMLV = reinterpret_cast<NM_LISTVIEW*>(lParam);
+   hb_retni(NMLV->uOldState);
 }
 
 HB_FUNC( GETGRIDNEWSTATE )
 {
-   LPARAM        lParam = HB_PARNL(1);
-   NM_LISTVIEW * NMLV   = ( NM_LISTVIEW * ) lParam;
-
-   hb_retni( NMLV->uNewState );
+   LPARAM lParam = HB_PARNL(1);
+   auto NMLV = reinterpret_cast<NM_LISTVIEW*>(lParam);
+   hb_retni(NMLV->uNewState);
 }
 
 HB_FUNC( GETGRIDDISPINFOINDEX )
 {
-   LPARAM        lParam    = HB_PARNL(1);
-   LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
+   LPARAM lParam = HB_PARNL(1);
+   auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
 
    int iItem    = pDispInfo->item.iItem;
    int iSubItem = pDispInfo->item.iSubItem;
 
    hb_reta(2);
-   HB_STORNI( iItem + 1, -1, 1 );
-   HB_STORNI( iSubItem + 1, -1, 2 );
+   HB_STORNI(iItem + 1, -1, 1);
+   HB_STORNI(iSubItem + 1, -1, 2);
 }
 
 HB_FUNC( SETGRIDQUERYDATA )
 {
-   LPARAM        lParam    = HB_PARNL(1);
-   LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
+   LPARAM lParam = HB_PARNL(1);
+   auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
 
    // Copy the text to the LV_ITEM structure
    // Maximum number of characters is in pDispInfo->Item.cchTextMax
@@ -943,129 +860,99 @@ HB_FUNC( SETGRIDQUERYDATA )
 
 HB_FUNC( SETGRIDQUERYIMAGE )
 {
-   LPARAM        lParam    = HB_PARNL(1);
-   LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
-
+   LPARAM lParam = HB_PARNL(1);
+   auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
    pDispInfo->item.iImage = hb_parni(2);
 }
 
 HB_FUNC( FINDWINDOWEX )
 {
-#ifndef UNICODE
-   LPCSTR lpszClass  = const_cast<char*>(hb_parc(3));
-   LPCSTR lpszWindow = const_cast<char*>(hb_parc(4));
-#else
-   LPWSTR lpszClass  = ( hb_parc(3) != nullptr ) ? hb_osStrU16Encode(hb_parc(3)) : nullptr;
-   LPWSTR lpszWindow = ( hb_parc(4) != nullptr ) ? hb_osStrU16Encode(hb_parc(4)) : nullptr;
-#endif
-   hmg_ret_HWND(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow));
-
-#ifdef UNICODE
-   if( lpszClass != nullptr ) {
-      hb_xfree(lpszClass);
-   }
-   if( lpszWindow != nullptr ) {
-      hb_xfree(lpszWindow);
-   }
-#endif
-
+   void * str1 = nullptr;
+   void * str2 = nullptr;
+   hmg_ret_HWND(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), HB_PARSTR(3, &str1, nullptr), HB_PARSTR(4, &str2, nullptr)));
+   hb_strfree(str1);
+   hb_strfree(str2);
 }
 
 HB_FUNC( GETDS )
 {
    LPARAM lParam = HB_PARNL(1);
-   LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
+   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
 
    if( lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT ) {
-      hb_retni( CDRF_NOTIFYITEMDRAW );
+      hb_retni(CDRF_NOTIFYITEMDRAW);
    } else if( lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT ) {
       if( hb_pcount() > 1 ) {
          if( ListView_GetNextItem(hmg_par_HWND(2), -1, LVNI_ALL | LVNI_SELECTED) == hb_parni(3) ) {
             ListView_SetItemState(hmg_par_HWND(2), hb_parni(3), 0, LVIS_SELECTED);
          }
       }
-      hb_retni( CDRF_NOTIFYSUBITEMDRAW );
-   } else if( lplvcd->nmcd.dwDrawStage == ( CDDS_SUBITEM | CDDS_ITEMPREPAINT ) ) {
-      hb_retni( -1 );
+      hb_retni(CDRF_NOTIFYSUBITEMDRAW);
+   } else if( lplvcd->nmcd.dwDrawStage == (CDDS_SUBITEM | CDDS_ITEMPREPAINT) ) {
+      hb_retni(-1);
    } else {
-      hb_retni( CDRF_DODEFAULT );
+      hb_retni(CDRF_DODEFAULT);
    }
 }
 
 HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
 {
    LPARAM lParam = HB_PARNL(1);
-   LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
-
+   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    hb_reta(2);
-   HB_STORVNL( lplvcd->nmcd.dwItemSpec + 1, -1, 1 );
-   HB_STORNI( lplvcd->iSubItem + 1, -1, 2 );
+   HB_STORVNL(lplvcd->nmcd.dwItemSpec + 1, -1, 1);
+   HB_STORNI(lplvcd->iSubItem + 1, -1, 2);
 }
 
 HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor
 {
    LPARAM lParam = HB_PARNL(1);
-   LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
-
+   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    lplvcd->clrTextBk = hb_parni(2);
    lplvcd->clrText   = hb_parni(3);
-
-   hb_retni( CDRF_NEWFONT );
+   hb_retni(CDRF_NEWFONT);
 }
 
 HB_FUNC( SETBRCCD )  // Set Default BackColor and ForeColor
 {
    LPARAM lParam = HB_PARNL(1);
-   LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
-
+   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    lplvcd->clrText   = RGB(0, 0, 0);
    lplvcd->clrTextBk = RGB(255, 255, 255);
-
-   hb_retni( CDRF_NEWFONT );
+   hb_retni(CDRF_NEWFONT);
 }
 
 HB_FUNC( GETTABBEDCONTROLBRUSH )
 {
-   RECT   rc;
-   HBRUSH hBrush;
    auto hDC = hmg_par_HDC(1);
-
    SetBkMode(hDC, TRANSPARENT);
+   RECT rc;
    GetWindowRect(hmg_par_HWND(2), &rc);
-   MapWindowPoints(nullptr, hmg_par_HWND(3), ( LPPOINT ) (&rc), 2);
+   MapWindowPoints(nullptr, hmg_par_HWND(3), reinterpret_cast<LPPOINT>(&rc), 2);
    SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
-   hBrush = hmg_par_HBRUSH(4);
-
+   auto hBrush = hmg_par_HBRUSH(4);
    hmg_ret_HBRUSH(hBrush);
 }
 
 HB_FUNC( GETTABBRUSH )
 {
-   RECT    rc;
    auto hWnd = hmg_par_HWND(1);
-
+   RECT rc;
    GetWindowRect(hWnd, &rc);
    auto hDC = GetDC(hWnd);
    auto hDCMem = CreateCompatibleDC(hDC);
-
    auto hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
-
    auto hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
-
-   SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
-
+   SendMessage(hWnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hDCMem), PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
    auto hBrush = CreatePatternBrush(hBmp);
-
    hmg_ret_HBRUSH(hBrush);
-
    SelectObject(hDCMem, hOldBmp);
-
    DeleteObject(hBmp);
    DeleteDC(hDCMem);
    ReleaseDC(hWnd, hDC);
 }
 
-HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
+HB_FUNC( INITMINMAXINFO ) // (hWnd) --> aMinMaxInfo
 {
    long x, y, mx, my;
 
@@ -1081,20 +968,19 @@ HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
    my = GetSystemMetrics(SM_CYSCREEN) - 2 * y;
 
    hb_reta(8);
-   HB_STORVNL( mx, -1, 1 );
-   HB_STORVNL( my, -1, 2 );
-   HB_STORVNL( x, -1, 3 );
-   HB_STORVNL( y, -1, 4 );
-   HB_STORVNL( 0, -1, 5 );
-   HB_STORVNL( 0, -1, 6 );
-   HB_STORVNL( mx, -1, 7 );
-   HB_STORVNL( my, -1, 8 );
+   HB_STORVNL(mx, -1, 1);
+   HB_STORVNL(my, -1, 2);
+   HB_STORVNL(x, -1, 3);
+   HB_STORVNL(y, -1, 4);
+   HB_STORVNL(0, -1, 5);
+   HB_STORVNL(0, -1, 6);
+   HB_STORVNL(mx, -1, 7);
+   HB_STORVNL(my, -1, 8);
 }
 
-HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
+HB_FUNC( SETMINMAXINFO ) // (pMinMaxInfo, aMinMaxInfo) --> 0
 {
-   MINMAXINFO * pMinMaxInfo = ( MINMAXINFO * ) HB_PARNL(1);
-
+   auto pMinMaxInfo = reinterpret_cast<MINMAXINFO*>(HB_PARNL(1));
    pMinMaxInfo->ptMaxSize.x      = HB_PARNI(2, 1);
    pMinMaxInfo->ptMaxSize.y      = HB_PARNI(2, 2);
    pMinMaxInfo->ptMaxPosition.x  = HB_PARNI(2, 3);
@@ -1103,7 +989,6 @@ HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
    pMinMaxInfo->ptMinTrackSize.y = HB_PARNI(2, 6);
    pMinMaxInfo->ptMaxTrackSize.x = HB_PARNI(2, 7);
    pMinMaxInfo->ptMaxTrackSize.y = HB_PARNI(2, 8);
-
    hb_retni(0);
 }
 
@@ -1119,7 +1004,7 @@ HB_FUNC( ISWINDOWHANDLE )
 
 HB_FUNC( ISICONIC )
 {
-   hb_retl(IsIconic( hmg_par_HWND(1) ));
+   hb_retl(IsIconic(hmg_par_HWND(1)));
 }
 
 HB_FUNC( ISZOOMED )
@@ -1145,28 +1030,17 @@ HB_FUNC( CREATEHATCHBRUSH )
 /* Modified by P.Ch. 16.10. */
 HB_FUNC( CREATEPATTERNBRUSH )
 {
-#ifndef UNICODE
-   LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr );
-#else
-   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(const_cast<char*>(hb_parc(1))) : ( HB_ISNUM(1) ? static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parni(1))) : nullptr );
-#endif
-
+   void * str = nullptr;
+   LPCTSTR lpImageName = HB_ISCHAR(1) ? HB_PARSTR(1, &str, nullptr) : (HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr);
    auto hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-
    if( hImage == nullptr && HB_ISCHAR(1) ) {
       hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
    if( hImage == nullptr ) {
       hImage = HMG_LoadImage(hb_parc(1), nullptr);
    }
-
-   hmg_ret_HBRUSH(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
-
-#ifdef UNICODE
-   if( HB_ISCHAR(1) ) {
-      hb_xfree(( TCHAR * ) lpImageName);
-   }
-#endif
+   hmg_ret_HBRUSH((hImage != nullptr) ? CreatePatternBrush(hImage) : nullptr);
+   hb_strfree(str);
 }
 
 /*
@@ -1192,45 +1066,40 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
    VOID * pbits32;
    DWORD  maxRects = ALLOC_UNIT;
 
-   if( hBmp ) {
+   if( hBmp != nullptr ) {
       // Create a memory DC inside which we will scan the bitmap content
       auto hMemDC = CreateCompatibleDC(nullptr);
-      if( hMemDC ) {
-         BITMAP bm;
-         BITMAPINFOHEADER RGB32BITSBITMAPINFO;
-         HBITMAP          hbm32;
-
+      if( hMemDC != nullptr ) {
          // Get bitmap size
+         BITMAP bm;
          GetObject(hBmp, sizeof(bm), &bm);
 
          // Create a 32 bits depth bitmap and select it into the memory DC
+         BITMAPINFOHEADER RGB32BITSBITMAPINFO{};
          RGB32BITSBITMAPINFO.biSize          = sizeof(BITMAPINFOHEADER);
          RGB32BITSBITMAPINFO.biWidth         = bm.bmWidth;
          RGB32BITSBITMAPINFO.biHeight        = bm.bmHeight;
          RGB32BITSBITMAPINFO.biPlanes        = 1;
          RGB32BITSBITMAPINFO.biBitCount      = 32;
          RGB32BITSBITMAPINFO.biCompression   = BI_RGB;
-         RGB32BITSBITMAPINFO.biSizeImage     = 0;
-         RGB32BITSBITMAPINFO.biXPelsPerMeter = 0;
-         RGB32BITSBITMAPINFO.biYPelsPerMeter = 0;
-         RGB32BITSBITMAPINFO.biClrUsed       = 0;
-         RGB32BITSBITMAPINFO.biClrImportant  = 0;
+         //RGB32BITSBITMAPINFO.biSizeImage     = 0;
+         //RGB32BITSBITMAPINFO.biXPelsPerMeter = 0;
+         //RGB32BITSBITMAPINFO.biYPelsPerMeter = 0;
+         //RGB32BITSBITMAPINFO.biClrUsed       = 0;
+         //RGB32BITSBITMAPINFO.biClrImportant  = 0;
 
-         hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, nullptr, 0);
-         if( hbm32 ) {
+         HBITMAP hbm32 = CreateDIBSection(hMemDC, reinterpret_cast<BITMAPINFO*>(&RGB32BITSBITMAPINFO), DIB_RGB_COLORS, &pbits32, nullptr, 0);
+         if( hbm32 != nullptr ) {
             auto holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
 
             // Create a DC just to copy the bitmap into the memory DC
             auto hDC = CreateCompatibleDC(hMemDC);
-            if( hDC ) {
+            if( hDC != nullptr ) {
                // Get how many bytes per row we have for the bitmap bits (rounded up to 32 bits)
-               BITMAP    bm32;
-               HANDLE    hData;
-               RGNDATA * pData;
                BYTE *    p32;
-               BYTE      lr, lg, lb;
                HRGN      h;
 
+               BITMAP bm32;
                GetObject(hbm32, sizeof(bm32), &bm32);
                while( bm32.bmWidthBytes % 4 ) {
                   bm32.bmWidthBytes++;
@@ -1243,28 +1112,28 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                // For better performances, we will use the  ExtCreateRegion() function to create the  region.
                // This function take a RGNDATA structure on  entry.
                // We will add rectangles by amount of ALLOC_UNIT number in this structure.
-               hData = GlobalAlloc(GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ));
+               HANDLE hData = GlobalAlloc(GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects));
 
-               pData = ( RGNDATA * ) GlobalLock(hData);
+               auto pData = static_cast<RGNDATA*>(GlobalLock(hData));
                pData->rdh.dwSize = sizeof(RGNDATAHEADER);
                pData->rdh.iType  = RDH_RECTANGLES;
                pData->rdh.nCount = pData->rdh.nRgnSize = 0;
                SetRect(&pData->rdh.rcBound, MAXLONG, MAXLONG, 0, 0);
 
                // Keep on hand highest and lowest values for the  "transparent" pixels
-               lr = GetRValue(cTransparentColor);
-               lg = GetGValue(cTransparentColor);
-               lb = GetBValue(cTransparentColor);
+               BYTE lr = GetRValue(cTransparentColor);
+               BYTE lg = GetGValue(cTransparentColor);
+               BYTE lb = GetBValue(cTransparentColor);
                auto hr = static_cast<BYTE>(HB_MIN(0xff, lr + GetRValue(cTolerance)));
                auto hg = static_cast<BYTE>(HB_MIN(0xff, lg + GetGValue(cTolerance)));
                auto hb = static_cast<BYTE>(HB_MIN(0xff, lb + GetBValue(cTolerance)));
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
-               p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;
+               p32 = static_cast<BYTE*>(bm32.bmBits) + (bm32.bmHeight - 1) * bm32.bmWidthBytes;
                for( auto y = 0; y < bm.bmHeight; y++ ) {    // Scan each bitmap pixel from left to right
                   for( auto x = 0; x < bm.bmWidth; x++ ) {  // Search for a continuous range of "non transparent pixels"
-                     int    x0 = x;
-                     LONG * p  = ( LONG * ) p32 + x;
+                     int x0 = x;
+                     auto p  = reinterpret_cast<LONG*>(p32) + x;
                      while( x < bm.bmWidth ) {
                         BYTE b = GetRValue(*p);
                         if( b >= lr && b <= hr ) {
@@ -1286,11 +1155,11 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         if( pData->rdh.nCount >= maxRects ) {
                            GlobalUnlock(hData);
                            maxRects += ALLOC_UNIT;
-                           hData     = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), GMEM_MOVEABLE);
-                           pData     = ( RGNDATA * ) GlobalLock(hData);
+                           hData = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), GMEM_MOVEABLE);
+                           pData = static_cast<RGNDATA*>(GlobalLock(hData));
                         }
 
-                        pr = ( RECT * ) &pData->Buffer;
+                        pr = reinterpret_cast<RECT*>(&pData->Buffer);
                         SetRect(&pr[pData->rdh.nCount], x0, y, x, y + 1);
                         if( x0 < pData->rdh.rcBound.left ) {
                            pData->rdh.rcBound.left = x0;
@@ -1314,8 +1183,8 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         // large (ie: > 4000).
                         // Therefore, we have to create the region by multiple steps.
                         if( pData->rdh.nCount == 2000 ) {
-                           h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
-                           if( hRgn ) {
+                           h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), pData);
+                           if( hRgn != nullptr ) {
                               CombineRgn(hRgn, hRgn, h, RGN_OR);
                               DeleteObject(h);
                            } else {
@@ -1333,8 +1202,8 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                }
 
                // Create or extend the region with the remaining  rectangles
-               h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
-               if( hRgn ) {
+               h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), pData);
+               if( hRgn != nullptr ) {
                   CombineRgn(hRgn, hRgn, h, RGN_OR);
                   DeleteObject(h);
                } else {
