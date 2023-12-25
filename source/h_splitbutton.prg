@@ -64,7 +64,7 @@ PROCEDURE _DefineSplitButton(cName, nRow, nCol, cCaption, bAction, cParent, ;
 
    hParentFormHandle := GetFormHandle(cParent)
 
-   hControlHandle := InitSplitButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
+   hControlHandle := hmg_InitSplitButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
@@ -280,9 +280,9 @@ RETURN NIL
 #include "hbwinuni.hpp"
 
 /*
-INITSPLITBUTTON(HWND, np2, np3, cp4, lp5, np6, np7, p8) --> HWND
+HMG_INITSPLITBUTTON(HWND, np2, np3, cp4, lp5, np6, np7, p8) --> HWND
 */
-HB_FUNC( INITSPLITBUTTON )
+HB_FUNC( HMG_INITSPLITBUTTON )
 {
    DWORD style = hb_parl(5) ? BS_DEFSPLITBUTTON : BS_SPLITBUTTON;
 
@@ -304,6 +304,10 @@ HB_FUNC( INITSPLITBUTTON )
 
    hmg_ret_HWND(hbutton);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( INITSPLITBUTTON, HMG_INITSPLITBUTTON )
+#endif
 
 #pragma ENDDUMP
 
