@@ -335,7 +335,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
    i := GetFormIndex(ParentForm)
    IF i > 0
 
-      Formhandle := InitMdiChildWindow(_HMG_MainClientMDIHandle, Title, x, y, w, h, nominimize, nomaximize, nocaption, novscroll, nohscroll)
+      Formhandle := hmg_InitMdiChildWindow(_HMG_MainClientMDIHandle, Title, x, y, w, h, nominimize, nomaximize, nocaption, novscroll, nohscroll)
 
       _SetWindowProperty(Formhandle, "PROP_CFILE", iif(Empty(Title), "No Title", Title))
       _SetWindowProperty(Formhandle, "PROP_FORMNAME", FormName)

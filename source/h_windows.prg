@@ -274,8 +274,8 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    IF mdi
       _HMG_BeginWindowMDIActive := .T.  // JP MDI
-      BrushHandle := RegisterMDIWindow(icon, FormName, aRGB)
-      Formhandle := InitMDIWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, FormName, ParentHandle, vscroll, hscroll, helpbutton)
+      BrushHandle := hmg_RegisterMDIWindow(icon, FormName, aRGB)
+      Formhandle := hmg_InitMDIWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, FormName, ParentHandle, vscroll, hscroll, helpbutton)
    ELSE
       BrushHandle := hmg_RegisterWindow(icon, ClassName, aRGB, cursor)  /* P.Ch. 16.10. */
       Formhandle := hmg_InitWindow(Caption, x, y, w, h, nominimize, nomaximize, nosize, nosysmenu, nocaption, topmost, ClassName, ParentHandle, vscroll, hscroll, helpbutton, palette, panel)

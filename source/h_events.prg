@@ -882,7 +882,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    //**************************************************************************
 
       IF _HMG_BeginWindowMDIActive .AND. _HMG_MainClientMDIHandle == 0
-         _HMG_MainClientMDIHandle := InitMDIClientWindow(hWnd)
+         _HMG_MainClientMDIHandle := hmg_InitMDIClientWindow(hWnd)
       ENDIF
       EXIT
    //**************************************************************************
@@ -1785,7 +1785,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF wParam != SIZE_MINIMIZED
 
-                  SizeClientWindow(hWnd, _HMG_ActiveStatusHandle, _HMG_MainClientMDIHandle, r)
+                  hmg_SizeClientWindow(hWnd, _HMG_ActiveStatusHandle, _HMG_MainClientMDIHandle, r)
 
                ENDIF
 

@@ -58,9 +58,9 @@ LRESULT CALLBACK  MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPa
 static HWND hwndMDIClient;
 
 /*
-REGISTERMDIWINDOW() -->
+HMG_REGISTERMDIWINDOW() -->
 */
-HB_FUNC( REGISTERMDIWINDOW )
+HB_FUNC( HMG_REGISTERMDIWINDOW )
 {
    void * str1 = nullptr;
    LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : nullptr;
@@ -136,6 +136,10 @@ HB_FUNC( REGISTERMDIWINDOW )
    hmg_ret_HBRUSH(hbrush);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REGISTERMDIWINDOW, HMG_REGISTERMDIWINDOW )
+#endif
+
 LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
@@ -190,7 +194,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
    }
 }
 
-HB_FUNC( INITMDIWINDOW )
+HB_FUNC( HMG_INITMDIWINDOW )
 {
    void * str1;
    LPCTSTR lpWindowName = HB_PARSTR(1, &str1, nullptr);
@@ -261,10 +265,14 @@ HB_FUNC( INITMDIWINDOW )
    hmg_ret_HWND(hwnd);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMDIWINDOW, HMG_INITMDIWINDOW )
+#endif
+
 /*
-INITMDICLIENTWINDOW() -->
+HMG_INITMDICLIENTWINDOW() -->
 */
-HB_FUNC( INITMDICLIENTWINDOW )
+HB_FUNC( HMG_INITMDICLIENTWINDOW )
 {
    auto hwndparent = hmg_par_HWND(1);
    int icount = GetMenuItemCount(GetMenu(hwndparent));
@@ -295,10 +303,14 @@ HB_FUNC( INITMDICLIENTWINDOW )
    hmg_ret_HWND(hwndMDIClient);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMDICLIENTWINDOW, HMG_INITMDICLIENTWINDOW )
+#endif
+
 /*
-INITMDICHILDWINDOW() -->
+HMG_INITMDICHILDWINDOW() -->
 */
-HB_FUNC( INITMDICHILDWINDOW )
+HB_FUNC( HMG_INITMDICHILDWINDOW )
 {
    TCHAR rgch[150];
    static int cUntitled;
@@ -364,34 +376,50 @@ HB_FUNC( INITMDICHILDWINDOW )
    hmg_ret_HWND(hwndChild);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITMDICHILDWINDOW, HMG_INITMDICHILDWINDOW )
+#endif
+
 /*
-ARRANGEICONICWINDOWS(HWND) --> numeric
+HMG_ARRANGEICONICWINDOWS(HWND) --> numeric
 */
-HB_FUNC( ARRANGEICONICWINDOWS )
+HB_FUNC( HMG_ARRANGEICONICWINDOWS )
 {
    hb_retni(ArrangeIconicWindows(hmg_par_HWND(1)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( ARRANGEICONICWINDOWS, HMG_ARRANGEICONICWINDOWS )
+#endif
+
 /*
-DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
+HMG_DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
 */
-HB_FUNC( DEFMDICHILDPROC )
+HB_FUNC( HMG_DEFMDICHILDPROC )
 {
    hb_retnl(DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DEFMDICHILDPROC, HMG_DEFMDICHILDPROC )
+#endif
+
 /*
-DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
+HMG_DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
 */
-HB_FUNC( DEFFRAMEPROC )
+HB_FUNC( HMG_DEFFRAMEPROC )
 {
    hb_retnl(DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DEFFRAMEPROC, HMG_DEFFRAMEPROC )
+#endif
+
 /*
-SIZECLIENTWINDOW(HWND, HWND, HWND, np4) --> NIL
+HMG_SIZECLIENTWINDOW(HWND, HWND, HWND, np4) --> NIL
 */
-HB_FUNC( SIZECLIENTWINDOW )
+HB_FUNC( HMG_SIZECLIENTWINDOW )
 {
    RECT rcClient;
    GetClientRect(hmg_par_HWND(1), &rcClient);
@@ -404,3 +432,7 @@ HB_FUNC( SIZECLIENTWINDOW )
    rcClient.top = hb_parnl(4);
    MoveWindow(hmg_par_HWND(3), rcClient.left, rcClient.top, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top, TRUE);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SIZECLIENTWINDOW, HMG_SIZECLIENTWINDOW )
+#endif
