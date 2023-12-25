@@ -64,9 +64,9 @@ PROCEDURE _DefineCLButton(cName, nRow, nCol, cCaption, cNotes, bAction, cParent,
 
    hParentFormHandle := GetFormHandle(cParent)
 
-   hControlHandle := InitCLButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
+   hControlHandle := hmg_InitCLButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
 
-   CLButton_SetNote(hControlHandle, cNotes)
+   hmg_CLButton_SetNote(hControlHandle, cNotes)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
@@ -125,7 +125,7 @@ PROCEDURE _DefineCLButton(cName, nRow, nCol, cCaption, cNotes, bAction, cParent,
 
    IF !Empty(cBitmap)
       _HMG_aControlPicture[k] := cBitmap
-      _HMG_aControlBrushHandle[k] := CLButton_SetImage(hControlHandle, cBitmap)
+      _HMG_aControlBrushHandle[k] := hmg_CLButton_SetImage(hControlHandle, cBitmap)
    ENDIF
 
 RETURN
@@ -364,7 +364,7 @@ PROCEDURE SetCLButtonNoteText(cWindow, cControl, cProperty, cValue)
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
-      CLButton_SetNote(GetControlHandle(cControl, cWindow), cValue)
+      hmg_CLButton_SetNote(GetControlHandle(cControl, cWindow), cValue)
 
       _HMG_UserComponentProcess := .T.
 
@@ -408,7 +408,7 @@ PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
          hmg_IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
       ENDIF
 
-      _HMG_aControlBrushHandle[i] := CLButton_SetImage(GetControlHandle(cControl, cWindow), cBitmap)
+      _HMG_aControlBrushHandle[i] := hmg_CLButton_SetImage(GetControlHandle(cControl, cWindow), cBitmap)
 
       _HMG_UserComponentProcess := .T.
 
@@ -456,7 +456,7 @@ RETURN RetVal
    LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-HB_FUNC( INITCLBUTTON )
+HB_FUNC( HMG_INITCLBUTTON )
 {
    int style;
 #ifndef UNICODE
@@ -487,11 +487,15 @@ HB_FUNC( INITCLBUTTON )
    hmg_ret_HWND(hbutton);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( INITCLBUTTON, HMG_INITCLBUTTON )
+#endif
+
 #ifndef BCM_SETNOTE
 #define BCM_SETNOTE  0x00001609
 #endif
 
-HB_FUNC( CLBUTTON_SETNOTE )
+HB_FUNC( HMG_CLBUTTON_SETNOTE )
 {
    if( HB_ISCHAR(2) ) {
       LPSTR  szText        = const_cast<LPSTR>(hb_parc(2));
@@ -504,6 +508,10 @@ HB_FUNC( CLBUTTON_SETNOTE )
       hb_xfree(lpwText);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CLBUTTON_SETNOTE, HMG_CLBUTTON_SETNOTE )
+#endif
 
 #ifndef BCM_FIRST
 #define BCM_FIRST         0x1600
@@ -519,7 +527,7 @@ typedef struct
 } BUTTON_IMAGELIST, * PBUTTON_IMAGELIST;
 #endif
 
-HB_FUNC( CLBUTTON_SETIMAGE )
+HB_FUNC( HMG_CLBUTTON_SETIMAGE )
 {
    HIMAGELIST       himl;
    BUTTON_IMAGELIST bi;
@@ -564,6 +572,10 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 
    hmg_ret_HIMAGELIST(himl);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CLBUTTON_SETIMAGE, HMG_CLBUTTON_SETIMAGE )
+#endif
 
 #pragma ENDDUMP
 
