@@ -2280,7 +2280,7 @@ FUNCTION ReleaseAllWindows()
    hmg_UnloadRichEditLib()
    hmg_UnloadRichEditExLib()
 
-   GdiplusShutdown()
+   hmg_GdiplusShutdown()
 
    hmg_FreeResources()
 

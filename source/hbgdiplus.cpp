@@ -92,7 +92,7 @@ GpStatus GdiplusInit(void)
    return fn_GdiplusStartup(&g_GpToken, &GdiplusStartupInput, nullptr);
 }
 
-HB_FUNC( GDIPLUSSHUTDOWN )
+HB_FUNC( HMG_GDIPLUSSHUTDOWN )
 {
    if( fn_GdiplusShutdown != nullptr ) {
       fn_GdiplusShutdown(g_GpToken);
@@ -103,7 +103,11 @@ HB_FUNC( GDIPLUSSHUTDOWN )
    }
 }
 
-HB_FUNC( GDIPCREATEBITMAPFROMFILE )
+#if 1
+HB_FUNC_TRANSLATE( GDIPLUSSHUTDOWN, HMG_GDIPLUSSHUTDOWN )
+#endif
+
+HB_FUNC( HMG_GDIPCREATEBITMAPFROMFILE )
 {
    GpBitmap * bitmap = nullptr;
 
@@ -124,7 +128,11 @@ HB_FUNC( GDIPCREATEBITMAPFROMFILE )
    hb_storptr(bitmap, 2);
 }
 
-HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
+#if 1
+HB_FUNC_TRANSLATE( GDIPCREATEBITMAPFROMFILE, HMG_GDIPCREATEBITMAPFROMFILE )
+#endif
+
+HB_FUNC( HMG_GDIPCREATEHBITMAPFROMBITMAP )
 {
    HBITMAP hbitmap = nullptr;
 
@@ -145,7 +153,11 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
    hb_storptr(hbitmap, 2);
 }
 
-HB_FUNC( GDIPDISPOSEIMAGE )
+#if 1
+HB_FUNC_TRANSLATE( GDIPCREATEHBITMAPFROMBITMAP, HMG_GDIPCREATEHBITMAPFROMBITMAP )
+#endif
+
+HB_FUNC( HMG_GDIPDISPOSEIMAGE )
 {
    if( fn_GdipDisposeImage != nullptr ) {
       hb_retni( fn_GdipDisposeImage(reinterpret_cast<GpImage*>(hb_parptr(1))) );
@@ -153,3 +165,7 @@ HB_FUNC( GDIPDISPOSEIMAGE )
       hb_retni( NotImplemented );
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GDIPDISPOSEIMAGE, HMG_GDIPDISPOSEIMAGE )
+#endif
