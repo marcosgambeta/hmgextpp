@@ -260,7 +260,7 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
          IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
-         SetTbBtnMargin(ControlHandle, BtnWidth, lBtns, lBtn2)
+         hmg_SetTbBtnMargin(ControlHandle, BtnWidth, lBtns, lBtn2)
       ENDIF
 
       IF _HMG_BeginTabActive

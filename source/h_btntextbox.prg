@@ -230,7 +230,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
          IF hmg_IsWindowHandle(aControlHandle[1])
             FontHandle := hmg__SetFont(aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
-         SetTbBtnMargin(aControlHandle[1], BtnWidth, .T., lBtn2)
+         hmg_SetTbBtnMargin(aControlHandle[1], BtnWidth, .T., lBtn2)
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -736,9 +736,9 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
 }
 
 /*
-SETTBBTNMARGIN(hedit, nBtnWidth, lBtns, lBtn2) --> NIL
+HMG_SETTBBTNMARGIN(hedit, nBtnWidth, lBtns, lBtn2) --> NIL
 */
-HB_FUNC( SETTBBTNMARGIN )
+HB_FUNC( HMG_SETTBBTNMARGIN )
 {
    auto BtnWidth = hb_parni(2);
    BOOL fBtns    = hb_parl(3);
@@ -751,6 +751,10 @@ HB_FUNC( SETTBBTNMARGIN )
 
    SendMessage(hmg_par_HWND(1), EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETTBBTNMARGIN, HMG_SETTBBTNMARGIN )
+#endif
 
 LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
