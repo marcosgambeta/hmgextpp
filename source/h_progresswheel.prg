@@ -711,8 +711,8 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
          BrushColor := COLORREF_TO_ArrayRGB(GradientColor(ColorDoneMin, ColorDoneMax, Min, Max, Position))
          EXIT
       CASE 3 /*Angle*/
-         hBrushBitmap := CreatePatternHBrush(hGradient)
-         SetBrushOrg(hDC, ( Width * BufScale - BufScale ) / 2, ( Height * BufScale - BufScale ) / 2)
+         hBrushBitmap := hmg_CreatePatternHBrush(hGradient)
+         hmg_SetBrushOrg(hDC, ( Width * BufScale - BufScale ) / 2, ( Height * BufScale - BufScale ) / 2)
          EXIT
       ENDSWITCH
 
@@ -741,8 +741,8 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
       DrawEllipseInBitmap(hDC, row, col, Width, Height, BrushColor, , BrushColor)
    ENDIF
 
-   SetStretchBltMode(hDC, HALFTONE)
-   SetBrushOrg(hDC, 0, 0)
+   hmg_SetStretchBltMode(hDC, HALFTONE)
+   hmg_SetBrushOrg(hDC, 0, 0)
 
    IF ShowText
       IF hb_IsBlock(cText)
@@ -877,7 +877,7 @@ STATIC FUNCTION BT_DrawPieEx(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartA
 //----------------------------------------------------------------------------//
 
    nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
-   BT_DRAW_HDC_ARCX_EX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap)
+   hmg_BT_DRAW_HDC_ARCX_EX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap)
 
 RETURN NIL
 
@@ -945,17 +945,25 @@ RETURN
 
 #include <commctrl.h>
 
-HB_FUNC( SETBRUSHORG )
+HB_FUNC( HMG_SETBRUSHORG )
 {
     auto hDC = hmg_par_HDC(1);
 
     SetBrushOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
 }
 
-HB_FUNC( SETSTRETCHBLTMODE )
+#if 1
+HB_FUNC_TRANSLATE( SETBRUSHORG, HMG_SETBRUSHORG )
+#endif
+
+HB_FUNC( HMG_SETSTRETCHBLTMODE )
 {
     hb_retni(SetStretchBltMode(hmg_par_HDC(1),  hb_parni(2)));
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETSTRETCHBLTMODE, HMG_SETSTRETCHBLTMODE )
+#endif
 
 //**********************************************************************************************************************************************
 //* BT_DRAW_HDC_ARCX_EX (hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc, ColorLine, nWidthLine, ColorFill, nArcType, hBrushBitmap )
@@ -966,7 +974,7 @@ HB_FUNC( SETSTRETCHBLTMODE )
 #define BT_DRAW_CHORD  1
 #define BT_DRAW_PIE    2
 
-HB_FUNC( BT_DRAW_HDC_ARCX_EX )
+HB_FUNC( HMG_BT_DRAW_HDC_ARCX_EX )
 {
    HBRUSH   hBrush;
 
@@ -1016,7 +1024,11 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    DeleteObject(hPen);
 }
 
-HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
+#if 1
+HB_FUNC_TRANSLATE( BT_DRAW_HDC_ARCX_EX, HMG_BT_DRAW_HDC_ARCX_EX )
+#endif
+
+HB_FUNC( HMG_CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
    auto hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
 
@@ -1024,6 +1036,10 @@ HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 
    hmg_ret_HBRUSH(hBrush);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CREATEPATTERNHBRUSH, HMG_CREATEPATTERNHBRUSH )
+#endif
 
 #pragma ENDDUMP
 
