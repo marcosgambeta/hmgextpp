@@ -1867,9 +1867,9 @@ FUNCTION IsAppXPThemed()
    LOCAL uResult := .F.
 
    IF _HMG_IsXPorLater
-      InitUxTheme()
-      uResult := IsAppThemed()
-      EndUxTheme()
+      hmg_InitUxTheme()
+      uResult := hmg_IsAppThemed()
+      hmg_EndUxTheme()
    ENDIF
 
 RETURN uResult
@@ -1882,9 +1882,9 @@ FUNCTION IsXPThemeActive()
    LOCAL uResult := .F.
 
    IF _HMG_IsXPorLater
-      InitUxTheme()
-      uResult := IsThemeActive()
-      EndUxTheme()
+      hmg_InitUxTheme()
+      uResult := hmg_IsThemeActive()
+      hmg_EndUxTheme()
    ENDIF
 
 RETURN uResult

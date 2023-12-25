@@ -240,7 +240,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) .OR. IsArrayRGB(TitleBkClr) .OR. IsArrayRGB(TitleFrClr) )
 
-         SetWindowTheme(aControlHandle[1], "", "")
+         hmg_SetWindowTheme(aControlHandle[1], "", "")
          // set the ideal size of the month calendar control
          hmg_SetPosMonthCal(aControlHandle[1], x, y)
          _HMG_aControlWidth[k] := GetWindowWidth(aControlHandle[1])

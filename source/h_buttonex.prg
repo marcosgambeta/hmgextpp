@@ -455,9 +455,9 @@ FUNCTION OwnButtonPaint(pdis)
       aBtnClipRc[3] += 1
       aBtnClipRc[4] += 1
 
-      hTheme := OpenThemeData(hWnd, ToUnicode("BUTTON"))
-      DrawThemeBackground(hTheme, hDC, BP_PUSHBUTTON, nStyle, aBtnRc, aBtnClipRc)
-      CloseThemeData(hTheme)
+      hTheme := hmg_OpenThemeData(hWnd, ToUnicode("BUTTON"))
+      hmg_DrawThemeBackground(hTheme, hDC, BP_PUSHBUTTON, nStyle, aBtnRc, aBtnClipRc)
+      hmg_CloseThemeData(hTheme)
 
    ELSE
 

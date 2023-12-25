@@ -6953,7 +6953,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_MONTHCAL
       _HMG_aControlFontColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
-         SetWindowTheme(c, "", "")
+         hmg_SetWindowTheme(c, "", "")
          hmg_SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
          _HMG_aControlWidth[i] := GetWindowWidth(c)
          _HMG_aControlHeight[i] := GetWindowHeight(c)
@@ -6964,7 +6964,7 @@ STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_PROGRESSBAR
       _HMG_aControlFontColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
-         SetWindowTheme(c, "", "")
+         hmg_SetWindowTheme(c, "", "")
       ENDIF
       SetProgressBarBarColor(c, value[1], value[2], value[3])
       EXIT
@@ -7045,7 +7045,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_MONTHCAL
       _HMG_aControlBkColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
-         SetWindowTheme(c, "", "")
+         hmg_SetWindowTheme(c, "", "")
          hmg_SetPosMonthCal(c, _HMG_aControlCol[i], _HMG_aControlRow[i])
          _HMG_aControlWidth[i] := GetWindowWidth(c)
          _HMG_aControlHeight[i] := GetWindowHeight(c)
@@ -7056,7 +7056,7 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_PROGRESSBAR
       _HMG_aControlBkColor[i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB(Value)
-         SetWindowTheme(c, "", "")
+         hmg_SetWindowTheme(c, "", "")
       ENDIF
       SetProgressBarBkColor(c, Value[1], Value[2], Value[3])
       EXIT

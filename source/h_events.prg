@@ -3567,7 +3567,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                TrlFontClr := _HMG_aControlMiscData1[i][5]
                IF _HMG_IsThemed .AND. (IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) .OR. IsArrayRGB(TitleBkClr) .OR. IsArrayRGB(TitleFrClr))
                   hWnd := hmg_SendMessage(_HMG_aControlHandles[i], DTM_GETMONTHCAL, 0, 0)
-                  SetWindowTheme(hWnd, "", "")
+                  hmg_SetWindowTheme(hWnd, "", "")
                   IF IsArrayRGB(BackColor)
                      SetMonthCalMonthBkColor(hWnd, BackColor[1], BackColor[2], BackColor[3])
                   ENDIF

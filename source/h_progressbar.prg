@@ -156,7 +156,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       ENDIF
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(BarColor) .OR. IsArrayRGB(BackColor) )
-         SetWindowTheme(ControlHandle, "", "")
+         hmg_SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -249,7 +249,7 @@ FUNCTION InitDialogProgressBar(ParentName, ControlHandle, k)
    BarColor  := _HMG_aControlFontColor[k]
 
    IF _HMG_IsThemed .AND. ( IsArrayRGB(BarColor) .OR. IsArrayRGB(BackColor) )
-      SetWindowTheme(ControlHandle, "", "")
+      hmg_SetWindowTheme(ControlHandle, "", "")
    ENDIF
 
    IF ParentName != NIL

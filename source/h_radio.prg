@@ -258,7 +258,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
    IF !lDialogInMemory
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) )
-         AEval(aHandles, {|h|SetWindowTheme(h, "", "")})
+         AEval(aHandles, {|h|hmg_SetWindowTheme(h, "", "")})
       ENDIF
 
       IF _HMG_BeginTabActive

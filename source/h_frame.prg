@@ -140,7 +140,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) )
-         SetWindowTheme(ControlHandle, "", "")
+         hmg_SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive

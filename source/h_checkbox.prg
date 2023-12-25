@@ -194,7 +194,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
 
       IF _HMG_IsThemed .AND. IsArrayRGB(fontcolor)
-         SetWindowTheme(ControlHandle, "", "")
+         hmg_SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive
