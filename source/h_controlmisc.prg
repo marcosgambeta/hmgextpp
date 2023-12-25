@@ -4355,9 +4355,9 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_CHECKLABEL
             ix := GetControlHandle(Arg2, Arg1)
             IF Arg4 == NIL
-               Arg4 := !GetChkLabel(ix)
+               Arg4 := !hmg_GetChkLabel(ix)
             ENDIF
-            SetChkLabel(ix, Arg4)
+            hmg_SetChkLabel(ix, Arg4)
          ELSE
             iif(Arg4, _CheckMenuItem(Arg2, Arg1), _UnCheckMenuItem(Arg2, Arg1))
          ENDIF
@@ -5162,7 +5162,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "CHECKED"
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_CHECKLABEL
-            RetVal := GetChkLabel(GetControlHandle(Arg2, Arg1))
+            RetVal := hmg_GetChkLabel(GetControlHandle(Arg2, Arg1))
          ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_DATEPICK
             RetVal := hmg_dtp_IsChecked(GetControlHandle(Arg2, Arg1))
          ELSE

@@ -648,7 +648,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
    hb_strfree(WindowName);
 }
 
-HB_FUNC( SETCHKLABEL )
+HB_FUNC( HMG_SETCHKLABEL )
 {
    auto hWnd = hmg_par_HWND(1);
    auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
@@ -666,13 +666,21 @@ HB_FUNC( SETCHKLABEL )
    ShowWindow(hWnd, SW_SHOW);
 }
 
-HB_FUNC( GETCHKLABEL )
+#if 1
+HB_FUNC_TRANSLATE( SETCHKLABEL, HMG_SETCHKLABEL )
+#endif
+
+HB_FUNC( HMG_GETCHKLABEL )
 {
    auto hWnd = hmg_par_HWND(1);
    auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    hb_retl(pbtn->lCheck);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETCHKLABEL, HMG_GETCHKLABEL )
+#endif
 
 LRESULT APIENTRY ChkLabelFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
