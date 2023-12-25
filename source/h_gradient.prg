@@ -56,13 +56,13 @@
 
 INIT PROCEDURE InitGradientFunc()
 
-   _InitGradientFunc()
+   hmg__InitGradientFunc()
 
 RETURN
 
 EXIT PROCEDURE ExitGradientFunc()
 
-   _ExitGradientFunc()
+   hmg__ExitGradientFunc()
 
 RETURN
 
@@ -78,7 +78,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
    LOCAL color2
    LOCAL i
 
-   IF IsEnabledGradient() .AND. ( i := GetFormIndex(window) ) > 0
+   IF hmg_IsEnabledGradient() .AND. ( i := GetFormIndex(window) ) > 0
 
       FormHandle := _HMG_aFormHandles[i]
       hDC := hmg_GetDC(FormHandle)
@@ -98,16 +98,16 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
 
       CASE 2  // box
          hmg_WndBoxIn(hDC, row, col, rowr, colr)
-         FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
+         hmg_FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
          EXIT
 
       CASE 3  // panel
          hmg_WndBoxRaised(hDC, row, col, rowr, colr)
-         FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
+         hmg_FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
          EXIT
 
       DEFAULT
-         FillGradient(hDC, row, col, rowr, colr, vertical, color1, color2)
+         hmg_FillGradient(hDC, row, col, rowr, colr, vertical, color1, color2)
 
       END SWITCH
 
@@ -122,7 +122,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
          AAdd(_HMG_aFormGraphTasks[i], ;
             {||hDC := hmg_GetDC(FormHandle), ;
             hmg_WndBoxIn(hDC, row, col, rowr, colr), ;
-            FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
+            hmg_FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
             hmg_ReleaseDC(FormHandle, hDC)})
          EXIT
 
@@ -130,13 +130,13 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
          AAdd(_HMG_aFormGraphTasks[i], ;
             {||hDC := hmg_GetDC(FormHandle), ;
             hmg_WndBoxRaised(hDC, row, col, rowr, colr), ;
-            FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
+            hmg_FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
             hmg_ReleaseDC(FormHandle, hDC)})
          EXIT
 
       DEFAULT // border none
          AAdd(_HMG_aFormGraphTasks[i], ;
-            {||FillGradient(hDC := hmg_GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), hmg_ReleaseDC(FormHandle, hDC)})
+            {||hmg_FillGradient(hDC := hmg_GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), hmg_ReleaseDC(FormHandle, hDC)})
 
       END SWITCH
 
@@ -179,12 +179,16 @@ BOOL EnabledGradient(void)
    return s_hDLL != nullptr ? TRUE : FALSE;
 }
 
-HB_FUNC( ISENABLEDGRADIENT )
+HB_FUNC( HMG_ISENABLEDGRADIENT )
 {
    hb_retl(EnabledGradient());
 }
 
-HB_FUNC( _INITGRADIENTFUNC )
+#if 1
+HB_FUNC_TRANSLATE( ISENABLEDGRADIENT, HMG_ISENABLEDGRADIENT )
+#endif
+
+HB_FUNC( HMG__INITGRADIENTFUNC )
 {
    s_hDLL = LoadLibrary(TEXT("gdi32.dll"));
 
@@ -219,7 +223,11 @@ HB_FUNC( _INITGRADIENTFUNC )
    hb_retl(EnabledGradient() ? true : false);
 }
 
-HB_FUNC( _EXITGRADIENTFUNC )
+#if 1
+HB_FUNC_TRANSLATE( _INITGRADIENTFUNC, HMG__INITGRADIENTFUNC )
+#endif
+
+HB_FUNC( HMG__EXITGRADIENTFUNC )
 {
    if( s_hDLL != nullptr ) {
       FreeLibrary(s_hDLL);
@@ -227,7 +235,11 @@ HB_FUNC( _EXITGRADIENTFUNC )
    }
 }
 
-HB_FUNC( ALPHABLEND )
+#if 1
+HB_FUNC_TRANSLATE( _EXITGRADIENTFUNC, HMG__EXITGRADIENTFUNC )
+#endif
+
+HB_FUNC( HMG_ALPHABLEND )
 {
    BOOL bRes = FALSE;
    auto hdc1 = hmg_par_HDC(1);
@@ -253,7 +265,11 @@ HB_FUNC( ALPHABLEND )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( TRANSPARENTBLT )
+#if 1
+HB_FUNC_TRANSLATE( ALPHABLEND, HMG_ALPHABLEND )
+#endif
+
+HB_FUNC( HMG_TRANSPARENTBLT )
 {
    BOOL bRes = FALSE;
    auto hdc1 = hmg_par_HDC(1);
@@ -286,7 +302,11 @@ HB_FUNC( TRANSPARENTBLT )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( FILLGRADIENT )
+#if 1
+HB_FUNC_TRANSLATE( TRANSPARENTBLT, HMG_TRANSPARENTBLT )
+#endif
+
+HB_FUNC( HMG_FILLGRADIENT )
 {
    BOOL bRes = FALSE;
    auto hdc = hmg_par_HDC(1);
@@ -304,6 +324,10 @@ HB_FUNC( FILLGRADIENT )
 
    hb_retl(bRes ? true : false);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( FILLGRADIENT, HMG_FILLGRADIENT )
+#endif
 
 BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo)
 {
@@ -336,7 +360,7 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
    return bRes;
 }
 
-HB_FUNC( CREATEGRADIENTBRUSH )
+HB_FUNC( HMG_CREATEGRADIENTBRUSH )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -349,6 +373,10 @@ HB_FUNC( CREATEGRADIENTBRUSH )
    hmg_ret_HBRUSH(LinearGradientBrush(hdc, hb_parnl(2), hb_parnl(3), (COLORREF) hb_parnl(4), (COLORREF) hb_parnl(5), hb_parl(6)));
    ReleaseDC(hwnd, hdc);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CREATEGRADIENTBRUSH, HMG_CREATEGRADIENTBRUSH )
+#endif
 
 HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert)
 {

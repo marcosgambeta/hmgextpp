@@ -925,7 +925,7 @@ STATIC FUNCTION _GradientFill(hDC, nTop, nLeft, nBottom, nRight, aGradInfo, lVer
             ReplaceGradInfo(aGradInfo, nClr, 2)
             ReplaceGradInfo(aGradInfo, nClr, 3)
 
-            FillGradient(hDC, nTop, nLeft, nSlice, nRight, .T., aGradInfo[nClr][2], aGradInfo[nClr][3])
+            hmg_FillGradient(hDC, nTop, nLeft, nSlice, nRight, .T., aGradInfo[nClr][2], aGradInfo[nClr][3])
 
             nTop := nSlice - 1
 
@@ -946,7 +946,7 @@ STATIC FUNCTION _GradientFill(hDC, nTop, nLeft, nBottom, nRight, aGradInfo, lVer
             ReplaceGradInfo(aGradInfo, nClr, 2)
             ReplaceGradInfo(aGradInfo, nClr, 3)
 
-            FillGradient(hDC, nTop, nLeft, nBottom, nSlice, .F., aGradInfo[nClr][2], aGradInfo[nClr][3])
+            hmg_FillGradient(hDC, nTop, nLeft, nBottom, nSlice, .F., aGradInfo[nClr][2], aGradInfo[nClr][3])
 
             nLeft := nSlice - 1
 
