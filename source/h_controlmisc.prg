@@ -857,7 +857,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
 
    CASE CONTROL_TYPE_CHKLIST
    CASE CONTROL_TYPE_MULTICHKLIST
-      ChkListboxAddItem(c, value, 1)
+      hmg_ChkListboxAddItem(c, value, 1)
       EXIT
 
    // CASE "GRID" $ T
@@ -1871,9 +1871,9 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_CHKLIST
-      Pos := iif(ChkList_GetCheckBox(c, Item), 2, 1)
+      Pos := iif(hmg_ChkList_GetCheckBox(c, Item), 2, 1)
       ListBoxDeleteString(c, Item)
-      ChkListBoxInsertItem(c, value, Item, Pos)
+      hmg_ChkListBoxInsertItem(c, value, Item, Pos)
       ListBoxSetCurSel(c, Item)
       EXIT
 
@@ -1885,10 +1885,10 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_MULTICHKLIST
-      Pos := iif(ChkList_GetCheckBox(c, Item), 2, 1)
+      Pos := iif(hmg_ChkList_GetCheckBox(c, Item), 2, 1)
       aTemp := hmg_ListBoxGetMultiSel(c)
       ListBoxDeleteString(c, Item)
-      ChkListBoxInsertItem(c, value, Item, Pos)
+      hmg_ChkListBoxInsertItem(c, value, Item, Pos)
       hmg_ListBoxSetMultiSel(c, aTemp)
       EXIT
 
@@ -2973,7 +2973,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
                   uSel := ListBoxGetCursel(_HMG_aControlHandles[i])
                ENDIF
 
-               ChkList_SetCheckBox(_HMG_aControlHandles[i], Item, iif(lState, 2, 1))
+               hmg_ChkList_SetCheckBox(_HMG_aControlHandles[i], Item, iif(lState, 2, 1))
 
                IF T == CONTROL_TYPE_MULTICHKLIST
                   hmg_ListBoxSetMultiSel(_HMG_aControlHandles[i], uSel)
@@ -2981,7 +2981,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
                   ListBoxSetCursel(_HMG_aControlHandles[i], uSel)
                ENDIF
             ELSE
-               RetVal := ChkList_GetCheckBox(_HMG_aControlHandles[i], Item)
+               RetVal := hmg_ChkList_GetCheckBox(_HMG_aControlHandles[i], Item)
             ENDIF
 
          ENDIF

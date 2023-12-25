@@ -274,11 +274,11 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
 
    IF Len(_HMG_aDialogTemplate) == 0     //Dialog Template
       IF Len(aRows) > 0
-         AEval(Rows, {|r, n|ChkListboxAddItem(ControlHandle, r, aChkItem[n], nItemHeight)})
+         AEval(Rows, {|r, n|hmg_ChkListboxAddItem(ControlHandle, r, aChkItem[n], nItemHeight)})
       ENDIF
 
       IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
-         SetChkLBItemHeight(ControlHandle, FontHandle)
+         hmg_SetChkLBItemHeight(ControlHandle, FontHandle)
       ENDIF
 
       IF multiselect
@@ -313,7 +313,7 @@ FUNCTION InitDialogChkListBox(ParentName, ControlHandle, k)
    ENDIF
 
    IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
-      SetChkLBItemHeight(ControlHandle, FontHandle)
+      hmg_SetChkLBItemHeight(ControlHandle, FontHandle)
    ENDIF
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST
@@ -422,7 +422,7 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
    hmg_ret_HWND(hbutton);
 }
 
-HB_FUNC( CHKLISTBOXINSERTITEM )
+HB_FUNC( HMG_CHKLISTBOXINSERTITEM )
 {
    auto hwnd = hmg_par_HWND(1);
    void * String;
@@ -436,7 +436,11 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
    hb_strfree(String);
 }
 
-HB_FUNC( CHKLISTBOXADDITEM )
+#if 1
+HB_FUNC_TRANSLATE( CHKLISTBOXINSERTITEM, HMG_CHKLISTBOXINSERTITEM )
+#endif
+
+HB_FUNC( HMG_CHKLISTBOXADDITEM )
 {
    auto hwnd = hmg_par_HWND(1);
    void * String;
@@ -450,7 +454,11 @@ HB_FUNC( CHKLISTBOXADDITEM )
    hb_strfree(String);
 }
 
-HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
+#if 1
+HB_FUNC_TRANSLATE( CHKLISTBOXADDITEM, HMG_CHKLISTBOXADDITEM )
+#endif
+
+HB_FUNC( HMG_SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
    TCHAR achBuffer[BUFFER];
    auto hwnd = hmg_par_HWND(1);
@@ -484,7 +492,11 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    ReleaseDC(hwnd, hdc);
 }
 
-HB_FUNC( CHKLIST_SETCHECKBOX )
+#if 1
+HB_FUNC_TRANSLATE( SETCHKLBITEMHEIGHT, HMG_SETCHKLBITEMHEIGHT )
+#endif
+
+HB_FUNC( HMG_CHKLIST_SETCHECKBOX )
 {
    auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2) - 1;
@@ -497,7 +509,11 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
    SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(lbItem), static_cast<LPARAM>(bChecked));
 }
 
-HB_FUNC( CHKLIST_GETCHECKBOX )
+#if 1
+HB_FUNC_TRANSLATE( CHKLIST_SETCHECKBOX, HMG_CHKLIST_SETCHECKBOX )
+#endif
+
+HB_FUNC( HMG_CHKLIST_GETCHECKBOX )
 {
    auto hwnd = hmg_par_HWND(1);
    auto lbItem = hb_parni(2);
@@ -506,7 +522,11 @@ HB_FUNC( CHKLIST_GETCHECKBOX )
    hb_retl(iCheck - 1);
 }
 
-HB_FUNC( _ONMEASURELISTBOXITEM )
+#if 1
+HB_FUNC_TRANSLATE( CHKLIST_GETCHECKBOX, HMG_CHKLIST_GETCHECKBOX )
+#endif
+
+HB_FUNC( HMG__ONMEASURELISTBOXITEM )
 {
    auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
@@ -514,7 +534,11 @@ HB_FUNC( _ONMEASURELISTBOXITEM )
    lpmis->itemHeight = m_nHeightItem;
 }
 
-HB_FUNC( _ONDRAWLISTBOXITEM )
+#if 1
+HB_FUNC_TRANSLATE( _ONMEASURELISTBOXITEM, HMG__ONMEASURELISTBOXITEM )
+#endif
+
+HB_FUNC( HMG__ONDRAWLISTBOXITEM )
 {
    TCHAR achBuffer[BUFFER];
    int cch;
@@ -591,10 +615,14 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( _ONDRAWLISTBOXITEM, HMG__ONDRAWLISTBOXITEM )
+#endif
+
 /*
    Function GETMISCTLTYPE return value of CtlType MEASUREITEMSTRUCT member
  */
-HB_FUNC( GETMISCTLTYPE )
+HB_FUNC( HMG_GETMISCTLTYPE )
 {
    auto pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
@@ -602,5 +630,9 @@ HB_FUNC( GETMISCTLTYPE )
       hb_retni(static_cast<UINT>(pmis->CtlType));
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETMISCTLTYPE, HMG_GETMISCTLTYPE )
+#endif
 
 #pragma ENDDUMP

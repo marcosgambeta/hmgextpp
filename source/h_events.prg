@@ -157,14 +157,14 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_MEASUREITEM
    //**************************************************************************
 
-      SWITCH GETMISCTLTYPE(lParam)
+      SWITCH hmg_GETMISCTLTYPE(lParam)
 
       CASE ODT_MENU
          hmg__OnMeasureMenuItem(hWnd, nMsg, wParam, lParam)
          EXIT
 
       CASE ODT_LISTBOX
-         _OnMeasureListBoxItem(lParam)
+         hmg__OnMeasureListBoxItem(lParam)
 
       END SWITCH
       EXIT
@@ -188,7 +188,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          ENDIF
 
       CASE ODT_LISTBOX
-         _OnDrawListBoxItem(lParam)
+         hmg__OnDrawListBoxItem(lParam)
          RETURN 0
 
       CASE ODT_BUTTON
