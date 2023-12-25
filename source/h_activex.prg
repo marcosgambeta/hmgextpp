@@ -331,17 +331,17 @@ METHOD TActiveX:Load()
    LOCAL hSink
    LOCAL nHandle := GetFormHandle(::cWindowName)
 
-   AtlAxWinInit()
+   hmg_AtlAxWinInit()
    ::hWnd := CreateWindowEx(nHandle, ::cProgId)
    hmg_MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
-   xObjeto := AtlAxGetDisp(::hWnd)
+   xObjeto := hmg_AtlAxGetDisp(::hWnd)
    ::hAtl := xObjeto
    TRY
       ::oOle := CreateObject(xObjeto)
    CATCH oError
       MsgInfo(oError:description)
    END
-   IF SetupConnectionPoint(::hAtl, @hSink, ::aAxEv, ::aAxExec) == S_OK
+   IF hmg_SetupConnectionPoint(::hAtl, @hSink, ::aAxEv, ::aAxExec) == S_OK
       ::hSink := hSink
    ENDIF
 
@@ -407,10 +407,10 @@ METHOD TActiveX:Release()
       hmg_DestroyWindow(::hWnd)
    ENDIF
    IF !Empty(::hSink)
-      ShutdownConnectionPoint(::hSink)
+      hmg_ShutdownConnectionPoint(::hSink)
    ENDIF
-   ReleaseDispatch(::hAtl)
-   AtlAxWinEnd()
+   hmg_ReleaseDispatch(::hAtl)
+   hmg_AtlAxWinEnd()
 
 RETURN .T.
 
@@ -487,12 +487,16 @@ static void _Ax_Init(void)
    }
 }
 
-HB_FUNC( ATLAXWININIT )
+HB_FUNC( HMG_ATLAXWININIT )
 {
    _Ax_Init();
 }
 
-HB_FUNC( ATLAXWINEND )
+#if 1
+HB_FUNC_TRANSLATE( ATLAXWININIT, HMG_ATLAXWININIT )
+#endif
+
+HB_FUNC( HMG_ATLAXWINEND )
 {
    if( hAtl ) {
       FreeLibrary(hAtl);
@@ -500,7 +504,11 @@ HB_FUNC( ATLAXWINEND )
    }
 }
 
-HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
+#if 1
+HB_FUNC_TRANSLATE( ATLAXWINEND, HMG_ATLAXWINEND )
+#endif
+
+HB_FUNC( HMG_ATLAXGETDISP ) // hWnd -> pDisp
 {
    IUnknown *  pUnk;
    IDispatch * pDisp;
@@ -515,6 +523,10 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
    pUnk->lpVtbl->Release(pUnk);
    hmg_ret_HANDLE(pDisp);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ATLAXGETDISP, HMG_ATLAXGETDISP )
+#endif
 
 HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 {
@@ -870,10 +882,10 @@ static const IEventHandlerVtbl IEventHandler_Vtbl = {
 
 using device_interface = IEventHandler;
 
-// Hash  // SetupConnectionPoint(oOle:hObj, @hSink, hEvents)             -> nError
-// Array // SetupConnectionPoint(oOle:hObj, @hSink, aEvents, aExecEvent) -> nError
+// Hash  // hmg_SetupConnectionPoint(oOle:hObj, @hSink, hEvents)             -> nError
+// Array // hmg_SetupConnectionPoint(oOle:hObj, @hSink, aEvents, aExecEvent) -> nError
 
-HB_FUNC( SETUPCONNECTIONPOINT )
+HB_FUNC( HMG_SETUPCONNECTIONPOINT )
 {
    IConnectionPointContainer * pIConnectionPointContainerTemp = nullptr;
    IUnknown *                  pIUnknown = nullptr;
@@ -965,7 +977,11 @@ HB_FUNC( SETUPCONNECTIONPOINT )
    hb_retnl(hr);
 }
 
-HB_FUNC( SHUTDOWNCONNECTIONPOINT )
+#if 1
+HB_FUNC_TRANSLATE( SETUPCONNECTIONPOINT, HMG_SETUPCONNECTIONPOINT )
+#endif
+
+HB_FUNC( HMG_SHUTDOWNCONNECTIONPOINT )
 {
    auto self = reinterpret_cast<MyRealIEventHandler*>(HB_PARNL(1));
 
@@ -977,11 +993,19 @@ HB_FUNC( SHUTDOWNCONNECTIONPOINT )
    }
 }
 
-HB_FUNC( RELEASEDISPATCH )
+#if 1
+HB_FUNC_TRANSLATE( SHUTDOWNCONNECTIONPOINT, HMG_SHUTDOWNCONNECTIONPOINT )
+#endif
+
+HB_FUNC( HMG_RELEASEDISPATCH )
 {
    auto pObj = reinterpret_cast<IDispatch*>(HB_PARNL(1));
    pObj->lpVtbl->Release(pObj);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( RELEASEDISPATCH, HMG_RELEASEDISPATCH )
+#endif
 
 #pragma ENDDUMP
 
