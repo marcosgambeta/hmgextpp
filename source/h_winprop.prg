@@ -58,7 +58,7 @@ PROCEDURE _SetWindowProp(xParentForm, cPropName, xValue, lDirect)
 
    xParentForm := _GetFormHandle(xParentForm, @cParentFormName)
 
-   IF !SetProp(xParentForm, cPropName, xValue, hb_defaultValue(lDirect, .F.))
+   IF !hmg_SetProp(xParentForm, cPropName, xValue, hb_defaultValue(lDirect, .F.))
       MsgMiniGuiError("Property " + cPropName + " in Window " + cParentFormName + " is not defined.")
    ENDIF
 
@@ -74,7 +74,7 @@ FUNCTION _GetWindowProp(xParentForm, cPropName, lDirect)
 
    xParentForm := _GetFormHandle(xParentForm, @cParentFormName)
 
-   xValue := GetProp(xParentForm, cPropName, hb_defaultValue(lDirect, .F.))
+   xValue := hmg_GetProp(xParentForm, cPropName, hb_defaultValue(lDirect, .F.))
 
    IF HB_ISNIL(xValue)
       MsgMiniGuiError("Property " + cPropName + " in Window " + cParentFormName + " is not defined.")
@@ -87,14 +87,14 @@ _RemoveWindowProp(xParentForm, cPropName, lNoFree) -->
 */
 FUNCTION _RemoveWindowProp(xParentForm, cPropName, lNoFree)
 
-RETURN RemoveProp(_GetFormHandle(xParentForm), cPropName, hb_defaultValue(lNoFree, .F.))
+RETURN hmg_RemoveProp(_GetFormHandle(xParentForm), cPropName, hb_defaultValue(lNoFree, .F.))
 
 /*
 _EnumWindowProps(xParentForm) -->
 */
 FUNCTION _EnumWindowProps(xParentForm)
 
-RETURN EnumProps(_GetFormHandle(xParentForm))
+RETURN hmg_EnumProps(_GetFormHandle(xParentForm))
 
 /*
 _GetFormHandle(xParentForm, cParentFormName) --> xParentForm

@@ -3917,8 +3917,8 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          // Remove All HMG_* Properties
 
-         IF Len(EnumProps(hWnd)) > 0
-            EnumPropsEx(hWnd, {|hWnd, cPropName, hHandle|HB_SYMBOL_UNUSED(hHandle), iif(hb_LeftEqI(cPropName, "HMG_"), RemoveProp(hWnd, cPropName), NIL), .T.})
+         IF Len(hmg_EnumProps(hWnd)) > 0
+            hmg_EnumPropsEx(hWnd, {|hWnd, cPropName, hHandle|HB_SYMBOL_UNUSED(hHandle), iif(hb_LeftEqI(cPropName, "HMG_"), hmg_RemoveProp(hWnd, cPropName), NIL), .T.})
          ENDIF
 
          // Remove Child Controls

@@ -73,7 +73,7 @@ LPSTR  WideToAnsi(LPWSTR);
 //           if lHandle = .T., xValue must be numerical (integer)
 
 /* Revised by P.Chornyj 16.11 */
-HB_FUNC( SETPROP )
+HB_FUNC( HMG_SETPROP )
 {
    auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
@@ -172,9 +172,13 @@ HB_FUNC( SETPROP )
 #endif
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETPROP, HMG_SETPROP )
+#endif
+
 // usage: GetProp(hWnd, cPropName, [lHandle]) -> Value | NIL
 // [lHandle] : .T. =  return the value directly
-HB_FUNC( GETPROP )
+HB_FUNC( HMG_GETPROP )
 {
    auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
@@ -227,8 +231,12 @@ HB_FUNC( GETPROP )
    GlobalUnlock(hMem);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETPROP, HMG_GETPROP )
+#endif
+
 // Usage: RemoveProp(hWnd, cPropName, [lNoFree]) -> hMem | NIL
-HB_FUNC( REMOVEPROP )
+HB_FUNC( HMG_REMOVEPROP )
 {
    auto hwnd = hmg_par_HWND(1);
    HGLOBAL hMem;
@@ -260,11 +268,14 @@ HB_FUNC( REMOVEPROP )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( REMOVEPROP, HMG_REMOVEPROP )
+#endif
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
 /* Usage: aProps := EnumProps(nHandle) */
-HB_FUNC( ENUMPROPS )
+HB_FUNC( HMG_ENUMPROPS )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -276,6 +287,10 @@ HB_FUNC( ENUMPROPS )
       hb_itemReturnRelease(pArray);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ENUMPROPS, HMG_ENUMPROPS )
+#endif
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
@@ -334,7 +349,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
  */
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
-HB_FUNC( ENUMPROPSEX )
+HB_FUNC( HMG_ENUMPROPSEX )
 {
    auto hWnd = hmg_par_HWND(1);
    auto pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
@@ -345,6 +360,10 @@ HB_FUNC( ENUMPROPSEX )
       hb_retni( -2 );
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ENUMPROPSEX, HMG_ENUMPROPSEX )
+#endif
 
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {

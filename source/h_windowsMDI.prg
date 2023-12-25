@@ -174,7 +174,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
 
          // Remove Child Window Properties
 
-         EnumPropsEx(hWnd, {|hWnd, cPropName, hHandle|HB_SYMBOL_UNUSED(hHandle), iif(hb_LeftEqI(cPropName, "HMG_"), RemoveProp(hWnd, cPropName), NIL), .T.})
+         hmg_EnumPropsEx(hWnd, {|hWnd, cPropName, hHandle|HB_SYMBOL_UNUSED(hHandle), iif(hb_LeftEqI(cPropName, "HMG_"), hmg_RemoveProp(hWnd, cPropName), NIL), .T.})
 
          _RemoveProperty(hWnd, "PROP_CFILE")
          _RemoveProperty(hWnd, "PROP_FORMNAME")
