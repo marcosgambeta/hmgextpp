@@ -164,7 +164,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
    _HMG_BeginDialogActive  := .T.
 
    IF caption != NIL
-      SetWindowText(FormHandle, caption)
+      hmg_SetWindowText(FormHandle, caption)
    ENDIF
 
    htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
@@ -506,7 +506,7 @@ FUNCTION DisableDialogItem(hDlg, Id)
    LOCAL ControlHandle := hmg_GetDialogITemHandle(hDlg, Id)
 
    IF ControlHandle > 0
-      DisableWindow(ControlHandle)
+      hmg_DisableWindow(ControlHandle)
    ENDIF
 
 RETURN NIL
@@ -519,7 +519,7 @@ FUNCTION EnableDialogItem(hDlg, Id)
    LOCAL ControlHandle := hmg_GetDialogITemHandle(hDlg, Id)
 
    IF ControlHandle > 0
-      EnableWindow(ControlHandle)
+      hmg_EnableWindow(ControlHandle)
    ENDIF
 
 RETURN NIL
@@ -601,7 +601,7 @@ FUNCTION EraseDialog(hwndDlg)
       _HMG_aFormMiscData1                [i] := {}
       _HMG_aFormMiscData2                [i] := ""
 
-      DestroyWindow(hwndDlg)
+      hmg_DestroyWindow(hwndDlg)
    ENDIF
 
 RETURN NIL

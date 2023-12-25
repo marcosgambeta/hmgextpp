@@ -97,7 +97,7 @@ FUNCTION _DefineToolBar(ControlName, ParentForm, x, y, caption, ProcedureName, w
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle(ControlHandle)
+      IF hmg_IsWindowHandle(ControlHandle)
          FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
@@ -374,7 +374,7 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
       MinHeight := hmg_HiWord(w)
    ENDIF
    IF i > 0
-      AddSplitBoxItem(c, _HMG_aFormReBarHandle[i], w, break, Caption, MinWidth, MinHeight, _HMG_ActiveSplitBoxInverted, _HMG_aControlRangeMin[ix])
+      hmg_AddSplitBoxItem(c, _HMG_aFormReBarHandle[i], w, break, Caption, MinWidth, MinHeight, _HMG_ActiveSplitBoxInverted, _HMG_aControlRangeMin[ix])
    ENDIF
 
 RETURN NIL
@@ -524,7 +524,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
       NEXT
 
       aPos := { 0, 0, 0, 0 }
-      GetWindowRect(_HMG_aFormReBarHandle[i], aPos)
+      hmg_GetWindowRect(_HMG_aFormReBarHandle[i], aPos)
 
       hmg_TrackPopupMenu(hMenu, aPos[1] + aChevronInfo[1], aPos[2] + aChevronInfo[4] + 3, hWnd)
    ENDIF
@@ -544,16 +544,16 @@ STATIC PROCEDURE _DropDownShortcut(nToolButtonId, nParentWindowHandle, i, nButto
 
    IF (x := AScan(_HMG_aControlIds, nToolButtonId)) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
       aPos := { 0, 0, 0, 0 }
-      GetWindowRect(_HMG_aControlHandles[i] , aPos)
+      hmg_GetWindowRect(_HMG_aControlHandles[i] , aPos)
 
-      SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, nButtonPos - 1, 0)
+      hmg_SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, nButtonPos - 1, 0)
 
       aSize := hmg_GetButtonBarRect(_HMG_aControlHandles[i] , nButtonPos - 1)
 
       hmg_TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + hmg_LoWord(aSize) , aPos[2] + hmg_HiWord(aSize) + ;
          iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - hmg_HiWord(aSize) ) / 2), nParentWindowHandle)
 
-      SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
+      hmg_SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
    ENDIF
 
 RETURN

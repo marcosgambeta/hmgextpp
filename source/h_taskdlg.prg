@@ -625,7 +625,7 @@ METHOD TTaskDialog:ParentHandle(nHandle)
 
    LOCAL nOldVal := ::aConfig[TDC_HWND]
 
-   IF !::lActive .AND. hb_IsNumeric(nHandle) .AND. IsWindowHandle(nHandle)
+   IF !::lActive .AND. hb_IsNumeric(nHandle) .AND. hmg_IsWindowHandle(nHandle)
       ::aConfig[TDC_HWND] := nHandle
    ENDIF
 

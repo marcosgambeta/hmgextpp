@@ -140,16 +140,16 @@
 
 #xtranslate GetBandCount ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, RB_GETBANDCOUNT, 0, 0 )
+hmg_SendMessage( <hWnd>, RB_GETBANDCOUNT, 0, 0 )
 
 #xtranslate ReBarHeight ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, RB_GETBARHEIGHT, 0, 0 )
+hmg_SendMessage( <hWnd>, RB_GETBARHEIGHT, 0, 0 )
 
 #xtranslate SizeReBar ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, RB_SHOWBAND, 0, 0 ) ;;
-SendMessage( <hWnd>, RB_SHOWBAND, 0, 1 )
+hmg_SendMessage( <hWnd>, RB_SHOWBAND, 0, 0 ) ;;
+hmg_SendMessage( <hWnd>, RB_SHOWBAND, 0, 1 )
 
 #define TB_ENABLEBUTTON   (WM_USER + 1)
 #define TB_BUTTONCOUNT    (WM_USER + 24)
@@ -158,16 +158,16 @@ SendMessage( <hWnd>, RB_SHOWBAND, 0, 1 )
 
 #xtranslate GetButtonBarCount ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, TB_BUTTONCOUNT, 0, 0 )
+hmg_SendMessage( <hWnd>, TB_BUTTONCOUNT, 0, 0 )
 
 #xtranslate CustomizeToolbar ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, TB_CUSTOMIZE, 0, 0 )
+hmg_SendMessage( <hWnd>, TB_CUSTOMIZE, 0, 0 )
 
 #xtranslate DisableToolButton ( <hWnd>, <id> ) ;
 => ;
-SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 0, 0 ) )
+hmg_SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 0, 0 ) )
 
 #xtranslate EnableToolButton ( <hWnd>, <id> ) ;
 => ;
-SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 1, 0 ) )
+hmg_SendMessage( <hWnd>, TB_ENABLEBUTTON, <id>, hmg_MAKELONG( 1, 0 ) )

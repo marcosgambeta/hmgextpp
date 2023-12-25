@@ -199,7 +199,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle(ControlHandle)
+            IF hmg_IsWindowHandle(ControlHandle)
                FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
@@ -227,12 +227,12 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-               IF IsWindowHandle(ControlHandle)
+               IF hmg_IsWindowHandle(ControlHandle)
                   FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
 
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
 
             Containerhandle := _HMG_aFormReBarHandle[i]
 
@@ -253,7 +253,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -358,7 +358,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
 
    IF DisplayChange
 
-      _HMG_aControlRangeMin[k] := FindWindowEx(ControlHandle, 0, "Edit", NIL)
+      _HMG_aControlRangeMin[k] := hmg_FindWindowEx(ControlHandle, 0, "Edit", NIL)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
       IF _HMG_aControlToolTip[k] != NIL
          hmg_SetToolTip(_HMG_aControlRangeMin[k], _HMG_aControlToolTip[k], GetFormToolTipHandle(ParentName))

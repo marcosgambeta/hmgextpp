@@ -75,20 +75,20 @@ FUNCTION _SetWindowBKBrush(cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIma
          EXIT
 
       CASE "H"
-         hBrush := CreateHatchBrush(nHatch, RGB(aColor[1], aColor[2], aColor[3]))
+         hBrush := hmg_CreateHatchBrush(nHatch, RGB(aColor[1], aColor[2], aColor[3]))
          EXIT
 
       CASE "P"
-         hBrush := CreatePatternBrush(xImage)
+         hBrush := hmg_CreatePatternBrush(xImage)
          EXIT
 
       OTHERWISE
-         hBrush := GetWindowBrush(hWnd)
+         hBrush := hmg_GetWindowBrush(hWnd)
 
       END SWITCH
 
       IF hmg_GetObjectType(hBrush) == OBJ_BRUSH
-         hOldBrush := SetWindowBrush(hWnd, hBrush)
+         hOldBrush := hmg_SetWindowBrush(hWnd, hBrush)
          _HMG_aFormBrushHandle[nIndex] := hBrush
 
          IF lNoDelete

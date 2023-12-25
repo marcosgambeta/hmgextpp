@@ -113,7 +113,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
          h := GetWindowHeight(Controlhandle)
 
          IF caption != NIL
-            SetWindowText(ControlHandle, caption)
+            hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle(ControlHandle, style, .T.)
@@ -134,7 +134,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF

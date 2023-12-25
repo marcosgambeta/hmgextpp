@@ -158,16 +158,16 @@ CLASS TControl
    METHOD lWhen() INLINE IIf(::bWhen != NIL, Eval(::bWhen), .T.)
    METHOD SetColor(nClrFore, nClrBack, hBrush)
    METHOD EndCtrl() BLOCK {|Self, lEnd|IIf(lEnd := ::lValid(), ::PostMsg(WM_CLOSE), NIL), lEnd} // It has to be Block
-   METHOD Hide() INLINE ShowWindow(::hWnd, SW_HIDE)
-   METHOD Show() INLINE ShowWindow(::hWnd, SW_SHOWNA)
-   METHOD SendMsg(nMsg, nWParam, nLParam) INLINE SendMessage(::hWnd, nMsg, nWParam, nLParam)
+   METHOD Hide() INLINE hmg_ShowWindow(::hWnd, SW_HIDE)
+   METHOD Show() INLINE hmg_ShowWindow(::hWnd, SW_SHOWNA)
+   METHOD SendMsg(nMsg, nWParam, nLParam) INLINE hmg_SendMessage(::hWnd, nMsg, nWParam, nLParam)
    METHOD Move(nTop, nLeft, nWidth, nHeight, lRepaint)
    METHOD ReSize(nSizeType, nWidth, nHeight)
    METHOD Command(nWParam, nLParam)
    METHOD Notify(nWParam, nLParam)
    METHOD Refresh(lErase) INLINE hmg_InvalidateRect(::hWnd, IIf(lErase == NIL .OR. !lErase, 0, 1))
    METHOD nGetChrHeight() INLINE ::hDC := hmg_GetDC(::hWnd), ::nChrHeight := _GetTextHeight(::hWnd, ::hDC) // Temp
-   METHOD GetText() INLINE GetWindowText(::hWnd)   //TWindow
+   METHOD GetText() INLINE hmg_GetWindowText(::hWnd)   //TWindow
    METHOD VScroll(nWParam, nLParam)                //TWindow
 
 ENDCLASS
@@ -259,7 +259,7 @@ METHOD TControl:CoorsUpdate()
 
    LOCAL aRect := {0,0,0,0}
 
-   GetWindowRect(::hWnd, aRect)
+   hmg_GetWindowRect(::hWnd, aRect)
 /*
    ::nTop    = aRect[2]
    ::nLeft   = aRect[1]
@@ -352,7 +352,7 @@ METHOD TControl:EraseBkGnd(hDC)
 
    LOCAL aRect
 
-   IF IsIconic(::hWnd)
+   IF hmg_IsIconic(::hWnd)
       IF ::hWnd != NIL
          aRect := ::GetCliRect(::hWnd)
          hmg_FillRect(hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush )
@@ -383,7 +383,7 @@ METHOD TControl:ForWhen()
          ::GoNextCtrl(::hWnd)
       ENDIF
    ELSE
-      IF Empty(GetFocus())
+      IF Empty(hmg_GetFocus())
          hmg_SetFocus(::hWnd)
       ENDIF
    ENDIF
@@ -416,7 +416,7 @@ METHOD TControl:GetRect()
 
    LOCAL aRect := {0,0,0,0}
 
-   GetWindowRect(::hWnd, aRect)
+   hmg_GetWindowRect(::hWnd, aRect)
 
 RETURN aRect
 
@@ -437,7 +437,7 @@ METHOD TControl:GoNextCtrl(hCtrl)
 
    LOCAL  hCtlNext
 
-   hCtlNext    := hmg_GetNextDlgTabITem(GetActiveWindow(), GetFocus(), .F.)
+   hCtlNext    := hmg_GetNextDlgTabITem(hmg_GetActiveWindow(), hmg_GetFocus(), .F.)
 
    ::hCtlFocus := hCtlNext
 
@@ -451,7 +451,7 @@ METHOD TControl:GoPrevCtrl(hCtrl)
 
    LOCAL hCtlPrev
 
-   hCtlPrev := hmg_GetNextDlgTabItem(GetActiveWindow(), GetFocus(), .T.)
+   hCtlPrev := hmg_GetNextDlgTabItem(hmg_GetActiveWindow(), hmg_GetFocus(), .T.)
 
    ::hCtlFocus := hCtlPrev
 
@@ -565,7 +565,7 @@ RETURN 0
 
 METHOD TControl:Move(nTop, nLeft, nWidth, nHeight, lRepaint)
 
-   MoveWindow(::hWnd, nTop, nLeft, nWidth, nHeight, lRepaint)
+   hmg_MoveWindow(::hWnd, nTop, nLeft, nWidth, nHeight, lRepaint)
 
    ::CoorsUpdate()
 
@@ -712,12 +712,12 @@ METHOD TControl:VScroll(nWParam, nLParam)
       ENDIF
    ELSE                                 // Control ScrollBar
       SWITCH nWParam
-      CASE SB_LINEUP        ; SendMessage(nScrHandle, FM_SCROLLUP)                  ; EXIT
-      CASE SB_LINEDOWN      ; SendMessage(nScrHandle, FM_SCROLLDOWN)                ; EXIT
-      CASE SB_PAGEUP        ; SendMessage(nScrHandle, FM_SCROLLPGUP)                ; EXIT
-      CASE SB_PAGEDOWN      ; SendMessage(nScrHandle, FM_SCROLLPGDN)                ; EXIT
-      CASE SB_THUMBPOSITION ; SendMessage(nScrHandle, FM_THUMBPOS, hmg_LoWord(nLParam)) ; EXIT
-      CASE SB_THUMBTRACK    ; SendMessage(nScrHandle, FM_THUMBTRACK, hmg_LoWord(nLParam))
+      CASE SB_LINEUP        ; hmg_SendMessage(nScrHandle, FM_SCROLLUP)                  ; EXIT
+      CASE SB_LINEDOWN      ; hmg_SendMessage(nScrHandle, FM_SCROLLDOWN)                ; EXIT
+      CASE SB_PAGEUP        ; hmg_SendMessage(nScrHandle, FM_SCROLLPGUP)                ; EXIT
+      CASE SB_PAGEDOWN      ; hmg_SendMessage(nScrHandle, FM_SCROLLPGDN)                ; EXIT
+      CASE SB_THUMBPOSITION ; hmg_SendMessage(nScrHandle, FM_THUMBPOS, hmg_LoWord(nLParam)) ; EXIT
+      CASE SB_THUMBTRACK    ; hmg_SendMessage(nScrHandle, FM_THUMBTRACK, hmg_LoWord(nLParam))
       ENDSWITCH
    ENDIF
 
@@ -840,10 +840,10 @@ METHOD TControl:Notify(nWParam, nLParam)
 
    HB_SYMBOL_UNUSED(nWParam)
 
-//   nNotifyCode := GetNotifyCode(nLParam)
-//   hWndCtl     := GetHwndFrom(nLParam)
+//   nNotifyCode := hmg_GetNotifyCode(nLParam)
+//   hWndCtl     := hmg_GetHwndFrom(nLParam)
 
-   IF GetNotifyCode(nLParam) == NM_KILLFOCUS
+   IF hmg_GetNotifyCode(nLParam) == NM_KILLFOCUS
       ::LostFocus()
    ENDIF
 

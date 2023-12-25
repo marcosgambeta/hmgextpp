@@ -124,7 +124,7 @@ STATIC FUNCTION Scan(u, cData)
 
    DEFAULT cData := ""
 
-   DoEvents()
+   hmg_DoEvents()
 
    IF nNested > 50
       cInfo += CRLF
@@ -146,7 +146,7 @@ STATIC FUNCTION Scan(u, cData)
 
          FOR n := 1 TO Len(u)
 
-            DoEvents()
+            hmg_DoEvents()
 
             IF ValType(u[n]) == ValType(u) .AND. u[n] == u
                _LogFile(.T., " Direct reference to its container")

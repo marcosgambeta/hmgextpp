@@ -333,7 +333,7 @@ METHOD TActiveX:Load()
 
    AtlAxWinInit()
    ::hWnd := CreateWindowEx(nHandle, ::cProgId)
-   MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
+   hmg_MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    xObjeto := AtlAxGetDisp(::hWnd)
    ::hAtl := xObjeto
    TRY
@@ -350,7 +350,7 @@ RETURN ::oOle
 METHOD TActiveX:ReSize(nRow, nCol, nWidth, nHeight)
 
    IF !::bHide
-      MoveWindow(::hWnd, nCol, nRow, nWidth, nHeight, .T.)
+      hmg_MoveWindow(::hWnd, nCol, nRow, nWidth, nHeight, .T.)
    ENDIF
    ::nRow := nRow
    ::nCol := nCol
@@ -368,7 +368,7 @@ METHOD TActiveX:Adjust()
 
    nAuxRight := (::nOldWinWidth - (::nWidth + ::nCol))
    nAuxBottom := (::nOldWinHeight - (::nHeight + ::nRow))
-   MoveWindow(::hWnd, ::nCol, ::nRow, GetProperty(::cWindowName, "width") - ::nCol - nAuxRight, GetProperty(::cWindowName, "height") - ::nRow - nAuxBottom, .T.)
+   hmg_MoveWindow(::hWnd, ::nCol, ::nRow, GetProperty(::cWindowName, "width") - ::nCol - nAuxRight, GetProperty(::cWindowName, "height") - ::nRow - nAuxBottom, .T.)
    ::nWidth := GetProperty(::cWindowName, "width") - ::nCol - nAuxRight
    ::nHeight := GetProperty(::cWindowName, "height") - ::nRow - nAuxBottom
    ::nOldWinWidth := GetProperty(::cWindowName, "width")
@@ -389,14 +389,14 @@ METHOD TActiveX:GetHeight()
 RETURN ::nHeight
 
 METHOD TActiveX:Hide()
-   MoveWindow(::hWnd, 0, 0, 0, 0, .T.)
+   hmg_MoveWindow(::hWnd, 0, 0, 0, 0, .T.)
    ::bHide := .T.
 
 RETURN .T.
 
 METHOD TActiveX:Show()
 
-   MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
+   hmg_MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    ::bHide := .F.
 
 RETURN .T.
@@ -404,7 +404,7 @@ RETURN .T.
 METHOD TActiveX:Release()
 
    IF ::hWnd != NIL
-      DestroyWindow(::hWnd)
+      hmg_DestroyWindow(::hWnd)
    ENDIF
    IF !Empty(::hSink)
       ShutdownConnectionPoint(::hSink)

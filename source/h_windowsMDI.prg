@@ -471,7 +471,7 @@ FUNCTION _ActivateMdiWindow(FormName)
       ENDIF
 
       IF !_HMG_aFormNoShow[i]
-         ShowWindow(GetFormHandle(FormName))
+         hmg_ShowWindow(GetFormHandle(FormName))
          IF _HMG_ProgrammaticChange
             hmg_SetFocus(_HMG_MainClientMDIHandle)  // BK 26-Apr-2012
             hmg_SetFocus(GetFormHandle(FormName)) // BK 26-Apr-2012
@@ -613,14 +613,14 @@ GetActiveMdiHandle() --> handle
 */
 FUNCTION GetActiveMdiHandle()
 
-RETURN iif(_HMG_MainClientMDIHandle > 0, SendMessage(_HMG_MainClientMDIHandle, WM_MDIGETACTIVE, 0, 0), 0)
+RETURN iif(_HMG_MainClientMDIHandle > 0, hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDIGETACTIVE, 0, 0), 0)
 
 /*
 DestroyActiveMdi(hwndCln) --> NIL
 */
 FUNCTION DestroyActiveMdi(hwndCln)
 
-   SendMessage(_HMG_MainClientMDIHandle, WM_MDIDESTROY, hwndCln, 0)
+   hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDIDESTROY, hwndCln, 0)
 
 RETURN NIL
 
@@ -629,7 +629,7 @@ _MdiWindowsTile(lVert) --> NIL
 */
 FUNCTION _MdiWindowsTile(lVert)
 
-   SendMessage(_HMG_MainClientMDIHandle, WM_MDITILE, iif(lVert, MDITILE_VERTICAL, MDITILE_HORIZONTAL), 0)
+   hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDITILE, iif(lVert, MDITILE_VERTICAL, MDITILE_HORIZONTAL), 0)
 
 RETURN NIL
 
@@ -638,7 +638,7 @@ _MdiWindowsCascade() --> NIL
 */
 FUNCTION _MdiWindowsCascade()
 
-   SendMessage(_HMG_MainClientMDIHandle, WM_MDICASCADE, 0, 0)
+   hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDICASCADE, 0, 0)
 
 RETURN NIL
 
@@ -647,7 +647,7 @@ _MdiWindowsIcons() --> NIL
 */
 FUNCTION _MdiWindowsIcons()
 
-   SendMessage(_HMG_MainClientMDIHandle, WM_MDIICONARRANGE, 0, 0)
+   hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDIICONARRANGE, 0, 0)
 
 RETURN NIL
 
@@ -656,7 +656,7 @@ _MdiWindowsRestore(childhwnd) --> NIL
 */
 FUNCTION _MdiWindowsRestore(childhwnd)
 
-   SendMessage(_HMG_MainClientMDIHandle, WM_MDIRESTORE, childhwnd, 0)
+   hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDIRESTORE, childhwnd, 0)
 
 RETURN NIL
 
@@ -666,7 +666,7 @@ _MdiWindowsActivate(childhwnd) --> NIL
 FUNCTION _MdiWindowsActivate(childhwnd)
 
    IF _HMG_MainClientMDIHandle > 0
-      SendMessage(_HMG_MainClientMDIHandle, WM_MDIACTIVATE, childhwnd, 0)
+      hmg_SendMessage(_HMG_MainClientMDIHandle, WM_MDIACTIVATE, childhwnd, 0)
    ENDIF
 
 RETURN NIL

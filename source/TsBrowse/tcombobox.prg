@@ -200,7 +200,7 @@ METHOD TComboBox:LostFocus()
          Eval(::bSetGet, ::aItems[nAt + 1])
       Endif
    Else
-      Eval(::bSetGet, GetWindowText(::hWnd))
+      Eval(::bSetGet, hmg_GetWindowText(::hWnd))
    Endif
 
    ::lFocused := .F.

@@ -257,7 +257,7 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
          SetTbBtnMargin(ControlHandle, BtnWidth, lBtns, lBtn2)
@@ -352,9 +352,9 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
 
    IF lModifyGotFocus .AND. Empty(uGotFocus)
       IF hb_IsChar(Value)
-         _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
+         _HMG_aControlGotFocusProcedure[k] := {||hmg_SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
       ELSEIF ValType(Value) $ "ND"
-         _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1)}
+         _HMG_aControlGotFocusProcedure[k] := {||hmg_SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1)}
       ENDIF
    ENDIF
 
@@ -390,13 +390,13 @@ STATIC PROCEDURE _GetBoxSetNextFocus(lPrevious)
    LOCAL NextControlHandle
    LOCAL i
 
-   NextControlHandle := hmg_GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
+   NextControlHandle := hmg_GetNextDlgTabITem(hmg_GetActiveWindow() , hmg_GetFocus() , lPrevious)
    hmg_setfocus(NextControlHandle)
 
    IF (i := AScan(_HMG_aControlHandles, NextControlHandle)) > 0
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_BUTTON
-         SendMessage(NextControlHandle, BM_SETSTYLE, hmg_LOWORD(BS_DEFPUSHBUTTON), 1)
+         hmg_SendMessage(NextControlHandle, BM_SETSTYLE, hmg_LOWORD(BS_DEFPUSHBUTTON), 1)
       ENDIF
 
    ENDIF
@@ -501,10 +501,10 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
    CASE WM_SETFOCUS
 
-      nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      nStart := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0))
       nStart := Min(nStart, hb_ULen(Trim(oGet:buffer)))
 
-      nEnd := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+      nEnd := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0))
       nEnd := Min(nEnd, hb_ULen(Trim(oGet:buffer)))
 
       coldbuff := oGet:buffer
@@ -568,9 +568,9 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
       ENDIF
 
-      SendMessage(hWnd, EM_SETSEL, nStart, nStart)
+      hmg_SendMessage(hWnd, EM_SETSEL, nStart, nStart)
       _SetGetBoxCaret(hWnd)
-      SendMessage(hWnd, EM_SETSEL, nStart, nStart)
+      hmg_SendMessage(hWnd, EM_SETSEL, nStart, nStart)
 
       // show message if any
       IF ParentHandle > 0
@@ -593,7 +593,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             IF hb_IsBlock(oGet:postblock)
                coldbuff := oGet:buffer
 
-               h := GetFocus()
+               h := hmg_GetFocus()
                hmg_HideCaret(hWnd)
                hmg_HideCaret(h)
 
@@ -676,7 +676,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          _HMG_aControlFontColor[i] := aOldFontClr
       ENDIF
       _DispGetBoxText(hWnd, oGet:buffer)
-      SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+      hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       // message
       IF ParentHandle > 0
@@ -704,8 +704,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
    CASE WM_CHAR
 
-      nStart := hmg_LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
-      nEnd   := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
+      nStart := hmg_LoWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
+      nEnd   := hmg_HiWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       oGet:pos := nEnd
       _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
@@ -713,12 +713,12 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
       CASE wParam == 1  // CTRL+A SelectAll
 
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
          RETURN 0
 
       CASE wParam == 22 // CTRL+V Paste
 
-         SendMessage(_HMG_aControlhandles[i], WM_PASTE, 0, 0)
+         hmg_SendMessage(_HMG_aControlhandles[i], WM_PASTE, 0, 0)
          RETURN 0
 
       CASE wParam == 3  // CTRL+C Copy
@@ -733,8 +733,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          System.Clipboard := hb_USubStr(oGet:buffer, nStart, nEnd - nStart)
-         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
 
          oGet:pos := nEnd
 
@@ -764,7 +764,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
          oGet:Assign()
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN 0
 
@@ -778,14 +778,14 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
          oGet:Assign()
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN 0
 
       CASE wParam == 0x0D .OR. wParam == 0x09   // Return key or TAB key pressed
 
          IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate .AND. !readonly .AND. lAllowEdit
-            SendMessage(hWnd, EM_SETSEL, 0, 0)
+            hmg_SendMessage(hWnd, EM_SETSEL, 0, 0)
             oGet:Pos := 1
          ELSE
             lShift := _GetKeyState(VK_SHIFT)  // Shift key pressed (or not)
@@ -835,7 +835,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          oGet:Assign()
          _HMG_aControlValue[i] := oGet:VarGet()
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, (oGet:pos - 1), (oGet:pos - 1))
+         hmg_SendMessage(hWnd, EM_SETSEL, (oGet:pos - 1), (oGet:pos - 1))
 
          RETURN 0
 
@@ -849,7 +849,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          IF oGet:type == "L"
             nStart := 0
             nEnd := 0
-            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
+            hmg_SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
             oGet:Pos := 1
          ENDIF
 
@@ -961,7 +961,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN 0
 
@@ -979,7 +979,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                ENDIF
             NEXT
          ENDIF
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
       ENDIF
 
       EXIT
@@ -990,8 +990,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          RETURN 0
       ENDIF
 
-      nStart := hmg_LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
-      nEnd   := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      nStart := hmg_LoWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      nEnd   := hmg_HiWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
       oGet:pos := nEnd + 1
       _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
@@ -1031,7 +1031,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             ENDIF
 
             _DispGetBoxText(hWnd, oGet:buffer)
-            SendMessage(hWnd, EM_SETSEL, 0, 0)
+            hmg_SendMessage(hWnd, EM_SETSEL, 0, 0)
 
             oGet:BadDate := .F.
             lInValid := .F.
@@ -1062,7 +1062,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             CopyToClipboard(hb_USubStr(oGet:buffer, nStart, nEnd - nStart)) // TODO: hmg_CopyToClipboard ?
             RETURN 0
          ELSEIF lShift
-            SendMessage(hWnd, WM_PASTE, 0, 0)
+            hmg_SendMessage(hWnd, WM_PASTE, 0, 0)
             RETURN 0
          ENDIF
          lInsert := !lInsert
@@ -1072,7 +1072,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       CASE VK_DOWN
 
          IF !lCtrl .AND. !lShift
-            SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
+            hmg_SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
             IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate
                RETURN 0
             ELSE
@@ -1101,7 +1101,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       CASE VK_UP
 
          IF !lCtrl .AND. !lShift
-            SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
+            hmg_SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
             IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate
                RETURN 0
             ELSE
@@ -1133,24 +1133,24 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             IF nEnd > nStart
                nEnd --
             ENDIF
-            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
+            hmg_SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
          ELSE
-            SendMessage(hWnd, EM_SETSEL, nEnd - 1, nEnd - 1)
+            hmg_SendMessage(hWnd, EM_SETSEL, nEnd - 1, nEnd - 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         oGet:pos := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          EXIT
 
       CASE VK_RIGHT
 
          IF lShift
             nEnd := oGet:Pos
-            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
+            hmg_SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
          ELSE
-            SendMessage(hWnd, EM_SETSEL, nStart + 1, nStart + 1)
+            hmg_SendMessage(hWnd, EM_SETSEL, nStart + 1, nStart + 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         oGet:pos := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          EXIT
 
       CASE VK_HOME
@@ -1159,7 +1159,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          IF !lShift
             nEnd := 0
          ENDIF
-         SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
+         hmg_SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
 
          RETURN 1
 
@@ -1169,7 +1169,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          IF !lShift
             nStart := nEnd
          ENDIF
-         SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
+         hmg_SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
 
          RETURN 1
 
@@ -1187,8 +1187,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
             RETURN 0
          ENDIF
 
-         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1224,7 +1224,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          oGet:Assign()
 
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN 0
 
@@ -1240,8 +1240,8 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
       IF (cText := System.Clipboard) != NIL
 
-         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd   := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          nLen   := hb_ULen(oGet:buffer)
 
          IF nStart != nEnd
@@ -1289,7 +1289,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          oGet:VarPut(oGet:unTransform())
 
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
 
@@ -1298,10 +1298,10 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
    CASE WM_CUT
    CASE WM_CLEAR
 
-      IF IsWindowEnabled(hWnd) .AND. !readonly .AND. lAllowEdit
+      IF hmg_IsWindowEnabled(hWnd) .AND. !readonly .AND. lAllowEdit
 
-         nStart := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
-         nEnd := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nStart := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1321,7 +1321,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          _DispGetBoxText(hWnd, oGet:buffer)
-         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
+         hmg_SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
 
@@ -1369,7 +1369,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
                _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
             ENDSWITCH
 
-            SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
+            hmg_SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             hmg_setfocus(aHandle[1])
 
          ENDIF
@@ -1473,12 +1473,12 @@ PROCEDURE _DispGetBoxText(hWnd, cText)
 
       ControlHandle := _HMG_aControlHandles[i]
 
-      IF IsWindowHandle(ControlHandle)
+      IF hmg_IsWindowHandle(ControlHandle)
 
          IF hb_bitand(GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
-            SetWindowText(ControlHandle, Replicate("*", Len(Trim(cText))))
+            hmg_SetWindowText(ControlHandle, Replicate("*", Len(Trim(cText))))
          ELSE
-            SetWindowText(ControlHandle, cText)
+            hmg_SetWindowText(ControlHandle, cText)
          ENDIF
 
       ENDIF
@@ -1790,7 +1790,7 @@ RETURN _HMG_aControlCaption[i]
 STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 //---------------------------------------------------------------------------//
    
-   LOCAL hActiveWnd := GetActiveWindow()
+   LOCAL hActiveWnd := hmg_GetActiveWindow()
    LOCAL lRet := ( _GetParent(hWnd) == hActiveWnd )
    LOCAL hParent
 

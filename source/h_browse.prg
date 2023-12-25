@@ -207,7 +207,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
             x := GetWindowCol(Controlhandle)
             y := GetWindowRow(Controlhandle)
 
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
          ENDIF
 
@@ -240,7 +240,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -387,7 +387,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    doublebuffer     := _HMG_aControlMiscData1[i, 19]
    aImageHeader     := _HMG_aControlPicture[i]
 
-   SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + ;
+   hmg_SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + ;
       iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP)
 
    wBitmap := iif(Len(_HMG_aControlBkColor[i]) > 0, hmg_AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[i]), 0) // Add Bitmap Column
@@ -1559,7 +1559,7 @@ FUNCTION _BrowseEdit(GridHandle, aValid, aValidMessages, aReadOnly, lock, append
 
    h := GridHandle
 
-   GetWindowRect(h, actpos)
+   hmg_GetWindowRect(h, actpos)
 
    GRow   := actpos[2]
    GCol   := actpos[1]
@@ -1847,19 +1847,19 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
             IF hb_IsArray(aFormats[i])
                @ ControlRow, 120 COMBOBOX &CN  OF _Split_1 ITEMS aFormats[i] VALUE aValues[i] WIDTH 140  FONT "Arial" SIZE 10;
                   ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
-                  SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1));
+                  hmg_SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1));
                   ON LOSTFOCUS _WHENEVAL()
 
             ELSEIF hb_IsChar(aFormats[i])
 
                @ ControlRow, 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE aFormats[i];
                   ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
-                  SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
+                  hmg_SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                   ON LOSTFOCUS _WHENEVAL()
                ELSE
                @ ControlRow, 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10;
                   ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
-                  SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
+                  hmg_SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                   ON LOSTFOCUS _WHENEVAL()
                ENDIF
                ControlRow += 30
@@ -1870,7 +1870,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
                IF  aFormats[i] <= 32
                   @ ControlRow, 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE Replicate("X", aFormats[i]);
                      ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
-                     SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
+                     hmg_SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                      ON LOSTFOCUS _WHENEVAL()
                   ControlRow += 30
                ELSE
@@ -2278,7 +2278,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle, aValid, aValidMessages, aReadOnly
 
    ENDIF
 
-   _HMG_InplaceParentHandle := iif(_HMG_BeginWindowMDIActive, GetActiveMdiHandle(), GetActiveWindow())
+   _HMG_InplaceParentHandle := iif(_HMG_BeginWindowMDIActive, GetActiveMdiHandle(), hmg_GetActiveWindow())
 
    IF ControlType == "M"
 
@@ -2466,9 +2466,9 @@ STATIC PROCEDURE _InPlaceEditOk(i, r, aValid, CellColIndex, sFieldName, AreaName
 
    IF ControlType == "X" .Or. ControlType == "L"
 
-      IF SendMessage(GetControlHandle("Control_1", "_InPlaceEdit"), CB_GETDROPPEDSTATE, 0, 0) == 1
+      IF hmg_SendMessage(GetControlHandle("Control_1", "_InPlaceEdit"), CB_GETDROPPEDSTATE, 0, 0) == 1
 
-         SendMessage(GetControlHandle("Control_1", "_InPlaceEdit"), CB_SHOWDROPDOWN, 0, 0)
+         hmg_SendMessage(GetControlHandle("Control_1", "_InPlaceEdit"), CB_SHOWDROPDOWN, 0, 0)
          InsertReturn()
          RETURN
 
@@ -2818,10 +2818,10 @@ STATIC PROCEDURE _BrowseVscrollUpdate(i)
       _HMG_aControlBrushHandle[i] := RecordCount
 
       IF RecordCount < 100
-         SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
+         hmg_SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
          hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
       ELSE
-         SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, 100, .T.)
+         hmg_SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, 100, .T.)
          hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, Int(ActualRecord * 100 / RecordCount) , .T.)
       ENDIF
 
@@ -2846,9 +2846,9 @@ PROCEDURE _BrowseVscrollFastUpdate(i, d)
       ENDIF
 
       IF RecordCount < 100
-         ActualRecord := GetScrollPos(_HMG_aControlIds[i], 2)
+         ActualRecord := hmg_GetScrollPos(_HMG_aControlIds[i], 2)
          ActualRecord := ActualRecord + d
-         SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
+         hmg_SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
          hmg_SetScrollPos(_HMG_aControlIds[i] , SB_CTL, ActualRecord, .T.)
       ENDIF
 

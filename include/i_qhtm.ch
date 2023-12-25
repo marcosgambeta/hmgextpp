@@ -142,6 +142,6 @@ QHTM
 #define QHTM_SET_SCROLL_POS        ( WM_USER + 7 )
 
 #translate QHTM_GetScrollPos( <nHandle> ) ;
-        => SendMessage( <nHandle>, QHTM_GET_SCROLL_POS, 0, 0 ) 
-#translate QHTM_SetScrollPos( <nHandle>, <nPos> ) ; 
-        => SendMessage( <nHandle>, QHTM_SET_SCROLL_POS, <nPos>, 0 )
+        => hmg_SendMessage( <nHandle>, QHTM_GET_SCROLL_POS, 0, 0 ) 
+#translate QHTM_SetScrollPos( <nHandle>, <nPos> ) ;
+        => hmg_SendMessage( <nHandle>, QHTM_SET_SCROLL_POS, <nPos>, 0 )

@@ -343,11 +343,11 @@ FUNCTION _SetFontAttr(ControlName, ParentForm, Value, nType)
 
    CASE CONTROL_TYPE_RADIOGROUP
       _HMG_aControlFontHandle[i] := hmg__SetFont(h[1], n, s, ab, ai, au, as, aa)
-      AEval(h, {|x|SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1)}, 2)
+      AEval(h, {|x|hmg_SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1)}, 2)
       EXIT
 
    OTHERWISE
-      IF IsWindowHandle(h)
+      IF hmg_IsWindowHandle(h)
          _HMG_aControlFontHandle[i] := hmg__SetFont(h, n, s, ab, ai, au, as, aa)
          IF t == CONTROL_TYPE_MONTHCAL
             hmg_SetPosMonthCal(h, _HMG_aControlCol[i], _HMG_aControlRow[i])

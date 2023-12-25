@@ -312,32 +312,32 @@ ComboBox Extend Style
 
 #xtranslate ComboSetCurSel ( <hWnd>, <s> ) ;
 => ;
-SendMessage( <hWnd>, CB_SETCURSEL, <s> - 1, 0 )
+hmg_SendMessage( <hWnd>, CB_SETCURSEL, <s> - 1, 0 )
 
 #xtranslate ComboGetCurSel ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, CB_GETCURSEL, 0, 0 ) + 1
+hmg_SendMessage( <hWnd>, CB_GETCURSEL, 0, 0 ) + 1
 
 #xtranslate ComboboxDeleteString ( <hWnd>, <s> ) ;
 => ;
-SendMessage( <hWnd>, CB_DELETESTRING, <s> - 1, 0 )
+hmg_SendMessage( <hWnd>, CB_DELETESTRING, <s> - 1, 0 )
 
 #xtranslate ComboboxReset ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, CB_RESETCONTENT, 0, 0 )
+hmg_SendMessage( <hWnd>, CB_RESETCONTENT, 0, 0 )
 
 #xtranslate ComboboxGetItemCount ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, CB_GETCOUNT, 0, 0 )
+hmg_SendMessage( <hWnd>, CB_GETCOUNT, 0, 0 )
 
 #xtranslate ComboboxDeleteItemEx ( <hWnd>, <s> ) ;
 => ;
-SendMessage( <hWnd>, CBEM_DELETEITEM, <s> - 1, 0 )
+hmg_SendMessage( <hWnd>, CBEM_DELETEITEM, <s> - 1, 0 )
 
 #xtranslate SetDropDownWidth ( <hWnd>, <w> ) ;
 => ;
-SendMessage( <hWnd>, CB_SETDROPPEDWIDTH, <w>, 0 )
+hmg_SendMessage( <hWnd>, CB_SETDROPPEDWIDTH, <w>, 0 )
 
 #xtranslate GetDropDownWidth ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, CB_GETDROPPEDWIDTH, 0, 0 )
+hmg_SendMessage( <hWnd>, CB_GETDROPPEDWIDTH, 0, 0 )

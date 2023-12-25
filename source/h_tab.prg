@@ -248,7 +248,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
 
       IF hb_IsArray(backcolor[1])
          hBrush := hmg_CreateSolidBrush(backcolor[1][1], backcolor[1][2], backcolor[1][3])
-         SetWindowBrush(ControlHandle, hBrush)
+         hmg_SetWindowBrush(ControlHandle, hBrush)
       ENDIF
 
    ENDIF
@@ -260,7 +260,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -675,7 +675,7 @@ FUNCTION _AddTabControl(TabName, ControlName, ParentForm, PageNumber, Row, Col)
 
 #ifdef _USERINIT_
       IF t == CONTROL_TYPE_SPBUTTON .AND. _HMG_aControlVisible[x]
-         BringWindowToTop(_HMG_aControlHandles[x])
+         hmg_BringWindowToTop(_HMG_aControlHandles[x])
       ENDIF
 #endif
    ENDIF

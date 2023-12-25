@@ -442,10 +442,10 @@
    _EndWindow ()
 
 
-#xcommand DO EVENTS => DoEvents()
+#xcommand DO EVENTS => hmg_DoEvents()
 
-#xcommand DO MESSAGE LOOP [ <except: EXIT [ON EXCEPTION]> ] => DoMessageLoop( <.except.> )
-#xcommand DO MESSAGELOOP  [ <except: EXIT [ON EXCEPTION]> ] => DoMessageLoop( <.except.> )
+#xcommand DO MESSAGE LOOP [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop( <.except.> )
+#xcommand DO MESSAGELOOP  [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop( <.except.> )
 
 
 #xcommand FETCH [ PROPERTY ] [ WINDOW ] <Arg1> <Arg2> TO <Arg3> ;

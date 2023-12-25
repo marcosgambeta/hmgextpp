@@ -94,7 +94,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       _HMG_IsModalActive := .F.
       _hmg_activemodalhandle := 0
 
-      DisableWindow(ModalHandle)
+      hmg_DisableWindow(ModalHandle)
 
    ELSE
 
@@ -172,9 +172,9 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       NOSIZE NOSYSMENU
 
       ON KEY ESCAPE ACTION (HideWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                             _HMG_PRINTER_SHOWPREVIEW.setfocus)
       ON KEY RETURN ACTION _HMG_PRINTER_PrintPagesDo()
 
@@ -279,9 +279,9 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          FontName "Arial"
          FontSize 9
          Caption _hmg_printer_usermessages[12]
-         Action (EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+         Action (hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                  HideWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES")), ;
                  _HMG_PRINTER_SHOWPREVIEW.setfocus)
       End Button
@@ -331,15 +331,15 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       NOSIZE NOSYSMENU
 
       ON KEY ESCAPE ACTION (HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                             _HMG_PRINTER_SHOWPREVIEW.setfocus)
       ON KEY RETURN ACTION (_hmg_printer_CurrentPageNumber := _HMG_PRINTER_GO_TO_PAGE.Spinner_1.Value, ;
                             HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                            EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                            hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                             _HMG_PRINTER_PREVIEWRefresh(), ;
                             _HMG_PRINTER_SHOWPREVIEW.setfocus)
 
@@ -374,9 +374,9 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Caption _hmg_printer_usermessages[11]
          Action (_hmg_printer_CurrentPageNumber := _HMG_PRINTER_GO_TO_PAGE.Spinner_1.Value, ;
                  HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                  _HMG_PRINTER_PREVIEWRefresh(), ;
                  _HMG_PRINTER_SHOWPREVIEW.setfocus)
       End Button
@@ -390,9 +390,9 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          FontSize 9
          Caption _hmg_printer_usermessages[12]
          Action (HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
-                 EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
+                 hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
                  _HMG_PRINTER_SHOWPREVIEW.setfocus)
       End Button
 
@@ -561,8 +561,8 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       SetProperty("_HMG_PRINTER_PPNAV", "Height", GetProperty("_HMG_PRINTER_PPNAV", "Height") + GetBorderHeight() / 2)
    ENDIF
 
-   SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 0, 100, .T.)
-   SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 0, 100, .T.)
+   hmg_SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 0, 100, .T.)
+   hmg_SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 0, 100, .T.)
 
    hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
    hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
@@ -603,7 +603,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
          ENDIF
       NEXT i
 
-      EnableWindow(ModalHandle)
+      hmg_EnableWindow(ModalHandle)
 
       FOR i := 1 TO Len(_HMG_aFormHandles)
          IF !_HMG_aFormDeleted[i]
@@ -659,7 +659,7 @@ STATIC PROCEDURE CreateThumbNails()
       RETURN
    ENDIF
 
-   ShowWindow(GetFormHandle ( "_HMG_PRINTER_Wait" ))
+   hmg_ShowWindow(GetFormHandle ( "_HMG_PRINTER_Wait" ))
 
    IF _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) > _HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak)
       tFactor := 0.44
@@ -723,7 +723,7 @@ PROCEDURE _HMG_PRINTER_ProcessTHUMBNAILS()
       _HMG_PRINTER_SHOWPREVIEW.Width := GetDesktopWidth() - 148 - IIF(IsVistaThemed, 30, 0)
       _HMG_PRINTER_SHOWPREVIEW.Col := 138 + IIF(IsVistaThemed, 20, 0)
       _HMG_PRINTER_PREVIEWRefresh()
-      ShowWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+      hmg_ShowWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
    ELSE
       _hmg_printer_zoomclick_xoffset := 0
       _hmg_printer_SizeFactor := GetDesktopHeight() / _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * 0.63
@@ -775,10 +775,10 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_GO_TO_PAGE()
 
-   DisableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
-   DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
-   DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
-   ShowWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   hmg_ShowWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE"))
 
 RETURN
 
@@ -788,7 +788,7 @@ STATIC PROCEDURE _HMG_PRINTER_hScrollBoxProcess()
 
    LOCAL Sp
 
-   Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ)
+   Sp := hmg_GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ)
    _hmg_printer_Dx := - (Sp - 50) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
@@ -800,7 +800,7 @@ STATIC PROCEDURE _HMG_PRINTER_vScrollBoxProcess()
 
    LOCAL Sp
 
-   Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT)
+   Sp := hmg_GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT)
    _hmg_printer_Dy := - (Sp - 50) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
@@ -849,13 +849,13 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
 
          IF _hmg_printer_PageCount == _hmg_printer_CurrentPageNumber
 
-            IF GetScrollPos(hwnd,SB_VERT) != nScrollMax
+            IF hmg_GetScrollPos(hwnd,SB_VERT) != nScrollMax
                _HMG_SETVSCROLLVALUE(hwnd, nScrollMax)
             ENDIF
 
          ELSEIF _hmg_printer_CurrentPageNumber == 1
 
-            IF GetScrollPos(hwnd,SB_VERT) != 0
+            IF hmg_GetScrollPos(hwnd,SB_VERT) != 0
                _HMG_SETVSCROLLVALUE(hwnd, 0)
             ENDIF
 
@@ -864,7 +864,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
             IF (nRow - 9) < nScrollMax
                _HMG_SETVSCROLLVALUE(hwnd, nRow - 9)
             ELSE
-               IF GetScrollPos(hwnd,SB_VERT) != nScrollMax
+               IF hmg_GetScrollPos(hwnd,SB_VERT) != nScrollMax
                   _HMG_SETVSCROLLVALUE(hwnd, nScrollMax)
                ENDIF
             ENDIF
@@ -899,9 +899,9 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_PrintPages()
 
-   DIsableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
-   DIsableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
-   DIsableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   hmg_DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
    _HMG_PRINTER_PRINTPAGES.Radio_1.Value := 1
 
@@ -917,7 +917,7 @@ PROCEDURE _HMG_PRINTER_PrintPages()
       _HMG_PRINTER_PRINTPAGES.Spinner_3.Enabled := .F.
    ENDIF
 
-   ShowWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES"))
+   hmg_ShowWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES"))
 
 RETURN
 
@@ -1030,9 +1030,9 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
    _HMG_PRINTER_ENDDOC(_hmg_printer_hdc_bak)
 
-   EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
-   EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
-   EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
+   hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   hmg_EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
 
    HideWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES"))
 

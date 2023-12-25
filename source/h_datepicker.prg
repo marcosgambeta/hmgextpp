@@ -183,7 +183,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -553,7 +553,7 @@ FUNCTION OPICKEVENTS(hWnd, nMsg, wParam, lParam)
 
       IF i > 0
          IF _HMG_aControlBkColor[i] != NIL
-            GetClientRect(_HMG_aControlHandles[i], /*@*/aRect)
+            hmg_GetClientRect(_HMG_aControlHandles[i], /*@*/aRect)
             hBrush := hmg_CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
             hmg_FillRect(hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush)
             hmg_DeleteObject(hBrush)

@@ -149,11 +149,11 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
             FontHandle := hmg__SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
          ENDIF
 
-         AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
+         hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
          Containerhandle := _HMG_aFormReBarHandle[i]
 
          IF LEN(value) > 0
-            SetWindowText(ControlHandle, value)
+            hmg_SetWindowText(ControlHandle, value)
          ENDIF
 
       ENDIF
@@ -161,7 +161,7 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
    ELSE
 
       ControlHandle := hmg_InitRichEditBoxEx(ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll)
-      IF IsWindowHandle(ControlHandle)
+      IF hmg_IsWindowHandle(ControlHandle)
          IF fontname != NIL .AND. fontsize != NIL
             FontHandle := hmg__SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
@@ -170,7 +170,7 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
       ENDIF
 
       IF LEN(value) > 0
-         SetWindowText(ControlHandle, value)
+         hmg_SetWindowText(ControlHandle, value)
       ENDIF
 
    ENDIF
@@ -240,7 +240,7 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
    ENDIF
 
    IF IsArrayRGB(backcolor)
-      SendMessage(_HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]))
+      hmg_SendMessage(_HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]))
    ENDIF
 
    IF _SetGetGlobal("_HMG_aRichEditMenu") == NIL
@@ -276,7 +276,7 @@ FUNCTION RichEditBox_mnuEdit_Click(cAction)
    CASE "COPY"   ; hmg_RichEditBox_SelCopy(hEdit)    ; EXIT  // Ctrl+C
    CASE "PASTE"  ; hmg_RichEditBox_SelPaste(hEdit)   ; EXIT  // Ctrl+V
    CASE "DEL"    ; hmg_RichEditBox_SelClear(hEdit)   ; EXIT  // Del
-   CASE "SELALL" ; SendMessage(hEdit, EM_SETSEL, 0, -1)  // Ctrl+A
+   CASE "SELALL" ; hmg_SendMessage(hEdit, EM_SETSEL, 0, -1)  // Ctrl+A
    ENDSWITCH
 
 RETURN NIL

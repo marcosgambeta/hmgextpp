@@ -151,9 +151,9 @@ FUNCTION SPButtonEventHandler(hWnd, nMsg, wParam, lParam)
 
    IF nMsg == WM_NOTIFY
 
-      IF GetNotifyCode(lParam) == BCN_DROPDOWN  // Notify for dropdown button
+      IF hmg_GetNotifyCode(lParam) == BCN_DROPDOWN  // Notify for dropdown button
          xRetVal := 0
-         LaunchDropdownMenu(GetHwndFrom(lParam))
+         LaunchDropdownMenu(hmg_GetHwndFrom(lParam))
       ENDIF
 
    ELSEIF nMsg == WM_COMMAND
@@ -196,13 +196,13 @@ PROCEDURE SPButtonSetFocus(cWindow, cControl)
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_SPBUTTON
             IF _HMG_aControlParentHandles[x] == ParentFormHandle
-               SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, BS_SPLITBUTTON, hmg_LOWORD(1))
+               hmg_SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, BS_SPLITBUTTON, hmg_LOWORD(1))
             ENDIF
          ENDIF
       NEXT
 
       hmg_SetFocus(hWnd)
-      SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, hmg_LOWORD(1))
+      hmg_SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, hmg_LOWORD(1))
 
    ELSE
 
@@ -218,7 +218,7 @@ PROCEDURE SPButtonEnable(cWindow, cControl)
 
    IF GetControlType(cControl, cWindow) == "SPBUTTON"
 
-      EnableWindow(GetControlHandle(cControl, cWindow))
+      hmg_EnableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -236,7 +236,7 @@ PROCEDURE SPButtonDisable(cWindow, cControl)
 
    IF GetControlType(cControl, cWindow) == "SPBUTTON"
 
-      DisableWindow(GetControlHandle(cControl, cWindow))
+      hmg_DisableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -259,7 +259,7 @@ STATIC FUNCTION LaunchDropdownMenu(nHwnd)
 
    IF nIdx > 0
 
-      GetWindowRect(nHwnd, aPos)
+      hmg_GetWindowRect(nHwnd, aPos)
 
       hmg_TrackPopupMenu(_HMG_aControlRangeMax[nIdx], aPos[1] + 1, aPos[2] + _HMG_aControlHeight[nIdx], _HMG_aControlParentHandles[nIdx])
 

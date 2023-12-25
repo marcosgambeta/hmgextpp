@@ -184,12 +184,12 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle(ControlHandle)
+            IF hmg_IsWindowHandle(ControlHandle)
                FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
-         AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
+         hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
 
          Containerhandle := _HMG_aFormReBarHandle[i]
 
@@ -204,7 +204,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -278,13 +278,13 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF DisplayChange
       // handle for ComboBoxEx edit window
-      _hmg_acontrolrangemin[k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
+      _hmg_acontrolrangemin[k] := hmg_SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
       IF tooltip != NIL
          hmg_SetToolTip(_hmg_acontrolrangemin[k] , tooltip, GetFormToolTipHandle(cParentForm))
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
-   _hmg_acontrolrangemax[k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
+   _hmg_acontrolrangemax[k] := hmg_SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
    IF tooltip != NIL
       hmg_SetToolTip(_hmg_acontrolrangemax[k] , tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF

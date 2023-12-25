@@ -247,7 +247,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
             hmg_LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
          ENDIF
 
-         SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, 1) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP + iif(lCheckboxes, LVS_EX_CHECKBOXES, 0))
+         hmg_SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, 1) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP + iif(lCheckboxes, LVS_EX_CHECKBOXES, 0))
 
       ENDIF
 
@@ -270,7 +270,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
             x := y := 0
             ControlHandle := hmg_InitListView(_HMG_aFormReBarHandle[i], 0, x, y, w, h, ownerdata, itemcount, multiselect, showheaders, nosortheaders, NoTabStop)
 
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
          ENDIF
 
@@ -302,7 +302,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -444,7 +444,7 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
       hmg_LISTVIEW_SETITEMCOUNT(ControlHandle, itemcount)
    ENDIF
 
-   SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + ;
+   hmg_SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + ;
       LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + iif(lockcolumns > 0, 0, LVS_EX_HEADERDRAGDROP) + iif(lcheckboxes, LVS_EX_CHECKBOXES, 0))
 
    IF IsArrayRGB(backcolor)
@@ -519,14 +519,14 @@ FUNCTION ListView_CalculateSize(hLV, nNumberOfRows, /*@*/nWidth, /*@*/nHeight)
    DEFAULT nNumberOfRows := -1
    // Collect and/or adjust the number of rows
    IF nNumberOfRows < 0
-      nNumberOfRows := SendMessage(hLV, LVM_GETITEMCOUNT, 0, 0)
+      nNumberOfRows := hmg_SendMessage(hLV, LVM_GETITEMCOUNT, 0, 0)
    ENDIF
 
    IF nNumberOfRows > 0  // Not zero
        nNumberOfRows -= 1
    ENDIF
    // Calculate size
-   nResult := SendMessage(hLV, LVM_APPROXIMATEVIEWRECT, nNumberOfRows, hmg_MAKELONG(-1, -1))
+   nResult := hmg_SendMessage(hLV, LVM_APPROXIMATEVIEWRECT, nNumberOfRows, hmg_MAKELONG(-1, -1))
    // Extract, adjust, and return values
    nWidth  := hmg_LOWORD(nResult) + 4
    nHeight := hmg_HIWORD(nResult) + 4
@@ -666,7 +666,7 @@ FUNCTION _EditItem(GridHandle)
 
    IRow := hmg_ListViewGetItemRow(h, Item)
 
-   GetWindowRect(h, actpos)
+   hmg_GetWindowRect(h, actpos)
 
    GRow   := actpos[2] + IRow / 2
    GCol   := actpos[1]
@@ -1019,7 +1019,7 @@ FUNCTION _GridInplaceEdit(idx)
       DH := -7
    ENDIF
 
-   _HMG_InplaceParentHandle := GetActiveWindow()
+   _HMG_InplaceParentHandle := hmg_GetActiveWindow()
 
    DEFINE WINDOW _hmg_grid_inplaceedit ;
       AT r + DR, c ;

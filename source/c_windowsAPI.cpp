@@ -91,7 +91,7 @@ BOOL SetAcceleratorTable(HWND hWnd, HACCEL hHaccel)
    return TRUE;
 }
 
-HB_FUNC( DOMESSAGELOOP )
+HB_FUNC( HMG_DOMESSAGELOOP )
 {
    MSG Msg;
    int status;
@@ -115,13 +115,17 @@ HB_FUNC( DOMESSAGELOOP )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( DOMESSAGELOOP, HMG_DOMESSAGELOOP )
+#endif
+
 /*
  * DoEvents is a statement that yields execution of the current
  * thread so that the operating system can process other events.
  * This function cleans out the message loop and executes any other pending
  * business.
  */
-HB_FUNC( DOEVENTS )
+HB_FUNC( HMG_DOEVENTS )
 {
    MSG Msg;
 
@@ -135,94 +139,166 @@ HB_FUNC( DOEVENTS )
    }
 }
 
-HB_FUNC( EXITPROCESS )
+#if 1
+HB_FUNC_TRANSLATE( DOEVENTS, HMG_DOEVENTS )
+#endif
+
+HB_FUNC( HMG_EXITPROCESS )
 {
    ExitProcess(HB_ISNUM(1) ? hb_parni(1) : 0);
 }
 
-HB_FUNC( SHOWWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( EXITPROCESS, HMG_EXITPROCESS )
+#endif
+
+HB_FUNC( HMG_SHOWWINDOW )
 {
    ShowWindow(hmg_par_HWND(1), HB_ISNUM(2) ? hb_parni(2) : SW_SHOW);
 }
 
-HB_FUNC( GETACTIVEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( SHOWWINDOW, HMG_SHOWWINDOW )
+#endif
+
+HB_FUNC( HMG_GETACTIVEWINDOW )
 {
    hmg_ret_HWND(GetActiveWindow());
 }
 
-HB_FUNC( SETACTIVEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( GETACTIVEWINDOW, HMG_GETACTIVEWINDOW )
+#endif
+
+HB_FUNC( HMG_SETACTIVEWINDOW )
 {
    SetActiveWindow(hmg_par_HWND(1));
 }
 
-HB_FUNC( POSTQUITMESSAGE )
+#if 1
+HB_FUNC_TRANSLATE( SETACTIVEWINDOW, HMG_SETACTIVEWINDOW )
+#endif
+
+HB_FUNC( HMG_POSTQUITMESSAGE )
 {
    PostQuitMessage(hb_parni(1));
 }
 
-HB_FUNC( DESTROYWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( POSTQUITMESSAGE, HMG_POSTQUITMESSAGE )
+#endif
+
+HB_FUNC( HMG_DESTROYWINDOW )
 {
    DestroyWindow(hmg_par_HWND(1));
 }
 
-HB_FUNC( ISWINDOWVISIBLE )
+#if 1
+HB_FUNC_TRANSLATE( DESTROYWINDOW, HMG_DESTROYWINDOW )
+#endif
+
+HB_FUNC( HMG_ISWINDOWVISIBLE )
 {
    hb_retl(IsWindowVisible(hmg_par_HWND(1)));
 }
 
-HB_FUNC( ISWINDOWENABLED )
+#if 1
+HB_FUNC_TRANSLATE( ISWINDOWVISIBLE, HMG_ISWINDOWVISIBLE )
+#endif
+
+HB_FUNC( HMG_ISWINDOWENABLED )
 {
    hb_retl(IsWindowEnabled(hmg_par_HWND(1)));
 }
 
-HB_FUNC( ENABLEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( ISWINDOWENABLED, HMG_ISWINDOWENABLED )
+#endif
+
+HB_FUNC( HMG_ENABLEWINDOW )
 {
    EnableWindow(hmg_par_HWND(1), TRUE);
 }
 
-HB_FUNC( DISABLEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( ENABLEWINDOW, HMG_ENABLEWINDOW )
+#endif
+
+HB_FUNC( HMG_DISABLEWINDOW )
 {
    EnableWindow(hmg_par_HWND(1), FALSE);
 }
 
-HB_FUNC( SETFOREGROUNDWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( DISABLEWINDOW, HMG_DISABLEWINDOW )
+#endif
+
+HB_FUNC( HMG_SETFOREGROUNDWINDOW )
 {
    SetForegroundWindow(hmg_par_HWND(1));
 }
 
-HB_FUNC( BRINGWINDOWTOTOP )
+#if 1
+HB_FUNC_TRANSLATE( SETFOREGROUNDWINDOW, HMG_SETFOREGROUNDWINDOW )
+#endif
+
+HB_FUNC( HMG_BRINGWINDOWTOTOP )
 {
    BringWindowToTop(hmg_par_HWND(1));
 }
 
-HB_FUNC( GETFOREGROUNDWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( BRINGWINDOWTOTOP, HMG_BRINGWINDOWTOTOP )
+#endif
+
+HB_FUNC( HMG_GETFOREGROUNDWINDOW )
 {
    hmg_ret_HWND(GetForegroundWindow());
 }
 
-HB_FUNC( SETWINDOWTEXT )
+#if 1
+HB_FUNC_TRANSLATE( GETFOREGROUNDWINDOW, HMG_GETFOREGROUNDWINDOW )
+#endif
+
+HB_FUNC( HMG_SETWINDOWTEXT )
 {
    void * str;
    SetWindowText(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr));
    hb_strfree(str);
 }
 
-HB_FUNC( SETWINDOWTEXTW )
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWTEXT, HMG_SETWINDOWTEXT )
+#endif
+
+HB_FUNC( HMG_SETWINDOWTEXTW )
 {
    SetWindowTextW(hmg_par_HWND(1), reinterpret_cast<LPCWSTR>(hb_parc(2)));
 }
 
-HB_FUNC( SETWINDOWPOS )
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWTEXTW, HMG_SETWINDOWTEXTW )
+#endif
+
+HB_FUNC( HMG_SETWINDOWPOS )
 {
    hb_retl(static_cast<BOOL>(SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7))));
 }
 
-HB_FUNC( ANIMATEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWPOS, HMG_SETWINDOWPOS )
+#endif
+
+HB_FUNC( HMG_ANIMATEWINDOW )
 {
    hb_retl(static_cast<BOOL>(AnimateWindow(hmg_par_HWND(1), hmg_par_DWORD(2), hmg_par_DWORD(3))));
 }
 
-HB_FUNC( FLASHWINDOWEX )
+#if 1
+HB_FUNC_TRANSLATE( ANIMATEWINDOW, HMG_ANIMATEWINDOW )
+#endif
+
+HB_FUNC( HMG_FLASHWINDOWEX )
 {
    FLASHWINFO FlashWinInfo;
 
@@ -235,7 +311,11 @@ HB_FUNC( FLASHWINDOWEX )
    hb_retl(static_cast<BOOL>(FlashWindowEx(&FlashWinInfo)));
 }
 
-HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
+#if 1
+HB_FUNC_TRANSLATE( FLASHWINDOWEX, HMG_FLASHWINDOWEX )
+#endif
+
+HB_FUNC( HMG_SETLAYEREDWINDOWATTRIBUTES )
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -265,6 +345,10 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( SETLAYEREDWINDOWATTRIBUTES, HMG_SETLAYEREDWINDOWATTRIBUTES )
+#endif
 
 static BOOL CenterIntoParent(HWND hwnd)
 {
@@ -304,7 +388,7 @@ static BOOL CenterIntoParent(HWND hwnd)
    return TRUE;
 }
 
-HB_FUNC( C_CENTER )
+HB_FUNC( HMG_C_CENTER )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -322,7 +406,11 @@ HB_FUNC( C_CENTER )
    }
 }
 
-HB_FUNC( GETWINDOWTEXT )
+#if 1
+HB_FUNC_TRANSLATE( C_CENTER, HMG_C_CENTER )
+#endif
+
+HB_FUNC( HMG_GETWINDOWTEXT )
 {
 #ifdef UNICODE
    LPSTR pStr;
@@ -342,7 +430,11 @@ HB_FUNC( GETWINDOWTEXT )
    hb_xfree(szText);
 }
 
-HB_FUNC( SENDMESSAGE )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWTEXT, HMG_GETWINDOWTEXT )
+#endif
+
+HB_FUNC( HMG_SENDMESSAGE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -353,19 +445,31 @@ HB_FUNC( SENDMESSAGE )
    }
 }
 
-HB_FUNC( SENDMESSAGESTRING )
+#if 1
+HB_FUNC_TRANSLATE( SENDMESSAGE, HMG_SENDMESSAGE )
+#endif
+
+HB_FUNC( HMG_SENDMESSAGESTRING )
 {
    HB_RETNL(static_cast<LONG_PTR>(SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4)))));
 }
 
-HB_FUNC( GETNOTIFYCODE )
+#if 1
+HB_FUNC_TRANSLATE( SENDMESSAGESTRING, HMG_SENDMESSAGESTRING )
+#endif
+
+HB_FUNC( HMG_GETNOTIFYCODE )
 {
    LPARAM lParam = HB_PARNL(1);
    auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
    hb_retni(nmhdr->code);
 }
 
-HB_FUNC( GETNOTIFYLINK )
+#if 1
+HB_FUNC_TRANSLATE( GETNOTIFYCODE, HMG_GETNOTIFYCODE )
+#endif
+
+HB_FUNC( HMG_GETNOTIFYLINK )
 {
    LPARAM lParam = HB_PARNL(1);
    auto pENLink = reinterpret_cast<ENLINK*>(lParam);
@@ -376,52 +480,88 @@ HB_FUNC( GETNOTIFYLINK )
    hb_stornl(pENLink->chrg.cpMax, 5);
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETNOTIFYLINK, HMG_GETNOTIFYLINK )
+#endif
+
 //JP 107a
-HB_FUNC( GETNOTIFYID )
+HB_FUNC( HMG_GETNOTIFYID )
 {
    LPARAM lParam = HB_PARNL(1);
    auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
    HB_RETNL(static_cast<LONG_PTR>(nmhdr->idFrom)); // TODO: hmg_ret_HANDLE ?
 }
 
-HB_FUNC( GETHWNDFROM )
+#if 1
+HB_FUNC_TRANSLATE( GETNOTIFYID, HMG_GETNOTIFYID )
+#endif
+
+HB_FUNC( HMG_GETHWNDFROM )
 {
    LPARAM lParam = HB_PARNL(1);
    auto nmhdr = reinterpret_cast<NMHDR*>(lParam);
    hmg_ret_HWND(nmhdr->hwndFrom);
 }
 
-HB_FUNC( GETDRAWITEMHANDLE )
+#if 1
+HB_FUNC_TRANSLATE( GETHWNDFROM, HMG_GETHWNDFROM )
+#endif
+
+HB_FUNC( HMG_GETDRAWITEMHANDLE )
 {
    hmg_ret_HWND((reinterpret_cast<DRAWITEMSTRUCT FAR*>(HB_PARNL(1)))->hwndItem);
 }
 
-HB_FUNC( GETFOCUS )
+#if 1
+HB_FUNC_TRANSLATE( GETDRAWITEMHANDLE, HMG_GETDRAWITEMHANDLE )
+#endif
+
+HB_FUNC( HMG_GETFOCUS )
 {
    hmg_ret_HWND(GetFocus());
 }
 
-HB_FUNC( GETGRIDCOLUMN )
+#if 1
+HB_FUNC_TRANSLATE( GETFOCUS, HMG_GETFOCUS )
+#endif
+
+HB_FUNC( HMG_GETGRIDCOLUMN )
 {
    hb_retnl(static_cast<LPARAM>((reinterpret_cast<NM_LISTVIEW*>(HB_PARNL(1)))->iSubItem));
 }
 
-HB_FUNC( GETGRIDVKEY )
+#if 1
+HB_FUNC_TRANSLATE( GETGRIDCOLUMN, HMG_GETGRIDCOLUMN )
+#endif
+
+HB_FUNC( HMG_GETGRIDVKEY )
 {
    hb_retnl(static_cast<LPARAM>((reinterpret_cast<LV_KEYDOWN*>(HB_PARNL(1)))->wVKey));
 }
 
-HB_FUNC( MOVEWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( GETGRIDVKEY, HMG_GETGRIDVKEY )
+#endif
+
+HB_FUNC( HMG_MOVEWINDOW )
 {
    hb_retl(MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), (HB_ISNIL(6) ? TRUE : hb_parl(6))));
 }
 
-HB_FUNC( GETSYSTEMMETRICS )
+#if 1
+HB_FUNC_TRANSLATE( MOVEWINDOW, HMG_MOVEWINDOW )
+#endif
+
+HB_FUNC( HMG_GETSYSTEMMETRICS )
 {
    hb_retni(GetSystemMetrics(hb_parni(1)));
 }
 
-HB_FUNC( GETWINDOWRECT )
+#if 1
+HB_FUNC_TRANSLATE( GETSYSTEMMETRICS, HMG_GETSYSTEMMETRICS )
+#endif
+
+HB_FUNC( HMG_GETWINDOWRECT )
 {
    RECT rect;
    GetWindowRect(hmg_par_HWND(1), &rect);
@@ -441,7 +581,11 @@ HB_FUNC( GETWINDOWRECT )
    }
 }
 
-HB_FUNC( GETCLIENTRECT )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWRECT, HMG_GETWINDOWRECT )
+#endif
+
+HB_FUNC( HMG_GETCLIENTRECT )
 {
    RECT rect;
    hb_retl(GetClientRect(hmg_par_HWND(1), &rect));
@@ -451,7 +595,11 @@ HB_FUNC( GETCLIENTRECT )
    HB_STORVNL(rect.bottom, 2, 4);
 }
 
-HB_FUNC( GETDESKTOPAREA )
+#if 1
+HB_FUNC_TRANSLATE( GETCLIENTRECT, HMG_GETCLIENTRECT )
+#endif
+
+HB_FUNC( HMG_GETDESKTOPAREA )
 {
    RECT rect;
    SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
@@ -462,12 +610,20 @@ HB_FUNC( GETDESKTOPAREA )
    HB_STORNI(rect.bottom, -1, 4);
 }
 
-HB_FUNC( GETTASKBARHEIGHT )
+#if 1
+HB_FUNC_TRANSLATE( GETDESKTOPAREA, HMG_GETDESKTOPAREA )
+#endif
+
+HB_FUNC( HMG_GETTASKBARHEIGHT )
 {
    RECT rect;
    GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), nullptr), &rect);
    hb_retni(rect.bottom - rect.top);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETTASKBARHEIGHT, HMG_GETTASKBARHEIGHT )
+#endif
 
 static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, const TCHAR * szText)
 {
@@ -482,14 +638,18 @@ static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, const TCHAR * szTe
    return Shell_NotifyIcon(bAdd ? NIM_ADD : NIM_DELETE, &nid);
 }
 
-HB_FUNC( SHOWNOTIFYICON )
+HB_FUNC( HMG_SHOWNOTIFYICON )
 {
    void * str;
    hb_retl(static_cast<BOOL>(ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), HB_PARSTR(4, &str, nullptr))));
    hb_strfree(str);
 }
 
-HB_FUNC( GETCURSORPOS )
+#if 1
+HB_FUNC_TRANSLATE( SHOWNOTIFYICON, HMG_SHOWNOTIFYICON )
+#endif
+
+HB_FUNC( HMG_GETCURSORPOS )
 {
    POINT pt;
    GetCursorPos(&pt);
@@ -507,7 +667,11 @@ HB_FUNC( GETCURSORPOS )
    }
 }
 
-HB_FUNC( SCREENTOCLIENT )
+#if 1
+HB_FUNC_TRANSLATE( GETCURSORPOS, HMG_GETCURSORPOS )
+#endif
+
+HB_FUNC( HMG_SCREENTOCLIENT )
 {
    auto x = hmg_par_LONG(2);
    auto y = hmg_par_LONG(3);
@@ -522,7 +686,11 @@ HB_FUNC( SCREENTOCLIENT )
    HB_STORNI(pt.y, -1, 2);
 }
 
-HB_FUNC( CLIENTTOSCREEN )
+#if 1
+HB_FUNC_TRANSLATE( SCREENTOCLIENT, HMG_SCREENTOCLIENT )
+#endif
+
+HB_FUNC( HMG_CLIENTTOSCREEN )
 {
    auto x = hmg_par_LONG(2);
    auto y = hmg_par_LONG(3);
@@ -540,7 +708,11 @@ HB_FUNC( CLIENTTOSCREEN )
    }
 }
 
-HB_FUNC( LOADTRAYICON )
+#if 1
+HB_FUNC_TRANSLATE( CLIENTTOSCREEN, HMG_CLIENTTOSCREEN )
+#endif
+
+HB_FUNC( HMG_LOADTRAYICON )
 {
    HINSTANCE hInstance = hmg_par_HINSTANCE(1);                                       // handle to application instance
    void * str = nullptr;
@@ -558,6 +730,10 @@ HB_FUNC( LOADTRAYICON )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( LOADTRAYICON, HMG_LOADTRAYICON )
+#endif
+
 static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, const TCHAR * szText)
 {
    NOTIFYICONDATA nid{};
@@ -570,29 +746,45 @@ static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, const TCHAR * szText)
    return Shell_NotifyIcon(NIM_MODIFY, &nid);
 }
 
-HB_FUNC( CHANGENOTIFYICON )
+HB_FUNC( HMG_CHANGENOTIFYICON )
 {
    void * str;
    hb_retl(static_cast<BOOL>(ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), HB_PARSTR(3, &str, nullptr))));
    hb_strfree(str);
 }
 
-HB_FUNC( GETITEMPOS )
+#if 1
+HB_FUNC_TRANSLATE( CHANGENOTIFYICON, HMG_CHANGENOTIFYICON )
+#endif
+
+HB_FUNC( HMG_GETITEMPOS )
 {
    HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<NMMOUSE FAR*>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
 }
 
-HB_FUNC( SETSCROLLRANGE )
+#if 1
+HB_FUNC_TRANSLATE( GETITEMPOS, HMG_GETITEMPOS )
+#endif
+
+HB_FUNC( HMG_SETSCROLLRANGE )
 {
    hb_retl(SetScrollRange(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
-HB_FUNC( GETSCROLLPOS )
+#if 1
+HB_FUNC_TRANSLATE( SETSCROLLRANGE, HMG_SETSCROLLRANGE )
+#endif
+
+HB_FUNC( HMG_GETSCROLLPOS )
 {
    hb_retni(GetScrollPos(hmg_par_HWND(1), hb_parni(2)));
 }
 
-HB_FUNC( GETWINDOWSTATE )
+#if 1
+HB_FUNC_TRANSLATE( GETSCROLLPOS, HMG_GETSCROLLPOS )
+#endif
+
+HB_FUNC( HMG_GETWINDOWSTATE )
 {
    WINDOWPLACEMENT wp;
    wp.length = sizeof(WINDOWPLACEMENT);
@@ -600,15 +792,27 @@ HB_FUNC( GETWINDOWSTATE )
    hb_retni(wp.showCmd);
 }
 
-HB_FUNC( GETPARENT )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWSTATE, HMG_GETWINDOWSTATE )
+#endif
+
+HB_FUNC( HMG_GETPARENT )
 {
    hmg_ret_HWND(GetParent(hmg_par_HWND(1)));
 }
 
-HB_FUNC( GETDESKTOPWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( GETPARENT, HMG_GETPARENT )
+#endif
+
+HB_FUNC( HMG_GETDESKTOPWINDOW )
 {
    hmg_ret_HWND(GetDesktopWindow());
 }
+
+#if 1
+HB_FUNC_TRANSLATE( GETDESKTOPWINDOW, HMG_GETDESKTOPWINDOW )
+#endif
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
@@ -618,12 +822,16 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
    return TRUE;
 }
 
-HB_FUNC( ENUMWINDOWS )
+HB_FUNC( HMG_ENUMWINDOWS )
 {
    auto pArray = hb_itemArrayNew(0);
    EnumWindows(static_cast<WNDENUMPROC>(EnumWindowsProc), reinterpret_cast<LPARAM>(pArray));
    hb_itemReturnRelease(pArray);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ENUMWINDOWS, HMG_ENUMWINDOWS )
+#endif
 
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
@@ -639,7 +847,7 @@ static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
    return hmg_par_BOOL(-1);
 }
 
-HB_FUNC( C_ENUMCHILDWINDOWS )
+HB_FUNC( HMG_C_ENUMCHILDWINDOWS )
 {
    auto hWnd = hmg_par_HWND(1);
    auto pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
@@ -649,7 +857,11 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
    }
 }
 
-HB_FUNC( REDRAWWINDOWCONTROLRECT )
+#if 1
+HB_FUNC_TRANSLATE( C_ENUMCHILDWINDOWS, HMG_C_ENUMCHILDWINDOWS )
+#endif
+
+HB_FUNC( HMG_REDRAWWINDOWCONTROLRECT )
 {
    RECT r;
    r.top    = hb_parni(2);
@@ -659,7 +871,11 @@ HB_FUNC( REDRAWWINDOWCONTROLRECT )
    RedrawWindow(hmg_par_HWND(1), &r, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
-HB_FUNC( ADDSPLITBOXITEM )
+#if 1
+HB_FUNC_TRANSLATE( REDRAWWINDOWCONTROLRECT, HMG_REDRAWWINDOWCONTROLRECT )
+#endif
+
+HB_FUNC( HMG_ADDSPLITBOXITEM )
 {
    REBARBANDINFO rbBand;
    RECT          rc;
@@ -727,7 +943,11 @@ HB_FUNC( ADDSPLITBOXITEM )
 #endif
 }
 
-HB_FUNC( C_SETWINDOWRGN )
+#if 1
+HB_FUNC_TRANSLATE( ADDSPLITBOXITEM, HMG_ADDSPLITBOXITEM )
+#endif
+
+HB_FUNC( HMG_C_SETWINDOWRGN )
 {
    HRGN    hRgn = nullptr;
    HBITMAP hbmp;
@@ -765,7 +985,11 @@ HB_FUNC( C_SETWINDOWRGN )
    }
 }
 
-HB_FUNC( C_SETPOLYWINDOWRGN )
+#if 1
+HB_FUNC_TRANSLATE( C_SETWINDOWRGN, HMG_C_SETWINDOWRGN )
+#endif
+
+HB_FUNC( HMG_C_SETPOLYWINDOWRGN )
 {
    POINT lppt[512];
    int   fnPolyFillMode;
@@ -790,46 +1014,78 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    hmg_ret_HRGN(hRgn);
 }
 
-HB_FUNC( GETHELPDATA )
+#if 1
+HB_FUNC_TRANSLATE( C_SETPOLYWINDOWRGN, HMG_C_SETPOLYWINDOWRGN )
+#endif
+
+HB_FUNC( HMG_GETHELPDATA )
 {
    hmg_ret_HANDLE((reinterpret_cast<HELPINFO FAR*>(HB_PARNL(1)))->hItemHandle);
 }
 
-HB_FUNC( GETMSKTEXTMESSAGE )
+#if 1
+HB_FUNC_TRANSLATE( GETHELPDATA, HMG_GETHELPDATA )
+#endif
+
+HB_FUNC( HMG_GETMSKTEXTMESSAGE )
 {
    HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
 }
 
-HB_FUNC( GETMSKTEXTWPARAM )
+#if 1
+HB_FUNC_TRANSLATE( GETMSKTEXTMESSAGE, HMG_GETMSKTEXTMESSAGE )
+#endif
+
+HB_FUNC( HMG_GETMSKTEXTWPARAM )
 {
    HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
 }
 
-HB_FUNC( GETMSKTEXTLPARAM )
+#if 1
+HB_FUNC_TRANSLATE( GETMSKTEXTWPARAM, HMG_GETMSKTEXTWPARAM )
+#endif
+
+HB_FUNC( HMG_GETMSKTEXTLPARAM )
 {
    HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR*>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
 }
 
-HB_FUNC( GETWINDOW )
+#if 1
+HB_FUNC_TRANSLATE( GETMSKTEXTLPARAM, HMG_GETMSKTEXTLPARAM )
+#endif
+
+HB_FUNC( HMG_GETWINDOW )
 {
    hmg_ret_HWND(GetWindow(hmg_par_HWND(1), hb_parni(2)));
 }
 
-HB_FUNC( GETGRIDOLDSTATE )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOW, HMG_GETWINDOW )
+#endif
+
+HB_FUNC( HMG_GETGRIDOLDSTATE )
 {
    LPARAM lParam = HB_PARNL(1);
    auto NMLV = reinterpret_cast<NM_LISTVIEW*>(lParam);
    hb_retni(NMLV->uOldState);
 }
 
-HB_FUNC( GETGRIDNEWSTATE )
+#if 1
+HB_FUNC_TRANSLATE( GETGRIDOLDSTATE, HMG_GETGRIDOLDSTATE )
+#endif
+
+HB_FUNC( HMG_GETGRIDNEWSTATE )
 {
    LPARAM lParam = HB_PARNL(1);
    auto NMLV = reinterpret_cast<NM_LISTVIEW*>(lParam);
    hb_retni(NMLV->uNewState);
 }
 
-HB_FUNC( GETGRIDDISPINFOINDEX )
+#if 1
+HB_FUNC_TRANSLATE( GETGRIDNEWSTATE, HMG_GETGRIDNEWSTATE )
+#endif
+
+HB_FUNC( HMG_GETGRIDDISPINFOINDEX )
 {
    LPARAM lParam = HB_PARNL(1);
    auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
@@ -842,7 +1098,11 @@ HB_FUNC( GETGRIDDISPINFOINDEX )
    HB_STORNI(iSubItem + 1, -1, 2);
 }
 
-HB_FUNC( SETGRIDQUERYDATA )
+#if 1
+HB_FUNC_TRANSLATE( GETGRIDDISPINFOINDEX, HMG_GETGRIDDISPINFOINDEX )
+#endif
+
+HB_FUNC( HMG_SETGRIDQUERYDATA )
 {
    LPARAM lParam = HB_PARNL(1);
    auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
@@ -858,14 +1118,22 @@ HB_FUNC( SETGRIDQUERYDATA )
 #endif
 }
 
-HB_FUNC( SETGRIDQUERYIMAGE )
+#if 1
+HB_FUNC_TRANSLATE( SETGRIDQUERYDATA, HMG_SETGRIDQUERYDATA )
+#endif
+
+HB_FUNC( HMG_SETGRIDQUERYIMAGE )
 {
    LPARAM lParam = HB_PARNL(1);
    auto pDispInfo = reinterpret_cast<LV_DISPINFO*>(lParam);
    pDispInfo->item.iImage = hb_parni(2);
 }
 
-HB_FUNC( FINDWINDOWEX )
+#if 1
+HB_FUNC_TRANSLATE( SETGRIDQUERYIMAGE, HMG_SETGRIDQUERYIMAGE )
+#endif
+
+HB_FUNC( HMG_FINDWINDOWEX )
 {
    void * str1 = nullptr;
    void * str2 = nullptr;
@@ -874,7 +1142,11 @@ HB_FUNC( FINDWINDOWEX )
    hb_strfree(str2);
 }
 
-HB_FUNC( GETDS )
+#if 1
+HB_FUNC_TRANSLATE( FINDWINDOWEX, HMG_FINDWINDOWEX )
+#endif
+
+HB_FUNC( HMG_GETDS )
 {
    LPARAM lParam = HB_PARNL(1);
    auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
@@ -895,7 +1167,11 @@ HB_FUNC( GETDS )
    }
 }
 
-HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
+#if 1
+HB_FUNC_TRANSLATE( GETDS, HMG_GETDS )
+#endif
+
+HB_FUNC( HMG_GETRC )     // Get ListView CustomDraw Row and Column
 {
    LPARAM lParam = HB_PARNL(1);
    auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
@@ -904,7 +1180,11 @@ HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
    HB_STORNI(lplvcd->iSubItem + 1, -1, 2);
 }
 
-HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor
+#if 1
+HB_FUNC_TRANSLATE( GETRC, HMG_GETRC )
+#endif
+
+HB_FUNC( HMG_SETBCFC )   // Set Dynamic BackColor and ForeColor
 {
    LPARAM lParam = HB_PARNL(1);
    auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
@@ -913,7 +1193,11 @@ HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor
    hb_retni(CDRF_NEWFONT);
 }
 
-HB_FUNC( SETBRCCD )  // Set Default BackColor and ForeColor
+#if 1
+HB_FUNC_TRANSLATE( SETBCFC, HMG_SETBCFC )
+#endif
+
+HB_FUNC( HMG_SETBRCCD )  // Set Default BackColor and ForeColor
 {
    LPARAM lParam = HB_PARNL(1);
    auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
@@ -922,7 +1206,11 @@ HB_FUNC( SETBRCCD )  // Set Default BackColor and ForeColor
    hb_retni(CDRF_NEWFONT);
 }
 
-HB_FUNC( GETTABBEDCONTROLBRUSH )
+#if 1
+HB_FUNC_TRANSLATE( SETBRCCD, HMG_SETBRCCD )
+#endif
+
+HB_FUNC( HMG_GETTABBEDCONTROLBRUSH )
 {
    auto hDC = hmg_par_HDC(1);
    SetBkMode(hDC, TRANSPARENT);
@@ -934,7 +1222,11 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    hmg_ret_HBRUSH(hBrush);
 }
 
-HB_FUNC( GETTABBRUSH )
+#if 1
+HB_FUNC_TRANSLATE( GETTABBEDCONTROLBRUSH, HMG_GETTABBEDCONTROLBRUSH )
+#endif
+
+HB_FUNC( HMG_GETTABBRUSH )
 {
    auto hWnd = hmg_par_HWND(1);
    RECT rc;
@@ -952,7 +1244,11 @@ HB_FUNC( GETTABBRUSH )
    ReleaseDC(hWnd, hDC);
 }
 
-HB_FUNC( INITMINMAXINFO ) // (hWnd) --> aMinMaxInfo
+#if 1
+HB_FUNC_TRANSLATE( GETTABBRUSH, HMG_GETTABBRUSH )
+#endif
+
+HB_FUNC( HMG_INITMINMAXINFO ) // (hWnd) --> aMinMaxInfo
 {
    long x, y, mx, my;
 
@@ -978,7 +1274,11 @@ HB_FUNC( INITMINMAXINFO ) // (hWnd) --> aMinMaxInfo
    HB_STORVNL(my, -1, 8);
 }
 
-HB_FUNC( SETMINMAXINFO ) // (pMinMaxInfo, aMinMaxInfo) --> 0
+#if 1
+HB_FUNC_TRANSLATE( INITMINMAXINFO, HMG_INITMINMAXINFO )
+#endif
+
+HB_FUNC( HMG_SETMINMAXINFO ) // (pMinMaxInfo, aMinMaxInfo) --> 0
 {
    auto pMinMaxInfo = reinterpret_cast<MINMAXINFO*>(HB_PARNL(1));
    pMinMaxInfo->ptMaxSize.x      = HB_PARNI(2, 1);
@@ -992,43 +1292,75 @@ HB_FUNC( SETMINMAXINFO ) // (pMinMaxInfo, aMinMaxInfo) --> 0
    hb_retni(0);
 }
 
-HB_FUNC( LOCKWINDOWUPDATE )
+#if 1
+HB_FUNC_TRANSLATE( SETMINMAXINFO, HMG_SETMINMAXINFO )
+#endif
+
+HB_FUNC( HMG_LOCKWINDOWUPDATE )
 {
    hb_retl(LockWindowUpdate(hmg_par_HWND(1)) ? true : false);
 }
 
-HB_FUNC( ISWINDOWHANDLE )
+#if 1
+HB_FUNC_TRANSLATE( LOCKWINDOWUPDATE, HMG_LOCKWINDOWUPDATE )
+#endif
+
+HB_FUNC( HMG_ISWINDOWHANDLE )
 {
    hb_retl(IsWindow(hmg_par_HWND(1)) ? true : false);
 }
 
-HB_FUNC( ISICONIC )
+#if 1
+HB_FUNC_TRANSLATE( ISWINDOWHANDLE, HMG_ISWINDOWHANDLE )
+#endif
+
+HB_FUNC( HMG_ISICONIC )
 {
    hb_retl(IsIconic(hmg_par_HWND(1)));
 }
 
-HB_FUNC( ISZOOMED )
+#if 1
+HB_FUNC_TRANSLATE( ISICONIC, HMG_ISICONIC )
+#endif
+
+HB_FUNC( HMG_ISZOOMED )
 {
    hb_retl(IsZoomed(hmg_par_HWND(1)));
 }
 
-HB_FUNC( GETWINDOWBRUSH )
+#if 1
+HB_FUNC_TRANSLATE( ISZOOMED, HMG_ISZOOMED )
+#endif
+
+HB_FUNC( HMG_GETWINDOWBRUSH )
 {
    HB_RETNL(static_cast<LONG_PTR>(GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND)));
 }
 
-HB_FUNC( SETWINDOWBRUSH )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWBRUSH, HMG_GETWINDOWBRUSH )
+#endif
+
+HB_FUNC( HMG_SETWINDOWBRUSH )
 {
    HB_RETNL(static_cast<LONG_PTR>(SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<LONG_PTR>(HB_PARNL(2)))));
 }
 
-HB_FUNC( CREATEHATCHBRUSH )
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWBRUSH, HMG_SETWINDOWBRUSH )
+#endif
+
+HB_FUNC( HMG_CREATEHATCHBRUSH )
 {
    hmg_ret_HBRUSH(CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)));
 }
 
+#if 1
+HB_FUNC_TRANSLATE( CREATEHATCHBRUSH, HMG_CREATEHATCHBRUSH )
+#endif
+
 /* Modified by P.Ch. 16.10. */
-HB_FUNC( CREATEPATTERNBRUSH )
+HB_FUNC( HMG_CREATEPATTERNBRUSH )
 {
    void * str = nullptr;
    LPCTSTR lpImageName = HB_ISCHAR(1) ? HB_PARSTR(1, &str, nullptr) : (HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr);
@@ -1042,6 +1374,10 @@ HB_FUNC( CREATEPATTERNBRUSH )
    hmg_ret_HBRUSH((hImage != nullptr) ? CreatePatternBrush(hImage) : nullptr);
    hb_strfree(str);
 }
+
+#if 1
+HB_FUNC_TRANSLATE( CREATEPATTERNBRUSH, HMG_CREATEPATTERNBRUSH )
+#endif
 
 /*
    BitmapToRegion: Create a region from the "non-transparent" pixels of a bitmap

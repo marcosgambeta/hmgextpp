@@ -699,7 +699,7 @@ CLASS TDlu2Pix
    METHOD Send(nKey, nPar, xPar) INLINE ::SendMsg(nKey, nPar, xPar)
    METHOD SendMsg(nKey, nPar, xPar) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif(::IsMsg, (::oParam:Set(nKey, xPar), ;
-      SendMessage(::hWnd, ::Wm_nApp, nKey, nPar)), NIL) )
+      hmg_SendMessage(::hWnd, ::Wm_nApp, nKey, nPar)), NIL) )
 
 ENDCLASS
 
@@ -1002,10 +1002,10 @@ CLASS TWndData
    ASSIGN Height(nVal)  INLINE _SetWindowSizePos(::cName, , , , nVal)
    ACCESS ClientWidth     INLINE hmg__GetClientRect(::nHandle)[3]
    ACCESS ClientHeight    INLINE hmg__GetClientRect(::nHandle)[4]
-   ACCESS Title           INLINE GetWindowText(::nHandle)
-   ASSIGN Title(cVal)   INLINE SetWindowText(::nHandle, cVal)
-   ACCESS Enabled         INLINE IsWindowEnabled(::nHandle)
-   ASSIGN Enabled(xVal) INLINE iif(Empty(xVal), DisableWindow(::nHandle), EnableWindow(::nHandle))
+   ACCESS Title           INLINE hmg_GetWindowText(::nHandle)
+   ASSIGN Title(cVal)   INLINE hmg_SetWindowText(::nHandle, cVal)
+   ACCESS Enabled         INLINE hmg_IsWindowEnabled(::nHandle)
+   ASSIGN Enabled(xVal) INLINE iif(Empty(xVal), hmg_DisableWindow(::nHandle), hmg_EnableWindow(::nHandle))
 
    ACCESS BackColor                       INLINE  GetProperty(::cName, "BACKCOLOR")
    ASSIGN BackColor(Val)                  INLINE  SetProperty(::cName, "BACKCOLOR", Val)
@@ -1044,11 +1044,11 @@ CLASS TWndData
       hmg_PostMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
    METHOD Send(nKey, nHandle, xPar) INLINE ::SendMsg(nKey, nHandle, xPar)
    METHOD SendMsg(nKey, nHandle, xPar) INLINE iif(::lAction, (::oParam:Set(nKey, xPar), ;
-      SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
+      hmg_SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0))), NIL)
 
    METHOD Release() INLINE iif(::IsWindow, iif(::lAction, hmg_PostMessage(::nHandle, WM_CLOSE, 0, 0), NIL), NIL)
 
-   METHOD Restore() INLINE ShowWindow(::nHandle, SW_RESTORE)
+   METHOD Restore() INLINE hmg_ShowWindow(::nHandle, SW_RESTORE)
    METHOD Show() INLINE _ShowWindow(::cName)
    METHOD Hide() INLINE _HideWindow(::cName)
    METHOD SetFocus(xName) INLINE iif(Empty(xName), hmg_SetFocus(::nHandle), ;
@@ -1245,7 +1245,7 @@ CLASS TCnlData INHERIT TWndData
       hmg_PostMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)
    METHOD Post(nKey, xPar) INLINE ::PostMsg(nKey, xPar)
    METHOD SendMsg(nKey, xPar) INLINE iif(::oWin:Action, (::oParam:Set(nKey, xPar), ;
-      SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)
+      hmg_SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle)), NIL)
    METHOD Send(nKey, xPar) INLINE ::SendMsg(nKey, xPar)
 
    METHOD Set() INLINE ( iif(hb_IsObject(::oWin:oName), ::oWin:oName:Set(Upper(::cName), Self), NIL), ;

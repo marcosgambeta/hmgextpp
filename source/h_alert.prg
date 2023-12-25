@@ -546,12 +546,12 @@ RETURN
 
 FUNCTION GetDesktopRealWidth()
 
-   LOCAL a := GetDesktopArea()
+   LOCAL a := hmg_GetDesktopArea()
 
 RETURN (a[3] - a[1])
 
 FUNCTION GetDesktopRealHeight()
 
-   LOCAL a := GetDesktopArea()
+   LOCAL a := hmg_GetDesktopArea()
 
 RETURN (a[4] - a[2])

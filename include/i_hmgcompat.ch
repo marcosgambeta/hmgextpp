@@ -135,8 +135,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate _HMG_PARSEGRIDCONTROLS( <a>, <b> ) => _PARSEGRIDCONTROLS( <a>, <b> )
 
-#xtranslate GetDesktopRealLeft() => GetDesktopArea() \[ 1 ]
-#xtranslate GetDesktopRealTop()  => GetDesktopArea() \[ 2 ]
+#xtranslate GetDesktopRealLeft() => hmg_GetDesktopArea() \[ 1 ]
+#xtranslate GetDesktopRealTop()  => hmg_GetDesktopArea() \[ 2 ]
 
 #xtranslate HMG_IsWindowStyle( <hWnd>, <nStyle> [, <lExStyle> ] ) ;
    => ;
@@ -253,7 +253,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate SET DIALOGBOX [ POSITION ] <lCenter:CENTER> OF DESKTOP ;
    => ;
-   _HMG_DialogBoxProperty ( NIL, NIL, <.lCenter.>, GetDesktopWindow(), .T. )
+   _HMG_DialogBoxProperty ( NIL, NIL, <.lCenter.>, hmg_GetDesktopWindow(), .T. )
 
 #xtranslate SET DIALOGBOX [ POSITION ] DISABLE ;
    => ;
@@ -264,7 +264,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate GetWindowFont ( <hWnd> ) ;
    => ;
-   SendMessage( <hWnd>, WM_GETFONT, 0, 0 )
+   hmg_SendMessage( <hWnd>, WM_GETFONT, 0, 0 )
 
 #xtranslate SetWindowFont ( <hWnd>, <hFont> [, <lRedraw> ] ) ;
    => ;
@@ -317,10 +317,10 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 
 #xcommand  SET TOOLTIPBACKCOLOR <aColor> => ;
-   SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPBKCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
+   hmg_SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPBKCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
 
 #xcommand  SET TOOLTIPFORECOLOR <aColor> => ;
-   SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPTEXTCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
+   hmg_SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPTEXTCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
 
 
 #ifndef LWA_ALPHA
@@ -329,13 +329,13 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #endif
 
 #xtranslate SET WINDOW <FormName> TRANSPARENT TO <nAlphaBlend> => ;  // nAlphaBlend = 0 to 255 (completely transparent = 0, opaque = 255)
-   SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, <nAlphaBlend>, LWA_ALPHA )
+   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, <nAlphaBlend>, LWA_ALPHA )
 
 #xtranslate SET WINDOW <FormName> [ TRANSPARENT ] TO OPAQUE => ;
-   SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, 255, LWA_ALPHA )
+   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, 255, LWA_ALPHA )
 
 #xtranslate SET WINDOW <FormName> TRANSPARENT TO COLOR <aColor> => ;
-   SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0, LWA_COLORKEY )
+   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0, LWA_COLORKEY )
 
 
 #define FLASHW_CAPTION 1
@@ -343,13 +343,13 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #define FLASHW_ALL    (FLASHW_CAPTION + FLASHW_TRAY)
 
 #xtranslate FLASH WINDOW <FormName> CAPTION COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_CAPTION, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_CAPTION, <nTimes>, <nMilliseconds> )
 
 #xtranslate FLASH WINDOW <FormName> TASKBAR COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_TRAY, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_TRAY, <nTimes>, <nMilliseconds> )
 
 #xtranslate FLASH WINDOW <FormName> [ ALL ] COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_ALL, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_ALL, <nTimes>, <nMilliseconds> )
 
 
 // ANIMATE WINDOW MODE <nFlags>
@@ -364,10 +364,10 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #define AW_BLEND        0x00080000
 
 #xtranslate ANIMATE WINDOW <FormName> INTERVAL <nMilliseconds> MODE <nFlags> => ;
-   AnimateWindow( GetFormHandle( <"FormName"> ), <nMilliseconds>, <nFlags> )
+   hmg_AnimateWindow( GetFormHandle( <"FormName"> ), <nMilliseconds>, <nFlags> )
 
 #xtranslate ANIMATE WINDOW <FormName> MODE <nFlags> => ;
-   AnimateWindow( GetFormHandle( <"FormName"> ), 200, <nFlags> )
+   hmg_AnimateWindow( GetFormHandle( <"FormName"> ), 200, <nFlags> )
 
 #xtranslate SET CODEPAGE TO UNICODE => Set (_SET_CODEPAGE, "UTF8")
 
@@ -426,11 +426,11 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate GetControlHandleByIndex ( <nControlIndex> ) => _HMG_aControlHandles \[ <nControlIndex> ]
 #xtranslate GetControlParentHandleByIndex ( <nControlIndex> ) => _HMG_aControlParentHandles \[ <nControlIndex> ]
 
-#xtranslate GetFocusedControlType () => _GetFocusedControlType ( GetActiveWindow() )
+#xtranslate GetFocusedControlType () => _GetFocusedControlType ( hmg_GetActiveWindow() )
 
 #xtranslate IsValidWindowHandle ( <hWnd> ) => IsWindowHandle ( <hWnd> )
-#xtranslate IsMinimized ( <hWnd> ) => IsIconic(<hWnd>)
-#xtranslate IsMaximized ( <hWnd> ) => IsZoomed ( <hWnd> )
+#xtranslate IsMinimized ( <hWnd> ) => hmg_IsIconic(<hWnd>)
+#xtranslate IsMaximized ( <hWnd> ) => hmg_IsZoomed(<hWnd>)
 
 #xtranslate System.EmptyClipboard => hmg_ClearClipboard()
 
@@ -497,11 +497,11 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xcommand SET PROGRESSBAR <name> OF <parent> ENABLE MARQUEE [ UPDATED <milliseconds> ] ;
    => ;
    hmg_ChangeStyle( GetControlHandle(<(name)>,<(parent)>) , PBS_MARQUEE );;
-   SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 1 , <milliseconds> )
+   hmg_SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 1 , <milliseconds> )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> DISABLE MARQUEE ;
    => ;
-   SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 0 , 0 )
+   hmg_SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 0 , 0 )
 
 // by Dr. Claudio Soto, April 2016
 

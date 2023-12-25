@@ -195,7 +195,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
                ControlHandle := hmg_InitListBox(_HMG_aFormReBarHandle[i] , 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ENDIF
 
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
             _HMG_SplitLastControl := "LISTBOX"
 
@@ -220,7 +220,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF

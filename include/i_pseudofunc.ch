@@ -59,12 +59,12 @@
 
 // ============================================================================
 
-#xtranslate HideWindow(<hWnd>) => ShowWindow(<hWnd>, SW_HIDE)
-#xtranslate _Maximize(<hWnd>) => ShowWindow(<hWnd>, SW_MAXIMIZE)
+#xtranslate HideWindow(<hWnd>) => hmg_ShowWindow(<hWnd>, SW_HIDE)
+#xtranslate _Maximize(<hWnd>) => hmg_ShowWindow(<hWnd>, SW_MAXIMIZE)
 #xtranslate _MaximizeWindow(<FormName>) => _Maximize(GetFormHandle(<FormName>))
-#xtranslate _Minimize(<hWnd>) => ShowWindow(<hWnd>, SW_MINIMIZE)
+#xtranslate _Minimize(<hWnd>) => hmg_ShowWindow(<hWnd>, SW_MINIMIZE)
 #xtranslate _MinimizeWindow(<FormName>) => _Minimize(GetFormHandle(<FormName>))
-#xtranslate _Restore(<hWnd>) => ShowWindow(<hWnd>, SW_RESTORE)
+#xtranslate _Restore(<hWnd>) => hmg_ShowWindow(<hWnd>, SW_RESTORE)
 #xtranslate _RestoreWindow(<FormName>) => _Restore(GetFormHandle(<FormName>))
 
 // ============================================================================
@@ -94,11 +94,11 @@
 
 // ============================================================================
 
-#xtranslate CShowControl(<hWnd>) => ShowWindow(<hWnd>)
+#xtranslate CShowControl(<hWnd>) => hmg_ShowWindow(<hWnd>)
 #xtranslate IsTabStop(<hWnd>) => IsWindowHasStyle(<hWnd>, 0x00010000)
 #xtranslate SetTabStop(<hWnd>, <ltab>) => SetWindowStyle(<hWnd>, 0x00010000, <ltab>)
 #xtranslate IsWindowSized(<hWnd>) => IsWindowHasStyle(<hWnd>, 0x00040000)
-#xtranslate SetWindowBackground(<hWnd>, <hBrush>) => SetWindowBrush(<hWnd>, <hBrush>)
+#xtranslate SetWindowBackground(<hWnd>, <hBrush>) => hmg_SetWindowBrush(<hWnd>, <hBrush>)
 
 // ============================================================================
 
@@ -134,7 +134,7 @@
 #translate DoMethod(<FormName>, "Print") => PrintWindow(<FormName>)
 #translate DoMethod(<FormName>, "SaveAs", <FileName>) => hmg_WndCopy(GetFormHandle(<FormName>), .F., <FileName>)
 #translate DoMethod(<FormName>, <ControlName>, "SaveAs", <FileName>) => hmg_WndCopy(GetControlHandle(<ControlName>, <FormName>), .T., <FileName>)
-#translate SetProperty(<FormName>, <ControlName>, "Velocity", <Value>) => SendMessage(GetControlHandle(<ControlName>, <FormName>), WM_USER+10, iif(<Value> > 0, 1, 0), <Value>)
+#translate SetProperty(<FormName>, <ControlName>, "Velocity", <Value>) => hmg_SendMessage(GetControlHandle(<ControlName>, <FormName>), WM_USER+10, iif(<Value> > 0, 1, 0), <Value>)
 
 // ============================================================================
 
@@ -177,7 +177,7 @@
 #xtranslate _SeekAnimateBox(<ControlName>, <ParentFormName>, <Frame>) => hmg_seekanimate(GetControlHandle(<ControlName>, <ParentFormName>), <Frame>)
 #xtranslate _StopAnimateBox(<ControlName>, <ParentFormName>) => hmg_stopanimate(GetControlHandle(<ControlName>, <ParentFormName>))
 #xtranslate _CloseAnimateBox(<ControlName>, <ParentFormName>) => hmg_closeanimate(GetControlHandle(<ControlName>, <ParentFormName>))
-#xtranslate _DestroyAnimateBox(<ControlName>, <ParentFormName>) => destroywindow(GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _DestroyAnimateBox(<ControlName>, <ParentFormName>) => hmg_destroywindow(GetControlHandle(<ControlName>, <ParentFormName>))
 
 // ============================================================================
 
@@ -216,8 +216,8 @@
 #xtranslate _GetRadioGroupReadOnly(<ControlName>, <FormName>) => GetControlPageMap(<ControlName>, <FormName>)
 #xtranslate _GetAddress(<ControlName>, <FormName>) => _GetValue(<ControlName>, <FormName>)
 #xtranslate RC_CURSOR(<cCursor>) => hmg_SetResCursor(hmg_LoadCursor(hmg_GetInstance(), <cCursor>))
-#xtranslate GetCursorRow() => GetCursorPos()\[1\]
-#xtranslate GetCursorCol() => GetCursorPos()\[2\]
+#xtranslate GetCursorRow() => hmg_GetCursorPos()\[1\]
+#xtranslate GetCursorCol() => hmg_GetCursorPos()\[2\]
 #xtranslate LB_String2Array(<cData>[, <Sep>]) => hb_ATokens(<cData>, iif(hb_IsString(<Sep>), <Sep>, Chr(9)))
 
 // ============================================================================
@@ -251,16 +251,16 @@
 
 // ============================================================================
 
-#xtranslate GetDesktopWidth() => GetSystemMetrics(SM_CXSCREEN)
-#xtranslate GetDesktopHeight() => GetSystemMetrics(SM_CYSCREEN)
-#xtranslate GetVScrollBarWidth() => GetSystemMetrics(SM_CXVSCROLL)
-#xtranslate GetHScrollBarHeight() => GetSystemMetrics(SM_CYHSCROLL)
-#xtranslate GetTitleHeight() => GetSystemMetrics(SM_CYCAPTION)
-#xtranslate GetBorderHeight() => GetSystemMetrics(SM_CYSIZEFRAME)
-#xtranslate GetBorderWidth() => GetSystemMetrics(SM_CXSIZEFRAME)
-#xtranslate Get3DEdgeHeight() => GetSystemMetrics(SM_CYEDGE)
-#xtranslate Get3DEdgeWidth() => GetSystemMetrics(SM_CXEDGE)
-#xtranslate GetMenuBarHeight() => GetSystemMetrics(SM_CYMENU)
+#xtranslate GetDesktopWidth() => hmg_GetSystemMetrics(SM_CXSCREEN)
+#xtranslate GetDesktopHeight() => hmg_GetSystemMetrics(SM_CYSCREEN)
+#xtranslate GetVScrollBarWidth() => hmg_GetSystemMetrics(SM_CXVSCROLL)
+#xtranslate GetHScrollBarHeight() => hmg_GetSystemMetrics(SM_CYHSCROLL)
+#xtranslate GetTitleHeight() => hmg_GetSystemMetrics(SM_CYCAPTION)
+#xtranslate GetBorderHeight() => hmg_GetSystemMetrics(SM_CYSIZEFRAME)
+#xtranslate GetBorderWidth() => hmg_GetSystemMetrics(SM_CXSIZEFRAME)
+#xtranslate Get3DEdgeHeight() => hmg_GetSystemMetrics(SM_CYEDGE)
+#xtranslate Get3DEdgeWidth() => hmg_GetSystemMetrics(SM_CXEDGE)
+#xtranslate GetMenuBarHeight() => hmg_GetSystemMetrics(SM_CYMENU)
 
 // ============================================================================
 
@@ -273,7 +273,7 @@
 // ============================================================================
 
 #xtranslate SendMessageWideString(<h>, <n>, <wp>, <lp>) => hmg_SendMessageStringW(<h>, <n>, <wp>, <lp>)
-#xtranslate ProcessMessages() => DoEvents()
+#xtranslate ProcessMessages() => hmg_DoEvents()
 #translate And(<p1>, <p2>) => hb_BitAnd(<p1>, <p2>) // deprecated
 #xtranslate Random(<nMax>) => hb_RandomInt(iif(hb_IsNumeric(<nMax>), <nMax>, 65535))
 #translate _dummy() => iif(.T., NIL, NIL)

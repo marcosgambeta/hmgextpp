@@ -84,7 +84,7 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
             hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
-         ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
+         ON MOUSEMOVE ( a := hmg_GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
             iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
          BACKCOLOR aBackClr
    ELSE
@@ -98,7 +98,7 @@ FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBack
             hmg_SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
          ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
-         ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
+         ON MOUSEMOVE ( a := hmg_GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
             iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
          BACKCOLOR aBackClr
    ENDIF
@@ -145,7 +145,7 @@ FUNCTION _ActivateScrSaver(aForm, cParam)
 
    CASE cParam == "/a" .OR. cParam == "-a"
 
-      hmg_ChangePassword(GetActiveWindow())
+      hmg_ChangePassword(hmg_GetActiveWindow())
 
    CASE cParam == "/i" .OR. cParam == "-i"
 
@@ -177,7 +177,7 @@ FUNCTION _ActivateScrSaver(aForm, cParam)
          MsgInfo(cFileNoPath(cFileDes) + " installation successfully.", "Information")
 
          IF _ScrSaverShow
-            SendMessage(GetFormHandle(_ActiveScrSaverName), WM_SYSCOMMAND, SC_SCREENSAVE)
+            hmg_SendMessage(GetFormHandle(_ActiveScrSaverName), WM_SYSCOMMAND, SC_SCREENSAVE)
          ENDIF
 
       ELSE
@@ -226,7 +226,7 @@ FUNCTION _lValidScrSaver()
    CLOSE REGISTRY oReg
 
    IF nValue == 1
-      lRet := hmg_VerifyPassword(GetActiveWindow())
+      lRet := hmg_VerifyPassword(hmg_GetActiveWindow())
    ELSE
       lRet := .T.
    ENDIF

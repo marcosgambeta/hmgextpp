@@ -175,7 +175,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 
             IF hb_IsArray(aOptions)
                IF i <= Len(aOptions)
-                  SetWindowText(ControlHandle, aOptions[i])
+                  hmg_SetWindowText(ControlHandle, aOptions[i])
                ENDIF
             ENDIF
 
@@ -184,7 +184,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-               IF IsWindowHandle(ControlHandle)
+               IF hmg_IsWindowHandle(ControlHandle)
                   FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
@@ -209,7 +209,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -217,7 +217,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       IF autosize
          BackWidth := Width
          Width := hmg_GetTextWidth(NIL, aOptions[1], FontHandle) + 21
-         MoveWindow(ControlHandle, x, y, width, hmg_GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T.)
+         hmg_MoveWindow(ControlHandle, x, y, width, hmg_GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T.)
       ENDIF
 
       AAdd(aHandles, ControlHandle)
@@ -235,14 +235,14 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          IF !empty(FontHandle)
             hmg__SetFontHandle(ControlHandle, FontHandle)
          ELSE
-            IF IsWindowHandle(ControlHandle)
+            IF hmg_IsWindowHandle(ControlHandle)
                FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
          IF autosize
             Width := hmg_GetTextWidth(NIL, aOptions[i], FontHandle) + 21
-            MoveWindow(ControlHandle, x, y, width, hmg_GetTextHeight(NIL, aOptions[i], FontHandle) + 8, .T.)
+            hmg_MoveWindow(ControlHandle, x, y, width, hmg_GetTextHeight(NIL, aOptions[i], FontHandle) + 8, .T.)
          ENDIF
 
          AAdd(aHandles, ControlHandle)

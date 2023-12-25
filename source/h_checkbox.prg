@@ -168,7 +168,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
          h := GetWindowHeight(Controlhandle)
 
          IF caption != NIL
-            SetWindowText(ControlHandle, caption)
+            hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle(ControlHandle, Style, .T.)
@@ -188,7 +188,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -256,9 +256,9 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
 
    IF !lDialogInMemory
       IF threestate .AND. value == NIL
-         SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
+         hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
       ELSEIF value
-         SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
+         hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
       ENDIF
       IF autosize
          _SetControlWidth(ControlName, ParentFormName, hmg_GetTextWidth(NIL, Caption, FontHandle) + ;
@@ -382,7 +382,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -449,7 +449,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
    ENDIF
 
    IF value .AND. !lDialogInMemory
-      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
+      hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ENDIF
 
 RETURN NIL
@@ -467,9 +467,9 @@ FUNCTION InitDialogCheckButton(ParentName, ControlHandle, k)
       hmg__SetBtnPicture(ControlHandle, BitMap)
    ENDIF
    IF value
-      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
+      hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ELSEIF threestate .AND. value == NIL
-      SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
+      hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
@@ -627,7 +627,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
    ENDIF
 
    IF value .AND. !lDialogInMemory
-      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
+      hmg_SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ENDIF
 
 RETURN NIL

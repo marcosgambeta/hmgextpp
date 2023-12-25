@@ -168,7 +168,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      SendMessage(ControlHandle, TBM_SETPOS, 1, value)
+      hmg_SendMessage(ControlHandle, TBM_SETPOS, 1, value)
 
       IF tooltip != NIL
          hmg_SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
@@ -238,7 +238,7 @@ RETURN NIL
 FUNCTION InitDialogSlider(ParentName, ControlHandle, k)
 
    IF ParentName != NIL
-      SendMessage(ControlHandle, TBM_SETPOS, 1, _HMG_aControlValue[k])
+      hmg_SendMessage(ControlHandle, TBM_SETPOS, 1, _HMG_aControlValue[k])
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal

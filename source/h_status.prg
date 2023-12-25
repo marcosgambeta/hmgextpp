@@ -101,12 +101,12 @@ FUNCTION _BeginMessageBar(ControlName, ParentForm, kbd, fontname, fontsize, bold
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle(ControlHandle)
+      IF hmg_IsWindowHandle(ControlHandle)
          FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
-   GetClientRect(ControlHandle, /*@*/aRect)
+   hmg_GetClientRect(ControlHandle, /*@*/aRect)
 
    k := _GetControlFree()
 
@@ -303,7 +303,7 @@ FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, Procedure
    ENDIF
 
    IF IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor)
-      SendMessage(ParentForm, SB_SETTEXT, hb_BitOr(_HMG_StatusItemCount - 1, SBT_OWNERDRAW), 0)
+      hmg_SendMessage(ParentForm, SB_SETTEXT, hb_BitOr(_HMG_StatusItemCount - 1, SBT_OWNERDRAW), 0)
    ENDIF
 
 RETURN ControlHandle

@@ -192,7 +192,7 @@ FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
 
             ControlHandle := hmg_InitTree(_HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif(noBot, 1, 0))
 
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
 
             _HMG_SplitLastControl := "TREE"
 
@@ -239,7 +239,7 @@ FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF

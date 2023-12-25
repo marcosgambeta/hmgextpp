@@ -213,40 +213,40 @@ _DefineTree ( <(name)> , <(parent)> , , , <width> , <height> , <{change}> , <too
 
 #translate TreeView_SetBkColor ( <hWnd>, <aColor> ) ;
 => ;
-SendMessage( <hWnd>, TVM_SETBKCOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
+hmg_SendMessage( <hWnd>, TVM_SETBKCOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
 
 #translate TreeView_GetBkColor ( <hWnd> ) ;
 => ;
-nRGB2Arr( SendMessage( <hWnd>, TVM_GETBKCOLOR, 0, 0 ) )
+nRGB2Arr( hmg_SendMessage( <hWnd>, TVM_GETBKCOLOR, 0, 0 ) )
 
 #translate TreeView_SetTextColor ( <hWnd>, <aColor> ) ;
 => ;
-SendMessage( <hWnd>, TVM_SETTEXTCOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
+hmg_SendMessage( <hWnd>, TVM_SETTEXTCOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
 
 #translate TreeView_GetTextColor ( <hWnd> ) ;
 => ;
-nRGB2Arr( SendMessage( <hWnd>, TVM_GETTEXTCOLOR, 0, 0 ) )
+nRGB2Arr( hmg_SendMessage( <hWnd>, TVM_GETTEXTCOLOR, 0, 0 ) )
 
 #translate TreeView_SetLineColor ( <hWnd>, <aColor> ) ;
 => ;
-SendMessage( <hWnd>, TVM_SETLINECOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
+hmg_SendMessage( <hWnd>, TVM_SETLINECOLOR, 0, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]) )
 
 #translate TreeView_GetLineColor ( <hWnd> ) ;
 => ;
-nRGB2Arr( SendMessage( <hWnd>, TVM_GETLINECOLOR, 0, 0 ) )
+nRGB2Arr( hmg_SendMessage( <hWnd>, TVM_GETLINECOLOR, 0, 0 ) )
 
 #translate TreeView_SetItemHeight ( <hWnd>, <nHeight> ) ;
 => ;
-SendMessage( <hWnd>, TVM_SETITEMHEIGHT, <nHeight>, 0 )
+hmg_SendMessage( <hWnd>, TVM_SETITEMHEIGHT, <nHeight>, 0 )
 
 #translate TreeView_GetItemHeight ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, TVM_GETITEMHEIGHT, 0, 0 )
+hmg_SendMessage( <hWnd>, TVM_GETITEMHEIGHT, 0, 0 )
 
 #translate TreeView_SetIndent ( <hWnd>, <nIndent> ) ;
 => ;
-SendMessage( <hWnd>, TVM_SETINDENT, <nIndent>, 0 )
+hmg_SendMessage( <hWnd>, TVM_SETINDENT, <nIndent>, 0 )
 
 #translate TreeView_GetIndent ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, TVM_GETINDENT, 0, 0 )
+hmg_SendMessage( <hWnd>, TVM_GETINDENT, 0, 0 )

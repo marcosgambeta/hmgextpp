@@ -4577,7 +4577,7 @@ METHOD TSBrowse:DrawSelect(xRow, lDrawCell)
    LOCAL aColSizes := AClone(::aColSizes)
    LOCAL hWnd := ::hWnd
    LOCAL hDC := ::hDc
-   LOCAL lFocused := ::lFocused := (GetFocus() == ::hWnd)
+   LOCAL lFocused := ::lFocused := (hmg_GetFocus() == ::hWnd)
    LOCAL nVAlign := 1
    LOCAL l3DText
    LOCAL nClr3dL
@@ -5771,9 +5771,9 @@ METHOD TSBrowse:Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, n
          IF ix > 0
             IF oCol:lOnGotFocusSelect
                IF hb_IsChar(uValue)
-                  _HMG_aControlGotFocusProcedure[ix] := {|| SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, iif(Empty(uValue), -1, Len(Trim(uValue)))) }
+                  _HMG_aControlGotFocusProcedure[ix] := {|| hmg_SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, iif(Empty(uValue), -1, Len(Trim(uValue)))) }
                ELSEIF ValType(uValue) $ "ND"
-                  _HMG_aControlGotFocusProcedure[ix] := {|| SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, -1) }
+                  _HMG_aControlGotFocusProcedure[ix] := {|| hmg_SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, -1) }
                ENDIF
             ENDIF
             _HMG_aControlLostFocusProcedure[ix] := {| nKey | ::EditExit(nCell, nKey, uValue, bValid, .F.) }
@@ -6337,7 +6337,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
    IF hProgress != NIL
       nTotal := (::nLen + 1) * Len(::aColumns)
       SetProgressBarRange(hProgress, 1, nTotal)
-      SendMessage(hProgress, PBM_SETPOS, 0, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, 0, 0)
       nEvery := Max(1, Int(nTotal * .02)) // refresh hProgress every 2 %
    ENDIF
 
@@ -6392,7 +6392,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
             IF hProgress != NIL
 
                IF nCount % nEvery == 0
-                  SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+                  hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
                ENDIF
 
                nCount++
@@ -6442,7 +6442,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+               hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6485,7 +6485,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+               hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6509,7 +6509,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
    NEXT
 
    IF hProgress != NIL
-      SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
    ENDIF
 
    IF lSave
@@ -6532,7 +6532,7 @@ METHOD TSBrowse:Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow)
    ::Display()
 
    IF hProgress != NIL
-      SendMessage(hProgress, PBM_SETPOS, 0, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, 0, 0)
    ENDIF
 
 RETURN NIL
@@ -6606,7 +6606,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
    IF hProgress != NIL
       nTotal := (::nLen + 1) * Len(::aColumns) + 30
       SetProgressBarRange(hProgress, 1, nTotal)
-      SendMessage(hProgress, PBM_SETPOS, 0, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, 0, 0)
       nEvery := Max(1, Int(nTotal * .02)) // refresh hProgress every 2 %
    ENDIF
 
@@ -6634,7 +6634,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
 
    IF hProgress != NIL
       nCount -= 15
-      SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
    ENDIF
 
    oExcel:WorkBooks:Add()
@@ -6646,7 +6646,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
 
    IF hProgress != NIL
       nCount -= 15
-      SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
    ENDIF
 
    (::cAlias)->(Eval(::bGoTop))
@@ -6715,7 +6715,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
             IF hProgress != NIL
 
                IF nCount % nEvery == 0
-                  SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+                  hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
                ENDIF
 
                nCount++
@@ -6775,7 +6775,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
+               hmg_SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6867,7 +6867,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
    oSheet:Range("A1"):Select()
 
    IF hProgress != NIL
-      SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
    ENDIF
 
    IF ::lIsDbf
@@ -6898,7 +6898,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
             _Minimize(oExcel:hWnd)
             _Maximize(oExcel:hWnd)
          ENDIF
-         BringWindowToTop(oExcel:hWnd)
+         hmg_BringWindowToTop(oExcel:hWnd)
       CATCH
       END TRY
    ELSE
@@ -6908,7 +6908,7 @@ METHOD TSBrowse:ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, b
    ::Reset()
 
    IF hProgress != NIL
-      SendMessage(hProgress, PBM_SETPOS, 0, 0)
+      hmg_SendMessage(hProgress, PBM_SETPOS, 0, 0)
    ENDIF
 
 RETURN NIL
@@ -7441,7 +7441,7 @@ METHOD TSBrowse:GetDlgCode(nLastKey)
       ENDIF
    ENDIF
 
-RETURN iif(IsWindowEnabled(::hWnd) .AND. nLastKey != VK_ESCAPE, DLGC_WANTALLKEYS, 0)
+RETURN iif(hmg_IsWindowEnabled(::hWnd) .AND. nLastKey != VK_ESCAPE, DLGC_WANTALLKEYS, 0)
 
 // ============================================================================
 // METHOD TSBrowse:GetRealPos() Version 9.0 Nov/30/2009
@@ -9983,7 +9983,7 @@ METHOD TSBrowse:HScroll(nWParam, nLParam)
 
    ::lNoPaint := .F.
 
-   IF GetFocus() != ::hWnd
+   IF hmg_GetFocus() != ::hWnd
       hmg_SetFocus(::hWnd)
    ENDIF
 
@@ -10846,7 +10846,7 @@ METHOD TSBrowse:MouseMove(nRowPix, nColPix, nKeyFlags)
 
       hToolTip := GetFormToolTipHandle(::cParentWnd)
 
-      IF (::nToolTip != nColumn .OR. nRowLine != ::nToolTipRow) .AND. IsWindowHandle(::hWnd) .AND. IsWindowHandle(hToolTip)
+      IF (::nToolTip != nColumn .OR. nRowLine != ::nToolTipRow) .AND. hmg_IsWindowHandle(::hWnd) .AND. hmg_IsWindowHandle(hToolTip)
 
          IF hb_IsBlock(ctooltip)
             cToolTip := Eval(cToolTip, Self, nColumn, nRowLine)
@@ -10970,7 +10970,7 @@ METHOD TSBrowse:MouseWheel(nKeys, nDelta, nXPos, nYPos)
 
    HB_SYMBOL_UNUSED(nKeys)
 
-   GetWindowRect(::hWnd, aCoors)
+   hmg_GetWindowRect(::hWnd, aCoors)
 
    IF ::nWheelLines == NIL
       ::nWheelLines := GetWheelScrollLines()
@@ -12639,8 +12639,8 @@ METHOD TSBrowse:ReSize(nSizeType, nWidth, nHeight)
 
    AEval(::aColumns, {| oCol | iif(oCol:lVisible, nTotPix += oCol:nWidth, NIL) }) // 14.07.2015
 
-   IF ::lEditing .AND. ::aColumns[::nCell]:oEdit != NIL .AND. IsWindowHandle(::aColumns[::nCell]:oEdit:hWnd)
-      SendMessage(::aColumns[::nCell]:oEdit:hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
+   IF ::lEditing .AND. ::aColumns[::nCell]:oEdit != NIL .AND. hmg_IsWindowHandle(::aColumns[::nCell]:oEdit:hWnd)
+      hmg_SendMessage(::aColumns[::nCell]:oEdit:hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
    ENDIF
 
    IF !Empty(::nAdjColumn)
@@ -14271,7 +14271,7 @@ METHOD TSBrowse:SetFont(hFont)
 
    IF hFont != NIL
       ::hFont := hFont
-      SendMessage(::hWnd, WM_SETFONT, hFont)
+      hmg_SendMessage(::hWnd, WM_SETFONT, hFont)
    ENDIF
 
 RETURN 0
@@ -15138,7 +15138,7 @@ METHOD TSBrowse:VScroll(nMsg, nPos)
          ENDIF
       ENDIF
    ENDIF
-   IF GetFocus() != ::hWnd
+   IF hmg_GetFocus() != ::hWnd
       hmg_SetFocus(::hWnd)
    ENDIF
 
@@ -16805,7 +16805,7 @@ METHOD TSBrowse:GetCellSize(nRowPos, nCell, lColSpecHd)
    LOCAL y
    LOCAL x
 
-   GetWindowRect(::hWnd, aRect)
+   hmg_GetWindowRect(::hWnd, aRect)
 
    y := aRect[2]
    x := aRect[1]

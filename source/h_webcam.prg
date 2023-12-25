@@ -186,7 +186,7 @@ FUNCTION _StartWebCam(cWindow, cControl)
       lSuccess := (hmg_cap_PreviewScale(hWnd, .T.) .AND. hmg_cap_PreviewRate(hWnd, GetControlValue(cControl, cWindow)) .AND. hmg_cap_Preview(hWnd, .T.))
    ELSE
       // error connecting to video source
-      DestroyWindow(hWnd)
+      hmg_DestroyWindow(hWnd)
    ENDIF
 
    _HMG_aControlVisible[GetControlIndex(cControl, cWindow)] := lSuccess
@@ -203,7 +203,7 @@ PROCEDURE _ReleaseWebCam(cWindow, cControl)
 
       IF !Empty(hWnd)
          hmg_cap_DriverDisconnect(hWnd)
-         DestroyWindow(hWnd)
+         hmg_DestroyWindow(hWnd)
          _EraseControl(GetControlIndex(cControl, cWindow), GetFormIndex(cWindow))
       ENDIF
 

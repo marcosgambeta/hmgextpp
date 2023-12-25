@@ -1435,8 +1435,8 @@ METHOD HBPrinter:PrevShow()
    ENDIF
 
    IF !Empty(azoom[3]) .AND. !Empty(azoom[4])
-      spos[1] := GetScrollpos(ahs[5, 7], SB_HORZ) / azoom[4]
-      spos[2] := GetScrollpos(ahs[5, 7], SB_VERT) / (azoom[3])
+      spos[1] := hmg_GetScrollpos(ahs[5, 7], SB_HORZ) / azoom[4]
+      spos[2] := hmg_GetScrollpos(ahs[5, 7], SB_VERT) / (azoom[3])
    ENDIF
 
    IF ::MetaFiles[page, 2] >= ::MetaFiles[page, 3]
@@ -1458,8 +1458,8 @@ METHOD HBPrinter:PrevShow()
    HideWindow(ahs[6, 7])
    _SetControlHeight("i1", "hbpreview1", azoom[3] + 20)
    _SetControlWidth("i1", "hbpreview1", azoom[4])
-   SetScrollRange(ahs[5, 7], SB_VERT, 0, azoom[3] + 20, .T.)
-   SetScrollRange(ahs[5, 7], SB_HORZ, 0, azoom[4], .T.)
+   hmg_SetScrollRange(ahs[5, 7], SB_VERT, 0, azoom[3] + 20, .T.)
+   hmg_SetScrollRange(ahs[5, 7], SB_HORZ, 0, azoom[4], .T.)
 
    IF !rr_previewplay(ahs[6, 7], ::METAFILES[page, 1], azoom)
       scale := scale / 1.25

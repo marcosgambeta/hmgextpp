@@ -98,7 +98,7 @@ METHOD TSMulti:Default()
    LOCAL VALUE := Eval(::bSetGet)
 
    If !Empty(Value)
-      SetWindowText(::hWnd, Value)
+      hmg_SetWindowText(::hWnd, Value)
    ENDIF
 
 RETURN NIL

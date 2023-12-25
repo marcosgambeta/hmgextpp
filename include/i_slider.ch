@@ -132,8 +132,8 @@
 
 #xtranslate SetSliderRange ( <hWnd>, <l>, <b> ) ;
 => ;
-SendMessage( <hWnd>, TBM_SETRANGE, 1, hmg_MAKELONG( <l>, <b> ) )
+hmg_SendMessage( <hWnd>, TBM_SETRANGE, 1, hmg_MAKELONG( <l>, <b> ) )
 
 #xtranslate SetSliderSelRange ( <hWnd>, <l>, <b> ) ; /* P.Ch. 16.10. */
 => ;
-SendMessage( <hWnd>, TBM_SETSEL, 1, hmg_MAKELONG( <l>, <b> ) )
+hmg_SendMessage( <hWnd>, TBM_SETSEL, 1, hmg_MAKELONG( <l>, <b> ) )

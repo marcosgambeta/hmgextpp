@@ -163,7 +163,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
          IF hb_IsChar(Value) .OR. ValType(Value) == "M"
             IF !Empty(Value)
-               SetWindowText(ControlHandle, value)
+               hmg_SetWindowText(ControlHandle, value)
             ENDIF
          ENDIF
          SetWindowStyle(ControlHandle, Style, .T.)
@@ -192,11 +192,11 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-               IF IsWindowHandle(ControlHandle)
+               IF hmg_IsWindowHandle(ControlHandle)
                   FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
-            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
+            hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
             Containerhandle := _HMG_aFormReBarHandle[i]
 
             IF hb_IsChar(Value) ;
@@ -204,7 +204,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
                   ValType(Value) == "M"
 
                IF !Empty(Value)
-                  SetWindowText(ControlHandle, value)
+                  hmg_SetWindowText(ControlHandle, value)
                ENDIF
 
             ENDIF
@@ -220,7 +220,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
                ValType(Value) == "M"
 
             IF !Empty(Value)
-               SetWindowText(ControlHandle, value)
+               hmg_SetWindowText(ControlHandle, value)
             ENDIF
 
          ENDIF
@@ -239,7 +239,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -327,12 +327,12 @@ PROCEDURE _DataEditBoxRefresh(i)
       _SetValue(, , &Field, i)
    ELSE
       // Store Initial CaretPos
-      icp := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      icp := hmg_HiWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
       _SetValue(, , _GetValue(, , i), i)
 
       // Restore Initial CaretPos
-      SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
+      hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
    ENDIF
 
 RETURN
@@ -350,10 +350,10 @@ FUNCTION InitDialogEdit(ParentName, ControlHandle, k)
    readonly  := _HMG_aControlMiscData1[k, 3]
 
    IF hb_IsLogical(readonly)
-      SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
+      hmg_SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
    IF maxlength != NIL
-      SendMessage(ControlHandle, EM_LIMITTEXT, maxlength, 0)
+      hmg_SendMessage(ControlHandle, EM_LIMITTEXT, maxlength, 0)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

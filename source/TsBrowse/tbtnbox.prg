@@ -136,7 +136,7 @@ METHOD TBtnBox:Default()
    EndIf
 
    if Len(cValue) > 0
-      SetWindowText(::hWnd, cValue)
+      hmg_SetWindowText(::hWnd, cValue)
    endif
 
 Return NIL
@@ -267,8 +267,8 @@ METHOD TBtnBox:GetVal()
    LOCAL retVal
 
    SWITCH ValType(::VarGet())
-   CASE "C" ; retVal := GetWindowText(::hWnd); EXIT
-   CASE "N" ; retVal := Int(Val(GetWindowText(::hWnd)))
+   CASE "C" ; retVal := hmg_GetWindowText(::hWnd); EXIT
+   CASE "N" ; retVal := Int(Val(hmg_GetWindowText(::hWnd)))
    ENDSWITCH
 
 RETURN retVal

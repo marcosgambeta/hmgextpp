@@ -227,7 +227,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(aControlHandle[1])
+         IF hmg_IsWindowHandle(aControlHandle[1])
             FontHandle := hmg__SetFont(aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
          SetTbBtnMargin(aControlHandle[1], BtnWidth, .T., lBtn2)
@@ -303,7 +303,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       // Fill the TEXTBOX with the text given.
       IF Len(cValue) > 0
-         SetWindowText(aControlHandle[1], cValue)
+         hmg_SetWindowText(aControlHandle[1], cValue)
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()
@@ -348,7 +348,7 @@ FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
    aControlHandle := _HMG_aControlSpacing[k]
 
    IF nMaxLength != NIL
-      SendMessage(aControlHandle[1], EM_LIMITTEXT, nMaxLength, 0)
+      hmg_SendMessage(aControlHandle[1], EM_LIMITTEXT, nMaxLength, 0)
    ENDIF
 
 // With NUMERIC clause, transform numeric value into a string.
@@ -360,7 +360,7 @@ FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
 
 // Fill the TEXTBOX with the text given.
    IF Len(cValue) > 0
-      SetWindowText(aControlHandle[1], cValue)
+      hmg_SetWindowText(aControlHandle[1], cValue)
    ENDIF
 
    IF Field != NIL
@@ -391,7 +391,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       CASE TBB1
          IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
             IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
-               SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
+               hmg_SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
          EXIT
@@ -399,7 +399,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       CASE TBB2
          IF _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
             IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
-               SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
+               hmg_SendMessage(HwndBtn, BM_SETSTYLE, hmg_LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
       END SWITCH

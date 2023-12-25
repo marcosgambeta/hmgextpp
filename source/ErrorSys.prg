@@ -138,7 +138,7 @@ STATIC FUNCTION DefError(oError)
 
    ShowError(cText, oError)
 
-   ExitProcess()
+   hmg_ExitProcess()
 
 RETURN .F.
 

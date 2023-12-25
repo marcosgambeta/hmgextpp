@@ -15,7 +15,7 @@ hmg_AppEvents( <window>, <nId>, <bAction>, !<.noactive.>, <.once.> )
 
 #xtranslate EMIT [EVENT] [ID] <nId> OF <window> ;
 => ;
-SendMessage( <window>, <nId>, 0, 0 )
+hmg_SendMessage( <window>, <nId>, 0, 0 )
 
 
 #xcommand REMOVE APPEVENT [ID] [<nId>] OF <window> [<once: ONCE>] ;
@@ -46,7 +46,7 @@ hmg_AppEventsUpdate( <window>, <nId>, <bAction>, !<.noactive.>, <.once.> )
 
 #xcommand [DEFINE] [WINDOW] MESSAGEONLY <window> [EVENTS [FUNC] <efunc>] [RESULT] TO <lResult> ; 
 => ; 
-<lResult> := hmg_InitMessageOnlyWindow( <"window">, <"efunc"> ) 
+<lResult> := hmg_InitMessageOnlyWindow( <"window">, <"efunc"> )
 
 
 #xcommand ON WINEVENT [ID] <nId> ACTION <bAction> OF <window> [<noactive: NOACTIVE>] [<once: ONCE>];

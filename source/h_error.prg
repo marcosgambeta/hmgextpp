@@ -57,7 +57,7 @@ INIT PROCEDURE ClipInit()
          "expects a newer version of Windows." + CRLF + ;
          "Upgrade your Windows version.", "Error Starting Program", , .F., .T.)
 
-      ExitProcess(1)
+      hmg_ExitProcess(1)
 
    ENDIF
 
@@ -69,7 +69,7 @@ RETURN
 EXIT PROCEDURE ClipExit()
 //---------------------------------------------------------------------------//
 
-   ExitProcess()
+   hmg_ExitProcess()
 
 RETURN
 

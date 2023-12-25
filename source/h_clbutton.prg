@@ -195,7 +195,7 @@ PROCEDURE CLButton_SetShield(cWindow, cControl)
 
       _HMG_aControlPicture[i] := "Shield"
 
-      SendMessage(GetControlHandle(cControl, cWindow), BCM_SETSHIELD, 0, 0xFFFFFFFF)
+      hmg_SendMessage(GetControlHandle(cControl, cWindow), BCM_SETSHIELD, 0, 0xFFFFFFFF)
 
       _HMG_UserComponentProcess := .T.
 
@@ -229,12 +229,12 @@ PROCEDURE CLButtonSetFocus(cWindow, cControl)
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_CLBUTTON
             IF _HMG_aControlParentHandles[x] == ParentFormHandle
-               SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, hmg_LOWORD(BS_COMMANDLINK), 1)
+               hmg_SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, hmg_LOWORD(BS_COMMANDLINK), 1)
             ENDIF
          ENDIF
       NEXT
       hmg_SetFocus(hWnd)
-      SendMessage(hWnd, BM_SETSTYLE, hmg_LOWORD(BS_DEFCOMMANDLINK), 1)
+      hmg_SendMessage(hWnd, BM_SETSTYLE, hmg_LOWORD(BS_DEFCOMMANDLINK), 1)
 
    ELSE
 
@@ -250,7 +250,7 @@ PROCEDURE CLButtonEnable(cWindow, cControl)
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
-      EnableWindow(GetControlHandle(cControl, cWindow))
+      hmg_EnableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -268,7 +268,7 @@ PROCEDURE CLButtonDisable(cWindow, cControl)
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
-      DisableWindow(GetControlHandle(cControl, cWindow))
+      hmg_DisableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -327,7 +327,7 @@ FUNCTION SetCLButtonCaption(cWindow, cControl, cProperty, cValue)
 
       _HMG_UserComponentProcess := .T.
 
-      SetWindowText(GetControlHandle(cControl, cWindow), cValue)
+      hmg_SetWindowText(GetControlHandle(cControl, cWindow), cValue)
 
    ELSE
 
@@ -347,7 +347,7 @@ FUNCTION GetCLButtonCaption(cWindow, cControl)
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := GetWindowText(GetControlHandle(cControl, cWindow))
+      RetVal := hmg_GetWindowText(GetControlHandle(cControl, cWindow))
 
    ELSE
 

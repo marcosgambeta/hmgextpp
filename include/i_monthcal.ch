@@ -178,45 +178,45 @@
 #define MCM_GETCURRENTVIEW (MCM_FIRST+22)
 #xtranslate GetMonthCalView ( <hWnd> ) ;
 => ;
-SendMessage( <hWnd>, MCM_GETCURRENTVIEW, 0, 0 )
+hmg_SendMessage( <hWnd>, MCM_GETCURRENTVIEW, 0, 0 )
 
 #define MCM_SETCURRENTVIEW (MCM_FIRST+32)
 #xtranslate SetMonthCalView ( <hWnd>, <NewView> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCURRENTVIEW, 0, <NewView> )
+hmg_SendMessage( <hWnd>, MCM_SETCURRENTVIEW, 0, <NewView> )
 #endif
 
 #xtranslate SetMonthCalBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_BACKGROUND, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_BACKGROUND, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTitleBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLEBK, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLEBK, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTitleFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLETEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLETEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalMonthBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_MONTHBK, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_MONTHBK, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTrlFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TRAILINGTEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TRAILINGTEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalFirstDayOfWeek ( <hWnd>, <d> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETFIRSTDAYOFWEEK, 0, <d> )
+hmg_SendMessage( <hWnd>, MCM_SETFIRSTDAYOFWEEK, 0, <d> )
 
 #xtranslate GetMonthCalFirstDayOfWeek ( <hWnd> ) ;
 => ;
-hmg_LOWORD(SendMessage( <hWnd>, MCM_GETFIRSTDAYOFWEEK, 0, 0 ))
+hmg_LOWORD(hmg_SendMessage( <hWnd>, MCM_GETFIRSTDAYOFWEEK, 0, 0 ))
 
 #xtranslate GetMonthCalYear ( <h> ) ;
 => ;

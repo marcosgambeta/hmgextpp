@@ -744,7 +744,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
          FontHandle    := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
             hmg__SetFontHandle(ControlHandle, FontHandle)
-         ELSEIF IsWindowHandle(ControlHandle)
+         ELSEIF hmg_IsWindowHandle(ControlHandle)
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL
                FontHandle := hmg__SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ELSE
@@ -752,7 +752,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
             ENDIF
          ENDIF
          IF _HMG_ActivePropSheetModeless
-            IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
+            IF aDialogItems[n, 12] != NIL .AND. hmg_IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
                hmg_SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
             ENDIF
             IF  k > 0
@@ -826,7 +826,7 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
    CASE PSN_QUERYCANCEL
       IF _HMG_ActivePropSheetWizard
          IF !hb_isBlock(_HMG_CancelPropSheetProcedure)
-            lRet := MsgYesNo("Are you sure you want to Quit?", GetWindowText(GetActiveWindow()))
+            lRet := MsgYesNo("Are you sure you want to Quit?", hmg_GetWindowText(hmg_GetActiveWindow()))
          ELSE
             lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
          ENDIF
@@ -930,7 +930,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
       EXIT
    CASE WM_NOTIFY
       nPage := PropSheetHwndToIndex(hwndParent, hwndDlg)
-      NotifyCode := GetNotifyCode(lParam)
+      NotifyCode := hmg_GetNotifyCode(lParam)
       SWITCH NotifyCode
       CASE PSN_APPLY   // sent when OK or Apply button pressed
          IF nPage + 1 <= Len(_HMG_aPropSheetPages)
@@ -1019,7 +1019,7 @@ FUNCTION _ReleasePropertySheet(hwndPropSheet, hWndDlg)
    NEXT
    IF _HMG_ActivePropSheetModeless
       ErasePropSheet(hwndPropSheet)
-      DestroyWindow(hwndPropSheet)
+      hmg_DestroyWindow(hwndPropSheet)
    ELSE
       hmg_EndDialog(hwndDlg, 0)
    ENDIF

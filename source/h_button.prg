@@ -137,12 +137,12 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle(ControlHandle)
+            IF hmg_IsWindowHandle(ControlHandle)
                FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
          IF caption != NIL
-            SetWindowText(ControlHandle, caption)
+            hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle(ControlHandle, style, .T.)
@@ -164,7 +164,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF

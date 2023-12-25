@@ -254,7 +254,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
             FontHandle := hmg__SetFont(aControlHandle[1], FontName, FontSize)
          ENDIF
 
-         AddSplitBoxItem(aControlhandle[1], _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
+         hmg_AddSplitBoxItem(aControlhandle[1], _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
 
          _HMG_SplitLastControl := "PROPGRID"
 
@@ -463,18 +463,18 @@ FUNCTION _ChangeBtnState(aHandle, lChg, k)
 //----------------------------------------------------------------------------//
    IF aHandle[PGB_APPLY] > 0
       IF lChg
-         EnableWindow(aHandle[PGB_APPLY])
+         hmg_EnableWindow(aHandle[PGB_APPLY])
          _HMG_aControlMiscData1[k, 7] := .T.
       ELSE
-         DisableWindow(aHandle[PGB_APPLY])
+         hmg_DisableWindow(aHandle[PGB_APPLY])
          _HMG_aControlMiscData1[k, 7] := .F.
       ENDIF
    ENDIF
    IF aHandle[PGB_CANCEL] > 0
       IF lChg
-         EnableWindow(aHandle[PGB_CANCEL])
+         hmg_EnableWindow(aHandle[PGB_CANCEL])
       ELSE
-         DisableWindow(aHandle[PGB_CANCEL])
+         hmg_DisableWindow(aHandle[PGB_CANCEL])
       ENDIF
    ENDIF
 
@@ -995,11 +995,11 @@ FUNCTION ExpandPG(hWndPG, typ)
       IF PG_GetItem(hWndPG, hItem, PGI_TYPE) ==  PG_CATEG
          DO CASE
          CASE typ == 0
-            SendMessage(hWndPG, TVM_EXPAND, TVE_TOGGLE, hItem)
+            hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_TOGGLE, hItem)
          CASE typ == 1
-            SendMessage(hWndPG, TVM_EXPAND, TVE_EXPAND, hItem)
+            hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_EXPAND, hItem)
          CASE typ == 2
-            SendMessage(hWndPG, TVM_EXPAND, TVE_COLLAPSE, hItem)
+            hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_COLLAPSE, hItem)
          ENDCASE
       ENDIF
       hItem := PG_GetNextItem(hWndPG, hItem)
@@ -1025,11 +1025,11 @@ FUNCTION ExpandCategPG(ParentForm, ControlName, cCategory, typ)
          IF PG_GetItem(hWndPG, hItem, PGI_TYPE) ==  PG_CATEG
             DO CASE
             CASE typ == 0
-               SendMessage(hWndPG, TVM_EXPAND, TVE_TOGGLE, hItem)
+               hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_TOGGLE, hItem)
             CASE typ == 1
-               SendMessage(hWndPG, TVM_EXPAND, TVE_EXPAND, hItem)
+               hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_EXPAND, hItem)
             CASE typ == 2
-               SendMessage(hWndPG, TVM_EXPAND, TVE_COLLAPSE, hItem)
+               hmg_SendMessage(hWndPG, TVM_EXPAND, TVE_COLLAPSE, hItem)
             ENDCASE
          ENDIF
       ENDIF
@@ -1844,7 +1844,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       IF !empty(hItem)
          ItemType := PG_GetItem(hWnd, hItem, PGI_TYPE)
          IF ItemType == PG_CATEG .OR. ItemType == PG_FONT .OR. ItemType == PG_FLAG .OR. ItemType == PG_SIZE
-            SendMessage(hWnd, TVM_EXPAND, TVE_TOGGLE, hItem)
+            hmg_SendMessage(hWnd, TVM_EXPAND, TVE_TOGGLE, hItem)
             RETURN 1
          ENDIF
       ENDIF
@@ -1877,7 +1877,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       ENDIF
       IF hmg_HIWORD(wParam) == CBN_KILLFOCUS
          IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_LIST
-            cValue := GetWindowText(hEdit)
+            cValue := hmg_GetWindowText(hEdit)
             cData  := PG_GETITEM(hWnd, hItem, PGI_DATA)
             IF !Empty(cData)
                aData := PgIdentData(cData)
@@ -1892,8 +1892,8 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       ENDIF
       IF hmg_HIWORD(wParam) == EN_CHANGE
          IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_DOUBLE .OR. (PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_STRING .AND. !Empty(PG_GETITEM(hWnd, hItem, PGI_DATA)))
-            IF IsWindowHandle(hEdit)
-               cValue := GetWindowText(hEdit)
+            IF hmg_IsWindowHandle(hEdit)
+               cValue := hmg_GetWindowText(hEdit)
                cData := PG_GETITEM(hWnd, hItem, PGI_DATA)
                IF !Empty(cData)
                   CharMaskEdit(hEdit, cValue, cData)
@@ -1906,21 +1906,21 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       EXIT
 
    CASE WM_NOTIFY
-      i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == GetHwndFrom(lParam)})
+      i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hmg_GetHwndFrom(lParam)})
       IF i > 0
-         IF GetNotifyCode(lParam) == TVN_SELCHANGED // Tree
+         IF hmg_GetNotifyCode(lParam) == TVN_SELCHANGED // Tree
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
             RETURN 0
          ENDIF
 
          // PropGrid Double Click .........................
 
-         IF GetNotifyCode(lParam) == NM_DBLCLK
+         IF hmg_GetNotifyCode(lParam) == NM_DBLCLK
             _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
             RETURN 0
          ENDIF
 
-         IF GetNotifyCode(lParam) == -181
+         IF hmg_GetNotifyCode(lParam) == -181
             ReDrawWindow(_hmg_acontrolhandles[i, 1])
          ENDIF
       ENDIF
@@ -2031,7 +2031,7 @@ FUNCTION SetPropGridValue(ParentForm, ControlName, nID, cValue, cData, lExp)
          ENDIF
          IF PgCheckData(ItemType, @cValue, @cData, 1)
             IF hEdit > 0
-               SetWindowText(hEdit, cValue)
+               hmg_SetWindowText(hEdit, cValue)
             ENDIF
             PG_SETDATAITEM(hWndPG, hItem, cValue, cData, lData)
             IF  PG_ISVISIBLE(hWndPG, hItem)
@@ -2417,9 +2417,9 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
    _HMG_aControlMiscData2[i] := hWnd
    SWITCH nMsg
    CASE WM_CHAR
-      icp :=  hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
-      icpe := hmg_LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
-      cValue := GetWindowText(hWnd)
+      icp :=  hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0))
+      icpe := hmg_LoWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0))
+      cValue := hmg_GetWindowText(hWnd)
       IF wParam == 27
          _PGInitData(hWndPG, hWnd, hItem, PG_GETITEM(hWndPG, hItem, PGI_TYPE))
          hmg_SetFocus(hWndPG)
@@ -2430,28 +2430,28 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. SubStr(cValue, icp + 1, 1) != Chr(13)
          IF IsAlpha(Chr(wParam)) .OR. IsDigit(Chr(wParam))
             IF icp != icpe
-               SendMessage(hWnd, WM_CLEAR, 0, 0)
-               SendMessage(hWnd, EM_SETSEL, icpe, icpe)
+               hmg_SendMessage(hWnd, WM_CLEAR, 0, 0)
+               hmg_SendMessage(hWnd, EM_SETSEL, icpe, icpe)
             ELSE
-               SendMessage(hWnd, EM_SETSEL, icp, icp + 1)
-               SendMessage(hWnd, WM_CLEAR, 0, 0)
-               SendMessage(hWnd, EM_SETSEL, icp, icp)
+               hmg_SendMessage(hWnd, EM_SETSEL, icp, icp + 1)
+               hmg_SendMessage(hWnd, WM_CLEAR, 0, 0)
+               hmg_SendMessage(hWnd, EM_SETSEL, icp, icp)
             ENDIF
          ELSE
             IF wParam == 1
-               SendMessage(hWnd, EM_SETSEL, 0, -1)
+               hmg_SendMessage(hWnd, EM_SETSEL, 0, -1)
             ENDIF
          ENDIF
       ELSE
          IF wParam == 1
-            SendMessage(hWnd, EM_SETSEL, 0, -1)
+            hmg_SendMessage(hWnd, EM_SETSEL, 0, -1)
          ENDIF
       ENDIF
       EXIT
    CASE WM_COMMAND
       hParentItem := hmg_TreeView_GetParent(hWndPG, hItem)      // Parent Item
       hChildItem  := hmg_TreeView_GetChild(hWndPG, hParentItem) // First Child Item
-      cValue := GetWindowText(hWnd)
+      cValue := hmg_GetWindowText(hWnd)
       SWITCH hmg_HIWORD(wParam)
       CASE BN_CLICKED
          lChg := .F.
@@ -2463,7 +2463,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             IF aDataNew[1] != NIL
                cData := AttrTran(aDataNew, "A")
                cValue  := aCol2Str(aDataNew)
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                nColor := PgIdentColor(0, cValue)
                hImage := CREATECOLORBMP(hWndPG, nColor, ItHeight * 1.4, ItHeight)
                ResetPropGridImageList(hWndPG, hItem, hImage)
@@ -2471,12 +2471,12 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             ENDIF
             EXIT
          CASE PG_USERFUN
-            cValue := GetWindowText(hWnd)
+            cValue := hmg_GetWindowText(hWnd)
             cData := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             bData := &(cData)
             cValue := Eval(bData, cValue)
             IF cValue != NIL .AND. hb_IsChar(cValue)
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                lChg := .T.
             ENDIF
             EXIT
@@ -2494,46 +2494,46 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
                cData := AttrTran(aDataNew, "A")
                aData := PgIdentData(cData, PG_FONT)
                cValue  := aFont2Str(aData)
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                lChg := .T.
             ENDIF
             EXIT
          CASE PG_IMAGE
-            cData := GetWindowText(hWnd)
+            cData := hmg_GetWindowText(hWnd)
             cFltr := PgIdentData(PG_GETITEM(hWndPG, hItem, PGI_DATA), PG_IMAGE)
             cDataNew := GetFile(cFltr, "Image File", cData, .F., .T.)
             IF !Empty(cDataNew)
                cValue := cDataNew
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                PgLoadImag(cValue, i, hItem)
                lChg := .T.
             ENDIF
             EXIT
          CASE PG_FILE
-            cData := GetWindowText(hWnd)
+            cData := hmg_GetWindowText(hWnd)
             cFltr := PgIdentData(PG_GETITEM(hWndPG, hItem, PGI_DATA), PG_FILE)
             cDataNew := GetFile(cFltr, "File", cData, .F., .T.)
             IF !Empty(cDataNew)
                cValue := cDataNew
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                lChg := .T.
             ENDIF
             EXIT
          CASE PG_FOLDER
-            cData := GetWindowText(hWnd)
+            cData := hmg_GetWindowText(hWnd)
             cFold := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             cDataNew := GetFolder(cFold, cData)
             IF !Empty(cDataNew)
                cValue := cDataNew
-               SetWindowText(hWnd, cValue)
+               hmg_SetWindowText(hWnd, cValue)
                lChg := .T.
             ENDIF
             EXIT
          CASE PG_ARRAY
-            cValue :=  GetWindowText(hWnd)
+            cValue :=  hmg_GetWindowText(hWnd)
             cDataNew := ArrayDlg(cValue, cParentName)
             IF !Empty(cDataNew)
-               SetWindowText(hWnd, cDataNew)
+               hmg_SetWindowText(hWnd, cDataNew)
                lChg := .T.
             ENDIF
          ENDSWITCH
@@ -2550,7 +2550,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             IF AScan(aData, cValue) == 0
                cData := cData + ";" + cValue
             ENDIF
-            SetWindowText(hWnd, cValue)
+            hmg_SetWindowText(hWnd, cValue)
             PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
          ENDIF
       ENDSWITCH
@@ -2571,7 +2571,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       CASE PG_DOUBLE
       CASE PG_DATE
       CASE PG_ENUM
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          IF ItemType == PG_DOUBLE
             cValue := CharRem(" ", cValue)
             IF (Pos := RAt(".", cValue)) > 0
@@ -2675,7 +2675,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
          ENDSWITCH
          EXIT
       CASE PG_FONT
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          aData := PgIdentData(cValue, PG_FONT, , ",")
          cData := AttrTran(aData, "A")
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
@@ -2703,7 +2703,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       //   PG_SETDATAITEM(hWndPG, hItem, cValue, "", .F.)
       //   EXIT
       CASE PG_IMAGE
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
          PgLoadImag(cValue, i, hItem)
@@ -2711,23 +2711,23 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
       CASE PG_FILE
       //CASE PG_ENUM // TODO: Duplicate case value
       CASE PG_FOLDER
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
          EXIT
       CASE PG_USERFUN
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .F.)
          EXIT
       CASE PG_PASSWORD
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
          cValue := CHARXOR(cValue, cData)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .F.)
          EXIT
       //CASE PG_LIST // TODO: Duplicate case value
-      //   cValue := GetWindowText(hWnd)
+      //   cValue := hmg_GetWindowText(hWnd)
       //   cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
       //   aData := PgIdentData(cData)
       //   IF AScan(aData, cValue) == 0
@@ -2743,7 +2743,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
          PG_SETDATAITEM(hWndPG, hItem, cValue, "", .F.)
          EXIT
       CASE PG_COLOR
-         cValue := GetWindowText(hWnd)
+         cValue := hmg_GetWindowText(hWnd)
          aData  := PgIdentData(cValue, PG_COLOR, , ",")
          cValue := aCol2Str(aData)
          cData  := aVal2Str(aData)
@@ -2786,27 +2786,27 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
       CASE PG_INTEGER
       CASE PG_SYSINFO
       CASE PG_USERFUN
-         SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+         hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          EXIT
       CASE PG_STRING
          aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
          IF !Empty(aData)
-            SetWindowText(hEdit, Transform(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
+            hmg_SetWindowText(hEdit, Transform(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          ELSE
-            SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+            hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ENDIF
          EXIT
       CASE PG_DOUBLE
          aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
          IF !Empty(aData)
-            SetWindowText(hEdit, FormatDouble(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
+            hmg_SetWindowText(hEdit, FormatDouble(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          ELSE
-            SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+            hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ENDIF
          EXIT
       CASE PG_PASSWORD
          aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
-         SetWindowText(hEdit, CHARXOR(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
+         hmg_SetWindowText(hEdit, CHARXOR(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          EXIT
       CASE PG_LOGIC
          ComboBoxReset(hEdit)
@@ -2817,7 +2817,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
       CASE PG_ENUM
       CASE PG_LIST
          hParentItem := hmg_TreeView_GetParent(hWnd, hWndItem)      // Parent Item
-         SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+         hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ComboBoxReset(hEdit)
          IF PG_GETITEM(hWnd, hParentItem, PGI_TYPE) == PG_FONT
             PG_GetFonts(hEdit)
@@ -2835,13 +2835,13 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
       CASE PG_FONT
       CASE PG_FLAG
       CASE PG_SIZE
-         SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+         hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          EXIT
       CASE PG_COLOR
       CASE PG_IMAGE
       CASE PG_FILE
       CASE PG_FOLDER
-         SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
+         hmg_SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          EXIT
       CASE PG_SYSCOLOR
          aSysColor := PgIdentColor(1)
@@ -2877,7 +2877,7 @@ FUNCTION ArrayDlg(cArr, FormName)
    LOCAL lOk := .F.
    
    IF _IsWIndowDefined(FormName)
-      aPos := GetCursorPos()
+      aPos := hmg_GetCursorPos()
       nRow := DialogUnitsY(aPos[1])
       nCol := DialogUnitsX(aPos[2])
 
@@ -3082,10 +3082,10 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
 
    DEFAULT Mask := ""
 
-   icp := hmg_HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(hmg_SendMessage(hWnd, EM_GETSEL, 0, 0))
    IF Empty(mask)
-      SetWindowText(hWnd, FormatDouble(cValue))
-      SendMessage(hWnd, EM_SETSEL, icp, icp)
+      hmg_SetWindowText(hWnd, FormatDouble(cValue))
+      hmg_SendMessage(hWnd, EM_SETSEL, icp, icp)
       RETURN
    ENDIF
    IF Left(AllTrim(cValue), 1) == "-" .AND. Val(cValue) == 0
@@ -3185,34 +3185,34 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
       ENDSWITCH
    NEXT x
    IF !( BackcValue == OutBuffer )
-      SetWindowText(hWnd, OutBuffer)
+      hmg_SetWindowText(hWnd, OutBuffer)
    ENDIF
    IF pc > 1
       pc := At(".", OutBuffer)
       IF NegativeZero
-         Output := FormatDouble(GetWindowText(hWnd), Mask)
+         Output := FormatDouble(hmg_GetWindowText(hWnd), Mask)
          Output := Right(Output, ol - 1)
          Output := "-" + Output
-         SetWindowText(hWnd, Output)
-         SendMessage(hWnd, EM_SETSEL, pc + dc, pc + dc)
+         hmg_SetWindowText(hWnd, Output)
+         hmg_SendMessage(hWnd, EM_SETSEL, pc + dc, pc + dc)
       ELSE
-         SetWindowText(hWnd, FormatDouble(GetWindowText(hWnd), Mask))
-         SendMessage(hWnd, EM_SETSEL, pc + dc, pc + dc)
+         hmg_SetWindowText(hWnd, FormatDouble(hmg_GetWindowText(hWnd), Mask))
+         hmg_SendMessage(hWnd, EM_SETSEL, pc + dc, pc + dc)
       ENDIF
    ELSE
       IF pFlag
-         ncp := At(".", GetWindowText(hWnd))
-         SendMessage(hWnd, EM_SETSEL, ncp, ncp)
+         ncp := At(".", hmg_GetWindowText(hWnd))
+         hmg_SendMessage(hWnd, EM_SETSEL, ncp, ncp)
       ELSE
          IF BadEntry
             icp--
          ENDIF
-         SendMessage(hWnd, EM_SETSEL, icp, icp)
+         hmg_SendMessage(hWnd, EM_SETSEL, icp, icp)
          FOR x := 1 TO Len(OutBuffer)
             CB := SubStr(OutBuffer, icp + x, 1)
             CM := SubStr(Mask, icp + x, 1)
             IF !IsDigit(CB) .AND. !IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
-               SendMessage(hWnd, EM_SETSEL, icp + x, icp + x)
+               hmg_SendMessage(hWnd, EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
             ENDIF

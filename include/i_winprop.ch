@@ -77,4 +77,4 @@
 
 #xcommand RESET MINMAXINFO <dummy1: OF, WINDOW> <name> TO DEFAULT ;
    =>;
-        _HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := InitMinMaxInfo ( GetFormHandle( <"name"> ) )
+        _HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := hmg_InitMinMaxInfo( GetFormHandle( <"name"> ) )

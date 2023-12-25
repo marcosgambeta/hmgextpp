@@ -724,13 +724,13 @@ PROCEDURE _ShowContextMenu(Parent, nRow, nCol)
    ENDIF
 
    IF hb_defaultValue(nRow, 0) == 0 .AND. hb_defaultValue(nCol, 0) == 0
-      aPos := GetCursorPos()
+      aPos := hmg_GetCursorPos()
       nRow := aPos[1]
       nCol := aPos[2]
    ENDIF
 
    hmg_TrackPopupMenu(_HMG_xContextMenuHandle, nCol, nRow, xContextMenuParentHandle)
-   DoEvents()
+   hmg_DoEvents()
 
 RETURN
 

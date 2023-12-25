@@ -180,7 +180,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
          h := GetWindowHeight(Controlhandle)
 
          IF caption != NIL
-            SetWindowText(ControlHandle, caption)
+            hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle(ControlHandle, Style, .T.)

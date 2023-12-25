@@ -120,7 +120,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle(ControlHandle)
+      IF hmg_IsWindowHandle(ControlHandle)
          FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF

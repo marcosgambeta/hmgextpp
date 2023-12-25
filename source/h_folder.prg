@@ -543,7 +543,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
                ENDIF
             ENDIF
          ENDIF
-         IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
+         IF aDialogItems[n, 12] != NIL .AND. hmg_IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
             hmg_SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
          ENDIF
          IF k > 0
@@ -701,7 +701,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
 
    CASE WM_NOTIFY
 
-      SWITCH GetNotifyCode(lParam)
+      SWITCH hmg_GetNotifyCode(lParam)
 
       CASE FLN_APPLY
          hmg_Folder_UnChanged(hwndFolder, hWndDlg)
@@ -880,7 +880,7 @@ FUNCTION EraseFolder(hwndDlg, lModal)
       IF lModal
          hmg_EndDialog(hwndDlg, 0)
       ELSE
-         DestroyWindow(hwndDlg)
+         hmg_DestroyWindow(hwndDlg)
       ENDIF
    ENDIF
 

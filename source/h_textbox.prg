@@ -197,7 +197,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -273,7 +273,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       // Fill the TEXTBOX with the text given.
       IF Len(cValue) > 0
-         SetWindowText(ControlHandle, cValue)
+         hmg_SetWindowText(ControlHandle, cValue)
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()
@@ -306,10 +306,10 @@ FUNCTION InitDialogTextBox(ParentName, ControlHandle, k)
    lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
    IF hb_IsLogical(readonly)
-      SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
+      hmg_SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
    IF nMaxLength != NIL
-      SendMessage(ControlHandle, EM_LIMITTEXT, nMaxLength, 0)
+      hmg_SendMessage(ControlHandle, EM_LIMITTEXT, nMaxLength, 0)
    ENDIF
 
    // With NUMERIC clause, transform numeric value into a string.
@@ -321,7 +321,7 @@ FUNCTION InitDialogTextBox(ParentName, ControlHandle, k)
 
    // Fill the TEXTBOX with the text given.
    IF Len(cValue) > 0
-      SetWindowText(ControlHandle, cValue)
+      hmg_SetWindowText(ControlHandle, cValue)
    ENDIF
 
    IF Field != NIL
@@ -480,7 +480,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -550,7 +550,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
          SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
-      SetWindowText(ControlHandle, value)
+      hmg_SetWindowText(ControlHandle, value)
 
       IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
@@ -574,9 +574,9 @@ FUNCTION InitDialogMaskedTextBox(ParentName, ControlHandle, k)
    cValue := _HMG_aControlValue[k]
 
    IF !date
-      SetWindowText(ControlHandle, cValue)
+      hmg_SetWindowText(ControlHandle, cValue)
    ELSE
-      SetWindowText(ControlHandle, DToC(cValue))
+      hmg_SetWindowText(ControlHandle, DToC(cValue))
    ENDIF
 
    IF Field != NIL
@@ -766,7 +766,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle(ControlHandle)
+         IF hmg_IsWindowHandle(ControlHandle)
             FontHandle := hmg__SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
@@ -843,9 +843,9 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
 
       IF Value != NIL
          IF !date
-            SetWindowText(ControlHandle, Value)
+            hmg_SetWindowText(ControlHandle, Value)
          ELSE
-            SetWindowText(ControlHandle, DToC(Value))
+            hmg_SetWindowText(ControlHandle, DToC(Value))
          ENDIF
       ENDIF
 
@@ -892,10 +892,10 @@ PROCEDURE ProcessCharMask(i, d)
    Mask := _HMG_aControlInputMask[i]
 
    // Store Initial CaretPos
-   icp := hmg_HiWord(SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(hmg_SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
-   InBuffer := GetWindowText(_HMG_aControlHandles[i])
+   InBuffer := hmg_GetWindowText(_HMG_aControlHandles[i])
 
    // RL 104
    IF Left(AllTrim(InBuffer), 1) == "-" .AND. Val(InBuffer) == 0
@@ -1019,7 +1019,7 @@ PROCEDURE ProcessCharMask(i, d)
 
    // Replace Content
    IF !( BackInBuffer == OutBuffer )
-      SetWindowText(_HMG_aControlHandles[i], OutBuffer)
+      hmg_SetWindowText(_HMG_aControlHandles[i], OutBuffer)
    ENDIF
 
    IF pc > 1
@@ -1028,20 +1028,20 @@ PROCEDURE ProcessCharMask(i, d)
       // RL 104
       IF NegativeZero
 
-         Output := Transform(GetNumFromText(GetWindowText(_HMG_aControlhandles[i]), i), Mask)
+         Output := Transform(GetNumFromText(hmg_GetWindowText(_HMG_aControlhandles[i]), i), Mask)
 
          Output := hb_URight(Output, ol - 1)
 
          Output := "-" + Output
 
          // Replace Text
-         SetWindowText(_HMG_aControlhandles[i], Output)
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
+         hmg_SetWindowText(_HMG_aControlhandles[i], Output)
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
 
       ELSE
 
-         SetWindowText(_HMG_aControlhandles[i], Transform(GetNumFromText(GetWindowText(_HMG_aControlhandles[i]), i), Mask))
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
+         hmg_SetWindowText(_HMG_aControlhandles[i], Transform(GetNumFromText(hmg_GetWindowText(_HMG_aControlhandles[i]), i), Mask))
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
 
       ENDIF
 
@@ -1049,8 +1049,8 @@ PROCEDURE ProcessCharMask(i, d)
 
       IF pFlag
 
-         ncp := hb_UAt("." , GetWindowText(_HMG_aControlHandles[i]))
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, ncp, ncp)
+         ncp := hb_UAt("." , hmg_GetWindowText(_HMG_aControlHandles[i]))
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, ncp, ncp)
 
       ELSE
 
@@ -1059,7 +1059,7 @@ PROCEDURE ProcessCharMask(i, d)
             icp--
          ENDIF
 
-         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
+         hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
 
          pc := hb_ULen(OutBuffer)
 
@@ -1073,7 +1073,7 @@ PROCEDURE ProcessCharMask(i, d)
                EXIT
             ENDIF
             IF !hmg_IsDigit(CB) .AND. !hmg_IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
-               SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
+               hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
             ENDIF
@@ -1178,10 +1178,10 @@ PROCEDURE ProcessNumText(i)
    LOCAL fnb
 
    // Store Initial CaretPos
-   icp := hmg_HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+   icp := hmg_HiWord(hmg_SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
-   InBuffer := GetWindowText(_HMG_aControlHandles[i])
+   InBuffer := hmg_GetWindowText(_HMG_aControlHandles[i])
 
    BackInBuffer := InBuffer
 
@@ -1221,11 +1221,11 @@ PROCEDURE ProcessNumText(i)
 
    // JK Replace Content
    IF !( BackInBuffer == OutBuffer )
-      SetWindowText(_HMG_aControlHandles[i], OutBuffer)
+      hmg_SetWindowText(_HMG_aControlHandles[i], OutBuffer)
    ENDIF
 
    // Restore Initial CaretPos
-   SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
+   hmg_SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
 
 RETURN
 
@@ -1283,9 +1283,9 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
    CASE WM_CHAR
 
       hTextBox := _HMG_aControlHandles[i]
-      icp  := hmg_HiWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
-      icpe := hmg_LoWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
-      InBuffer := GetWindowText(hTextBox)
+      icp  := hmg_HiWord(hmg_SendMessage(hTextBox, EM_GETSEL, 0, 0))
+      icpe := hmg_LoWord(hmg_SendMessage(hTextBox, EM_GETSEL, 0, 0))
+      InBuffer := hmg_GetWindowText(hTextBox)
 
       // simulate overwrite mode
       IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr(13)
@@ -1296,18 +1296,18 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
          IF hmg_IsAlpha(Chr(wParam)) .OR. hmg_IsDigit(Chr(wParam))
 #endif
             IF icp != icpe
-               SendMessage(hTextBox, WM_CLEAR, 0, 0)
-               SendMessage(hTextBox, EM_SETSEL, icpe, icpe)
+               hmg_SendMessage(hTextBox, WM_CLEAR, 0, 0)
+               hmg_SendMessage(hTextBox, EM_SETSEL, icpe, icpe)
             ELSE
-               SendMessage(hTextBox, EM_SETSEL, icp, icp + 1)
-               SendMessage(hTextBox, WM_CLEAR, 0, 0)
-               SendMessage(hTextBox, EM_SETSEL, icp, icp)
+               hmg_SendMessage(hTextBox, EM_SETSEL, icp, icp + 1)
+               hmg_SendMessage(hTextBox, WM_CLEAR, 0, 0)
+               hmg_SendMessage(hTextBox, EM_SETSEL, icp, icp)
             ENDIF
 
          ELSE
 
             IF wParam == 1
-               SendMessage(hTextBox, EM_SETSEL, 0, -1)
+               hmg_SendMessage(hTextBox, EM_SETSEL, 0, -1)
             ENDIF
 
          ENDIF
@@ -1315,7 +1315,7 @@ FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
       ELSE
 
          IF wParam == 1
-            SendMessage(hTextBox, EM_SETSEL, 0, -1)
+            hmg_SendMessage(hTextBox, EM_SETSEL, 0, -1)
          ENDIF
 
       ENDIF

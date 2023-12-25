@@ -97,7 +97,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
             aCols[1] == "Key" .AND. aCols[2] == "Value"
 
    IF lRec .OR. lModal
-      _HMG_InplaceParentHandle := GetActiveWindow()
+      _HMG_InplaceParentHandle := hmg_GetActiveWindow()
 
       IF lRec
          nWidth *= .67

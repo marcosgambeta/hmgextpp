@@ -272,7 +272,7 @@ SetProperty ( <"Arg1"> , <"Arg2"> , <"Arg3"> , \{<Arg4>\} )
 
 #translate SET MULTIPLE <x:ON,OFF> [ <warning: WARNING> ] ;
 => ;
-_HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _HMG_IsMultiple == .T. , ( iif ( <.warning.> , MsgStop( _HMG_MESSAGE\[4\] ) , ) , ExitProcess() ) , )
+_HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _HMG_IsMultiple == .T. , ( iif ( <.warning.> , MsgStop( _HMG_MESSAGE\[4\] ) , ) , hmg_ExitProcess() ) , )
 
 #translate CRLF => hb_eol()
 
@@ -377,25 +377,25 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 #xtranslate ReleaseControl ( <hWnd> ) ;
 => ;
-iif ( IsWindowHandle( <hWnd> ), SendMessage( <hWnd>, WM_SYSCOMMAND, SC_CLOSE, 0 ), )
+iif ( hmg_IsWindowHandle( <hWnd> ), hmg_SendMessage( <hWnd>, WM_SYSCOMMAND, SC_CLOSE, 0 ), )
 
 // Get Window position and sizes
 
 #xtranslate GetWindowRow ( <hWnd> ) ;
 => ;
-GetWindowRect( <hWnd>, 1 )
+hmg_GetWindowRect( <hWnd>, 1 )
 
 #xtranslate GetWindowCol ( <hWnd> ) ;
 => ;
-GetWindowRect( <hWnd>, 2 )
+hmg_GetWindowRect( <hWnd>, 2 )
 
 #xtranslate GetWindowWidth ( <hWnd> ) ;
 => ;
-GetWindowRect( <hWnd>, 3 )
+hmg_GetWindowRect( <hWnd>, 3 )
 
 #xtranslate GetWindowHeight ( <hWnd> ) ;
 => ;
-GetWindowRect( <hWnd>, 4 )
+hmg_GetWindowRect( <hWnd>, 4 )
 
 // Set Window non client attributes
 

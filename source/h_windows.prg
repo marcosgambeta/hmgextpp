@@ -159,7 +159,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
       IF !hb_IsNumeric(clientwidth) .AND. !hb_IsNumeric(clientheight)
          w := GetDesktopWidth()
-         h := GetDesktopHeight() - GetTaskBarHeight()
+         h := GetDesktopHeight() - hmg_GetTaskBarHeight()
          IF child
             w *= .78125
             h *= .78125
@@ -299,14 +299,14 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    IF NotifyIconName == NIL
       NotifyIconName := ""
    ELSE
-      hnotifyicon := LoadTrayIcon(hmg_GetResources(), NotifyIconName)
-      ShowNotifyIcon(FormHandle, .T., hnotifyicon, NotifyIconTooltip)
+      hnotifyicon := hmg_LoadTrayIcon(hmg_GetResources(), NotifyIconName)
+      hmg_ShowNotifyIcon(FormHandle, .T., hnotifyicon, NotifyIconTooltip)
    ENDIF
 
    htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
 
    IF hmg_SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
+      hmg_SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    cType := iif(Main, "A", iif(Child, "C", iif(Panel, "P", "S")))
@@ -365,7 +365,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    _HMG_aFormRestoreProcedure          [k] := RestoreProcedure
    _HMG_aFormAutoRelease               [k] := !NoAutoRelease
    _HMG_aFormInteractiveCloseProcedure [k] := InteractiveCloseProcedure
-   _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
+   _HMG_aFormMinMaxInfo                [k] := hmg_InitMinMaxInfo(FormHandle)
    _HMG_aFormActivateId                [k] := 0
    _HMG_aFormMiscData1                 [k] := {hnotifyicon, cursor, 0}
    _HMG_aFormMiscData2                 [k] := ""
@@ -393,10 +393,10 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    ENDIF
 
    IF VirtualHeight > 0
-      SetScrollRange(Formhandle, SB_VERT, 0, VirtualHeight - h, .T.)
+      hmg_SetScrollRange(Formhandle, SB_VERT, 0, VirtualHeight - h, .T.)
    ENDIF
    IF VirtualWidth > 0
-      SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
+      hmg_SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
    IF hb_IsArray(aMin) .AND. hb_IsArray(aMax)
@@ -444,7 +444,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
 
       IF !hb_IsNumeric(clientwidth) .AND. !hb_IsNumeric(clientheight)
          w := GetDesktopWidth() * 0.614
-         h := (GetDesktopHeight() - GetTaskBarHeight()) * 0.614
+         h := (GetDesktopHeight() - hmg_GetTaskBarHeight()) * 0.614
          IF w / h > 1.75 // widescreen display
             w *= .7
             h *= .7
@@ -542,7 +542,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    htooltip := hmg_InitToolTip(NIL, hmg_SetToolTipBalloon())
 
    IF hmg_SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
+      hmg_SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    k := _GetFormFree()
@@ -599,7 +599,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    _HMG_aFormRestoreProcedure          [k] := NIL
    _HMG_aFormAutoRelease               [k] := !NoAutoRelease
    _HMG_aFormInteractiveCloseProcedure [k] := InteractiveCloseProcedure
-   _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
+   _HMG_aFormMinMaxInfo                [k] := hmg_InitMinMaxInfo(FormHandle)
    _HMG_aFormActivateId                [k] := 0
    _HMG_aFormMiscData1                 [k] := {NIL, cursor, 0}
    _HMG_aFormMiscData2                 [k] := ""
@@ -616,10 +616,10 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    hmg_InitDummy(FormHandle)
 
    IF VirtualHeight > 0
-      SetScrollRange(Formhandle, SB_VERT, 0, VirtualHeight - h, .T.)
+      hmg_SetScrollRange(Formhandle, SB_VERT, 0, VirtualHeight - h, .T.)
    ENDIF
    IF VirtualWidth > 0
-      SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
+      hmg_SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
    IF hb_IsArray(aMin) .AND. hb_IsArray(aMax)
@@ -719,7 +719,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
          Break := .T.
       ENDIF
 
-      AddSplitBoxItem(FormHandle, _HMG_aFormReBarHandle[i], w, break, grippertext, , , _HMG_ActiveSplitBoxInverted)
+      hmg_AddSplitBoxItem(FormHandle, _HMG_aFormReBarHandle[i], w, break, grippertext, , , _HMG_ActiveSplitBoxInverted)
 
       nBand := GetBandCount(_HMG_aFormReBarHandle[i])
 
@@ -737,7 +737,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    htooltip := hmg_InitToolTip(FormHandle, hmg_SetToolTipBalloon())
 
    IF hmg_SetToolTipMaxWidth() != -1
-      SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
+      hmg_SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, hmg_SetToolTipMaxWidth())
    ENDIF
 
    k := _GetFormFree()
@@ -794,7 +794,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    _HMG_aFormRestoreProcedure          [k] := NIL
    _HMG_aFormAutoRelease               [k] := .T.
    _HMG_aFormInteractiveCloseProcedure [k] := iif(nocaption, {||.F.}, "")
-   _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
+   _HMG_aFormMinMaxInfo                [k] := hmg_InitMinMaxInfo(FormHandle)
    _HMG_aFormActivateId                [k] := 0
    _HMG_aFormMiscData1                 [k] := {NIL, cursor, 0, nBand, grippertext}
    _HMG_aFormMiscData2                 [k] := ""
@@ -814,10 +814,10 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    AAdd(_HMG_aFormSplitChildList[i] , _HMG_ActiveSplitChildIndex)
 
    IF VirtualHeight > 0
-      SetScrollRange(FormHandle, SB_VERT, 0, VirtualHeight - h, .T.)
+      hmg_SetScrollRange(FormHandle, SB_VERT, 0, VirtualHeight - h, .T.)
    ENDIF
    IF VirtualWidth > 0
-      SetScrollRange(FormHandle, SB_HORZ, 0, VirtualWidth - w, .T.)
+      hmg_SetScrollRange(FormHandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
 RETURN FormHandle
@@ -872,7 +872,7 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
    LOCAL lspang := (hb_IsNumeric(row) .AND. hb_IsNumeric(col) .AND. hb_IsNumeric(width) .AND. hb_IsNumeric(height))
 #endif
 
-   GetWindowRect(hWnd, /*@*/actpos)
+   hmg_GetWindowRect(hWnd, /*@*/actpos)
 
    col := iif(col == NIL, actpos[1], col)
    row := iif(row == NIL, actpos[2], row)
@@ -885,13 +885,13 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
          col += GetBorderWidth()
          row += GetTitleHeight() + GetBorderHeight()
       ENDIF
-      actpos := ScreenToClient(_HMG_aFormParentHandle[GetFormIndex(FormName)], col, row)
+      actpos := hmg_ScreenToClient(_HMG_aFormParentHandle[GetFormIndex(FormName)], col, row)
       col := actpos[1]
       row := actpos[2]
    ENDIF
 #endif
 
-   MoveWindow(hWnd, col, row, width, height, .T.)
+   hmg_MoveWindow(hWnd, col, row, width, height, .T.)
 
 RETURN NIL
 
@@ -921,9 +921,9 @@ FUNCTION _SetNotifyIconName(FormName, IconName)
          hmg_DestroyIcon(_HMG_aFormMiscData1[i][1])
       ENDIF
 
-      _HMG_aFormMiscData1[i][1] := LoadTrayIcon(hmg_GetResources(), IconName)
+      _HMG_aFormMiscData1[i][1] := hmg_LoadTrayIcon(hmg_GetResources(), IconName)
 
-      ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], _HMG_aFormNotifyIconTooltip[i])
+      hmg_ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], _HMG_aFormNotifyIconTooltip[i])
 
       _HMG_aFormNotifyIconName[i] := IconName
 
@@ -941,10 +941,10 @@ FUNCTION _SetNotifyIconTooltip(FormName, TooltipText)
    IF (i := GetFormIndex(FormName)) > 0 .AND. _HMG_aFormType[i] == "A"
 
       IF _HMG_aFormMiscData1[i][1] == NIL .AND. !Empty(_HMG_aFormNotifyIconName[i])
-         _HMG_aFormMiscData1[i][1] := LoadTrayIcon(hmg_GetResources(), _HMG_aFormNotifyIconName[i])
+         _HMG_aFormMiscData1[i][1] := hmg_LoadTrayIcon(hmg_GetResources(), _HMG_aFormNotifyIconName[i])
       ENDIF
 
-      ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], TooltipText)
+      hmg_ChangeNotifyIcon(_HMG_aFormHandles[i], _HMG_aFormMiscData1[i][1], TooltipText)
 
       _HMG_aFormNotifyIconTooltip[i] := TooltipText
 
@@ -1138,7 +1138,7 @@ FUNCTION _SetWindowRgn(name, col, row, w, h, lx)
 
    LOCAL i := GetFormIndex(name)
 
-   _HMG_aFormMiscData1[i][3] := c_SetWindowRgn(GetFormHandle(name), col, row, w, h, lx)
+   _HMG_aFormMiscData1[i][3] := hmg_c_SetWindowRgn(GetFormHandle(name), col, row, w, h, lx)
 
 RETURN _HMG_aFormMiscData1[i][3]
 
@@ -1153,7 +1153,7 @@ FUNCTION _SetPolyWindowRgn(name, apoints, lx)
 
    AEval(apoints, {|x|AAdd(apx, x[1]), AAdd(apy, x[2])})
 
-   _HMG_aFormMiscData1[i][3] := c_SetPolyWindowRgn(GetFormHandle(name), apx, apy, lx)
+   _HMG_aFormMiscData1[i][3] := hmg_c_SetPolyWindowRgn(GetFormHandle(name), apx, apy, lx)
 
 RETURN _HMG_aFormMiscData1[i][3]
 
@@ -1286,7 +1286,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
 
          // If NOSHOW Clause Is Not Specified, Show The Window
          IF !_HMG_aFormNoShow[i]
-            ShowWindow(_HMG_aFormHandles[i])
+            hmg_ShowWindow(_HMG_aFormHandles[i])
          ENDIF
 
          _SetActivationFlag(i)
@@ -1371,7 +1371,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
          ENDIF
 
          IF !_HMG_aFormNoShow[i]
-            ShowWindow(GetFormHandle(FormName))
+            hmg_ShowWindow(GetFormHandle(FormName))
          ENDIF
 
          _SetActivationFlag(i)
@@ -1616,7 +1616,7 @@ _SetActivationFocus(i)
 PROCEDURE _SetActivationFocus(i)
 
    LOCAL FocusDefined := .F.
-   LOCAL Sp := GetFocus()
+   LOCAL Sp := hmg_GetFocus()
    LOCAL hControl
    LOCAL hParent
    LOCAL x
@@ -1680,7 +1680,7 @@ PROCEDURE _SetActivationFocus(i)
       ENDIF
 
       IF _HMG_BeginWindowMDIActive  // BK 25-Apr-2012
-         _HMG_aFormFocusedControl[i] := GetFocus()
+         _HMG_aFormFocusedControl[i] := hmg_GetFocus()
       ENDIF
 
    ENDIF
@@ -1720,7 +1720,7 @@ _hmg_OnHideFocusManagement(i)
 */
 PROCEDURE _hmg_OnHideFocusManagement(i)
 
-   LOCAL bEnableWindow := {|y, z|iif(!_HMG_aFormDeleted[z], EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
+   LOCAL bEnableWindow := {|y, z|iif(!_HMG_aFormDeleted[z], hmg_EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
    LOCAL x
 
    IF _HMG_aFormParentHandle[i] == 0
@@ -1746,7 +1746,7 @@ PROCEDURE _hmg_OnHideFocusManagement(i)
             _HMG_IsModalActive := .T.
             _HMG_ActiveModalHandle := _HMG_aFormParenthandle[i]
 
-            EnableWindow(_HMG_aFormParenthandle[i])
+            hmg_EnableWindow(_HMG_aFormParenthandle[i])
 
             hmg_SetFocus(_HMG_aFormParenthandle[i])
 
@@ -1976,8 +1976,8 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
 
    // Get hScrollBox Position / vScrollBox Position
 
-   nHorizontalScrollBoxPos := GetScrollPos(nWindowHandle, SB_HORZ)
-   nVerticalScrollBoxPos := GetScrollPos(nWindowHandle, SB_VERT)
+   nHorizontalScrollBoxPos := hmg_GetScrollPos(nWindowHandle, SB_HORZ)
+   nVerticalScrollBoxPos := hmg_GetScrollPos(nWindowHandle, SB_VERT)
 
    // Get hScrollBar Maximun Range / vScrollBar Maximun Range
 
@@ -2220,7 +2220,7 @@ FUNCTION ReleaseAllWindows()
          IF !Empty(_HMG_aFormNotifyIconName[i])
 
             _HMG_aFormNotifyIconName[i] := ""
-            ShowNotifyIcon(FormHandle, .F., NIL, NIL)
+            hmg_ShowNotifyIcon(FormHandle, .F., NIL, NIL)
 
          ENDIF
 
@@ -2297,7 +2297,7 @@ FUNCTION ReleaseAllWindows()
    IF ErrorLevel() == 0 .AND. !hb_mtvm()
       __Quit()
    ELSE
-      ExitProcess()
+      hmg_ExitProcess()
    ENDIF
 
 RETURN NIL
@@ -2354,14 +2354,14 @@ FUNCTION _ReleaseWindow(FormName)
 
    IF _HMG_aFormType[i] == "M" .AND. _HMG_ActiveModalHandle != FormHandle
 
-      EnableWindow(FormHandle)
+      hmg_EnableWindow(FormHandle)
       hmg_PostMessage(FormHandle, WM_CLOSE, 0, 1)
 
    ELSE
 
       AEval(_HMG_aFormHandles, {|x, i|iif(_HMG_aFormParentHandle[i] == FormHandle, _HMG_aFormParentHandle[i] := _HMG_MainHandle,), HB_SYMBOL_UNUSED(x)})
 
-      EnableWindow(FormHandle)
+      hmg_EnableWindow(FormHandle)
       hmg_PostMessage(FormHandle, WM_CLOSE, 0, 1)
 
    ENDIF
@@ -2401,10 +2401,10 @@ FUNCTION _ShowWindow(FormName, lProcessMessages)
       ENDIF
 
       AEval(_HMG_aFormHandles, {|y, x|iif(x != i .AND. !_HMG_aFormType[x] $ "XP" .AND. ;
-         _HMG_aFormParentHandle[x] != _HMG_aFormHandles[i], DisableWindow(_HMG_aFormHandles[x]),), HB_SYMBOL_UNUSED(y)})
+         _HMG_aFormParentHandle[x] != _HMG_aFormHandles[i], hmg_DisableWindow(_HMG_aFormHandles[x]),), HB_SYMBOL_UNUSED(y)})
 
       IF Len(_HMG_aFormSplitChildList[i]) > 0
-         AEval(_HMG_aFormSplitChildList[i], {|x|EnableWindow(_HMG_aFormHandles[x])})
+         AEval(_HMG_aFormSplitChildList[i], {|x|hmg_EnableWindow(_HMG_aFormHandles[x])})
       ENDIF
 
       IF _HMG_MainWindowFirst
@@ -2413,7 +2413,7 @@ FUNCTION _ShowWindow(FormName, lProcessMessages)
 
       _HMG_ActiveModalHandle := _HMG_aFormHandles[i]
 
-      EnableWindow(_HMG_aFormHandles[i])
+      hmg_EnableWindow(_HMG_aFormHandles[i])
 
       IF !_SetFocusedSplitChild(i)
          _SetActivationFocus(i)
@@ -2427,7 +2427,7 @@ FUNCTION _ShowWindow(FormName, lProcessMessages)
    ENDIF
 #endif
 
-   ShowWindow(_HMG_aFormHandles[i])
+   hmg_ShowWindow(_HMG_aFormHandles[i])
 
    IF hb_defaultValue(lProcessMessages, .T.)
 
@@ -2450,7 +2450,7 @@ FUNCTION _HideWindow(FormName)
 
       FormHandle := _HMG_aFormHandles[i]
 
-      IF IsWindowVisible(FormHandle)
+      IF hmg_IsWindowVisible(FormHandle)
 
          IF _HMG_aFormType[i] == "M"
 
@@ -2481,7 +2481,7 @@ FUNCTION _CenterWindow(FormName, lParent)
 
    LOCAL FormHandle := GetFormHandle(FormName)
 
-   C_Center(FormHandle, iif(FormHandle == _HMG_MainHandle, .F., hb_defaultValue(lParent, .F.)))
+   hmg_C_Center(FormHandle, iif(FormHandle == _HMG_MainHandle, .F., hb_defaultValue(lParent, .F.)))
 
 RETURN NIL
 
@@ -2568,7 +2568,7 @@ PROCEDURE _ShowSplashWindow(cImage, nDelay, bOnInit, bOnRelease)
 
       DEFAULT nDelay := 2
       DEFAULT bOnInit := {||HideWindow(App.Handle)}
-      DEFAULT bOnRelease := {||DoEvents(), ShowWindow(App.Handle)}
+      DEFAULT bOnRelease := {||hmg_DoEvents(), hmg_ShowWindow(App.Handle)}
 
       _HMG_SPLASHWINDOW.Image.Picture := cImage
 
@@ -2587,7 +2587,7 @@ PROCEDURE _ShowSplashWindow(cImage, nDelay, bOnInit, bOnRelease)
 
       Eval(bOnInit)
 
-      SendMessage(_HMG_SPLASHWINDOW.Handle, WM_PAINT, 0, 0)
+      hmg_SendMessage(_HMG_SPLASHWINDOW.Handle, WM_PAINT, 0, 0)
 
       HMG_SysWait(nDelay)
 
@@ -2873,13 +2873,13 @@ _HMG_DialogBoxProcedure() --> NIL
 */
 FUNCTION _HMG_DialogBoxProcedure()
 
-   LOCAL hWnd := GetActiveWindow()
+   LOCAL hWnd := hmg_GetActiveWindow()
    LOCAL hWndParent
    LOCAL nRow
    LOCAL nCol
    LOCAL lCenter
 
-   IF IsWindowHandle(hWnd) .AND. GetClassName(hWnd) == "#32770" // The class name for a dialog box
+   IF hmg_IsWindowHandle(hWnd) .AND. GetClassName(hWnd) == "#32770" // The class name for a dialog box
 
       _HMG_DialogBoxProperty(@nRow, @nCol, @lCenter, @hWndParent, .F.)
 
@@ -2890,14 +2890,14 @@ FUNCTION _HMG_DialogBoxProcedure()
 
          IF (lCenter := hb_defaultValue(lCenter, .F.))
 
-            hb_default(@hWndParent, GetParent(hWnd))
+            hb_default(@hWndParent, hmg_GetParent(hWnd))
 
             nCol := GetWindowCol(hWndParent) + Int((GetWindowWidth(hWndParent) - GetWindowWidth(hWnd)) / 2)
             nRow := GetWindowRow(hWndParent) + Int((GetWindowHeight(hWndParent) - GetWindowHeight(hWnd)) / 2)
 
          ENDIF
 
-         SetWindowPos(hWnd, 0, nCol, nRow, 0, 0, SWP_NOOWNERZORDER + SWP_NOSIZE)
+         hmg_SetWindowPos(hWnd, 0, nCol, nRow, 0, 0, SWP_NOOWNERZORDER + SWP_NOSIZE)
 
       ENDIF
 
@@ -2914,12 +2914,12 @@ FUNCTION EnumChildWindows(hWnd, bExt)
    LOCAL bAction
 
    IF hb_defaultValue(bExt, .F.)
-      bAction := {|hChild|AAdd(aChilds, {hChild, GetClassName(hChild), GetWindowText(hChild)}), .T.}
+      bAction := {|hChild|AAdd(aChilds, {hChild, GetClassName(hChild), hmg_GetWindowText(hChild)}), .T.}
    ELSE
       bAction := {|hChild|AAdd(aChilds, hChild), .T.}
    ENDIF
 
-   C_EnumChildWindows(hWnd, bAction)
+   hmg_C_EnumChildWindows(hWnd, bAction)
 
 RETURN aChilds
 

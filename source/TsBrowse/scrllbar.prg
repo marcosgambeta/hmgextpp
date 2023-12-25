@@ -41,7 +41,7 @@ CLASS TSBScrlBar FROM TControl
 
    METHOD New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight, bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText, nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign) CONSTRUCTOR
    METHOD WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction, bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack, lUpdate, bWhen, bValid) CONSTRUCTOR
-   METHOD GetPos() INLINE GetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
+   METHOD GetPos() INLINE hmg_GetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
    METHOD GetRange() INLINE GetScrlRange(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
    METHOD HandleEvent(nMsg, nWParam, nLParam)
 
@@ -70,7 +70,7 @@ CLASS TSBScrlBar FROM TControl
                                   ::l32Bit)
 
    METHOD SetRange(nMin, nMax) INLINE ::nMin := nMin, ::nMax := nMax, ;
-           SetScrollRange(iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
+           hmg_SetScrollRange(iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
                IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL), ;
                    nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit)   // JP 74
 

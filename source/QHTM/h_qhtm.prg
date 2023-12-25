@@ -108,7 +108,7 @@ FUNCTION _DefineQhtm(ControlName, ParentForm, x, y, w, h, Value, fname, resname,
    ENDIF
 
    IF hb_IsChar(Value)
-      SetWindowText(ControlHandle, Value)   // define from a variable
+      hmg_SetWindowText(ControlHandle, Value)   // define from a variable
    ELSEIF hb_IsChar(fname)
       QHTM_LoadFile(ControlHandle, fname)   // loading from a file
    ELSEIF hb_IsChar(resname)
@@ -175,7 +175,7 @@ Procedure QHTM_LoadFromVal(ControlName, ParentForm, cValue)
 Local nHandle := GetControlHandle(ControlName, ParentForm)
 
 If nHandle > 0
-   SetWindowText(nHandle, cValue)
+   hmg_SetWindowText(nHandle, cValue)
 Endif
 
 Return
@@ -329,6 +329,6 @@ Endif
  
 hb_default(@lEnable, .T.)
 
-SendMessage(GetControlHandle(ControlName, ParentForm), WM_SETREDRAW, iif(lEnable, 1, 0), 0)
+hmg_SendMessage(GetControlHandle(ControlName, ParentForm), WM_SETREDRAW, iif(lEnable, 1, 0), 0)
 
 Return
