@@ -116,7 +116,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
             hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle(ControlHandle, style, .T.)
+         hmg_SetWindowStyle(ControlHandle, style, .T.)
       ENDIF
 
    ELSE

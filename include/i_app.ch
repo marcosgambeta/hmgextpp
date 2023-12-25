@@ -29,8 +29,8 @@
 #translate <p:Application,App>.Topmost := <arg> => SetProperty ( <p>.FormName, 'Topmost', <arg> )
 #translate <p:Application,App>.HelpButton      => GetProperty ( <p>.FormName, 'HelpButton' )
 #translate <p:Application,App>.HelpButton := <arg> => SetProperty ( <p>.FormName, 'HelpButton', <arg> )
-#translate <p:Application,App>.WindowStyle     => GetWindowStyle ( <p>.Handle )
-#translate <p:Application,App>.WindowStyle := <arg> => SetWindowStyle ( <p>.Handle, <arg>, .T. )
+#translate <p:Application,App>.WindowStyle     => hmg_GetWindowStyle( <p>.Handle )
+#translate <p:Application,App>.WindowStyle := <arg> => hmg_SetWindowStyle( <p>.Handle, <arg>, .T. )
 #translate <p:Application,App>.Object          => oDlu2Pixel()
 #translate <p:Application,App>.Object := <arg> => oDlu2Pixel ( <arg> )
 

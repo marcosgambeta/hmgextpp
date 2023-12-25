@@ -171,7 +171,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

@@ -164,7 +164,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
@@ -395,7 +395,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

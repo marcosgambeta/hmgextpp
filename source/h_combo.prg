@@ -204,7 +204,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
             ENDIF
          ENDIF
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

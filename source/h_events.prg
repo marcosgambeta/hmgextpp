@@ -1515,7 +1515,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlParentHandles[z] == hWnd
 
-               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. hb_bitand(GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
+               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. hb_bitand(hmg_GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
                   k := r
                   EXIT
                ENDIF
@@ -2689,8 +2689,8 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             ENDIF
 #endif
             IF IsToolTipBalloonActive
-               IF !(hb_bitand(GetWindowLong(k, GWL_STYLE), TTS_BALLOON) == TTS_BALLOON)
-                  SetWindowStyle(k, TTS_BALLOON, .T.)
+               IF !(hb_bitand(hmg_GetWindowLong(k, GWL_STYLE), TTS_BALLOON) == TTS_BALLOON)
+                  hmg_SetWindowStyle(k, TTS_BALLOON, .T.)
                ENDIF
             ENDIF
 

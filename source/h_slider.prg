@@ -152,7 +152,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE

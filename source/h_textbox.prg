@@ -179,7 +179,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
@@ -463,7 +463,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
@@ -748,7 +748,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
          h := GetWindowHeight(Controlhandle)
 
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

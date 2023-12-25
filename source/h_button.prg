@@ -145,7 +145,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
             hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle(ControlHandle, style, .T.)
+         hmg_SetWindowStyle(ControlHandle, style, .T.)
 
       ENDIF
 
@@ -326,7 +326,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, style, .T.)
+         hmg_SetWindowStyle(ControlHandle, style, .T.)
 
          hmg__SetBtnPicture(ControlHandle, image)
 

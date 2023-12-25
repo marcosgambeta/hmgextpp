@@ -95,9 +95,9 @@
 // ============================================================================
 
 #xtranslate CShowControl(<hWnd>) => hmg_ShowWindow(<hWnd>)
-#xtranslate IsTabStop(<hWnd>) => IsWindowHasStyle(<hWnd>, 0x00010000)
-#xtranslate SetTabStop(<hWnd>, <ltab>) => SetWindowStyle(<hWnd>, 0x00010000, <ltab>)
-#xtranslate IsWindowSized(<hWnd>) => IsWindowHasStyle(<hWnd>, 0x00040000)
+#xtranslate IsTabStop(<hWnd>) => hmg_IsWindowHasStyle(<hWnd>, 0x00010000)
+#xtranslate SetTabStop(<hWnd>, <ltab>) => hmg_SetWindowStyle(<hWnd>, 0x00010000, <ltab>)
+#xtranslate IsWindowSized(<hWnd>) => hmg_IsWindowHasStyle(<hWnd>, 0x00040000)
 #xtranslate SetWindowBackground(<hWnd>, <hBrush>) => hmg_SetWindowBrush(<hWnd>, <hBrush>)
 
 // ============================================================================

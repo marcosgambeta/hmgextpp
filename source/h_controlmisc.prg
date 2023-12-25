@@ -4127,7 +4127,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          _ChangeWindowStyle(Arg1, WS_MINIMIZEBOX, Arg3)
          EXIT
       CASE "CLOSABLE"
-         IF IsWindowHasStyle(GetFormHandle(Arg1), WS_CAPTION) .AND. IsWindowHasStyle(GetFormHandle(Arg1), WS_SYSMENU)
+         IF hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_CAPTION) .AND. hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_SYSMENU)
             hmg_xDisableCloseButton(GetFormHandle(Arg1), Arg3)
          ENDIF
          EXIT
@@ -4851,19 +4851,19 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 #endif
          EXIT
       CASE "TITLEBAR"
-         RetVal := IsWindowHasStyle(GetFormHandle(Arg1), WS_CAPTION)
+         RetVal := hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_CAPTION)
          EXIT
       CASE "SYSMENU"
-         RetVal := IsWindowHasStyle(GetFormHandle(Arg1), WS_SYSMENU)
+         RetVal := hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_SYSMENU)
          EXIT
       CASE "SIZABLE"
          RetVal := IsWindowSized(GetFormHandle(Arg1))
          EXIT
       CASE "MAXBUTTON"
-         RetVal := IsWindowHasStyle(GetFormHandle(Arg1), WS_MAXIMIZEBOX)
+         RetVal := hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_MAXIMIZEBOX)
          EXIT
       CASE "MINBUTTON"
-         RetVal := IsWindowHasStyle(GetFormHandle(Arg1), WS_MINIMIZEBOX)
+         RetVal := hmg_IsWindowHasStyle(GetFormHandle(Arg1), WS_MINIMIZEBOX)
          EXIT
       CASE "CLOSABLE"
          RetVal := hmg_xGetMenuEnabledState(hmg_GetSystemMenu(GetFormHandle(Arg1)), SC_CLOSE)
@@ -4875,10 +4875,10 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := hmg_IsWindowEnabled(GetFormHandle(Arg1))
          EXIT
       CASE "TOPMOST"
-         RetVal := IsWindowHasExStyle(GetFormHandle(Arg1), WS_EX_TOPMOST)
+         RetVal := hmg_IsWindowHasExStyle(GetFormHandle(Arg1), WS_EX_TOPMOST)
          EXIT
       CASE "HELPBUTTON"
-         RetVal := IsWindowHasExStyle(GetFormHandle(Arg1), WS_EX_CONTEXTHELP)
+         RetVal := hmg_IsWindowHasExStyle(GetFormHandle(Arg1), WS_EX_CONTEXTHELP)
          EXIT
       CASE "NOTIFYICON"
          RetVal := _GetNotifyIconName(Arg1)
@@ -4976,11 +4976,11 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "ALIGNMENT"  // GF 12/01/17
          ix := GetControlHandle(Arg2, Arg1)
-         IF IsWindowHasStyle(ix, ES_CENTER)
+         IF hmg_IsWindowHasStyle(ix, ES_CENTER)
             RetVal := "CENTER"
-         ELSEIF IsWindowHasStyle(ix, ES_RIGHT)
+         ELSEIF hmg_IsWindowHasStyle(ix, ES_RIGHT)
             RetVal := "RIGHT"
-         ELSEIF IsWindowHasStyle(ix, SS_CENTERIMAGE)
+         ELSEIF hmg_IsWindowHasStyle(ix, SS_CENTERIMAGE)
             RetVal := "VCENTER"
          ELSE
             RetVal := "LEFT"
@@ -4988,9 +4988,9 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "CASECONVERT"  // GF 04/04/20
          ix := GetControlHandle(Arg2, Arg1)
-         IF IsWindowHasStyle(ix, ES_UPPERCASE)
+         IF hmg_IsWindowHasStyle(ix, ES_UPPERCASE)
             RetVal := "UPPER"
-         ELSEIF IsWindowHasStyle(ix, ES_LOWERCASE)
+         ELSEIF hmg_IsWindowHasStyle(ix, ES_LOWERCASE)
             RetVal := "LOWER"
          ELSE
             RetVal := "NONE"
@@ -5001,7 +5001,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          IF hb_IsArray(ix)  // GF 30/06/20
             RetVal := _HMG_aControlInputMask[GetControlIndex(Arg2, Arg1)]
          ELSE
-            RetVal := IsWindowHasExStyle(ix, WS_EX_TRANSPARENT)
+            RetVal := hmg_IsWindowHasExStyle(ix, WS_EX_TRANSPARENT)
          ENDIF
          EXIT
       CASE "VALUE"
@@ -5243,7 +5243,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             RetVal := _GetRadioGroupReadOnly(Arg2, Arg1)
          ELSE
             ix := GetControlHandle(Arg2, Arg1)
-            RetVal := IsWindowHasStyle(iif(hb_IsArray(ix), ix[1], ix), ES_READONLY)
+            RetVal := hmg_IsWindowHasStyle(iif(hb_IsArray(ix), ix[1], ix), ES_READONLY)
          ENDIF
          EXIT
       CASE "WORKAREA"
@@ -5255,13 +5255,13 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             RetVal := _HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)]
          ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
             ix := GetControlHandle(Arg2, Arg1)
-            RetVal := IsWindowHasStyle(ix[2], UDS_HORZ)
+            RetVal := hmg_IsWindowHasStyle(ix[2], UDS_HORZ)
          ENDIF
          EXIT
       CASE "WRAP"  // 26/04/2022
          IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
             ix := GetControlHandle(Arg2, Arg1)
-            RetVal := IsWindowHasStyle(ix[2], UDS_WRAP)
+            RetVal := hmg_IsWindowHasStyle(ix[2], UDS_WRAP)
          ENDIF
          EXIT
       CASE "COLUMNWIDTHLIMITS"  // 15/04/2022
@@ -6825,7 +6825,7 @@ STATIC PROCEDURE _ChangeWindowStyle(FormName, Style, Value)
 
    Assign lSwitch := Value
 
-   SetWindowStyle(h, Style, lSwitch)
+   hmg_SetWindowStyle(h, Style, lSwitch)
 
    h := GetWindowHeight(h)  // store the current height of the window
 
@@ -8049,7 +8049,7 @@ FUNCTION _SetAlign(ControlName, ParentForm, cAlign)
          hmg_ChangeStyle(_HMG_aControlHandles[i], SS_CENTERIMAGE)
          EXIT
       CASE "NOVCENTER"
-         IF IsWindowHasStyle(_HMG_aControlHandles[i], SS_CENTERIMAGE)
+         IF hmg_IsWindowHasStyle(_HMG_aControlHandles[i], SS_CENTERIMAGE)
             hmg_ChangeStyle(_HMG_aControlHandles[i], NIL, SS_CENTERIMAGE)
          ENDIF
       ENDSWITCH

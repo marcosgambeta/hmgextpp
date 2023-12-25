@@ -141,7 +141,7 @@ FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
 
          ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
          col := GetWindowCol(Controlhandle)
          row := GetWindowRow(Controlhandle)

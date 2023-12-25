@@ -369,7 +369,7 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
    ix := GetControlIndex(ControlName, ParentForm)
    /* WRAP style handling */
    IF (_HMG_aControlRangeMax[ix] == 1) .AND. ;
-      ( hb_bitand(GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
+      ( hb_bitand(hmg_GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
       MinWidth  := _HMG_aControlWidth[ix]
       MinHeight := hmg_HiWord(w)
    ENDIF

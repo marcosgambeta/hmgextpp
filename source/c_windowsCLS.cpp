@@ -97,7 +97,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
       ..
    ..
  */
-HB_FUNC( GETCLASSNAME )
+HB_FUNC( HMG_GETCLASSNAME )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -117,6 +117,10 @@ HB_FUNC( GETCLASSNAME )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETCLASSNAME, HMG_GETCLASSNAME )
+#endif
+
 /*
    cClassName := Space(32)
    ..
@@ -125,7 +129,7 @@ HB_FUNC( GETCLASSNAME )
       ..
    ..
  */
-HB_FUNC( GETCLASSNAMEBYREF )
+HB_FUNC( HMG_GETCLASSNAMEBYREF )
 {
    auto hwnd = hmg_par_HWND(1);
    HB_SIZE nLen = hb_parcsiz(2); // fixed P.Ch. 16.12.
@@ -147,7 +151,11 @@ HB_FUNC( GETCLASSNAMEBYREF )
    }
 }
 
-HB_FUNC( GETWINDOWLONG )
+#if 1
+HB_FUNC_TRANSLATE( GETCLASSNAMEBYREF, HMG_GETCLASSNAMEBYREF )
+#endif
+
+HB_FUNC( HMG_GETWINDOWLONG )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -158,7 +166,11 @@ HB_FUNC( GETWINDOWLONG )
    }
 }
 
-HB_FUNC( SETWINDOWLONG )
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWLONG, HMG_GETWINDOWLONG )
+#endif
+
+HB_FUNC( HMG_SETWINDOWLONG )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -169,6 +181,10 @@ HB_FUNC( SETWINDOWLONG )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWLONG, HMG_SETWINDOWLONG )
+#endif
+
 /*
    nCtlStyle := GetWindowStyle(Form_1.Button_1.Handle)
 
@@ -178,7 +194,7 @@ HB_FUNC( SETWINDOWLONG )
       SetWindowStyle(nButtonHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
    ENDIF
  */
-HB_FUNC( GETWINDOWSTYLE )
+HB_FUNC( HMG_GETWINDOWSTYLE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -189,6 +205,10 @@ HB_FUNC( GETWINDOWSTYLE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( GETWINDOWSTYLE, HMG_GETWINDOWSTYLE )
+#endif
+
 /*
    nOldStyle := SetWindowStyle(Form_1.Button_1.Handle, WS_TABSTOP, .T.)
 
@@ -196,7 +216,7 @@ HB_FUNC( GETWINDOWSTYLE )
       MsgExclamation("Cannot add WS_TABSTOP style to Button_1", "Warning!")
    ENDIF
  */
-HB_FUNC( SETWINDOWSTYLE )
+HB_FUNC( HMG_SETWINDOWSTYLE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -210,6 +230,10 @@ HB_FUNC( SETWINDOWSTYLE )
    }
 }
 
+#if 1
+HB_FUNC_TRANSLATE( SETWINDOWSTYLE, HMG_SETWINDOWSTYLE )
+#endif
+
 /*
    IF GetClassName(nCtlHandle) == "Button" .AND. IsWindowHasStyle(nCtlHandle, WS_TABSTOP)
       SetWindowStyle(nCtlHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
@@ -217,7 +241,7 @@ HB_FUNC( SETWINDOWSTYLE )
       SetWindowStyle(nCtlHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
    ENDIF
  */
-HB_FUNC( ISWINDOWHASSTYLE )
+HB_FUNC( HMG_ISWINDOWHASSTYLE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -230,7 +254,11 @@ HB_FUNC( ISWINDOWHASSTYLE )
    }
 }
 
-HB_FUNC( ISWINDOWHASEXSTYLE )
+#if 1
+HB_FUNC_TRANSLATE( ISWINDOWHASSTYLE, HMG_ISWINDOWHASSTYLE )
+#endif
+
+HB_FUNC( HMG_ISWINDOWHASEXSTYLE )
 {
    auto hwnd = hmg_par_HWND(1);
 
@@ -242,3 +270,7 @@ HB_FUNC( ISWINDOWHASEXSTYLE )
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
+
+#if 1
+HB_FUNC_TRANSLATE( ISWINDOWHASEXSTYLE, HMG_ISWINDOWHASEXSTYLE )
+#endif

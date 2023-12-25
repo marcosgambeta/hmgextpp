@@ -140,7 +140,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_IsWindowStyle( <hWnd>, <nStyle> [, <lExStyle> ] ) ;
    => ;
-   iif(<.lExStyle.>, IsWindowHasExStyle ( <hWnd>, <nStyle> ), IsWindowHasStyle ( <hWnd>, <nStyle> ))
+   iif(<.lExStyle.>, hmg_IsWindowHasExStyle(<hWnd>, <nStyle>), hmg_IsWindowHasStyle(<hWnd>, <nStyle>))
 
 #xtranslate HMG_ChangeWindowStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ] ) ;
    => ;

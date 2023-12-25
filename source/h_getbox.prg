@@ -236,7 +236,7 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
          w := GetWindowWidth(ControlHandle)
          h := GetWindowHeight(ControlHandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
@@ -585,7 +585,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
 
    CASE WM_INVALID
 
-      IF (_IsChildOfActiveWindow(hWnd) .OR. IsWindowHasExStyle(_HMG_aControlParenthandles[i], WS_EX_CONTROLPARENT)) .AND. !readonly .AND. lAllowEdit
+      IF (_IsChildOfActiveWindow(hWnd) .OR. hmg_IsWindowHasExStyle(_HMG_aControlParenthandles[i], WS_EX_CONTROLPARENT)) .AND. !readonly .AND. lAllowEdit
 
          IF !lInValid
             lInValid := .T.
@@ -1475,7 +1475,7 @@ PROCEDURE _DispGetBoxText(hWnd, cText)
 
       IF hmg_IsWindowHandle(ControlHandle)
 
-         IF hb_bitand(GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
+         IF hb_bitand(hmg_GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
             hmg_SetWindowText(ControlHandle, Replicate("*", Len(Trim(cText))))
          ELSE
             hmg_SetWindowText(ControlHandle, cText)
@@ -1493,7 +1493,7 @@ STATIC PROCEDURE _SetGetBoxCaret(hWnd)
    hmg_HideCaret(hWnd)
    hmg_DestroyCaret()
 
-   IF !IsWindowHasStyle(hWnd, ES_READONLY)
+   IF !hmg_IsWindowHasStyle(hWnd, ES_READONLY)
       hmg_CreateCaret(hWnd, 0, iif(lInsert, 2, 4), GetWindowHeight(hWnd))
       hmg_ShowCaret(hWnd)
    ENDIF
@@ -1800,7 +1800,7 @@ STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 
       IF hActiveWnd != hParent
 
-         IF hb_bitand(GetWindowLong(hParent, GWL_STYLE), WS_CHILD) > 0
+         IF hb_bitand(hmg_GetWindowLong(hParent, GWL_STYLE), WS_CHILD) > 0
             hWnd := hParent
          ELSE
             lRet := .F.

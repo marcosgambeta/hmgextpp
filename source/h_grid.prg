@@ -236,7 +236,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
 
          ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)

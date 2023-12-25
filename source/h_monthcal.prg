@@ -142,7 +142,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
          aControlHandle[1] := hmg_GetDialogItemHandle(ParentFormHandle, nId)
 
-         SetWindowStyle(aControlHandle[1], style, .T.)
+         hmg_SetWindowStyle(aControlHandle[1], style, .T.)
 
          IF aControlHandle[2] != 0
             hmg__SetFontHandle(aControlHandle[1], aControlHandle[2])

@@ -171,7 +171,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
             hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
@@ -363,7 +363,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
@@ -548,7 +548,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
          hmg__SetBtnPicture(ControlHandle, bitmap)
       ENDIF

@@ -132,7 +132,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

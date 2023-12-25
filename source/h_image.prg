@@ -144,7 +144,7 @@ FUNCTION _DefineImage(ControlName, ParentFormName, x, y, FileName, w, h, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 

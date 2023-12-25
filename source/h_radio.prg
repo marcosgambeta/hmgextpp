@@ -157,7 +157,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 
          ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, aId[1])
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)
@@ -167,10 +167,10 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          FOR i := 1 TO Len(aId)
 
             ControlHandle := hmg_GetDialogItemHandle(ParentFormHandle, aId[i])
-            SetWindowStyle(ControlHandle, BS_NOTIFY + WS_CHILD + BS_AUTORADIOBUTTON, .T.)
+            hmg_SetWindowStyle(ControlHandle, BS_NOTIFY + WS_CHILD + BS_AUTORADIOBUTTON, .T.)
 
             IF !invisible
-               SetWindowStyle(ControlHandle, WS_VISIBLE, .T.)
+               hmg_SetWindowStyle(ControlHandle, WS_VISIBLE, .T.)
             ENDIF
 
             IF hb_IsArray(aOptions)

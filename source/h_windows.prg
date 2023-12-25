@@ -1652,7 +1652,7 @@ PROCEDURE _SetActivationFocus(i)
 #else
             IF hb_IsNumeric(hControl)
 #endif
-               IF hControl == Sp .OR. _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle(hControl, BS_DEFPUSHBUTTON)
+               IF hControl == Sp .OR. _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. hmg_IsWindowHasStyle(hControl, BS_DEFPUSHBUTTON)
                   _SetFocus(, , x)
                   FocusDefined := .T.
                   EXIT
@@ -2879,7 +2879,7 @@ FUNCTION _HMG_DialogBoxProcedure()
    LOCAL nCol
    LOCAL lCenter
 
-   IF hmg_IsWindowHandle(hWnd) .AND. GetClassName(hWnd) == "#32770" // The class name for a dialog box
+   IF hmg_IsWindowHandle(hWnd) .AND. hmg_GetClassName(hWnd) == "#32770" // The class name for a dialog box
 
       _HMG_DialogBoxProperty(@nRow, @nCol, @lCenter, @hWndParent, .F.)
 
@@ -2914,7 +2914,7 @@ FUNCTION EnumChildWindows(hWnd, bExt)
    LOCAL bAction
 
    IF hb_defaultValue(bExt, .F.)
-      bAction := {|hChild|AAdd(aChilds, {hChild, GetClassName(hChild), hmg_GetWindowText(hChild)}), .T.}
+      bAction := {|hChild|AAdd(aChilds, {hChild, hmg_GetClassName(hChild), hmg_GetWindowText(hChild)}), .T.}
    ELSE
       bAction := {|hChild|AAdd(aChilds, hChild), .T.}
    ENDIF

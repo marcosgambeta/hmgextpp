@@ -166,7 +166,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
                hmg_SetWindowText(ControlHandle, value)
             ENDIF
          ENDIF
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
    ELSE

@@ -171,7 +171,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
             hmg_SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle(ControlHandle, Style, .T.)
+         hmg_SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
