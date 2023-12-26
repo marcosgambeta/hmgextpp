@@ -179,7 +179,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", (hb_IsBlock(ProcedureName) .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString(tooltip)), (hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave)), border, clientedge, HSCROLL, VSCROLL, TRANSPARENT, invisible, rightalign, centeralign, VCenterAlign, NoPrefix)
+      Controlhandle := hmg_InitLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", (hb_IsBlock(ProcedureName) .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString(tooltip)), (hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave)), border, clientedge, HSCROLL, VSCROLL, TRANSPARENT, invisible, rightalign, centeralign, VCenterAlign, NoPrefix)
 
    ENDIF
 
@@ -337,7 +337,7 @@ RETURN 0
 LRESULT APIENTRY LabelSubClassFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 static WNDPROC LabelOldWndProc;
 
-HB_FUNC_STATIC( INITLABEL )
+HB_FUNC_STATIC( HMG_INITLABEL )
 {
    int style = WS_CHILD;
    auto ExStyle = 0;

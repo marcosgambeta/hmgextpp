@@ -159,7 +159,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
       /* P.Ch. 16.10. */
-      ControlHandle := InitSlider(ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, noticks, both, top, left, invisible, notabstop, enableselrange, nSelMin, nSelMax)
+      ControlHandle := hmg_InitSlider(ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, noticks, both, top, left, invisible, notabstop, enableselrange, nSelMin, nSelMax)
 
    ENDIF
 
@@ -255,9 +255,9 @@ RETURN NIL
 #include <commctrl.h>
 
 /*
-INITSLIDER(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) --> HWND
+HMG_INITSLIDER(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) --> HWND
 */
-HB_FUNC_STATIC( INITSLIDER )
+HB_FUNC_STATIC( HMG_INITSLIDER )
 {
    auto iSelMin = 0;
    auto iSelMax = 0;

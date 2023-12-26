@@ -86,7 +86,7 @@ METHOD TReg32:New(nKey, cRegKey, lShowError)
 
    DEFAULT cRegKey TO ""
 
-   nReturn := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
+   nReturn := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(hmg_IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
 
    IF nReturn != ERROR_SUCCESS
       nReturn := hmg_RegOpenKeyEx(nKey, cRegKey, , KEY_READ, @nHandle)
@@ -120,7 +120,7 @@ METHOD TReg32:Create(nKey, cRegKey, lShowError)
          MsgStop("Error creating TReg32 object (" + hb_ntos(nReturn) + ")")
       ENDIF
    ELSE
-      ::nError := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
+      ::nError := hmg_RegOpenKeyEx(nKey, cRegKey, , iif(hmg_IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
       ::cRegKey := cRegKey
       ::nHandle := nHandle
    ENDIF
@@ -328,7 +328,7 @@ extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 // http://msdn.microsoft.com/en-us/library/ms684139(VS.85).aspx
 typedef BOOL ( WINAPI *LPFN_ISWOW64PROCESS ) ( HANDLE, PBOOL );
 
-HB_FUNC_STATIC( ISWOW64 )
+HB_FUNC_STATIC( HMG_ISWOW64 )
 {
    BOOL bIsWow64 = FALSE;
 

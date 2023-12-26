@@ -102,7 +102,7 @@ FUNCTION _DefineAnimateRes(ControlName, ParentForm, x, y, w, h, cFile, nRes, too
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := InitAnimateRes(ParentForm, @hAvi, x, y, w, h, cFile, nRes, invisible)
+   ControlHandle := hmg_InitAnimateRes(ParentForm, @hAvi, x, y, w, h, cFile, nRes, invisible)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
@@ -231,7 +231,7 @@ PROCEDURE ReleaseAnimateRes(cWindow, cControl)
 
    IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == CONTROL_TYPE_ANIMATERES
 
-      UnloadAnimateLib(_GetControlObject(cControl, cWindow))
+      hmg_UnloadAnimateLib(_GetControlObject(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -253,9 +253,9 @@ RETURN
 #include <commctrl.h>
 
 /*
-INITANIMATERES(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9) --> HWND
+HMG_INITANIMATERES(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9) --> HWND
 */
-HB_FUNC_STATIC( INITANIMATERES )
+HB_FUNC_STATIC( HMG_INITANIMATERES )
 {
    void * DllName;
 
@@ -295,9 +295,9 @@ HB_FUNC_STATIC( INITANIMATERES )
 }
 
 /*
-UNLOADANIMATELIB(HINSTANCE) --> NIL
+HMG_UNLOADANIMATELIB(HINSTANCE) --> NIL
 */
-HB_FUNC_STATIC( UNLOADANIMATELIB )
+HB_FUNC_STATIC( HMG_UNLOADANIMATELIB )
 {
    HINSTANCE hLib = hmg_par_HINSTANCE(1);
 

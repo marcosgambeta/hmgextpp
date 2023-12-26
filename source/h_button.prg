@@ -153,7 +153,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitButton(ParentFormHandle, Caption, 0, x, y, w, h, "", 0, flat, NoTabStop, invisible, multiline, default)
+      ControlHandle := hmg_InitButton(ParentFormHandle, Caption, 0, x, y, w, h, "", 0, flat, NoTabStop, invisible, multiline, default)
 
    ENDIF
 
@@ -336,7 +336,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      aRet := InitImageButton(ParentFormHandle, Caption, 0, x, y, w, h, image, flat, notrans, invisible, notabstop, default, icon, extract, nIdx, (_HMG_IsThemed .AND. !noxpstyle))
+      aRet := hmg_InitImageButton(ParentFormHandle, Caption, 0, x, y, w, h, image, flat, notrans, invisible, notabstop, default, icon, extract, nIdx, (_HMG_IsThemed .AND. !noxpstyle))
 
       ControlHandle := aRet[1]
       nhImage := aRet[2]
@@ -456,9 +456,9 @@ using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 #endif
 
 /*
-INITBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> HWND
+HMG_INITBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> HWND
 */
-HB_FUNC_STATIC( INITBUTTON )
+HB_FUNC_STATIC( HMG_INITBUTTON )
 {
    void * WindowName;
 
@@ -497,9 +497,9 @@ HB_FUNC_STATIC( INITBUTTON )
 }
 
 /*
-INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
+HMG_INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
 */
-HB_FUNC_STATIC( INITIMAGEBUTTON )
+HB_FUNC_STATIC( HMG_INITIMAGEBUTTON )
 {
    HICON hIcon;
    int Transparent = hb_parl(10) ? 0 : 1;

@@ -332,7 +332,7 @@ METHOD TActiveX:Load()
    LOCAL nHandle := GetFormHandle(::cWindowName)
 
    hmg_AtlAxWinInit()
-   ::hWnd := CreateWindowEx(nHandle, ::cProgId)
+   ::hWnd := hmg_CreateWindowEx(nHandle, ::cProgId)
    hmg_MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    xObjeto := hmg_AtlAxGetDisp(::hWnd)
    ::hAtl := xObjeto
@@ -528,7 +528,7 @@ HB_FUNC( HMG_ATLAXGETDISP ) // hWnd -> pDisp
 HB_FUNC_TRANSLATE( ATLAXGETDISP, HMG_ATLAXGETDISP )
 #endif
 
-HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
+HB_FUNC_STATIC( HMG_CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 {
    auto hControl = CreateWindowEx(0, "AtlAxWin",
 #ifndef UNICODE

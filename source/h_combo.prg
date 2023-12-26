@@ -220,7 +220,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
 
          IF i > 0
 
-            ControlHandle := InitComboBox(_HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
+            ControlHandle := hmg_InitComboBox(_HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
             IF !empty(FontHandle)
                hmg__SetFontHandle(ControlHandle, FontHandle)
@@ -240,7 +240,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
 
       ELSE
 
-         ControlHandle := InitComboBox(ParentFormHandle, 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
+         ControlHandle := hmg_InitComboBox(ParentFormHandle, 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
       ENDIF
 
@@ -489,9 +489,9 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
 void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
 
 /*
-INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND
+HMG_INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND
 */
-HB_FUNC_STATIC( INITCOMBOBOX )
+HB_FUNC_STATIC( HMG_INITCOMBOBOX )
 {
    DWORD style = WS_CHILD | WS_VSCROLL;
 

@@ -206,7 +206,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
          w := GetWindowWidth(aControlHandle)
          h := GetWindowHeight(aControlHandle)
 
-         aControlHandle := ReDefBtnTextBox(aControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2, w, h)
+         aControlHandle := hmg_ReDefBtnTextBox(aControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2, w, h)
 
       ENDIF
 
@@ -214,7 +214,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
       // Creates the control window
-      aControlHandle := InitBtnTextBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
+      aControlHandle := hmg_InitBtnTextBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
          lUpper, lLower, .F., lPassword, right, invisible, notabstop, ;
          abitmap[1], BtnWidth, abitmap[2], lBtn2, disableedit, lDefault)
 
@@ -367,7 +367,7 @@ FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 
-   ReDefBtnTextBox(ControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2)
+   hmg_ReDefBtnTextBox(ControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2)
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted[k] := .T.
@@ -443,9 +443,9 @@ RETURN 0
 LRESULT CALLBACK OwnBtnTextProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 /*
-INITBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20) --> array
+HMG_INITBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20) --> array
 */
-HB_FUNC_STATIC( INITBTNTEXTBOX )
+HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
 {
    HWND himage, himage2;
    BOOL fBtn2 = hb_parl(20);
@@ -618,9 +618,9 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
 }
 
 /*
-REDEFBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7) --> array
+HMG_REDEFBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7) --> array
 */
-HB_FUNC_STATIC( REDEFBTNTEXTBOX )
+HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
 {
    HWND himage, himage2;
    int  BtnWidth2;

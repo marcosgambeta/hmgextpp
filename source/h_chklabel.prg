@@ -203,7 +203,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitChkLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
+      Controlhandle := hmg_InitChkLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
          (hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave)), border, clientedge, ;
          HSCROLL, VSCROLL, TRANSPARENT, invisible, rightalign, centeralign, ;
          abitmap[1], abitmap[2], leftcheck, lChecked, VCenterAlign)
@@ -567,7 +567,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
    ReleaseDC(hWnd, hdc);
 }
 
-HB_FUNC_STATIC( INITCHKLABEL )
+HB_FUNC_STATIC( HMG_INITCHKLABEL )
 {
    HBITMAP himage;
    HBITMAP himage2;

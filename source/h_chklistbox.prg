@@ -176,9 +176,9 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
          IF i > 0
 
             IF multiselect
-               ControlHandle := InitMultiChkListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight)
+               ControlHandle := hmg_InitMultiChkListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight)
             ELSE
-               ControlHandle := InitChkListBox(_HMG_aFormReBarHandle[i], 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, nItemHeight)
+               ControlHandle := hmg_InitChkListBox(_HMG_aFormReBarHandle[i], 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, nItemHeight)
             ENDIF
 
             hmg_AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -190,9 +190,9 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
       ELSE
 
          IF multiselect
-            ControlHandle := InitMultiChkListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight)
+            ControlHandle := hmg_InitMultiChkListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight)
          ELSE
-            ControlHandle := InitChkListBox(ParentFormHandle, 0, x, y, w, h, "", 0, invisible, notabstop, sort, nItemHeight)
+            ControlHandle := hmg_InitChkListBox(ParentFormHandle, 0, x, y, w, h, "", 0, invisible, notabstop, sort, nItemHeight)
          ENDIF
 
       ENDIF
@@ -346,7 +346,7 @@ RETURN NIL
 
 static int m_nHeightItem = 16;
 
-HB_FUNC_STATIC( INITCHKLISTBOX )
+HB_FUNC_STATIC( HMG_INITCHKLISTBOX )
 {
    int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
@@ -384,7 +384,7 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
    hmg_ret_HWND(hbutton);
 }
 
-HB_FUNC_STATIC( INITMULTICHKLISTBOX )
+HB_FUNC_STATIC( HMG_INITMULTICHKLISTBOX )
 {
    int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 

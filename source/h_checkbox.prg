@@ -177,7 +177,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      Controlhandle := InitCheckBox(ParentFormHandle, Caption, 0, x, y, multiline, threestate, w, h, invisible, notabstop, leftjustify, transparent)
+      Controlhandle := hmg_InitCheckBox(ParentFormHandle, Caption, 0, x, y, multiline, threestate, w, h, invisible, notabstop, leftjustify, transparent)
 
    ENDIF
 
@@ -371,7 +371,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitCheckButton(ParentFormHandle, Caption, 0, x, y, "", 0, w, h, invisible, notabstop)
+      Controlhandle := hmg_InitCheckButton(ParentFormHandle, Caption, 0, x, y, "", 0, w, h, invisible, notabstop)
 
    ENDIF
 
@@ -557,7 +557,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      aRet := InitImageCheckButton(ParentFormHandle, "", 0, x, y, "", notrans, bitmap, w, h, invisible, notabstop, _HMG_IsThemed)
+      aRet := hmg_InitImageCheckButton(ParentFormHandle, "", 0, x, y, "", notrans, bitmap, w, h, invisible, notabstop, _HMG_IsThemed)
 
       ControlHandle := aRet[1]
       nhImage := aRet[2]
@@ -660,9 +660,9 @@ using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 #endif
 
 /*
-INITCHECKBOX(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
+HMG_INITCHECKBOX(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
 */
-HB_FUNC_STATIC( INITCHECKBOX )
+HB_FUNC_STATIC( HMG_INITCHECKBOX )
 {
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
@@ -710,9 +710,9 @@ HB_FUNC_STATIC( INITCHECKBOX )
 }
 
 /*
-INITCHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11) --> HWND
+HMG_INITCHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11) --> HWND
 */
-HB_FUNC_STATIC( INITCHECKBUTTON )
+HB_FUNC_STATIC( HMG_INITCHECKBUTTON )
 {
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
@@ -744,9 +744,9 @@ HB_FUNC_STATIC( INITCHECKBUTTON )
 }
 
 /*
-INITIMAGECHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
+HMG_INITIMAGECHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
 */
-HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
+HB_FUNC_STATIC( HMG_INITIMAGECHECKBUTTON )
 {
    HWND       himage;
    HIMAGELIST himl;
