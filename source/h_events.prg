@@ -2896,7 +2896,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                DO CASE
 
-               CASE hmg_GetGridvKey(lParam) == 65 .AND. (GetAltState() == -127 .OR. GetAltState() == -128) .AND. hmg_GetKeyState(VK_CONTROL) >= 0 .AND. hmg_GetKeyState(VK_SHIFT) >= 0 // ALT + A
+               CASE hmg_GetGridvKey(lParam) == 65 .AND. (GetAltState() == -127 .OR. GetAltState() == -128) .AND. waGetKeyState(VK_CONTROL) >= 0 .AND. waGetKeyState(VK_SHIFT) >= 0 // ALT + A
 
                   IF _HMG_acontrolmiscdata1[i][2]
                      _BrowseEdit(_hmg_acontrolhandles[i], _HMG_acontrolmiscdata1[i][4], _HMG_acontrolmiscdata1[i][5], ;

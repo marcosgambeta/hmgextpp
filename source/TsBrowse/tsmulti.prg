@@ -269,7 +269,7 @@ METHOD TSMulti:Command(nWParam, nLParam)
             ::KeyDown(VK_ESCAPE, 0)
          ENDIF
          IF _GetKeyState(VK_CONTROL)
-            IF GetKeyState(VK_RETURN) == -127 .OR. _GetKeyState(VK_RETURN)
+            IF waGetKeyState(VK_RETURN) == -127 .OR. _GetKeyState(VK_RETURN)
                ::KeyDown(VK_RETURN, 0)
             ENDIF
          ENDIF

@@ -322,7 +322,7 @@ METHOD TBtnBox:Command(nWParam, nLParam)
                ::KeyDown(VK_ESCAPE, 0)
             Endif
             If _GetKeyState(VK_CONTROL)
-               If GetKeyState(VK_RETURN) == -127 .Or. _GetKeyState(VK_RETURN)
+               If waGetKeyState(VK_RETURN) == -127 .Or. _GetKeyState(VK_RETURN)
                   ::KeyDown(VK_RETURN, 0)
                Endif
             Endif

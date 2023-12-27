@@ -102,13 +102,13 @@
 
 // ============================================================================
 
-#xtranslate _GetKeyState(<VKey>) => hmg_CheckBit(hmg_GetKeyState(<VKey>), 32768)
-#xtranslate GetEscapeState() => hmg_GetKeyState(VK_ESCAPE)
-#xtranslate GetAltState() => hmg_GetKeyState(VK_MENU)
-#xtranslate IsInsertActive() => (hmg_GetKeyState(VK_INSERT) > 0)
-#xtranslate IsCapsLockActive() => (hmg_GetKeyState(VK_CAPITAL) > 0)
-#xtranslate IsNumLockActive() => (hmg_GetKeyState(VK_NUMLOCK) > 0)
-#xtranslate IsScrollLockActive() => (hmg_GetKeyState(VK_SCROLL) > 0)
+#xtranslate _GetKeyState(<VKey>) => hmg_CheckBit(waGetKeyState(<VKey>), 32768)
+#xtranslate GetEscapeState() => waGetKeyState(VK_ESCAPE)
+#xtranslate GetAltState() => waGetKeyState(VK_MENU)
+#xtranslate IsInsertActive() => (waGetKeyState(VK_INSERT) > 0)
+#xtranslate IsCapsLockActive() => (waGetKeyState(VK_CAPITAL) > 0)
+#xtranslate IsNumLockActive() => (waGetKeyState(VK_NUMLOCK) > 0)
+#xtranslate IsScrollLockActive() => (waGetKeyState(VK_SCROLL) > 0)
 
 // ============================================================================
 
