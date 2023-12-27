@@ -885,7 +885,7 @@
 #translate VALID <if: IF, CONDITION> <cond> => ;
                    VALID \{|o, x| x := o:varGet(), <cond> \}
 //------------------------------------------------------------------------//
-#xtranslate GetSysMetrics( <p> )      => hmg_GetSystemMetrics( <p> )
+#xtranslate GetSysMetrics(<p>)        => waGetSystemMetrics(<p>)
 #xtranslate SysRefresh()              => hmg_DoEvents()
 #xtranslate nMakeLong( <p1> , <p2> )  => hmg_MakeLong( <p1> , <p2> )
 

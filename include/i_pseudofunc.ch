@@ -251,16 +251,16 @@
 
 // ============================================================================
 
-#xtranslate GetDesktopWidth() => hmg_GetSystemMetrics(SM_CXSCREEN)
-#xtranslate GetDesktopHeight() => hmg_GetSystemMetrics(SM_CYSCREEN)
-#xtranslate GetVScrollBarWidth() => hmg_GetSystemMetrics(SM_CXVSCROLL)
-#xtranslate GetHScrollBarHeight() => hmg_GetSystemMetrics(SM_CYHSCROLL)
-#xtranslate GetTitleHeight() => hmg_GetSystemMetrics(SM_CYCAPTION)
-#xtranslate GetBorderHeight() => hmg_GetSystemMetrics(SM_CYSIZEFRAME)
-#xtranslate GetBorderWidth() => hmg_GetSystemMetrics(SM_CXSIZEFRAME)
-#xtranslate Get3DEdgeHeight() => hmg_GetSystemMetrics(SM_CYEDGE)
-#xtranslate Get3DEdgeWidth() => hmg_GetSystemMetrics(SM_CXEDGE)
-#xtranslate GetMenuBarHeight() => hmg_GetSystemMetrics(SM_CYMENU)
+#xtranslate GetDesktopWidth() => waGetSystemMetrics(SM_CXSCREEN)
+#xtranslate GetDesktopHeight() => waGetSystemMetrics(SM_CYSCREEN)
+#xtranslate GetVScrollBarWidth() => waGetSystemMetrics(SM_CXVSCROLL)
+#xtranslate GetHScrollBarHeight() => waGetSystemMetrics(SM_CYHSCROLL)
+#xtranslate GetTitleHeight() => waGetSystemMetrics(SM_CYCAPTION)
+#xtranslate GetBorderHeight() => waGetSystemMetrics(SM_CYSIZEFRAME)
+#xtranslate GetBorderWidth() => waGetSystemMetrics(SM_CXSIZEFRAME)
+#xtranslate Get3DEdgeHeight() => waGetSystemMetrics(SM_CYEDGE)
+#xtranslate Get3DEdgeWidth() => waGetSystemMetrics(SM_CXEDGE)
+#xtranslate GetMenuBarHeight() => waGetSystemMetrics(SM_CYMENU)
 
 // ============================================================================
 
