@@ -326,7 +326,7 @@ RETURN lSuccess
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 // http://msdn.microsoft.com/en-us/library/ms684139(VS.85).aspx
-typedef BOOL ( WINAPI *LPFN_ISWOW64PROCESS ) ( HANDLE, PBOOL );
+using LPFN_ISWOW64PROCESS = BOOL (WINAPI *)(HANDLE, PBOOL);
 
 HB_FUNC_STATIC( HMG_ISWOW64 )
 {

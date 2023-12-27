@@ -76,7 +76,7 @@ bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
 PHB_ITEM hmg_RectToArray(RECT * rc);
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
-typedef HMODULE ( __stdcall * SHGETFOLDERPATH )( HWND, int, HANDLE, DWORD, LPTSTR );
+using SHGETFOLDERPATH = HMODULE (__stdcall *)(HWND, int, HANDLE, DWORD, LPTSTR);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -500,7 +500,7 @@ HB_FUNC_TRANSLATE( C_GETDLLSPECIALFOLDER, HMG_C_GETDLLSPECIALFOLDER )
 #endif /* __WIN98__ */
 
 // Memory Management Functions
-typedef BOOL ( WINAPI * GetPhysicallyInstalledSystemMemory_ptr )( ULONGLONG * );
+using GetPhysicallyInstalledSystemMemory_ptr = BOOL (WINAPI *)(ULONGLONG *);
 
 HB_FUNC( HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 {
@@ -526,7 +526,7 @@ HB_FUNC( HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 HB_FUNC_TRANSLATE( GETPHYSICALLYINSTALLEDSYSTEMMEMORY, HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 #endif
 
-typedef BOOL ( WINAPI * GlobalMemoryStatusEx_ptr )( MEMORYSTATUSEX * );
+using GlobalMemoryStatusEx_ptr = BOOL (WINAPI *)(MEMORYSTATUSEX *);
 #define DIV  ( 1024 * 1024 )
 
 HB_FUNC( HMG_MEMORYSTATUS )
@@ -1552,7 +1552,7 @@ HB_FUNC( HMG_EMPTYWORKINGSET )
    DWORD  ProcessID;
    HANDLE hProcess;
 
-   typedef BOOL ( WINAPI * Func_EmptyWorkingSet )( HANDLE );
+   using Func_EmptyWorkingSet = BOOL (WINAPI *)(HANDLE);
    static Func_EmptyWorkingSet pEmptyWorkingSet = nullptr;
 
    if( pEmptyWorkingSet == nullptr ) {
@@ -1596,7 +1596,7 @@ HB_FUNC_TRANSLATE( CLEANPROGRAMMEMORY, HMG_CLEANPROGRAMMEMORY )
 #endif
 
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 11a
-typedef INT ( WINAPI * _GETCOMPACTPATH )( LPTSTR pszOut, LPTSTR pszSrc, INT cchMax, DWORD dwFlags );
+using _GETCOMPACTPATH = INT (WINAPI *)(LPTSTR pszOut, LPTSTR pszSrc, INT cchMax, DWORD dwFlags);
 
 HB_FUNC( HMG_GETCOMPACTPATH )
 {

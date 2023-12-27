@@ -53,8 +53,8 @@
 
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-typedef BOOL ( WINAPI * VERIFYSCREENSAVEPWD )( HWND hwnd );
-typedef VOID ( WINAPI * PWDCHANGEPASSWORD )( LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1, UINT uiReserved2 );
+using VERIFYSCREENSAVEPWD = BOOL (WINAPI *)(HWND hwnd);
+using PWDCHANGEPASSWORD = VOID (WINAPI *)(LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1, UINT uiReserved2);
 
 HB_FUNC( HMG_VERIFYPASSWORD )
 {

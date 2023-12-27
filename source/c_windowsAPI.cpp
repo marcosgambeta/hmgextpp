@@ -325,7 +325,7 @@ HB_FUNC( HMG_SETLAYEREDWINDOWATTRIBUTES )
       hb_retl(false);
 
       if( hDll != nullptr ) {
-         typedef BOOL (__stdcall * SetLayeredWindowAttributes_ptr)(HWND, COLORREF, BYTE, DWORD);
+         using SetLayeredWindowAttributes_ptr = BOOL (__stdcall *)(HWND, COLORREF, BYTE, DWORD);
 
          auto fn_SetLayeredWindowAttributes = reinterpret_cast<SetLayeredWindowAttributes_ptr>(wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes"));
 

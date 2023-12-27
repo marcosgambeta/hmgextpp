@@ -164,9 +164,9 @@ BOOL    EnabledGradient(void);
 BOOL    FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo);
 HBRUSH  LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF cFrom, COLORREF cTo, BOOL bVert);
 
-typedef BOOL ( WINAPI * AlphaBlendPtr )( HDC, int, int, int, int, HDC, int, int, int, int, BLENDFUNCTION );
-typedef BOOL ( WINAPI * TransparentBltPtr )( HDC, int, int, int, int, HDC, int, int, int, int, UINT );
-typedef BOOL ( WINAPI * GradientFillPtr )( HDC, CONST PTRIVERTEX, DWORD, CONST PVOID, DWORD, DWORD );
+using AlphaBlendPtr = BOOL (WINAPI *)(HDC, int, int, int, int, HDC, int, int, int, int, BLENDFUNCTION);
+using TransparentBltPtr = BOOL (WINAPI *)(HDC, int, int, int, int, HDC, int, int, int, int, UINT);
+using GradientFillPtr = BOOL (WINAPI *)(HDC, CONST PTRIVERTEX, DWORD, CONST PVOID, DWORD, DWORD);
 
 static HINSTANCE s_hDLL = nullptr;
 
