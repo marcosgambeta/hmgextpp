@@ -114,8 +114,8 @@ FUNCTION HMG_Alert(cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors
       ENDDO
    ENDIF
 
-   hb_default(@aBackColor, nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE)))
-   hb_default(@aFontColor, nRGB2Arr(hmg_GetSysColor(COLOR_BTNTEXT)))
+   hb_default(@aBackColor, nRGB2Arr(waGetSysColor(COLOR_BTNFACE)))
+   hb_default(@aFontColor, nRGB2Arr(waGetSysColor(COLOR_BTNTEXT)))
    __defaultNIL(@cTitle, "Attention")
    __defaultNIL(@aOptions, {"&OK"})
    hb_default(@lClosable, .F.)

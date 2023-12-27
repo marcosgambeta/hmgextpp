@@ -6915,7 +6915,7 @@ RETURN cRetVal
 
 STATIC FUNCTION _SetFontColor(ControlName, ParentForm, Value)
 
-   LOCAL default := hmg_GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL default := waGetSysColor(COLOR_WINDOWTEXT)
    LOCAL i
    LOCAL t
    LOCAL c
@@ -7001,8 +7001,8 @@ RETURN NIL
 
 STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
 
-   LOCAL f := hmg_GetSysColor(COLOR_3DFACE)
-   LOCAL d := hmg_GetSysColor(COLOR_WINDOW)
+   LOCAL f := waGetSysColor(COLOR_3DFACE)
+   LOCAL d := waGetSysColor(COLOR_WINDOW)
    LOCAL i
    LOCAL t
    LOCAL c
@@ -8116,7 +8116,7 @@ STATIC FUNCTION _SetTransparent(ControlName, ParentForm, lTransparent)
                _HMG_aControlBkColor[i] := _HMG_aFormBkColor[ix]
             ELSE
                hmg_ChangeStyle(h, NIL, WS_EX_TRANSPARENT, .T.)
-               _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE))
+               _HMG_aControlBkColor[i] := nRGB2Arr(waGetSysColor(COLOR_BTNFACE))
             ENDIF
             EXIT
 
@@ -8124,7 +8124,7 @@ STATIC FUNCTION _SetTransparent(ControlName, ParentForm, lTransparent)
             IF lTransparent
                _HMG_aControlBkColor[i] := NIL
             ELSE
-               _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_3DFACE))
+               _HMG_aControlBkColor[i] := nRGB2Arr(waGetSysColor(COLOR_3DFACE))
             ENDIF
 
          ENDSWITCH

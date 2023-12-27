@@ -58,8 +58,8 @@ METHOD TBtnBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    HB_SYMBOL_UNUSED(bChanged)
    HB_SYMBOL_UNUSED(bDown)
 
-   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT), ;
-           nClrBack  := hmg_GetSysColor(COLOR_WINDOW), ;
+   DEFAULT nClrFore  := waGetSysColor(COLOR_WINDOWTEXT), ;
+           nClrBack  := waGetSysColor(COLOR_WINDOW), ;
            nHeight   := 12, ;
            bMin      := {||0}, ;
            bMax      := {||32000}

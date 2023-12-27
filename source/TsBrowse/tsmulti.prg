@@ -38,8 +38,8 @@ ENDCLASS
 
 METHOD TSMulti:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, nClrFore, nClrBack, cControl, cWnd)
 
-   DEFAULT nClrFore := hmg_GetSysColor(COLOR_WINDOWTEXT)
-   DEFAULT nClrBack := hmg_GetSysColor(COLOR_WINDOW)
+   DEFAULT nClrFore := waGetSysColor(COLOR_WINDOWTEXT)
+   DEFAULT nClrBack := waGetSysColor(COLOR_WINDOW)
    DEFAULT nHeight := 12
 
    ::nTop    := nRow

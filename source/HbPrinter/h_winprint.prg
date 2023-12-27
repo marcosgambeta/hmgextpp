@@ -2307,7 +2307,7 @@ METHOD HBPrinter:Preview()
 
       IF iloscstron > 1
          @ 16, ahs[1, 6] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT "Arial" SIZE 8 NOTABSTOP ON CHANGE {||page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow()}
-         @ 20, ahs[1, 6] - 184 LABEL prl VALUE aopisy[12] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif(IsAppXPThemed(), iif(isseven(), { 211, 218, 237 }, iif(_HMG_IsXP, { 239, 235, 219 }, nRGB2Arr(hmg_GetSysColor(5)))), NIL) RIGHTALIGN
+         @ 20, ahs[1, 6] - 184 LABEL prl VALUE aopisy[12] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif(IsAppXPThemed(), iif(isseven(), { 211, 218, 237 }, iif(_HMG_IsXP, { 239, 235, 219 }, nRGB2Arr(waGetSysColor(5)))), NIL) RIGHTALIGN
       ENDIF
 
       DEFINE SPLITBOX

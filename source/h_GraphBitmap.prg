@@ -48,10 +48,10 @@ FUNCTION HMG_Graph(nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep, 
    LOCAL nZero
    LOCAL nRPos
    LOCAL nRNeg
-   LOCAL nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL nClrFore  := waGetSysColor(COLOR_WINDOWTEXT)
    LOCAL lRedraw
    LOCAL aClrFore := nRGB2Arr(nClrFore)
-   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrBack := waGetSysColor(COLOR_BTNFACE)
    LOCAL aClrBack := nRGB2Arr(nClrBack)
 
    DEFAULT cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
@@ -387,7 +387,7 @@ FUNCTION HMG_PieGraph(nWidth, nHeight, series, aname, colors, ctitle, aTitleColo
    LOCAL hDC
    LOCAL hBitmap
    LOCAL BTStruct
-   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrBack := waGetSysColor(COLOR_BTNFACE)
    LOCAL aClrBack := nRGB2Arr(nClrBack)
 
    DEFAULT cPicture := "999,999.99"

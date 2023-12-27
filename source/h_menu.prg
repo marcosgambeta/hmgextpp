@@ -1041,8 +1041,8 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
    CASE MNUCLR_THEME_DEFAULT
 
-      aColors[MNUCLR_MENUBARBACKGROUND1] := hmg_GetSysColor(15)
-      aColors[MNUCLR_MENUBARBACKGROUND2] := hmg_GetSysColor(15)
+      aColors[MNUCLR_MENUBARBACKGROUND1] := waGetSysColor(15)
+      aColors[MNUCLR_MENUBARBACKGROUND2] := waGetSysColor(15)
       aColors[MNUCLR_MENUBARTEXT] := RGB(0, 0, 0)
       aColors[MNUCLR_MENUBARSELECTEDTEXT] := RGB(0, 0, 0)
       aColors[MNUCLR_MENUBARGRAYEDTEXT] := RGB(192, 192, 192)
@@ -1078,34 +1078,34 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
    CASE MNUCLR_THEME_XP
 
-      aColors[MNUCLR_MENUBARBACKGROUND1] := hmg_GetSysColor(15)
-      aColors[MNUCLR_MENUBARBACKGROUND2] := hmg_GetSysColor(15)
-      aColors[MNUCLR_MENUBARTEXT] := hmg_GetSysColor(7)
-      aColors[MNUCLR_MENUBARSELECTEDTEXT] := hmg_GetSysColor(14)
-      aColors[MNUCLR_MENUBARGRAYEDTEXT] := hmg_GetSysColor(17)
-      aColors[MNUCLR_MENUBARSELECTEDITEM1] := hmg_GetSysColor(13)
-      aColors[MNUCLR_MENUBARSELECTEDITEM2] := hmg_GetSysColor(13)
+      aColors[MNUCLR_MENUBARBACKGROUND1] := waGetSysColor(15)
+      aColors[MNUCLR_MENUBARBACKGROUND2] := waGetSysColor(15)
+      aColors[MNUCLR_MENUBARTEXT] := waGetSysColor(7)
+      aColors[MNUCLR_MENUBARSELECTEDTEXT] := waGetSysColor(14)
+      aColors[MNUCLR_MENUBARGRAYEDTEXT] := waGetSysColor(17)
+      aColors[MNUCLR_MENUBARSELECTEDITEM1] := waGetSysColor(13)
+      aColors[MNUCLR_MENUBARSELECTEDITEM2] := waGetSysColor(13)
 
-      aColors[MNUCLR_MENUITEMTEXT] := hmg_GetSysColor(7)
-      aColors[MNUCLR_MENUITEMSELECTEDTEXT] := hmg_GetSysColor(14)
-      aColors[MNUCLR_MENUITEMGRAYEDTEXT] := hmg_GetSysColor(17)
-      aColors[MNUCLR_MENUITEMBACKGROUND1] := IIF(_HMG_IsXP, hmg_GetSysColor(4), RGB(255, 255, 255))
-      aColors[MNUCLR_MENUITEMBACKGROUND2] := IIF(_HMG_IsXP, hmg_GetSysColor(4), RGB(255, 255, 255))
-      aColors[MNUCLR_MENUITEMSELECTEDBACKGROUND1] := hmg_GetSysColor(13)
-      aColors[MNUCLR_MENUITEMSELECTEDBACKGROUND2] := hmg_GetSysColor(13)
-      aColors[MNUCLR_MENUITEMGRAYEDBACKGROUND1] := IIF(_HMG_IsXP, hmg_GetSysColor(4), RGB(255, 255, 255))
-      aColors[MNUCLR_MENUITEMGRAYEDBACKGROUND2] := IIF(_HMG_IsXP, hmg_GetSysColor(4), RGB(255, 255, 255))
+      aColors[MNUCLR_MENUITEMTEXT] := waGetSysColor(7)
+      aColors[MNUCLR_MENUITEMSELECTEDTEXT] := waGetSysColor(14)
+      aColors[MNUCLR_MENUITEMGRAYEDTEXT] := waGetSysColor(17)
+      aColors[MNUCLR_MENUITEMBACKGROUND1] := IIF(_HMG_IsXP, waGetSysColor(4), RGB(255, 255, 255))
+      aColors[MNUCLR_MENUITEMBACKGROUND2] := IIF(_HMG_IsXP, waGetSysColor(4), RGB(255, 255, 255))
+      aColors[MNUCLR_MENUITEMSELECTEDBACKGROUND1] := waGetSysColor(13)
+      aColors[MNUCLR_MENUITEMSELECTEDBACKGROUND2] := waGetSysColor(13)
+      aColors[MNUCLR_MENUITEMGRAYEDBACKGROUND1] := IIF(_HMG_IsXP, waGetSysColor(4), RGB(255, 255, 255))
+      aColors[MNUCLR_MENUITEMGRAYEDBACKGROUND2] := IIF(_HMG_IsXP, waGetSysColor(4), RGB(255, 255, 255))
 
-      aColors[MNUCLR_IMAGEBACKGROUND1] := hmg_GetSysColor(15)
-      aColors[MNUCLR_IMAGEBACKGROUND2] := hmg_GetSysColor(15)
+      aColors[MNUCLR_IMAGEBACKGROUND1] := waGetSysColor(15)
+      aColors[MNUCLR_IMAGEBACKGROUND2] := waGetSysColor(15)
 
-      aColors[MNUCLR_SEPARATOR1] := hmg_GetSysColor(17)
-      aColors[MNUCLR_SEPARATOR2] := hmg_GetSysColor(14)
+      aColors[MNUCLR_SEPARATOR1] := waGetSysColor(17)
+      aColors[MNUCLR_SEPARATOR2] := waGetSysColor(14)
 
-      aColors[MNUCLR_SELECTEDITEMBORDER1] := hmg_GetSysColor(13)
-      aColors[MNUCLR_SELECTEDITEMBORDER2] := hmg_GetSysColor(13)
-      aColors[MNUCLR_SELECTEDITEMBORDER3] := hmg_GetSysColor(17)
-      aColors[MNUCLR_SELECTEDITEMBORDER4] := hmg_GetSysColor(14)
+      aColors[MNUCLR_SELECTEDITEMBORDER1] := waGetSysColor(13)
+      aColors[MNUCLR_SELECTEDITEMBORDER2] := waGetSysColor(13)
+      aColors[MNUCLR_SELECTEDITEMBORDER3] := waGetSysColor(17)
+      aColors[MNUCLR_SELECTEDITEMBORDER4] := waGetSysColor(14)
 
       SET MENUCURSOR FULL
       SET MENUSEPARATOR DOUBLE RIGHTALIGN
@@ -1115,13 +1115,13 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
    CASE MNUCLR_THEME_2000
 
-      aColors[MNUCLR_MENUBARBACKGROUND1] := hmg_GetSysColor(15)
-      aColors[MNUCLR_MENUBARBACKGROUND2] := hmg_GetSysColor(15)
+      aColors[MNUCLR_MENUBARBACKGROUND1] := waGetSysColor(15)
+      aColors[MNUCLR_MENUBARBACKGROUND2] := waGetSysColor(15)
       aColors[MNUCLR_MENUBARTEXT] := RGB(0, 0, 0)
       aColors[MNUCLR_MENUBARSELECTEDTEXT] := RGB(0, 0, 0)
       aColors[MNUCLR_MENUBARGRAYEDTEXT] := RGB(128, 128, 128)
-      aColors[MNUCLR_MENUBARSELECTEDITEM1] := hmg_GetSysColor(15)
-      aColors[MNUCLR_MENUBARSELECTEDITEM2] := hmg_GetSysColor(15)
+      aColors[MNUCLR_MENUBARSELECTEDITEM1] := waGetSysColor(15)
+      aColors[MNUCLR_MENUBARSELECTEDITEM2] := waGetSysColor(15)
 
       aColors[MNUCLR_MENUITEMTEXT] := RGB(0, 0, 0)
       aColors[MNUCLR_MENUITEMSELECTEDTEXT] := RGB(255, 255, 255)

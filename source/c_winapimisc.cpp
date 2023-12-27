@@ -1091,13 +1091,13 @@ HB_FUNC_TRANSLATE( SETBKCOLOR, HMG_SETBKCOLOR )
 /*
 HMG_GETSYSCOLOR(np1) --> numeric
 */
-HB_FUNC( HMG_GETSYSCOLOR )
+HB_FUNC( HMG_GETSYSCOLOR ) // TODO: deprecated (using waGetSysColor from WinApi library)
 {
    hb_retnl(GetSysColor(hb_parni(1)));
 }
 
 #if 1
-HB_FUNC_TRANSLATE( GETSYSCOLOR, HMG_GETSYSCOLOR )
+HB_FUNC_TRANSLATE( GETSYSCOLOR, WAGETSYSCOLOR )
 #endif
 
 /**************************************************************************************/

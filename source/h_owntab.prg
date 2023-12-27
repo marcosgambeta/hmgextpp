@@ -101,7 +101,7 @@ FUNCTION OwnTabPaint(lParam)
    hOldFont     := hmg_SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr        := hmg_GetTextMetric(hDC)
    oldBkMode    := hmg_SetBkMode(hDC, TRANSPARENT)
-   nTextColor   := hmg_GetSysColor(COLOR_BTNTEXT)
+   nTextColor   := waGetSysColor(COLOR_BTNTEXT)
    oldTextColor := hmg_SetTextColor(hDC, hmg_GetRed(nTextColor), hmg_GetGreen(nTextColor), hmg_GetBlue(nTextColor))
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
@@ -168,7 +168,7 @@ FUNCTION OwnTabPaint(lParam)
 
          IF IsArrayRGB(aForeColor := _HMG_aControlMiscData1[i][6])
             hmg_SetTextColor(hDC, aForeColor[1], aForeColor[2], aForeColor[3])
-         ELSEIF bkColor == hmg_GetSysColor(COLOR_BTNFACE)
+         ELSEIF bkColor == waGetSysColor(COLOR_BTNFACE)
             hmg_SetTextColor(hDC, 0, 0, 128)
          ELSE
             hmg_SetTextColor(hDC, 255, 255, 255)

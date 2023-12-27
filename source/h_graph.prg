@@ -91,8 +91,8 @@ PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
    LOCAL nZero
    LOCAL nRPos
    LOCAL nRNeg
-   LOCAL nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT)
-   LOCAL nClrBack := hmg_GetSysColor(COLOR_BTNFACE)
+   LOCAL nClrFore  := waGetSysColor(COLOR_WINDOWTEXT)
+   LOCAL nClrBack := waGetSysColor(COLOR_BTNFACE)
    LOCAL atemp
    LOCAL lRedraw := .F.
    LOCAL aClrFore := nRGB2Arr(nClrFore)

@@ -376,9 +376,9 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                  iif(_IsControlDefined("StatusBar", cForm), GetProperty(cForm, "StatusBar", "Height"), 0)
 
    DEFAULT aColor := { ;
-          { CLR_FOCUSF, hmg_GetSysColor(COLOR_WINDOWTEXT) }, ;
+          { CLR_FOCUSF, waGetSysColor(COLOR_WINDOWTEXT) }, ;
           { CLR_FOCUSB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225))} }, ;
-          { CLR_SELEF, hmg_GetSysColor(COLOR_WINDOWTEXT) }, ;
+          { CLR_SELEF, waGetSysColor(COLOR_WINDOWTEXT) }, ;
           { CLR_SELEB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225))} } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов

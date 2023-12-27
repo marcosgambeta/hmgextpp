@@ -456,12 +456,12 @@ METHOD TSColumn:New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap,
    ::bDown        = bDown
    ::bMin         = bMin
    ::bMax         = bMax
-   ::nClr3DLCell  = hmg_GetSysColor(COLOR_BTNHIGHLIGHT)
-   ::nClr3DLHead  = hmg_GetSysColor(COLOR_BTNHIGHLIGHT)
-   ::nClr3DLFoot  = hmg_GetSysColor(COLOR_BTNHIGHLIGHT)
-   ::nClr3DSCell  = hmg_GetSysColor(COLOR_BTNSHADOW)
-   ::nClr3DSHead  = hmg_GetSysColor(COLOR_BTNSHADOW)
-   ::nClr3DSFoot  = hmg_GetSysColor(COLOR_BTNSHADOW)
+   ::nClr3DLCell  = waGetSysColor(COLOR_BTNHIGHLIGHT)
+   ::nClr3DLHead  = waGetSysColor(COLOR_BTNHIGHLIGHT)
+   ::nClr3DLFoot  = waGetSysColor(COLOR_BTNHIGHLIGHT)
+   ::nClr3DSCell  = waGetSysColor(COLOR_BTNSHADOW)
+   ::nClr3DSHead  = waGetSysColor(COLOR_BTNSHADOW)
+   ::nClr3DSFoot  = waGetSysColor(COLOR_BTNSHADOW)
    ::lIndexCol    = .F.
    ::lAdjBmp      = .F.
    ::lAdjBmpHead  = .F.
@@ -666,25 +666,25 @@ METHOD TSColumn:DefColor(oBrw, aTmpColor)
 
    IF oBrw == NIL
 
-      DEFAULT aTmpColor[ 1] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrText
-      DEFAULT aTmpColor[ 2] := hmg_GetSysColor(COLOR_WINDOW)        // nClrPane
-      DEFAULT aTmpColor[ 3] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
-      DEFAULT aTmpColor[ 4] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrHeadBack
-      DEFAULT aTmpColor[ 5] := hmg_GetSysColor(COLOR_HIGHLIGHTTEXT) // nClrFocuFore
-      DEFAULT aTmpColor[ 6] := hmg_GetSysColor(COLOR_HIGHLIGHT)     // nClrFocuBack
-      DEFAULT aTmpColor[ 7] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
-      DEFAULT aTmpColor[ 8] := hmg_GetSysColor(COLOR_WINDOW)        // nClrEditBack
-      DEFAULT aTmpColor[ 9] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrFootFore
-      DEFAULT aTmpColor[10] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrFootBack
+      DEFAULT aTmpColor[ 1] := waGetSysColor(COLOR_WINDOWTEXT)    // nClrText
+      DEFAULT aTmpColor[ 2] := waGetSysColor(COLOR_WINDOW)        // nClrPane
+      DEFAULT aTmpColor[ 3] := waGetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
+      DEFAULT aTmpColor[ 4] := waGetSysColor(COLOR_BTNFACE)       // nClrHeadBack
+      DEFAULT aTmpColor[ 5] := waGetSysColor(COLOR_HIGHLIGHTTEXT) // nClrFocuFore
+      DEFAULT aTmpColor[ 6] := waGetSysColor(COLOR_HIGHLIGHT)     // nClrFocuBack
+      DEFAULT aTmpColor[ 7] := waGetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
+      DEFAULT aTmpColor[ 8] := waGetSysColor(COLOR_WINDOW)        // nClrEditBack
+      DEFAULT aTmpColor[ 9] := waGetSysColor(COLOR_BTNTEXT)       // nClrFootFore
+      DEFAULT aTmpColor[10] := waGetSysColor(COLOR_BTNFACE)       // nClrFootBack
       DEFAULT aTmpColor[11] := CLR_HGRAY                        // nClrSeleFore  NO focused
       DEFAULT aTmpColor[12] := CLR_GRAY                         // nClrSeleBack  NO focused
-      DEFAULT aTmpColor[13] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
-      DEFAULT aTmpColor[14] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrLine
+      DEFAULT aTmpColor[13] := waGetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
+      DEFAULT aTmpColor[14] := waGetSysColor(COLOR_BTNFACE)       // nClrLine
       DEFAULT aTmpColor[15] := CLR_BLACK
-      DEFAULT aTmpColor[16] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
-      DEFAULT aTmpColor[17] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
-      DEFAULT aTmpColor[18] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
-      DEFAULT aTmpColor[19] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
+      DEFAULT aTmpColor[16] := waGetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
+      DEFAULT aTmpColor[17] := waGetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
+      DEFAULT aTmpColor[18] := waGetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
+      DEFAULT aTmpColor[19] := waGetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
       DEFAULT aTmpColor[20] := CLR_HRED                         // nClrSpecHeadActive
 
    ELSE

@@ -1453,7 +1453,7 @@ FUNCTION PgIdentColor(met, cColor)
    CASE met == 0
       cColor := AllTrim(cColor)
       IF (pos := AScan(aSysColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
-         nColor := hmg_GetSysColor(aSysColor[pos, 1])
+         nColor := waGetSysColor(aSysColor[pos, 1])
       ELSEIF (pos := AScan(aColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
          nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
@@ -2849,7 +2849,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          IF hIListSys == HMG_NULLHANDLE
             hIListSys := hmg_InitImageList(ItHeight * 1.4, ItHeight, .F., 0)
             FOR n := 1 TO Len(aSysColor)
-               nColor := hmg_GetSysColor(aSysColor[n, 1])
+               nColor := waGetSysColor(aSysColor[n, 1])
                hImage := CREATECOLORBMP(hWnd, nColor, ItHeight * 1.4, ItHeight)
                IL_AddMaskedIndirect(hIListSys, hImage, , ItHeight * 1.4, ItHeight, 1)
             NEXT

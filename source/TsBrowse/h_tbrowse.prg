@@ -177,8 +177,8 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       (uAlias)->(AEval(Array(FCount()), {|cn, nn|cn := FieldName(nn), AAdd(aHeaders, cn), AAdd(aNames, cn), AAdd(aColSel, cn)}))
       IF cell .AND. Empty(aColors)
          aColors := {}
-         AAdd(aColors, {CLR_FOCUSF, {| c, n, b | c := n, iif(b:nCell == n, hmg_GetSysColor(COLOR_WINDOWTEXT), hmg_GetSysColor(COLOR_CAPTIONTEXT)) }})
-         AAdd(aColors, {CLR_FOCUSB, {| c, n, b | c := n, iif(b:nCell == n, hmg_GetSysColor(COLOR_ACTIVECAPTION), -hmg_GetSysColor(COLOR_ACTIVECAPTION)) }})
+         AAdd(aColors, {CLR_FOCUSF, {| c, n, b | c := n, iif(b:nCell == n, waGetSysColor(COLOR_WINDOWTEXT), waGetSysColor(COLOR_CAPTIONTEXT)) }})
+         AAdd(aColors, {CLR_FOCUSB, {| c, n, b | c := n, iif(b:nCell == n, waGetSysColor(COLOR_ACTIVECAPTION), -waGetSysColor(COLOR_ACTIVECAPTION)) }})
       ENDIF
    ENDIF
 
@@ -286,7 +286,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
       IF _HMG_DialogInMemory // Dialog Template
          IF GetClassInfo(hmg_GetInstance(), ControlName) == NIL
-            IF !Register_Class(ControlName, hmg_CreateSolidBrush(hmg_GetRed(hmg_GetSysColor(COLOR_BTNFACE)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNFACE)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNFACE))))
+            IF !Register_Class(ControlName, hmg_CreateSolidBrush(hmg_GetRed(waGetSysColor(COLOR_BTNFACE)), hmg_GetGreen(waGetSysColor(COLOR_BTNFACE)), hmg_GetBlue(waGetSysColor(COLOR_BTNFACE))))
                RETURN NIL
             ENDIF
          ENDIF
@@ -1041,7 +1041,7 @@ CLASS TSBrowse FROM TControl
    DATA nSortColDir AS NUMERIC INIT 0 // Sorting table columns ascending or descending
    DATA nClr_Gray AS NUMERIC INIT CLR_GRAY
    DATA nClr_HGray AS NUMERIC INIT CLR_HGRAY
-   DATA nClr_Lines AS NUMERIC INIT hmg_GetSysColor(COLOR_BTNSHADOW)
+   DATA nClr_Lines AS NUMERIC INIT waGetSysColor(COLOR_BTNSHADOW)
    DATA nCntKeysLR AS NUMERIC INIT 0
    DATA nMaxKeysLR AS NUMERIC INIT 3
    DATA nCntScroll AS NUMERIC INIT 0
@@ -1334,25 +1334,25 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
       cParentWnd := _HMG_ActiveFormName
    ENDIF
 
-   DEFAULT aTmpColor[01] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrText
-   DEFAULT aTmpColor[02] := hmg_GetSysColor(COLOR_WINDOW)        // nClrPane
-   DEFAULT aTmpColor[03] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
-   DEFAULT aTmpColor[04] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrHeadBack
-   DEFAULT aTmpColor[05] := hmg_GetSysColor(COLOR_CAPTIONTEXT)   // nClrForeFocu
-   DEFAULT aTmpColor[06] := hmg_GetSysColor(COLOR_ACTIVECAPTION) // nClrFocuBack
-   DEFAULT aTmpColor[07] := hmg_GetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
-   DEFAULT aTmpColor[08] := hmg_GetSysColor(COLOR_WINDOW)        // nClrEditBack
-   DEFAULT aTmpColor[09] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrFootFore
-   DEFAULT aTmpColor[10] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrFootBack
+   DEFAULT aTmpColor[01] := waGetSysColor(COLOR_WINDOWTEXT)    // nClrText
+   DEFAULT aTmpColor[02] := waGetSysColor(COLOR_WINDOW)        // nClrPane
+   DEFAULT aTmpColor[03] := waGetSysColor(COLOR_BTNTEXT)       // nClrHeadFore
+   DEFAULT aTmpColor[04] := waGetSysColor(COLOR_BTNFACE)       // nClrHeadBack
+   DEFAULT aTmpColor[05] := waGetSysColor(COLOR_CAPTIONTEXT)   // nClrForeFocu
+   DEFAULT aTmpColor[06] := waGetSysColor(COLOR_ACTIVECAPTION) // nClrFocuBack
+   DEFAULT aTmpColor[07] := waGetSysColor(COLOR_WINDOWTEXT)    // nClrEditFore
+   DEFAULT aTmpColor[08] := waGetSysColor(COLOR_WINDOW)        // nClrEditBack
+   DEFAULT aTmpColor[09] := waGetSysColor(COLOR_BTNTEXT)       // nClrFootFore
+   DEFAULT aTmpColor[10] := waGetSysColor(COLOR_BTNFACE)       // nClrFootBack
    DEFAULT aTmpColor[11] := CLR_HGRAY                        // nClrSeleFore inactive focused
    DEFAULT aTmpColor[12] := CLR_GRAY                         // nClrSeleBack inactive focused
-   DEFAULT aTmpColor[13] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
-   DEFAULT aTmpColor[14] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrOrdeBack
-   DEFAULT aTmpColor[15] := hmg_GetSysColor(COLOR_BTNSHADOW)     // nClrLine
-   DEFAULT aTmpColor[16] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
-   DEFAULT aTmpColor[17] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
-   DEFAULT aTmpColor[18] := hmg_GetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
-   DEFAULT aTmpColor[19] := hmg_GetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
+   DEFAULT aTmpColor[13] := waGetSysColor(COLOR_BTNTEXT)       // nClrOrdeFore
+   DEFAULT aTmpColor[14] := waGetSysColor(COLOR_BTNFACE)       // nClrOrdeBack
+   DEFAULT aTmpColor[15] := waGetSysColor(COLOR_BTNSHADOW)     // nClrLine
+   DEFAULT aTmpColor[16] := waGetSysColor(COLOR_BTNTEXT)       // nClrSupHeadFore
+   DEFAULT aTmpColor[17] := waGetSysColor(COLOR_BTNFACE)       // nClrSupHeadBack
+   DEFAULT aTmpColor[18] := waGetSysColor(COLOR_BTNTEXT)       // nClrSpecHeadFore
+   DEFAULT aTmpColor[19] := waGetSysColor(COLOR_BTNFACE)       // nClrSpecHeadBack
    DEFAULT aTmpColor[20] := CLR_HRED                         // nClrSpecHeadActive
 
    DEFAULT lUpdate := .F.
@@ -1362,9 +1362,9 @@ METHOD TSBrowse:New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, 
    DEFAULT nStyle := nOr(WS_CHILD, WS_BORDER, WS_VISIBLE, WS_CLIPCHILDREN, WS_TABSTOP, WS_3DLOOK)
 
    IF lAutoFilter
-      aTmpColor[19] := hmg_GetSysColor(COLOR_INACTCAPTEXT)
+      aTmpColor[19] := waGetSysColor(COLOR_INACTCAPTEXT)
    ELSEIF lAutoSearch
-      aTmpColor[19] := hmg_GetSysColor(COLOR_INFOBK)
+      aTmpColor[19] := waGetSysColor(COLOR_INFOBK)
    ENDIF
    IF hb_IsArray(uAlias)
       cAlias := "ARRAY"
@@ -4490,7 +4490,7 @@ METHOD TSBrowse:DrawPressed(nCell, lPressed)
    LOCAL hDC
    LOCAL hOldPen
    LOCAL hGrayPen := CreatePen(PS_SOLID, 1, ::nClrLine)
-   LOCAL hWhitePen := CreatePen(PS_SOLID, 1, hmg_GetSysColor(COLOR_BTNHIGHLIGHT))
+   LOCAL hWhitePen := CreatePen(PS_SOLID, 1, waGetSysColor(COLOR_BTNHIGHLIGHT))
 
    DEFAULT lPressed := .T.
 
@@ -12953,8 +12953,8 @@ METHOD TSBrowse:Set3DText(lOnOff, lRaised, nColumn, nLevel, nClrLight, nClrShado
 
    DEFAULT lOnOff := .T.
    DEFAULT lRaised := .T.
-   DEFAULT nClrLight := hmg_GetSysColor(COLOR_BTNHIGHLIGHT)
-   DEFAULT nClrShadow := hmg_GetSysColor(COLOR_BTNSHADOW)
+   DEFAULT nClrLight := waGetSysColor(COLOR_BTNHIGHLIGHT)
+   DEFAULT nClrShadow := waGetSysColor(COLOR_BTNSHADOW)
 
    IF Empty(::aColumns)
       RETURN Self

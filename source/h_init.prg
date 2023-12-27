@@ -57,8 +57,8 @@ Init()
 */
 PROCEDURE Init()
 
-   LOCAL nCellForeColor := hmg_GetSysColor(COLOR_HIGHLIGHTTEXT)
-   LOCAL nCellBackColor := hmg_GetSysColor(COLOR_HIGHLIGHT)
+   LOCAL nCellForeColor := waGetSysColor(COLOR_HIGHLIGHTTEXT)
+   LOCAL nCellBackColor := waGetSysColor(COLOR_HIGHLIGHT)
 
    STATIC _HMG_SysInit AS GLOBAL VALUE {Date(), Time()}
 

@@ -280,7 +280,7 @@ FUNCTION HMG_DrawIcon(window, icon, row, col, w, h, rgb, transparent)
             rgb := RGB(rgb[1], rgb[2], rgb[3])
          ENDIF
       ENDIF
-      hb_default(@rgb, hmg_GetSysColor(COLOR_BTNFACE))
+      hb_default(@rgb, waGetSysColor(COLOR_BTNFACE))
 
       IF hb_IsNumeric(icon)
          hmg_DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)
@@ -316,7 +316,7 @@ FUNCTION HMG_DrawSysIcon(window, cIconDll, icon, row, col, w, h, rgb, transparen
             rgb := RGB(rgb[1], rgb[2], rgb[3])
          ENDIF
       ENDIF
-      hb_default(@rgb, hmg_GetSysColor(COLOR_BTNFACE))
+      hb_default(@rgb, waGetSysColor(COLOR_BTNFACE))
       hb_default(@cIconDll, System.SystemFolder + hb_ps() + "imageres.dll")
 
       IF hb_IsNumeric(icon)

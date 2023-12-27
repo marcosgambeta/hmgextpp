@@ -423,7 +423,7 @@ FUNCTION OwnButtonPaint(pdis)
       IF IsArrayRGB(_HMG_aControlBkColor[i]) .AND. !lXPThemeActive
          rgbTrans := RGB(_HMG_aControlBkColor[i, 1], _HMG_aControlBkColor[i, 2], _HMG_aControlBkColor[i, 3])
       ELSE
-         rgbTrans := hmg_GetSysColor(COLOR_BTNFACE)
+         rgbTrans := waGetSysColor(COLOR_BTNFACE)
       ENDIF
 
    ENDIF
@@ -470,12 +470,12 @@ FUNCTION OwnButtonPaint(pdis)
    hOldFont := hmg_SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr := hmg_GetTextMetric(hDC)
    oldBkMode := hmg_SetBkMode(hDC, TRANSPARENT)
-   oldTextColor := hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
+   oldTextColor := hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(waGetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(waGetSysColor(COLOR_BTNTEXT)))
 
    IF !lDisabled
 
       IF Empty(_HMG_aControlFontColor[i]) .OR. !IsArrayRGB(_HMG_aControlFontColor[i])
-         hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
+         hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(waGetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(waGetSysColor(COLOR_BTNTEXT)))
       ELSE
          hmg_SetTextColor(hDC, _HMG_aControlFontColor[i, 1], _HMG_aControlFontColor[i, 2], _HMG_aControlFontColor[i, 3])
       ENDIF
@@ -657,9 +657,9 @@ FUNCTION OwnButtonPaint(pdis)
 
          IF lnoadjust
             hmg_DrawGlyph(hDC, xp1, pozYpic, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
-            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DHILIGHT)))
+            hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(waGetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(waGetSysColor(COLOR_3DHILIGHT)))
             hmg_DrawText(hDC, _HMG_aControlCaption[i], 2, pozYtext + 1, x2, aBtnRc[4] + 1, DT_CENTER)
-            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DSHADOW)))
+            hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(waGetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(waGetSysColor(COLOR_3DSHADOW)))
             hmg_DrawText(hDC, _HMG_aControlCaption[i], 0, pozYtext, x2, aBtnRc[4], DT_CENTER)
          ELSE
             hmg_DrawGlyph(hDC, aBtnRc[1] + 4, aBtnRc[2] + 4, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
@@ -752,9 +752,9 @@ FUNCTION OwnButtonPaint(pdis)
 
          IF lnoadjust
             hmg_DrawGlyph(hDC, xp1, yp1, xp2, yp2, _HMG_aControlBrushHandle[i], , .T., .F.)
-            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DHILIGHT)))
+            hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_3DHILIGHT)), hmg_GetGreen(waGetSysColor(COLOR_3DHILIGHT)), hmg_GetBlue(waGetSysColor(COLOR_3DHILIGHT)))
             hmg_DrawText(hDC, _HMG_aControlCaption[i], x1 + 1, y1 + 1, x2 + 1, y1 + y2 + 1, DT_CENTER)
-            hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(hmg_GetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(hmg_GetSysColor(COLOR_3DSHADOW)))
+            hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_3DSHADOW)), hmg_GetGreen(waGetSysColor(COLOR_3DSHADOW)), hmg_GetBlue(waGetSysColor(COLOR_3DSHADOW)))
             hmg_DrawText(hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER)
          ELSE
             hmg_DrawGlyph(hDC, aBtnRc[1] + 3, aBtnRc[2] + 3, aBtnRc[3] - 6, aBtnRc[4] - 6, _HMG_aControlBrushHandle[i], , .T., .T.)
@@ -765,7 +765,7 @@ FUNCTION OwnButtonPaint(pdis)
    ENDIF
 
    IF (lSelected .OR. lFocus) .AND. !lDisabled .AND. !lXPThemeActive
-      hmg_SetTextColor(hDC, hmg_GetRed(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(hmg_GetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(hmg_GetSysColor(COLOR_BTNTEXT)))
+      hmg_SetTextColor(hDC, hmg_GetRed(waGetSysColor(COLOR_BTNTEXT)), hmg_GetGreen(waGetSysColor(COLOR_BTNTEXT)), hmg_GetBlue(waGetSysColor(COLOR_BTNTEXT)))
       hmg_DrawFocusRect(pdis)
    ENDIF
 

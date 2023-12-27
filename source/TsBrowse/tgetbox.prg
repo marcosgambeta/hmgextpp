@@ -47,8 +47,8 @@ METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    LOCAL aBackColor
    LOCAL ReadOnly       := .F., lPassword := .F.
 
-   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT), ;
-           nClrBack  := hmg_GetSysColor(COLOR_WINDOW), ;
+   DEFAULT nClrFore  := waGetSysColor(COLOR_WINDOWTEXT), ;
+           nClrBack  := waGetSysColor(COLOR_WINDOW), ;
            lUpdate   := .F., ;
            lCenter   := .F., ;
            lRight    := .F., ;

@@ -43,8 +43,8 @@ METHOD TDatePicker:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid
    Local rightalign  := .F.
    Local notabstop   := .F.
 
-   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT),;
-           nClrBack  := hmg_GetSysColor(COLOR_WINDOW),;
+   DEFAULT nClrFore  := waGetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := waGetSysColor(COLOR_WINDOW),;
            nHeight   := 12 ,;
            lUpdate   := .F.,;
            lNoBorder := .F.,;

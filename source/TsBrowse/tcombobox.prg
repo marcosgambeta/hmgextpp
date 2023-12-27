@@ -52,8 +52,8 @@ METHOD TComboBox:New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChan
    LOCAL notabstop     := .F.
    LOCAL ParentHandle
 
-   DEFAULT nClrFore  := hmg_GetSysColor(COLOR_WINDOWTEXT),;
-           nClrBack  := hmg_GetSysColor(COLOR_WINDOW),;
+   DEFAULT nClrFore  := waGetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := waGetSysColor(COLOR_WINDOW),;
            nHeight   := 12
 
    ::nTop         := nRow

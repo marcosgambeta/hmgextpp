@@ -95,8 +95,8 @@ METHOD TSBScrlBar:New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, 
            lVertical := .T., nWidth := IIf(lVertical, 16, 100),;
            nHeight   := IIf(lVertical, 100, 17),;
            lPixel    := .F.,;
-           nClrText  := hmg_GetSysColor(COLOR_WINDOW),;
-           nClrBack  := hmg_GetSysColor(COLOR_SCROLLBAR),;
+           nClrText  := waGetSysColor(COLOR_WINDOW),;
+           nClrBack  := waGetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F., lDesign := .F.
 
    ::cCaption   := ""
@@ -150,8 +150,8 @@ METHOD TSBScrlBar:WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
               lUpdate, bWhen, bValid)
 
    Default nMin := 1, nMax := 2, nPgStep := 1, lVertical := .T.,;
-           nClrText  := hmg_GetSysColor(COLOR_WINDOW),;
-           nClrBack  := hmg_GetSysColor(COLOR_SCROLLBAR),;
+           nClrText  := waGetSysColor(COLOR_WINDOW),;
+           nClrBack  := waGetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F.
 
    ::oWnd          := oWnd

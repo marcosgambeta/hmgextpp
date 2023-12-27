@@ -2759,7 +2759,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
             SetProperty(cFormName, "BackColor", aBackColor)
          ELSEIF hb_osIsWin10() .AND. _HMG_IsThemed
             SetProperty(cFormName, "Height", GetProperty(cFormName, "Height") + 7)
-            SetProperty(cFormName, "BackColor", nRGB2Arr(hmg_GetSysColor(COLOR_WINDOW)))
+            SetProperty(cFormName, "BackColor", nRGB2Arr(waGetSysColor(COLOR_WINDOW)))
          ENDIF
 
          nW := GetProperty(cFormName, "ClientWidth") - nX * 2

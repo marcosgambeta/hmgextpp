@@ -595,7 +595,7 @@ METHOD TControl:Register(nClsStyle)
    ClassName := ::cControlName
 
    DEFAULT nClsStyle  := nOr(CS_VREDRAW, CS_HREDRAW)
-   DEFAULT ::nClrPane := hmg_GetSysColor(COLOR_WINDOW)
+   DEFAULT ::nClrPane := waGetSysColor(COLOR_WINDOW)
    DEFAULT ::hBrush   := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
 
    nClsStyle := nOr(nClsStyle, CS_GLOBALCLASS, CS_DBLCLKS)

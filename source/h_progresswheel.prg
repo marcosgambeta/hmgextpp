@@ -678,7 +678,7 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
    LOCAL P1
    LOCAL P2
 
-   hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE)))
+   hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(waGetSysColor(COLOR_BTNFACE)))
    hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF Width > Height
@@ -786,7 +786,7 @@ FUNCTION UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, Color
       Width *= BufScale
       Height *= BufScale
 
-      hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(hmg_GetSysColor(COLOR_BTNFACE)))
+      hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(waGetSysColor(COLOR_BTNFACE)))
       hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
       R := { 0, 0, Width, Height }

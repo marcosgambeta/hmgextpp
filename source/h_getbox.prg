@@ -518,7 +518,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
       IF lClrFocus .AND. !readonly .AND. lAllowEdit
          aOldBackClr := _HMG_aControlBkColor[i]
          IF _HMG_aControlBkColor[i] == NIL
-            _HMG_aControlBkColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_WINDOW))
+            _HMG_aControlBkColor[i] := nRGB2Arr(waGetSysColor(COLOR_WINDOW))
          ENDIF
          IF hb_IsNumeric(_HMG_aControlBkColor[i, 1])
             _HMG_aControlBkColor[i] := iif(hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus)
@@ -527,7 +527,7 @@ FUNCTION OGETEVENTS(hWnd, nMsg, wParam, lParam)
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
-            _HMG_aControlFontColor[i] := nRGB2Arr(hmg_GetSysColor(COLOR_WINDOWTEXT))
+            _HMG_aControlFontColor[i] := nRGB2Arr(waGetSysColor(COLOR_WINDOWTEXT))
          ENDIF
          IF aFntFocus != NIL
             IF hb_IsNumeric(_HMG_aControlFontColor[i, 1])
