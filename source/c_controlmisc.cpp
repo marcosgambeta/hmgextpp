@@ -57,7 +57,7 @@ HB_FUNC( HMG_MAKELONG )
    hb_retnl( MAKELONG(hb_parni(1), hb_parni(2)) );
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( MAKELONG, HMG_MAKELONG )
 #endif
 
@@ -66,7 +66,7 @@ HB_FUNC( HMG__ENABLESCROLLBARS )
    EnableScrollBar( hmg_par_HWND(1), hb_parni(2), hb_parni(3) );
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( _ENABLESCROLLBARS, HMG__ENABLESCROLLBARS )
 #endif
 
@@ -82,7 +82,7 @@ HB_FUNC( HMG_DELETEOBJECT )
    }
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( DELETEOBJECT, HMG_DELETEOBJECT )
 #endif
 
@@ -93,7 +93,7 @@ HB_FUNC( HMG_IMAGELIST_DESTROY )
    hb_retl(ImageList_Destroy(himl));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IMAGELIST_DESTROY, HMG_IMAGELIST_DESTROY )
 #endif
 
@@ -102,7 +102,7 @@ HB_FUNC( HMG_SETFOCUS )
    hmg_ret_HWND(SetFocus(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( SETFOCUS, HMG_SETFOCUS )
 #endif
 
@@ -113,7 +113,7 @@ HB_FUNC( HMG_INSERTSHIFTTAB )
    keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INSERTSHIFTTAB, HMG_INSERTSHIFTTAB )
 #endif
 
@@ -122,7 +122,7 @@ HB_FUNC( HMG_SYSTEMPARAMETERSINFO )
    hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), static_cast<VOID*>(const_cast<char*>(hb_parc(3))), hmg_par_UINT(4)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( SYSTEMPARAMETERSINFO, HMG_SYSTEMPARAMETERSINFO )
 #endif
 
@@ -165,7 +165,7 @@ HB_FUNC( HMG_GETTEXTWIDTH ) // returns the width of a string in pixels
    hb_strfree(String);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( GETTEXTWIDTH, HMG_GETTEXTWIDTH )
 #endif
 
@@ -174,7 +174,7 @@ HB_FUNC( HMG_KEYBD_EVENT )
    keybd_event(hmg_par_BYTE(1), static_cast<BYTE>(MapVirtualKey(hb_parni(1), 0)), hb_parl(2) ? KEYEVENTF_KEYUP : 0, 0);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( KEYBD_EVENT, HMG_KEYBD_EVENT )
 #endif
 
@@ -183,7 +183,7 @@ HB_FUNC( HMG_INSERTVKEY )
    keybd_event(hmg_par_BYTE(1), 0, 0, 0);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INSERTVKEY, HMG_INSERTVKEY )
 #endif
 
@@ -202,7 +202,7 @@ HB_FUNC( HMG_SHOWCARET )
    hb_retl(ShowCaret(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( SHOWCARET, HMG_SHOWCARET )
 #endif
 
@@ -211,7 +211,7 @@ HB_FUNC( HMG_HIDECARET )
    hb_retl(HideCaret(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( HIDECARET, HMG_HIDECARET )
 #endif
 
@@ -220,7 +220,7 @@ HB_FUNC( HMG_DESTROYCARET )
    hb_retl(DestroyCaret());
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( DESTROYCARET, HMG_DESTROYCARET )
 #endif
 
@@ -229,7 +229,7 @@ HB_FUNC( HMG_CREATECARET )
    hb_retl(CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( CREATECARET, HMG_CREATECARET )
 #endif
 
@@ -258,7 +258,7 @@ HB_FUNC( HMG_CHANGESTYLE )
    SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( CHANGESTYLE, HMG_CHANGESTYLE )
 #endif
 
@@ -287,6 +287,6 @@ HB_FUNC( HMG_MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnW
    }
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( MOVEBTNTEXTBOX, HMG_MOVEBTNTEXTBOX )
 #endif

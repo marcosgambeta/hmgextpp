@@ -66,7 +66,7 @@ HB_FUNC( HMG_GETHANDLEREBAR ) // GetHandleRebar(hPager)
    hmg_ret_HWND(reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( GETHANDLEREBAR, HMG_GETHANDLEREBAR )
 #endif
 
@@ -77,7 +77,7 @@ HB_FUNC( HMG_ADDTOPAGER ) // AdToPager(hwndPG , hToolBar)
    SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( ADDTOPAGER, HMG_ADDTOPAGER )
 #endif
 
@@ -86,7 +86,7 @@ HB_FUNC( HMG_SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
    SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( SETBKCOLORPAGER, HMG_SETBKCOLORPAGER )
 #endif
 
@@ -103,7 +103,7 @@ HB_FUNC( HMG_PAGERCALCSIZE ) // PagerCalcSize(lParam , nWidth)
    }
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERCALCSIZE, HMG_PAGERCALCSIZE )
 #endif
 
@@ -113,7 +113,7 @@ HB_FUNC( HMG_PAGERSCROLL ) // PagerScroll(lParam , nScroll)
    lpScroll->iScroll = hb_parnl(2);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERSCROLL, HMG_PAGERSCROLL )
 #endif
 
@@ -173,7 +173,7 @@ HB_FUNC( HMG_INITPAGER ) // InitPager(ParentForm, hRebar, nWidth, nHeight, verti
    hb_strfree(str);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INITPAGER, HMG_INITPAGER )
 #endif
 
@@ -182,7 +182,7 @@ HB_FUNC( HMG_PAGERFORWARDMOUSE )
    Pager_ForwardMouse(hmg_par_HWND(1), hmg_par_BOOL(2));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERFORWARDMOUSE, HMG_PAGERFORWARDMOUSE )
 #endif
 
@@ -191,7 +191,7 @@ HB_FUNC( HMG_PAGERGETBUTTONSIZE )
    hb_retni(Pager_GetButtonSize(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERGETBUTTONSIZE, HMG_PAGERGETBUTTONSIZE )
 #endif
 
@@ -200,7 +200,7 @@ HB_FUNC( HMG_PAGERSETBUTTONSIZE )
    Pager_SetButtonSize(hmg_par_HWND(1), hmg_par_INT(2));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERSETBUTTONSIZE, HMG_PAGERSETBUTTONSIZE )
 #endif
 
@@ -209,7 +209,7 @@ HB_FUNC( HMG_PAGERGETBORDER )
    hb_retni(Pager_GetBorder(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERGETBORDER, HMG_PAGERGETBORDER )
 #endif
 
@@ -218,7 +218,7 @@ HB_FUNC( HMG_PAGERSETBORDER )
    hb_retni(Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERSETBORDER, HMG_PAGERSETBORDER )
 #endif
 
@@ -227,7 +227,7 @@ HB_FUNC( HMG_PAGERGETPOS )
    hb_retni(Pager_GetPos(hmg_par_HWND(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERGETPOS, HMG_PAGERGETPOS )
 #endif
 
@@ -236,6 +236,6 @@ HB_FUNC( HMG_PAGERSETPOS )
    hb_retni(Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( PAGERSETPOS, HMG_PAGERSETPOS )
 #endif

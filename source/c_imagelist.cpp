@@ -71,7 +71,7 @@ HB_FUNC( HMG_INITIMAGELIST ) // InitImageList(cx, cy, mask, nCount)
    hmg_ret_HIMAGELIST(himlIcons);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INITIMAGELIST, HMG_INITIMAGELIST )
 #endif
 
@@ -127,7 +127,7 @@ HB_FUNC( HMG_IL_ADD ) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
    hb_retni(lResult);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_ADD, HMG_IL_ADD )
 #endif
 
@@ -171,7 +171,7 @@ HB_FUNC( HMG_IL_ADDMASKED ) // IL_AddMasked(himl, image, color, ix, iy, imagecou
    hb_retni(lResult);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_ADDMASKED, HMG_IL_ADDMASKED )
 #endif
 
@@ -196,7 +196,7 @@ HB_FUNC( HMG_IL_DRAW ) // BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageinde
    hb_retl(true);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_DRAW, HMG_IL_DRAW )
 #endif
 
@@ -208,7 +208,7 @@ HB_FUNC( HMG_IL_REMOVE ) // IL_Remove(hwnd, imageindex)
    hmg_ret_BOOL(ImageList_Remove(hmg_par_HIMAGELIST(1), hmg_par_int(2)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_REMOVE, HMG_IL_REMOVE )
 #endif
 
@@ -225,7 +225,7 @@ HB_FUNC( HMG_IL_SETBKCOLOR ) // IL_SetBkColor(hwnd, color)
    hmg_ret_COLORREF(ImageList_SetBkColor(hmg_par_HIMAGELIST(1), clrBk));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_SETBKCOLOR, HMG_IL_SETBKCOLOR )
 #endif
 
@@ -240,7 +240,7 @@ HB_FUNC( HMG_IL_ERASEIMAGE ) // IL_EraseImage(hwnd, ix, iy, dx, dy)
    UpdateWindow(hmg_par_HWND(1));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_ERASEIMAGE, HMG_IL_ERASEIMAGE )
 #endif
 
@@ -262,7 +262,7 @@ HB_FUNC( HMG_IL_BEGINDRAG ) // IL_BeginDrag(hwnd, himl, ImageInx, ix, iy)
    hmg_ret_BOOL(ImageList_BeginDrag(hmg_par_HIMAGELIST(2), hmg_par_int(3), 0, 0));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_BEGINDRAG, HMG_IL_BEGINDRAG )
 #endif
 
@@ -274,7 +274,7 @@ HB_FUNC( HMG_IL_DRAGMOVE ) // IL_DragMove(ix, iy)
    hmg_ret_BOOL(ImageList_DragMove(hmg_par_int(1), hmg_par_int(2)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_DRAGMOVE, HMG_IL_DRAGMOVE )
 #endif
 
@@ -286,7 +286,7 @@ HB_FUNC( HMG_IL_DRAGENTER ) // IL_DragEnter(hwnd, ix, iy)
    hmg_ret_BOOL(ImageList_DragEnter(hmg_par_HWND(1), hmg_par_int(2), hmg_par_int(3)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_DRAGENTER, HMG_IL_DRAGENTER )
 #endif
 
@@ -299,7 +299,7 @@ HB_FUNC( HMG_IL_ENDDRAG ) // IL_EndDrag(hwnd)
    ImageList_DragLeave(hmg_par_HWND(1));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_ENDDRAG, HMG_IL_ENDDRAG )
 #endif
 
@@ -311,6 +311,6 @@ HB_FUNC( HMG_IL_GETIMAGECOUNT ) // IL_GetImageCount(himl)
    hmg_ret_int(ImageList_GetImageCount(hmg_par_HIMAGELIST(1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( IL_GETIMAGECOUNT, HMG_IL_GETIMAGECOUNT )
 #endif

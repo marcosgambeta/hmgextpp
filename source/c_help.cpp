@@ -70,6 +70,6 @@ HB_FUNC( HMG_WINHELP )
    hb_strfree(str);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( WINHELP, HMG_WINHELP )
 #endif

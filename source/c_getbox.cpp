@@ -280,7 +280,7 @@ HB_FUNC( HMG_INITGETBOX )
    hmg_storvhandle(himage2, -1, 5);
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INITGETBOX, HMG_INITGETBOX )
 #endif
 
@@ -289,7 +289,7 @@ HB_FUNC( HMG_CHECKBIT )
    hb_retl(hb_parnl(1) & (1 << (hb_parni(2) - 1)));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( CHECKBIT, HMG_CHECKBIT )
 #endif
 
@@ -335,7 +335,7 @@ HB_FUNC( HMG_GETTEXTHEIGHT )               // returns the height of a string in 
 #endif
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( GETTEXTHEIGHT, HMG_GETTEXTHEIGHT )
 #endif
 

@@ -79,7 +79,7 @@ HB_FUNC( HMG_MESSAGEBOXINDIRECT )
    hb_retni(MessageBoxIndirect(&mbp));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( MESSAGEBOXINDIRECT, HMG_MESSAGEBOXINDIRECT )
 #endif
 
@@ -102,7 +102,7 @@ HB_FUNC( HMG_MESSAGEBOXTIMEOUT )
    hb_retni( MessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds) );
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( MESSAGEBOXTIMEOUT, HMG_MESSAGEBOXTIMEOUT )
 #endif
 

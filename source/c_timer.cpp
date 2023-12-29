@@ -51,7 +51,7 @@ HB_FUNC( HMG_INITTIMER )
    hb_retl(SetTimer( hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), ( TIMERPROC ) nullptr ));
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( INITTIMER, HMG_INITTIMER )
 #endif
 
@@ -61,6 +61,6 @@ HB_FUNC( HMG_KILLTIMER )
               hmg_par_UINT(2) );   // timer identifier
 }
 
-#if 1
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE( KILLTIMER, HMG_KILLTIMER )
 #endif
