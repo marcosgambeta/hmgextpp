@@ -462,7 +462,7 @@ FUNCTION bt_ToolBarBottomHandle(Win)
    LOCAL hWndToolBar := HMG_NULLHANDLE
 
    FOR k := 1 TO Len(_HMG_aControlType)
-      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. hb_bitand(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
+      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. hb_bitand(hmg_GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[k]
       ENDIF
    NEXT
@@ -500,7 +500,7 @@ FUNCTION bt_ToolBarTopHandle(Win)
    LOCAL hWndToolBar := HMG_NULLHANDLE
 
    FOR k := 1 TO Len(_HMG_aControlType)
-      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. hb_bitand(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) != CCS_BOTTOM
+      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. hb_bitand(hmg_GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) != CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[k]
       ENDIF
    NEXT
@@ -851,7 +851,7 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
       hWnd := GetControlHandle(cControlName, cFormName)
       #define _STM_SETIMAGE_ 0x0172
       #define _IMAGE_BITMAP_ 0
-      SendMessage(hWnd, _STM_SETIMAGE_, _IMAGE_BITMAP_, hBitmap)
+      hmg_SendMessage(hWnd, _STM_SETIMAGE_, _IMAGE_BITMAP_, hBitmap)
       #undef _IMAGE_BITMAP_
       #undef _STM_SETIMAGE_
    ENDIF

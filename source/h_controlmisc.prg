@@ -6182,7 +6182,7 @@ PROCEDURE FindTextDlg(OnActionCodeBlock, cFind, lNoUpDown, lNoMatchCase, lNoWhol
       lCheckWholeWord := .F.
    ENDIF
 
-   IF !FindReplaceDlgIsRelease ()
+   IF !hmg_FindReplaceDlgIsRelease()
       hmg_FindReplaceDlgRelease(.T.)
    ENDIF
 
@@ -6208,7 +6208,7 @@ PROCEDURE ReplaceTextDlg(OnActionCodeBlock, cFind, cReplace, lNoMatchCase, lNoWh
       lCheckWholeWord := .F.
    ENDIF
 
-   IF !FindReplaceDlgIsRelease ()
+   IF !hmg_FindReplaceDlgIsRelease()
       hmg_FindReplaceDlgRelease(.T.)
    ENDIF
 

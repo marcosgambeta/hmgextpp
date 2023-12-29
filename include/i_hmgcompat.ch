@@ -145,7 +145,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate HMG_ChangeWindowStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ] ) ;
    => ;
    hmg_ChangeStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] );;
-   iif(<.lRedrawWindow.>, RedrawWindow ( <hWnd> ), NIL)
+   iif(<.lRedrawWindow.>, hmg_RedrawWindow(<hWnd>), NIL)
 
 #ifndef WS_EX_WINDOWEDGE
 #define WS_EX_WINDOWEDGE         256
@@ -209,8 +209,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate FindReplaceDlg.Release        => FINDREPLACEDLGRELEASE (.T.)
 
 
-#xtranslate FindReplaceDlg.IsRelease      => FINDREPLACEDLGISRELEASE ()
-#xtranslate FindReplaceDlg.IsOpen         => .NOT.( FINDREPLACEDLGISRELEASE () )
+#xtranslate FindReplaceDlg.IsRelease      => hmg_FINDREPLACEDLGISRELEASE()
+#xtranslate FindReplaceDlg.IsOpen         => .NOT.( hmg_FINDREPLACEDLGISRELEASE() )
 #xtranslate FindReplaceDlg.HANDLE         => FINDREPLACEDLGGETHANDLE ()
 #xtranslate FindReplaceDlg.Title          => FINDREPLACEDLGGETTITLE ()
 #xtranslate FindReplaceDlg.Title := <arg> => FINDREPLACEDLGSETTITLE (<arg>)

@@ -813,7 +813,7 @@ PROCEDURE _UpdateGridColors(i)
       ProcessDynamicArray(i, Rows, Cols, dFc, 21)
    ENDIF
 
-   ReDrawWindow(h)
+   hmg_ReDrawWindow(h)
 
 RETURN
 
@@ -1366,7 +1366,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
          ENDIF
 
-         ReDrawWindow(_HMG_aControlHandles[idx])
+         hmg_ReDrawWindow(_HMG_aControlHandles[idx])
 
       ENDIF
 

@@ -233,7 +233,7 @@
 
 // ============================================================================
 
-#xtranslate _AddChildToPager(<ControlName>, <ParentFormName>) => AddToPager(_HMG_ActivePagerForm, GetControlHandle(<ControlName>, <ParentFormName>))
+#xtranslate _AddChildToPager(<ControlName>, <ParentFormName>) => hmg_AddToPager(_HMG_ActivePagerForm, GetControlHandle(<ControlName>, <ParentFormName>))
 #xtranslate _Pager_ForwardMouse(<ControlName>, <ParentFormName>, <lEnable>) => hmg_PagerForwardMouse(GetControlHandle(<ControlName>, <ParentFormName>), iif(hb_IsLogical(<lEnable>), <lEnable>, .F.))
 #xtranslate _Pager_GetButtonSize(<ControlName>, <ParentFormName>) => hmg_PagerGetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>))
 #xtranslate _Pager_SetButtonSize(<ControlName>, <ParentFormName>, <nSize>) => hmg_PagerSetButtonSize(GetControlHandle(<ControlName>, <ParentFormName>), <nSize>)

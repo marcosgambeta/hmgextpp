@@ -147,9 +147,9 @@ HB_FUNC_TRANSLATE( SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH )
 #endif
 
 /*
-   nToolTip := InitToolTip (nFormHandle, SetToolTipBalloon())
+   nToolTip := InitToolTip (nFormHandle, hmg_SetToolTipBalloon())
 
-   for ModalWindow : nToolTip := InitToolTip (, SetToolTipBalloon())
+   for ModalWindow : nToolTip := InitToolTip (, hmg_SetToolTipBalloon())
  */
 
 /*
@@ -391,7 +391,7 @@ HB_FUNC_TRANSLATE( INITTOOLTIPEX, HMG_INITTOOLTIPEX )
 /*
    TM_ACTIVATE - activates or deactivates a tooltip control,
 
-   has no effect if g_bIsToolTipActive == FALSE ( after SetToolTipActivate(.F.) )
+   has no effect if g_bIsToolTipActive == FALSE ( after hmg_SetToolTipActivate(.F.) )
  */
 HB_FUNC( HMG_TTM_ACTIVATE )
 {

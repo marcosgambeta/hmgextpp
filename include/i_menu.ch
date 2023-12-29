@@ -93,15 +93,15 @@
 
 #xcommand SET MENUSTYLE EXTENDED ;
 => ;
-_NewMenuStyle ( .T. )
+hmg__NewMenuStyle ( .T. )
 
 #xcommand SET MENUSTYLE STANDARD ;
 => ;
-_NewMenuStyle ( .F. )
+hmg__NewMenuStyle ( .F. )
 
 #translate IsExtendedMenuStyleActive () ;
 => ;
-_NewMenuStyle ()
+hmg__NewMenuStyle ()
 
 #xcommand SET MENUTHEME DEFAULT [ OF <parent> ] ;
 => ;

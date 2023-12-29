@@ -644,11 +644,11 @@ hmg_SendMessage( <hWnd>, LVM_DELETEALLITEMS, 0, 0 )
 
 #xtranslate ListView_SetColumnWidthAuto ( <h>, <nColumn> ) ;
 => ;
-ListView_SetColumnWidth ( <h>, <nColumn>, LVSCW_AUTOSIZE )
+hmg_ListView_SetColumnWidth(<h>, <nColumn>, LVSCW_AUTOSIZE)
 
 #xtranslate ListView_SetColumnWidthAutoH ( <h>, <nColumn> ) ;
 => ;
-ListView_SetColumnWidth ( <h>, <nColumn>, LVSCW_AUTOSIZE_USEHEADER )
+hmg_ListView_SetColumnWidth(<h>, <nColumn>, LVSCW_AUTOSIZE_USEHEADER)
 
 
 #define _GRID_COLUMN_JUSTIFY_            3

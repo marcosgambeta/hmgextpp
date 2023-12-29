@@ -289,7 +289,7 @@ FUNCTION InitDialogLabel(ParentFormName, ControlHandle, k)
          iif(_HMG_aControlFontAttributes[k][1] .OR. _HMG_aControlFontAttributes[k][2], ;
          hmg_GetTextWidth(NIL, " ", _HMG_aControlFontHandle[k]), 0))
       _SetControlHeight(ControlName, ParentFormName, _HMG_aControlFontSize[k] + iif(_HMG_aControlFontSize[k] < 14, 12, 16))
-      RedrawWindow(ControlHandle)
+      hmg_RedrawWindow(ControlHandle)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal

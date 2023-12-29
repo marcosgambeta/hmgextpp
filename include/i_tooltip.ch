@@ -101,20 +101,20 @@
 #define TTM_SETTITLE            (WM_USER + 32)
 
 
-#xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> => SetToolTipActivate ( Upper(<(x)>) == "ON" )
+#xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> => hmg_SetToolTipActivate(Upper(<(x)>) == "ON")
 
 // SET TOOLTIP ACTIVATE .. OF Form has no effect if SET TOOLTIP OFF
 #xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> OF <form> => hmg_TTM_Activate( GetFormToolTipHandle (<"form">), Upper(<(x)>) == "ON" )
 #xcommand SET TOOLTIP [ACTIVATE] TO <t> OF <form>     => hmg_TTM_Activate( GetFormToolTipHandle (<"form">), <t> )
 
-#xcommand SET TOOLTIPSTYLE STANDARD => SetToolTipBalloon ( .F. )
-#xcommand SET TOOLTIPSTYLE BALLOON  => SetToolTipBalloon ( .T. )
+#xcommand SET TOOLTIPSTYLE STANDARD => hmg_SetToolTipBalloon(.F.)
+#xcommand SET TOOLTIPSTYLE BALLOON  => hmg_SetToolTipBalloon(.T.)
 
-#xcommand SET TOOLTIPBALLOON  <x:ON,OFF> => SetToolTipBalloon ( Upper(<(x)>) == "ON" )
-#xcommand SET TOOLTIP BALLOON <x:ON,OFF> => SetToolTipBalloon ( Upper(<(x)>) == "ON" )
+#xcommand SET TOOLTIPBALLOON  <x:ON,OFF> => hmg_SetToolTipBalloon(Upper(<(x)>) == "ON")
+#xcommand SET TOOLTIP BALLOON <x:ON,OFF> => hmg_SetToolTipBalloon(Upper(<(x)>) == "ON")
 
-#translate IsToolTipBalloonActive => SetToolTipBalloon ()
-#translate IsToolTipActive        => SetToolTipActivate ()
+#translate IsToolTipBalloonActive => hmg_SetToolTipBalloon()
+#translate IsToolTipActive        => hmg_SetToolTipActivate()
 
 #xcommand ADD TOOLTIPICON <icon> WITH <dummy:MESSAGE,TITLE> <message> <dummy2:TO,OF> <form> ;
    => ; 

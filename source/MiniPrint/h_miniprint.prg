@@ -597,7 +597,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
          IF !_HMG_aFormDeleted[i]
             IF _HMG_aFormType[i] != "X"
                IF _HMG_aFormHandles[i] != ModalHandle
-                  DisableWindow (_HMG_aFormHandles[i] )
+                  hmg_DisableWindow(_HMG_aFormHandles[i])
                ENDIF
             ENDIF
          ENDIF
@@ -608,7 +608,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
       FOR i := 1 TO Len(_HMG_aFormHandles)
          IF !_HMG_aFormDeleted[i]
             IF _HMG_aFormType[i] == "P" .And. _HMG_aFormParentHandle[i] == ModalHandle  // Panel window into Modal window
-               EnableWindow (_HMG_aFormHandles[i] )
+               hmg_EnableWindow (_HMG_aFormHandles[i] )
             ENDIF
          ENDIF
       NEXT i

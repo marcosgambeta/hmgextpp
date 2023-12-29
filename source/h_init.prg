@@ -45,7 +45,7 @@
  */
 
 // Initialize g_hInstance on C-level
-REQUEST GETINSTANCE
+REQUEST hmg_GETINSTANCE
 
 #include "SET_COMPILE_HMG_UNICODE.ch"
 
