@@ -222,7 +222,7 @@ hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
 
 #command ENABLE CONTROL <control> OF <form>;
    =>;
-   SetProperty ( <(form)>, <(control)>, 'Enabled' , .T. )
+   SetProperty( <(form)>, <(control)>, 'Enabled' , .T. )
 
 #command SHOW CONTROL <control> OF <form>;
    =>;
@@ -234,7 +234,7 @@ hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
 
 #command DISABLE CONTROL <control> OF <form>;
    =>;
-   SetProperty ( <(form)>, <(control)>, 'Enabled' , .F. )
+   SetProperty( <(form)>, <(control)>, 'Enabled' , .F. )
 
 #command RELEASE CONTROL <control> OF <form>;
    =>;
@@ -242,11 +242,11 @@ hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
 
 #translate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> <Arg4> ;
 => ;
-SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
+SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> ( <Arg4> ) <Arg5> ;
 => ;
-SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5> )
+SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5> )
 
 #xtranslate FETCH [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> TO <Arg4> ;
 => ;
@@ -258,15 +258,15 @@ SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5> )
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> .T. ;
 => ;
-SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, .T. )
+SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, .T. )
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> .F. ;
 => ;
-SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, .F. )
+SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, .F. )
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> { <Arg4, ...> } ;
 => ;
-SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, \{<Arg4>\} )
+SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, \{<Arg4>\} )
 
 #xtranslate SET WINDOW MAIN [ FIRST ] <x:ON,OFF> => _HMG_MainWindowFirst := ( Upper(<(x)>) == "ON" )
 
