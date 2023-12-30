@@ -25,9 +25,9 @@
 #translate <p:Application,App>.FontSize        => _HMG_DefaultFontSize
 #translate <p:Application,App>.BackColor       => _HMG_aFormBkColor \[ Ascan ( _HMG_aFormHandles, <p>.Handle ) ]
 #translate <p:Application,App>.BackColor := <arg> => _SetWindowBackColor ( <p>.Handle, <arg> )
-#translate <p:Application,App>.Topmost         => GetProperty ( <p>.FormName, 'Topmost' )
+#translate <p:Application,App>.Topmost         => GetProperty( <p>.FormName, 'Topmost' )
 #translate <p:Application,App>.Topmost := <arg> => SetProperty ( <p>.FormName, 'Topmost', <arg> )
-#translate <p:Application,App>.HelpButton      => GetProperty ( <p>.FormName, 'HelpButton' )
+#translate <p:Application,App>.HelpButton      => GetProperty( <p>.FormName, 'HelpButton' )
 #translate <p:Application,App>.HelpButton := <arg> => SetProperty ( <p>.FormName, 'HelpButton', <arg> )
 #translate <p:Application,App>.WindowStyle     => hmg_GetWindowStyle( <p>.Handle )
 #translate <p:Application,App>.WindowStyle := <arg> => hmg_SetWindowStyle( <p>.Handle, <arg>, .T. )

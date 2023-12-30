@@ -250,11 +250,11 @@ SetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5> )
 
 #xtranslate FETCH [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> TO <Arg4> ;
 => ;
-<Arg4> := GetProperty ( <"Arg1">, <"Arg2">, <"Arg3"> )
+<Arg4> := GetProperty( <"Arg1">, <"Arg2">, <"Arg3"> )
 
 #xtranslate FETCH [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> (<Arg4>) TO <Arg5> ;
 => ;
-<Arg5> := GetProperty ( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
+<Arg5> := GetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> .T. ;
 => ;

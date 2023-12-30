@@ -62,11 +62,11 @@
 
 #include "i_wincolor.ch"
 
-#xtranslate FocusedWindow . <p:Title,NotifyIcon,NotifyTooltip,FocusedControl,Name,Row,Col,Width,Height> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex )  , <"p"> )
+#xtranslate FocusedWindow . <p:Title,NotifyIcon,NotifyTooltip,FocusedControl,Name,Row,Col,Width,Height> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex )  , <"p"> )
 #xtranslate FocusedWindow . <p:Title,Cursor,NotifyIcon,NotifyTooltip,Row,Col,Width,Height> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
 #xtranslate FocusedWindow . <p:Activate,Center,Redraw,Release,Maximize,Minimize,Restore,Show,Hide,SetFocus> [ () ] => DoMethod ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
-#xtranslate FocusedWindow . <p:Handle,Index,IsMinimized,IsMaximized,ClientWidth,ClientHeight> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
-#xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
+#xtranslate FocusedWindow . <p:Handle,Index,IsMinimized,IsMaximized,ClientWidth,ClientHeight> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
+#xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
 
 #xtranslate PICTALIGNMENT TOP => _HMG_ActiveControlUpText := .F. ; _HMG_ActiveControlVertical := .T.
@@ -287,23 +287,23 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate HMGVersion ( [<x>] ) => MiniGUIVersion ( [<x>] )
 
 
-#translate GetProperty ( <FormName>, "CLIENTAREAWIDTH" ) ;
+#translate GetProperty( <FormName>, "CLIENTAREAWIDTH" ) ;
    => ;
    _GetClientRect ( GetFormHandle ( <FormName> ) ) \[3]
 
-#translate GetProperty ( <FormName>, "CLIENTAREAHEIGHT" ) ;
+#translate GetProperty( <FormName>, "CLIENTAREAHEIGHT" ) ;
    => ;
    _GetClientRect ( GetFormHandle ( <FormName> ) ) \[4]
 
-#translate GetProperty ( <FormName>, <ControlName>, "CellEx" , <row>, <col> ) ;
+#translate GetProperty( <FormName>, <ControlName>, "CellEx" , <row>, <col> ) ;
    => ;
    _GetGridCellValue ( <ControlName>, <FormName>, <row>, <col> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "CellRowFocused" ) ;
+#translate GetProperty( <FormName>, <ControlName>, "CellRowFocused" ) ;
    => ;
    _GetValue (  <ControlName>, <FormName> ) \[1]
 
-#translate GetProperty ( <FormName>, <ControlName>, 'CellColFocused' ) ;
+#translate GetProperty( <FormName>, <ControlName>, 'CellColFocused' ) ;
    => ;
    _GetValue (  <ControlName>, <FormName> ) \[2]
 
@@ -444,19 +444,19 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    TreeItemSort (<(control)>, <(parent)>, <nItem>, <lRecursive>, <lCaseSensitive>, <lAscendingOrder>, <nNodePosition>)
 
-#translate GetProperty ( <FormName>, <ControlName>, "RootValue" ) ;
+#translate GetProperty( <FormName>, <ControlName>, "RootValue" ) ;
    => ;
    TreeItemGetRootValue ( <ControlName>, <FormName> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "FirstItemValue" ) ;
+#translate GetProperty( <FormName>, <ControlName>, "FirstItemValue" ) ;
    => ;
    TreeItemGetFirstItemValue ( <ControlName>, <FormName> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "IsTrueNode" , <item> ) ;
+#translate GetProperty( <FormName>, <ControlName>, "IsTrueNode" , <item> ) ;
    => ;
    TreeItemIsTrueNode ( <ControlName>, <FormName>, <item> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "ParentValue" , <item> ) ;
+#translate GetProperty( <FormName>, <ControlName>, "ParentValue" , <item> ) ;
    => ;
    TreeItemGetParentValue ( <ControlName>, <FormName>, <item> )
 
@@ -464,11 +464,11 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    => ;
    TreeItemSetNodeFlag ( <ControlName>, <FormName>, <item>, <flag> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "NodeFlag" , <item> ) ;
+#translate GetProperty( <FormName>, <ControlName>, "NodeFlag" , <item> ) ;
    => ;
    TreeItemGetNodeFlag ( <ControlName>, <FormName>, <item> )
 
-#translate GetProperty ( <FormName>, <ControlName>, "IsExpand" , <item> ) ;
+#translate GetProperty( <FormName>, <ControlName>, "IsExpand" , <item> ) ;
    => ;
    TreeItemIsExpand ( <ControlName>, <FormName>, <item> )
 
