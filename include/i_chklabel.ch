@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> CHECKLABEL <name> ;
+#command @ <row>, <col> CHECKLABEL <name> ;
    [ID <nId>] ;
    [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
    [ VALUE <value> ] ;
@@ -88,14 +88,14 @@
    <value>,          ;
    <width>,          ;
    <height>,         ;
-   <fontname> ,      ;
-   <fontsize> ,      ;
+   <fontname>,      ;
+   <fontsize>,      ;
    <.bold.>,         ;
-   <.border.> ,      ;
-   <.clientedge.> ,  ;
-   <.hscroll.> ,     ;
-   <.vscroll.> ,     ;
-   <.transparent.> , ;
+   <.border.>,      ;
+   <.clientedge.>,  ;
+   <.hscroll.>,     ;
+   <.vscroll.>,     ;
+   <.transparent.>, ;
    [ <backcolor> ],  ;
    [ <fontcolor> ],  ;
    <{action}>,       ;
@@ -104,19 +104,19 @@
    <.invisible.>,    ;
    <.italic.>,       ;
    <.underline.>,    ;
-   <.strikeout.> ,   ;
-   <(field)> ,       ;
-   <.autosize.> ,    ;
-   <.rightalign.> ,  ;
-   <.centeralign.> , ;
-   <.blink.> ,       ;
-   <{overproc}> ,    ;
-   <{leaveproc}> ,   ;
-   <acbitmap> ,      ;
-   <.leftcheck.> ,   ;
-   <.lchecked.> ,    ;
+   <.strikeout.>,   ;
+   <(field)>,       ;
+   <.autosize.>,    ;
+   <.rightalign.>,  ;
+   <.centeralign.>, ;
+   <.blink.>,       ;
+   <{overproc}>,    ;
+   <{leaveproc}>,   ;
+   <acbitmap>,      ;
+   <.leftcheck.>,   ;
+   <.lchecked.>,    ;
    <.vcenteralign.>, ;
-   <nId> , <bInit> )
+   <nId>, <bInit> )
 
 #command REDEFINE CHECKLABEL <name>  ;
    ID <nId> ;
@@ -152,18 +152,18 @@
 => ;
    _DefineChkLabel ( <(name)>, <(parent)>, 0, 0, <value>, ;
       0, 0, <fontname>, <fontsize>, <.bold.>, ;
-      <.border.> , <.clientedge.> , <.hscroll.> , <.vscroll.> , ;
-      <.transparent.> , [ <backcolor> ], [ <fontcolor> ], ;
+      <.border.>, <.clientedge.>, <.hscroll.>, <.vscroll.>, ;
+      <.transparent.>, [ <backcolor> ], [ <fontcolor> ], ;
       <{action}>, <tooltip>, <helpid>, <.invisible.>, <.italic.>, ;
-      <.underline.> , <.strikeout.> , <(field)> , <.autosize.> , <.rightalign.> , ;
-      <.centeralign.> , <.blink.> , , , <acbitmap>, <.leftcheck.>, <.lcheck.>, <.vcenteralign.>, ;
-      <nId> , <bInit> )
+      <.underline.>, <.strikeout.>, <(field)>, <.autosize.>, <.rightalign.>, ;
+      <.centeralign.>, <.blink.>, , , <acbitmap>, <.leftcheck.>, <.lcheck.>, <.vcenteralign.>, ;
+      <nId>, <bInit> )
 
 /*-------------------------------------------------------------------------
 Switcher pseudo-control
 ---------------------------------------------------------------------------*/
 
-#command @ <row>,<col> SWITCHER <name> ;
+#command @ <row>, <col> SWITCHER <name> ;
    [ID <nId>] ;
    [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
    [ VALUE <value> ] ;
@@ -207,14 +207,14 @@ Switcher pseudo-control
    <value>,          ;
    <width>,          ;
    <height>,         ;
-   <fontname> ,      ;
-   <fontsize> ,      ;
+   <fontname>,      ;
+   <fontsize>,      ;
    <.bold.>,         ;
-   <.border.> ,      ;
-   <.clientedge.> ,  ;
-   <.hscroll.> ,     ;
-   <.vscroll.> ,     ;
-   <.transparent.> , ;
+   <.border.>,      ;
+   <.clientedge.>,  ;
+   <.hscroll.>,     ;
+   <.vscroll.>,     ;
+   <.transparent.>, ;
    [ <backcolor> ],  ;
    [ <fontcolor> ],  ;
    <{action}>,       ;
@@ -223,16 +223,16 @@ Switcher pseudo-control
    <.invisible.>,    ;
    <.italic.>,       ;
    <.underline.>,    ;
-   <.strikeout.> ,   ;
-   <(field)> ,       ;
+   <.strikeout.>,   ;
+   <(field)>,       ;
    .T. ,             ;
-   <.rightalign.> ,  ;
-   <.centeralign.> , ;
-   <.blink.> ,       ;
-   <{overproc}> ,    ;
-   <{leaveproc}> ,   ;
-   <acbitmap> ,      ;
-   <.leftcheck.> ,   ;
-   <.lchecked.> ,    ;
+   <.rightalign.>,  ;
+   <.centeralign.>, ;
+   <.blink.>,       ;
+   <{overproc}>,    ;
+   <{leaveproc}>,   ;
+   <acbitmap>,      ;
+   <.leftcheck.>,   ;
+   <.lchecked.>,    ;
    .T. ,             ;
-   <nId> , <bInit> )
+   <nId>, <bInit> )

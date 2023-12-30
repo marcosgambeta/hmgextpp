@@ -44,11 +44,11 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> SLIDER <name> ;
+#command @ <row>, <col> SLIDER <name> ;
         [ID <nId>];
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-                RANGE <lo>,<hi> ;
-                [ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
+                RANGE <lo>, <hi> ;
+                [ SELRANGE <slo>, <shi> ] ;  /* P.Ch. 16.10. */
                 [ VALUE <value> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -72,12 +72,12 @@
                    <col>, ;
                    <row>, ;
                    <w>, ;
-                   <h> , ;
+                   <h>, ;
                    <lo>, ;
                    <hi>, ;
                    <value>, ;
                    <tooltip>, ;
-                   <{scroll}> , ;
+                   <{scroll}>, ;
                    <{change}>, ;
                    <.vertical.>, ;
                    <.noticks.>, ;
@@ -96,8 +96,8 @@
 #command REDEFINE SLIDER <name> ;
         ID <nId>;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-                RANGE <lo>,<hi> ;
-                [ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
+                RANGE <lo>, <hi> ;
+                [ SELRANGE <slo>, <shi> ] ;  /* P.Ch. 16.10. */
                 [ VALUE <value> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;

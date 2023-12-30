@@ -51,12 +51,12 @@
         => ;
         _HMG_RPTDATA \[ 162 \] := <"w"> ;;
         #include \<<w>.rmg\> ;;
-        #xtranslate \<w\> . Execute ( \<p1\> , \<p2\> ) => ExecuteReport ( \<"w"\> , \<p1\> , \<p2\> )
+        #xtranslate \<w\> . Execute ( \<p1\>, \<p2\> ) => ExecuteReport ( \<"w"\>, \<p1\>, \<p2\> )
 
 
 * Report Main .................................................................
 
-#xcommand DEFINE REPORT <name>        => _DefineReport( <(name)> ) ; #xtranslate \<name\> . Execute ( \<p1\> , \<p2\> ) => ExecuteReport ( \<(name)\> , \<p1\> , \<p2\> )
+#xcommand DEFINE REPORT <name>        => _DefineReport( <(name)> ) ; #xtranslate \<name\> . Execute ( \<p1\>, \<p2\> ) => ExecuteReport ( \<(name)\>, \<p1\>, \<p2\> )
 
 #xcommand END REPORT        => _EndReport() 
 
@@ -160,11 +160,11 @@
         [ <preview : PREVIEW> ] ;
         [ <select : SELECTPRINTER> ] ;
 => ;
-ExecuteReport ( <(ReportName)> , <.preview.> , <.select.> )
+ExecuteReport ( <(ReportName)>, <.preview.>, <.select.> )
 
 #xcommand EXECUTE REPORT <ReportName> FILE <FileName> ;
 => ;
-ExecuteReport ( <(ReportName)> , .F. , .F. , <FileName> )
+ExecuteReport ( <(ReportName)>, .F. , .F. , <FileName> )
 
 
 * Layout ......................................................................

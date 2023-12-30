@@ -45,7 +45,7 @@
  */
 
 #xcommand DRAW TEXT IN WINDOW <window> ;
-          AT <nRow>,<nCol> ;
+          AT <nRow>, <nCol> ;
           VALUE <cString>  ;
           [ FONT <cFont> ] ;
           [ SIZE <nSize> ] ;
@@ -58,11 +58,11 @@
           [ <lTransparent: TRANSPARENT> ] ;
           [ ANGLE <nAngle> ] ;
        =>;
-          drawtextout(<"window">,<nRow>,<nCol>,<cString>,<aRGB>,<aBkRGB>,<cFont>,<nSize>, ;
-                <.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>)
+          drawtextout(<"window">, <nRow>, <nCol>, <cString>, <aRGB>, <aBkRGB>, <cFont>, <nSize>, ;
+                <.lBold.>, <.lItalic.>, <.lUnderline.>, <.lStrikeout.>, <.lTransparent.>, <nAngle>)
 
 #xcommand DRAW TEXT IN <context> ;
-          AT <nRow>,<nCol> ;
+          AT <nRow>, <nCol> ;
           VALUE <cString>  ;
           [ FONT <cFont> ] ;
           [ SIZE <nSize> ] ;
@@ -76,60 +76,60 @@
           [ ANGLE <nAngle> ] ;
           [ <lOnce : ONCE> ] ;
        =>;
-          drawtextout(<context>,<nRow>,<nCol>,<cString>,<aRGB>,<aBkRGB>,<cFont>,<nSize>, ;
-                <.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>,<.lOnce.>)
+          drawtextout(<context>, <nRow>, <nCol>, <cString>, <aRGB>, <aBkRGB>, <cFont>, <nSize>, ;
+                <.lBold.>, <.lItalic.>, <.lUnderline.>, <.lStrikeout.>, <.lTransparent.>, <nAngle>, <.lOnce.>)
 
-#xcommand DRAW LINE IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW LINE IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
           =>;
-          drawline(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,[<penrgb>],<pnwidth>)
+          drawline(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, [<penrgb>], <pnwidth>)
 
-#xcommand DRAW RECTANGLE IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW RECTANGLE IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
              [FILLCOLOR <fillrgb>];
           =>;
-          drawrect(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,[<penrgb>],<pnwidth>,[<fillrgb>])
+          drawrect(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, [<penrgb>], <pnwidth>, [<fillrgb>])
 
-#xcommand DRAW ROUNDRECTANGLE IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW ROUNDRECTANGLE IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              ROUNDWIDTH <width>;
              ROUNDHEIGHT <height>;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
              [FILLCOLOR <fillrgb>];
           =>;
-          drawroundrect(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,<width>,<height>,[<penrgb>],<pnwidth>,[<fillrgb>])
+          drawroundrect(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, <width>, <height>, [<penrgb>], <pnwidth>, [<fillrgb>])
         
-#xcommand DRAW ELLIPSE IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW ELLIPSE IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
              [FILLCOLOR <fillrgb>];
           =>;
-          drawellipse(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,[<penrgb>],<pnwidth>,[<fillrgb>])
+          drawellipse(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, [<penrgb>], <pnwidth>, [<fillrgb>])
 
-#xcommand DRAW ARC IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW ARC IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              FROM RADIAL <rrow>, <rcol>;
              TO RADIAL <rrow1>, <rcol1>;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
           =>;
-          drawarc(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,<rrow>,<rcol>,<rrow1>,<rcol1>,[<penrgb>],<pnwidth>)
+          drawarc(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, <rrow>, <rcol>, <rrow1>, <rcol1>, [<penrgb>], <pnwidth>)
 
-#xcommand DRAW PIE IN WINDOW <windowname> AT <frow>,<fcol> ;
-             TO <trow>,<tcol> ;
+#xcommand DRAW PIE IN WINDOW <windowname> AT <frow>, <fcol> ;
+             TO <trow>, <tcol> ;
              FROM RADIAL <rrow>, <rcol>;
              TO RADIAL <rrow1>, <rcol1>;
              [PENCOLOR <penrgb>] ;
              [PENWIDTH <pnwidth>];
              [FILLCOLOR <fillrgb>];
           =>;
-          drawpie(<(windowname)>,<frow>,<fcol>,<trow>,<tcol>,<rrow>,<rcol>,<rrow1>,<rcol1>,[<penrgb>],<pnwidth>,[<fillrgb>])
+          drawpie(<(windowname)>, <frow>, <fcol>, <trow>, <tcol>, <rrow>, <rcol>, <rrow1>, <rcol1>, [<penrgb>], <pnwidth>, [<fillrgb>])
           
 // Points should be in the format {{row1,col1},{row2,col2},{row3,col3},{row4,col4}.....}                
 #xcommand DRAW POLYGON IN WINDOW <windowname> ;
@@ -138,24 +138,24 @@
             [PENWIDTH <penwidth>] ;
             [FILLCOLOR <fillrgb>] ;
          =>;
-         drawpolygon(<(windowname)>,[<pointsarr>],[<penrgb>],<penwidth>,[<fillrgb>])          
+         drawpolygon(<(windowname)>,[<pointsarr>],[<penrgb>], <penwidth>, [<fillrgb>])          
 
 #xcommand DRAW POLYBEZIER IN WINDOW <windowname> ;
             points <pointsarr> ;
             [PENCOLOR <penrgb>] ;
             [PENWIDTH <penwidth>] ;
          =>;
-         drawpolybezier(<(windowname)>,[<pointsarr>],[<penrgb>],<penwidth>)          
+         drawpolybezier(<(windowname)>, [<pointsarr>], [<penrgb>], <penwidth>)
 
 
-#xcommand DRAW ICON IN WINDOW <windowname> AT <row>,<col> ;
+#xcommand DRAW ICON IN WINDOW <windowname> AT <row>, <col> ;
           <dummy: PICTURE,IMAGE,HICON> <icon> ;
           [ WIDTH <w> ] ;
           [ HEIGHT <h> ] ;
           [ COLOR <rgb> ] ; 
           [ <transparent: TRANSPARENT> ] ;
           => ;
-          hmg_drawicon(<(windowname)>,<icon>,<row>,<col>,[<w>],[<h>],[<rgb>],<.transparent.>)
+          hmg_drawicon(<(windowname)>, <icon>, <row>, <col>, [<w>], [<h>], [<rgb>], <.transparent.>)
 
 #define SYSICO_INFO                76
 #define SYSICO_QUES                94
@@ -163,7 +163,7 @@
 #define SYSICO_WARN                79
 #define SYSICO_PROG                11
 
-#xcommand DRAW SYSICON IN WINDOW <windowname> AT <row>,<col> ;
+#xcommand DRAW SYSICON IN WINDOW <windowname> AT <row>, <col> ;
           [ FROM <library> ] ;
           <dummy: ID,ICON> <icon> ;
           [ WIDTH <w> ] ;
@@ -171,7 +171,7 @@
           [ COLOR <rgb> ] ; 
           [ <transparent: TRANSPARENT> ] ;
           => ;
-          hmg_drawsysicon(<(windowname)>,<library>,<icon>,<row>,<col>,[<w>],[<h>],[<rgb>],<.transparent.>)
+          hmg_drawsysicon(<(windowname)>, <library>, <icon>, <row>, <col>, [<w>], [<h>], [<rgb>], <.transparent.>)
 
 
 #xcommand ERASE WINDOW <windowname> ;
@@ -194,8 +194,8 @@
               { hmg_GetRed( <nColor> ), hmg_GetGreen( <nColor> ), hmg_GetBlue( <nColor> ) }
 
 #xcommand DRAW GRAPH IN WINDOW <window> ;
-      AT <nT>,<nL>                         ;
-      TO <nB>,<nR>                        ;
+      AT <nT>, <nL>                         ;
+      TO <nB>, <nR>                        ;
       TITLE <cTitle>                        ;
       TYPE PIE                                ;
       SERIES <aSer>                        ;
@@ -231,8 +231,8 @@
 
 #xcommand DRAW GRAPH                                ;
                 IN WINDOW <window>                ;
-                AT <nT>,<nL>                        ;
-                [ TO <nB>,<nR> ]                ;
+                AT <nT>, <nL>                        ;
+                [ TO <nB>, <nR> ]                ;
                 [ WIDTH <nW> ]                        ;
                 [ HEIGHT <nH>        ]                ;
                 [ TITLE <cTitle> ]                ;
@@ -286,8 +286,8 @@
 
 #xcommand PRINT GRAPH                                ;
                 IN WINDOW <window>                ;
-                AT <nT>,<nL>                        ;
-                [ TO <nB>,<nR> ]                ;
+                AT <nT>, <nL>                        ;
+                [ TO <nB>, <nR> ]                ;
                 [ WIDTH <nW> ]                        ;
                 [ HEIGHT <nH>        ]                ;
                 [ TITLE <cTitle> ]                ;
@@ -340,8 +340,8 @@
                 <mask>, <nLegendsWidth>, 10, 7, <"clib">)
 
 #xcommand PRINT GRAPH IN WINDOW <window>;
-      AT <nT>,<nL>                        ;
-      TO <nB>,<nR>                        ;
+      AT <nT>, <nL>                        ;
+      TO <nB>, <nR>                        ;
       TITLE <cTitle>                        ;
       TYPE PIE                                ;
       SERIES <aSer>                        ;

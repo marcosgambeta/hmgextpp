@@ -7,13 +7,13 @@
 #translate <p:Application,App>.Handle          => _HMG_MainHandle
 #translate <p:Application,App>.FormName        => _HMG_aFormNames \[ Ascan ( _HMG_aFormHandles, <p>.Handle ) ]
 #translate <p:Application,App>.Col             => GetWindowCol ( <p>.Handle )
-#translate <p:Application,App>.Col := <arg>    => hmg_MoveWindow ( <p>.Handle , <arg> , <p>.Row , <p>.Width , <p>.Height , .T. )
+#translate <p:Application,App>.Col := <arg>    => hmg_MoveWindow ( <p>.Handle , <arg>, <p>.Row , <p>.Width , <p>.Height , .T. )
 #translate <p:Application,App>.Row             => GetWindowRow ( <p>.Handle )
-#translate <p:Application,App>.Row := <arg>    => hmg_MoveWindow ( <p>.Handle , <p>.Col , <arg> , <p>.Width , <p>.Height , .T. )
+#translate <p:Application,App>.Row := <arg>    => hmg_MoveWindow ( <p>.Handle , <p>.Col , <arg>, <p>.Width , <p>.Height , .T. )
 #translate <p:Application,App>.Width           => GetWindowWidth ( <p>.Handle )
-#translate <p:Application,App>.Width := <arg>  => hmg_MoveWindow ( <p>.Handle , <p>.Col , <p>.Row , <arg> , <p>.Height , .T. )
+#translate <p:Application,App>.Width := <arg>  => hmg_MoveWindow ( <p>.Handle , <p>.Col , <p>.Row , <arg>, <p>.Height , .T. )
 #translate <p:Application,App>.Height          => GetWindowHeight ( <p>.Handle )
-#translate <p:Application,App>.Height := <arg> => hmg_MoveWindow ( <p>.Handle , <p>.Col , <p>.Row , <p>.Width , <arg> , .T. )
+#translate <p:Application,App>.Height := <arg> => hmg_MoveWindow ( <p>.Handle , <p>.Col , <p>.Row , <p>.Width , <arg>, .T. )
 #translate <p:Application,App>.ClientWidth     => _GetClientRect ( <p>.Handle ) \[ 3 ]
 #translate <p:Application,App>.ClientHeight    => _GetClientRect ( <p>.Handle ) \[ 4 ]
 #translate <p:Application,App>.Title           => hmg_GetWindowText( <p>.Handle )

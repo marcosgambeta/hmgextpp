@@ -54,7 +54,7 @@
 #define RICHVALUE_UTF7_TEXT     6
 
 
-#xcommand @ <row>,<col> RICHEDITBOX <name> ;
+#xcommand @ <row>, <col> RICHEDITBOX <name> ;
                 [ <dummy1: OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -83,12 +83,12 @@
                 [ <novscroll: NOVSCROLL> ] ;                             
                 [ <nohscroll: NOHSCROLL> ] ;                             
         =>;
-        _DefineRichEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <file> , "" , <backcolor> , <fontcolor> , <.plaintext.> , <.nohscroll.> , <.novscroll.> , <{select}> , <{vscroll}> )
+        _DefineRichEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F. , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <file>, "" , <backcolor>, <fontcolor>, <.plaintext.>, <.nohscroll.>, <.novscroll.>, <{select}>, <{vscroll}> )
 
 
 //FIELD VERSION
 
-#xcommand @ <row>,<col> RICHEDITBOX <name> ;
+#xcommand @ <row>, <col> RICHEDITBOX <name> ;
                 [ <dummy1: OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -117,7 +117,7 @@
                 [ <novscroll: NOVSCROLL> ] ;                             
                 [ <nohscroll: NOHSCROLL> ] ;                             
         =>;
-        _DefineRichEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , "", <(field)> , <backcolor> , <fontcolor> , <.plaintext.>, <.nohscroll.> , <.novscroll.> , <{select}> , <{vscroll}> )
+        _DefineRichEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F. , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, "", <(field)>, <backcolor>, <fontcolor>, <.plaintext.>, <.nohscroll.>, <.novscroll.>, <{select}>, <{vscroll}> )
 
 
 //SPLITBOX VERSION
@@ -152,4 +152,4 @@
                 [ <novscroll: NOVSCROLL> ] ;                             
                 [ <nohscroll: NOHSCROLL> ] ;                             
         =>;
-        _DefineRichEditBox ( <(name)>, <(parent)>, , , <w>, <h>, <value>, <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , <.break.> , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <file> , "" , <backcolor> , <fontcolor> , <.plaintext.>, <.nohscroll.> , <.novscroll.> , <{select}> , <{vscroll}> )
+        _DefineRichEditBox ( <(name)>, <(parent)>, , , <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, <.break.>, <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <file>, "" , <backcolor>, <fontcolor>, <.plaintext.>, <.nohscroll.>, <.novscroll.>, <{select}>, <{vscroll}> )

@@ -83,7 +83,7 @@
          _DefineTextBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
                 <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
                 <.RightAlign.>, <helpid>, <.readonly.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
-                <backcolor> , <fontcolor> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 #command REDEFINE TEXTBOX <name>        ;
@@ -121,12 +121,12 @@
          _DefineTextBox( <(name)>, <(parent)>, 0, 0, 0, 0, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
                 <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
                 <.RightAlign.>, <helpid>, <.readonly.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
-                <backcolor> , <fontcolor> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 // TEXTBOX ( NUMERIC INPUTMASK )
 
-#command @ <row>,<col> TEXTBOX <name>        ;
+#command @ <row>, <col> TEXTBOX <name>        ;
         [ID <nId>]                        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ HEIGHT <height> ]                ;
@@ -158,7 +158,7 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineMaskedTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask> , <w> , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , <height> , <{enter}> , <.RightAlign.> , <helpid> , <format> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineMaskedTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask>, <w>, <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, <height>, <{enter}>, <.RightAlign.>, <helpid>, <format>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 #command REDEFINE TEXTBOX <name>        ;
@@ -191,12 +191,12 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineMaskedTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask> , 0 , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , 0 , <{enter}> , <.RightAlign.> , <helpid> , <format> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineMaskedTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask>, 0 , <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, 0 , <{enter}>, <.RightAlign.>, <helpid>, <format>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 // TEXTBOX ( CHARACTER INPUTMASK )
 
-#command @ <row>,<col> TEXTBOX <name>        ;
+#command @ <row>, <col> TEXTBOX <name>        ;
         [ID <nId>]                        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ HEIGHT <height> ]                ;
@@ -226,7 +226,7 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask> , <w> , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , <height> , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .F. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask>, <w>, <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, <height>, <{enter}>, <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, .F. , <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 #command REDEFINE TEXTBOX <name>        ;
@@ -257,12 +257,12 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask> , 0 , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , 0 , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .F. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask>, 0 , <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, 0 , <{enter}>, <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, .F. , <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 // TEXTBOX ( DATE TYPE )
 
-#xcommand @ <row>,<col> TEXTBOX <name>        ;
+#xcommand @ <row>, <col> TEXTBOX <name>        ;
         [ID <nId>]                        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ HEIGHT <height> ]                ;
@@ -292,7 +292,7 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, "" , <w> , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , <height> , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.date.> , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, "" , <w>, <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, <height>, <{enter}>, <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.date.>, <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
 
 
 #xcommand REDEFINE TEXTBOX <name>        ;
@@ -323,4 +323,4 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, "" , 0 , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , 0 , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.date.> , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+        _DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, "" , 0 , <value>, <fontname>, <fontsize>, <tooltip>, <{lostfocus}>, <{gotfocus}>, <{change}>, 0 , <{enter}>, <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.date.>, <.readonly.>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )

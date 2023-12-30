@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xcommand @ <row>,<col> BUTTON <name> ;
+#xcommand @ <row>, <col> BUTTON <name> ;
       [ ID <nId> ] ;
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       CAPTION <caption> ;
@@ -68,9 +68,9 @@
       [ <multiline: MULTILINE> ] ;
       [ <default: DEFAULT> ] ;
    =>;
-   _DefineButton ( <(name)>, <(parent)> , <col>, <row>, <caption>, <{action}>, ;
+   _DefineButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
                 <w>, <h>, <font>, <size>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-                <.flat.>, <.notabstop.>, <helpid>, <.invisible.> , <.bold.>, <.italic.>, ;
+                <.flat.>, <.notabstop.>, <helpid>, <.invisible.>, <.bold.>, <.italic.>, ;
                 <.underline.>, <.strikeout.>, <.multiline.>, <.default.>, <"key">, <nId> )
 
 #xcommand REDEFINE BUTTON <name> ;
@@ -100,7 +100,7 @@
                 <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, <.default.>, , <nId> )
 
 
-#xcommand @ <row>,<col> BUTTON <name> ;
+#xcommand @ <row>, <col> BUTTON <name> ;
       [ ID <nId> ] ;
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       PICTURE <bitmap> ;
@@ -125,7 +125,7 @@
                 <.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
                 <.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, <"key">, <nId> )
 
-#xcommand @ <row>,<col> BUTTON <name> ;
+#xcommand @ <row>, <col> BUTTON <name> ;
       [ ID <nId> ] ;
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       [ PICTURE <bitmap> ] ;
@@ -167,17 +167,17 @@
       [ <invisible: INVISIBLE> ] ;
       [ <default: DEFAULT> ] ;
     =>;
-    _DefineImageButton ( <(name)>, <(parent)>, 0, 0, "",<{action}>, ;
+    _DefineImageButton ( <(name)>, <(parent)>, 0, 0, "", <{action}>, ;
                 0, 0, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
                 <.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
                 <.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, , <nId> )
 
 
-#xcommand @ <row>,<col> BUTTONEX <name> ;
+#xcommand @ <row>, <col> BUTTONEX <name> ;
       [ <dummy1: OF, PARENT> <parent> ] ;
       [ CAPTION <caption> ] ;
       [ PICTURE <bitmap> ] ;
-      [ IMAGESIZE <imagewidth> , <imageheight> ] ;
+      [ IMAGESIZE <imagewidth>, <imageheight> ] ;
       [ ICON <icon> ] ;
       [ <vertical : VERTICAL> ] ;
       [ <dummy2: ACTION,ON CLICK,ONCLICK> <action> ] ;

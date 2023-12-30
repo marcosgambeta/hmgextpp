@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> EDITBOX <name> ;
+#command @ <row>, <col> EDITBOX <name> ;
         [ID <nId>] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 [ WIDTH <w> ] ;
@@ -104,7 +104,7 @@
     [ <nohscroll: NOHSCROLL> ]         ;                             
     [ ON INIT <bInit> ] ;
     =>;
-        _DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value> ,<f>,<s> , <tooltip>  , <maxlength>  , <{gotfocus}>  , <{change}>  , <{lostfocus}>  , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.novscroll.> , <.nohscroll.> , <nId>, <bInit> )
+        _DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>  , <{lostfocus}>  , <.readonly.>, .F. , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, <nId>, <bInit> )
 
 
 //SPLITBOX VERSION

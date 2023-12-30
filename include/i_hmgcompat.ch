@@ -63,11 +63,11 @@
 #include "i_wincolor.ch"
 
 #xtranslate FocusedWindow . <p:Title,NotifyIcon,NotifyTooltip,FocusedControl,Name,Row,Col,Width,Height> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex )  , <"p"> )
-#xtranslate FocusedWindow . <p:Title,Cursor,NotifyIcon,NotifyTooltip,Row,Col,Width,Height> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> , <arg> )
+#xtranslate FocusedWindow . <p:Title,Cursor,NotifyIcon,NotifyTooltip,Row,Col,Width,Height> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
 #xtranslate FocusedWindow . <p:Activate,Center,Redraw,Release,Maximize,Minimize,Restore,Show,Hide,SetFocus> [ () ] => DoMethod ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Handle,Index,IsMinimized,IsMaximized,ClientWidth,ClientHeight> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> => GetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
-#xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> , <arg> )
+#xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> := <arg> => SetProperty ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
 
 #xtranslate PICTALIGNMENT TOP => _HMG_ActiveControlUpText := .F. ; _HMG_ActiveControlVertical := .T.
 #xtranslate PICTALIGNMENT LEFT => LEFTTEXT .F.
@@ -101,16 +101,16 @@
 
 #xcommand ON KEY SPACE [ OF <parent> ] ACTION <action> ;
 => ;
-_DefineHotKey ( <(parent)> , 0 , VK_SPACE , <{action}> )
+_DefineHotKey ( <(parent)>, 0 , VK_SPACE , <{action}> )
 
 
 #xtranslate RegistryRead ( <arg> ) ;
 => ;
 win_RegRead ( <arg> )
 
-#xtranslate RegistryWrite ( <arg1> , <arg2> ) ;
+#xtranslate RegistryWrite ( <arg1>, <arg2> ) ;
 => ;
-win_RegWrite ( <arg1> , <arg2> )
+win_RegWrite ( <arg1>, <arg2> )
 
 #xtranslate SetMenuBkColor ( <hWnd>, <argb> [, <lSubMenu> ] ) ;
 => ;
@@ -122,9 +122,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_LEN( <c> ) => iif(hb_IsArray(<c>) .or. hb_IsHash( <c> ), Len( <c> ), iif(hb_IsChar( <c> ), hb_ULen( <c> ), 0) )
 
-#xtranslate HMG_PADC(<x>,<n>,<c>) => PADC(<x>,<n>,<c>)
-#xtranslate HMG_PADL(<x>,<n>,<c>) => PADL(<x>,<n>,<c>)
-#xtranslate HMG_PADR(<x>,<n>,<c>) => PADR(<x>,<n>,<c>)
+#xtranslate HMG_PADC(<x>, <n>, <c>) => PADC(<x>, <n>, <c>)
+#xtranslate HMG_PADL(<x>, <n>, <c>) => PADL(<x>, <n>, <c>)
+#xtranslate HMG_PADR(<x>, <n>, <c>) => PADR(<x>, <n>, <c>)
 
 #xtranslate HMG_ISLOWER( <c> ) => ISLOWER( <c> )
 #xtranslate HMG_ISUPPER( <c> ) => ISUPPER( <c> )
@@ -201,7 +201,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
            [ CHECKMATCHCASE <CheckMatchCase> ] ;
            [ CHECKWHOLEWORD <CheckWholeWord> ] ;
            [ TITLE <cTitle> ] ;
-=> ReplaceTextDlg ( <{action}>, <cFind>, <cReplace>, <.NoMatchCase.>, <.NoWholeWord.>, <CheckMatchCase>, <CheckWholeWord> , <cTitle> ) 
+=> ReplaceTextDlg ( <{action}>, <cFind>, <cReplace>, <.NoMatchCase.>, <.NoWholeWord.>, <CheckMatchCase>, <CheckWholeWord>, <cTitle> ) 
 
 
 #xtranslate FindReplaceDlg.Show           => FINDREPLACEDLGSHOW (.T.)
@@ -275,9 +275,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    hmg_SetResCursor( hmg_LoadCursor( NIL, <nCursor> ) )
 
 
-#xtranslate GetControlFontHandle ( <ControlName> , <ParentForm> ) ;
+#xtranslate GetControlFontHandle ( <ControlName>, <ParentForm> ) ;
    => ;
-   _HMG_aControlFontHandle \[ GetControlIndex ( <ControlName> , <ParentForm> ) ]
+   _HMG_aControlFontHandle \[ GetControlIndex ( <ControlName>, <ParentForm> ) ]
 
 #xtranslate GetControlFontHandleByIndex ( <i> ) ;
    => ;
@@ -287,25 +287,25 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate HMGVersion ( [<x>] ) => MiniGUIVersion ( [<x>] )
 
 
-#translate GetProperty ( <FormName> , "CLIENTAREAWIDTH" ) ;
+#translate GetProperty ( <FormName>, "CLIENTAREAWIDTH" ) ;
    => ;
    _GetClientRect ( GetFormHandle ( <FormName> ) ) \[3]
 
-#translate GetProperty ( <FormName> , "CLIENTAREAHEIGHT" ) ;
+#translate GetProperty ( <FormName>, "CLIENTAREAHEIGHT" ) ;
    => ;
    _GetClientRect ( GetFormHandle ( <FormName> ) ) \[4]
 
-#translate GetProperty ( <FormName> , <ControlName> , "CellEx" , <row> , <col> ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "CellEx" , <row>, <col> ) ;
    => ;
-   _GetGridCellValue ( <ControlName> , <FormName> , <row> , <col> )
+   _GetGridCellValue ( <ControlName>, <FormName>, <row>, <col> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "CellRowFocused" ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "CellRowFocused" ) ;
    => ;
-   _GetValue (  <ControlName> , <FormName> ) \[1]
+   _GetValue (  <ControlName>, <FormName> ) \[1]
 
-#translate GetProperty ( <FormName> , <ControlName>, 'CellColFocused' ) ;
+#translate GetProperty ( <FormName>, <ControlName>, 'CellColFocused' ) ;
    => ;
-   _GetValue (  <ControlName> , <FormName> ) \[2]
+   _GetValue (  <ControlName>, <FormName> ) \[2]
 
 
 #xtranslate CellNavigationColor (_SELECTEDCELL_FORECOLOR, <aColor>) => ( _HMG_GridSelectedCellForeColor := <aColor> )
@@ -394,10 +394,10 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xcommand RELEASE DROPDOWN MENU BUTTON <button> OF <form>     => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
 #xcommand RELEASE DROPDOWNMENU OWNERBUTTON <button> OF <form> => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
 
-#xcommand DEFINE CONTROL CONTEXT MENU <cControlName> [ OF <cParentName> ]     => _DefineControlContextMenu ( <"cControlName"> , <"cParentName"> )
-#xcommand DEFINE CONTROL CONTEXT MENU <cControlName> [ PARENT <cParentName> ] => _DefineControlContextMenu ( <"cControlName"> , <"cParentName"> )
-#xcommand DEFINE CONTROL CONTEXTMENU  <cControlName> [ OF <cParentName> ]     => _DefineControlContextMenu ( <"cControlName"> , <"cParentName"> )
-#xcommand DEFINE CONTROL CONTEXTMENU  <cControlName> [ PARENT <cParentName> ] => _DefineControlContextMenu ( <"cControlName"> , <"cParentName"> )
+#xcommand DEFINE CONTROL CONTEXT MENU <cControlName> [ OF <cParentName> ]     => _DefineControlContextMenu ( <"cControlName">, <"cParentName"> )
+#xcommand DEFINE CONTROL CONTEXT MENU <cControlName> [ PARENT <cParentName> ] => _DefineControlContextMenu ( <"cControlName">, <"cParentName"> )
+#xcommand DEFINE CONTROL CONTEXTMENU  <cControlName> [ OF <cParentName> ]     => _DefineControlContextMenu ( <"cControlName">, <"cParentName"> )
+#xcommand DEFINE CONTROL CONTEXTMENU  <cControlName> [ PARENT <cParentName> ] => _DefineControlContextMenu ( <"cControlName">, <"cParentName"> )
 
 
 #translate DISABLE [ WINDOW ]  EVENT OF <form> => StopWindowEventProcedure (<(form)>, .T.)
@@ -444,33 +444,33 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    TreeItemSort (<(control)>, <(parent)>, <nItem>, <lRecursive>, <lCaseSensitive>, <lAscendingOrder>, <nNodePosition>)
 
-#translate GetProperty ( <FormName> , <ControlName> , "RootValue" ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "RootValue" ) ;
    => ;
-   TreeItemGetRootValue ( <ControlName> , <FormName> )
+   TreeItemGetRootValue ( <ControlName>, <FormName> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "FirstItemValue" ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "FirstItemValue" ) ;
    => ;
-   TreeItemGetFirstItemValue ( <ControlName> , <FormName> )
+   TreeItemGetFirstItemValue ( <ControlName>, <FormName> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "IsTrueNode" , <item> ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "IsTrueNode" , <item> ) ;
    => ;
-   TreeItemIsTrueNode ( <ControlName> , <FormName> , <item> )
+   TreeItemIsTrueNode ( <ControlName>, <FormName>, <item> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "ParentValue" , <item> ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "ParentValue" , <item> ) ;
    => ;
-   TreeItemGetParentValue ( <ControlName> , <FormName> , <item> )
+   TreeItemGetParentValue ( <ControlName>, <FormName>, <item> )
 
-#translate SetProperty ( <FormName> , <ControlName> , "NodeFlag" , <item> , <flag> ) ;
+#translate SetProperty ( <FormName>, <ControlName>, "NodeFlag" , <item>, <flag> ) ;
    => ;
-   TreeItemSetNodeFlag ( <ControlName> , <FormName> , <item> , <flag> )
+   TreeItemSetNodeFlag ( <ControlName>, <FormName>, <item>, <flag> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "NodeFlag" , <item> ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "NodeFlag" , <item> ) ;
    => ;
-   TreeItemGetNodeFlag ( <ControlName> , <FormName> , <item> )
+   TreeItemGetNodeFlag ( <ControlName>, <FormName>, <item> )
 
-#translate GetProperty ( <FormName> , <ControlName> , "IsExpand" , <item> ) ;
+#translate GetProperty ( <FormName>, <ControlName>, "IsExpand" , <item> ) ;
    => ;
-   TreeItemIsExpand ( <ControlName> , <FormName> , <item> )
+   TreeItemIsExpand ( <ControlName>, <FormName>, <item> )
 
 #define GRID_GROUP_LEFT      0x01
 #define GRID_GROUP_CENTER    0x02
@@ -496,17 +496,17 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> ENABLE MARQUEE [ UPDATED <milliseconds> ] ;
    => ;
-   hmg_ChangeStyle( GetControlHandle(<(name)>,<(parent)>) , PBS_MARQUEE );;
-   hmg_SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 1 , <milliseconds> )
+   hmg_ChangeStyle( GetControlHandle(<(name)>, <(parent)>), PBS_MARQUEE );;
+   hmg_SendMessage( GetControlHandle(<(name)>, <(parent)>), PBM_SETMARQUEE , 1 , <milliseconds> )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> DISABLE MARQUEE ;
    => ;
-   hmg_SendMessage( GetControlHandle(<(name)>,<(parent)>) , PBM_SETMARQUEE , 0 , 0 )
+   hmg_SendMessage( GetControlHandle(<(name)>, <(parent)>) , PBM_SETMARQUEE , 0 , 0 )
 
 // by Dr. Claudio Soto, April 2016
 
 #xtranslate CHECK TYPE [ <lSoft: SOFT> ] <var> AS <type> [, <varN> AS <typeN> ] => ;
-   HMG_CheckType( <.lSoft.>, { <"type"> , ValType( <var> ), <"var"> } [, { <"typeN"> , ValType( <varN> ), <"varN"> } ] )
+   HMG_CheckType( <.lSoft.>, { <"type">, ValType( <var> ), <"var"> } [, { <"typeN">, ValType( <varN> ), <"varN"> } ] )
 
 * Alternate Syntax
 
@@ -539,8 +539,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xcommand  DEFINE TOOLBAR  <name> ;
       [ OF <parent> ] ;
-      BUTTONSIZE <buttonwidth> , <buttonheight> ;
-      IMAGESIZE <imagewidth> , <imageheight> ;
+      BUTTONSIZE <buttonwidth>, <buttonheight> ;
+      IMAGESIZE <imagewidth>, <imageheight> ;
       [ BUTTONWIDTH <buttonwidth> ] [ BUTTONHEIGHT <buttonheight> ] ;
       [ IMAGEWIDTH <imagewidth> ] [ IMAGEHEIGHT <imageheight> ] ;
       [ <strictwidth : STRICTWIDTH> ] ;                
@@ -560,7 +560,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
       [ <custom : CUSTOMIZE> ] ;
       [ <break: BREAK> ] ;
    => ;
-   _BeginToolBar ( <(name)>, <(parent)>,,, <buttonwidth>-iif(<.strictwidth.>,16,iif(<imagewidth> > 26,<imagewidth>/2+1,-16)), ;
+   _BeginToolBar ( <(name)>, <(parent)>,,, <buttonwidth>-iif(<.strictwidth.>,16,iif(<imagewidth> > 26, <imagewidth>/2+1,-16)), ;
                    <buttonheight>-iif(<.strictwidth.>,16,iif(<imageheight> > 26,-(<imageheight>/8+1),10)), <grippertext>,, <f>, <s>, ;
                    <tooltip>, <.flat.>, <.bottom.>, <.righttext.>, <.break.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
                    <.border.>, <.wrap.>, <.custom.> )
@@ -586,8 +586,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
       [ CUSTOMIZE <custom> ] ;
       [ BREAK <break> ] ;
    => ;
-   _BeginToolBar ( <(name)>, <(parent)>,,, iif(<.strictwidth.>,<imagewidth>,<imagewidth> + 8), ;
-                   iif(<.strictwidth.>,<imageheight>,<imageheight> + 2), <grippertext>,, <f>, <s>, ;
+   _BeginToolBar ( <(name)>, <(parent)>,,, iif(<.strictwidth.>, <imagewidth>, <imagewidth> + 8), ;
+                   iif(<.strictwidth.>, <imageheight>, <imageheight> + 2), <grippertext>,, <f>, <s>, ;
                    <tooltip>, <.flat.>, <.bottom.>, <.righttext.>, <.break.>, <.bold.>, <.italic.>, <.underline.>, ;
                    <.strikeout.>, <.border.>, <.wrap.>, <.custom.> )
 
@@ -605,8 +605,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
         [ CHECK <check> ] ;
         [ GROUP <group> ] ;
    =>;
-   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , <picture> , <tooltip> , , , ;
-                       .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , ;
+   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption>, <{action}>, , , <picture>, <tooltip>, , , ;
+                       .F. , <.separator.>, <.autosize.>, <.check.>, <.group.>, <.dropdown.>, <.wholedropdown.>, ;
                        .F., -1 )
 
 

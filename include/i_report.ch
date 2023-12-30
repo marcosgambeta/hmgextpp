@@ -46,7 +46,7 @@
 
 #xcommand DO REPORT  ;
                   TITLE <cTitle> ;
-                  HEADERS <aHeaders1> , <aHeaders2> ;
+                  HEADERS <aHeaders1>, <aHeaders2> ;
                   FIELDS <aFieldList>        ;
                   WIDTHS <aWidths>     ;
                   [ TOTALS <aTotals> ]   ;
@@ -60,7 +60,7 @@
                   [ <lDosMode: DOSMODE> ]      ;
                   [ <lPreview: PREVIEW> ]         ;
                   [ <lSelect: SELECT> ]           ;
-                  [ IMAGE <cImage> AT <nTop> , <nLeft> TO <nBottom> , <nRight> ] ;
+                  [ IMAGE <cImage> AT <nTop>, <nLeft> TO <nBottom>, <nRight> ] ;
                   [ <lMultiple: MULTIPLE>    ]      ;
                   [ GROUPED BY <cGroupBy> ]         ;
                   [ HEADRGRP   <cHeaderGroup> ]   ;
@@ -69,30 +69,30 @@
                   [ FONTNAME <cFontName> ] ;
 => ;
 EasyReport ( ;
-             <cTitle> ,             ;
-             <aHeaders1> ,          ;
-             <aHeaders2> ,          ;
-             <aFieldList> ,         ;
-             <aWidths> ,            ;
-             <aTotals> ,            ;
-             <nLinesPerPage> ,      ;
-             <.lDosMode.> ,         ;
-             <.lPreview.> ,         ;
-             <cImage> ,             ;
-             <nTop>, <nLeft> ,      ;
-             <nBottom> , <nRight> , ;
-             <.lMultiple.> ,        ;
-             <cGroupBy> ,           ;
-             <cHeaderGroup> ,       ;
-             <.lLandscape.> ,       ;
-             <nCharsPerLine> ,      ;
-             <.lSelect.> ,          ;
-             <( cAlias )> ,         ;
-             <nLeftMargin> ,        ;
-             <aFormats> ,           ;
-             <nPaperSize> ,         ;
-             <nTopMargin> ,         ;
-             <.lnodatetimestamp.> , ;
+             <cTitle>,             ;
+             <aHeaders1>,          ;
+             <aHeaders2>,          ;
+             <aFieldList>,         ;
+             <aWidths>,            ;
+             <aTotals>,            ;
+             <nLinesPerPage>,      ;
+             <.lDosMode.>,         ;
+             <.lPreview.>,         ;
+             <cImage>,             ;
+             <nTop>, <nLeft>,      ;
+             <nBottom>, <nRight>, ;
+             <.lMultiple.>,        ;
+             <cGroupBy>,           ;
+             <cHeaderGroup>,       ;
+             <.lLandscape.>,       ;
+             <nCharsPerLine>,      ;
+             <.lSelect.>,          ;
+             <( cAlias )>,         ;
+             <nLeftMargin>,        ;
+             <aFormats>,           ;
+             <nPaperSize>,         ;
+             <nTopMargin>,         ;
+             <.lnodatetimestamp.>, ;
              <cFontName> )
 
 

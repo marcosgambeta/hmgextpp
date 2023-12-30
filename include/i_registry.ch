@@ -104,24 +104,24 @@
 #xcommand OPEN REGISTRY <oReg> KEY <hKey> ;
             SECTION <cKey> ;
             => ;
-            <oReg>:=TReg32():New(<hKey>,<cKey>)
+            <oReg>:=TReg32():New(<hKey>, <cKey>)
 
 #xcommand CREATE REGISTRY <oReg> KEY <hKey> ;
             SECTION <cKey> ;
             => ;
-            <oReg>:=TReg32():Create(<hKey>,<cKey>)
+            <oReg>:=TReg32():Create(<hKey>, <cKey>)
 
 #xcommand GET VALUE <uVar> ;
             [ NAME <cVar> ];
             <of: OF, REGISTRY> <oReg> ;
             => ;
-            <uVar>:=<oReg>:Get(<cVar>,<uVar>)
+            <uVar>:=<oReg>:Get(<cVar>, <uVar>)
 
 #xcommand SET VALUE <cVar> ;
             <of: OF, REGISTRY> <oReg> ;
             [ TO <uVal> ] ;
             => ;
-            <oReg>:Set(<cVar>,<uVal>)
+            <oReg>:Set(<cVar>, <uVal>)
 
 #xcommand DELETE VALUE <cVar> ;
             <of: OF, REGISTRY> <oReg> ;
@@ -134,6 +134,6 @@
 
 #xcommand DELETE [REGISTRY] SECTION <cKey> FROM [KEY] <hKey> ;
             => ;
-            DeleteRegistryKey(<hKey>,<cKey>)
+            DeleteRegistryKey(<hKey>, <cKey>)
 
 #endif

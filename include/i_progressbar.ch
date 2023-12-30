@@ -44,10 +44,10 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> PROGRESSBAR <name>        ;
+#command @ <row>, <col> PROGRESSBAR <name>        ;
         [ID <nId>];
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-                [ RANGE <lo> , <hi> ]                 ;
+                [ RANGE <lo>, <hi> ]                 ;
                 [ VALUE <v> ]                        ;
                 [ WIDTH <w> ]                         ;
                 [ HEIGHT <h> ]                         ;
@@ -70,7 +70,7 @@
 #command REDEFINE PROGRESSBAR <name>        ;
         ID <nId>;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-                [ RANGE <lo> , <hi> ]                 ;
+                [ RANGE <lo>, <hi> ]                 ;
                 [ VALUE <v> ]                        ;
                 [ TOOLTIP <tooltip> ]                 ;
                 [ <vertical : VERTICAL> ]        ;
@@ -83,7 +83,7 @@
         =>;
         _DefineProgressBar ( <(name)>, <(parent)>, 0, 0, 0, 0, ;
                         <lo>, <hi>, <tooltip>, <.vertical.>, <.smooth.>, ;
-                        <helpid>, <.invisible.>, <v>, [ <backcolor> ], [ <barcolor> ], .F. , , <nId> , <bInit> )
+                        <helpid>, <.invisible.>, <v>, [ <backcolor> ], [ <barcolor> ], .F. , , <nId>, <bInit> )
 
 
 // Common control shared messages

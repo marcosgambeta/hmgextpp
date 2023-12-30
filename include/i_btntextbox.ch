@@ -83,7 +83,7 @@
         [ ON INIT <bInit> ] ;
      => ;
      _DefineBtnTextBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
-            <{action}>,<{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;
+            <{action}>, <{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;
             <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
             <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
             <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <nId>, <.disableedit.>, <.default.>, ;

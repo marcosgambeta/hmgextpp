@@ -44,15 +44,15 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xtranslate SET REGION OF <name> RECTANGULAR <row>,<col>,<w>,<h> ;
+#xtranslate SET REGION OF <name> RECTANGULAR <row>, <col>, <w>, <h> ;
     =>;
     _SetWindowRgn(<(name)>, <col>, <row>, <w>, <h>, 1)
 
-#xtranslate SET REGION OF <name> ELLIPTIC <row>,<col>,<w>,<h> ;
+#xtranslate SET REGION OF <name> ELLIPTIC <row>, <col>, <w>, <h> ;
     =>;
     _SetWindowRgn(<(name)>, <col>, <row>, <w>, <h>, 2)
 
-#xtranslate SET REGION OF <name> ROUNDRECT <rect1>,<rect2>,<w>,<h> ;
+#xtranslate SET REGION OF <name> ROUNDRECT <rect1>, <rect2>, <w>, <h> ;
     =>;
     _SetWindowRgn(<(name)>, <rect1>, <rect2>, <w>, <h>, 3)
 
@@ -60,9 +60,9 @@
     =>;
     [ <region> := ] _SetWindowRgn ( <(name)>, <(file)>, <color>, 0, 0, 4 )
 
-#xtranslate SET REGION OF <name> POLYGONAL <apoints> [WINDING] => _SetPolyWindowRgn(<(name)>,<apoints>,1)
+#xtranslate SET REGION OF <name> POLYGONAL <apoints> [WINDING] => _SetPolyWindowRgn(<(name)>, <apoints>, 1)
 
-#xtranslate SET REGION OF <name> POLYGONAL <apoints> ALTERNATE => _SetPolyWindowRgn(<(name)>,<apoints>,2)
+#xtranslate SET REGION OF <name> POLYGONAL <apoints> ALTERNATE => _SetPolyWindowRgn(<(name)>, <apoints>, 2)
 
 #xtranslate SET REGION OF <name> RESET ;
     =>;

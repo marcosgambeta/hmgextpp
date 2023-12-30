@@ -26,7 +26,7 @@
              [ <lSound: WITH SOUND EFECTS >        ] ;
              [ <lMenu: WITH MENUPOPUP>             ] ;
        => ;
-          [ <oAgent> := ] TMsAgent():New( <cName> , <.lMenu.>, <cFileAgent>, <.lSound.> )
+          [ <oAgent> := ] TMsAgent():New( <cName>, <.lMenu.>, <cFileAgent>, <.lSound.> )
 
 #xcommand ACTIVATE AGENT <oAgent> => <oAgent>:Show()
 

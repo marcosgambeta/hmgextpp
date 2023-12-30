@@ -32,26 +32,26 @@
 #xtranslate HBPRNERROR => hbprn:error
 #xtranslate HBPRNCOLOR(<clr>) => hbprn:dxcolors(<clr>)
 
-#xcommand SELECT BY DIALOG [<p: PREVIEW>] => hbprn:selectprinter("",<.p.>)
-#xcommand SELECT DEFAULT [<p: PREVIEW>] => hbprn:selectprinter(NIL,<.p.>)
-#xcommand SELECT PRINTER <cprinter> [<p: PREVIEW>] => hbprn:selectprinter(<cprinter>,<.p.>)
-#xcommand SELECT PRINTER BY DIALOG [<p: PREVIEW>] => hbprn:selectprinter("",<.p.>)
-#xcommand SELECT PRINTER DEFAULT [<p: PREVIEW>] => hbprn:selectprinter(NIL,<.p.>)
+#xcommand SELECT BY DIALOG [<p: PREVIEW>] => hbprn:selectprinter("", <.p.>)
+#xcommand SELECT DEFAULT [<p: PREVIEW>] => hbprn:selectprinter(NIL, <.p.>)
+#xcommand SELECT PRINTER <cprinter> [<p: PREVIEW>] => hbprn:selectprinter(<cprinter>, <.p.>)
+#xcommand SELECT PRINTER BY DIALOG [<p: PREVIEW>] => hbprn:selectprinter("", <.p.>)
+#xcommand SELECT PRINTER DEFAULT [<p: PREVIEW>] => hbprn:selectprinter(NIL, <.p.>)
 
-#xcommand SET PAGE [ORIENTATION <orient>] [PAPERSIZE <psize>] [FONT <cfont>] => hbprn:setpage(<orient>,<psize>,<cfont>)
+#xcommand SET PAGE [ORIENTATION <orient>] [PAPERSIZE <psize>] [FONT <cfont>] => hbprn:setpage(<orient>, <psize>, <cfont>)
 #xcommand SET DUPLEX VERTICAL => hbprn:setdevmode(DM_DUPLEX,DMDUP_VERTICAL)
 #xcommand SET DUPLEX HORIZONTAL => hbprn:setdevmode(DM_DUPLEX,DMDUP_HORIZONTAL)
 #xcommand SET DUPLEX OFF => hbprn:setdevmode(DM_DUPLEX,DMDUP_SIMPLEX)
-#xcommand SET QUALITY <q> => hbprn:setdevmode(DM_PRINTQUALITY,<q>)
-#xcommand SET COLORMODE <c> => hbprn:setdevmode(DM_COLOR,<c>)
-#xcommand SET COPIES [TO] <n> => hbprn:nCopies:=iif(hb_IsNumeric(<n>),<n>,1)
+#xcommand SET QUALITY <q> => hbprn:setdevmode(DM_PRINTQUALITY, <q>)
+#xcommand SET COLORMODE <c> => hbprn:setdevmode(DM_COLOR, <c>)
+#xcommand SET COPIES [TO] <n> => hbprn:nCopies:=iif(hb_IsNumeric(<n>), <n>, 1)
 
 #xcommand SET ORIENTATION PORTRAIT  => hbprn:setdevmode(DM_ORIENTATION,DMORIENT_PORTRAIT)
 #xcommand SET ORIENTATION LANDSCAPE => hbprn:setdevmode(DM_ORIENTATION,DMORIENT_LANDSCAPE)
-#xcommand SET PAPERSIZE <psize> => hbprn:setdevmode(DM_PAPERSIZE,<psize>)
-#xcommand SET USER PAPERSIZE WIDTH <width> HEIGHT <height> => hbprn:setusermode(DMPAPER_USER,<width>,<height>)
-#xcommand SET USER PAPERSIZE HEIGHT <height> WIDTH <width> => hbprn:setusermode(DMPAPER_USER,<width>,<height>)
-#xcommand SET BIN <prnbin> => hbprn:setdevmode(DM_DEFAULTSOURCE,<prnbin>)
+#xcommand SET PAPERSIZE <psize> => hbprn:setdevmode(DM_PAPERSIZE, <psize>)
+#xcommand SET USER PAPERSIZE WIDTH <width> HEIGHT <height> => hbprn:setusermode(DMPAPER_USER, <width>, <height>)
+#xcommand SET USER PAPERSIZE HEIGHT <height> WIDTH <width> => hbprn:setusermode(DMPAPER_USER, <width>, <height>)
+#xcommand SET BIN <prnbin> => hbprn:setdevmode(DM_DEFAULTSOURCE, <prnbin>)
 
 #xcommand SET TEXTCOLOR <clr> => hbprn:settextcolor(<clr>)
 #xcommand GET TEXTCOLOR [TO] <clr> => <clr>:=hbprn:gettexcolor()
@@ -62,7 +62,7 @@
 #xcommand SET BKMODE OPAQUE => hbprn:setbkmode(2)
 #xcommand GET BKMODE [TO] <mode> => <mode>:=hbprn:getbkmode()
 
-#xcommand SET PRINT MARGINS [TOP <lm>] [LEFT <rm>] => hbprn:setviewportorg(<lm>,<rm>)
+#xcommand SET PRINT MARGINS [TOP <lm>] [LEFT <rm>] => hbprn:setviewportorg(<lm>, <rm>)
 
 #xcommand ENABLE THUMBNAILS  => hbprn:thumbnails:=.T.
 #xcommand SET THUMBNAILS ON  => hbprn:thumbnails:=.T.
@@ -71,7 +71,7 @@
 
 #xcommand SET PREVIEW RECT <arr> => hbprn:previewrect:=<arr>
 #xcommand SET PREVIEW RECT MAXIMIZED => hbprn:previewrect:={0,0,-1,-1}
-#xcommand SET PREVIEW RECT <row>,<col>,<row2>,<col2> => hbprn:previewrect:={<row>,<col>,<row2>,<col2>}
+#xcommand SET PREVIEW RECT <row>, <col>, <row2>, <col2> => hbprn:previewrect:={<row>, <col>, <row2>, <col2>}
 #xcommand SET PREVIEW SCALE <scale> => hbprn:previewscale:=<scale>
 #xcommand SET PREVIEW ON  => hbprn:PreviewMode:=.T.
 #xcommand SET PREVIEW OFF => hbprn:PreviewMode:=.F.
@@ -79,29 +79,29 @@
 #xcommand SET SAVEBUTTONS OFF => hbprn:SaveButtons :=.F.
 
 #xcommand DEFINE IMAGELIST <cimglist> PICTURE <cpicture> [ICONCOUNT <nicons>] ;
-                            => hbprn:defineimagelist(<cimglist>,<cpicture>,<nicons>)
+                            => hbprn:defineimagelist(<cimglist>, <cpicture>, <nicons>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> DRAW IMAGELIST <cimglist> ICON <nicon> [NORMAL] [BACKGROUND <color>];
-          => hbprn:drawimagelist(<cimglist>,<nicon>,<row>,<col>,<row2>,<col2>,ILD_NORMAL,<color>)
-#xcommand @ <row>,<col>,<row2>,<col2> DRAW IMAGELIST <cimglist> ICON <nicon> BLEND25 [BACKGROUND <color>];
-          => hbprn:drawimagelist(<cimglist>,<nicon>,<row>,<col>,<row2>,<col2>,ILD_BLEND25,<color>)
-#xcommand @ <row>,<col>,<row2>,<col2> DRAW IMAGELIST <cimglist> ICON <nicon>  BLEND50 [BACKGROUND <color>];
-          => hbprn:drawimagelist(<cimglist>,<nicon>,<row>,<col>,<row2>,<col2>,ILD_BLEND50,<color>)
-#xcommand @ <row>,<col>,<row2>,<col2> DRAW IMAGELIST <cimglist> ICON <nicon> MASK [BACKGROUND <color>];
-          => hbprn:drawimagelist(<cimglist>,<nicon>,<row>,<col>,<row2>,<col2>,ILD_MASK,<color>)
+#xcommand @ <row>, <col>, <row2>, <col2> DRAW IMAGELIST <cimglist> ICON <nicon> [NORMAL] [BACKGROUND <color>];
+          => hbprn:drawimagelist(<cimglist>, <nicon>, <row>, <col>, <row2>, <col2>, ILD_NORMAL, <color>)
+#xcommand @ <row>, <col>, <row2>, <col2> DRAW IMAGELIST <cimglist> ICON <nicon> BLEND25 [BACKGROUND <color>];
+          => hbprn:drawimagelist(<cimglist>, <nicon>, <row>, <col>, <row2>, <col2>, ILD_BLEND25, <color>)
+#xcommand @ <row>, <col>, <row2>, <col2> DRAW IMAGELIST <cimglist> ICON <nicon>  BLEND50 [BACKGROUND <color>];
+          => hbprn:drawimagelist(<cimglist>, <nicon>, <row>, <col>, <row2>, <col2>, ILD_BLEND50, <color>)
+#xcommand @ <row>, <col>, <row2>, <col2> DRAW IMAGELIST <cimglist> ICON <nicon> MASK [BACKGROUND <color>];
+          => hbprn:drawimagelist(<cimglist>, <nicon>, <row>, <col>, <row2>, <col2>, ILD_MASK, <color>)
 
 
 #xcommand DEFINE BRUSH <cbrush> [STYLE <style>] [COLOR <clr>] [HATCH <hatch>] ;
-                            => hbprn:definebrush(<cbrush>,<style>,<clr>,<hatch>)
+                            => hbprn:definebrush(<cbrush>, <style>, <clr>, <hatch>)
 #xcommand CHANGE  BRUSH <cbrush> [STYLE <style>] [COLOR <clr>] [HATCH <hatch>] ;
-                            => hbprn:modifybrush(<cbrush>,<style>,<clr>,<hatch>)
+                            => hbprn:modifybrush(<cbrush>, <style>, <clr>, <hatch>)
 #xcommand SELECT BRUSH <cbrush>;
                             => hbprn:selectbrush(<cbrush>)
 
 #xcommand DEFINE PEN <cpen> [STYLE <style>] [WIDTH <width>] [COLOR <clr>] ;
-                            => hbprn:definepen(<cpen>,<style>,<width>,<clr>)
+                            => hbprn:definepen(<cpen>, <style>, <width>, <clr>)
 #xcommand CHANGE PEN <cpen> [STYLE <style>] [WIDTH <width>] [COLOR <clr>] ;
-                            => hbprn:modifypen(<cpen>,<style>,<width>,<clr>)
+                            => hbprn:modifypen(<cpen>, <style>, <width>, <clr>)
 
 #xcommand SELECT PEN <cpen> ;
                             => hbprn:selectpen(<cpen>)
@@ -109,7 +109,7 @@
 #xcommand DEFINE FONT <cfont> [NAME <cface>] [SIZE <size>] [WIDTH <width>] [ANGLE <angle>] ;
                            [<bold:BOLD>] [<italic:ITALIC>] ;
                            [<underline:UNDERLINE>] [<strikeout:STRIKEOUT>];
-                            => hbprn:definefont(<cfont>,<cface>,<size>,<width>,<angle>,<.bold.>,<.italic.>,<.underline.>,<.strikeout.>)
+                            => hbprn:definefont(<cfont>, <cface>, <size>, <width>, <angle>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>)
 
 
 #xcommand CHANGE FONT <cfont> [NAME <cface>] [SIZE <size>] [WIDTH <width>] [ANGLE <angle>] ;
@@ -117,81 +117,81 @@
                     [<italic:ITALIC>] [<nitalic:NOITALIC>] ;
                     [<underline:UNDERLINE>] [<nunderline:NOUNDERLINE>] ;
                     [<strikeout:STRIKEOUT>] [<nstrikeout:NOSTRIKEOUT>] ;
-                    => hbprn:modifyfont(<cfont>,<cface>,<size>,<width>,<angle>,;
-                       <.bold.>,<.nbold.>,<.italic.>,<.nitalic.>,;
-                       <.underline.>,<.nunderline.>,<.strikeout.>,<.nstrikeout.>)
+                    => hbprn:modifyfont(<cfont>, <cface>, <size>, <width>, <angle>,;
+                       <.bold.>, <.nbold.>, <.italic.>, <.nitalic.>,;
+                       <.underline.>, <.nunderline.>, <.strikeout.>, <.nstrikeout.>)
 
 
 #xcommand SELECT FONT <cfont> => hbprn:selectfont(<cfont>)
 #xcommand SET CHARSET <charset> => hbprn:setcharset(<charset>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> DRAW TEXT <txt> [STYLE <style>] [FONT <cfont>];
-          => hbprn:drawtext(<row>,<col>,<row2>,<col2>,<txt>,<style>,<cfont>)
-#xcommand @ <row>,<col> TEXTOUT <txt> [FONT <cfont>];
-          => hbprn:textout(<row>,<col>,<txt>,<cfont>)
+#xcommand @ <row>, <col>, <row2>, <col2> DRAW TEXT <txt> [STYLE <style>] [FONT <cfont>];
+          => hbprn:drawtext(<row>, <col>, <row2>, <col2>, <txt>, <style>, <cfont>)
+#xcommand @ <row>, <col> TEXTOUT <txt> [FONT <cfont>];
+          => hbprn:textout(<row>, <col>, <txt>, <cfont>)
 
-#xcommand @ <row>,<col> SAY <txt> [FONT <cfont>] [COLOR <color>] [ALIGN <align>]  TO PRINT;
-            => hbprn:say(<row>,<col>,<txt>,<cfont>,<color>,<align>)
+#xcommand @ <row>, <col> SAY <txt> [FONT <cfont>] [COLOR <color>] [ALIGN <align>]  TO PRINT;
+            => hbprn:say(<row>, <col>, <txt>, <cfont>, <color>, <align>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> RECTANGLE [PEN <cpen>] [BRUSH <cbrush>];
-          => hbprn:rectangle(<row>,<col>,<row2>,<col2>,<cpen>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> RECTANGLE [PEN <cpen>] [BRUSH <cbrush>];
+          => hbprn:rectangle(<row>, <col>, <row2>, <col2>, <cpen>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> FILLRECT [BRUSH <cbrush>];
-          => hbprn:fillrect(<row>,<col>,<row2>,<col2>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> FILLRECT [BRUSH <cbrush>];
+          => hbprn:fillrect(<row>, <col>, <row2>, <col2>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> ROUNDRECT ROUNDR <tor> ROUNDC <toc> [PEN <cpen>] [BRUSH <cbrush>];
-          => hbprn:roundrect(<row>,<col>,<row2>,<col2>,<tor>,<toc>,<cpen>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> ROUNDRECT ROUNDR <tor> ROUNDC <toc> [PEN <cpen>] [BRUSH <cbrush>];
+          => hbprn:roundrect(<row>, <col>, <row2>, <col2>, <tor>, <toc>, <cpen>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> FRAMERECT [BRUSH <cbrush>];
-          => hbprn:framerect(<row>,<col>,<row2>,<col2>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> FRAMERECT [BRUSH <cbrush>];
+          => hbprn:framerect(<row>, <col>, <row2>, <col2>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> INVERTRECT ;
-          => hbprn:invertrect(<row>,<col>,<row2>,<col2>)
+#xcommand @ <row>, <col>, <row2>, <col2> INVERTRECT ;
+          => hbprn:invertrect(<row>, <col>, <row2>, <col2>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> ELLIPSE [PEN <cpen>] [BRUSH <cbrush>];
-          => hbprn:ellipse(<row>,<col>,<row2>,<col2>,<cpen>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> ELLIPSE [PEN <cpen>] [BRUSH <cbrush>];
+          => hbprn:ellipse(<row>, <col>, <row2>, <col2>, <cpen>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> ARC RADIAL1 <row3>,<col3> RADIAL2 <row4>,<col4> [PEN <cpen>] ;
-          => hbprn:arc(<row>,<col>,<row2>,<col2>,<row3>,<col3>,<row4>,<col4>,<cpen>)
+#xcommand @ <row>, <col>, <row2>, <col2> ARC RADIAL1 <row3>, <col3> RADIAL2 <row4>, <col4> [PEN <cpen>] ;
+          => hbprn:arc(<row>, <col>, <row2>, <col2>, <row3>, <col3>, <row4>, <col4>, <cpen>)
 
-#xcommand @ <row>,<col> ARCTO RADIAL1 <row3>,<col3> RADIAL2 <row4>,<col4> [PEN <cpen>] ;
-          => hbprn:arcto(<row>,<col>,<row3>,<col3>,<row4>,<col4>,<cpen>)
+#xcommand @ <row>, <col> ARCTO RADIAL1 <row3>, <col3> RADIAL2 <row4>, <col4> [PEN <cpen>] ;
+          => hbprn:arcto(<row>, <col>, <row3>, <col3>, <row4>, <col4>, <cpen>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> CHORD RADIAL1 <row3>,<col3> RADIAL2 <row4>,<col4> [PEN <cpen>] [BRUSH <cbrush>];
-          => hbprn:chord(<row>,<col>,<row2>,<col2>,<row3>,<col3>,<row4>,<col4>,<cpen>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> CHORD RADIAL1 <row3>, <col3> RADIAL2 <row4>, <col4> [PEN <cpen>] [BRUSH <cbrush>];
+          => hbprn:chord(<row>, <col>, <row2>, <col2>, <row3>, <col3>, <row4>, <col4>, <cpen>, <cbrush>)
 
-#xcommand @ <row>,<col>,<row2>,<col2> PIE RADIAL1 <row3>,<col3> RADIAL2 <row4>,<col4> [PEN <cpen>] [BRUSH <cbrush>];
-          => hbprn:pie(<row>,<col>,<row2>,<col2>,<row3>,<col3>,<row4>,<col4>,<cpen>,<cbrush>)
+#xcommand @ <row>, <col>, <row2>, <col2> PIE RADIAL1 <row3>, <col3> RADIAL2 <row4>, <col4> [PEN <cpen>] [BRUSH <cbrush>];
+          => hbprn:pie(<row>, <col>, <row2>, <col2>, <row3>, <col3>, <row4>, <col4>, <cpen>, <cbrush>)
 
 #xcommand POLYGON <apoints> [PEN <cpen>] [BRUSH <cbrush>] [STYLE <style>];
-          => hbprn:polygon(<apoints>,<cpen>,<cbrush>,<style>)
+          => hbprn:polygon(<apoints>, <cpen>, <cbrush>, <style>)
 
 #xcommand POLYBEZIER <apoints> [PEN <cpen>] ;
-          => hbprn:polybezier(<apoints>,<cpen>)
+          => hbprn:polybezier(<apoints>, <cpen>)
 
 #xcommand POLYBEZIERTO <apoints> [PEN <cpen>] ;
-          => hbprn:polybezierto(<apoints>,<cpen>)
+          => hbprn:polybezierto(<apoints>, <cpen>)
 
 #xcommand SET UNITS [ROWCOL] => hbprn:setunits(0)
 #xcommand SET UNITS MM =>  hbprn:setunits(1)
 #xcommand SET UNITS INCHES =>  hbprn:setunits(2)
 #xcommand SET UNITS PIXELS =>  hbprn:setunits(3)
-#xcommand SET UNITS ROWS <r> COLS <c> =>  hbprn:setunits(4,<r>,<c>)
+#xcommand SET UNITS ROWS <r> COLS <c> =>  hbprn:setunits(4, <r>, <c>)
 
-#xcommand DEFINE RECT REGION <creg> AT <row>,<col>,<row2>,<col2> ;
-           => hbprn:definerectrgn(<creg>,<row>,<col>,<row2>,<col2>)
+#xcommand DEFINE RECT REGION <creg> AT <row>, <col>, <row2>, <col2> ;
+           => hbprn:definerectrgn(<creg>, <row>, <col>, <row2>, <col2>)
 
 #xcommand DEFINE POLYGON REGION <creg> VERTEX <apoints> [STYLE <style>] ;
-           => hbprn:definepolygonrgn(<creg>,<apoints>,<style>)
+           => hbprn:definepolygonrgn(<creg>, <apoints>, <style>)
 
-#xcommand DEFINE ELLIPTIC REGION <creg> AT <row>,<col>,<row2>,<col2> ;
-           => hbprn:defineEllipticrgn(<creg>,<row>,<col>,<row2>,<col2>)
+#xcommand DEFINE ELLIPTIC REGION <creg> AT <row>, <col>, <row2>, <col2> ;
+           => hbprn:defineEllipticrgn(<creg>, <row>, <col>, <row2>, <col2>)
 
-#xcommand DEFINE ROUNDRECT REGION <creg> AT <row>,<col>,<row2>,<col2> ELLIPSE <ewidth>,<eheight>;
-           => hbprn:defineroundrectrgn(<creg>,<row>,<col>,<row2>,<col2>,<ewidth>,<eheight>)
+#xcommand DEFINE ROUNDRECT REGION <creg> AT <row>, <col>, <row2>, <col2> ELLIPSE <ewidth>, <eheight>;
+           => hbprn:defineroundrectrgn(<creg>, <row>, <col>, <row2>, <col2>, <ewidth>, <eheight>)
 
-#xcommand COMBINE REGIONS <creg1>,<creg2> TO <creg> [STYLE <style>] ;
-           => hbprn:combinergn(<creg>,<creg1>,<creg2>,<style>)
+#xcommand COMBINE REGIONS <creg1>, <creg2> TO <creg> [STYLE <style>] ;
+           => hbprn:combinergn(<creg>, <creg1>, <creg2>, <style>)
 
 #xcommand SELECT CLIP REGION <creg> ;
            => hbprn:selectcliprgn(<creg>)
@@ -211,14 +211,14 @@
 #xcommand GET POLYFILL MODE TO <mode>;
            => <mode>:=hbprn:getpolyfillmode()
 
-#xcommand SET VIEWPORTORG <row>,<col>;
-           => hbprn:setviewportorg(<row>,<col>)
+#xcommand SET VIEWPORTORG <row>, <col>;
+           => hbprn:setviewportorg(<row>, <col>)
 
 #xcommand GET VIEWPORTORG TO <aviewport>;
            => hbprn:getviewportorg(); <aviewport>:=aclone(hbprn:viewportorg)
 
-#xcommand SET RGB <red>,<green>,<blue> TO <nrgb>;
-           => <nrgb>:=hbprn:setrgb(<red>,<green>,<blue>)
+#xcommand SET RGB <red>, <green>, <blue> TO <nrgb>;
+           => <nrgb>:=hbprn:setrgb(<red>, <green>, <blue>)
 
 #xcommand SET TEXTCHAR EXTRA <col> ;
            => hbprn:settextcharextra(<col>)
@@ -244,20 +244,20 @@
 #xcommand GET TEXT ALIGN TO <style> ;
            => <style>:=hbprn:gettextalign()
 
-#xcommand @<row>,<col> PICTURE <cpic> SIZE <row2>,<col2> [EXTEND <row3>,<col3>] ;
-           => hbprn:picture(<row>,<col>,<row2>,<col2>,<cpic>,<row3>,<col3>)
+#xcommand @<row>, <col> PICTURE <cpic> SIZE <row2>, <col2> [EXTEND <row3>, <col3>] ;
+           => hbprn:picture(<row>, <col>, <row2>, <col2>, <cpic>, <row3>, <col3>)
 
-#xcommand @<row>,<col>,<row2>,<col2> LINE  [PEN <cpen>] ;
-           => hbprn:line(<row>,<col>,<row2>,<col2>,<cpen>)
+#xcommand @<row>, <col>, <row2>, <col2> LINE  [PEN <cpen>] ;
+           => hbprn:line(<row>, <col>, <row2>, <col2>, <cpen>)
 
-#xcommand @<row>,<col> LINETO  [PEN <cpen>] ;
-           => hbprn:lineto(<row>,<col>,<cpen>)
+#xcommand @<row>, <col> LINETO  [PEN <cpen>] ;
+           => hbprn:lineto(<row>, <col>, <cpen>)
 
 #xcommand GET TEXT EXTENT <txt> [FONT <cfont>] TO <asize> ;
-           => hbprn:gettextextent(<txt>,<asize>,<cfont>)
+           => hbprn:gettextextent(<txt>, <asize>, <cfont>)
 
 #xcommand GET TEXT EXTENT IN MM <txt> [FONT <cfont>] TO <asize> ;
-           => hbprn:gettextextent_mm(<txt>,<asize>,<cfont>)
+           => hbprn:gettextextent_mm(<txt>, <asize>, <cfont>)
 
 #xcommand SET CLOSEPREVIEW ON => hbprn:clspreview := .T.
 #xcommand SET CLOSEPREVIEW OFF => hbprn:clspreview := .F.

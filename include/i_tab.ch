@@ -47,7 +47,7 @@
 #command DEFINE TAB <name> ;
         [ID <nId>];
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-        AT <row> , <col> ;
+        AT <row>, <col> ;
         WIDTH <w> ;
         HEIGHT <h> ;
         [ VALUE <value> ] ;
@@ -100,15 +100,15 @@
 
 #command PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
         =>;
-        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        _BeginTabPage ( <caption>, <image>, <tooltip> ) 
 
 #command DEFINE PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
         =>;
-        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        _BeginTabPage ( <caption>, <image>, <tooltip> ) 
 
 #command DEFINE TAB PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
         =>;
-        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        _BeginTabPage ( <caption>, <image>, <tooltip> ) 
 
 #command END PAGE ;
         =>;

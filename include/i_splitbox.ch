@@ -52,7 +52,7 @@
         [ <horizontal: HORIZONTAL> ] ;
         [ HANDLE <hSplitWnd> ] ;
 => ;
-        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
+        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)>, <.bottom.>, <.horizontal.> )
 
 * Alternate
 
@@ -62,7 +62,7 @@
         [ HORIZONTAL <horizontal> ]        ;
         [ <dummy: HANDLE, STOREIN> <hSplitWnd> ] ;
 =>;
-        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
+        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)>, <.bottom.>, <.horizontal.> )
 
 
 #xcommand END SPLITBOX ;

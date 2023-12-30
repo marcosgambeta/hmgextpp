@@ -48,7 +48,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> TIMEPICKER <name> ;
+#command @ <row>, <col> TIMEPICKER <name> ;
       [ID <nId>];
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       [ VALUE <v> ] ;
@@ -72,27 +72,27 @@
       [ <invisible: INVISIBLE> ] ;
       [ <notabstop: NOTABSTOP> ] ;
    => ;
-   _DefineTimePick ( <(name)> , ;
-                     <(parent)> , ;
-                     <col> , ;
-                     <row> , ;
-                     <w> , ;
-                     <h> , ;
-                     <v> , ;
-                     <fontname> , ;
-                     <fontsize> , ;
-                     <tooltip> , ;
-                     <{change}> , ;
-                     <{lostfocus}> , ;
-                     <{gotfocus}> , ;
-                     <.shownone.> , ;
-                     <helpid> , <.invisible.>, <.notabstop.>, ;
-                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
-                     <(field)> , <{enter}>, <cTimeFormat>, ;
+   _DefineTimePick ( <(name)>, ;
+                     <(parent)>, ;
+                     <col>, ;
+                     <row>, ;
+                     <w>, ;
+                     <h>, ;
+                     <v>, ;
+                     <fontname>, ;
+                     <fontsize>, ;
+                     <tooltip>, ;
+                     <{change}>, ;
+                     <{lostfocus}>, ;
+                     <{gotfocus}>, ;
+                     <.shownone.>, ;
+                     <helpid>, <.invisible.>, <.notabstop.>, ;
+                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                     <(field)>, <{enter}>, <cTimeFormat>, ;
                      <nId> )
 
 
-#command @ <row>,<col> DATEPICKER <name> ;
+#command @ <row>, <col> DATEPICKER <name> ;
       [ID <nId>];
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       [ VALUE <v> ] ;
@@ -112,7 +112,7 @@
       [ TITLEFONTCOLOR <titlefrclr> ] ;
       [ TRAILINGFONTCOLOR <trlfontclr> ] ;
       [ <dummy2: DATEFORMAT, FORMAT>  <cDateFormat> ] ;
-      [ RANGE <lo> , <hi> ] ;
+      [ RANGE <lo>, <hi> ] ;
       [ < shownone: SHOWNONE > ] ;
       [ < updown: UPDOWN > ] ;
       [ < rightalign: RIGHTALIGN > ] ;
@@ -125,31 +125,31 @@
       [ <notabstop: NOTABSTOP> ] ;
       [ ON INIT <bInit> ] ;
    => ;
-   _DefineDatePick ( <(name)> , ;
-                     <(parent)> , ;
-                     <col> , ;
-                     <row> , ;
-                     <w> , ;
-                     <h> , ;
-                     <v> , ;
-                     <fontname> , ;
-                     <fontsize> , ;
-                     <tooltip> , ;
-                     <{change}> , ;
-                     <{lostfocus}> , ;
-                     <{gotfocus}> , ;
-                     <.shownone.> , ;
-                     <.updown.> , ;
-                     <.rightalign.>  , <helpid> , <.invisible.>, <.notabstop.>, ;
-                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
-                     <(field)> , <{enter}>, ;
+   _DefineDatePick ( <(name)>, ;
+                     <(parent)>, ;
+                     <col>, ;
+                     <row>, ;
+                     <w>, ;
+                     <h>, ;
+                     <v>, ;
+                     <fontname>, ;
+                     <fontsize>, ;
+                     <tooltip>, ;
+                     <{change}>, ;
+                     <{lostfocus}>, ;
+                     <{gotfocus}>, ;
+                     <.shownone.>, ;
+                     <.updown.>, ;
+                     <.rightalign.>  , <helpid>, <.invisible.>, <.notabstop.>, ;
+                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                     <(field)>, <{enter}>, ;
                      [ <backcolor> ], ;
                      [ <fontcolor> ], ;
                      [ <titlebkclr> ], ;
                      [ <titlefrclr> ], ;
                      [ <trlfontclr> ], ;
                      <cDateFormat>, ;
-                     <lo> , <hi> , ;
+                     <lo>, <hi>, ;
                      <nId>, <bInit> )
 
 
@@ -171,7 +171,7 @@
       [ TITLEFONTCOLOR <titlefrclr> ] ;
       [ TRAILINGFONTCOLOR <trlfontclr> ] ;
       [ DATEFORMAT <cDateFormat> ] ;
-      [ RANGE <lo> , <hi> ] ;
+      [ RANGE <lo>, <hi> ] ;
       [ < shownone: SHOWNONE > ] ;
       [ < updown: UPDOWN > ] ;
       [ < rightalign: RIGHTALIGN > ] ;
@@ -184,31 +184,31 @@
       [ <notabstop: NOTABSTOP> ] ;
       [ ON INIT <bInit> ] ;
    => ;
-   _DefineDatePick ( <(name)> , ;
-                     <(parent)> , ;
+   _DefineDatePick ( <(name)>, ;
+                     <(parent)>, ;
                      0 , ;
                      0 , ;
                      0 , ;
                      0 , ;
-                     <v> , ;
-                     <fontname> , ;
-                     <fontsize> , ;
-                     <tooltip> , ;
-                     <{change}> , ;
-                     <{lostfocus}> , ;
-                     <{gotfocus}> , ;
-                     <.shownone.> , ;
-                     <.updown.> , ;
-                     <.rightalign.>  , <helpid> , <.invisible.>, <.notabstop.>, ;
-                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
-                     <(field)> , <{enter}>, ;
+                     <v>, ;
+                     <fontname>, ;
+                     <fontsize>, ;
+                     <tooltip>, ;
+                     <{change}>, ;
+                     <{lostfocus}>, ;
+                     <{gotfocus}>, ;
+                     <.shownone.>, ;
+                     <.updown.>, ;
+                     <.rightalign.>  , <helpid>, <.invisible.>, <.notabstop.>, ;
+                     <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                     <(field)>, <{enter}>, ;
                      [ <backcolor> ], ;
                      [ <fontcolor> ], ;
                      [ <titlebkclr> ], ;
                      [ <titlefrclr> ], ;
                      [ <trlfontclr> ], ;
                      <cDateFormat>, ;
-                     <lo> , <hi> , ;
+                     <lo>, <hi>, ;
                      <nId>, <bInit> )
 
 

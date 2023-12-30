@@ -49,7 +49,7 @@
 
 #xcommand DEFINE PROPSHEET  <name>       ;
       [ <dummy1: OF, PARENT> <parent> ] ;
-      AT <row>,<col>  ;
+      AT <row>, <col>  ;
       [ WIDTH <width> ] ;
       [ HEIGHT <height> ] ;
       < modal: MODAL >    ;
@@ -67,14 +67,14 @@
       [ ON CANCEL <cancelproc> ] ;
       [ ON VALID <validproc> ] ;
 =>;
-_BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
-               <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
+_BeginPropSheet ( <"name">, <"parent">, <row>, <col>, <width>, <height>,;
+               <caption>, <icon>, <fontname>, <fontsize>, <{dlgproc}>, <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
                <.strikeout.>, <.modal.>, .F., 0, 0, .F. )
 
 #xcommand DEFINE PROPSHEET  <name>       ;
    [ <dummy1: OF, PARENT> <parent> ] ;
-      AT <row>,<col>  ;
+      AT <row>, <col>  ;
       [ WIDTH <width> ] ;
       [ HEIGHT <height> ] ;
       <wizard: WIZARD>    ;
@@ -95,14 +95,14 @@ _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
       [ ON CANCEL <cancelproc> ] ;
       [ ON VALID <validproc> ] ;
 =>;
-_BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , ;
-               <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
+_BeginPropSheet ( <"name">, <"parent">, <row>, <col>, <width>, <height>, ;
+               <caption>, <icon>, <fontname>, <fontsize>, <{dlgproc}>, <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
                <.strikeout.>, .T., <.wizard.>, <watermark>, <headerbmp>, <.lite.> )
 
 #xcommand DEFINE PROPSHEET  <name>       ;
       [ <dummy1: OF, PARENT> <parent> ] ;
-      AT <row>,<col>  ;
+      AT <row>, <col>  ;
       [ WIDTH <width> ] ;
       [ HEIGHT <height> ] ;
       [ CAPTION <caption> ];
@@ -119,8 +119,8 @@ _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , ;
       [ ON CANCEL <cancelproc> ] ;
       [ ON VALID <validproc> ] ;
 =>;
-_BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
-               <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
+_BeginPropSheet ( <"name">, <"parent">, <row>, <col>, <width>, <height>,;
+               <caption>, <icon>, <fontname>, <fontsize>, <{dlgproc}>, <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
                <.strikeout.>, .F., .F., 0, 0, .F. )
 

@@ -2964,7 +2964,7 @@ GpStatus WINGDIPAPI GdipGetGenericFontFamilyMonospace(GpFontFamily **nativeFamil
 GpStatus WINGDIPAPI GdipGetFamilyName(GDIPCONST GpFontFamily *family, LPWSTR name, LANGID language); 
 GpStatus WINGDIPAPI GdipIsStyleAvailable(GDIPCONST GpFontFamily *family, INT style, BOOL *IsStyleAvailable); 
 GpStatus WINGDIPAPI GdipFontCollectionEnumerable (GpFontCollection*fontCollection ,GpGraphics*graphics ,INT *numFound); 
-GpStatus WINGDIPAPI GdipFontCollectionEnumerate (GpFontCollection*fontCollection ,INT numSought ,GpFontFamily*gpfamilies[] ,INT*numFound ,GpGraphics*graphics); 
+GpStatus WINGDIPAPI GdipFontCollectionEnumerate (GpFontCollection*fontCollection ,INT numSought ,GpFontFamily*gpfamilies[],INT*numFound ,GpGraphics*graphics); 
 GpStatus WINGDIPAPI GdipGetEmHeight(GDIPCONST GpFontFamily *family, INT style, UINT16 *EmHeight); 
 GpStatus WINGDIPAPI GdipGetCellAscent(GDIPCONST GpFontFamily *family, INT style ,UINT16 *CellAscent); 
 GpStatus WINGDIPAPI GdipGetCellDescent(GDIPCONST GpFontFamily *family, INT style, UINT16 *CellDescent); 

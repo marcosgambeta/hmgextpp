@@ -2617,7 +2617,7 @@ Edit Box
 
 #xcommand BREAK <break> ;
    =>;
-   iif ( _HMG_ActiveControlDef , _HMG_ActiveControlBreak := <break> , EVAL({|b| BREAK(b)}, <break>) )
+   iif ( _HMG_ActiveControlDef , _HMG_ActiveControlBreak := <break>, EVAL({|b| BREAK(b)}, <break>) )
 
 #xcommand END EDITBOX ;
    =>;

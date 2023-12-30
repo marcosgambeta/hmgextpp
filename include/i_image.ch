@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xcommand @ <row>,<col> IMAGE <name> ;
+#xcommand @ <row>, <col> IMAGE <name> ;
    [ID <nId>] ;
    [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
    PICTURE <filename> ;
@@ -65,10 +65,10 @@
    [ <invisible: INVISIBLE> ] ;
    [ ON INIT <bInit> ] ;
  =>;
- _DefineImage ( <(name)>, <(parent)>, <col>, <row>, <filename>, <w>, <h>, <{action}>, <tooltip>, <helpid>, <.invisible.>, <.stretch.>, <backgroundcolor>, <.transparent.>, <.adjustimage.>, <{overproc}>, <{leaveproc}>, <nAlpha>, <nId>, <bInit>, <{dblclick}> , <{rclick}> )
+ _DefineImage ( <(name)>, <(parent)>, <col>, <row>, <filename>, <w>, <h>, <{action}>, <tooltip>, <helpid>, <.invisible.>, <.stretch.>, <backgroundcolor>, <.transparent.>, <.adjustimage.>, <{overproc}>, <{leaveproc}>, <nAlpha>, <nId>, <bInit>, <{dblclick}>, <{rclick}> )
 
 
-#xcommand @ <row>,<col> IMAGE <name> ;
+#xcommand @ <row>, <col> IMAGE <name> ;
    [ID <nId>] ;
    [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
    PICTURE <filename> ;
@@ -89,7 +89,7 @@
    [ <invisible: INVISIBLE> ] ;
    [ ON INIT <bInit> ] ;
  =>;
- _DefineImage ( <(name)>, <(parent)>, <col>, <row>, <filename>, <w>, <h>, <{action}>, <tooltip>, <helpid>, <.invisible.>, <.stretch.>, { 255 , 255 , 255 }, <.transparent.>, <.adjustimage.>, <{overproc}>, <{leaveproc}>, <nAlpha>, <nId>, <bInit>, <{dblclick}> , <{rclick}> )
+ _DefineImage ( <(name)>, <(parent)>, <col>, <row>, <filename>, <w>, <h>, <{action}>, <tooltip>, <helpid>, <.invisible.>, <.stretch.>, { 255 , 255 , 255 }, <.transparent.>, <.adjustimage.>, <{overproc}>, <{leaveproc}>, <nAlpha>, <nId>, <bInit>, <{dblclick}>, <{rclick}> )
 
 
 #xcommand REDEFINE IMAGE <name> ;
@@ -106,4 +106,4 @@
    [ <invisible: INVISIBLE> ] ;
    [ ON INIT <bInit> ] ;
  =>;
- _DefineImage ( <(name)>, <(parent)>, 0, 0, <filename>, 0, 0, <{action}>, , <helpid>, <.invisible.>, <.stretch.>, iif(<.whitebg.>, { 255 , 255 , 255 }, NIL), <.transparent.>, , , , , <nId> , <bInit> , <{dblclick}> , <{rclick}> )
+ _DefineImage ( <(name)>, <(parent)>, 0, 0, <filename>, 0, 0, <{action}>, , <helpid>, <.invisible.>, <.stretch.>, iif(<.whitebg.>, { 255 , 255 , 255 }, NIL), <.transparent.>, , , , , <nId>, <bInit>, <{dblclick}>, <{rclick}> )

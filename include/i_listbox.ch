@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> LISTBOX <name> ;
+#command @ <row>, <col> LISTBOX <name> ;
       [ ID <nId> ];
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       [ WIDTH <w> ] ;
@@ -76,8 +76,8 @@
    => ;
    _DefineListBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
-      <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
-      <backcolor> , <fontcolor> , <.multiselect.> , <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
+      <helpid>, <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>,;
+      <backcolor>, <fontcolor>, <.multiselect.>, <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
 
 
 #command REDEFINE LISTBOX <name> ;
@@ -110,8 +110,8 @@
    => ;
    _DefineListBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
-      <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
-      <backcolor> , <fontcolor> , <.multiselect.> , <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
+      <helpid>, <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>,;
+      <backcolor>, <fontcolor>, <.multiselect.>, <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
 
 
 // SPLITBOX VERSION
@@ -149,14 +149,14 @@
    _DefineListBox ( <(name)>, <(parent)>, , , <w>, <h>, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, ;
       <{gotfocus}>, <{lostfocus}>, <.break.>, <helpid>, ;
-      <.invisible.>, <.notabstop.>, <.sort.> ,<.bold.>, ;
-      <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , ;
-      <fontcolor> , <.multiselect.> , <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, 0 )
+      <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, ;
+      <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, ;
+      <fontcolor>, <.multiselect.>, <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, 0 )
 
 
 // CHECKED LISTBOX
 
-#command @ <row>,<col> CHECKLISTBOX <name> ;
+#command @ <row>, <col> CHECKLISTBOX <name> ;
       [ ID <nId> ];
       [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
       [ WIDTH <w> ] ;
@@ -186,8 +186,8 @@
    => ;
    _DefineChkListBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
-      <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-      <backcolor> , <fontcolor> , <.multiselect.> , <aCheck>, <nItemHeight>, <nId> )
+      <helpid>, <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+      <backcolor>, <fontcolor>, <.multiselect.>, <aCheck>, <nItemHeight>, <nId> )
 
 #command REDEFINE CHECKLISTBOX <name> ;
         ID <nId>;
@@ -217,8 +217,8 @@
    => ;
    _DefineChkListBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
-      <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
-      <backcolor> , <fontcolor> , <.multiselect.> , <aCheck>, <nItemHeight>, <nId> )
+      <helpid>, <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>,;
+      <backcolor>, <fontcolor>, <.multiselect.>, <aCheck>, <nItemHeight>, <nId> )
 
 
 // SPLITBOX VERSION
@@ -254,9 +254,9 @@
    _DefineChkListBox ( <(name)>, <(parent)>, , , <w>, <h>, <aRows>, <value>, ;
       <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, ;
       <{gotfocus}>, <{lostfocus}>, <.break.>, <helpid>, ;
-      <.invisible.>, <.notabstop.>, <.sort.> ,<.bold.>, ;
-      <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , ;
-      <fontcolor> , <.multiselect.> , <aCheck>, <nItemHeight>, 0 )
+      <.invisible.>, <.notabstop.>, <.sort.>, <.bold.>, ;
+      <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, ;
+      <fontcolor>, <.multiselect.>, <aCheck>, <nItemHeight>, 0 )
 
 
 /*

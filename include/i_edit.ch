@@ -51,11 +51,11 @@
                 [ SAVE <bsave> ]                        ;
                 [ SEARCH <bsearch> ]                        ;
         =>                                                 ;
-                ABM(        <(workarea)> ,                         ;
-                        <title> ,                         ;
-                        <fields> ,                         ;                
+                ABM(        <(workarea)>,                         ;
+                        <title>,                         ;
+                        <fields>,                         ;                
                         NoArray(<editablefields>) ,         ;
-                        <bsave> ,                         ;
+                        <bsave>,                         ;
                         <bsearch> )
 
 #xtranslate EDIT EXTENDED                                ;

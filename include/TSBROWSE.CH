@@ -2,7 +2,7 @@
 * TSBrowse.ch  Version 9.0 1/Nov/2009
 * Creating Browse From Code
 *=============================================================================
-#xcommand @ <row>,<col> TBROWSE <name> ;
+#xcommand @ <row>, <col> TBROWSE <name> ;
         [ ID <nId> ] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ WIDTH <w> ]  ;
@@ -63,13 +63,13 @@
         [ <emptyval: COLEMPTY,COLSEMPTY,EMPTYVALUE> ] ;
         [ <gotfocusel: GOTFOCUSSELECT,GOTFOCUSELECT> ] ;
     =>;
-<name> :=_DefineTBrowse (<(name)> ,    ;
+<name> :=_DefineTBrowse (<(name)>,    ;
        <(parent)>,      ;
        [ <col> ],       ;
        [ <row> ],       ;
        [ <w> ],         ;
        [ <h> ],         ;
-       [ \{<aHeaders>\}] , ;
+       [ \{<aHeaders>\}], ;
        [ \{<aColSizes>\}], ;
        [  \{|| \{ <Fields> \} \} ], ;
        [ <value> ],        ;
@@ -77,7 +77,7 @@
        [ <fontsize> ],     ;
        [ <tooltip> ],      ;
        [ <{uChange}> ],    ;
-       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags),<uLDblClick>\} ], ;
+       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags), <uLDblClick>\} ], ;
        [ <aHeadClick> ],   ;
        [ <{gotfocus}> ],   ;
        [ <{lostfocus}> ],  ;
@@ -91,7 +91,7 @@
        [ <.italic.> ], ;
        [ <.underline.> ], ;
        [ <.strikeout.> ], ;
-       [ <.break.> ] , ;
+       [ <.break.> ], ;
        [ <backcolor> ], ;
        [ <fontcolor> ], ;
        [ <.lock.>  ], ;
@@ -112,7 +112,7 @@
        [ <.emptyval.> ], [ <.gotfocusel.> ] )
 
 #xcommand DEFINE TBROWSE <name> ;
-        AT <row>,<col> ;
+        AT <row>, <col> ;
         [ ID <nId> ] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ WIDTH <w> ]  ;
@@ -174,13 +174,13 @@
         [ <emptyval: COLEMPTY,COLSEMPTY,EMPTYVALUE> ] ;
         [ <gotfocusel: GOTFOCUSSELECT,GOTFOCUSELECT> ] ;
     =>;
-<name> :=_DefineTBrowse (<(name)> ,    ;
+<name> :=_DefineTBrowse (<(name)>,    ;
        <(parent)>,      ;
        [ <col> ],       ;
        [ <row> ],       ;
        [ <w> ],         ;
        [ <h> ],         ;
-       [ \{<aHeaders>\}] ,     ;
+       [ \{<aHeaders>\}],     ;
        [ \{<aColSizes>\}]  ,     ;
        [  \{|| \{ <Fields> \} \} ], ;
        [ <value> ],    ;
@@ -188,7 +188,7 @@
        [ <fontsize> ],     ;
        [ <tooltip> ],     ;
        [ <{uChange}> ], ;
-       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags),<uLDblClick>\} ], ;
+       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags), <uLDblClick>\} ], ;
        [ <aHeadClick> ],  ;
        [ <{gotfocus}> ],    ;
        [ <{lostfocus}> ],     ;
@@ -197,12 +197,12 @@
        [ <.style.> ],    ;
        [  \{<aImages>\} ],    ;
        [ <aJust> ], ;
-       [ <helpid> ] , ;
+       [ <helpid> ], ;
        [ <.bold.> ], ;
        [ <.italic.> ], ;
        [ <.underline.> ], ;
        [ <.strikeout.> ], ;
-       [ <.break.> ] , ;
+       [ <.break.> ], ;
        [ <backcolor> ], ;
        [ <fontcolor> ], ;
        [ <.lock.>  ], ;
@@ -224,7 +224,7 @@
        with object <name>
 
 #xcommand DEFINE TBROWSE <name> OBJ <obrw> ;
-       [ AT <row>,<col> ] ;
+       [ AT <row>, <col> ] ;
        [ ID <nId> ] ;
        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
        [ WIDTH <w> ]  ;
@@ -286,13 +286,13 @@
        [ <emptyval: COLEMPTY,COLSEMPTY,EMPTYVALUE> ] ;
        [ <gotfocusel: GOTFOCUSSELECT,GOTFOCUSELECT> ] ;
     =>;
-<obrw> :=_DefineTBrowse (<(name)> ,    ;
+<obrw> :=_DefineTBrowse (<(name)>,    ;
        <(parent)>,      ;
        [ <col> ],       ;
        [ <row> ],       ;
        [ <w> ],         ;
        [ <h> ],         ;
-       [ \{<aHeaders>\}] ,     ;
+       [ \{<aHeaders>\}],     ;
        [ \{<aColSizes>\}]  ,     ;
        [  \{|| \{ <Fields> \} \} ], ;
        [ <value> ],    ;
@@ -300,7 +300,7 @@
        [ <fontsize> ],     ;
        [ <tooltip> ],     ;
        [ <{uChange}> ], ;
-       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags),<uLDblClick>\} ], ;
+       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags), <uLDblClick>\} ], ;
        [ <aHeadClick> ],  ;
        [ <{gotfocus}> ],    ;
        [ <{lostfocus}> ],     ;
@@ -309,12 +309,12 @@
        [ <.style.> ],    ;
        [  \{<aImages>\} ],    ;
        [ <aJust> ], ;
-       [ <helpid> ] , ;
+       [ <helpid> ], ;
        [ <.bold.> ], ;
        [ <.italic.> ], ;
        [ <.underline.> ], ;
        [ <.strikeout.> ], ;
-       [ <.break.> ] , ;
+       [ <.break.> ], ;
        [ <backcolor> ], ;
        [ <fontcolor> ], ;
        [ <.lock.>  ], ;
@@ -393,13 +393,13 @@
         [ <lAutoCol: AUTOCOLS> ] ;
         [ <colsel:COLUMNS, INCLUDE> <aColSel,...> ] ;
     =>;
-<name> :=_DefineTBrowse (<(name)> , ;
-       <(parent)> , ;
+<name> :=_DefineTBrowse (<(name)>, ;
+       <(parent)>, ;
        0,        ;
        0,        ;
        0,         ;
        0,         ;
-       [ \{<aHeaders>\}] ,     ;
+       [ \{<aHeaders>\}],     ;
        [ \{<aColSizes>\}]  ,     ;
        [  \{|| \{ <Fields> \} \} ], ;
        [ <value> ],    ;
@@ -407,7 +407,7 @@
        [ <fontsize> ],     ;
        [ <tooltip> ],     ;
        [ <{uChange}> ], ;
-       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags),<uLDblClick>\} ], ;
+       [ \{|nRow,nCol,nFlags|(nRow,nCol,nFlags), <uLDblClick>\} ], ;
        [ <aHeadClick> ],  ;
        [ <{gotfocus}> ],    ;
        [ <{lostfocus}> ],     ;
@@ -416,12 +416,12 @@
        [ <.style.> ],    ;
        [ <aImage> ],    ;
        [ <aJust> ], ;
-       [ <helpid> ] , ;
+       [ <helpid> ], ;
        [ <.bold.> ], ;
        [ <.italic.> ], ;
        [ <.underline.> ], ;
        [ <.strikeout.> ], ;
-       [ <.break.> ] , ;
+       [ <.break.> ], ;
        [ <backcolor> ], ;
        [ <fontcolor> ], ;
        [ <.lock.>  ], ;
@@ -604,7 +604,7 @@
              [ \{<aColors>\} ], [ \{<aAlign>\} ], [ <nWidth> ], ;
              [ Upper(<(bit)>) ], [ <.edit.> ], [ \{|uVar,This| <uValid> \}], ;
              [ <.lite.> ], [ <(cOrder)> ], ;
-             [ If(<.oem2.>, OemToAnsi(<cFoot>), <cFoot>) ] , ;
+             [ If(<.oem2.>, OemToAnsi(<cFoot>), <cFoot>) ], ;
              [ <{bPrevBlock}> ], [ <{bPostBlock}> ], [ <nMoveDir> ], ;
              [ <.cur.> ], [ \{<a3DLook>\} ],, <oBrw>,,, [<(uValid)>], ;
              [ <(bPrevBlock)> ], [<(bPostBlock)>], [<cMsg>], [ <cToolTip> ], [ <.total.> ],,,,,,,,, ;
@@ -887,7 +887,7 @@
 //------------------------------------------------------------------------//
 #xtranslate GetSysMetrics(<p>)        => waGetSystemMetrics(<p>)
 #xtranslate SysRefresh()              => hmg_DoEvents()
-#xtranslate nMakeLong( <p1> , <p2> )  => hmg_MakeLong( <p1> , <p2> )
+#xtranslate nMakeLong( <p1>, <p2> )  => hmg_MakeLong( <p1>, <p2> )
 
 #ifndef BN_CLICKED
 #define BN_CLICKED                 0

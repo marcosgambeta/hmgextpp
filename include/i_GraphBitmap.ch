@@ -50,4 +50,4 @@
 <hBitmapVar> := HMG_Graph( <nWidth>, <nHeight>, <aSerieValues>, <cTitle>, <aSerieYNames>, <nBarDepth>, <nBarWidth>, <nSeparation>,;
                            <aTitleColor>, <nHValues>, <l3DView>, <lShowGrid>, <.lShowXGrid.>, <.lShowYGrid.>, <lShowXValues>,;
                            <lShowYValues>, <lShowLegends>, <aSerieNames>, <aSerieColors>, <nGraphType>, <lShowValues>,;
-                           <cPicture>, <nLegendWindth> , <.lNoBorder.> )
+                           <cPicture>, <nLegendWindth>, <.lNoBorder.> )

@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> LABEL <name> ;
+#command @ <row>, <col> LABEL <name> ;
         [ID <nId>] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ VALUE <value> ] ;
@@ -87,14 +87,14 @@
         <value>,          ;
         <width>,          ;
         <height>,         ;
-        <fontname> ,      ;
-        <fontsize> ,      ;
+        <fontname>,      ;
+        <fontsize>,      ;
         <.bold.>,         ;
-        <.border.> ,      ;
-        <.clientedge.> ,  ;
-        <.hscroll.> ,     ;
-        <.vscroll.> ,     ;
-        <.transparent.> , ;
+        <.border.>,      ;
+        <.clientedge.>,  ;
+        <.hscroll.>,     ;
+        <.vscroll.>,     ;
+        <.transparent.>, ;
         [ <backcolor> ],  ;
         [ <fontcolor> ],  ;
         <{action}>,          ;
@@ -103,18 +103,18 @@
         <.invisible.>,    ;
         <.italic.>,       ;
         <.underline.>,    ;
-        <.strikeout.> ,   ;
-        <.autosize.> ,    ;
-        <.rightalign.> ,  ;
-        <.centeralign.> , ;
-        <.blink.> ,       ;
+        <.strikeout.>,   ;
+        <.autosize.>,    ;
+        <.rightalign.>,  ;
+        <.centeralign.>, ;
+        <.blink.>,       ;
         <{overproc}>,          ;
         <{leaveproc}>,          ;
         <.vcenteralign.>, ;
         <.noprefix.>,        ;
-        <nId> ,                        ;
-        <bInit> ,                ;
-        <{dblclick}> ,        ;
+        <nId>,                        ;
+        <bInit>,                ;
+        <{dblclick}>,        ;
         <{rclick}> )
 
 #command REDEFINE LABEL <name>  ;
@@ -150,9 +150,9 @@
     => ;
         _DefineLabel ( <(name)>, <(parent)>, 0, 0, <value>, ;
                 0, 0, <fontname>, <fontsize>, <.bold.>, ;
-                <.border.> , <.clientedge.> , <.hscroll.> , <.vscroll.> ,;
-                <.transparent.> , [ <backcolor> ], [ <fontcolor> ], ;
+                <.border.>, <.clientedge.>, <.hscroll.>, <.vscroll.>,;
+                <.transparent.>, [ <backcolor> ], [ <fontcolor> ], ;
                 <{action}>, <tooltip>, <helpid>, <.invisible.>, <.italic.>, ;
-                <.underline.> , <.strikeout.> , <.autosize.> , <.rightalign.> , ;
-                <.centeralign.> , <.blink.> , , , <.vcenteralign.> , <.noprefix.> , ;
-                <nId> , <bInit> , <{dblclick}> , <{rclick}> )
+                <.underline.>, <.strikeout.>, <.autosize.>, <.rightalign.>, ;
+                <.centeralign.>, <.blink.>, , , <.vcenteralign.>, <.noprefix.>, ;
+                <nId>, <bInit>, <{dblclick}>, <{rclick}> )

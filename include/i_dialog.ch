@@ -63,13 +63,13 @@
         [ ON INIT <initproc> ] ;
         [ ON RELEASE <releaseproc> ] ;
     =>;
-    _BeginDialog( <"name"> , <"parent"> ,  <res> ,,,,, <caption> , <f> , <s> , <{dlgproc}> , <{initproc}>, <{releaseproc}>,<.modal.> ,<.bold.>, <.italic.> );;
+    _BeginDialog( <"name">, <"parent">,  <res>,,,,, <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.> );;
         DECLARE WINDOW <name>  
 
 
 #command DEFINE DIALOG <name> ;
         [ <dummy1: OF, PARENT> <parent> ] ;
-        AT <row>,<col> ;
+        AT <row>, <col> ;
         WIDTH <w>  ;
         HEIGHT <h> ;
         [ CAPTION <caption> ];
@@ -82,7 +82,7 @@
         [ ON INIT <initproc> ] ;
         [ ON RELEASE <releaseproc> ] ;
     =>;
-    _BeginDialog( <"name"> , <"parent"> ,  , <col>, <row>, <w>, <h>, <caption>, <f> , <s> , <{dlgproc}> , <{initproc}>, <{releaseproc}>,<.modal.> ,<.bold.>, <.italic.> );;
+    _BeginDialog( <"name">, <"parent">,  , <col>, <row>, <w>, <h>, <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.> );;
         DECLARE WINDOW <name>  
 
 

@@ -52,7 +52,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xcommand @ <row>,<col> RICHEDITBOXEX <name> ;
+#xcommand @ <row>, <col> RICHEDITBOXEX <name> ;
                 [ <dummy1: OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -80,7 +80,7 @@
                 [ ON LINK <onlink> ] ;
                 [ ON VSCROLL  <OnVScroll> ] ;
         =>;
-        _DefineRichEditBoxEx ( <"name">, <"parent">, <col>, <row>, <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
+        _DefineRichEditBoxEx ( <"name">, <"parent">, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F. , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <"field">, <backcolor>, <.noHscroll.>, <.noVscroll.>, <{selectchange}>, <{onlink}>, <{OnVScroll}> )
 
 //SPLITBOX VERSION
 
@@ -113,7 +113,7 @@
                 [ ON LINK <onlink> ] ;
                 [ ON VSCROLL  <OnVScroll> ] ;
       =>;
-        _DefineRichEditBoxEx ( <"name">, <"parent">, , , <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , <.break.> , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
+        _DefineRichEditBoxEx ( <"name">, <"parent">, , , <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, <.break.>, <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <"field">, <backcolor>, <.noHscroll.>, <.noVscroll.>, <{selectchange}>, <{onlink}>, <{OnVScroll}> )
 
 
 #ifndef _RICHEDIT_CH

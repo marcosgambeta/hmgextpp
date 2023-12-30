@@ -119,17 +119,17 @@
 #xcommand ADD TOOLTIPICON <icon> WITH <dummy:MESSAGE,TITLE> <message> <dummy2:TO,OF> <form> ;
    => ; 
    hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, <icon>, <message> ) ;;
-   _WindowCargo ( <"form"> , { <icon>, <message> } )
+   _WindowCargo ( <"form">, { <icon>, <message> } )
 
 #xcommand ADD TOOLTIPICON <icon:ERROR,ERROR_LARGE,INFO,INFO_LARGE,WARNING,WARNING_LARGE> WITH <dummy:MESSAGE,TITLE> <message> <dummy2:TO,OF> <form> ;
    => ; 
    hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, TTI_<icon>, <message> ) ;;
-   _WindowCargo ( <"form"> , { TTI_<icon>, <message> } )
+   _WindowCargo ( <"form">, { TTI_<icon>, <message> } )
 
 #xcommand CLEAR TOOLTIPICON OF <form> ;
    => ;
    hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, TTI_NONE, "" ) ;;
-   _WindowCargo ( <"form"> , { TTI_NONE, "" } )
+   _WindowCargo ( <"form">, { TTI_NONE, "" } )
 
 #xcommand SET TOOLTIP TEXTCOLOR TO <color> OF <form> ;
    => ;

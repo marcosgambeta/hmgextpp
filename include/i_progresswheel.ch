@@ -47,9 +47,9 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> PROGRESSWHEEL <name>        ;
+#command @ <row>, <col> PROGRESSWHEEL <name>        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-        [ RANGE <lo> , <hi> ]                 ;
+        [ RANGE <lo>, <hi> ]                 ;
         [ VALUE <v> ]                        ;
         [ WIDTH <w> ]                         ;
         [ HEIGHT <h> ]                         ;

@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xcommand @ <row> , <col> FRAME <name> ;
+#xcommand @ <row>, <col> FRAME <name> ;
                 [ ID <nId> ] ;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 [ CAPTION <caption> ] ;
@@ -63,7 +63,7 @@
                 [ <transparent: TRANSPARENT> ] ;
                 [ ON INIT <bInit> ] ;
         =>;
-        _BeginFrame ( <(name)>, <(parent)>, <row>, <col>, <w>, <h> , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.invisible.> , <nId> , <bInit> )
+        _BeginFrame ( <(name)>, <(parent)>, <row>, <col>, <w>, <h>, <caption>, <fontname>, <fontsize>, <.opaque.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, <fontcolor>, <.transparent.>, <.invisible.>, <nId>, <bInit> )
 
 
 #xcommand REDEFINE FRAME <name> ;
@@ -83,4 +83,4 @@
                 [ <transparent: TRANSPARENT> ] ;
                 [ ON INIT <bInit> ] ;
         =>;
-        _BeginFrame ( <(name)>, <(parent)>, 0, 0, 0, 0 , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.>, <.invisible.> , <nId> , <bInit> )
+        _BeginFrame ( <(name)>, <(parent)>, 0, 0, 0, 0 , <caption>, <fontname>, <fontsize>, <.opaque.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, <fontcolor>, <.transparent.>, <.invisible.>, <nId>, <bInit> )

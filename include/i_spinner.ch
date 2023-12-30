@@ -44,9 +44,9 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> SPINNER <name> ;
+#command @ <row>, <col> SPINNER <name> ;
       [ <dummy1: OF, PARENT> <parent> ] ;
-      RANGE <rl> , <rh> ;
+      RANGE <rl>, <rh> ;
       [ VALUE <value> ] ;
       [ WIDTH <w> ] ;
       [ HEIGHT <h> ] ;
@@ -76,7 +76,7 @@
                     <fontname>, <fontsize>, <rl>, <rh>, <tooltip>, <{change}>, ;
                     <{lostfocus}>, <{gotfocus}>, <h>, <helpid>, <.horizontal.>, <.invisible.>, ;
                     <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-                    <.wrap.>, <.readonly.>, <inc> , <backcolor> , <fontcolor> , [<CueText>] , <bInit> )
+                    <.wrap.>, <.readonly.>, <inc>, <backcolor>, <fontcolor>, [<CueText>], <bInit> )
 
 
 #define UDM_SETRANGE32          (WM_USER+111)

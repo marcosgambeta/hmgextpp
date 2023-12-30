@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> QHTM <name> ;
+#command @ <row>, <col> QHTM <name> ;
                 [ID <nId>] ;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 [ VALUE  <value> ]     ;
@@ -62,13 +62,13 @@
                    <row>, ;
                    <col>, ;
                    <w>, ;
-                   <h> , ;
+                   <h>, ;
                    <value>, ;
                    <fname>, ;
                    <resname>, ;
                    <fontname>, ;
                    <fontsize>, ;
-                   <{change}> , ;
+                   <{change}>, ;
                    <.border.>, ;
                    <nId> )
 
@@ -92,7 +92,7 @@
                    <resname>, ;
                    <fontname>,    ;
                    <fontsize>,    ;
-                   <{change}> , ;
+                   <{change}>, ;
                    <.border.>, ;
                    <nId> )
 

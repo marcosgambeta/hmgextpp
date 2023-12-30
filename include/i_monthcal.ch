@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> MONTHCALENDAR <name> ;
+#command @ <row>, <col> MONTHCALENDAR <name> ;
                 [ ID <nId> ] ;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 [ VALUE <v> ] ;
@@ -73,19 +73,19 @@
                 [ HELPID <helpid> ] ;
                 [ ON INIT <bInit> ] ;
         =>;
-        _DefineMonthCal ( <(name)> , ;
-                        <(parent)> , ;
-                        <col> , ;
-                        <row> , ;
+        _DefineMonthCal ( <(name)>, ;
+                        <(parent)>, ;
+                        <col>, ;
+                        <row>, ;
                         0 , ;
                         0 , ;
-                        <v> , ;
-                        <fontname> , ;
-                        <fontsize> , ;
-                        <tooltip> , ;
-                        <.notoday.> , ;
-                        <.notodaycircle.> , ;
-                        <.weeknumbers.> , ;
+                        <v>, ;
+                        <fontname>, ;
+                        <fontsize>, ;
+                        <tooltip>, ;
+                        <.notoday.>, ;
+                        <.notodaycircle.>, ;
+                        <.weeknumbers.>, ;
                         <{change}>, <helpid>, <.invisible.>, <.notabstop.>, ;
                         <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
                         [ <backcolor> ], ;
@@ -94,7 +94,7 @@
                         [ <titlefrclr> ], ;
                         [ <background> ], ;
                         [ <trlfontclr> ], ;
-                        <{select}> , <{gotfocus}> , <{lostfocus}> , <nId> , <bInit> )
+                        <{select}>, <{gotfocus}>, <{lostfocus}>, <nId>, <bInit> )
 
 
 #command REDEFINE MONTHCALENDAR <name> ;
@@ -126,20 +126,20 @@
                 [ HELPID <helpid> ] ;
                 [ ON INIT <bInit> ] ;
         =>;
-        _DefineMonthCal ( <(name)> , ;
-                        <(parent)> , ;
+        _DefineMonthCal ( <(name)>, ;
+                        <(parent)>, ;
                         0 , ;
                         0 , ;
                         0 , ;
                         0 , ;
-                        <v> , ;
-                        <fontname> , ;
-                        <fontsize> , ;
-                        <tooltip> , ;
-                        <.notoday.> , ;
-                        <.notodaycircle.> , ;
-                        <.weeknumbers.> , ;
-                        <{change}> , <helpid>, <.invisible.>, <.notabstop.>, ;
+                        <v>, ;
+                        <fontname>, ;
+                        <fontsize>, ;
+                        <tooltip>, ;
+                        <.notoday.>, ;
+                        <.notodaycircle.>, ;
+                        <.weeknumbers.>, ;
+                        <{change}>, <helpid>, <.invisible.>, <.notabstop.>, ;
                         <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
                         [ <backcolor> ], ;
                         [ <fontcolor> ], ;
@@ -147,7 +147,7 @@
                         [ <titlefrclr> ], ;
                         [ <background> ], ;
                         [ <trlfontclr> ], ;
-                        <{select}> , <{gotfocus}> , <{lostfocus}> , <nId> , <bInit> )
+                        <{select}>, <{gotfocus}>, <{lostfocus}>, <nId>, <bInit> )
 
 // set MonthCal colors
 #define MCSC_BACKGROUND       0  // the background color (between months)

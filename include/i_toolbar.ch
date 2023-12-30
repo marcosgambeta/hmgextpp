@@ -47,7 +47,7 @@
 #xcommand  DEFINE TOOLBAR  <name> ;
       [ OF <parent> ]  [ PARENT <parent> ] ;
       [ CAPTION <caption> ];
-      [ BUTTONSIZE <w> , <h> ] ;
+      [ BUTTONSIZE <w>, <h> ] ;
       [ FONT <f> ] ;
       [ SIZE <s> ] ;
       [ <bold : BOLD> ] ;
@@ -70,7 +70,7 @@
 #xcommand  DEFINE TOOLBAREX  <name> ;
       [ OF <parent> ]  [ PARENT <parent> ] ;
       [ CAPTION <caption> ];
-      [ BUTTONSIZE <w> , <h> ] ;
+      [ BUTTONSIZE <w>, <h> ] ;
       [ IMAGELIST <imagelst> ] ;
       [ HOTIMAGELIST <hotimagelst> ] ;
       [ FONT <f> ] ;
@@ -114,7 +114,7 @@
       [ <group: GROUP> ] ;
       [ <notrans: NOTRANSPARENT> ] ;
    =>;
-   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , <bitmap> , <tooltip> , , , .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.>, -1, <.notrans.> )
+   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption>, <{action}>, , , <bitmap>, <tooltip>, , , .F. , <.separator.>, <.autosize.>, <.check.>, <.group.>, <.dropdown.>, <.wholedropdown.>, <.adjust.>, -1, <.notrans.> )
 
 
 #xcommand BUTTON <name> ;
@@ -131,7 +131,7 @@
       [ <group: GROUP> ] ;
       [ <notrans: NOTRANSPARENT> ] ;
    =>;
-   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , '' , <tooltip> , , , .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.> , <bitmapinx> , <.notrans.> )
+   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption>, <{action}>, , , '' , <tooltip>, , , .F. , <.separator.>, <.autosize.>, <.check.>, <.group.>, <.dropdown.>, <.wholedropdown.>, <.adjust.>, <bitmapinx>, <.notrans.> )
 
 
 #define RB_GETBANDCOUNT   (WM_USER + 12)

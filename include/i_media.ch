@@ -47,7 +47,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ANIMATEBOX COMMANDS
 ///////////////////////////////////////////////////////////////////////////////
-#command @ <row>,<col>  ANIMATEBOX <name> ;
+#command @ <row>, <col>  ANIMATEBOX <name> ;
         [ID <nId>];
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         WIDTH <w> ;
@@ -80,56 +80,56 @@
 
 #command OPEN ANIMATEBOX <ControlName> OF <ParentForm> FILE <FileName> ;
 => ;
-_OpenAnimateBox ( <"ControlName"> , <"ParentForm"> , <FileName> )
+_OpenAnimateBox ( <"ControlName">, <"ParentForm">, <FileName> )
 
 #command PLAY ANIMATEBOX <ControlName> OF <ParentForm> ;
 => ;
-_PlayAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_PlayAnimateBox ( <"ControlName">, <"ParentForm"> )
 
 #command SEEK ANIMATEBOX <ControlName> OF <ParentForm> POSITION <frame> ;
 => ;
-_SeekAnimateBox ( <"ControlName"> , <"ParentForm"> , <frame> )
+_SeekAnimateBox ( <"ControlName">, <"ParentForm">, <frame> )
 
 #command STOP ANIMATEBOX <ControlName> OF <ParentForm> ;
 => ;
-_StopAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_StopAnimateBox ( <"ControlName">, <"ParentForm"> )
 
 #command CLOSE ANIMATEBOX <ControlName> OF <ParentForm> ;
 => ;
-_CloseAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_CloseAnimateBox ( <"ControlName">, <"ParentForm"> )
 
 #command DESTROY ANIMATEBOX <ControlName> OF <ParentForm> ;
 => ;
-_DestroyAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_DestroyAnimateBox ( <"ControlName">, <"ParentForm"> )
 
-#xtranslate OpenAnimateBox ( <ControlName> , <ParentForm> , <FileName> );
+#xtranslate OpenAnimateBox ( <ControlName>, <ParentForm>, <FileName> );
 => ;
-_OpenAnimateBox ( <"ControlName"> , <"ParentForm"> , <FileName> )
+_OpenAnimateBox ( <"ControlName">, <"ParentForm">, <FileName> )
 
-#xtranslate PlayAnimateBox ( <ControlName> , <ParentForm> );
+#xtranslate PlayAnimateBox ( <ControlName>, <ParentForm> );
 => ;
-_PlayAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_PlayAnimateBox ( <"ControlName">, <"ParentForm"> )
 
-#xtranslate SeekAnimateBox ( <ControlName> , <ParentForm> , <frame> );
+#xtranslate SeekAnimateBox ( <ControlName>, <ParentForm>, <frame> );
 => ;
-_SeekAnimateBox ( <"ControlName"> , <"ParentForm"> , <frame> )
+_SeekAnimateBox ( <"ControlName">, <"ParentForm">, <frame> )
 
-#xtranslate StopAnimateBox ( <ControlName> , <ParentForm> );
+#xtranslate StopAnimateBox ( <ControlName>, <ParentForm> );
 => ;
-_StopAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_StopAnimateBox ( <"ControlName">, <"ParentForm"> )
 
-#xtranslate CloseAnimateBox ( <ControlName> , <ParentForm> ) ;
+#xtranslate CloseAnimateBox ( <ControlName>, <ParentForm> ) ;
 => ;
-_CloseAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_CloseAnimateBox ( <"ControlName">, <"ParentForm"> )
 
-#xtranslate DestroyAnimateBox ( <ControlName> , <ParentForm> );
+#xtranslate DestroyAnimateBox ( <ControlName>, <ParentForm> );
 => ;
-_DestroyAnimateBox ( <"ControlName"> , <"ParentForm"> )
+_DestroyAnimateBox ( <"ControlName">, <"ParentForm"> )
  
 /////////////////////////////////////////////////////////////////////////////
 // PLAYER COMMANDS
 /////////////////////////////////////////////////////////////////////////////
-#command @ <row>,<col>  PLAYER <name> ;
+#command @ <row>, <col> PLAYER <name> ;
                         [ <dummy1: OF, PARENT> <parent> ] ;
                         WIDTH <w> ;
                         HEIGHT <h> ;
@@ -146,75 +146,75 @@ _DestroyAnimateBox ( <"ControlName"> , <"ParentForm"> )
                         [ <showposition: SHOWPOSITION> ] ;                             
                         [ HELPID <helpid> ]                 ;
         =>;
-    _DefinePlayer( <(name)>, <(parent)>, <file>, <col>, <row>, <w>, <h>, <.noautosizewindow.>, <.noautosizemovie.>, <.noerrordlg.>,<.nomenu.>,<.noopen.>,<.noplaybar.>,<.showall.>,<.showmode.>,<.showname.>,<.showposition.>, <helpid> )
+    _DefinePlayer( <(name)>, <(parent)>, <file>, <col>, <row>, <w>, <h>, <.noautosizewindow.>, <.noautosizemovie.>, <.noerrordlg.>, <.nomenu.>, <.noopen.>, <.noplaybar.>, <.showall.>, <.showmode.>, <.showname.>, <.showposition.>, <helpid> )
 
 #command PLAY PLAYER <name> OF <parent> ;
         => ;
-        _PlayPlayer ( <(name)> , <(parent)> )
+        _PlayPlayer ( <(name)>, <(parent)> )
 
 #xcommand PLAY PLAYER <name> OF <parent> REVERSE ;
         => ;
-        _PlayPlayerReverse ( <(name)> , <(parent)> )        
+        _PlayPlayerReverse ( <(name)>, <(parent)> )        
 
 #command STOP PLAYER <name> OF <parent> ;
         => ;
-        _StopPlayer ( <(name)> , <(parent)> )        
+        _StopPlayer ( <(name)>, <(parent)> )        
 
 #command PAUSE PLAYER <name> OF <parent> ;
         => ;
-        _PausePlayer ( <(name)> , <(parent)> )        
+        _PausePlayer ( <(name)>, <(parent)> )        
 
 #command CLOSE PLAYER <name> OF <parent> ;
         => ;
-        _ClosePlayer ( <(name)> , <(parent)> )        
+        _ClosePlayer ( <(name)>, <(parent)> )        
 
 #command DESTROY PLAYER <name> OF <parent> ;
         => ;
-        _DestroyPlayer ( <(name)> , <(parent)> )        
+        _DestroyPlayer ( <(name)>, <(parent)> )        
 
 #command EJECT PLAYER <name> OF <parent> ;
         => ;
-        _EjectPlayer ( <(name)> , <(parent)> )        
+        _EjectPlayer ( <(name)>, <(parent)> )        
 
 #command OPEN PLAYER <name> OF <parent> FILE <file> ;
         => ;
-        _OpenPlayer ( <(name)> , <(parent)> , <file> )        
+        _OpenPlayer ( <(name)>, <(parent)>, <file> )        
 
 #command OPEN PLAYER <name> OF <parent> DIALOG ;
         => ;
-        _OpenPlayerDialog ( <(name)> , <(parent)> )        
+        _OpenPlayerDialog ( <(name)>, <(parent)> )        
 
 #command RESUME PLAYER <name> OF <parent> ;
         => ;
-        _ResumePlayer ( <(name)> , <(parent)> )        
+        _ResumePlayer ( <(name)>, <(parent)> )        
 
 #command SET PLAYER <name> OF <parent> POSITION HOME ;
         => ;
-        _SetPlayerPositionHome ( <(name)> , <(parent)> )        
+        _SetPlayerPositionHome ( <(name)>, <(parent)> )        
 
 #command SET PLAYER <name> OF <parent> POSITION END ;
         => ;
-        _SetPlayerPositionEnd ( <(name)> , <(parent)> )        
+        _SetPlayerPositionEnd ( <(name)>, <(parent)> )        
 
 #command SET PLAYER <name> OF <parent> REPEAT ON ;
         => ;
-        _SetPlayerRepeatOn ( <(name)> , <(parent)> )        
+        _SetPlayerRepeatOn ( <(name)>, <(parent)> )        
 
 #command SET PLAYER <name> OF <parent> REPEAT OFF ;
         => ;
-        _SetPlayerRepeatOff ( <(name)> , <(parent)> )        
+        _SetPlayerRepeatOff ( <(name)>, <(parent)> )        
 
 #command SET PLAYER <name> OF <parent> SPEED <speed> ;
         => ;
-        _SetPlayerSpeed ( <(name)> , <(parent)> , <speed> )        
+        _SetPlayerSpeed ( <(name)>, <(parent)>, <speed> )        
 
 #command SET PLAYER <name> OF <parent> VOLUME <volume> ;
         => ;
-        _SetPlayerVolume ( <(name)> , <(parent)> , <volume> )        
+        _SetPlayerVolume ( <(name)>, <(parent)>, <volume> )        
 
 #command SET PLAYER <name> OF <parent> ZOOM <zoom> ;
         => ;
-        _SetPlayerZoom ( <(name)> , <(parent)> , <zoom> )        
+        _SetPlayerZoom ( <(name)>, <(parent)>, <zoom> )
 
 //////////////////////////////////////////////////////////////////////////////
 // WAVE COMMANDS
@@ -224,6 +224,6 @@ _DestroyAnimateBox ( <"ControlName"> , <"ParentForm"> )
                           [<ns: NOSTOP>] ;
                           [<l:  LOOP>] ;
                           [<nd: NODEFAULT>] ;
-        => playwave(<wave>,<.r.>,<.s.>,<.ns.>,<.l.>,<.nd.>)
+        => playwave(<wave>, <.r.>, <.s.>, <.ns.>, <.l.>, <.nd.>)
 
 #command STOP WAVE [ NODEFAULT ] => hmg_stopwave()

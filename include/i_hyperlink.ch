@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> HYPERLINK <name>   ;
+#command @ <row>, <col> HYPERLINK <name>   ;
    [ <dummy1: OF, PARENT> <parent> ] ;
    [ VALUE <value> ]   ;
    [ ADDRESS <address>];
@@ -77,14 +77,14 @@
         <value>,          ;
         <width>,          ;
         <height>,         ;
-        <fontname> ,      ;
-        <fontsize> ,      ;
+        <fontname>,      ;
+        <fontsize>,      ;
         <.bold.>,         ;
-        <.border.> ,      ;
-        <.clientedge.> ,  ;
-        <.hscroll.> ,     ;
-        <.vscroll.> ,     ;
-        <.transparent.> , ;
+        <.border.>,      ;
+        <.clientedge.>,  ;
+        <.hscroll.>,     ;
+        <.vscroll.>,     ;
+        <.transparent.>, ;
         [ <backcolor> ],  ;
         iif(hb_IsArray(<fontcolor>), <fontcolor>, {0,0,255}), , ;
         <tooltip>,          ;
@@ -93,9 +93,9 @@
         <.italic.>,       ;
         .T. , ;
         .F. , ;
-        <.autosize.> ,    ;
-        <.rightalign.> ,  ;
-        <.centeralign.> , ;
+        <.autosize.>,    ;
+        <.rightalign.>,  ;
+        <.centeralign.>, ;
         .F. , ;
         iif(<.handcursor.>, {|| RC_CURSOR("MINIGUI_FINGER")}, Nil), , );;
         _setaddress(<(name)>, iif(empty(_HMG_ActiveFormName), <(parent)>, _HMG_ActiveFormName), <address>)

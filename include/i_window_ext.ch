@@ -46,7 +46,7 @@
 
 #xcommand DEFINE WINDOW <w> ;
         [ <dummy1: OF, PARENT> <parent> ] ;
-        [ AT <row>,<col> ] ;
+        [ AT <row>, <col> ] ;
         [ ROW <row> ] ;
         [ COL <col> ] ;
         [ WIDTH <wi> ] ;
@@ -57,7 +57,7 @@
         [ MAXHEIGHT <maxHeight> ] ;
         [ VIRTUALWIDTH <vWidth> ] ;                             
         [ VIRTUALHEIGHT <vHeight> ] ;                             
-        [ CLIENTAREA <clientwidth>,<clientheight> ] ;
+        [ CLIENTAREA <clientwidth>, <clientheight> ] ;
         [ TITLE <title> ] ;
         [ ICON <icon> ] ;
         WINDOWTYPE ;
@@ -109,11 +109,11 @@
    =>;
    DECLARE WINDOW <w>  ;;
    DECLARE CUSTOM COMPONENTS <w> ;;
-   _DefineWindow ( <(w)>, <title>, <col>, <row>, <wi>, <h>, <.nominimize.>, <.nomaximize.>, <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>,<minHeight>}, {<maxWidth>,<maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}> , <{MouseDragProcedure}>, <{SizeProcedure}> , <{ClickProcedure}> , <{MouseMoveProcedure}>, [<backcolor>] , <{PaintProcedure}> , <.noshow.> , <.topmost.> , <.main.> , <icon> , <.child.> , <FontName> , <FontSize>, <NotifyIcon> , <NotifyIconTooltip> , <{NotifyLeftClick}>  , <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight> , <vWidth> , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <.helpbutton.> , <{MaximizeProcedure}> , <{MinimizeProcedure}> , <cursor> , <.noautorelease.> , <{interactivecloseprocedure}> , <{RestoreProcedure}> , <{MoveProcedure}> , <{DropProcedure}> , <.mdi.> , <.palette.> , <{NotifyDblClick}> , <(parent)> , <.panel.> , <{NotifyBalloonClick}> , <clientwidth> , <clientheight> )
+   _DefineWindow ( <(w)>, <title>, <col>, <row>, <wi>, <h>, <.nominimize.>, <.nomaximize.>, <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>, <minHeight>}, {<maxWidth>, <maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}>, <{MouseDragProcedure}>, <{SizeProcedure}>, <{ClickProcedure}>, <{MouseMoveProcedure}>, [<backcolor>], <{PaintProcedure}>, <.noshow.>, <.topmost.>, <.main.>, <icon>, <.child.>, <FontName>, <FontSize>, <NotifyIcon>, <NotifyIconTooltip>, <{NotifyLeftClick}>  , <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>, <vWidth>, <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <.helpbutton.>, <{MaximizeProcedure}>, <{MinimizeProcedure}>, <cursor>, <.noautorelease.>, <{interactivecloseprocedure}>, <{RestoreProcedure}>, <{MoveProcedure}>, <{DropProcedure}>, <.mdi.>, <.palette.>, <{NotifyDblClick}>, <(parent)>, <.panel.>, <{NotifyBalloonClick}>, <clientwidth>, <clientheight> )
 
 
 #xcommand DEFINE WINDOW <w> ;
-        [ AT <row>,<col> ] ;
+        [ AT <row>, <col> ] ;
         [ ROW <row> ] ;
         [ COL <col> ] ;
         [ WIDTH <wi> ] ;
@@ -124,7 +124,7 @@
         [ MAXHEIGHT <maxHeight> ] ;
         [ VIRTUALWIDTH <vWidth> ] ;                             
         [ VIRTUALHEIGHT <vHeight> ] ;                             
-        [ CLIENTAREA <clientwidth>,<clientheight> ] ;
+        [ CLIENTAREA <clientwidth>, <clientheight> ] ;
         [ TITLE <title> ] ;
         [ ICON <icon> ] ;
         WINDOWTYPE MODAL ;
@@ -159,7 +159,7 @@
         [ FONTNAME <FontName> FONTSIZE <FontSize> ] ;
    =>;
    DECLARE WINDOW <w>  ;;
-   _DefineModalWindow ( <(w)>, <title>, <col>, <row>, <wi>, <h>, "" , <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>,<minHeight>}, {<maxWidth>,<maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}> , <{MouseDragProcedure}> , <{SizeProcedure}> , <{ClickProcedure}> , <{MouseMoveProcedure}>, [<backcolor>]  , <{PaintProcedure}> , <icon> , <FontName> , <FontSize> , <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight>  , <vWidth>  , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <.helpbutton.> , <cursor> , <.noshow.> , <.noautorelease.> , <{interactivecloseprocedure}> , <{MoveProcedure}> , <{DropProcedure}> , <clientwidth> , <clientheight> , <.flashexit.> )
+   _DefineModalWindow ( <(w)>, <title>, <col>, <row>, <wi>, <h>, "" , <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>, <minHeight>}, {<maxWidth>, <maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}>, <{MouseDragProcedure}>, <{SizeProcedure}>, <{ClickProcedure}>, <{MouseMoveProcedure}>, [<backcolor>]  , <{PaintProcedure}>, <icon>, <FontName>, <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>  , <vWidth>  , <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <.helpbutton.>, <cursor>, <.noshow.>, <.noautorelease.>, <{interactivecloseprocedure}>, <{MoveProcedure}>, <{DropProcedure}>, <clientwidth>, <clientheight>, <.flashexit.> )
 
 
 #xcommand  DEFINE WINDOW <w> ;
@@ -185,7 +185,7 @@
       [ ON VSCROLLBOX <vScrollBox> ] ;
    => ;
    DECLARE WINDOW <w>  ;;
-   _DefineSplitChildWindow ( <(w)>, <wi>, <h> , <.break.> , <grippertext> , <.nocaption.> , <title> , <FontName> , <FontSize> , <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight>  , <vWidth> , <.focused.>  , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <cursor> )
+   _DefineSplitChildWindow ( <(w)>, <wi>, <h>, <.break.>, <grippertext>, <.nocaption.>, <title>, <FontName>, <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>  , <vWidth>, <.focused.>  , <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <cursor> )
 
 #xcommand  DEFINE WINDOW <w> ;
                 WIDTH <wi> ;
@@ -211,12 +211,12 @@
                 [ FONTNAME <FontName> FONTSIZE <FontSize> ] ;
    => ;
    DECLARE WINDOW <w>  ;;
-   _DefineSplitChildWindow ( <(w)>, <wi>, <h> , <.break.> , <grippertext> , <.nocaption.> , <title> , <FontName> , <FontSize> , <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight>  , <vWidth> , <.focused.>  , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <cursor> )
+   _DefineSplitChildWindow ( <(w)>, <wi>, <h>, <.break.>, <grippertext>, <.nocaption.>, <title>, <FontName>, <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>  , <vWidth>, <.focused.>  , <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <cursor> )
 
 
 #command DEFINE WINDOW TEMPLATE ;
          [ <dummy1: OF, PARENT> <parent> ] ;
-         AT <row>,<col> ;
+         AT <row>, <col> ;
          HEIGHT <h> ;
          WIDTH <wi> ;
          [ MINWIDTH <minWidth> ] ;
@@ -225,7 +225,7 @@
          [ MAXHEIGHT <maxHeight> ] ;
          [ VIRTUAL WIDTH <vWidth> ] ;
          [ VIRTUAL HEIGHT <vHeight> ] ;
-         [ CLIENTAREA <clientwidth>,<clientheight> ] ;
+         [ CLIENTAREA <clientwidth>, <clientheight> ] ;
          [ TITLE <title> ] ;
          [ ICON <icon> ] ;
          [ <main:  MAIN> ] ;
@@ -272,11 +272,11 @@
          [ ON VSCROLLBOX <vScrollBox> ] ;
          [ <helpbutton:  HELPBUTTON> ] ;
    =>;
-   _DefineWindow ( , <title>, <col>, <row>, <wi>, <h>, <.nominimize.>, <.nomaximize.>, <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>,<minHeight>}, {<maxWidth>,<maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}> , <{MouseDragProcedure}>, <{SizeProcedure}> , <{ClickProcedure}> , <{MouseMoveProcedure}>, [<backcolor>] , <{PaintProcedure}> , <.noshow.> , <.topmost.> , <.main.> , <icon> , <.child.> , <FontName> , <FontSize>, <NotifyIcon> , <NotifyIconTooltip> , <{NotifyLeftClick}> , <{GotFocusProcedure}> , <{LostFocusProcedure}> , <vHeight> , <vWidth> , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <.helpbutton.> , <{MaximizeProcedure}> , <{MinimizeProcedure}> , <cursor> , <.noautorelease.> , <{interactivecloseprocedure}> , <{RestoreProcedure}> , <{MoveProcedure}> , <{DropProcedure}> , <.mdi.> , <.palette.> , <{NotifyDblClick}> , <(parent)> , <.panel.> , <{NotifyBalloonClick}> , <clientwidth> , <clientheight> )
+   _DefineWindow ( , <title>, <col>, <row>, <wi>, <h>, <.nominimize.>, <.nomaximize.>, <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>, <minHeight>}, {<maxWidth>, <maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}>, <{MouseDragProcedure}>, <{SizeProcedure}>, <{ClickProcedure}>, <{MouseMoveProcedure}>, [<backcolor>], <{PaintProcedure}>, <.noshow.>, <.topmost.>, <.main.>, <icon>, <.child.>, <FontName>, <FontSize>, <NotifyIcon>, <NotifyIconTooltip>, <{NotifyLeftClick}>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>, <vWidth>, <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <.helpbutton.>, <{MaximizeProcedure}>, <{MinimizeProcedure}>, <cursor>, <.noautorelease.>, <{interactivecloseprocedure}>, <{RestoreProcedure}>, <{MoveProcedure}>, <{DropProcedure}>, <.mdi.>, <.palette.>, <{NotifyDblClick}>, <(parent)>, <.panel.>, <{NotifyBalloonClick}>, <clientwidth>, <clientheight> )
 
 
 #command DEFINE WINDOW TEMPLATE ;
-         AT <row>,<col> ;
+         AT <row>, <col> ;
          HEIGHT <h> ;
          WIDTH <wi> ;
          [ MINWIDTH <minWidth> ] ;
@@ -285,7 +285,7 @@
          [ MAXHEIGHT <maxHeight> ] ;
          [ VIRTUAL WIDTH <vWidth> ] ;
          [ VIRTUAL HEIGHT <vHeight> ] ;
-         [ CLIENTAREA <clientwidth>,<clientheight> ] ;
+         [ CLIENTAREA <clientwidth>, <clientheight> ] ;
          [ TITLE <title> ] ;
          [ ICON <icon> ] ;
          MODAL ;
@@ -318,7 +318,7 @@
          [ <helpbutton:  HELPBUTTON> ] ;
          [ <flashexit: FLASHEXIT> ] ;
    =>;
-   _DefineModalWindow ( , <title>, <col>, <row>, <wi>, <h>, "" , <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>,<minHeight>}, {<maxWidth>,<maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}> , <{MouseDragProcedure}> , <{SizeProcedure}> , <{ClickProcedure}> , <{MouseMoveProcedure}>, [<backcolor>]  , <{PaintProcedure}> , <icon> , <FontName> , <FontSize> , <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight>  , <vWidth>  , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <.helpbutton.> , <cursor> , <.noshow.> , <.noautorelease.> , <{interactivecloseprocedure}> , <{MoveProcedure}> , <{DropProcedure}> , <clientwidth> , <clientheight> , <.flashexit.> )
+   _DefineModalWindow ( , <title>, <col>, <row>, <wi>, <h>, "" , <.nosize.>, <.nosysmenu.>, <.nocaption.>, {<minWidth>, <minHeight>}, {<maxWidth>, <maxHeight>}, <{InitProcedure}>, <{ReleaseProcedure}>, <{MouseDragProcedure}>, <{SizeProcedure}>, <{ClickProcedure}>, <{MouseMoveProcedure}>, [<backcolor>]  , <{PaintProcedure}>, <icon>, <FontName>, <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>  , <vWidth>  , <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <.helpbutton.>, <cursor>, <.noshow.>, <.noautorelease.>, <{interactivecloseprocedure}>, <{MoveProcedure}>, <{DropProcedure}>, <clientwidth>, <clientheight>, <.flashexit.> )
 
 
 #xcommand  DEFINE WINDOW TEMPLATE ;
@@ -343,4 +343,4 @@
       [ ON HSCROLLBOX <hScrollBox> ] ;
       [ ON VSCROLLBOX <vScrollBox> ] ;
    => ;
-   _DefineSplitChildWindow ( , <wi>, <h> , <.break.> , <grippertext> , <.nocaption.> , <title> , <FontName> , <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}> , <vHeight>  , <vWidth> , <.focused.>  , <{scrollleft}> , <{scrollright}> , <{scrollup}> , <{scrolldown}> , <{hScrollBox}> , <{vScrollBox}> , <cursor> ) ;;
+   _DefineSplitChildWindow ( , <wi>, <h>, <.break.>, <grippertext>, <.nocaption.>, <title>, <FontName>, <FontSize>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <vHeight>  , <vWidth>, <.focused.>  , <{scrollleft}>, <{scrollright}>, <{scrollup}>, <{scrolldown}>, <{hScrollBox}>, <{vScrollBox}>, <cursor> ) ;;

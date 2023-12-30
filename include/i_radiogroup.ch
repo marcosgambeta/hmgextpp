@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> RADIOGROUP <name>        ;
+#command @ <row>, <col> RADIOGROUP <name>        ;
                 [ID <aId>]                ;
                 [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 OPTIONS <aOptions>        ;
@@ -73,7 +73,7 @@
                 [ <horizontal : HORIZONTAL> ] ;
                 [ <leftjustify : LEFTJUSTIFY> ] ;
         =>;
-        _DefineRadioGroup ( <(name)>, <(parent)>, <col>, <row>, <aOptions>, <value> , <fontname> , <fontsize> , <tooltip> , <{change}> , <width> , <spacing> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.horizontal.> , <.leftjustify.> , <aReadOnly> , <.autosize.> , <{gotfocus}> , <{lostfocus}> , <aId> , <bInit> )
+        _DefineRadioGroup ( <(name)>, <(parent)>, <col>, <row>, <aOptions>, <value>, <fontname>, <fontsize>, <tooltip>, <{change}>, <width>, <spacing>, <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, <fontcolor>, <.transparent.>, <.horizontal.>, <.leftjustify.>, <aReadOnly>, <.autosize.>, <{gotfocus}>, <{lostfocus}>, <aId>, <bInit> )
 
 
 #command REDEFINE RADIOGROUP <name>        ;
@@ -103,4 +103,4 @@
                 [ <horizontal : HORIZONTAL> ] ;
                 [ <leftjustify : LEFTJUSTIFY> ] ;
         =>;
-        _DefineRadioGroup ( <(name)>, <(parent)>, 0, 0, <aOptions>, <value> , <fontname> , <fontsize> , <tooltip> , <{change}> , 0 , <spacing> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.horizontal.> , <.leftjustify.> , <aReadOnly> , .F. , <{gotfocus}> , <{lostfocus}> , <aId> , <bInit> )
+        _DefineRadioGroup ( <(name)>, <(parent)>, 0, 0, <aOptions>, <value>, <fontname>, <fontsize>, <tooltip>, <{change}>, 0 , <spacing>, <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <backcolor>, <fontcolor>, <.transparent.>, <.horizontal.>, <.leftjustify.>, <aReadOnly>, .F. , <{gotfocus}>, <{lostfocus}>, <aId>, <bInit> )

@@ -1,18 +1,18 @@
 #define BASEDEF_MYBUTTON 
 
-#xcommand @ <row>,<col> MYBUTTON <name> ;
+#xcommand @ <row>, <col> MYBUTTON <name> ;
                 OF <parent> ;
                 CAPTION <caption> ;
                 ACTION <action> ;
         =>;
-        _DefineMyButton(<(name)>,<row>,<col>,<caption>,<{action}>,<(parent)>)
+        _DefineMyButton(<(name)>, <row>, <col>, <caption>, <{action}>, <(parent)>)
 
 #undef BASEDEF_MYBUTTON
 
 
 #define BASEDEF_CLBUTTON
 
-#xcommand @ <row>,<col> CLBUTTON <name> ;
+#xcommand @ <row>, <col> CLBUTTON <name> ;
                 [ <of:OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -22,14 +22,14 @@
                 ACTION <action> ;
                 [ <default: DEFAULT> ] ;
         =>;
-        _DefineCLButton(<(name)>,<row>,<col>,<caption>,<notes>,<{action}>,<(parent)>,<.default.>,<w>,<h>,<cbitmap>)
+        _DefineCLButton(<(name)>, <row>, <col>, <caption>, <notes>, <{action}>, <(parent)>, <.default.>, <w>, <h>, <cbitmap>)
 
 #undef BASEDEF_CLBUTTON
 
 
 #define BASEDEF_SPBUTTON
 
-#xcommand @ <row>,<col> SPLITBUTTON <name> ;
+#xcommand @ <row>, <col> SPLITBUTTON <name> ;
                 [ <of:OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -44,7 +44,7 @@
                 [ TOOLTIP <tooltip> ] ;
                 [ <default: DEFAULT> ] ;
         =>;
-        _DefineSplitButton(<(name)>,<row>,<col>,<caption>,<{action}>,<(parent)>,<.default.>,<w>,<h>, ;
+        _DefineSplitButton(<(name)>, <row>, <col>, <caption>, <{action}>, <(parent)>, <.default.>, <w>, <h>, ;
                 <tooltip>, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>)
 
 #undef BASEDEF_SPBUTTON
@@ -52,19 +52,19 @@
 
 #define BASEDEF_MYSYSLINK
 
-#xcommand @ <row>,<col> MYSYSLINK <name> ;
+#xcommand @ <row>, <col> MYSYSLINK <name> ;
                 OF <parent> ;
                 CAPTION <caption> ;
                 ACTION <action> ;
         =>;
-        _DefineMySysLink(<(name)>,<row>,<col>,<caption>,<{action}>,<(parent)>)
+        _DefineMySysLink(<(name)>, <row>, <col>, <caption>, <{action}>, <(parent)>)
 
 #undef BASEDEF_MYSYSLINK
 
 
 #define BASEDEF_ANIMATERES
 
-#command @ <row>,<col> ANIMATERES <name> ;
+#command @ <row>, <col> ANIMATERES <name> ;
                 [ <dummy1: OF, PARENT> <parent> ] ;
                 [ WIDTH <w> ] ;
                 [ HEIGHT <h> ] ;
@@ -97,7 +97,7 @@
 
 #define BASEDEF_ACTIVEX
 
-#xcommand @ <row>,<col> ACTIVEX <name> ;
+#xcommand @ <row>, <col> ACTIVEX <name> ;
                 [ <dummy1: OF, PARENT> <parent> ] ;
                 WIDTH <w>  ;
                 HEIGHT <h>  ;

@@ -51,7 +51,7 @@
     [ WHILE <while> ] ;
     [ INTERVAL <msec> ] ;
 => ;
-WaitRunTerm ( <executable> , <default> , 5 , <{while}> , <msec> )
+WaitRunTerm ( <executable>, <default>, 5 , <{while}>, <msec> )
 
 #xcommand EXECUTE ;
     FILE <executable> ;
@@ -61,7 +61,7 @@ WaitRunTerm ( <executable> , <default> , 5 , <{while}> , <msec> )
     [ INTERVAL <msec> ] ;
     MAXIMIZE ;
 => ;
-WaitRunTerm ( <executable> , <default> , 3 , <{while}> , <msec> )
+WaitRunTerm ( <executable>, <default>, 3 , <{while}>, <msec> )
 
 #xcommand EXECUTE ;
     FILE <executable> ;
@@ -71,7 +71,7 @@ WaitRunTerm ( <executable> , <default> , 3 , <{while}> , <msec> )
     [ INTERVAL <msec> ] ;
     MINIMIZE ;
 => ;
-WaitRunTerm ( <executable> , <default> , 6 , <{while}> , <msec> )
+WaitRunTerm ( <executable>, <default>, 6 , <{while}>, <msec> )
 
 #xcommand EXECUTE ;
     FILE <executable> ;
@@ -81,7 +81,7 @@ WaitRunTerm ( <executable> , <default> , 6 , <{while}> , <msec> )
     [ INTERVAL <msec> ] ;
     HIDE ;
 => ;
-WaitRunTerm ( <executable> , <default> , 0 , <{while}> , <msec> )
+WaitRunTerm ( <executable>, <default>, 0 , <{while}>, <msec> )
 
 
 #xcommand EXECUTE ;
@@ -90,7 +90,7 @@ WaitRunTerm ( <executable> , <default> , 0 , <{while}> , <msec> )
     [ PARAMETERS <parameters> ] ;
     [ DEFAULT <default> ] ;
 => ;
-_Execute ( , <operation> , <file> , <parameters> , <default> , 5 )
+_Execute ( , <operation>, <file>, <parameters>, <default>, 5 )
 
 #xcommand EXECUTE ;
     [ OPERATION <operation> ] ;
@@ -99,7 +99,7 @@ _Execute ( , <operation> , <file> , <parameters> , <default> , 5 )
     [ DEFAULT <default> ] ;
     MAXIMIZE ;
 => ;
-_Execute ( , <operation> , <file> , <parameters> , <default> , 3 )
+_Execute ( , <operation>, <file>, <parameters>, <default>, 3 )
 
 #xcommand EXECUTE ;
     [ OPERATION <operation> ] ;
@@ -108,7 +108,7 @@ _Execute ( , <operation> , <file> , <parameters> , <default> , 3 )
     [ DEFAULT <default> ] ;
     MINIMIZE ;
 => ;
-_Execute ( , <operation> , <file> , <parameters> , <default> , 6 )
+_Execute ( , <operation>, <file>, <parameters>, <default>, 6 )
 
 #xcommand EXECUTE ;
     [ OPERATION <operation> ] ;
@@ -117,4 +117,4 @@ _Execute ( , <operation> , <file> , <parameters> , <default> , 6 )
     [ DEFAULT <default> ] ;
     HIDE ;
 => ;
-_Execute ( , <operation> , <file> , <parameters> , <default> , 0 )
+_Execute ( , <operation>, <file>, <parameters>, <default>, 0 )

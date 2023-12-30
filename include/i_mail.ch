@@ -25,8 +25,8 @@
           [ <oMail> := ] TCDOMail():New( <cServer>, <nPort>, <cUser>, <cPass>,;
              <cSubject>, <cText>, <nPriority>, <.rec.>,;
              [ \{<cOrigin>, <cOriginAddress>\} ],;
-             \{ [ \{<cTarget1>,<cTargetAddress1>\} ] ;
-                [,\{<cTargetN>,<cTargetAddressN>\} ] \},;
+             \{ [ \{<cTarget1>, <cTargetAddress1>\} ] ;
+                [,\{<cTargetN>, <cTargetAddressN>\} ] \},;
              \{ [ \{<cFileName1>\} ] ;
                 [,\{<cFileNameN>\} ] \} )
 

@@ -283,7 +283,7 @@
    #define BT_REGION_COMPLEXREGION        3
 
 
-// BT_DirectoryInfo ( [nCSIDL | cPath] , [nTypeList] , @nIndexRoot, @CSIDL_Name ) --> aData
+// BT_DirectoryInfo ( [nCSIDL | cPath], [nTypeList], @nIndexRoot, @CSIDL_Name ) --> aData
    // nTypeList
    #define BT_DIRECTORYINFO_INFOROOT       -1
    #define BT_DIRECTORYINFO_LISTALL         0

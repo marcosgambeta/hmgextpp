@@ -98,20 +98,20 @@
           [ BACKCOLOR <backcolor> ] ;
           [ FONTCOLOR <fontcolor> ] ;
    => ;
-   _SetStatusClock( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize> , <cToolTip> , <{uAction}> , <.ampm.> , <backcolor> , <fontcolor> )
+   _SetStatusClock( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize>, <cToolTip>, <{uAction}>, <.ampm.>, <backcolor>, <fontcolor> )
 
 #xcommand KEYBOARD ;
           [ WIDTH <nSize> ] ;
           [ ACTION <uAction> ] ;
           [ TOOLTIP <cToolTip> ] ;
    => ;
-   _SetStatusKeybrd( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize> , <cToolTip> , <{uAction}> )
+   _SetStatusKeybrd( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize>, <cToolTip>, <{uAction}> )
 
 #xcommand PROGRESSITEM ;
           [ WIDTH <nSize> ] ;
           [ ACTION <uAction> ] ;
           [ TOOLTIP <cToolTip> ] ;
-          [ RANGE <lo> , <hi> ] ;
+          [ RANGE <lo>, <hi> ] ;
           [ VALUE <v> ] ;
    => ;
    _SetStatusProgressMessage ( _HMG_ActiveMessageBarname, _HMG_ActiveFormName, <nSize>, <cToolTip>, <{uAction}>, <v>, <lo>, <hi> )
@@ -121,14 +121,14 @@
           POSITION TO ;
           [ [ VALUE ] <v> ] ;
    => ;
-   _SetStatusProgressPos ( <(parent)> , <v> )
+   _SetStatusProgressPos ( <(parent)>, <v> )
 
 #xtranslate SET [ STATUSBAR ] PROGRESSITEM ;
           <dummy1: OF, PARENT> <parent> ;
           RANGE TO ;
-          [ <lo> , <hi> ] ;
+          [ <lo>, <hi> ] ;
    => ;
-   _SetStatusProgressRange ( <(parent)> , <lo> , <hi> )
+   _SetStatusProgressRange ( <(parent)>, <lo>, <hi> )
 
 
 /* for using with _SetStatusItemProperty() */

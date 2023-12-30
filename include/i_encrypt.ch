@@ -46,7 +46,7 @@
 
 #xcommand ENCODE FILE <file> [PASSWORD <password>];
           =>;
-          db_encrypt(<(file)>,<(password)>)
+          db_encrypt(<(file)>, <(password)>)
 
 #command ENCODE [FROM <(file)>] ON <key>                          ;
          FIELDS <fields,...>                                      ;
@@ -61,15 +61,15 @@
 
 #command ENCODE <file1> TO <file2> [PASSWORD <password>] [<del:DELETE>];
           =>;
-          fi_code(<(file1)>,<(password)>,<(file2)>,<.del.>)
+          fi_code(<(file1)>, <(password)>, <(file2)>, <.del.>)
 
 #command DECODE <file1> TO <file2> [PASSWORD <password>] [<del:DELETE>];
           =>;
-          fi_decode(<(file1)>,<(password)>,<(file2)>,<.del.>)
+          fi_decode(<(file1)>, <(password)>, <(file2)>, <.del.>)
 
 #xcommand DECODE FILE <file> [PASSWORD <password>];
           =>;
-          db_unencrypt(<(file)>,<(password)>)
+          db_unencrypt(<(file)>, <(password)>)
 
 #command DECODE [FROM <(file)>] ON <key>                          ;
          FIELDS <fields,...>                                      ;

@@ -308,18 +308,18 @@
 #translate ISSTRING(<xValue>)  => hb_IsString(<xValue>)  // deprecated
 #translate ISNUMERIC(<xValue>) => hb_IsNumeric(<xValue>) // deprecated
 
-#translate IFNIL(<v1>,<exp1>,<exp2>)       => iif((<v1>) == NIL, <exp1>, <exp2>)      // deprecated
-#translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif(hb_IsArray(<v1>), <exp1>, <exp2>)   // deprecated
-#translate IFBLOCK(<v1>,<exp1>,<exp2>)     => iif(hb_IsBlock(<v1>), <exp1>, <exp2>)   // deprecated
-#translate IFCHARACTER(<v1>,<exp1>,<exp2>) => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
-#translate IFCHAR(<v1>,<exp1>,<exp2>)      => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
-#translate IFSTRING(<v1>,<exp1>,<exp2>)    => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
-#translate IFDATE(<v1>,<exp1>,<exp2>)      => iif(hb_IsDate(<v1>), <exp1>, <exp2>)    // deprecated
-#translate IFLOGICAL(<v1>,<exp1>,<exp2>)   => iif(hb_IsLogical(<v1>), <exp1>, <exp2>) // deprecated
-#translate IFNUMBER(<v1>,<exp1>,<exp2>)    => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
-#translate IFNUMERIC(<v1>,<exp1>,<exp2>)   => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
-#translate IFOBJECT(<v1>,<exp1>,<exp2>)    => iif(hb_IsObject(<v1>), <exp1>, <exp2>)  // deprecated
-#translate IFEMPTY(<v1>,<exp1>,<exp2>)     => iif(EMPTY(<v1>), <exp1>, <exp2>)        // deprecated
+#translate IFNIL(<v1>, <exp1>, <exp2>)       => iif((<v1>) == NIL, <exp1>, <exp2>)      // deprecated
+#translate IFARRAY(<v1>, <exp1>, <exp2>)     => iif(hb_IsArray(<v1>), <exp1>, <exp2>)   // deprecated
+#translate IFBLOCK(<v1>, <exp1>, <exp2>)     => iif(hb_IsBlock(<v1>), <exp1>, <exp2>)   // deprecated
+#translate IFCHARACTER(<v1>, <exp1>, <exp2>) => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFCHAR(<v1>, <exp1>, <exp2>)      => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFSTRING(<v1>, <exp1>, <exp2>)    => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFDATE(<v1>, <exp1>, <exp2>)      => iif(hb_IsDate(<v1>), <exp1>, <exp2>)    // deprecated
+#translate IFLOGICAL(<v1>, <exp1>, <exp2>)   => iif(hb_IsLogical(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFNUMBER(<v1>, <exp1>, <exp2>)    => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFNUMERIC(<v1>, <exp1>, <exp2>)   => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFOBJECT(<v1>, <exp1>, <exp2>)    => iif(hb_IsObject(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFEMPTY(<v1>, <exp1>, <exp2>)     => iif(EMPTY(<v1>), <exp1>, <exp2>)        // deprecated
 
 /////////////////////////////////////
 // Abbreviated flow control modifiers
@@ -432,7 +432,7 @@
 #xtranslate ADel(<a>, <n>, <l>) => hb_ADel(<a>, <n>, <l>)
 #xuntranslate AScan( =>
 #xuntranslate At( =>
-#xtranslate AScan(<a>,<b>,[<c>],[<d>],<e>) => hb_AScan(<a>, <b>, <c>, <d>, <e>)
+#xtranslate AScan(<a>, <b>, [<c>], [<d>], <e>) => hb_AScan(<a>, <b>, <c>, <d>, <e>)
 #xtranslate At(<a>, <b>, [<x,...>]) => hb_At(<a>, <b>, <x>)
 
 // ============================================================================

@@ -46,7 +46,7 @@
 
 EXTERNAL PROPGRIDONCUSTOMDRAW
 
-#xcommand @ <row>,<col> PROPGRID  <name>       ;
+#xcommand @ <row>, <col> PROPGRID  <name>       ;
    [ <dummy1: OF, PARENT> <parent> ] ;
    [ WIDTH <width> ] ;
    [ HEIGHT <height> ] ;
@@ -79,15 +79,15 @@ EXTERNAL PROPGRIDONCUSTOMDRAW
    [ HELPID <helpid> ] ;
    [ IMAGELIST <imglist> ];
 =>;
-_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,<cFile>,<.xml.>,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
+_DefinePropGrid ( <"name">, <"parent">, <row>, <col>, <width>, <height>, <{change}>, <cFile>, <.xml.>,;
+               <tooltip>, <fontname>, <fontsize>, <{gotfocus}>, <{lostfocus}>, <{onclose}>,.F.,;
               , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
-              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
-              <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.> ,;
+              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth>, <imglist>, <.readonly.>,;
+              <.iteminfo.>, <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.>,;
               <.okbtn.>, <.apply.>, <{userokproc}>, <.cancelbtn.>, <{usercancelproc}>, <{helpproc}>)
 
 
-#xcommand @ <row>,<col> PROPGRID  <name>      ;
+#xcommand @ <row>, <col> PROPGRID  <name>      ;
    [ <dummy1: OF, PARENT> <parent> ] ;
    [ WIDTH <width> ] ;
    [ HEIGHT <height> ] ;
@@ -120,17 +120,17 @@ _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <
    [ HELPID <helpid> ] ;
    [ IMAGELIST <imglist> ];
 =>;
-_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.F.,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
-               <aProperty> , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
-              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
-              <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.> ,;
+_DefinePropGrid ( <"name">, <"parent">, <row>, <col>, <width>, <height>, <{change}>,"",.F.,;
+               <tooltip>, <fontname>, <fontsize>, <{gotfocus}>, <{lostfocus}>, <{onclose}>,.F.,;
+               <aProperty>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
+              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth>, <imglist>, <.readonly.>,;
+              <.iteminfo.>, <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.>,;
               <.okbtn.>, <.apply.>, <{userokproc}>, <.cancelbtn.>, <{usercancelproc}>, <{helpproc}>)
 
 
 #xcommand DEFINE PROPGRID  <name>       ;
    [ <dummy1: OF, PARENT> <parent> ] ;
-   AT <row>,<col>  ;
+   AT <row>, <col>  ;
    [ WIDTH <width> ] ;
    [ HEIGHT <height> ] ;
    [ HEADER <aheadname,...> ];
@@ -161,11 +161,11 @@ _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <
    [ HELPID <helpid> ] ;
    [ IMAGELIST <imglist> ];
 =>;
-_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.F.,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
+_DefinePropGrid ( <"name">, <"parent">, <row>, <col>, <width>, <height>, <{change}>,"",.F.,;
+               <tooltip>, <fontname>, <fontsize>, <{gotfocus}>, <{lostfocus}>, <{onclose}>,.F.,;
                , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
-              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
-              <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.>,;
+              <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth>, <imglist>, <.readonly.>,;
+              <.iteminfo.>, <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.>,;
               <.okbtn.>, <.apply.>, <{userokproc}>, <.cancelbtn.>, <{usercancelproc}>, <{helpproc}>)
 
 
@@ -463,7 +463,7 @@ _EndPropGrid()
             [ VARNAME <cVarName>  ] ;
             [ <disableedit : DISABLEEDIT> ];
 => ;
-_AddPropertyItem ( <"name"> , <"parent">, <cCategory>, <ctype>, <cNameItem>, <cValue>, <caData>, <.disabled.>, <.disableedit.>, <id>, <cInfo>, <cVarName>, <"cValue"> )
+_AddPropertyItem ( <"name">, <"parent">, <cCategory>, <ctype>, <cNameItem>, <cValue>, <caData>, <.disabled.>, <.disableedit.>, <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand ADD CATEGORY <name>  ;
@@ -473,7 +473,7 @@ _AddPropertyItem ( <"name"> , <"parent">, <cCategory>, <ctype>, <cNameItem>, <cV
             [ ID <id> ] ;
             [ INFO <cInfo> ] ;
 => ;
-_AddPropertyCategory  (<"name"> , <"parent">, <cParentCategory>, <cNameCategory>, <id>, <cInfo> )
+_AddPropertyCategory  (<"name">, <"parent">, <cParentCategory>, <cNameCategory>, <id>, <cInfo> )
 
 
 #xcommand GET PROPERTYITEM <name>;

@@ -68,7 +68,7 @@
 => ;
         _hmg_printer_InitUserMessages() ;;
         _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-                <cPrinter> , ;
+                <cPrinter>, ;
                 iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
                 iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
                 iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
@@ -104,7 +104,7 @@
 => ;
         _hmg_printer_InitUserMessages() ;;
         _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-                <cPrinter> , ;
+                <cPrinter>, ;
                 iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
                 iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
                 iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
@@ -255,7 +255,7 @@ iif ( _hmg_printer_preview , _HMG_PRINTER_SHOWPREVIEW() , _HMG_PRINTER_EndDoc(_h
 => ;
 _HMG_PRINTER_ABORTDOC(_hmg_printer_hdc)
 
-#xtranslate @ <Row> , <Col> PRINT [ DATA ] <cText> ;
+#xtranslate @ <Row>, <Col> PRINT [ DATA ] <cText> ;
         [ <lfont : FONT> <cFontName> ] ;
         [ <lsize : SIZE> <nFontSize> ] ;
         [ <bold : BOLD> ] ;
@@ -266,10 +266,10 @@ _HMG_PRINTER_ABORTDOC(_hmg_printer_hdc)
         [ <lAngle : ANGLE> <nAngle> ] ;
         [ <align : CENTER,RIGHT> ] ;
         => ;
-        _HMG_PRINTER_H_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <.lAngle.> , <nAngle> )
+        _HMG_PRINTER_H_PRINT ( _hmg_printer_hdc , <Row>, <Col>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <cText>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.lcolor.>, <.lfont.>, <.lsize.>, <"align">, <.lAngle.>, <nAngle> )
 
-#xtranslate @ <Row> , <Col> PRINT [ DATA ] <cText> ;
-        TO <ToRow> , <ToCol> ;
+#xtranslate @ <Row>, <Col> PRINT [ DATA ] <cText> ;
+        TO <ToRow>, <ToCol> ;
         [ <lfont : FONT> <cFontName> ] ;
         [ <lsize : SIZE> <nFontSize> ] ;
         [ <bold : BOLD> ] ;
@@ -279,15 +279,15 @@ _HMG_PRINTER_ABORTDOC(_hmg_printer_hdc)
         [ <lcolor : COLOR> <aColor> ] ;
         [ <align : CENTER,RIGHT> ] ;
         => ;
-        _HMG_PRINTER_H_MULTILINE_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> )
+        _HMG_PRINTER_H_MULTILINE_PRINT ( _hmg_printer_hdc , <Row>, <Col>, <ToRow>, <ToCol>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <cText>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.lcolor.>, <.lfont.>, <.lsize.>, <"align"> )
 
-#xtranslate @ <nRow> , <nCol> PRINT IMAGE <cImage> ;
+#xtranslate @ <nRow>, <nCol> PRINT IMAGE <cImage> ;
         WIDTH <nWidth> ;
         HEIGHT <nheight> ;
         [ <stretch : STRETCH> ] ;
         [ <transparent : TRANSPARENT> ] ;
         => ;
-        _HMG_PRINTER_H_IMAGE ( _hmg_printer_hdc , <cImage> , <nRow> , <nCol> , <nheight> , <nWidth> , <.stretch.> , <.transparent.> )
+        _HMG_PRINTER_H_IMAGE ( _hmg_printer_hdc , <cImage>, <nRow>, <nCol>, <nheight>, <nWidth>, <.stretch.>, <.transparent.> )
 
 * Pen Styles
 
@@ -296,27 +296,27 @@ _HMG_PRINTER_ABORTDOC(_hmg_printer_hdc)
 #define DASHDOT    3
 #define DASHDOTDOT 4
 
-#xtranslate @ <Row> , <Col> PRINT LINE TO <ToRow> , <ToCol> ;
+#xtranslate @ <Row>, <Col> PRINT LINE TO <ToRow>, <ToCol> ;
         [ <lwidth : PENWIDTH> <Width> ] ;
         [ <lcolor : COLOR> <aColor> ] ;
         [ STYLE <nStyle> ] ;
         => ;
-        _HMG_PRINTER_H_LINE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <nStyle> )
+        _HMG_PRINTER_H_LINE ( _hmg_printer_hdc , <Row>, <Col>, <ToRow>, <ToCol>, <Width>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <.lwidth.>, <.lcolor.>, <nStyle> )
 
-#xtranslate @ <Row> , <Col> PRINT RECTANGLE TO <ToRow> , <ToCol> ;
+#xtranslate @ <Row>, <Col> PRINT RECTANGLE TO <ToRow>, <ToCol> ;
         [ <lwidth : PENWIDTH> <Width> ] ;
         [ <lcolor : COLOR> <aColor> ] ;
         [ <lfilled: FILLED> [ <lnoborder: NOBORDER> ] ] ;
         => ;
-        _HMG_PRINTER_H_RECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> , <.lnoborder.> )
+        _HMG_PRINTER_H_RECTANGLE ( _hmg_printer_hdc , <Row>, <Col>, <ToRow>, <ToCol>, <Width>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <.lwidth.>, <.lcolor.>, <.lfilled.>, <.lnoborder.> )
 
-#xtranslate @ <Row> , <Col> PRINT RECTANGLE TO <ToRow> , <ToCol> ;
+#xtranslate @ <Row>, <Col> PRINT RECTANGLE TO <ToRow>, <ToCol> ;
         [ <lwidth : PENWIDTH> <Width> ] ;
         [ <lcolor : COLOR> <aColor> ] ;
         [ <lfilled: FILLED> ]; 
         ROUNDED ;
         => ;
-        _HMG_PRINTER_H_ROUNDRECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> )
+        _HMG_PRINTER_H_ROUNDRECTANGLE ( _hmg_printer_hdc , <Row>, <Col>, <ToRow>, <ToCol>, <Width>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <.lwidth.>, <.lcolor.>, <.lfilled.> )
 
 #ifndef __HMG_COMPAT__
 ///////////////////////////////////////////////////////////////////////////////

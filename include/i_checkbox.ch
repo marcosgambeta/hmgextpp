@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> CHECKBOX <name> ;
+#command @ <row>, <col> CHECKBOX <name> ;
         [ID <nId> ];
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 CAPTION <caption> ;
@@ -75,7 +75,7 @@
                 [ <threestate : THREESTATE> ] ;
                 [ ON INIT <bInit> ] ;
         =>;
-        _DefineCheckBox ( <(name)>, <(parent)>, <col>, <row>, <caption>, <value> , <f> , <n> , <tooltip> , <{change}> , [<w>] , [<h>] , <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.transparent.> , <.leftjustify.> , <.threestate.> , <{enter}> , <.autosize.> , <.multiline.> , <nId> , <bInit> )
+        _DefineCheckBox ( <(name)>, <(parent)>, <col>, <row>, <caption>, <value>, <f>, <n>, <tooltip>, <{change}>, [<w>], [<h>], <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.transparent.>, <.leftjustify.>, <.threestate.>, <{enter}>, <.autosize.>, <.multiline.>, <nId>, <bInit> )
 
 
 #command REDEFINE CHECKBOX <name> ;
@@ -105,10 +105,10 @@
         [ <threestate : THREESTATE> ] ;
         [ ON INIT <bInit> ] ;
     =>;
-        _DefineCheckBox ( <(name)>, <(parent)>, 0, 0, <caption>, <value> , <f> , <n> , <tooltip> , <{change}> , 0 , 0 , <{lostfocus}>, <{gotfocus}> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.transparent.> , <.leftjustify.> , <.threestate.> , <{enter}> , .F. , .F. , <nId> , <bInit> )
+        _DefineCheckBox ( <(name)>, <(parent)>, 0, 0, <caption>, <value>, <f>, <n>, <tooltip>, <{change}>, 0 , 0 , <{lostfocus}>, <{gotfocus}>, <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.transparent.>, <.leftjustify.>, <.threestate.>, <{enter}>, .F. , .F. , <nId>, <bInit> )
 
 
-#command @ <row>,<col> CHECKBUTTON <name> ;
+#command @ <row>, <col> CHECKBUTTON <name> ;
         [ID <nId>] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 CAPTION <caption>  ;
@@ -129,7 +129,7 @@
                 [ <invisible: INVISIBLE> ] ;
                 [ <notabstop: NOTABSTOP> ] ;
         =>;
-        _DefineCheckButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <value> ,<f> ,<n> , <tooltip> , <{change}> , [<w>] , [<h>] , <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <nId> )
+        _DefineCheckButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <value>, <f>, <n>, <tooltip>, <{change}>, [<w>], [<h>], <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <nId> )
 
 
 #command REDEFINE CHECKBUTTON <name> ;
@@ -151,11 +151,11 @@
     [ <invisible: INVISIBLE> ] ;
     [ <notabstop: NOTABSTOP> ] ;
     =>;
-        _DefineCheckButton ( <(name)>, <(parent)>, 0, 0, <caption>, <value> ,<f> ,<n> , <tooltip> , <{change}> , 0 , 0 , <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <nId>)
+        _DefineCheckButton ( <(name)>, <(parent)>, 0, 0, <caption>, <value>, <f>, <n>, <tooltip>, <{change}>, 0 , 0 , <{lostfocus}>, <{gotfocus}>  , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <nId>)
 
 
 
-#command @ <row>,<col> CHECKBUTTON <name> ;
+#command @ <row>, <col> CHECKBUTTON <name> ;
         [ID <nId>] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
                 PICTURE <bitmap> ;
@@ -171,7 +171,7 @@
                 [ <notabstop: NOTABSTOP> ] ;
                 [ <notrans: NOTRANSPARENT>];
         =>;
-        _DefineImageCheckButton ( <(name)>, <(parent)>, <col>, <row>, <bitmap>, <value> ,"" ,0 , <tooltip> , <{change}> , [<w>] , [<h>] , <{lostfocus}>, <{gotfocus}> , <helpid>, <.invisible.>, <.notabstop.>, <nId>, <.notrans.> )
+        _DefineImageCheckButton ( <(name)>, <(parent)>, <col>, <row>, <bitmap>, <value>,"" ,0 , <tooltip>, <{change}>, [<w>], [<h>], <{lostfocus}>, <{gotfocus}>, <helpid>, <.invisible.>, <.notabstop.>, <nId>, <.notrans.> )
 
 
 #command REDEFINE CHECKBUTTON <name> ;
@@ -188,4 +188,4 @@
     [ <notabstop: NOTABSTOP> ] ;
     [ <notrans: NOTRANSPARENT>];
     =>;
-        _DefineImageCheckButton ( <(name)>, <(parent)>, 0, 0, <bitmap>, <value> ,"" ,0 , <tooltip> , <{change}> , 0 , 0 , <{lostfocus}>, <{gotfocus}> , <helpid>, <.invisible.>, <.notabstop.>, <nId>, <.notrans.> )
+        _DefineImageCheckButton ( <(name)>, <(parent)>, 0, 0, <bitmap>, <value>,"" ,0 , <tooltip>, <{change}>, 0 , 0 , <{lostfocus}>, <{gotfocus}>, <helpid>, <.invisible.>, <.notabstop.>, <nId>, <.notrans.> )
