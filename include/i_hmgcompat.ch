@@ -64,7 +64,7 @@
 
 #xtranslate FocusedWindow . <p:Title,NotifyIcon,NotifyTooltip,FocusedControl,Name,Row,Col,Width,Height> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex )  , <"p"> )
 #xtranslate FocusedWindow . <p:Title,Cursor,NotifyIcon,NotifyTooltip,Row,Col,Width,Height> := <arg> => SetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
-#xtranslate FocusedWindow . <p:Activate,Center,Redraw,Release,Maximize,Minimize,Restore,Show,Hide,SetFocus> [ () ] => DoMethod ( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
+#xtranslate FocusedWindow . <p:Activate,Center,Redraw,Release,Maximize,Minimize,Restore,Show,Hide,SetFocus> [ () ] => DoMethod( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Handle,Index,IsMinimized,IsMaximized,ClientWidth,ClientHeight> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> => GetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p"> )
 #xtranslate FocusedWindow . <p:Closable,TitleBar,SysMenu,Sizable,MaxButton,MinButton,Enabled> := <arg> => SetProperty( GetFormNameByIndex( _HMG_LastActiveFormIndex ) , <"p">, <arg> )
