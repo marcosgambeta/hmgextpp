@@ -233,7 +233,7 @@ HB_FUNC( HMG_CREATECARET )
 HB_FUNC_TRANSLATE( CREATECARET, HMG_CREATECARET )
 #endif
 
-// CHANGESTYLE (hWnd,dwAdd,dwRemove,lExStyle)
+// CHANGESTYLE(hWnd, dwAdd, dwRemove, lExStyle)
 // Action: Modifies the basic styles of a window
 // Parameters: hWnd - handle to window
 //             dwAdd - window styles to add

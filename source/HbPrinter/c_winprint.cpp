@@ -9,7 +9,7 @@
 #include "mgdefs.hpp"
 
 #if defined(_MSC_VER)
-#pragma warning ( disable:4996 )
+#pragma warning (disable:4996)
 #endif
 #include <hbapiitm.hpp>
 #include <hbwinuni.hpp>

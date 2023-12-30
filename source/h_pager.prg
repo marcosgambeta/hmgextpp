@@ -168,7 +168,7 @@ FUNCTION _EndPager()
 
    _HMG_BeginPagerActive := .F.
    _HMG_ActiveSplitBoxParentFormName := ""
-   _EndSplitBox ()
+   _EndSplitBox()
 
 RETURN NIL
 

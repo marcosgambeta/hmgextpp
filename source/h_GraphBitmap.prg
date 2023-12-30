@@ -397,7 +397,7 @@ FUNCTION HMG_PieGraph(nWidth, nHeight, series, aname, colors, ctitle, aTitleColo
       aClrBack := shadowcolor
    ENDIF
 
-   hBitmap := BT_BitmapCreateNew ( nWidth, nHeight, aClrBack )
+   hBitmap := BT_BitmapCreateNew(nWidth, nHeight, aClrBack)
    hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF !lNoborder

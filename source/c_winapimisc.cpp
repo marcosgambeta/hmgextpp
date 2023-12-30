@@ -47,7 +47,7 @@
 #include "mgdefs.hpp"
 
 #if defined(_MSC_VER)
-#pragma warning ( disable:4996 )
+#pragma warning (disable:4996)
 #endif
 #include <commctrl.h>
 #include <lmcons.h>
@@ -89,7 +89,7 @@ HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
    FARPROC pProc;
 
    pProc = GetProcAddress(hModule, lpProcName);
-   return ( HB_PTRUINT ) pProc;
+   return (HB_PTRUINT) pProc;
 }
 
 /*

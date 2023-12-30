@@ -251,12 +251,12 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ParentForm, x, y, w, h, value, fontna
 
    _DefineControlContextMenu(ControlName, cParentForm)
       _DefineMenuItem(aRichEditMenu[1] , {||RichEditBox_mnuEdit_Click("UNDO")} , "mnuEditUndo" , , .F. , .F. ,,,, .F., .F. ,, .F.)
-      _DefineSeparator ()
+      _DefineSeparator()
       _DefineMenuItem(aRichEditMenu[2] , {||RichEditBox_mnuEdit_Click("CUT")} , "mnuEditCut" , , .F. , .F. ,,,, .F., .F. ,, .F.)
       _DefineMenuItem(aRichEditMenu[3] , {||RichEditBox_mnuEdit_Click("COPY")} , "mnuEditCopy" , , .F. , .F. ,,,, .F., .F. ,, .F.)
       _DefineMenuItem(aRichEditMenu[4] , {||RichEditBox_mnuEdit_Click("PASTE")} , "mnuEditPaste" , , .F. , .F. ,,,, .F., .F. ,, .F.)
       _DefineMenuItem(aRichEditMenu[5] , {||RichEditBox_mnuEdit_Click("DEL")} , "mnuEditDelete" , , .F. , .F. ,,,, .F., .F. ,, .F.)
-      _DefineSeparator ()
+      _DefineSeparator()
       _DefineMenuItem(aRichEditMenu[6] , {||RichEditBox_mnuEdit_Click("SELALL")} , "mnuEditSelAll" , , .F. , .F. ,,,, .F., .F. ,, .F.)
    _EndMenu()
 

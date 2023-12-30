@@ -368,7 +368,7 @@ HB_FUNC_TRANSLATE( C_GETRESPICTURE, HMG_C_GETRESPICTURE )
 #endif
 
 //****************************************************************************************************************
-// HMG_LoadImage (const char *FileName) -> hBitmap (Load: JPG, GIF, ICO, TIF, PNG, WMF)
+// HMG_LoadImage(const char *FileName) -> hBitmap (Load: JPG, GIF, ICO, TIF, PNG, WMF)
 //****************************************************************************************************************
 HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes)
 {
@@ -411,7 +411,7 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes)
 }
 
 //****************************************************************************************************************
-// HMG_LoadPicture (Name, width, height, ...) -> hBitmap (Load: BMP, GIF, JPG, TIF, WMF, EMF, PNG)
+// HMG_LoadPicture(Name, width, height, ...) -> hBitmap (Load: BMP, GIF, JPG, TIF, WMF, EMF, PNG)
 //****************************************************************************************************************
 HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlphaConstant)
 {

@@ -225,10 +225,10 @@ CLASS TSColumn
    METHOD SaveProperty(aExcept)     INLINE  __objGetValueList(Self, aExcept)
    METHOD RestProperty(aProp)       INLINE  __objSetValueList(Self, aProp)
 
-   METHOD SetProperty (cName, xVal) INLINE iif(__objHasData(Self, cName), __objSendMsg(Self, "_" + cName, xVal), NIL)
-   METHOD GetProperty (cName)       INLINE iif(__objHasData(Self, cName), __objSendMsg(Self, cName), NIL)
+   METHOD SetProperty(cName, xVal) INLINE iif(__objHasData(Self, cName), __objSendMsg(Self, "_" + cName, xVal), NIL)
+   METHOD GetProperty(cName)       INLINE iif(__objHasData(Self, cName), __objSendMsg(Self, cName), NIL)
 
-   METHOD AddProperty (cName, xVal) INLINE (iif(!__objHasData(Self, cName), __objAddData(Self, cName), NIL),  ;
+   METHOD AddProperty(cName, xVal) INLINE (iif(!__objHasData(Self, cName), __objAddData(Self, cName), NIL),  ;
                                             iif(__objHasData(Self, cName), __objSendMsg(Self, "_" + cName, xVal), NIL))
 
    METHOD Clone()                     INLINE __objClone(Self)
@@ -356,7 +356,7 @@ METHOD TSColumn:New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap,
       ::aColorsBack := aTmpColor
    ELSE
       ::DefColor(oBrw, aTmpColor)
-      ::DefFont (oBrw)
+      ::DefFont(oBrw)
    ENDIF
 
    DEFAULT aTmp3D[1]    := IIf(oBrw == NIL, .F., oBrw:l3DLook)

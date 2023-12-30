@@ -1610,7 +1610,7 @@ FUNCTION _BrowseEdit(GridHandle, aValid, aValidMessages, aReadOnly, lock, append
       IF q == 0
 
          dbSelectArea(BrowseArea)
-         aStru := dbStruct ()
+         aStru := dbStruct()
 
          AAdd(TmpNames, "MemVar" + BrowseArea + tvar)
 
@@ -2043,7 +2043,7 @@ STATIC FUNCTION _EditRecordOk(aValid, TmpNames, aValidMessages)
 
 RETURN NIL
 //---------------------------------------------------------------------------//
-STATIC FUNCTION _EditRecordCancel ()
+STATIC FUNCTION _EditRecordCancel()
 //---------------------------------------------------------------------------//
 
    AEval(aResult, {|x, i|HB_SYMBOL_UNUSED(x), aResult[i] := NIL})

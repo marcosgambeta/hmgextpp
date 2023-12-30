@@ -49,11 +49,11 @@
 
 #include <commctrl.h>
 #if defined(_MSC_VER)
-#pragma warning ( disable:4201 )
+#pragma warning (disable:4201)
 #endif
 #include <richedit.h>
 
-#if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
+#if defined(__MINGW32__) && defined(__MINGW32_VERSION)
 #define IMF_AUTOFONT      0x0002
 #endif
 
@@ -474,7 +474,7 @@ HB_FUNC_TRANSLATE( SETFONTRTF, HMG_SETFONTRTF )
 #endif
 
 #if defined(_MSC_VER)
-#pragma warning ( disable:4996 )
+#pragma warning (disable:4996)
 #endif
 static BOOL IsWinxpSp1Min(void)
 {

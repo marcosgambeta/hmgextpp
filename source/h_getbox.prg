@@ -1442,7 +1442,7 @@ FUNCTION _RangeCheck(oGet, lo, hi)
       RETURN .T.
    ENDIF
 
-RETURN ( value >= lo .AND. value <= hi )
+RETURN (value >= lo .AND. value <= hi)
 
 //---------------------------------------------------------------------------//
 FUNCTION _SetGetBoxColorFocus(aBackColor, aFontColor)
@@ -1645,12 +1645,12 @@ STATIC FUNCTION _IsEditable(nPos, nId)
 
    IF oGet:type != NIL
 
-      SWITCH  oGet:type
-      CASE "C" ; RETURN ( cChar $ "!ANX9#LY" )
-      CASE "N" ; RETURN ( cChar $ "9#$*" )
+      SWITCH oGet:type
+      CASE "C" ; RETURN (cChar $ "!ANX9#LY")
+      CASE "N" ; RETURN (cChar $ "9#$*")
       CASE "D"
-      CASE "T" ; RETURN ( cChar == "9" )
-      CASE "L" ; RETURN ( cChar $ "LY#" )
+      CASE "T" ; RETURN (cChar == "9")
+      CASE "L" ; RETURN (cChar $ "LY#")
       ENDSWITCH
 
    ENDIF

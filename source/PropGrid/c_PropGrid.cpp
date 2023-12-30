@@ -591,7 +591,7 @@ static void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
    DeleteObject(hNewBrush);
 }
 
-static LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
+static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
 {
    NMHDR          *pNMHDR = ( NMHDR FAR * ) lParam;
    NMTVCUSTOMDRAW *pCD = ( NMTVCUSTOMDRAW * ) pNMHDR;
@@ -1333,7 +1333,7 @@ PROPGRIDONCUSTOMDRAW() -->
 */
 HB_FUNC( PROPGRIDONCUSTOMDRAW )
 {
-   hb_retnl(PropGridOnCustomDraw (hmg_par_HWND(1), (LPARAM) hb_parnl(2)));
+   hb_retnl(PropGridOnCustomDraw(hmg_par_HWND(1), (LPARAM) hb_parnl(2)));
 }
 
 void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT * rc, RECT * rcIndent, int nIndent)

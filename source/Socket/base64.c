@@ -67,14 +67,14 @@ static void b64dec(unsigned char *in, int inlen, unsigned char *out)
    out[2] = ( t2 << 6 ) | t3;
 }
 
-int b64encode_len (unsigned char *in)
+int b64encode_len(unsigned char *in)
 {
    int l = strlen(( const char * ) in);
 
    return 4 * ( ( l + 2 ) / 3 );
 }
 
-int b64decode_len (unsigned char *in)
+int b64decode_len(unsigned char *in)
 {
    int l = strlen(( const char * ) in);
 
@@ -95,7 +95,7 @@ unsigned char *b64encode_alloc(unsigned char *in)
    return n;
 }
 
-void b64encode (unsigned char *in, unsigned char *out)
+void b64encode(unsigned char *in, unsigned char *out)
 {
    int inlen = strlen(( const char * ) in);
 
@@ -108,7 +108,7 @@ void b64encode (unsigned char *in, unsigned char *out)
    }
 }
 
-void b64encodelen (unsigned char *in, unsigned char *out, int nLen, int nSubLen )
+void b64encodelen(unsigned char *in, unsigned char *out, int nLen, int nSubLen)
 {
    int inlen = nLen;
    int nPos = 0;
@@ -145,7 +145,7 @@ unsigned char *b64decode_alloc(unsigned char *in)
    return n;
 }
 
-void b64decode (unsigned char *in, unsigned char *out)
+void b64decode(unsigned char *in, unsigned char *out)
 {
    int inlen = strlen(( const char * ) in);
 

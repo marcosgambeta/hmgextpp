@@ -966,7 +966,7 @@ HB_FUNC_TRANSLATE( SETSTRETCHBLTMODE, HMG_SETSTRETCHBLTMODE )
 #endif
 
 //**********************************************************************************************************************************************
-//* BT_DRAW_HDC_ARCX_EX (hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc, ColorLine, nWidthLine, ColorFill, nArcType, hBrushBitmap )
+//* BT_DRAW_HDC_ARCX_EX(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc, ColorLine, nWidthLine, ColorFill, nArcType, hBrushBitmap)
 //**********************************************************************************************************************************************
 
 // nArcType

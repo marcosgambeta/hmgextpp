@@ -159,7 +159,7 @@ STATIC FUNCTION PutPageImage(hDoc, hPage, cLogoFile, nPageHeight, nPageWidth)
    ENDIF
    nResult := HPDF_Page_DrawImage(hPage, hImage, 20, 10, nPageWidth - 30, nPageHeight - 20)
 
-RETURN ( nResult == HPDF_OK )
+RETURN (nResult == HPDF_OK)
 
 ********************************************************************************
 STATIC FUNCTION PdfSetInfo(hDoc, cTitle, cAuthor, cCreator)

@@ -84,13 +84,13 @@ RETURN cMsg
 // * BT INFO
 // **********************************************************************************************************************************
 
-FUNCTION BT_InfoName ()
+FUNCTION BT_InfoName()
 RETURN AllTrim(_BT_INFO_NAME_)
 
-FUNCTION BT_InfoVersion ()
+FUNCTION BT_InfoVersion()
 RETURN AllTrim(Str(_BT_INFO_MAJOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_MINOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_PATCHLEVEL_))
 
-FUNCTION BT_InfoAuthor ()
+FUNCTION BT_InfoAuthor()
 RETURN AllTrim(_BT_INFO_AUTHOR_)
 
 // **********************************************************************************************************************************

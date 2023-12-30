@@ -98,7 +98,7 @@ HB_FUNC_TRANSLATE( INITBROWSE, HMG_INITBROWSE )
 LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
    if( msg == WM_MOUSEWHEEL ) {
-      // sprintf( res,"zDelta: %d", (short) HIWORD (wParam) );
+      // sprintf( res,"zDelta: %d", (short) HIWORD(wParam) );
       // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
       if( static_cast<short>(HIWORD(wParam)) > 0 ) {
          keybd_event(VK_UP, 0, 0, 0);

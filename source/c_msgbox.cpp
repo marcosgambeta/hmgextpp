@@ -83,7 +83,7 @@ HB_FUNC( HMG_MESSAGEBOXINDIRECT )
 HB_FUNC_TRANSLATE( MESSAGEBOXINDIRECT, HMG_MESSAGEBOXINDIRECT )
 #endif
 
-// MessageBoxTimeout (Text, Caption, nTypeButton, nMilliseconds) ---> Return iRetButton
+// MessageBoxTimeout(Text, Caption, nTypeButton, nMilliseconds) ---> Return iRetButton
 HB_FUNC( HMG_MESSAGEBOXTIMEOUT )
 {
    auto hWnd = GetActiveWindow();

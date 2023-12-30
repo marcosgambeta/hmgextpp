@@ -583,7 +583,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      IF Len(_HMG_aControlBkColor[i]) == 3 .AND. hmg_GetFocus() == _HMG_aControlHandles[i]
 
                         hmg_SetBkColor(wParam, _HMG_aControlBkColor[i, 3, 1], _HMG_aControlBkColor[i, 3, 2], _HMG_aControlBkColor[i, 3, 3])
-                        hmg_DeleteObject (_HMG_aControlBrushHandle[i])
+                        hmg_DeleteObject(_HMG_aControlBrushHandle[i])
                         _HMG_aControlBrushHandle[i] := hmg_CreateSolidBrush(_HMG_aControlBkColor[i, 3, 1], _HMG_aControlBkColor[i, 3, 2], _HMG_aControlBkColor[i, 3, 3])
                         RETURN _HMG_aControlBrushHandle[i]
 
@@ -1859,7 +1859,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    //**************************************************************************
 
       //................................................
-      // Search Control From Received Id LoWord (wParam)
+      // Search Control From Received Id LoWord(wParam)
       //................................................
 
       i := AScan(_HMG_aControlIds, hmg_LoWord(wParam))

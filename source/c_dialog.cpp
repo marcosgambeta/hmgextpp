@@ -420,8 +420,8 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY)); // y
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX)); // cx
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 9), 8, baseunitY)); // cy
-      *pw++ = static_cast<WORD>(Id); // LOWORD (Control ID)
-      *pw++ = 0; // HOWORD (Control ID)
+      *pw++ = static_cast<WORD>(Id); // LOWORD(Control ID)
+      *pw++ = 0; // HOWORD(Control ID)
 
       strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 3)); // class
       nchar   = nCopyAnsiToWideChar(pw, strtemp);

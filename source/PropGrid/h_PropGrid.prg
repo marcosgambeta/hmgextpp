@@ -2295,7 +2295,7 @@ FUNCTION FormatPropertyLine(cString)
    LOCAL aRowDef := { "string", "", "", "", .F., .F., .F., 0, "", "" }
 
    TOKENINIT(cString, " " + Chr(9) + Chr(13))
-   DO WHILE ( !TOKENEND() )
+   DO WHILE (!TOKENEND())
       cToken := TOKENNEXT(cString)
       IF RAt(Chr(34), cToken) < Len(cToken)
          lToken := .F.
@@ -2352,7 +2352,7 @@ FUNCTION FormatIniLine(cString)
       aLine := { "string" }
    ENDIF
    cString := CharRem("[]", cString)
-   DO WHILE ( !TOKENEND() )
+   DO WHILE (!TOKENEND())
       cToken := TOKENNEXT(cString)
       AAdd(aLine, cToken)
    ENDDO
@@ -2590,7 +2590,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             cData  := cValue
             lChg   := .F.
             n := 1
-            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+            DO WHILE (hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem)) > 0
                IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   n++
                   lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
@@ -2626,7 +2626,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
                PG_SETDATAITEM(hWndPG, hChildItem, "false", "", .F.)
                cValue := "["
             ENDIF
-            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+            DO WHILE (hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem)) > 0
                IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   IF lAll
                      PG_SETDATAITEM(hWndPG, hChildItem, "false", "", .F.)
@@ -2656,7 +2656,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             cData  := PG_GETITEM(hWndPG, hParentItem, PGI_DATA)
             cValue := "(" + PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
             lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
-            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0
+            DO WHILE (hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem)) > 0
                IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hParentItem
                   lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                   cValue += "," + PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
@@ -2687,7 +2687,7 @@ FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
             IF PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
             ENDIF
-            DO WHILE ( hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0 // TODO:
+            DO WHILE (hChildItem := hmg_TreeView_GetNextSibling(hWndPG, hChildItem)) > 0 // TODO:
                IF hmg_TreeView_GetParent(hWndPG, hChildItem) == hItem
                   IF  ( pos := AScan(aData,{|fIt|fIt[2] == PG_GETITEM(hWndPG, hChildItem, PGI_NAME)}) ) > 0
                      PG_SETDATAITEM(hWndPG, hChildItem, aData[pos, 3], "FONT", .T.)

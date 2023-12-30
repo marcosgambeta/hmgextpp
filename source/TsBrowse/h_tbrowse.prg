@@ -12590,7 +12590,7 @@ METHOD TSBrowse:ResetVScroll(lInit)
 
       IF ::oVScroll == NIL
          nPage := Min(::nRowCount(), ::nLen)
-         ::oVScroll := TSBScrlBar ():WinNew(nMin, nMax, nPage, .T., Self)
+         ::oVScroll := TSBScrlBar():WinNew(nMin, nMax, nPage, .T., Self)
       ELSE
          ::oVScroll:SetRange(nMin, nMax)
       ENDIF

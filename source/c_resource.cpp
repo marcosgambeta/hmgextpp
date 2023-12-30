@@ -82,7 +82,7 @@ static void HMG_UnloadDll(void)
 
 HINSTANCE GetResources(void)
 {
-   return ( hResources ) ? ( hResources ) : ( GetInstance() );
+   return (hResources) ? (hResources) : (GetInstance());
 }
 
 HB_FUNC( HMG_GETRESOURCES )

@@ -154,7 +154,7 @@ HB_FUNC_TRANSLATE( GETSYSTEMFONT, HMG_GETSYSTEMFONT )
    Added by P.Ch. for 16.12.
    Parts of this code based on an original work by Dr. Claudio Soto (January 2014)
 
-   EnumFontsEx ( [hDC], [cFontFamilyName], [nCharSet], [nPitch], [nFontType], [SortCodeBlock], [@aFontName] )
+   EnumFontsEx([hDC], [cFontFamilyName], [nCharSet], [nPitch], [nFontType], [SortCodeBlock], [@aFontName])
              --> return array { { cFontName, nCharSet, nPitchAndFamily, nFontType }, ... }
  */
 

@@ -186,7 +186,7 @@ METHOD TControl:Init(hDlg)
       ::nBottom := iif(::nBottom == NIL, oRect:nBottom,::nBottom )
       ::nRight  := iif(::nRight  == NIL, oRect:nRight, ::nRight  )
 
-      ::Move (::nTop,::nLeft,::nRight - ::nLeft, ::nBottom - ::nTop)
+      ::Move(::nTop,::nLeft,::nRight - ::nLeft, ::nBottom - ::nTop)
 
       IIf(::lActive, ::Enable(), ::Disable())
 

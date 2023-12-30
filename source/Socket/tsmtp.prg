@@ -182,7 +182,7 @@ METHOD TSMTP:GetLines()
 local cLines := ""
 local cLine
 
-while ( len(cLine := ::oSocket:ReceiveLine())>0 )
+while (len(cLine := ::oSocket:ReceiveLine()) > 0)
    cLines += iif(len(cLine)>0, cLine + CHR(13) + CHR(10), "")
    if substr(cLine, 4, 1)==" " .OR. len(cLine)<=3 .OR. substr(cLine, 4, 1)==CHR(10)
       exit

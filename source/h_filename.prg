@@ -65,7 +65,7 @@ FUNCTION cFileNoPath(cPathMask)
 
    hb_FNameSplit(cPathMask, , @cName, @cExt)
 
-RETURN ( cName + cExt )
+RETURN (cName + cExt)
 
 //---------------------------------------------------------------------------//
 FUNCTION cFileNoExt(cPathMask)

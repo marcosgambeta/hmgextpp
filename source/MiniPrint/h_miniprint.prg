@@ -439,7 +439,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
    END WINDOW
 
    IF !_hmg_printer_thumbscroll
-      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
    ENDIF
 
    DEFINE WINDOW _HMG_PRINTER_PPNAV ;
@@ -567,9 +567,9 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
    hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
    hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
-   _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
-   _HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR (GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   _HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
 
    CENTER WINDOW _HMG_PRINTER_SHOWPREVIEW
 
@@ -608,7 +608,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
       FOR i := 1 TO Len(_HMG_aFormHandles)
          IF !_HMG_aFormDeleted[i]
             IF _HMG_aFormType[i] == "P" .And. _HMG_aFormParentHandle[i] == ModalHandle  // Panel window into Modal window
-               hmg_EnableWindow (_HMG_aFormHandles[i] )
+               hmg_EnableWindow(_HMG_aFormHandles[i])
             ENDIF
          ENDIF
       NEXT i
@@ -659,7 +659,7 @@ STATIC PROCEDURE CreateThumbNails()
       RETURN
    ENDIF
 
-   hmg_ShowWindow(GetFormHandle ( "_HMG_PRINTER_Wait" ))
+   hmg_ShowWindow(GetFormHandle("_HMG_PRINTER_Wait"))
 
    IF _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) > _HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak)
       tFactor := 0.44
@@ -747,7 +747,7 @@ PROCEDURE _hmg_printer_savepages()
    LOCAL x
    LOCAL a
 
-   x := Putfile ( {{"Images","*.emf"}}, , hmg_GetCurrentFolder(), .T. )
+   x := Putfile({{"Images","*.emf"}}, , hmg_GetCurrentFolder(), .T.)
 
    IF empty(x)
       RETURN
@@ -889,7 +889,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
 
    hmg_InvalidateRect(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), 0)
 
-   _HMG_PRINTER_SHOWPAGE(_hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy)
+   _HMG_PRINTER_SHOWPAGE(_hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy)
 
    _HMG_PRINTER_SHOWPREVIEW.TITLE := _hmg_printer_usermessages[01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]"
 
@@ -1097,7 +1097,7 @@ RETURN
 Function GetPrinter()
 
    LOCAL RetVal := ""
-   LOCAL Printers := asort (aPrinters())
+   LOCAL Printers := asort(aPrinters())
    LOCAL cDefaultPrinter := GetDefaultPrinter()
    LOCAL i
    LOCAL nInitPosition := 0
@@ -1124,14 +1124,14 @@ Function GetPrinter()
       NOSIZE
 
       @ 15, 10 COMBOBOX Combo_1 ITEMS Printers VALUE nInitPosition WIDTH 320 ;
-         ON ENTER _HMG_PRINTER_GETPRINTER.Ok.OnClick () ;
+         ON ENTER _HMG_PRINTER_GETPRINTER.Ok.OnClick() ;
          ON CANCEL IIF(_GetKeyState(VK_ESCAPE), _HMG_PRINTER_GETPRINTER.Cancel.OnClick(), NIL)
 
       @ 53, 65  BUTTON Ok CAPTION _hmg_printer_usermessages[11] ACTION (RetVal := Printers[GetProperty("_HMG_PRINTER_GETPRINTER", "Combo_1", "Value")], DoMethod("_HMG_PRINTER_GETPRINTER", "Release"))
 
       @ 53, 175 BUTTON Cancel CAPTION _hmg_printer_usermessages[12] ACTION (RetVal := "", DoMethod("_HMG_PRINTER_GETPRINTER", "Release"))
 
-      ON KEY ESCAPE ACTION _HMG_PRINTER_GETPRINTER.Cancel.OnClick ()
+      ON KEY ESCAPE ACTION _HMG_PRINTER_GETPRINTER.Cancel.OnClick()
 
    END WINDOW
 
@@ -1987,7 +1987,7 @@ PROCEDURE _HMG_PRINTER_MouseZoom()
       hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
       hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
-      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
    ELSE
 
@@ -2073,7 +2073,7 @@ PROCEDURE _HMG_PRINTER_MouseZoom()
 
       ENDIF
 
-      _HMG_PRINTER_PREVIEW_ENABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+      _HMG_PRINTER_PREVIEW_ENABLESCROLLBARS(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
    ENDIF
 
@@ -2092,7 +2092,7 @@ PROCEDURE _HMG_PRINTER_Zoom()
       hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 50, .T.)
       hmg_SetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ, 50, .T.)
 
-      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+      _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
    ELSE
 

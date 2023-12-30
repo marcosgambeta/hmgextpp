@@ -962,7 +962,7 @@ STATIC FUNCTION ABM2Editar(lNuevo)
    FOR i := 1 TO Len(_aEtiqueta)
 
       @ _aEtiqueta[i, ABM_LBL_ROW], _aEtiqueta[i, ABM_LBL_COL] ;
-         LABEL ( _aEtiqueta[i, ABM_LBL_NAME] ) ;
+         LABEL (_aEtiqueta[i, ABM_LBL_NAME]) ;
          OF wndABM2EditNuevoSplit ;
          VALUE _aNombreCampo[i] ;
          WIDTH _aEtiqueta[i, ABM_LBL_WIDTH] ;

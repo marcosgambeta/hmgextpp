@@ -765,7 +765,7 @@ FUNCTION drawpiegraph(windowname, fromrow, fromcol, torow, tocol, series, aname,
 //        FONTBOLD .T.
         FONTNAME _HMG_DefaultFontName
         FONTSIZE _HMG_DefaultFontSize + 3
-        CENTERALIGN ( Len(ctitle) * 8 < ( tocol - fromcol ) )
+        CENTERALIGN (Len(ctitle) * 8 < (tocol - fromcol))
         VCENTERALIGN .T.
         VALUE ctitle
         FONTCOLOR { 0, 0, 0 }

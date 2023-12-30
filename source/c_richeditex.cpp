@@ -162,7 +162,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
    }
 }
 
-//        RichEditBox_StreamIn ( hWndControl, cFileName, lSelection, nDataFormat )
+//        RichEditBox_StreamIn(hWndControl, cFileName, lSelection, nDataFormat)
 HB_FUNC( HMG_RICHEDITBOX_STREAMIN )
 {
    auto nDataFormat = hmg_par_LONG(4);
@@ -213,7 +213,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
    }
 }
 
-//        RichEditBox_StreamOut ( hWndControl, cFileName, lSelection, nDataFormat )
+//        RichEditBox_StreamOut(hWndControl, cFileName, lSelection, nDataFormat)
 HB_FUNC( HMG_RICHEDITBOX_STREAMOUT )
 {
    auto nDataFormat = hmg_par_LONG(4);
@@ -253,7 +253,7 @@ HB_FUNC( HMG_RICHEDITBOX_STREAMOUT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_STREAMOUT, HMG_RICHEDITBOX_STREAMOUT )
 #endif
 
-//        RichEditBox_RTFLoadResourceFile ( hWndControl, cFileName, lSelect )
+//        RichEditBox_RTFLoadResourceFile(hWndControl, cFileName, lSelect)
 HB_FUNC( HMG_RICHEDITBOX_RTFLOADRESOURCEFILE )
 {
    void * str;
@@ -287,7 +287,7 @@ HB_FUNC( HMG_RICHEDITBOX_RTFLOADRESOURCEFILE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_RTFLOADRESOURCEFILE, HMG_RICHEDITBOX_RTFLOADRESOURCEFILE )
 #endif
 
-//        RichEditBox_SetRTFTextMode ( hWndControl, lRTF )
+//        RichEditBox_SetRTFTextMode(hWndControl, lRTF)
 HB_FUNC( HMG_RICHEDITBOX_SETRTFTEXTMODE )
 {
    BOOL lRTF = HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE;
@@ -298,7 +298,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETRTFTEXTMODE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETRTFTEXTMODE, HMG_RICHEDITBOX_SETRTFTEXTMODE )
 #endif
 
-//        RichEditBox_IsRTFTextMode ( hWndControl ) --> return lRTF
+//        RichEditBox_IsRTFTextMode(hWndControl) --> return lRTF
 HB_FUNC( HMG_RICHEDITBOX_ISRTFTEXTMODE )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_GETTEXTMODE, 0, 0) & TM_RICHTEXT);
@@ -308,7 +308,7 @@ HB_FUNC( HMG_RICHEDITBOX_ISRTFTEXTMODE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_ISRTFTEXTMODE, HMG_RICHEDITBOX_ISRTFTEXTMODE )
 #endif
 
-//        RichEditBox_SetAutoURLDetect ( hWndControl, lLink )
+//        RichEditBox_SetAutoURLDetect(hWndControl, lLink)
 HB_FUNC( HMG_RICHEDITBOX_SETAUTOURLDETECT )
 {
    SendMessage(hmg_par_HWND(1), EM_AUTOURLDETECT, HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE, 0);
@@ -318,7 +318,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETAUTOURLDETECT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETAUTOURLDETECT, HMG_RICHEDITBOX_SETAUTOURLDETECT )
 #endif
 
-//        RichEditBox_GetAutoURLDetect ( hWndControl ) --> return lLink
+//        RichEditBox_GetAutoURLDetect(hWndControl) --> return lLink
 HB_FUNC( HMG_RICHEDITBOX_GETAUTOURLDETECT )
 {
    hb_retl(SendMessage(hmg_par_HWND(1), EM_GETAUTOURLDETECT, 0, 0));
@@ -328,7 +328,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETAUTOURLDETECT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETAUTOURLDETECT, HMG_RICHEDITBOX_GETAUTOURLDETECT )
 #endif
 
-//        RichEditBox_SetBkgndColor ( hWndControl, [aBkgndColor] )
+//        RichEditBox_SetBkgndColor(hWndControl, [aBkgndColor])
 HB_FUNC( HMG_RICHEDITBOX_SETBKGNDCOLOR )
 {
    auto hWndControl = hmg_par_HWND(1);
@@ -344,7 +344,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETBKGNDCOLOR )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETBKGNDCOLOR, HMG_RICHEDITBOX_SETBKGNDCOLOR )
 #endif
 
-//        RichEditBox_SetZoom ( hWndControl, nNumerator, nDenominator )
+//        RichEditBox_SetZoom(hWndControl, nNumerator, nDenominator)
 HB_FUNC( HMG_RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
 {
    SendMessage(hmg_par_HWND(1), EM_SETZOOM, hmg_par_WPARAM(2), hb_parni(3)); //    1/64 < ZoomRatio < 64
@@ -354,7 +354,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETZOOM, HMG_RICHEDITBOX_SETZOOM )
 #endif
 
-//        RichEditBox_GetZoom ( hWndControl, @nNumerator, @nDenominator )
+//        RichEditBox_GetZoom(hWndControl, @nNumerator, @nDenominator)
 HB_FUNC( HMG_RICHEDITBOX_GETZOOM )
 {
    int  nNumerator, nDenominator;
@@ -544,7 +544,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETFONT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETFONT, HMG_RICHEDITBOX_GETFONT )
 #endif
 
-//        RichEditBox_SetSelRange ( hWndControl, { nMin, nMax } )
+//        RichEditBox_SetSelRange(hWndControl, {nMin, nMax})
 HB_FUNC( HMG_RICHEDITBOX_SETSELRANGE )
 {
    CHARRANGE CharRange;
@@ -557,7 +557,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETSELRANGE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETSELRANGE, HMG_RICHEDITBOX_SETSELRANGE )
 #endif
 
-//        RichEditBox_GetSelRange ( hWndControl ) --> return { nMin, nMax }
+//        RichEditBox_GetSelRange(hWndControl) --> return {nMin, nMax}
 HB_FUNC( HMG_RICHEDITBOX_GETSELRANGE )
 {
    CHARRANGE CharRange;
@@ -571,7 +571,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETSELRANGE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETSELRANGE, HMG_RICHEDITBOX_GETSELRANGE )
 #endif
 
-//        RichEditBox_ReplaceSel ( hWndControl, cText )   ==   RichEditBox_SetText ( hWndControl , .T. , cText )
+//        RichEditBox_ReplaceSel(hWndControl, cText)   ==   RichEditBox_SetText(hWndControl, .T., cText)
 HB_FUNC( HMG_RICHEDITBOX_REPLACESEL )
 {
    void * str;
@@ -584,7 +584,7 @@ HB_FUNC( HMG_RICHEDITBOX_REPLACESEL )
 HB_FUNC_TRANSLATE( RICHEDITBOX_REPLACESEL, HMG_RICHEDITBOX_REPLACESEL )
 #endif
 
-//        RichEditBox_SetText ( hWndControl , lSelect , cText )
+//        RichEditBox_SetText(hWndControl, lSelect, cText)
 HB_FUNC( HMG_RICHEDITBOX_SETTEXT )
 {
    void * str;
@@ -604,7 +604,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETTEXT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETTEXT, HMG_RICHEDITBOX_SETTEXT )
 #endif
 
-//        RichEditBox_GetText ( hWndControl , lSelect )
+//        RichEditBox_GetText(hWndControl, lSelect)
 HB_FUNC( HMG_RICHEDITBOX_GETTEXT )
 {
    TCHAR cBuffer[4096];
@@ -626,7 +626,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETTEXT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXT, HMG_RICHEDITBOX_GETTEXT )
 #endif
 
-//        RichEditBox_GetTextLength ( hWndControl )
+//        RichEditBox_GetTextLength(hWndControl)
 HB_FUNC( HMG_RICHEDITBOX_GETTEXTLENGTH )
 {
    GETTEXTLENGTHEX GTL;
@@ -644,7 +644,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETTEXTLENGTH )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXTLENGTH, HMG_RICHEDITBOX_GETTEXTLENGTH )
 #endif
 
-//        RichEditBox_GetTextRange ( hWndControl ,  { nMin, nMax }  )
+//        RichEditBox_GetTextRange(hWndControl,  {nMin, nMax})
 HB_FUNC( HMG_RICHEDITBOX_GETTEXTRANGE )
 {
    TCHAR cBuffer[4096];
@@ -660,7 +660,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETTEXTRANGE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETTEXTRANGE, HMG_RICHEDITBOX_GETTEXTRANGE )
 #endif
 
-//        RichEditBox_FindText ( hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText )
+//        RichEditBox_FindText(hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText)
 HB_FUNC( HMG_RICHEDITBOX_FINDTEXT )
 {
    auto hWndControl = hmg_par_HWND(1);
@@ -727,7 +727,7 @@ HB_FUNC( HMG_RICHEDITBOX_FINDTEXT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_FINDTEXT, HMG_RICHEDITBOX_FINDTEXT )
 #endif
 
-//        RichEditBox_SetParaFormat ( hWndControl, nAlignment, nNumbering, nNumberingStyle, nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent )
+//        RichEditBox_SetParaFormat(hWndControl, nAlignment, nNumbering, nNumberingStyle, nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent)
 HB_FUNC( HMG_RICHEDITBOX_SETPARAFORMAT )
 {
    WORD   Alignment      = ( HB_ISNIL(2) ?    0 : hb_parni(2) );
@@ -814,7 +814,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETPARAFORMAT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETPARAFORMAT, HMG_RICHEDITBOX_SETPARAFORMAT )
 #endif
 
-//        RichEditBox_GetParaFormat ( hWndControl, @nAlignment, @nNumbering, @nNumberingStyle, @nNumberingStart, @Offset, @ndLineSpacing, @ndStartIndent )
+//        RichEditBox_GetParaFormat(hWndControl, @nAlignment, @nNumbering, @nNumberingStyle, @nNumberingStart, @Offset, @ndLineSpacing, @ndStartIndent)
 HB_FUNC( HMG_RICHEDITBOX_GETPARAFORMAT )
 {
    WORD   Alignment   = 0;
@@ -1001,7 +1001,7 @@ HB_FUNC( HMG_RICHEDITBOX_CANREDO )
 HB_FUNC_TRANSLATE( RICHEDITBOX_CANREDO, HMG_RICHEDITBOX_CANREDO )
 #endif
 
-//        RichEditBox_GetRect ( hWndControl ) --> { nLeft, nTop, nRight, nBottom }
+//        RichEditBox_GetRect(hWndControl) --> { nLeft, nTop, nRight, nBottom }
 HB_FUNC( HMG_RICHEDITBOX_GETRECT )
 {
    RECT rc;
@@ -1017,7 +1017,7 @@ HB_FUNC( HMG_RICHEDITBOX_GETRECT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_GETRECT, HMG_RICHEDITBOX_GETRECT )
 #endif
 
-//        RichEditBox_SetRect ( hWndControl, { nLeft, nTop, nRight, nBottom } )
+//        RichEditBox_SetRect(hWndControl, {nLeft, nTop, nRight, nBottom})
 HB_FUNC( HMG_RICHEDITBOX_SETRECT )
 {
    RECT rc;
@@ -1032,7 +1032,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETRECT )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETRECT, HMG_RICHEDITBOX_SETRECT )
 #endif
 
-//        RichEditBox_PastEspecial ( hWndControl , ClipboardFormat )
+//        RichEditBox_PastEspecial(hWndControl, ClipboardFormat)
 HB_FUNC( HMG_RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a rich edit control
 {
    auto hWndControl = hmg_par_HWND(1);
@@ -1050,7 +1050,7 @@ HB_FUNC( HMG_RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format 
 HB_FUNC_TRANSLATE( RICHEDITBOX_PASTESPECIAL, HMG_RICHEDITBOX_PASTESPECIAL )
 #endif
 
-//        RichEditBox_SetMargins ( hWndControl, LeftMargin, RightMargin )
+//        RichEditBox_SetMargins(hWndControl, LeftMargin, RightMargin)
 HB_FUNC( HMG_RICHEDITBOX_SETMARGINS )
 {
    SendMessage(hmg_par_HWND(1), EM_SETMARGINS, EC_USEFONTINFO, MAKELPARAM(hmg_par_WORD(2), hmg_par_WORD(3)));
@@ -1060,7 +1060,7 @@ HB_FUNC( HMG_RICHEDITBOX_SETMARGINS )
 HB_FUNC_TRANSLATE( RICHEDITBOX_SETMARGINS, HMG_RICHEDITBOX_SETMARGINS )
 #endif
 
-//        RichEditBox_FormatRange ( hWndControl, hDCPrinter, nLeft, nTop, nRight, nBottom, { cpMin , cpMax } )
+//        RichEditBox_FormatRange(hWndControl, hDCPrinter, nLeft, nTop, nRight, nBottom, {cpMin, cpMax})
 HB_FUNC( HMG_RICHEDITBOX_FORMATRANGE )
 {
    RECT        rc;
@@ -1089,7 +1089,7 @@ HB_FUNC( HMG_RICHEDITBOX_FORMATRANGE )
 HB_FUNC_TRANSLATE( RICHEDITBOX_FORMATRANGE, HMG_RICHEDITBOX_FORMATRANGE )
 #endif
 
-//        RichEditBox_PosFromChar ( hWndControl , nPosChar )   return --> { nRowScreen, nColScreen } or { -1, -1 } if character is not displayed
+//        RichEditBox_PosFromChar(hWndControl, nPosChar)   return --> { nRowScreen, nColScreen } or { -1, -1 } if character is not displayed
 HB_FUNC( HMG_RICHEDITBOX_POSFROMCHAR )
 {
    auto hWndControl = hmg_par_HWND(1);

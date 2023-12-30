@@ -178,7 +178,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
             hb_vmDo(4);
          }
          long int r = hb_parnl( -1 );  /* P.Ch. 10.16. */
-         return ( r != 0 ) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
+         return (r != 0) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
    }
 
    return CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);

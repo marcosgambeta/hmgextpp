@@ -1258,8 +1258,8 @@ HB_FUNC_TRANSLATE( LISTVIEW_GETEXTENDEDSTYLE, HMG_LISTVIEW_GETEXTENDEDSTYLE )
 #define HDF_SORTUP    0x0400
 #endif
 
-//       ListView_SetSortHeader (nHWndLV, nColumn [, nType
-//                                /*0==none, positive==UP arrow or negative==DOWN arrow*/]) -> nType (previous setting)
+//       ListView_SetSortHeader(nHWndLV, nColumn [, nType
+//                               /*0==none, positive==UP arrow or negative==DOWN arrow*/]) -> nType (previous setting)
 
 /*
 HMG_LISTVIEW_SETSORTHEADER() -->

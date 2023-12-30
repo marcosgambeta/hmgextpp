@@ -738,7 +738,7 @@ RETU cRVal
 /*
 */
 //---------------------------------------------------------------------------//
-Function Msgt (nTimeout, Message, Title, Flags)
+Function Msgt(nTimeout, Message, Title, Flags)
 //---------------------------------------------------------------------------//
 * Created at 04/20/2005 By Pierpaolo Martinello Italy                         *
 //---------------------------------------------------------------------------//
@@ -1213,7 +1213,7 @@ METHOD WREPORT:Splash(etichetta,prc_init,sezione,rit)
    default rit to .F.
    ritspl := rit
    if _IsWIndowDefined("Form_splash")
-      Setproperty ("FORM_SPLASH","Label_1","VALUE", ::aStat["lblsplash"] )
+      Setproperty("FORM_SPLASH","Label_1","VALUE", ::aStat["lblsplash"] )
       domethod("FORM_SPLASH", "SHOW")
       if ("doPr" $ prc_init,::doPr(),::doMiniPr())
       DOMETHOD("FORM_SPLASH", "RELEASE")
@@ -1468,7 +1468,7 @@ xResult := &(cStr)
 RECOVER
 if lMesg
     //msgBox(alltrim(cStr),"Error in evaluation of:")
-    errorblock (bOld)
+    errorblock(bOld)
     if ::aStat["Control"]
        MsgMiniGuiError("Program Report Interpreter" + CRLF + "Section " + section + CRLF + "I have found error on line " + ;
           zaps(cmdline) + CRLF + "Error is in: " + alltrim(cStr) + CRLF + "Please revise it!", "MiniGUI Error")
@@ -1499,7 +1499,7 @@ if lMesg
 endif
 xResult := "**Error**:"+cStr
 END SEQUENCE
-errorblock (bOld)
+errorblock(bOld)
 return xResult
 /*
 */

@@ -280,10 +280,10 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT mes
          AppEventRemove(hWnd, "ONCE", message);
       }
 
-      return ( LRESULT ) hb_parnl( -1 );
+      return (LRESULT) hb_parnl(-1);
    }
 
-   return ( LRESULT ) 0;
+   return (LRESULT) 0;
 }
 
 static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -613,10 +613,10 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT 
          WinEventRemove(hWnd, "ONCE", message);
       }
 
-      return ( LRESULT ) hb_parnl( -1 );
+      return (LRESULT) hb_parnl(-1);
    }
 
-   return ( LRESULT ) 0;
+   return (LRESULT) 0;
 }
 
 static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -919,7 +919,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
       }
    }
 
-   return ( result != 0 ) ? result : DefWindowProc(hWnd, message, wParam, lParam);
+   return (result != 0) ? result : DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 HB_FUNC( HMG_INITMESSAGEONLYWINDOW )
@@ -1008,7 +1008,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       }
    }
 
-   return ( r != 0 ) ? r : DefWindowProc(hWnd, message, wParam, lParam);
+   return (r != 0) ? r : DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 HB_FUNC( HMG_INITWINDOW )

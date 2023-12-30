@@ -3590,7 +3590,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
       CASE "L"
          IF lUseSwitcher
             @ ControlRow, ControlCol SWITCHER (CN) HEIGHT 46 VALUE "" IMAGE {"MINIGUI_SWITCH_ON", "MINIGUI_SWITCH_OFF"}
-            SetProperty ("_InputWindow", CN, "Checked", aValues[i])
+            SetProperty("_InputWindow", CN, "Checked", aValues[i])
          ELSE
             @ ControlRow, ControlCol CHECKBOX (CN) CAPTION " " VALUE aValues[i] AUTOSIZE
          ENDIF

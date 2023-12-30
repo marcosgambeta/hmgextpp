@@ -166,7 +166,7 @@ FUNCTION GetData()
 
       END CASE
 
-      DELETE File ( _HMG_CommPath + PacketNames[1] )
+      DELETE File (_HMG_CommPath + PacketNames[1])
 
    ENDIF
 

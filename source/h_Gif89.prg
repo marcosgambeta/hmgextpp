@@ -533,9 +533,9 @@ STATIC FUNCTION ReadFromStream(cFile, cStream)
       FClose(nFileHandle)
    ENDIF
 
-RETURN ( FError() == 0 .AND. !Empty(cStream) )
+RETURN (FError() == 0 .AND. !Empty(cStream))
 
 //----------------------------------------------------------------------------//
 FUNCTION GetFrameDelay(cImageInfo, nDelay)
 //----------------------------------------------------------------------------//
-RETURN ( Bin2W(SubStr(cImageInfo, 4, 2)) * hb_defaultValue(nDelay, 10) )
+RETURN (Bin2W(SubStr(cImageInfo, 4, 2)) * hb_defaultValue(nDelay, 10))

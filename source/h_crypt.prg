@@ -645,7 +645,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    cAlias := Alias()
    nFields := FCount()
 
-   USE ( cTmpFile ) NEW Exclusive
+   USE (cTmpFile) NEW Exclusive
    cTmpAlias := Alias()
 
    dbSelectArea(cAlias)

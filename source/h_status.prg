@@ -350,9 +350,9 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
       iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    _DefineTimer("StatusKeyBrd" , FormName, 250, ;
-      {||_SetStatusIcon ( BarName, FormName, nrItem1, iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName, FormName, nrItem2, iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName, FormName, nrItem3, iif(IsInsertActive(), "zzz_led_on", "zzz_led_off") )})
+      {||_SetStatusIcon(BarName, FormName, nrItem1, iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off")), ;
+      _SetStatusIcon(BarName, FormName, nrItem2, iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off")), ;
+      _SetStatusIcon(BarName, FormName, nrItem3, iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"))})
 
 RETURN NIL
 
@@ -422,7 +422,7 @@ RETURN cTime
 FUNCTION _SetStatusBarKbd(BarName, FormName)
 //---------------------------------------------------------------------------//
 
-   _DefineItemMessage(ITEMNAME, BarName, 0, 0, GetProperty ( FormName, "Title" ), , , 0, , "RAISED")
+   _DefineItemMessage(ITEMNAME, BarName, 0, 0, GetProperty(FormName, "Title"), , , 0, , "RAISED")
 
    _DefineItemMessage(ITEMNAME, BarName, 0, 0, "CAP", , iif(_HMG_IsThemed, 38, 36), 0, , , , , , SILVER)
 

@@ -147,9 +147,9 @@ HB_FUNC_TRANSLATE( SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH )
 #endif
 
 /*
-   nToolTip := InitToolTip (nFormHandle, hmg_SetToolTipBalloon())
+   nToolTip := InitToolTip(nFormHandle, hmg_SetToolTipBalloon())
 
-   for ModalWindow : nToolTip := InitToolTip (, hmg_SetToolTipBalloon())
+   for ModalWindow : nToolTip := InitToolTip(, hmg_SetToolTipBalloon())
  */
 
 /*
@@ -294,7 +294,7 @@ HB_FUNC_TRANSLATE( HIDEBALLOONTIP, HMG_HIDEBALLOONTIP )
 #endif
 
 /*
-   nToolTip := hmg_InitToolTipEx ( nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ] )
+   nToolTip := hmg_InitToolTipEx(nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ])
  */
 HB_FUNC( HMG_INITTOOLTIPEX )
 {

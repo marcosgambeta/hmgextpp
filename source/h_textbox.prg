@@ -1136,7 +1136,7 @@ PROCEDURE _DataTextBoxRefresh(i)
    ENDIF
 
    IF Field != NIL
-      _SetValue(, , iif(Type ( Field ) == "C" , RTrim(&Field) , &Field) , i)
+      _SetValue(, , iif(Type(Field) == "C" , RTrim(&Field) , &Field) , i)
    ELSE
       hmg_RedrawWindow(_HMG_aControlHandles[i])
    ENDIF

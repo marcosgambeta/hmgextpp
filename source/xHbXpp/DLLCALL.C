@@ -439,7 +439,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
    {
       for( i = iFirst; i <= iParams; i++)
       {
-         switch ( hb_parinfo(i) & ~Harbour::Item::BYREF )
+         switch( hb_parinfo(i) & ~Harbour::Item::BYREF )
          {
             case Harbour::Item::NIL               :
                Parm[iCnt].nWidth = sizeof(void*);
@@ -448,7 +448,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
             case Harbour::Item::POINTER           :
                Parm[iCnt].nWidth = sizeof(void*);
-               Parm[iCnt].dwArg = (DWORD) hb_parptr (i);
+               Parm[iCnt].dwArg = (DWORD) hb_parptr(i);
                break;
 
             case Harbour::Item::INTEGER           :
@@ -540,7 +540,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
       {
          if( hb_parinfo(i) & Harbour::Item::BYREF )
          {
-            switch ( hb_parinfo(i) & ~Harbour::Item::BYREF )
+            switch( hb_parinfo(i) & ~Harbour::Item::BYREF )
             {
                case Harbour::Item::NIL               :
                   hb_stornl( Parm[iCnt].dwArg, i );
@@ -587,7 +587,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
    }
 
    // return the correct value
-   switch ( iRtype )
+   switch( iRtype )
    {
       case CTYPE_BOOL :
          hb_retl((BOOL) rc.Long);
@@ -599,20 +599,20 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
       case CTYPE_CHAR              :
       case CTYPE_UNSIGNED_CHAR     :
-         hb_retni ( (char) rc.Int );
+         hb_retni((char) rc.Int);
          break;
 
       case CTYPE_SHORT             :
       case CTYPE_UNSIGNED_SHORT    :
-         hb_retni ( (int) rc.Int );
+         hb_retni((int) rc.Int);
          break;
 
       case CTYPE_INT               :
-         hb_retni ( (int) rc.Long );
+         hb_retni((int) rc.Long);
          break;
 
       case CTYPE_LONG              :
-         hb_retnl ( (LONG) rc.Long );
+         hb_retnl((LONG) rc.Long);
          break;
 
       case CTYPE_CHAR_PTR          :
@@ -622,7 +622,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
       case CTYPE_UNSIGNED_INT      :
       case CTYPE_UNSIGNED_LONG     :
-         hb_retnl ( rc.Long );
+         hb_retnl(rc.Long);
          break;
 
       case CTYPE_INT_PTR           :
@@ -634,7 +634,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
       case CTYPE_VOID_PTR          :
       case CTYPE_FLOAT_PTR         :
       case CTYPE_DOUBLE_PTR        :
-         hb_retptr ( (void *) rc.Long );
+         hb_retptr((void *) rc.Long);
          break;
 
       case CTYPE_FLOAT             :
@@ -828,7 +828,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
 
    // Push args onto the stack. Every argument is aligned on a
    // 4-byte boundary. We start at the rightmost argument.
-   for (i = 0; i < nArgs; i++)
+   for( i = 0; i < nArgs; i++ )
    {
       nInd  = (nArgs - 1) - i;
       // Start at the back of the arg ptr, aligned on a DWORD

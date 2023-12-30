@@ -599,7 +599,7 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
       return sMsgName;
    }
 
-   return ( const char * ) "LISTENER";
+   return (const char *) "LISTENER";
 }
 
 static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam)

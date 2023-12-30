@@ -1652,8 +1652,8 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    }
 }
 
-//  GetJobInfo ( cPrinterName, nJobID ) --> { nJobID, cPrinterName, cMachineName, cUserName, cDocument, cDataType, cStatus, nStatus
-//                                            nPriorityLevel, nPositionPrintQueue, nTotalPages, nPagesPrinted, cLocalDate, cLocalTime }
+//  GetJobInfo(cPrinterName, nJobID) --> { nJobID, cPrinterName, cMachineName, cUserName, cDocument, cDataType, cStatus, nStatus
+//                                         nPriorityLevel, nPositionPrintQueue, nTotalPages, nPagesPrinted, cLocalDate, cLocalTime }
 
 /*
 _HMG_PRINTGETJOBINFO() -->

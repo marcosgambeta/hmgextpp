@@ -156,7 +156,7 @@ FUNCTION _ActivateScrSaver(aForm, cParam)
          FErase(cFileDes)
       ENDIF
 
-      COPY FILE ( cFileScr ) TO ( cFileDes )
+      COPY FILE (cFileScr) TO (cFileDes)
 
       IF File(cFileDes)
 
