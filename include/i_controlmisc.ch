@@ -198,75 +198,75 @@ hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
 
 #command SETFOCUS <n> OF <w>;
    =>;
-   DoMethod( <(w)>, <(n)>, 'SetFocus' )
+   DoMethod(<(w)>, <(n)>, 'SetFocus')
 
 #command ADD ITEM <i> TO <n> OF <p> ;
    =>;
-   DoMethod( <(p)>, <(n)>, 'AddItem' , <i> )
+   DoMethod(<(p)>, <(n)>, 'AddItem', <i>)
 
 #command ADD COLUMN [ INDEX <index> ] [ CAPTION <caption> ] [ WIDTH <width> ] [ JUSTIFY <justify> ] TO <control> OF <parent> ;
    =>;
-   DoMethod( <(parent)>, <(control)>, 'AddColumn' , <index>, <caption>, <width>, <justify> )
+   DoMethod(<(parent)>, <(control)>, 'AddColumn', <index>, <caption>, <width>, <justify>)
 
 #command DELETE COLUMN [ INDEX ] <index> FROM <control> OF <parent> ;
    =>;
-   DoMethod( <(parent)>, <(control)>, 'DeleteColumn' , <index> )
+   DoMethod(<(parent)>, <(control)>, 'DeleteColumn', <index>)
 
 #command DELETE ITEM <i> FROM <n> OF <p>;
    =>;
-   DoMethod( <(p)>, <(n)>, 'DeleteItem' , <i> )
+   DoMethod(<(p)>, <(n)>, 'DeleteItem', <i>)
 
 #command DELETE ITEM ALL FROM <n> OF <p>;
    =>;
-   DoMethod( <(p)>, <(n)>, 'DeleteAllItems' )
+   DoMethod(<(p)>, <(n)>, 'DeleteAllItems')
 
 #command ENABLE CONTROL <control> OF <form>;
    =>;
-   SetProperty( <(form)>, <(control)>, 'Enabled' , .T. )
+   SetProperty(<(form)>, <(control)>, 'Enabled', .T.)
 
 #command SHOW CONTROL <control> OF <form>;
    =>;
-   DoMethod( <(form)>, <(control)>, 'Show' )
+   DoMethod(<(form)>, <(control)>, 'Show')
 
 #command HIDE CONTROL <control> OF <form>;
    =>;
-   DoMethod( <(form)>, <(control)>, 'Hide' )
+   DoMethod(<(form)>, <(control)>, 'Hide')
 
 #command DISABLE CONTROL <control> OF <form>;
    =>;
-   SetProperty( <(form)>, <(control)>, 'Enabled' , .F. )
+   SetProperty(<(form)>, <(control)>, 'Enabled', .F.)
 
 #command RELEASE CONTROL <control> OF <form>;
    =>;
-   DoMethod( <(form)>, <(control)>, 'Release' )
+   DoMethod(<(form)>, <(control)>, 'Release')
 
 #translate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> <Arg4> ;
 => ;
-SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
+SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, <Arg4>)
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> ( <Arg4> ) <Arg5> ;
 => ;
-SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5> )
+SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, <Arg4>, <Arg5>)
 
 #xtranslate FETCH [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> TO <Arg4> ;
 => ;
-<Arg4> := GetProperty( <"Arg1">, <"Arg2">, <"Arg3"> )
+<Arg4> := GetProperty(<"Arg1">, <"Arg2">, <"Arg3">)
 
 #xtranslate FETCH [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> (<Arg4>) TO <Arg5> ;
 => ;
-<Arg5> := GetProperty( <"Arg1">, <"Arg2">, <"Arg3">, <Arg4> )
+<Arg5> := GetProperty(<"Arg1">, <"Arg2">, <"Arg3">, <Arg4>)
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> .T. ;
 => ;
-SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, .T. )
+SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, .T.)
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> .F. ;
 => ;
-SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, .F. )
+SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, .F.)
 
 #xtranslate MODIFY [ PROPERTY ] [ CONTROL ] <Arg2> OF <Arg1> <Arg3> { <Arg4, ...> } ;
 => ;
-SetProperty( <"Arg1">, <"Arg2">, <"Arg3">, \{<Arg4>\} )
+SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, \{<Arg4>\})
 
 #xtranslate SET WINDOW MAIN [ FIRST ] <x:ON,OFF> => _HMG_MainWindowFirst := ( Upper(<(x)>) == "ON" )
 

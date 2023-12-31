@@ -97,14 +97,14 @@
 
 #command ADD IMAGE <image> [ MASK <mask> ] TO <control> OF <parent> ;
         =>;
-        DoMethod( <"parent">, <"control">, 'AddImage' , <image>, <mask> )
+        DoMethod(<"parent">, <"control">, 'AddImage', <image>, <mask>)
 
 
 #command ADD MASKEDIMAGE <image> [ COLOR <aColor> ] TO <control> OF <parent> ;
         =>;
-        DoMethod( <"parent">, <"control">, 'AddImageMask' , <image>, <aColor> )
+        DoMethod(<"parent">, <"control">, 'AddImageMask', <image>, <aColor>)
 
 
 #command DELETE IMAGE <index> FROM <control> OF <parent> ;
         =>;
-        DoMethod( <"parent">, <"control">, 'DeleteImage' , <index> )
+        DoMethod(<"parent">, <"control">, 'DeleteImage', <index>)

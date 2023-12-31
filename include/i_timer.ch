@@ -52,6 +52,6 @@
    _DefineTimer ( <(name)>, <(parent)>, <interval>, <{action}>, <.lOnce.> )
 
 
-#xtranslate ACTIVATE TIMER <name> OF <parent> => SetProperty( <(parent)>, <(name)>, "Enabled", .T. )
+#xtranslate ACTIVATE TIMER <name> OF <parent> => SetProperty(<(parent)>, <(name)>, "Enabled", .T.)
 
-#xtranslate DEACTIVATE TIMER <name> OF <parent> => SetProperty( <(parent)>, <(name)>, "Enabled", .F. )
+#xtranslate DEACTIVATE TIMER <name> OF <parent> => SetProperty(<(parent)>, <(name)>, "Enabled", .F.)
