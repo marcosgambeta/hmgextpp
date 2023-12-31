@@ -48,7 +48,7 @@
 
 #xcommand OPEN CONNECTION [<obj: OBJ>] <con> SERVER <server> PORT <port> HTTP ;
    => ;
-   httpconnect( iif(<.obj.>, @<con>, <(con)>), <server>, <port>)
+   httpconnect(iif(<.obj.>, @<con>, <(con)>), <server>, <port>)
 
 #xcommand CLOSE CONNECTION <con> ;
    => ;

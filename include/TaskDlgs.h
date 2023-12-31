@@ -31,9 +31,9 @@
 
 HRESULT CALLBACK __CBFunc(HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData);
 HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData);
-static bool TD_CheckButton( const PHB_ITEM arrayOfButtons, HB_SIZE arraysize );
-static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj );
-static BOOL TD_objSendMsg( PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam );
+static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize);
+static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj);
+static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam);
 
 #if ( ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 ) )
 // ===================== Task Dialog =========================
@@ -120,10 +120,10 @@ typedef enum _TASKDIALOG_ICON_ELEMENTS
    TDIE_ICON_FOOTER
 } TASKDIALOG_ICON_ELEMENTS;
 
-#define TD_WARNING_ICON      MAKEINTRESOURCEW( -1 )
-#define TD_ERROR_ICON        MAKEINTRESOURCEW( -2 )
-#define TD_INFORMATION_ICON  MAKEINTRESOURCEW( -3 )
-#define TD_SHIELD_ICON       MAKEINTRESOURCEW( -4 )
+#define TD_WARNING_ICON      MAKEINTRESOURCEW(-1)
+#define TD_ERROR_ICON        MAKEINTRESOURCEW(-2)
+#define TD_INFORMATION_ICON  MAKEINTRESOURCEW(-3)
+#define TD_SHIELD_ICON       MAKEINTRESOURCEW(-4)
 
 #endif // (NTDDI_VERSION >= NTDDI_VISTA)
 
@@ -176,8 +176,8 @@ typedef struct _TASKDIALOGCONFIG
    UINT     cxWidth;                                    // width of the Task Dialog's client area in DLU's. If 0, Task Dialog will calculate the ideal width.
 } TASKDIALOGCONFIG;
 
-HRESULT TaskDialogIndirect( const TASKDIALOGCONFIG * pTaskConfig, int * pnButton, int * pnRadioButton, BOOL * pfVerificationFlagChecked );
-HRESULT TaskDialog( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton );
+HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton, int * pnRadioButton, BOOL * pfVerificationFlagChecked);
+HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton);
 
 typedef  WINCOMMCTRLAPI HRESULT ( WINAPI * fnTaskDialog )( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton );
 typedef  WINCOMMCTRLAPI HRESULT ( WINAPI * fnTaskDialogIndirect )( const TASKDIALOGCONFIG * pTaskConfig, int * pnButton, int * pnRadioButton, BOOL * pfVerificationFlagChecked );

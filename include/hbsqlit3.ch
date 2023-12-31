@@ -47,8 +47,8 @@
 #ifndef HBSQLIT3_CH_
 #define HBSQLIT3_CH_
 
-#xtranslate DB_IS_OPEN( <db> )         => ( ! Empty( <db> ) )
-#xtranslate STMT_IS_PREPARED( <stmt> ) => ( ! Empty( <stmt> ) )
+#xtranslate DB_IS_OPEN(<db>)           => ( ! Empty( <db> ) )
+#xtranslate STMT_IS_PREPARED(<stmt>)   => ( ! Empty( <stmt> ) )
 
 /* Fundamental Datatypes */
 #define SQLITE_INTEGER                     1

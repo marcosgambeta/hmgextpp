@@ -56,11 +56,11 @@
 
 * Report Main .................................................................
 
-#xcommand DEFINE REPORT <name>        => _DefineReport( <(name)> ) ; #xtranslate \<name\> . Execute ( \<p1\>, \<p2\> ) => ExecuteReport ( \<(name)\>, \<p1\>, \<p2\> )
+#xcommand DEFINE REPORT <name>        => _DefineReport(<(name)>) ; #xtranslate \<name\> . Execute ( \<p1\>, \<p2\> ) => ExecuteReport ( \<(name)\>, \<p1\>, \<p2\> )
 
 #xcommand END REPORT        => _EndReport() 
 
-#xcommand DEFINE REPORT TEMPLATE => _DefineReport( "_TEMPLATE_" ) 
+#xcommand DEFINE REPORT TEMPLATE => _DefineReport("_TEMPLATE_") 
 
 #xcommand BANDHEIGHT        <nValue> => _BandHeight(<nValue>)
 

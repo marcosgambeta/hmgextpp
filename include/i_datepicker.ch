@@ -221,21 +221,21 @@
 
 #xtranslate SetDatePickFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-hmg_SendMessage( <hWnd>, DTM_SETMCCOLOR, MCSC_TEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage(<hWnd>, DTM_SETMCCOLOR, MCSC_TEXT, RGB(<r>, <g>, <b>))
 
 #xtranslate SetDatePickBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-hmg_SendMessage( <hWnd>, DTM_SETMCCOLOR, MCSC_MONTHBK, RGB(<r>, <g>, <b>) )
+hmg_SendMessage(<hWnd>, DTM_SETMCCOLOR, MCSC_MONTHBK, RGB(<r>, <g>, <b>))
 
 #xtranslate SetDatePickTitleBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-hmg_SendMessage( <hWnd>, DTM_SETMCCOLOR, MCSC_TITLEBK, RGB(<r>, <g>, <b>) )
+hmg_SendMessage(<hWnd>, DTM_SETMCCOLOR, MCSC_TITLEBK, RGB(<r>, <g>, <b>))
 
 #xtranslate SetDatePickTitleFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-hmg_SendMessage( <hWnd>, DTM_SETMCCOLOR, MCSC_TITLETEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage(<hWnd>, DTM_SETMCCOLOR, MCSC_TITLETEXT, RGB(<r>, <g>, <b>))
 
 #xtranslate SetDatePickTrlFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-hmg_SendMessage( <hWnd>, DTM_SETMCCOLOR, MCSC_TRAILINGTEXT, RGB(<r>, <g>, <b>) )
+hmg_SendMessage(<hWnd>, DTM_SETMCCOLOR, MCSC_TRAILINGTEXT, RGB(<r>, <g>, <b>))
 

@@ -403,11 +403,11 @@
 
 #command SET CENTERWINDOW RELATIVE DESKTOP ;
    => ;
-   _SetCenterWindowStyle ( .F. )
+   _SetCenterWindowStyle(.F.)
 
 #command SET CENTERWINDOW RELATIVE PARENT ;
    => ;
-   _SetCenterWindowStyle ( .T. )
+   _SetCenterWindowStyle(.T.)
 
 #translate IsCenterWindowRelativeParent => _SetCenterWindowStyle ()
 
@@ -444,8 +444,8 @@
 
 #xcommand DO EVENTS => hmg_DoEvents()
 
-#xcommand DO MESSAGE LOOP [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop( <.except.> )
-#xcommand DO MESSAGELOOP  [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop( <.except.> )
+#xcommand DO MESSAGE LOOP [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop(<.except.>)
+#xcommand DO MESSAGELOOP  [ <except: EXIT [ON EXCEPTION]> ] => hmg_DoMessageLoop(<.except.>)
 
 
 #xcommand FETCH [ PROPERTY ] [ WINDOW ] <Arg1> <Arg2> TO <Arg3> ;

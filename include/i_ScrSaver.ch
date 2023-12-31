@@ -64,9 +64,9 @@
              [ BACKCOLOR <backcolor> ] ;
        => ;
                 DECLARE WINDOW <Scr> ;;
-                _BeginScrSaver( <"Scr">, <.noshow.>, ;
-                                <{InitProcedure}>, <{ReleaseProcedure}>, ;
-                                <{PaintProcedure}>, <nInterval>, [<backcolor>] )
+                _BeginScrSaver(<"Scr">, <.noshow.>, ;
+                               <{InitProcedure}>, <{ReleaseProcedure}>, ;
+                               <{PaintProcedure}>, <nInterval>, [<backcolor>])
 
 #xcommand INSTALL SCREENSAVER ;
              <file: TO FILE, FILENAME> <cFileName> ;
@@ -84,4 +84,4 @@
              WINDOW <name, ...> ;
              PARAMETERS <cParameters> ;
        => ;
-                _ActivateScrSaver( \{<"name">\}, <cParameters> )
+                _ActivateScrSaver(\{<"name">\}, <cParameters>)

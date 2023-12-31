@@ -105,7 +105,7 @@
                 [ INPUTMASK <inputmask> ]        ;
                 [ PICTURE <aPict> ] ;         // add  jsz
         =>;
-   _DefineBrowse ( <(name)>,                 ;
+   _DefineBrowse(<(name)>,                 ;
                 <(parent)>,                 ;
                 <col>,                        ;
                 <row>,                        ;
@@ -206,7 +206,7 @@
                 [ INPUTMASK <inputmask> ]        ;
                 [ PICTURE <aPict> ] ;   // add jsz
         =>;
-   _DefineBrowse ( <(name)>,         ;
+   _DefineBrowse(<(name)>,         ;
                 <(parent)>,         ;
                 0 ,                ;
                 0 ,                ;
@@ -310,7 +310,7 @@
                 [ INPUTMASK <inputmask> ]        ;
                 [ PICTURE <aPict> ] ;    // add jsz
         =>;
-   _DefineBrowse ( <(name)>,         ;
+   _DefineBrowse(<(name)>,         ;
                 <(parent)>,         ;
                  ,                ;
                  ,                ;
@@ -361,6 +361,6 @@
                 <bInit>, ;
                 <aPict>, <inputmask> )   // add jsz
 
-#xcommand SET BROWSESYNC <x:ON,OFF> => _HMG_BrowseSyncStatus := ( Upper(<(x)>) == "ON" )
+#xcommand SET BROWSESYNC <x:ON,OFF> => _HMG_BrowseSyncStatus := (Upper(<(x)>) == "ON")
 
-#xcommand SET BROWSEUPDATEONCLICK <x:ON,OFF> => _HMG_BrowseUpdateStatus := ( Upper(<(x)>) == "ON" )
+#xcommand SET BROWSEUPDATEONCLICK <x:ON,OFF> => _HMG_BrowseUpdateStatus := (Upper(<(x)>) == "ON")

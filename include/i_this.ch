@@ -167,7 +167,7 @@
 
 #xtranslate This . <p:Name,Handle,Type,Index,Row,Col,Width,Height,BackColor,Cargo,Object> => iif ( _HMG_THISType == 'C' , GetProperty(_HMG_THISFORMNAME, _HMG_THISCONTROLNAME, <"p">) , GetProperty(_HMG_THISFORMNAME, <"p">) )
 #xtranslate This . <p:Row,Col,Width,Height,BackColor,Cargo> := <arg> => iif ( _HMG_THISType == 'C' , SetProperty(_HMG_THISFORMNAME, _HMG_THISCONTROLNAME, <"p">, <arg>) , SetProperty(_HMG_THISFORMNAME, <"p">, <arg>) )
-#xtranslate This . <p:Show,Hide,SetFocus> [ () ] => iif ( _HMG_THISType == 'C' , DoMethod(_HMG_THISFORMNAME, _HMG_THISCONTROLNAME, <"p">) , DoMethod( _HMG_THISFORMNAME, <"p">) )
+#xtranslate This . <p:Show,Hide,SetFocus> [ () ] => iif ( _HMG_THISType == 'C' , DoMethod(_HMG_THISFORMNAME, _HMG_THISCONTROLNAME, <"p">) , DoMethod(_HMG_THISFORMNAME, <"p">))
 #xtranslate This . <p:ClientWidth>  => _GetClientRect ( iif ( _HMG_THISType == 'C' , GetControlHandle ( _HMG_THISCONTROLNAME , _HMG_THISFORMNAME ) , GetFormHandle ( _HMG_THISFORMNAME ) ) ) \[3]
 #xtranslate This . <p:ClientHeight> => _GetClientRect ( iif ( _HMG_THISType == 'C' , GetControlHandle ( _HMG_THISCONTROLNAME , _HMG_THISFORMNAME ) , GetFormHandle ( _HMG_THISFORMNAME ) ) ) \[4]
 

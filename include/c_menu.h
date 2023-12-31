@@ -100,24 +100,24 @@ typedef struct _MENUITEM
 // extern "C" {
 // #endif
 
-VOID           DrawCheck( HDC hdc, SIZE size, RECT rect, BOOL enabled, BOOL selected, HBITMAP hbitmap );
-VOID           DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled, BOOL stretched );
-VOID           DrawSeparator( HDC hDC, RECT r );
-VOID           DrawBitmapBK( HDC hDC, RECT r );
-VOID           DrawItemBk( HDC hDC, RECT r, BOOL fSelected, BOOL fGrayed, UINT itemType, BOOL clear );
-VOID           DrawSelectedItemBorder( HDC hDC, RECT r /*, BOOL fSelected, BOOL fGrayed*/, UINT itemType, BOOL clear );
+VOID           DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL enabled, BOOL selected, HBITMAP hbitmap);
+VOID           DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled, BOOL stretched);
+VOID           DrawSeparator(HDC hDC, RECT r);
+VOID           DrawBitmapBK(HDC hDC, RECT r);
+VOID           DrawItemBk(HDC hDC, RECT r, BOOL fSelected, BOOL fGrayed, UINT itemType, BOOL clear);
+VOID           DrawSelectedItemBorder(HDC hDC, RECT r /*, BOOL fSelected, BOOL fGrayed*/, UINT itemType, BOOL clear);
 
 #ifndef __WINNT__
-VOID           SetMenuBarColor( HMENU hMenu, COLORREF clrBk, BOOL fSubMenu );
+VOID           SetMenuBarColor(HMENU hMenu, COLORREF clrBk, BOOL fSubMenu);
 #endif
-static BOOL    IsColorEqual( COLORREF clr1, COLORREF clr2 );
-static BOOL    _DestroyMenu( HMENU menu );
+static BOOL    IsColorEqual(COLORREF clr1, COLORREF clr2);
+static BOOL    _DestroyMenu(HMENU menu);
 
-extern BOOL    EnabledGradient( void );
-extern BOOL    FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo );
-extern HBRUSH  LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF cFrom, COLORREF cTo, BOOL bVert );
+extern BOOL    EnabledGradient(void);
+extern BOOL    FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo);
+extern HBRUSH  LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF cFrom, COLORREF cTo, BOOL bVert);
 
-WINUSERAPI BOOL WINAPI EndMenu( VOID );
+WINUSERAPI BOOL WINAPI EndMenu(VOID);
 
 // #ifdef __cplusplus
 // }

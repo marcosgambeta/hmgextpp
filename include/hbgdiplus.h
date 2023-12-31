@@ -72,26 +72,26 @@ using GdipGetImageThumbnail_ptr = GpStatus (WINGDIPAPI *)(GpImage * image, UINT 
 using GdipCreateBitmapFromHBITMAP_ptr = GpStatus (WINGDIPAPI *)(HBITMAP hbm, HPALETTE hpal, GpBitmap ** bitmap);
 using GdipSaveImageToFile_ptr = GpStatus (WINGDIPAPI *)(GpImage * image, GDIPCONST HB_WCHAR * filename, GDIPCONST CLSID * clsidEncoder, GDIPCONST EncoderParameters * encoderParams);
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-#define EXTERN_FUNCPTR( name )          extern name##_ptr fn_##name
-#define DECLARE_FUNCPTR( name )         name##_ptr fn_##name = NULL
-#define ASSIGN_FUNCPTR( module, name )  fn_##name = ( name##_ptr ) wapi_GetProcAddress( module, #name )
-#define _EMPTY_PTR( module, name )      NULL == ( ASSIGN_FUNCPTR( module, name ) )
+#define EXTERN_FUNCPTR(name)            extern name##_ptr fn_##name
+#define DECLARE_FUNCPTR(name)           name##_ptr fn_##name = NULL
+#define ASSIGN_FUNCPTR(module, name)    fn_##name = ( name##_ptr ) wapi_GetProcAddress(module, #name)
+#define _EMPTY_PTR(module, name)        NULL == ( ASSIGN_FUNCPTR(module, name) )
 
-#define HB_REAL( n ) ( float ) hb_parnd( n )
+#define HB_REAL(n) ( float ) hb_parnd(n)
 
-EXTERN_FUNCPTR( GdipCreateBitmapFromFile );
-EXTERN_FUNCPTR( GdipCreateBitmapFromResource );
-EXTERN_FUNCPTR( GdipCreateBitmapFromStream );
-EXTERN_FUNCPTR( GdipCreateHBITMAPFromBitmap );
-EXTERN_FUNCPTR( GdipDisposeImage );
+EXTERN_FUNCPTR(GdipCreateBitmapFromFile);
+EXTERN_FUNCPTR(GdipCreateBitmapFromResource);
+EXTERN_FUNCPTR(GdipCreateBitmapFromStream);
+EXTERN_FUNCPTR(GdipCreateHBITMAPFromBitmap);
+EXTERN_FUNCPTR(GdipDisposeImage);
 
-EXTERN_FUNCPTR( GdipGetImageEncodersSize );
-EXTERN_FUNCPTR( GdipGetImageEncoders );
-EXTERN_FUNCPTR( GdipGetImageThumbnail );
-EXTERN_FUNCPTR( GdipCreateBitmapFromHBITMAP );
-EXTERN_FUNCPTR( GdipSaveImageToFile );
+EXTERN_FUNCPTR(GdipGetImageEncodersSize);
+EXTERN_FUNCPTR(GdipGetImageEncoders);
+EXTERN_FUNCPTR(GdipGetImageThumbnail);
+EXTERN_FUNCPTR(GdipCreateBitmapFromHBITMAP);
+EXTERN_FUNCPTR(GdipSaveImageToFile);
 
 #ifdef __BORLANDC__
 #pragma option pop /*P_O_Pop*/

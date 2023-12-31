@@ -97,65 +97,65 @@
 #define IDC_APPSTARTING     32650
 #define IDC_HELP            32651
 
-#xtranslate SetWaitCursor( <hWnd> ) ;
+#xtranslate SetWaitCursor(<hWnd>) ;
 => ;
-hmg_SetWindowCursor( <hWnd>, IDC_WAIT )
+hmg_SetWindowCursor(<hWnd>, IDC_WAIT)
 
-#xtranslate SetArrowCursor( <hWnd> ) ;
+#xtranslate SetArrowCursor(<hWnd>) ;
 => ;
-hmg_SetWindowCursor( <hWnd>, IDC_ARROW )
+hmg_SetWindowCursor(<hWnd>, IDC_ARROW)
 
 #xtranslate CursorArrow() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_ARROW ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_ARROW))
 
 #xtranslate CursorHelp() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_HELP ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_HELP))
 
 #xtranslate CursorWait() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_WAIT ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_WAIT))
 
 #xtranslate CursorCross() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_CROSS ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_CROSS))
 
 #xtranslate CursorIBeam() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_IBEAM ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_IBEAM))
 
 #xtranslate CursorAppStarting() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_APPSTARTING ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_APPSTARTING))
 
 #xtranslate CursorNo() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_NO ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_NO))
 
 #xtranslate CursorSizeAll() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_SIZEALL ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_SIZEALL))
 
 #xtranslate CursorSizenEsW() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENESW ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_SIZENESW))
 
 #xtranslate CursorSizenWsE() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENWSE ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_SIZENWSE))
 
 #xtranslate CursorSizeNS() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_SIZENS ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_SIZENS))
 
 #xtranslate CursorSizeWE() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_SIZEWE ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_SIZEWE))
 
 #xtranslate CursorUpArrow() ;
 => ;
-hmg_SetResCursor( hmg_LoadCursor( NIL, IDC_UPARROW ) )
+hmg_SetResCursor(hmg_LoadCursor(NIL, IDC_UPARROW))
 
 // Alert icons
 #define ICON_EXCLAMATION      1  // default value
@@ -272,14 +272,14 @@ SetProperty(<"Arg1">, <"Arg2">, <"Arg3">, \{<Arg4>\})
 
 #translate SET MULTIPLE <x:ON,OFF> [ <warning: WARNING> ] ;
 => ;
-_HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _HMG_IsMultiple == .T. , ( iif ( <.warning.>, MsgStop( _HMG_MESSAGE\[4\] ) , ) , hmg_ExitProcess() ) , )
+_HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _HMG_IsMultiple == .T. , ( iif ( <.warning.>, MsgStop(_HMG_MESSAGE\[4\]) , ) , hmg_ExitProcess() ) , )
 
 #translate CRLF => hb_eol()
 
 #translate SET OOP [SUPPORT] <x:ON,OFF> => _HMG_lOOPEnabled := ( Upper(<(x)>) == "ON" )
 #translate SET OOP [SUPPORT] TO <x>     => _HMG_lOOPEnabled := iif(hb_IsLogical(<x>), <x>, .F.)
 
-#xtranslate SET WINDOW THIS TO [<w>] => _SetThisFormInfo( [<w>] )
+#xtranslate SET WINDOW THIS TO [<w>] => _SetThisFormInfo([<w>])
 
 #xtranslate SET SCROLLSTEP TO <step> => _HMG_aScrollStep \[1\] := <step>
 #xtranslate SET SCROLLPAGE TO <step> => _HMG_aScrollStep \[2\] := <step>
@@ -300,13 +300,13 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 #translate SET GLOBAL HOTKEYS <x:ON,OFF> => _HMG_GlobalHotkeys := ( Upper(<(x)>) == "ON" )
 
-#xcommand SET SHOWDETAILERROR <x:ON,OFF> => _lShowDetailError( Upper(<(x)>) == "ON" )
+#xcommand SET SHOWDETAILERROR <x:ON,OFF> => _lShowDetailError(Upper(<(x)>) == "ON")
 
 #command CLEAN MEMORY => iif(_HMG_IsXP, hmg_CleanProgramMemory(), iif(IsVistaOrLater(), hmg_EmptyWorkingSet(), NIL))
 
 #command SET EVENTS FUNCTION TO <fname> [ RESULT TO <lSuccess> ] ;
 => ;
-[ <lSuccess> := ] hmg_SetGlobalListener( <"fname"> )
+[ <lSuccess> := ] hmg_SetGlobalListener(<"fname">)
 
 #xcommand @ <row>, <col> ANIGIF <ControlName> ;
       [ OBJ <oGif> ] ;
@@ -327,13 +327,13 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
       AT <frow>, <fcol> ;
       TO <trow>, <tcol> ;
 =>;
-      DrawWindowBoxRaised( <(parent)>, <frow>, <fcol>, <trow>, <tcol> )
+      DrawWindowBoxRaised(<(parent)>, <frow>, <fcol>, <trow>, <tcol>)
 
 #xcommand DRAW BOX IN WINDOW <parent> ;
       AT <frow>, <fcol> ;
       TO <trow>, <tcol> ;
 =>;
-      DrawWindowBoxIn( <(parent)>, <frow>, <fcol>, <trow>, <tcol> )
+      DrawWindowBoxIn(<(parent)>, <frow>, <fcol>, <trow>, <tcol>)
 
 #xcommand DRAW GRADIENT IN WINDOW <parent> ;
       AT <frow>, <fcol> ;
@@ -343,20 +343,19 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
       [ <vertical: VERTICAL> ] ;
       [ BORDER <border> ] ;
 =>;
-      DrawGradient( <(parent)>, <frow>, <fcol>, <trow>, <tcol>,;
-                    <aColor1>, <aColor2>, <.vertical.>, <border> )
+      DrawGradient(<(parent)>, <frow>, <fcol>, <trow>, <tcol>, <aColor1>, <aColor2>, <.vertical.>, <border>)
 
 // HMG_ALERT
 
 #command SET MSGALERT BACKCOLOR TO <backcolor> [STOREIN <aColors>] ;
 => ;
-      [ <aColors> := ] _SetMsgAlertColors( <backcolor>, NIL )
+      [ <aColors> := ] _SetMsgAlertColors(<backcolor>, NIL)
 
 #command SET MSGALERT FONTCOLOR TO <fontcolor> [STOREIN <aColors>] ;
 => ;
-      [ <aColors> := ] _SetMsgAlertColors( NIL, <fontcolor> )
+      [ <aColors> := ] _SetMsgAlertColors(NIL, <fontcolor>)
 
-#translate SET ALERT EOL <x:NORMAL,STANDARD> => Set( _SET_DELIMITERS, ( Upper(<(x)>) == "STANDARD" ) )
+#translate SET ALERT EOL <x:NORMAL,STANDARD> => Set(_SET_DELIMITERS, (Upper(<(x)>) == "STANDARD"))
 
 /*
  * Virtual keys wrappers
@@ -377,44 +376,44 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 #xtranslate ReleaseControl ( <hWnd> ) ;
 => ;
-iif ( hmg_IsWindowHandle( <hWnd> ), hmg_SendMessage( <hWnd>, WM_SYSCOMMAND, SC_CLOSE, 0 ), )
+iif ( hmg_IsWindowHandle(<hWnd>), hmg_SendMessage(<hWnd>, WM_SYSCOMMAND, SC_CLOSE, 0), )
 
 // Get Window position and sizes
 
 #xtranslate GetWindowRow ( <hWnd> ) ;
 => ;
-hmg_GetWindowRect( <hWnd>, 1 )
+hmg_GetWindowRect(<hWnd>, 1)
 
 #xtranslate GetWindowCol ( <hWnd> ) ;
 => ;
-hmg_GetWindowRect( <hWnd>, 2 )
+hmg_GetWindowRect(<hWnd>, 2)
 
 #xtranslate GetWindowWidth ( <hWnd> ) ;
 => ;
-hmg_GetWindowRect( <hWnd>, 3 )
+hmg_GetWindowRect(<hWnd>, 3)
 
 #xtranslate GetWindowHeight ( <hWnd> ) ;
 => ;
-hmg_GetWindowRect( <hWnd>, 4 )
+hmg_GetWindowRect(<hWnd>, 4)
 
 // Set Window non client attributes
 
 #command SET WINDOW BORDER TO <nPixels> ;
    => ;
-   hmg_SetNonClient( 1 , <nPixels> )
+   hmg_SetNonClient(1, <nPixels>)
 
 #command SET SCROLLBAR [SIZES] TO <nPixels> ;
    => ;
-   hmg_SetNonClient( 2 , <nPixels> )
+   hmg_SetNonClient(2, <nPixels>)
 
 #command SET TITLEBAR WIDTH TO <nPixels> ;
    => ;
-   hmg_SetNonClient( 3 , <nPixels> )
+   hmg_SetNonClient(3, <nPixels>)
 
 #command SET TITLEBAR HEIGHT TO <nPixels> ;
    => ;
-   hmg_SetNonClient( 4 , <nPixels> )
+   hmg_SetNonClient(4, <nPixels>)
 
 #command SET [STANDARD] MENU [SIZES] TO <nPixels> ;
    => ;
-   hmg_SetNonClient( 5 , <nPixels> )
+   hmg_SetNonClient(5, <nPixels>)

@@ -276,20 +276,20 @@
 
 #xtranslate ListboxSetCurSel ( <hWnd>, <s> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LB_SETCURSEL, <s> - 1, 0 )
+hmg_SendMessage(<hWnd>, LB_SETCURSEL, <s> - 1, 0)
 
 #xtranslate ListboxGetCurSel ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LB_GETCURSEL, 0, 0 ) + 1
+hmg_SendMessage(<hWnd>, LB_GETCURSEL, 0, 0) + 1
 
 #xtranslate ListboxDeleteString ( <hWnd>, <s> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LB_DELETESTRING, <s> - 1, 0 )
+hmg_SendMessage(<hWnd>, LB_DELETESTRING, <s> - 1, 0)
 
 #xtranslate ListboxReset ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LB_RESETCONTENT, 0, 0 )
+hmg_SendMessage(<hWnd>, LB_RESETCONTENT, 0, 0)
 
 #xtranslate ListboxGetItemCount ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LB_GETCOUNT, 0, 0 )
+hmg_SendMessage(<hWnd>, LB_GETCOUNT, 0, 0)

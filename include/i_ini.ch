@@ -47,7 +47,7 @@
 #xcommand BEGIN INI ;
           [ <file: FILENAME, FILE, DISK> <cIniFile> ] ;
        => ;
-          _BeginIni( <cIniFile> )
+          _BeginIni(<cIniFile>)
 
 #xcommand END INI ;
        => ;
@@ -55,7 +55,7 @@
 
 #xcommand DEL SECTION <cSection> ;
        => ;
-          _DelIniSection( <cSection> )
+          _DelIniSection(<cSection>)
 
 #xcommand DEL SECTION <cSection> ;
           ENTRY <cEntry> ;
@@ -67,13 +67,13 @@
           [ ENTRY <cEntry> ] ;
           [ DEFAULT <uDefault> ] ;
        => ;
-          <uVar> := _GetIni( <cSection>, <cEntry>, <uDefault>, <uVar> )
+          <uVar> := _GetIni(<cSection>, <cEntry>, <uDefault>, <uVar>)
 
 #xcommand SET [ SECTION <cSection> ] ;
           [ ENTRY <cEntry> ] ;
           [ TO <uVal> ] ;
        => ;
-          _SetIni( <cSection>, <cEntry>, <uVal> )
+          _SetIni(<cSection>, <cEntry>, <uVal>)
 
 #xcommand GET BEGIN COMMENT TO <uVar> ;
       => ;
@@ -85,23 +85,23 @@
 
 #xcommand SET BEGIN COMMENT TO <uVal> ;
       => ;
-         SetBeginComment( <uVal> )
+         SetBeginComment(<uVal>)
 
 #xcommand SET END COMMENT TO <uVal> ;
       => ;
-         SetEndComment( <uVal> )
+         SetEndComment(<uVal>)
 
 
-#xcommand SET LOGFILE TO <(name)> => _SetGetLogFile( <(name)> )
+#xcommand SET LOGFILE TO <(name)> => _SetGetLogFile(<(name)>)
 
 #ifdef _HMG_OUTLOG
 
 #ifndef _MIXEDMODE_
-  #command ?  [<explist,...>] => _LogFile( .T., <explist> )
-  #command ?? [<explist,...>] => _LogFile( .F., <explist> )
+  #command ?  [<explist,...>] => _LogFile(.T., <explist>)
+  #command ?? [<explist,...>] => _LogFile(.F., <explist>)
 #endif
 
-#command ?a [<arr>] => If( <arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile( ( ne==1 ), ne, xv ), _LogFile() }) )
-#command ?v [<arr>] => If( <arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile( ( ne==1 ), ne, iif(ValType( xv ) == "A", hb_ValToExp( xv ), xv) ), _LogFile() }) )
+#command ?a [<arr>] => If(<arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile((ne == 1), ne, xv), _LogFile() }))
+#command ?v [<arr>] => If(<arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile((ne == 1), ne, iif(ValType(xv) == "A", hb_ValToExp(xv), xv)), _LogFile() }))
 
 #endif

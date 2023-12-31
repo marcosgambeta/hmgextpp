@@ -82,12 +82,12 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
      => ;
-     _DefineBtnTextBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
+     _DefineBtnTextBox(<(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
             <{action}>, <{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;
             <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
             <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
             <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <nId>, <.disableedit.>, <.default.>, ;
-            [<CueText>], !<.nokeepfocus.>, <bInit> )
+            [<CueText>], !<.nokeepfocus.>, <bInit>)
 
 
 #command REDEFINE BTNTEXTBOX <name>        ;
@@ -126,9 +126,9 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
      => ;
-     _DefineBtnTextBox( <(name)>, <(parent)>, 0, 0, 0, 0, <value>, ;
+     _DefineBtnTextBox(<(name)>, <(parent)>, 0, 0, 0, 0, <value>, ;
             <{action}>, <{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;
             <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
             <.RightAlign.>, <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
             <(field)>, <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <nId>, <.disableedit.>, ;
-            <.default.>, [<CueText>], !<.nokeepfocus.>, <bInit> )
+            <.default.>, [<CueText>], !<.nokeepfocus.>, <bInit>)

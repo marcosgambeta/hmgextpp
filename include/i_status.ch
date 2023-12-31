@@ -54,7 +54,7 @@
       [ <underline : UNDERLINE> ] ;
       [ <strikeout : STRIKEOUT> ] ;
    => ;
-   _BeginMessageBar( "StatusBar", <(parent)>, <.kbd.>, <fontname>, <fontsize>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> )
+   _BeginMessageBar("StatusBar", <(parent)>, <.kbd.>, <fontname>, <fontsize>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>)
 
 #xcommand  END STATUSBAR ;
    => ;
@@ -98,14 +98,14 @@
           [ BACKCOLOR <backcolor> ] ;
           [ FONTCOLOR <fontcolor> ] ;
    => ;
-   _SetStatusClock( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize>, <cToolTip>, <{uAction}>, <.ampm.>, <backcolor>, <fontcolor> )
+   _SetStatusClock(_HMG_ActiveMessageBarname, _HMG_ActiveFormName, <nSize>, <cToolTip>, <{uAction}>, <.ampm.>, <backcolor>, <fontcolor>)
 
 #xcommand KEYBOARD ;
           [ WIDTH <nSize> ] ;
           [ ACTION <uAction> ] ;
           [ TOOLTIP <cToolTip> ] ;
    => ;
-   _SetStatusKeybrd( _HMG_ActiveMessageBarname , _HMG_ActiveFormName , <nSize>, <cToolTip>, <{uAction}> )
+   _SetStatusKeybrd(_HMG_ActiveMessageBarname, _HMG_ActiveFormName, <nSize>, <cToolTip>, <{uAction}>)
 
 #xcommand PROGRESSITEM ;
           [ WIDTH <nSize> ] ;
@@ -138,11 +138,11 @@
 #define STATUS_ITEM_FONTCOLOR  4
 #define STATUS_ITEM_ALIGN      5
 
-#xtranslate _SetStatusItemWidth( <item>, <value>, <ParentHandle> ) ;
+#xtranslate _SetStatusItemWidth(<item>, <value>, <ParentHandle>) ;
    => ;
    _SetStatusItemProperty( <item>, <value>, <ParentHandle>, STATUS_ITEM_WIDTH )
 
-#xtranslate _SetStatusItemAction( <item>, <value>, <ParentHandle> ) ;
+#xtranslate _SetStatusItemAction(<item>, <value>, <ParentHandle>) ;
    => ;
    _SetStatusItemProperty( <item>, <value>, <ParentHandle>, STATUS_ITEM_ACTION )
 
@@ -169,4 +169,4 @@
          OF <Form> ;
          ACTION [ TO ] <action> ;
       => ;
-        _SetStatusItemAction( <n>, <{action}>, GetFormHandle(<(Form)>) )
+        _SetStatusItemAction(<n>, <{action}>, GetFormHandle(<(Form)>))

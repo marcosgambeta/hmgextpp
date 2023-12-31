@@ -52,11 +52,11 @@
 
 #command SET GETBOX FOCUS BACKCOLOR [ TO <backcolor> ] ;
    => ;
-        _SetGetBoxColorFocus( [<backcolor>], NIL )
+        _SetGetBoxColorFocus([<backcolor>], NIL)
 
 #command SET GETBOX FOCUS FONTCOLOR TO <fontcolor> ;
    => ;
-        _SetGetBoxColorFocus( NIL, <fontcolor> )
+        _SetGetBoxColorFocus(NIL, <fontcolor>)
 
 
 #command @ <row>, <col> GETBOX <name>                                  ;
@@ -66,7 +66,7 @@
       =>                                                               ;
          @ <row>, <col> GETBOX <name>                                  ;
                         [<clauses>]                                    ;
-                        VALID { |_1| _RangeCheck( _1, <lo>, <hi> ) }   ;
+                        VALID { |_1| _RangeCheck(_1, <lo>, <hi>) }   ;
                         [<moreClauses>]
 
 
@@ -109,10 +109,10 @@
         [ <noborder: NOBORDER> ]        ;
         [ HELPID <helpid> ]             ;
    => ;
-        [ <oGet> := ] _DefineGetBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
+        [ <oGet> := ] _DefineGetBox(<(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
             <fontname>, <fontsize>, <tooltip>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{uChange}>, ;
             <.RightAlign.>, <helpid>, <.readonly.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
             <(field)>, <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <nId>, ;
             <{valid}>, <cPicture>, <cMessage>, <cValidMessage>, <{when}>, <{action}>, ;
-            <{action2}>, <abitmap>, <btnwidth>, <.nominus.>, <.noborder.>, <bInit> )
+            <{action2}>, <abitmap>, <btnwidth>, <.nominus.>, <.noborder.>, <bInit>)
 

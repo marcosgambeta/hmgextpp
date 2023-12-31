@@ -77,7 +77,7 @@
 #xtranslate GetDesktopFolder() => GetSpecialFolder(CSIDL_DESKTOPDIRECTORY)
 #xtranslate GetApplicationDataFolder() => GetSpecialFolder(CSIDL_APPDATA)
 #xtranslate GetUserProfileFolder() => GetSpecialFolder(CSIDL_PROFILE)
-#xtranslate GetUserTempFolder() => iif(IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath( hmg_GetTempDir()))
+#xtranslate GetUserTempFolder() => iif(IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath(hmg_GetTempDir()))
 
 //#define __WIN98__
 

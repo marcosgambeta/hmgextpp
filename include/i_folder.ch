@@ -75,7 +75,7 @@
         [ <vertical: VERTICAL> ]       ;
         [ <bottom: BOTTOM> ] ;
     =>;
-    _BeginFolder( <"name">, <"parent">, .F., <col>, <row>, <w>, <h>, <caption>, <f>, <s>, <{folderproc}>, <{cancelproc}>, <{initproc}>, <{helpproc}>, <.modal.>, <.apply.>, <.bold.>, <.italic.>, .F., .F., <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.multiline.> )
+    _BeginFolder(<"name">, <"parent">, .F., <col>, <row>, <w>, <h>, <caption>, <f>, <s>, <{folderproc}>, <{cancelproc}>, <{initproc}>, <{helpproc}>, <.modal.>, <.apply.>, <.bold.>, <.italic.>, .F., .F., <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.multiline.>)
 
 
 #command DEFINE FOLDER <name> ;
@@ -98,7 +98,7 @@
         [ <vertical: VERTICAL> ]       ;
         [ <bottom: BOTTOM> ] ;
     =>;
-    _BeginFolder( <"name">, <"parent">, <.res.>, 0, 0, 0, 0, <caption>, <f>, <s>, <{folderproc}>, <{cancelproc}>, <{initproc}>, <{helpproc}>, <.modal.>, <.apply.>, <.bold.>, <.italic.>, .F., .F., <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.multiline.> )
+    _BeginFolder(<"name">, <"parent">, <.res.>, 0, 0, 0, 0, <caption>, <f>, <s>, <{folderproc}>, <{cancelproc}>, <{initproc}>, <{helpproc}>, <.modal.>, <.apply.>, <.bold.>, <.italic.>, .F., .F., <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.multiline.>)
 
 
 #command END FOLDER ;

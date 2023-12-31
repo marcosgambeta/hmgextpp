@@ -61,7 +61,7 @@
         [ <noborder: NOBORDER> ] ;
         [ HELPID <helpid> ] ;
         =>;
-        _DefineAnimateBox( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <.autoplay.>, <.center.>, <.transparent.>, <file>, <helpid>, !<.noborder.>, <backcolor>, <.invisible.>, <nId> )
+        _DefineAnimateBox(<(name)>, <(parent)>, <col>, <row>, <w>, <h>, <.autoplay.>, <.center.>, <.transparent.>, <file>, <helpid>, !<.noborder.>, <backcolor>, <.invisible.>, <nId>)
 
 #command REDEFINE ANIMATEBOX <name> ;
     ID <nId>;
@@ -75,7 +75,7 @@
     [ <noborder: NOBORDER> ] ;
     [ HELPID <helpid> ]         ;
     =>;
-    _DefineAnimateBox( <(name)>, <(parent)>, 0, 0, 0, 0, <.autoplay.>, <.center.>, <.transparent.>, <file>, <helpid>, !<.noborder.>, <backcolor>, <.invisible.>, <nId> )
+    _DefineAnimateBox(<(name)>, <(parent)>, 0, 0, 0, 0, <.autoplay.>, <.center.>, <.transparent.>, <file>, <helpid>, !<.noborder.>, <backcolor>, <.invisible.>, <nId>)
 
 
 #command OPEN ANIMATEBOX <ControlName> OF <ParentForm> FILE <FileName> ;
@@ -146,7 +146,7 @@ _DestroyAnimateBox ( <"ControlName">, <"ParentForm"> )
                         [ <showposition: SHOWPOSITION> ] ;                             
                         [ HELPID <helpid> ]                 ;
         =>;
-    _DefinePlayer( <(name)>, <(parent)>, <file>, <col>, <row>, <w>, <h>, <.noautosizewindow.>, <.noautosizemovie.>, <.noerrordlg.>, <.nomenu.>, <.noopen.>, <.noplaybar.>, <.showall.>, <.showmode.>, <.showname.>, <.showposition.>, <helpid> )
+    _DefinePlayer(<(name)>, <(parent)>, <file>, <col>, <row>, <w>, <h>, <.noautosizewindow.>, <.noautosizemovie.>, <.noerrordlg.>, <.nomenu.>, <.noopen.>, <.noplaybar.>, <.showall.>, <.showmode.>, <.showname.>, <.showposition.>, <helpid>)
 
 #command PLAY PLAYER <name> OF <parent> ;
         => ;

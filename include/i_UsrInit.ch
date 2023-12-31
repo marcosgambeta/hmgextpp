@@ -1,4 +1,4 @@
-#define BASEDEF_MYBUTTON 
+#define BASEDEF_MYBUTTON
 
 #xcommand @ <row>, <col> MYBUTTON <name> ;
                 OF <parent> ;
@@ -105,7 +105,7 @@
                 [ EVENTMAP <aEvents> ]  ;
                 [ <clientedge: CLIENTEDGE> ] ;
         =>;
-        _DefineActivex( <(name)>, <(parent)>, <row>, <col>, <w>, <h>, <progid>, <aEvents>, <.clientedge.> )
+        _DefineActivex(<(name)>, <(parent)>, <row>, <col>, <w>, <h>, <progid>, <aEvents>, <.clientedge.>)
 
 #xcommand PROGID <progid> ;
         =>;

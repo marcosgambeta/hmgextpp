@@ -185,30 +185,30 @@ _hmg_hpdf_abortdoc()
    _HMG_HPDF_CURVE ( <Row>, <Col>, <nFromRow>, <nFromCol>, <ToRow>, <ToCol>, <Width>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\]  , <.lwidth.>, <.lcolor.> )
 
 
-#xcommand SET HPDFDOC PASSWORD OWNER <cOwnerPass> [ USER <cUserPass> ] => _HMG_HPDF_SetPassword( <cOwnerPass>, <cUserPass> )
+#xcommand SET HPDFDOC PASSWORD OWNER <cOwnerPass> [ USER <cUserPass> ] => _HMG_HPDF_SetPassword(<cOwnerPass>, <cUserPass>)
 
-#xcommand SET HPDFDOC COMPRESS <mode:NONE,TEXT,IMAGE,METADATA,ALL>     => _HMG_HPDF_SetCompression( <"mode"> )
+#xcommand SET HPDFDOC COMPRESS <mode:NONE,TEXT,IMAGE,METADATA,ALL>     => _HMG_HPDF_SetCompression(<"mode">)
 
-#xcommand SET HPDFDOC PERMISSION TO <mode:READ,PRINT,EDIT,COPY,EDIT_ALL>     => _HMG_HPDF_SetPermission( <"mode"> )
+#xcommand SET HPDFDOC PERMISSION TO <mode:READ,PRINT,EDIT,COPY,EDIT_ALL>     => _HMG_HPDF_SetPermission(<"mode">)
 
-#xcommand SET HPDFDOC PAGEMODE TO <mode:NONE,OUTLINE,THUMBS,FULL_SCREEN,EOF>     => _HMG_HPDF_SetPageMode( <"mode"> )
+#xcommand SET HPDFDOC PAGEMODE TO <mode:NONE,OUTLINE,THUMBS,FULL_SCREEN,EOF>     => _HMG_HPDF_SetPageMode(<"mode">)
 
-#xcommand SET HPDFDOC ENCODING TO <cEncoding> => _HMG_HPDF_SetEncoding( <cEncoding> )
+#xcommand SET HPDFDOC ENCODING TO <cEncoding> => _HMG_HPDF_SetEncoding(<cEncoding>)
 
-#xcommand SET HPDFDOC ROOTOUTLINE TITLE <cTitle> NAME <cName> [ PARENT <cParent> ] => _HMG_HPDF_RootOutline( <cTitle>, <cName>, <cParent> )
+#xcommand SET HPDFDOC ROOTOUTLINE TITLE <cTitle> NAME <cName> [ PARENT <cParent> ] => _HMG_HPDF_RootOutline(<cTitle>, <cName>, <cParent>)
 
-#xcommand SET HPDFDOC PAGEOUTLINE TITLE <cTitle> [ NAME <cName> ] [ PARENT <cParent> ] => _HMG_HPDF_PageOutline( <cTitle>, <cParent>, <cName> )
+#xcommand SET HPDFDOC PAGEOUTLINE TITLE <cTitle> [ NAME <cName> ] [ PARENT <cParent> ] => _HMG_HPDF_PageOutline(<cTitle>, <cParent>, <cName>)
 
 
 #xcommand @ <Row>, <Col> HPDFTOOLTIP <cToolTip> ;
    ICON <cIcon:COMMENT,KEY,NOTE,HELP,NEW_PARAGRAPH,PARAGRAPH,INSERT> ;
    => ;
-   _HMG_HPDF_SetTextAnnot( <Row>, <Col>, <cToolTip>, <"cIcon"> )
+   _HMG_HPDF_SetTextAnnot(<Row>, <Col>, <cToolTip>, <"cIcon">)
 
 
-#xcommand INSERT HPDFPAGE BEFORE PAGE <nPage> => _HMG_HPDF_InsertPage( <nPage> )
+#xcommand INSERT HPDFPAGE BEFORE PAGE <nPage> => _HMG_HPDF_InsertPage(<nPage>)
 
-#xcommand SELECT HPDFPAGE <nPage> => _HMG_HPDF_GoToPage( <nPage> )
+#xcommand SELECT HPDFPAGE <nPage> => _HMG_HPDF_GoToPage(<nPage>)
 
 
 #xcommand @ <Row>, <Col> HPDFPAGELINK <cLink> TO <nPage> ;
@@ -219,7 +219,7 @@ _hmg_hpdf_abortdoc()
    [ <lborder: BORDER> ] ;
    [ <lwidth: WIDTH> <nwidth> ] ;
    => ;
-   _HMG_HPDF_SetPageLink( <Row>, <Col>, <cLink>, <nPage>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <"align">, <.lcolor.>, <.lfont.>, <.lsize.>, <.lborder.>, <.lwidth.>, <nwidth> )
+   _HMG_HPDF_SetPageLink(<Row>, <Col>, <cLink>, <nPage>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <"align">, <.lcolor.>, <.lfont.>, <.lsize.>, <.lborder.>, <.lwidth.>, <nwidth>)
 
 #xcommand @ <Row>, <Col> HPDFURLLINK <cTitle> TO <cLink> ;
    [ <lfont : FONT> <cFontName> ] ;
@@ -227,7 +227,7 @@ _hmg_hpdf_abortdoc()
    [ <lcolor : COLOR> <aColor> ] ;
    [ <align:CENTER,RIGHT,JUSTIFY> ] ;
    => ;
-   _HMG_HPDF_SetURLLink( <Row>, <Col>, <cTitle>, <cLink>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <"align">, <.lcolor.>, <.lfont.>, <.lsize.> )
+   _HMG_HPDF_SetURLLink(<Row>, <Col>, <cTitle>, <cLink>, <cFontName>, <nFontSize>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <"align">, <.lcolor.>, <.lfont.>, <.lsize.>)
 
 
 #xcommand @ <Row>, <Col> HPDFPRINT SKEW <cText> ;
@@ -294,21 +294,21 @@ _hmg_hpdf_abortdoc()
                 <.lcolor.>, <.lfont.>, <.lsize.>, <nRad>, <.lrims.>, <"align"> )
 
 
-#xcommand SET HPDFINFO <attrib:AUTHOR,CREATOR,TITLE,SUBJECT,KEYWORDS,DATECREATED,DATEMODIFIED> TO <xValue> [ TIME <cTime> ] => _HMG_HPDF_SetInfo( <"attrib">, <xValue>, <cTime> )
+#xcommand SET HPDFINFO <attrib:AUTHOR,CREATOR,TITLE,SUBJECT,KEYWORDS,DATECREATED,DATEMODIFIED> TO <xValue> [ TIME <cTime> ] => _HMG_HPDF_SetInfo(<"attrib">, <xValue>, <cTime>)
 
-#xcommand GET HPDFINFO <attrib:AUTHOR,CREATOR,TITLE,SUBJECT,KEYWORDS,DATECREATED,DATEMODIFIED> TO <cValue> => <cValue> := _HMG_HPDF_GetInfo( <"attrib"> )
+#xcommand GET HPDFINFO <attrib:AUTHOR,CREATOR,TITLE,SUBJECT,KEYWORDS,DATECREATED,DATEMODIFIED> TO <cValue> => <cValue> := _HMG_HPDF_GetInfo(<"attrib">)
 
-#xcommand SET HPDFDOC PAGENUMBERING [ FROM <nPage> ] [ STYLE <cStyle:DECIMAL,ROMAN,LETTERS> ] [ <cCase:UPPER,LOWER> ] [ PREFIX <cPrefix> ] => _HMG_HPDF_SetPageLabel( <nPage>, <"cStyle">, <"cCase">, <cPrefix> )
+#xcommand SET HPDFDOC PAGENUMBERING [ FROM <nPage> ] [ STYLE <cStyle:DECIMAL,ROMAN,LETTERS> ] [ <cCase:UPPER,LOWER> ] [ PREFIX <cPrefix> ] => _HMG_HPDF_SetPageLabel(<nPage>, <"cStyle">, <"cCase">, <cPrefix>)
 
-#xcommand SET HPDFPAGE LINESPACING TO <nSpacing> => _HMG_HPDF_SetLineSpacing( <nSpacing> )
+#xcommand SET HPDFPAGE LINESPACING TO <nSpacing> => _HMG_HPDF_SetLineSpacing(<nSpacing>)
 
-#xcommand SET HPDFPAGE DASH STYLE [ TO ] <nDashMode> => _HMG_HPDF_SetDash( <nDashMode> )
+#xcommand SET HPDFPAGE DASH STYLE [ TO ] <nDashMode> => _HMG_HPDF_SetDash(<nDashMode>)
 
-#xcommand SET HPDFPAGE ORIENTATION [ TO ] <nMode> => _HMG_HPDF_SetOrientation( <nMode> )
+#xcommand SET HPDFPAGE ORIENTATION [ TO ] <nMode> => _HMG_HPDF_SetOrientation(<nMode>)
 
-#xcommand SET HPDFDOC FONT NAME TO [ <cFontName> ] => _HMG_HPDF_SetFontName( <cFontName> )   
+#xcommand SET HPDFDOC FONT NAME TO [ <cFontName> ] => _HMG_HPDF_SetFontName(<cFontName>)   
 
-#xcommand SET HPDFDOC FONT SIZE TO [ <nFontSize> ] => _HMG_HPDF_SetFontSize( <nFontSize> )
+#xcommand SET HPDFDOC FONT SIZE TO [ <nFontSize> ] => _HMG_HPDF_SetFontSize(<nFontSize>)
 
 
 ///////////////////////////////////////////////////////////////////////////////

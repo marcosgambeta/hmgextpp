@@ -190,8 +190,8 @@
 #translate RGB(<nRed>, <nGreen>, <nBlue>) => ;
               ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )
 
-#xtranslate nRGB2Arr( <nColor> ) => ;
-              { hmg_GetRed( <nColor> ), hmg_GetGreen( <nColor> ), hmg_GetBlue( <nColor> ) }
+#xtranslate nRGB2Arr(<nColor>) => ;
+              { hmg_GetRed(<nColor>), hmg_GetGreen(<nColor>), hmg_GetBlue(<nColor>) }
 
 #xcommand DRAW GRAPH IN WINDOW <window> ;
       AT <nT>, <nL>                         ;

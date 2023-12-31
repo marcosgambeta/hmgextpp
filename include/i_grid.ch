@@ -633,11 +633,11 @@
 
 #xtranslate ListviewDeleteString ( <hWnd>, <s> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LVM_DELETEITEM, <s> - 1, 0 )
+hmg_SendMessage(<hWnd>, LVM_DELETEITEM, <s> - 1, 0)
 
 #xtranslate ListviewReset ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, LVM_DELETEALLITEMS, 0, 0 )
+hmg_SendMessage(<hWnd>, LVM_DELETEALLITEMS, 0, 0)
 
 #define LVSCW_AUTOSIZE              -1
 #define LVSCW_AUTOSIZE_USEHEADER    -2

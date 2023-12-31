@@ -55,9 +55,7 @@
          [WHILE <while>]                                          ;
          [ALL]                                                    ;
       =>                                                          ;
-         db_code(                                                 ;
-                    <(file)>, <(key)>, { <(fields)> },            ;
-                    <(password)>, <(for)>, <(while)> )
+         db_code(<(file)>, <(key)>, {<(fields)>}, <(password)>, <(for)>, <(while)>)
 
 #command ENCODE <file1> TO <file2> [PASSWORD <password>] [<del:DELETE>];
           =>;
@@ -78,6 +76,4 @@
          [WHILE <while>]                                          ;
          [ALL]                                                    ;
       =>                                                          ;
-         db_code(                                                 ;
-                    <(file)>, <(key)>, { <(fields)> },            ;
-                    <(password)>, <(for)>, <(while)> )
+         db_code(<(file)>, <(key)>, {<(fields)>}, <(password)>, <(for)>, <(while)>)

@@ -104,8 +104,8 @@
 #xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> => hmg_SetToolTipActivate(Upper(<(x)>) == "ON")
 
 // SET TOOLTIP ACTIVATE .. OF Form has no effect if SET TOOLTIP OFF
-#xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> OF <form> => hmg_TTM_Activate( GetFormToolTipHandle (<"form">), Upper(<(x)>) == "ON" )
-#xcommand SET TOOLTIP [ACTIVATE] TO <t> OF <form>     => hmg_TTM_Activate( GetFormToolTipHandle (<"form">), <t> )
+#xcommand SET TOOLTIP [ACTIVATE] <x:ON,OFF> OF <form> => hmg_TTM_Activate(GetFormToolTipHandle(<"form">), Upper(<(x)>) == "ON")
+#xcommand SET TOOLTIP [ACTIVATE] TO <t> OF <form>     => hmg_TTM_Activate(GetFormToolTipHandle(<"form">), <t>)
 
 #xcommand SET TOOLTIPSTYLE STANDARD => hmg_SetToolTipBalloon(.F.)
 #xcommand SET TOOLTIPSTYLE BALLOON  => hmg_SetToolTipBalloon(.T.)
@@ -118,26 +118,26 @@
 
 #xcommand ADD TOOLTIPICON <icon> WITH <dummy:MESSAGE,TITLE> <message> <dummy2:TO,OF> <form> ;
    => ; 
-   hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, <icon>, <message> ) ;;
+   hmg_SendMessageString(GetFormToolTipHandle(<"form">), TTM_SETTITLE, <icon>, <message>) ;;
    _WindowCargo ( <"form">, { <icon>, <message> } )
 
 #xcommand ADD TOOLTIPICON <icon:ERROR,ERROR_LARGE,INFO,INFO_LARGE,WARNING,WARNING_LARGE> WITH <dummy:MESSAGE,TITLE> <message> <dummy2:TO,OF> <form> ;
    => ; 
-   hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, TTI_<icon>, <message> ) ;;
+   hmg_SendMessageString(GetFormToolTipHandle(<"form">), TTM_SETTITLE, TTI_<icon>, <message>) ;;
    _WindowCargo ( <"form">, { TTI_<icon>, <message> } )
 
 #xcommand CLEAR TOOLTIPICON OF <form> ;
    => ;
-   hmg_SendMessageString( GetFormToolTipHandle (<"form">), TTM_SETTITLE, TTI_NONE, "" ) ;;
+   hmg_SendMessageString(GetFormToolTipHandle(<"form">), TTM_SETTITLE, TTI_NONE, "") ;;
    _WindowCargo ( <"form">, { TTI_NONE, "" } )
 
 #xcommand SET TOOLTIP TEXTCOLOR TO <color> OF <form> ;
    => ;
-   hmg_TTM_SetTipTextColor( GetFormToolTipHandle (<"form">), <color> )
+   hmg_TTM_SetTipTextColor(GetFormToolTipHandle(<"form">), <color>)
 
 #xcommand SET TOOLTIP BACKCOLOR TO <color> OF <form> ;
    => ;
-   hmg_TTM_SetTipBKColor( GetFormToolTipHandle (<"form">), <color> )
+   hmg_TTM_SetTipBKColor(GetFormToolTipHandle(<"form">), <color>)
 
 #xcommand SET TOOLTIP MAXWIDTH TO <w> ;
    => ;
@@ -145,8 +145,8 @@
 
 #xcommand SET TOOLTIP MAXWIDTH TO <w> OF <form> ;
    => ;
-   hmg_TTM_SetMaxTipWidth( GetFormToolTipHandle (<"form">), <w> )
+   hmg_TTM_SetMaxTipWidth(GetFormToolTipHandle(<"form">), <w>)
 
 #xcommand SET TOOLTIP VISIBLETIME TO <t> OF <form> ;
    => ;
-   hmg_TTM_SetDelayTime( GetFormToolTipHandle (<"form">), TTDT_AUTOPOP, <t> )
+   hmg_TTM_SetDelayTime(GetFormToolTipHandle(<"form">), TTDT_AUTOPOP, <t>)

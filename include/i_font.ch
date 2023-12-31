@@ -102,7 +102,7 @@
 #define FONT_TRUE_TYPE        3
 
 #ifdef _OBJECT_
-#command SET FONT TO <fontname>, <fontsize> => _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize> ; oDlu2Pixel( , , <fontsize> )
+#command SET FONT TO <fontname>, <fontsize> => _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize> ; oDlu2Pixel(, , <fontsize>)
 #else
 #command SET FONT TO <fontname>, <fontsize> => _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize>
 #endif
@@ -144,16 +144,16 @@
 
 #command SET TITLEBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        hmg_SetNonClientFont( 1 , <fontname>, <fontsize>, <.bold.>, <charset> )
+        hmg_SetNonClientFont(1, <fontname>, <fontsize>, <.bold.>, <charset>)
 
 #command SET [STANDARD] MENU FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        hmg_SetNonClientFont( 2 , <fontname>, <fontsize>, <.bold.>, <charset> )
+        hmg_SetNonClientFont(2, <fontname>, <fontsize>, <.bold.>, <charset>)
 
 #command SET STATUSBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        hmg_SetNonClientFont( 3 , <fontname>, <fontsize>, <.bold.>, <charset> )
+        hmg_SetNonClientFont(3, <fontname>, <fontsize>, <.bold.>, <charset>)
 
 #command SET MESSAGEBOX FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
-        hmg_SetNonClientFont( 4 , <fontname>, <fontsize>, <.bold.>, <charset> )
+        hmg_SetNonClientFont(4, <fontname>, <fontsize>, <.bold.>, <charset>)

@@ -22,13 +22,13 @@
              [ TO <cTarget1> [,<cTargetAddress1>] ;
                 [,<cTargetN> [,<cTargetAddressN>] ] ] ;
        => ;
-          [ <oMail> := ] TCDOMail():New( <cServer>, <nPort>, <cUser>, <cPass>,;
+          [ <oMail> := ] TCDOMail():New(<cServer>, <nPort>, <cUser>, <cPass>,;
              <cSubject>, <cText>, <nPriority>, <.rec.>,;
              [ \{<cOrigin>, <cOriginAddress>\} ],;
              \{ [ \{<cTarget1>, <cTargetAddress1>\} ] ;
                 [,\{<cTargetN>, <cTargetAddressN>\} ] \},;
              \{ [ \{<cFileName1>\} ] ;
-                [,\{<cFileNameN>\} ] \} )
+                [,\{<cFileNameN>\} ] \})
 
 #xcommand ACTIVATE MAIL <oMail> => <oMail>:Activate()
 

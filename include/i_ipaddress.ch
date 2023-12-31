@@ -91,4 +91,4 @@
 
 #xtranslate ClearIpAddress ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, IPM_CLEARADDRESS, 0, 0 )
+hmg_SendMessage(<hWnd>, IPM_CLEARADDRESS, 0, 0)

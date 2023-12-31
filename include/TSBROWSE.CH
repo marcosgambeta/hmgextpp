@@ -469,7 +469,7 @@
        => ;
    <oCol> := TSColumn():New( ;
              [ If(<.oem.>, OemToAnsi(<cHead>), <cHead>) ], ;
-             [ If( ValType(<uData>) $ "BC", <uData>, <{uData}> ) ], ;
+             [ If(ValType(<uData>) $ "BC", <uData>, <{uData}>) ], ;
              [ <cPicture> ], [ \{<aColors>\} ], [ \{<aAlign>\} ], ;
              [ <nWidth> ], [ Upper(<(bit)>) ], [ <.edit.> ], ;
              [ \{|uVar,This| <uValid> \}], ;
@@ -509,9 +509,9 @@
              [ NAME <name> ] ;
              [ ALIAS <alias> ] ;
        => ;
-    <oBrw>:AddColumn( TSColumn():New( ;
+    <oBrw>:AddColumn(TSColumn():New( ;
              [ If(<.oem.>, OemToAnsi(<cHead>), <cHead>) ], ;
-             [ If( ValType(<uData>)=="B", <uData>, <{uData}> ) ], ;
+             [ If(ValType(<uData>) == "B", <uData>, <{uData}>) ], ;
              [ <cPicture> ], [ \{<aColors>\} ], ;
              [ \{<aAlign>\} ], [ <nWidth> ], ;
              [ Upper(<(bit)>) ], [ <.edit.> ], ;
@@ -520,10 +520,10 @@
              [ If(<.oem2.>, OemToAnsi(<cFoot>), <cFoot>) ], ;
              [ <{bPrevBlock}> ], [ <{bPostBlock}> ], [ <nMoveDir> ], ;
              [ <.cur.> ], [ \{<a3DLook>\} ], ;
-             [ If( ValType(<uWhen>)=="B", <uWhen>, <{uWhen}> ) ], <oBrw>, ;
+             [ If(ValType(<uWhen>) == "B", <uWhen>, <{uWhen}>) ], <oBrw>, ;
              <(uData)>, [<(uWhen)>], [<(uValid)>], [<(bPrevBlock)>], ;
              [<(bPostBlock)>], [<cMsg>], [ <cToolTip> ], [ <.total.> ],,,,,,,,, ;
-             [ <(name)> ], [ <(alias)> ] ) )
+             [ <(name)> ], [ <(alias)> ] ))
 
 *=============================================================================
 * Adding Column to Browse ( Array Data )
@@ -553,7 +553,7 @@
              [ NAME <name> ] ;
              [ ALIAS <alias> ] ;
        => ;
-    <oBrw>:AddColumn( TSColumn():New( ;
+    <oBrw>:AddColumn(TSColumn():New( ;
              [ If(<.oem.>, OemToAnsi(<cHead>), <cHead>) ], ;
              \{|x| If(PCount() > 0, <oBrw>:aArray\[<oBrw>:nAt, <elm>\] := x, ;
                       <oBrw>:aArray\[<oBrw>:nAt, <elm>\])\}, [ <cPicture> ], ;
@@ -564,9 +564,9 @@
              [ If(<.oem2.>, OemToAnsi(<cFoot>), <cFoot>) ], ;
              [ <{bPrevBlock}> ], [ <{bPostBlock}> ], [ <nMoveDir> ], ;
              [ <.cur.> ], [ \{<a3DLook>\} ], ;
-             [ If( ValType(<uWhen>)=="B", <uWhen>, <{uWhen}> ) ], <oBrw>,, ;
+             [ If(ValType(<uWhen>) == "B", <uWhen>, <{uWhen}>) ], <oBrw>,, ;
              [<(uWhen)>], [<(uValid)>], [<(bPrevBlock)>], [<(bPostBlock)>], ;
-             [<cMsg>], [ <cToolTip> ], [ <.total.> ],,,,,,,,, [ <(name)> ], [ <(alias)> ] ) )
+             [<cMsg>], [ <cToolTip> ], [ <.total.> ],,,,,,,,, [ <(name)> ], [ <(alias)> ] ))
 
 *=============================================================================
 * Adding Column to Browse ( TDataBase .and. TMultiDBF Classes Data )
@@ -597,7 +597,7 @@
              [ NAME <name> ] ;
              [ ALIAS <alias> ] ;
        => ;
-    <oBrw>:AddColumn( TSColumn():New( ;
+    <oBrw>:AddColumn(TSColumn():New( ;
              [ If(<.oem.>, OemToAnsi(<cHead>), <cHead>) ], ;
                \{|x| If(PCount() > 0, <oBrw>:oDbf:[<cAlias>:]<field> := x, ;
                        <oBrw>:oDbf:[<cAlias>:]<field>) \}, [ <cPicture> ], ;
@@ -608,7 +608,7 @@
              [ <{bPrevBlock}> ], [ <{bPostBlock}> ], [ <nMoveDir> ], ;
              [ <.cur.> ], [ \{<a3DLook>\} ],, <oBrw>,,, [<(uValid)>], ;
              [ <(bPrevBlock)> ], [<(bPostBlock)>], [<cMsg>], [ <cToolTip> ], [ <.total.> ],,,,,,,,, ;
-             [ <(name)> ], [ <(alias)> ] ) )
+             [ <(name)> ], [ <(alias)> ] ))
 
 *=============================================================================
 * Adding Super Headings to Browse
@@ -629,10 +629,10 @@
              [ <horz:HORZ, HORZ ALIGN> <nHAlign> ] ;
              [ <vert:VERT, VERT ALIGN> <nVAlign> ] ;
        => ;
-       <oBrw>:AddSuperHead( <nFrom>, <nTo>, <cHead>, [ <nHeight> ], ;
-                            [ \{<aColors>\} ], <.l3dLook.>, <uFont>, ;
-                            <uBmp>, <.lAdj.>, <.lTra.>, <.lGrid.>, ;
-                            <nHAlign>, <nVAlign> )
+       <oBrw>:AddSuperHead(<nFrom>, <nTo>, <cHead>, [ <nHeight> ], ;
+                           [ \{<aColors>\} ], <.l3dLook.>, <uFont>, ;
+                           <uBmp>, <.lAdj.>, <.lTra.>, <.lGrid.>, ;
+                           <nHAlign>, <nVAlign>)
 
 *=============================================================================
 * Enable/Disable commands of Browse
@@ -644,39 +644,39 @@
             =>  <oBrw>:aColumns\[ <nColumn> \]:lEdit  := .F.
 
 #xcommand ENABLE NORESETPOS [ CONTROL ] [ TBROWSE ] <oBrw> ;
-            => <oBrw>:lNoResetPos( .T. )
+            => <oBrw>:lNoResetPos(.T.)
 #xcommand DISABLE NORESETPOS [ CONTROL ] [ TBROWSE ] <oBrw> ;
-            => <oBrw>:lNoResetPos( .F. )
+            => <oBrw>:lNoResetPos(.F.)
 
 #xcommand ENABLE APPENDMODE [ CONTROL ] [ TBROWSE ] <oBrw> ;
-            => <oBrw>:SetAppendMode( .T. )
+            => <oBrw>:SetAppendMode(.T.)
 #xcommand DISABLE APPENDMODE [ CONTROL ] [ TBROWSE ] <oBrw> ;
-            => <oBrw>:SetAppendMode( .F. )
+            => <oBrw>:SetAppendMode(.F.)
 
 #xcommand ENABLE LOOK3D ALL [ CONTROL ] [ TBROWSE ] <oBrw> [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .T., , , <.lPhantom.> )
+            => <oBrw>:Look3D(.T., , , <.lPhantom.>)
 #xcommand ENABLE LOOK3D [ CONTROL ][ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .T., <nColumn>, 1, <.lPhantom.> )
+            => <oBrw>:Look3D(.T., <nColumn>, 1, <.lPhantom.>)
 #xcommand ENABLE LOOK3D HEADER [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .T., <nColumn>, 2, <.lPhantom.> )
+            => <oBrw>:Look3D(.T., <nColumn>, 2, <.lPhantom.>)
 #xcommand ENABLE LOOK3D FOOTER [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .T., <nColumn>, 3, <.lPhantom.> )
+            => <oBrw>:Look3D(.T., <nColumn>, 3, <.lPhantom.>)
 
 #xcommand DISABLE LOOK3D ALL [ CONTROL ] [ TBROWSE ] <oBrw> [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .F., , , <.lPhantom.> )
+            => <oBrw>:Look3D(.F., , , <.lPhantom.>)
 #xcommand DISABLE LOOK3D [ CONTROL ][ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .F., <nColumn>, 1, <.lPhantom.> )
+            => <oBrw>:Look3D(.F., <nColumn>, 1, <.lPhantom.>)
 #xcommand DISABLE LOOK3D HEADER [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .F., <nColumn>, 2, <.lPhantom.> )
+            => <oBrw>:Look3D(.F., <nColumn>, 2, <.lPhantom.>)
 #xcommand DISABLE LOOK3D FOOTER [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ <lPhantom : PHANTOM> ] ;
-            => <oBrw>:Look3D( .F., <nColumn>, 3, <.lPhantom.> )
+            => <oBrw>:Look3D(.F., <nColumn>, 3, <.lPhantom.>)
 
 *=============================================================================
 * Insert/Modify commands of Browse
 *=============================================================================
 
 #xcommand INSERT [ CONTROL ][ TBROWSE ] <oBrw> COLUMN <nColumn> TO <oColumn> ;
-            => <oBrw>:InsColumn( <nColumn>, <oColumn> )
+            => <oBrw>:InsColumn(<nColumn>, <oColumn>)
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ PROPERTY ] LINESTYLE TO <nLineStyle> ;
             => <oBrw>:nLineStyle := <nLineStyle>
@@ -690,83 +690,83 @@
             => <oBrw>:aColumns\[ <nColumn> \]:bValid := <bValid>
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMN <nColumn> [ PROPERTY ] ALIGN TO <ConstAlign>;
-            => <oBrw>:SetAlign( <nColumn>, 1, <ConstAlign> )
+            => <oBrw>:SetAlign(<nColumn>, 1, <ConstAlign>)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMN <nColumn> [ PROPERTY ] HEADER ALIGN TO <ConstAlign>;
-            => <oBrw>:SetAlign( <nColumn>, 2, <ConstAlign> )
+            => <oBrw>:SetAlign(<nColumn>, 2, <ConstAlign>)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMN <nColumn> [ PROPERTY ] FOOTER ALIGN TO <ConstAlign>;
-            => <oBrw>:SetAlign( <nColumn>, 3, <ConstAlign> )
+            => <oBrw>:SetAlign(<nColumn>, 3, <ConstAlign>)
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 1 )
+               => <oBrw>:ChangeFont(GetFontHandle(<"cFont">), <nColumn>, 1)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] HEADER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 2 )
+               => <oBrw>:ChangeFont(GetFontHandle(<"cFont">), <nColumn>, 2)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] FOOTER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 3 )
+               => <oBrw>:ChangeFont(GetFontHandle(<"cFont">), <nColumn>, 3)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] SUPERHEADER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 4 )
+               => <oBrw>:ChangeFont(GetFontHandle(<"cFont">), <nColumn>, 4)
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMN <nColumn> [ PROPERTY ] COLSIZE TO <nSize> ;
-               => <oBrw>:SetColSize( <nColumn>, <nSize> )
+               => <oBrw>:SetColSize(<nColumn>, <nSize>)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMNS <aColumns> [ PROPERTY ] COLSIZE TO <aSizes> ;
-               => <oBrw>:SetColSize( <aColumns>, <aSizes> )
+               => <oBrw>:SetColSize(<aColumns>, <aSizes>)
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ PROPERTY ] INDEXCOLS TO <nCol,...> ;
-            => <oBrw>:SetIndexCols( {<nCol>} )
+            => <oBrw>:SetIndexCols({<nCol>})
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] COLORS <lConst,...> TO <nColor,...> ;
-            => <oBrw>:SetColor( {<lConst>}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({<lConst>}, {<nColor>}, <nColumn>)
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] TEXT COLOR TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_TEXT}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_TEXT}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] BACKGROUND COLOR TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_PANE}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_PANE}, {<nColor>}, <nColumn>)
 
 #xcommand MODIFY [ PROPERTY ] LINE COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_LINE}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_LINE}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] HEADER COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_HEADF, CLR_HEADB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_HEADF, CLR_HEADB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] FOCUS COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_FOCUSF, CLR_FOCUSB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_FOCUSF, CLR_FOCUSB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] EDIT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_EDITF, CLR_FOCUSB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_EDITF, CLR_FOCUSB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SELECT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SELEF, CLR_SELEB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SELEF, CLR_SELEB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] ORDER COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_ORDF, CLR_ORDB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_ORDF, CLR_ORDB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SUPERHEADER COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SUPF, CLR_SUPB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SUPF, CLR_SUPB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SPECHEADER COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SPCF, CLR_SPCB, CLR_SPCA}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SPCF, CLR_SPCB, CLR_SPCA}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] HEADER TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_HEADF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_HEADF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] HEADER BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_HEADB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_HEADB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] FOCUS TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_FOCUSF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_FOCUSF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] FOCUS BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_FOCUSB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_FOCUSB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] EDIT TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_EDITF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_EDITF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] EDIT BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_FOCUSB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_FOCUSB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SELECT TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SELEF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SELEF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SELECT BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SELEB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SELEB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] ORDER TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_ORDF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_ORDF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] ORDER BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_ORDB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_ORDB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SUPERHEADER TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SUPF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SUPF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SUPERHEADER BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SUPB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SUPB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SPECHEADER TEXT COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SPCF}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SPCF}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SPECHEADER BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SPCB}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SPCB}, {<nColor>}, <nColumn>)
 #xcommand MODIFY [ PROPERTY ] SPECHEADER ACTIV BACKGROUND COLOR [ COLUMN <nColumn> ] OF [ CONTROL ] [ TBROWSE ] <oBrw> TO <nColor> ;
-            => <oBrw>:SetColor( {CLR_SPCA}, {<nColor>}, <nColumn> )
+            => <oBrw>:SetColor({CLR_SPCA}, {<nColor>}, <nColumn>)
 
 *=============================================================================
 * Predefined Constants
@@ -869,7 +869,7 @@
 #define GWL_STYLE           -16
 #endif
 
-#define bSETGET( x )        { | u | If( PCount() == 0, x, x := u ) }
+#define bSETGET(x)          { | u | If(PCount() == 0, x, x := u) }
 
 #define CS_DBLCLKS          8
 
@@ -887,7 +887,7 @@
 //------------------------------------------------------------------------//
 #xtranslate GetSysMetrics(<p>)        => waGetSystemMetrics(<p>)
 #xtranslate SysRefresh()              => hmg_DoEvents()
-#xtranslate nMakeLong( <p1>, <p2> )  => hmg_MakeLong( <p1>, <p2> )
+#xtranslate nMakeLong(<p1>, <p2>)  => hmg_MakeLong(<p1>, <p2>)
 
 #ifndef BN_CLICKED
 #define BN_CLICKED                 0

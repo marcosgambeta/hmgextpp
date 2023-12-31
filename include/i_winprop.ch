@@ -49,14 +49,14 @@
         VALUE <value> ;
         [ <direct: DIRECT> ] ;
    =>;
-        _SetWindowProp( <"parent">, <name>, <value>, <.direct.> )
+        _SetWindowProp(<"parent">, <name>, <value>, <.direct.>)
 
 #xcommand GET WINDOWPROPERTY <name> ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         VALUE <value> ;
         [ <direct: DIRECT> ] ;
    =>;
-        <value> := _GetWindowProp( <"parent">, <name>, <.direct.> )
+        <value> := _GetWindowProp(<"parent">, <name>, <.direct.>)
 
 #xcommand RELEASE WINDOWPROPERTY <name> ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
@@ -77,4 +77,4 @@
 
 #xcommand RESET MINMAXINFO <dummy1: OF, WINDOW> <name> TO DEFAULT ;
    =>;
-        _HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := hmg_InitMinMaxInfo( GetFormHandle( <"name"> ) )
+        _HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := hmg_InitMinMaxInfo(GetFormHandle(<"name">))

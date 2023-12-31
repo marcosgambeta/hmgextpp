@@ -107,7 +107,7 @@
        => ;
           [<static>] function <FuncName>( [<uParam1>] [, <uParamN>] ) ;;
              local uResult ;;
-             uResult := HMG_CallDLL( <"DllName">, [ <nRetType> ], <"FuncName"> [, <uParam1> ] [, <uParamN> ] ) ;;
+             uResult := HMG_CallDLL(<"DllName">, [ <nRetType> ], <"FuncName"> [, <uParam1> ] [, <uParamN> ]) ;;
              return uResult
 
   #xcommand DECLARE <nRetType> [<static:STATIC>] <FuncName>( [ <uParam1> ] [, <uParamN> ] ) ;
@@ -115,7 +115,7 @@
        => ;
           [<static>] function <alias>( [<uParam1>] [, <uParamN>] ) ;;
              local uResult ;;
-             uResult := HMG_CallDLL( <"DllName">, [ <nRetType> ], <"FuncName"> [, <uParam1> ] [, <uParamN> ] ) ;;
+             uResult := HMG_CallDLL(<"DllName">, [ <nRetType> ], <"FuncName"> [, <uParam1> ] [, <uParamN> ]) ;;
              return uResult
 
 #else

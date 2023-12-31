@@ -80,10 +80,10 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
          =>;
-         _DefineTextBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
+         _DefineTextBox(<(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
                 <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
                 <.RightAlign.>, <helpid>, <.readonly.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
-                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
+                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit>)
 
 
 #command REDEFINE TEXTBOX <name>        ;
@@ -118,10 +118,10 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
          =>;
-         _DefineTextBox( <(name)>, <(parent)>, 0, 0, 0, 0, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
+         _DefineTextBox(<(name)>, <(parent)>, 0, 0, 0, 0, <value>, <fontname>, <fontsize>, <tooltip>, <maxlength>, ;
                 <.upper.>, <.lower.>, <.numeric.>, <.password.>, <{lostfocus}>, <{gotfocus}>, <{change}>, <{enter}>, ;
                 <.RightAlign.>, <helpid>, <.readonly.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, ;
-                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit> )
+                <backcolor>, <fontcolor>, <.invisible.>, <.notabstop.>, <.noborder.>, [<CueText>], <nId>, <bInit>)
 
 
 // TEXTBOX ( NUMERIC INPUTMASK )

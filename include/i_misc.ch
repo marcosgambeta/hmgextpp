@@ -54,11 +54,10 @@
    [ ICONINDEX <iconidx> ] ;
    [ RESULT [ TO ] <nSuccess> ] ;
 => ;
-   [ <nSuccess> := ] hmg_CreateLink( <target>, <args>, <fname>, <desc>, ;
-                                 <nMode>, <curdir>, <iconfile>, <iconidx> )
+   [ <nSuccess> := ] hmg_CreateLink(<target>, <args>, <fname>, <desc>, <nMode>, <curdir>, <iconfile>, <iconidx>)
 
 #command INSERT BEFORE           => dbInsert()
-#command INSERT BLANK            => dbInsert( RecNo() + 1 )
+#command INSERT BLANK            => dbInsert(RecNo() + 1)
 
 // Registry functions for Harbour defines
 // Contributed by Luiz Rafael Culik<culik@sl.conex.net>

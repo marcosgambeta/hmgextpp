@@ -72,7 +72,7 @@
        [ <nodelete: NODELETE> ] ; 
        [ IN [ <dummy2: FORM,WINDOW> ] <window> ] ;
    =>;
-       <brush> := _SetWindowBKBrush( <(window)>, <.nodelete.>, <"style">, <hatch>, <aColor>, <(bitmap)> )
+       <brush> := _SetWindowBKBrush(<(window)>, <.nodelete.>, <"style">, <hatch>, <aColor>, <(bitmap)>)
 
 #xtranslate ADD <dummy1: BKBRUSH,BKGBRUSH> <brush> ;
        [ STYLE ] <style: SOLID,HATCHED,PATTERN> ;
@@ -82,8 +82,8 @@
        [ <nodelete: NODELETE> ] ;
        TO [ <dummy2: FORM,WINDOW> ] <window> ;
    =>;
-       <brush> := _SetWindowBKBrush( <(window)>, <.nodelete.>, <"style">, <hatch>, <aColor>, <(bitmap)> )
+       <brush> := _SetWindowBKBrush(<(window)>, <.nodelete.>, <"style">, <hatch>, <aColor>, <(bitmap)>)
 
 #xtranslate DELETE BRUSH <brush> ;
    =>;
-       hmg_DeleteObject( <brush> )
+       hmg_DeleteObject(<brush>)

@@ -63,7 +63,7 @@
         [ ON INIT <initproc> ] ;
         [ ON RELEASE <releaseproc> ] ;
     =>;
-    _BeginDialog( <"name">, <"parent">,  <res>,,,,, <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.> );;
+    _BeginDialog(<"name">, <"parent">, <res>, , , , , <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.>);;
         DECLARE WINDOW <name>  
 
 
@@ -82,7 +82,7 @@
         [ ON INIT <initproc> ] ;
         [ ON RELEASE <releaseproc> ] ;
     =>;
-    _BeginDialog( <"name">, <"parent">,  , <col>, <row>, <w>, <h>, <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.> );;
+    _BeginDialog(<"name">, <"parent">, , <col>, <row>, <w>, <h>, <caption>, <f>, <s>, <{dlgproc}>, <{initproc}>, <{releaseproc}>, <.modal.>, <.bold.>, <.italic.>);;
         DECLARE WINDOW <name>  
 
 
@@ -97,6 +97,6 @@
 
 #xcommand SET RESOURCES TO <cNameDll> ;
     => ;
-    hmg_SetResources( <cNameDll> )
+    hmg_SetResources(<cNameDll>)
 
 #xcommand SET RESOURCES TO => hmg_FreeResources()

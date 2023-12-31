@@ -85,12 +85,12 @@
 
 #xtranslate SetSpinnerValue ( <hWnd>, <v> ) ;
 => ;
-hmg_SendMessage( <hWnd>, UDM_SETPOS32, 0, <v> )
+hmg_SendMessage(<hWnd>, UDM_SETPOS32, 0, <v>)
 
 #xtranslate GetSpinnerValue ( <hWnd> ) ;
 => ;
-hmg_SendMessage( <hWnd>, UDM_GETPOS32, 0, 0 )
+hmg_SendMessage(<hWnd>, UDM_GETPOS32, 0, 0)
 
 #xtranslate SetSpinnerRange ( <hWnd>, <r1>, <r2> ) ;
 => ;
-hmg_SendMessage( <hWnd>, UDM_SETRANGE32, <r1>, <r2> )
+hmg_SendMessage(<hWnd>, UDM_SETRANGE32, <r1>, <r2>)

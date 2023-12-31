@@ -18,8 +18,8 @@
                [ NOBORDER    <lNoBorder> ] ;
                STOREIN     <hBitmapVar> ;
    => ;
-<hBitmapVar> := HMG_PieGraph( <nWidth>, <nHeight>, <aSerieValues>, <aSerieNames>, <aSerieColors>, <cTitle>, <aTitleColor>,;
-                              <nDepth>, <l3DView>, <lShowXValues>, <lShowLegends>, <.lNoBorder.>, <cPicture>, <"placement"> )
+<hBitmapVar> := HMG_PieGraph(<nWidth>, <nHeight>, <aSerieValues>, <aSerieNames>, <aSerieColors>, <cTitle>, <aTitleColor>,;
+                             <nDepth>, <l3DView>, <lShowXValues>, <lShowLegends>, <.lNoBorder.>, <cPicture>, <"placement">)
 
 
 #xtranslate GRAPH BITMAP <nGraphType> ; // constants BARS | LINES | POINTS
@@ -47,7 +47,7 @@
                [ NOBORDER    <lNoBorder> ] ;
                STOREIN     <hBitmapVar> ;
    => ;
-<hBitmapVar> := HMG_Graph( <nWidth>, <nHeight>, <aSerieValues>, <cTitle>, <aSerieYNames>, <nBarDepth>, <nBarWidth>, <nSeparation>,;
-                           <aTitleColor>, <nHValues>, <l3DView>, <lShowGrid>, <.lShowXGrid.>, <.lShowYGrid.>, <lShowXValues>,;
-                           <lShowYValues>, <lShowLegends>, <aSerieNames>, <aSerieColors>, <nGraphType>, <lShowValues>,;
-                           <cPicture>, <nLegendWindth>, <.lNoBorder.> )
+<hBitmapVar> := HMG_Graph(<nWidth>, <nHeight>, <aSerieValues>, <cTitle>, <aSerieYNames>, <nBarDepth>, <nBarWidth>, <nSeparation>,;
+                          <aTitleColor>, <nHValues>, <l3DView>, <lShowGrid>, <.lShowXGrid.>, <.lShowYGrid.>, <lShowXValues>,;
+                          <lShowYValues>, <lShowLegends>, <aSerieNames>, <aSerieColors>, <nGraphType>, <lShowValues>,;
+                          <cPicture>, <nLegendWindth>, <.lNoBorder.>)

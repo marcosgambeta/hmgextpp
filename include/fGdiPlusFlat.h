@@ -2964,16 +2964,16 @@ GpStatus WINGDIPAPI GdipGetGenericFontFamilyMonospace(GpFontFamily **nativeFamil
 GpStatus WINGDIPAPI GdipGetFamilyName(GDIPCONST GpFontFamily *family, LPWSTR name, LANGID language); 
 GpStatus WINGDIPAPI GdipIsStyleAvailable(GDIPCONST GpFontFamily *family, INT style, BOOL *IsStyleAvailable); 
 GpStatus WINGDIPAPI GdipFontCollectionEnumerable (GpFontCollection*fontCollection ,GpGraphics*graphics ,INT *numFound); 
-GpStatus WINGDIPAPI GdipFontCollectionEnumerate (GpFontCollection*fontCollection ,INT numSought ,GpFontFamily*gpfamilies[],INT*numFound ,GpGraphics*graphics); 
+GpStatus WINGDIPAPI GdipFontCollectionEnumerate (GpFontCollection*fontCollection ,INT numSought ,GpFontFamily*gpfamilies[],INT*numFound ,GpGraphics*graphics);
 GpStatus WINGDIPAPI GdipGetEmHeight(GDIPCONST GpFontFamily *family, INT style, UINT16 *EmHeight); 
 GpStatus WINGDIPAPI GdipGetCellAscent(GDIPCONST GpFontFamily *family, INT style ,UINT16 *CellAscent); 
 GpStatus WINGDIPAPI GdipGetCellDescent(GDIPCONST GpFontFamily *family, INT style, UINT16 *CellDescent); 
 GpStatus WINGDIPAPI GdipGetLineSpacing(GDIPCONST GpFontFamily *family, INT style, UINT16 *LineSpacing);
 // Font APIs
-GpStatus WINGDIPAPI GdipCreateFontFromDC( HDC hdc, GpFont **font );
-GpStatus WINGDIPAPI GdipCreateFontFromLogfontA( HDC hdc, GDIPCONST LOGFONTA *logfont, GpFont **font );
-GpStatus WINGDIPAPI GdipCreateFontFromLogfontW( HDC hdc, GDIPCONST LOGFONTW *logfont, GpFont **font );
-GpStatus WINGDIPAPI GdipCreateFont( GDIPCONST GpFontFamily *fontFamily, REAL emSize, INT style, Unit unit, GpFont **font );
+GpStatus WINGDIPAPI GdipCreateFontFromDC(HDC hdc, GpFont **font);
+GpStatus WINGDIPAPI GdipCreateFontFromLogfontA(HDC hdc, GDIPCONST LOGFONTA *logfont, GpFont **font);
+GpStatus WINGDIPAPI GdipCreateFontFromLogfontW(HDC hdc, GDIPCONST LOGFONTW *logfont, GpFont **font);
+GpStatus WINGDIPAPI GdipCreateFont(GDIPCONST GpFontFamily *fontFamily, REAL emSize, INT style, Unit unit, GpFont **font);
 GpStatus WINGDIPAPI GdipCloneFont(GpFont*font, GpFont**cloneFont);
 GpStatus WINGDIPAPI GdipDeleteFont(GpFont*font);
 GpStatus WINGDIPAPI GdipGetFamily(GpFont *font, GpFontFamily **family);
@@ -2987,10 +2987,10 @@ GpStatus WINGDIPAPI GdipGetLogFontW(GpFont *font, GpGraphics *graphics, LOGFONTW
 GpStatus WINGDIPAPI GdipNewInstalledFontCollection(GpFontCollection**fontCollection);
 GpStatus WINGDIPAPI GdipNewPrivateFontCollection(GpFontCollection**fontCollection);
 GpStatus WINGDIPAPI GdipDeletePrivateFontCollection(GpFontCollection**fontCollection);
-GpStatus WINGDIPAPI GdipGetFontCollectionFamilyCount( GpFontCollection*fontCollection, INT *numFound );
-GpStatus WINGDIPAPI GdipGetFontCollectionFamilyList( GpFontCollection*fontCollection, INT numSought, GpFontFamily*gpfamilies[], INT*numFound );
-GpStatus WINGDIPAPI GdipPrivateAddFontFile( GpFontCollection*fontCollection, GDIPCONST WCHAR*filename );
-GpStatus WINGDIPAPI GdipPrivateAddMemoryFont( GpFontCollection*fontCollection, GDIPCONST void*memory, INT length );
+GpStatus WINGDIPAPI GdipGetFontCollectionFamilyCount(GpFontCollection*fontCollection, INT *numFound);
+GpStatus WINGDIPAPI GdipGetFontCollectionFamilyList(GpFontCollection*fontCollection, INT numSought, GpFontFamily*gpfamilies[], INT*numFound);
+GpStatus WINGDIPAPI GdipPrivateAddFontFile(GpFontCollection*fontCollection, GDIPCONST WCHAR*filename);
+GpStatus WINGDIPAPI GdipPrivateAddMemoryFont(GpFontCollection*fontCollection, GDIPCONST void*memory, INT length);
 // Text APIs
 GpStatus WINGDIPAPI GdipDrawString (GpGraphics *graphics ,GDIPCONST WCHAR *string ,INT length ,GDIPCONST GpFont *font ,GDIPCONST RectF *layoutRect ,GDIPCONST GpStringFormat *stringFormat ,GDIPCONST GpBrush *brush); 
 GpStatus WINGDIPAPI GdipMeasureString (GpGraphics *graphics ,GDIPCONST WCHAR *string ,INT length ,GDIPCONST GpFont *font ,GDIPCONST RectF *layoutRect ,GDIPCONST GpStringFormat *stringFormat ,RectF *boundingBox ,INT *codepointsFitted ,INT *linesFilled); 

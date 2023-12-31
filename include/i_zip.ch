@@ -54,7 +54,7 @@
                 [ <srp: STOREPATH> ] ;
                 [ FILEPROGRESS <fileblock> ] ;
         => ;
-        [ <lSuccess> := ] hb_ZipFile( <zipfile>, <afiles>, <level>, <block>, <.ovr.>, <password>, <.srp.>, , <fileblock> )
+        [ <lSuccess> := ] hb_ZipFile(<zipfile>, <afiles>, <level>, <block>, <.ovr.>, <password>, <.srp.>, , <fileblock>)
 
 #command UNCOMPRESS [ FILE ] <zipfile> ;
                 [ EXTRACTPATH <extractpath> ] ;
@@ -65,4 +65,4 @@
                 [ <dummy1: FILEMASK, FILEARRAY> <mask> ] ;
                 [ FILEPROGRESS <fileblock> ] ;
         => ;
-        [ <lSuccess> := ] hb_UnZipFile( <zipfile>, <block>, <.createdir.>, <password>, <extractpath>, <mask>, <fileblock> )
+        [ <lSuccess> := ] hb_UnZipFile(<zipfile>, <block>, <.createdir.>, <password>, <extractpath>, <mask>, <fileblock>)

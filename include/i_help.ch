@@ -44,9 +44,9 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#xtranslate SET HELPFILE TO <cFile>    => SetHelpFile( <cFile> )
+#xtranslate SET HELPFILE TO <cFile> => SetHelpFile(<cFile>)
 
-#xtranslate DISPLAY HELP MAIN  => DisplayHelpTopic()
+#xtranslate DISPLAY HELP MAIN => DisplayHelpTopic()
 #xtranslate DISPLAY HELP CONTEXT <nTopic> => DisplayHelpTopic(<nTopic>, 1)
 #xtranslate DISPLAY HELP POPUP <nTopic> => DisplayHelpTopic(<nTopic>, 2)
 

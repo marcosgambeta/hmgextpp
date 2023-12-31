@@ -93,156 +93,156 @@
 
 #xcommand SET MENUSTYLE EXTENDED ;
 => ;
-hmg__NewMenuStyle ( .T. )
+hmg__NewMenuStyle(.T.)
 
 #xcommand SET MENUSTYLE STANDARD ;
 => ;
-hmg__NewMenuStyle ( .F. )
+hmg__NewMenuStyle(.F.)
 
 #translate IsExtendedMenuStyleActive () ;
 => ;
-hmg__NewMenuStyle ()
+hmg__NewMenuStyle()
 
 #xcommand SET MENUTHEME DEFAULT [ OF <parent> ] ;
 => ;
-HMG_SetMenuTheme( MNUCLR_THEME_DEFAULT , <(parent)> )
+HMG_SetMenuTheme(MNUCLR_THEME_DEFAULT, <(parent)>)
 
 #xcommand SET MENUTHEME XP [ OF <parent> ] ;
 => ;
-HMG_SetMenuTheme( MNUCLR_THEME_XP , <(parent)> )
+HMG_SetMenuTheme(MNUCLR_THEME_XP, <(parent)>)
 
 #xcommand SET MENUTHEME 2000 [ OF <parent> ] ;
 => ;
-HMG_SetMenuTheme( MNUCLR_THEME_2000 , <(parent)> )
+HMG_SetMenuTheme(MNUCLR_THEME_2000, <(parent)>)
 
 #xcommand SET MENUTHEME DARK [ OF <parent> ] ;
 => ;
-HMG_SetMenuTheme( MNUCLR_THEME_DARK , <(parent)> )
+HMG_SetMenuTheme(MNUCLR_THEME_DARK, <(parent)>)
 
 #xcommand SET MENUTHEME USER <aUser> [ OF <parent> ] ;
 => ;
-HMG_SetMenuTheme( MNUCLR_THEME_USER_DEFINED , <(parent)>, <aUser> )
+HMG_SetMenuTheme(MNUCLR_THEME_USER_DEFINED, <(parent)>, <aUser>)
 
 #xcommand SET MENUCURSOR FULL ;
 => ;
-hmg_SetMenuCursorType( 0 )
+hmg_SetMenuCursorType(0)
 
 #xcommand SET MENUCURSOR SHORT ;
 => ;
-hmg_SetMenuCursorType( 1 )
+hmg_SetMenuCursorType(1)
 
 #xcommand SET MENUSEPARATOR SINGLE LEFTALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 0, 0 )
+hmg_SetMenuSeparatorType(0, 0)
 
 #xcommand SET MENUSEPARATOR SINGLE CENTERALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 0, 1 )
+hmg_SetMenuSeparatorType(0, 1)
 
 #xcommand SET MENUSEPARATOR SINGLE RIGHTALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 0, 2 )
+hmg_SetMenuSeparatorType(0, 2)
 
 #xcommand SET MENUSEPARATOR DOUBLE LEFTALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 1, 0 )
+hmg_SetMenuSeparatorType(1, 0)
 
 #xcommand SET MENUSEPARATOR DOUBLE CENTERALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 1, 1 )
+hmg_SetMenuSeparatorType(1, 1)
 
 #xcommand SET MENUSEPARATOR DOUBLE RIGHTALIGN ;
 => ;
-hmg_SetMenuSeparatorType( 1, 2 )
+hmg_SetMenuSeparatorType(1, 2)
 
 #xcommand SET MENUITEM BORDER 3D ;
 => ;
-hmg_SetMenuSelectedItem3d( .T. )
+hmg_SetMenuSelectedItem3d(.T.)
 
 #xcommand SET MENUITEM BORDER 3DSTYLE ;
 => ;
-hmg_SetMenuSelectedItem3d( .T. )
+hmg_SetMenuSelectedItem3d(.T.)
 
 #xcommand SET MENUITEM BORDER FLAT ;
 => ;
-hmg_SetMenuSelectedItem3d( .F. )
+hmg_SetMenuSelectedItem3d(.F.)
 
 
 #xcommand DEFINE MAIN MENU [ OF <parent> ] ;
 =>;
-_DefineMainMenu( <(parent)> )
+_DefineMainMenu(<(parent)>)
 
 #xcommand DEFINE MAINMENU [ <dummy1: OF, PARENT> <parent> ] ;
 =>;
-_DefineMainMenu( <(parent)> )
+_DefineMainMenu(<(parent)>)
 
 #xcommand DEFINE CONTEXT MENU [ OF <parent> ] ;
 =>;
-_DefineContextMenu( <(parent)> )
+_DefineContextMenu(<(parent)>)
 
 #xcommand DEFINE CONTEXTMENU [ <dummy1: OF, PARENT> <parent> ] ;
 =>;
-_DefineContextMenu( <(parent)> )
+_DefineContextMenu(<(parent)>)
 
 #xcommand SHOW CONTEXT MENU <dummy1: OF, PARENT> <parent> [ AT <nRow>, <nCol> ] ;
 => ;
-_ShowContextMenu( <(parent)>, <nRow>, <nCol> )
+_ShowContextMenu(<(parent)>, <nRow>, <nCol>)
 
 #xcommand SHOW CONTEXTMENU <dummy1: OF, PARENT> <parent> [ AT <nRow>, <nCol> ] ;
 => ;
-_ShowContextMenu( <(parent)>, <nRow>, <nCol> )
+_ShowContextMenu(<(parent)>, <nRow>, <nCol>)
 
 #xcommand DEFINE CONTEXT MENU CONTROL <control> [ OF <parent> ] ;
 => ;
-_DefineControlContextMenu( <(control)>, <(parent)> )
+_DefineControlContextMenu(<(control)>, <(parent)>)
 
 #xcommand DEFINE CONTEXTMENU CONTROL <control> [ <dummy1: OF, PARENT> <parent> ] ;
 => ;
-_DefineControlContextMenu( <(control)>, <(parent)> )
+_DefineControlContextMenu(<(control)>, <(parent)>)
 
 #xcommand DEFINE CONTEXT MENU CONTROLS <control1> [,<controln>] [ OF <parent> ] ;
 => ;
-_DefineControlContextMenu( { <(control1)> [, <(controln)>] }, <(parent)> )
+_DefineControlContextMenu({ <(control1)> [, <(controln)>] }, <(parent)>)
 
 #xcommand DEFINE CONTEXTMENU CONTROLS <control1> [,<controln>] [<dummy1: OF, PARENT> <parent> ] ;
 => ;
-_DefineControlContextMenu( { <(control1)> [, <(controln)>] }, <(parent)> )
+_DefineControlContextMenu({ <(control1)> [, <(controln)>] }, <(parent)>)
 
 #xcommand SET CONTEXT MENU CONTROL <control> OF <parent> ON ;
 => ;
-_ShowControlContextMenu( <(control)>, <(parent)>, .T. )
+_ShowControlContextMenu(<(control)>, <(parent)>, .T.)
 
 #xcommand SET CONTEXTMENU CONTROL <control> OF <parent> ON ;
 => ;
-_ShowControlContextMenu( <(control)>, <(parent)>, .T. )
+_ShowControlContextMenu(<(control)>, <(parent)>, .T.)
 
 #xcommand SET CONTEXT MENU CONTROL <control> OF <parent> OFF ;
 => ;
-_ShowControlContextMenu( <(control)>, <(parent)>, .F. )
+_ShowControlContextMenu(<(control)>, <(parent)>, .F.)
 
 #xcommand SET CONTEXTMENU CONTROL <control> OF <parent> OFF ;
 => ;
-_ShowControlContextMenu( <(control)>, <(parent)>, .F. )
+_ShowControlContextMenu(<(control)>, <(parent)>, .F.)
 
 #xcommand DEFINE NOTIFY MENU [ OF <parent> ] ;
 =>;
-_DefineNotifyMenu( <(parent)> )
+_DefineNotifyMenu(<(parent)>)
 
 #xcommand DEFINE NOTIFYMENU [ <dummy1: OF, PARENT> <parent> ] ;
 =>;
-_DefineNotifyMenu( <(parent)> )
+_DefineNotifyMenu(<(parent)>)
 
 #xcommand POPUP <caption> [ NAME <name> ] [ IMAGE <image> ] [ FONT <font> ] ;
 => ;
-_DefineMenuPopup( <caption>, <(name)>, <image>, <font> )
+_DefineMenuPopup(<caption>, <(name)>, <image>, <font>)
 
 #xcommand DEFINE POPUP <caption> [ NAME <name> ] [ IMAGE <image> ] [ FONT <font> ] ;
 => ;
-_DefineMenuPopup( <caption>, <(name)>, <image>, <font> )
+_DefineMenuPopup(<caption>, <(name)>, <image>, <font>)
 
 #xcommand DEFINE MENU POPUP <caption> [ NAME <name> ] [ IMAGE <image> ] [ FONT <font> ] ;
 => ;
-_DefineMenuPopup( <caption>, <(name)>, <image>, <font> )
+_DefineMenuPopup(<caption>, <(name)>, <image>, <font>)
 
 #xcommand ITEM <caption> [ ACTION <action> ] [ NAME <name> ] [ IMAGE <image> ] [ CHECKMARK <image1> ] [ FONT <font> ] ;
    [ <checked : CHECKED> ] [ MESSAGE <message> ] [ <disabled : DISABLED> ] [ <breakmenu : BREAKMENU> [ <separator : SEPARATOR> ] ] ;
@@ -282,11 +282,11 @@ _EndMenu()
 
 #xcommand DEFINE DROPDOWN MENU BUTTON <button> [ OF <parent> ] ;
 =>;
-_DefineDropDownMenu( <(button)>, <(parent)> )
+_DefineDropDownMenu(<(button)>, <(parent)>)
 
 #xcommand DEFINE DROPDOWNMENU OWNERBUTTON <button> [ PARENT <parent> ] ;
 => ;
-_DefineDropDownMenu( <(button)>, <(parent)> )
+_DefineDropDownMenu(<(button)>, <(parent)>)
 
 #command ENABLE MENUITEM <control> OF <form>;
 => ;

@@ -100,14 +100,14 @@
 
 #if defined(__BORLANDC__) && ! defined(HB_ARCH_64BIT)
   #undef MAKELONG
-  #define MAKELONG( a, b )  ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | \
+  #define MAKELONG(a, b)  ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | \
                                          ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )
 #endif /* __BORLANDC__ && !HB_ARCH_64BIT */
 
 /*****************************************************************************************
  *  MACRO DEFINITION FOR CALL DLL FUNCTION
  *****************************************************************************************/
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hmodule, LPCSTR lpProcName);
 
 #define HMG_DEFINE_DLL_FUNC( \
       _FUNC_NAME,             \
@@ -127,7 +127,7 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
       if( pfunc == NULL ) \
       { \
          HMODULE hLib = LoadLibrary( _DLL_LIBNAME ); \
-         pfunc = ( PFUNC ) wapi_GetProcAddress( hLib, _DLL_FUNC_NAMESTRINGAW ); \
+         pfunc = ( PFUNC ) wapi_GetProcAddress(hLib, _DLL_FUNC_NAMESTRINGAW); \
       } \
       if( pfunc == NULL ) \
          return ( ( _DLL_FUNC_RET ) _DLL_FUNC_RETFAILCALL ); \

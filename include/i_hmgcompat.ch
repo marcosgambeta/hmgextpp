@@ -116,35 +116,35 @@ win_RegWrite ( <arg1>, <arg2> )
 => ;
 _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
-#xtranslate Restore( <h> ) => _Restore ( <h> )
+#xtranslate Restore(<h>) => _Restore ( <h> )
 
 #xtranslate HMG_Is64Bits() => ISWIN64()
 
-#xtranslate HMG_LEN( <c> ) => iif(hb_IsArray(<c>) .or. hb_IsHash( <c> ), Len( <c> ), iif(hb_IsChar( <c> ), hb_ULen( <c> ), 0) )
+#xtranslate HMG_LEN(<c>) => iif(hb_IsArray(<c>) .or. hb_IsHash(<c>), Len(<c>), iif(hb_IsChar(<c>), hb_ULen(<c>), 0) )
 
 #xtranslate HMG_PADC(<x>, <n>, <c>) => PADC(<x>, <n>, <c>)
 #xtranslate HMG_PADL(<x>, <n>, <c>) => PADL(<x>, <n>, <c>)
 #xtranslate HMG_PADR(<x>, <n>, <c>) => PADR(<x>, <n>, <c>)
 
-#xtranslate HMG_ISLOWER( <c> ) => ISLOWER( <c> )
-#xtranslate HMG_ISUPPER( <c> ) => ISUPPER( <c> )
-#xtranslate HMG_ISALPHANUMERIC(<c>) => ( ISALPHA( <c> ) .OR. ISDIGIT( <c> ) )
+#xtranslate HMG_ISLOWER(<c>) => ISLOWER(<c>)
+#xtranslate HMG_ISUPPER(<c>) => ISUPPER(<c>)
+#xtranslate HMG_ISALPHANUMERIC(<c>) => ( ISALPHA(<c>) .OR. ISDIGIT(<c>) )
 
 #xtranslate HMG_ISUTF8 ( <x> ) => hb_StrIsUTF8 ( <x> )
-#xtranslate HMG_UNICODE_TO_ANSI( <x> ) => hb_Translate( <x>, "UTF8", hb_cdpOS() )
+#xtranslate HMG_UNICODE_TO_ANSI(<x>) => hb_Translate(<x>, "UTF8", hb_cdpOS())
 
-#xtranslate _HMG_PARSEGRIDCONTROLS( <a>, <b> ) => _PARSEGRIDCONTROLS( <a>, <b> )
+#xtranslate _HMG_PARSEGRIDCONTROLS(<a>, <b>) => _PARSEGRIDCONTROLS(<a>, <b>)
 
 #xtranslate GetDesktopRealLeft() => hmg_GetDesktopArea() \[ 1 ]
 #xtranslate GetDesktopRealTop()  => hmg_GetDesktopArea() \[ 2 ]
 
-#xtranslate HMG_IsWindowStyle( <hWnd>, <nStyle> [, <lExStyle> ] ) ;
+#xtranslate HMG_IsWindowStyle(<hWnd>, <nStyle> [, <lExStyle> ]) ;
    => ;
    iif(<.lExStyle.>, hmg_IsWindowHasExStyle(<hWnd>, <nStyle>), hmg_IsWindowHasStyle(<hWnd>, <nStyle>))
 
-#xtranslate HMG_ChangeWindowStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ] ) ;
+#xtranslate HMG_ChangeWindowStyle(<hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ]) ;
    => ;
-   hmg_ChangeStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] );;
+   hmg_ChangeStyle(<hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ]);;
    iif(<.lRedrawWindow.>, hmg_RedrawWindow(<hWnd>), NIL)
 
 #ifndef WS_EX_WINDOWEDGE
@@ -264,15 +264,15 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate GetWindowFont ( <hWnd> ) ;
    => ;
-   hmg_SendMessage( <hWnd>, WM_GETFONT, 0, 0 )
+   hmg_SendMessage(<hWnd>, WM_GETFONT, 0, 0)
 
 #xtranslate SetWindowFont ( <hWnd>, <hFont> [, <lRedraw> ] ) ;
    => ;
-   hmg__SetFontHandle( <hWnd>, <hFont> )
+   hmg__SetFontHandle(<hWnd>, <hFont>)
 
 #xtranslate SetCursorSystem ( <nCursor> ) ;
    => ;
-   hmg_SetResCursor( hmg_LoadCursor( NIL, <nCursor> ) )
+   hmg_SetResCursor(hmg_LoadCursor(NIL, <nCursor>))
 
 
 #xtranslate GetControlFontHandle ( <ControlName>, <ParentForm> ) ;
@@ -317,10 +317,10 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 
 #xcommand  SET TOOLTIPBACKCOLOR <aColor> => ;
-   hmg_SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPBKCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
+   hmg_SendMessage(GetFormToolTipHandle(Application.FormName), TTM_SETTIPBKCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0)
 
 #xcommand  SET TOOLTIPFORECOLOR <aColor> => ;
-   hmg_SendMessage( GetFormToolTipHandle(Application.FormName), TTM_SETTIPTEXTCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0 )
+   hmg_SendMessage(GetFormToolTipHandle(Application.FormName), TTM_SETTIPTEXTCOLOR, RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0)
 
 
 #ifndef LWA_ALPHA
@@ -329,13 +329,13 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #endif
 
 #xtranslate SET WINDOW <FormName> TRANSPARENT TO <nAlphaBlend> => ;  // nAlphaBlend = 0 to 255 (completely transparent = 0, opaque = 255)
-   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, <nAlphaBlend>, LWA_ALPHA )
+   hmg_SetLayeredWindowAttributes(GetFormHandle(<"FormName">), 0, <nAlphaBlend>, LWA_ALPHA)
 
 #xtranslate SET WINDOW <FormName> [ TRANSPARENT ] TO OPAQUE => ;
-   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), 0, 255, LWA_ALPHA )
+   hmg_SetLayeredWindowAttributes(GetFormHandle(<"FormName">), 0, 255, LWA_ALPHA)
 
 #xtranslate SET WINDOW <FormName> TRANSPARENT TO COLOR <aColor> => ;
-   hmg_SetLayeredWindowAttributes( GetFormHandle( <"FormName"> ), RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0, LWA_COLORKEY )
+   hmg_SetLayeredWindowAttributes(GetFormHandle(<"FormName">), RGB(<aColor>\[1\], <aColor>\[2\], <aColor>\[3\]), 0, LWA_COLORKEY)
 
 
 #define FLASHW_CAPTION 1
@@ -343,13 +343,13 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #define FLASHW_ALL    (FLASHW_CAPTION + FLASHW_TRAY)
 
 #xtranslate FLASH WINDOW <FormName> CAPTION COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_CAPTION, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx(GetFormHandle(<"FormName">), FLASHW_CAPTION, <nTimes>, <nMilliseconds>)
 
 #xtranslate FLASH WINDOW <FormName> TASKBAR COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_TRAY, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx(GetFormHandle(<"FormName">), FLASHW_TRAY, <nTimes>, <nMilliseconds>)
 
 #xtranslate FLASH WINDOW <FormName> [ ALL ] COUNT <nTimes> INTERVAL <nMilliseconds> =>;
-   hmg_FlashWindowEx( GetFormHandle( <"FormName"> ), FLASHW_ALL, <nTimes>, <nMilliseconds> )
+   hmg_FlashWindowEx(GetFormHandle(<"FormName">), FLASHW_ALL, <nTimes>, <nMilliseconds>)
 
 
 // ANIMATE WINDOW MODE <nFlags>
@@ -364,10 +364,10 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #define AW_BLEND        0x00080000
 
 #xtranslate ANIMATE WINDOW <FormName> INTERVAL <nMilliseconds> MODE <nFlags> => ;
-   hmg_AnimateWindow( GetFormHandle( <"FormName"> ), <nMilliseconds>, <nFlags> )
+   hmg_AnimateWindow(GetFormHandle(<"FormName">), <nMilliseconds>, <nFlags>)
 
 #xtranslate ANIMATE WINDOW <FormName> MODE <nFlags> => ;
-   hmg_AnimateWindow( GetFormHandle( <"FormName"> ), 200, <nFlags> )
+   hmg_AnimateWindow(GetFormHandle(<"FormName">), 200, <nFlags>)
 
 #xtranslate SET CODEPAGE TO UNICODE => Set (_SET_CODEPAGE, "UTF8")
 
@@ -378,18 +378,18 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    _ActivateWindow ( \{<(name)>\}, .T., .T. )
 
 
-#xtranslate IsMainMenuDefined ( <FormName> ) => ( Empty( hmg_GetMenu( GetFormHandle( <FormName> ) ) ) == .F. )
+#xtranslate IsMainMenuDefined ( <FormName> ) => ( Empty(hmg_GetMenu(GetFormHandle(<FormName>))) == .F. )
 
-#xtranslate IsNotifyMenuDefined ( <FormName> ) => hmg_IsMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <FormName> ) ] )
+#xtranslate IsNotifyMenuDefined ( <FormName> ) => hmg_IsMenu(_HMG_aFormNotifyMenuHandle \[ GetFormIndex(<FormName>) ])
 
-#xtranslate IsContextMenuDefined ( <FormName> ) => hmg_IsMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <FormName> ) ] )
+#xtranslate IsContextMenuDefined ( <FormName> ) => hmg_IsMenu(_HMG_aFormContextMenuHandle \[ GetFormIndex(<FormName>) ])
 
 
-#xcommand RELEASE MAIN MENU OF <form> => hmg_DestroyMenu( hmg_GetMenu( GetFormHandle( <(form)> ) ) ) ; hmg_SetMenu( GetFormHandle( <(form)> ), 0 )
+#xcommand RELEASE MAIN MENU OF <form> => hmg_DestroyMenu(hmg_GetMenu(GetFormHandle(<(form)>))) ; hmg_SetMenu(GetFormHandle(<(form)>), 0)
 
-#xcommand RELEASE CONTEXT MENU OF <form> => DEFINE CONTEXT MENU OF <form> ; END MENU ; hmg_DestroyMenu( _HMG_aFormContextMenuHandle \[ GetFormIndex( <(form)> ) ] )
+#xcommand RELEASE CONTEXT MENU OF <form> => DEFINE CONTEXT MENU OF <form> ; END MENU ; hmg_DestroyMenu(_HMG_aFormContextMenuHandle \[ GetFormIndex(<(form)>) ])
 
-#xcommand RELEASE NOTIFY MENU OF <form>  => DEFINE NOTIFY MENU OF <form> ; END MENU ; hmg_DestroyMenu( _HMG_aFormNotifyMenuHandle \[ GetFormIndex( <(form)> ) ] )
+#xcommand RELEASE NOTIFY MENU OF <form>  => DEFINE NOTIFY MENU OF <form> ; END MENU ; hmg_DestroyMenu(_HMG_aFormNotifyMenuHandle \[ GetFormIndex(<(form)>) ])
 
 #xcommand RELEASE DROPDOWN MENU BUTTON <button> OF <form>     => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
 #xcommand RELEASE DROPDOWNMENU OWNERBUTTON <button> OF <form> => DEFINE DROPDOWN MENU BUTTON <button> OF <form> ; END MENU
@@ -411,12 +411,12 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 =>;
    InstallEventHandler ( <"cProcName"> )
 
-#xtranslate EventCreate( <cProcName> ) => InstallEventHandler ( <cProcName> )
-#xtranslate EventCount () => Len( _HMG_aCustomEventProcedure )
+#xtranslate EventCreate(<cProcName>) => InstallEventHandler(<cProcName>)
+#xtranslate EventCount () => Len(_HMG_aCustomEventProcedure)
 #xtranslate EventRemoveAll () => iif ( EventCount() > 0, _HMG_aCustomEventProcedure := {}, NIL )
-#xtranslate EventRemove ([<x>]) => iif ( EventCount() > 0, hb_ADel( _HMG_aCustomEventProcedure, EventCount(), .T. ), NIL )
+#xtranslate EventRemove ([<x>]) => iif ( EventCount() > 0, hb_ADel(_HMG_aCustomEventProcedure, EventCount(), .T.), NIL )
 
-#xtranslate MsgHMGError ( <Message> ) => MsgMiniGuiError( <Message>, .F. )
+#xtranslate MsgHMGError ( <Message> ) => MsgMiniGuiError(<Message>, .F.)
 
 #xtranslate GetFormNameByIndex ( <nFormIndex> ) => _HMG_aFormNames \[ <nFormIndex> ]
 #xtranslate GetFormHandleByIndex ( <nFormIndex> ) => _HMG_aFormHandles \[ <nFormIndex> ]
@@ -496,17 +496,17 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xcommand SET PROGRESSBAR <name> OF <parent> ENABLE MARQUEE [ UPDATED <milliseconds> ] ;
    => ;
-   hmg_ChangeStyle( GetControlHandle(<(name)>, <(parent)>), PBS_MARQUEE );;
-   hmg_SendMessage( GetControlHandle(<(name)>, <(parent)>), PBM_SETMARQUEE , 1 , <milliseconds> )
+   hmg_ChangeStyle(GetControlHandle(<(name)>, <(parent)>), PBS_MARQUEE);;
+   hmg_SendMessage(GetControlHandle(<(name)>, <(parent)>), PBM_SETMARQUEE , 1, <milliseconds>)
 
 #xcommand SET PROGRESSBAR <name> OF <parent> DISABLE MARQUEE ;
    => ;
-   hmg_SendMessage( GetControlHandle(<(name)>, <(parent)>) , PBM_SETMARQUEE , 0 , 0 )
+   hmg_SendMessage(GetControlHandle(<(name)>, <(parent)>), PBM_SETMARQUEE, 0, 0)
 
 // by Dr. Claudio Soto, April 2016
 
 #xtranslate CHECK TYPE [ <lSoft: SOFT> ] <var> AS <type> [, <varN> AS <typeN> ] => ;
-   HMG_CheckType( <.lSoft.>, { <"type">, ValType( <var> ), <"var"> } [, { <"typeN">, ValType( <varN> ), <"varN"> } ] )
+   HMG_CheckType(<.lSoft.>, {<"type">, ValType(<var>), <"var">} [, {<"typeN">, ValType(<varN>), <"varN">} ])
 
 * Alternate Syntax
 
