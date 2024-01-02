@@ -286,7 +286,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
       IF _HMG_DialogInMemory // Dialog Template
          IF GetClassInfo(hmg_GetInstance(), ControlName) == NIL
-            IF !Register_Class(ControlName, hmg_CreateSolidBrush(hmg_GetRed(waGetSysColor(COLOR_BTNFACE)), hmg_GetGreen(waGetSysColor(COLOR_BTNFACE)), hmg_GetBlue(waGetSysColor(COLOR_BTNFACE))))
+            IF !Register_Class(ControlName, hmg_CreateSolidBrush(waGetRValue(waGetSysColor(COLOR_BTNFACE)), waGetGValue(waGetSysColor(COLOR_BTNFACE)), waGetBValue(waGetSysColor(COLOR_BTNFACE))))
                RETURN NIL
             ENDIF
          ENDIF
@@ -13624,7 +13624,7 @@ METHOD TSBrowse:SetColor(xColor1, xColor2, nColumn)
 
    IF Len(::aColumns) == 0 .AND. !::lTransparent .AND. ::hBrush == NIL
       nColor := iif(hb_IsBlock(xColor2[2]), Eval(xColor2[2], 1, 1, Self), xColor2[2])
-      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(nColor), hmg_GetGreen(nColor), hmg_GetBlue(nColor))
+      ::hBrush := hmg_CreateSolidBrush(waGetRValue(nColor), waGetGValue(nColor), waGetBValue(nColor))
    ENDIF
 
    IF nColumn == 0 .AND. hb_IsNumeric(xColor2[1]) .AND. hb_IsArray(xColor1) .AND. xColor1[1] == 1 .AND. ;
@@ -15301,7 +15301,7 @@ METHOD TSBrowse:Enabled(lEnab)
          ::SetColor({18, 19}, {::nCLR_GRAY, ::nCLR_HGRAY})
          ::nClrPane := ::nCLR_HGRAY
          ::nClrLine := ::nCLR_Lines
-         ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
+         ::hBrush := hmg_CreateSolidBrush(waGetRValue(::nClrPane), waGetGValue(::nClrPane), waGetBValue(::nClrPane))
 
       ELSE
 

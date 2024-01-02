@@ -102,7 +102,7 @@ FUNCTION OwnTabPaint(lParam)
    aMetr        := hmg_GetTextMetric(hDC)
    oldBkMode    := hmg_SetBkMode(hDC, TRANSPARENT)
    nTextColor   := waGetSysColor(COLOR_BTNTEXT)
-   oldTextColor := hmg_SetTextColor(hDC, hmg_GetRed(nTextColor), hmg_GetGreen(nTextColor), hmg_GetBlue(nTextColor))
+   oldTextColor := hmg_SetTextColor(hDC, waGetRValue(nTextColor), waGetGValue(nTextColor), waGetBValue(nTextColor))
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
       IsArrayRGB(_HMG_aControlMiscData2[i][nItemId])

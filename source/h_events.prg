@@ -499,9 +499,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                            IF x == 1
                               hmg_DeleteObject(_HMG_aControlBrushHandle[i])
-                              _HMG_aControlBrushHandle[i] := hmg_CreateSolidBrush(hmg_GetRed(waGetSysColor(COLOR_3DFACE)), hmg_GetGreen(waGetSysColor(COLOR_3DFACE)), hmg_GetBlue(waGetSysColor(COLOR_3DFACE)))
+                              _HMG_aControlBrushHandle[i] := hmg_CreateSolidBrush(waGetRValue(waGetSysColor(COLOR_3DFACE)), waGetGValue(waGetSysColor(COLOR_3DFACE)), waGetBValue(waGetSysColor(COLOR_3DFACE)))
                            ENDIF
-                           hmg_SetBkColor(wParam, hmg_GetRed(waGetSysColor(COLOR_3DFACE)), hmg_GetGreen(waGetSysColor(COLOR_3DFACE)), hmg_GetBlue(waGetSysColor(COLOR_3DFACE)))
+                           hmg_SetBkColor(wParam, waGetRValue(waGetSysColor(COLOR_3DFACE)), waGetGValue(waGetSysColor(COLOR_3DFACE)), waGetBValue(waGetSysColor(COLOR_3DFACE)))
                            RETURN _HMG_aControlBrushHandle[i]
 
                         ENDIF

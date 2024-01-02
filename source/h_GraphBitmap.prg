@@ -639,9 +639,9 @@ STATIC PROCEDURE DrawBarInBitmap(hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aCo
    nColTop := ClrShadow(RGB(aColor[1], aColor[2], aColor[3]), 20)
    nShadow := ClrShadow(nColTop, 20)
    nShadow2 := ClrShadow(nColTop, 40)
-   nColTop := { hmg_GetRed(nColTop), hmg_GetGreen(nColTop), hmg_GetBlue(nColTop) }
-   nShadow := { hmg_GetRed(nShadow), hmg_GetGreen(nShadow ), hmg_GetBlue(nShadow) }
-   nShadow2 := { hmg_GetRed(nShadow2), hmg_GetGreen(nShadow2), hmg_GetBlue(nShadow2) }
+   nColTop := { waGetRValue(nColTop), waGetGValue(nColTop), waGetBValue(nColTop) }
+   nShadow := { waGetRValue(nShadow), waGetGValue(nShadow ), waGetBValue(nShadow) }
+   nShadow2 := { waGetRValue(nShadow2), waGetGValue(nShadow2), waGetBValue(nShadow2) }
    BT_DrawGradientFillVertical(hDC, nX + nDeep - nHigh, nY, nWidth + 1, nHigh - nDeep, aColor, nShadow2)
    IF l3DView
       // Lateral

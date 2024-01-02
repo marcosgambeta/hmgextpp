@@ -248,7 +248,7 @@ METHOD TControl:Colors(hDC)
 
    DEFAULT ::nClrText := GetTextColor(hDC)
    DEFAULT ::nClrPane := GetBkColor(hDC)
-   DEFAULT ::hBrush   := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
+   DEFAULT ::hBrush   := hmg_CreateSolidBrush(waGetRValue(::nClrPane), waGetGValue(::nClrPane), waGetBValue(::nClrPane))
 
    hmg_SetTextColor(hDC, ::nClrText)
    hmg_SetBkColor(hDC, ::nClrPane)
@@ -286,7 +286,7 @@ METHOD TControl:Create(cClsName)
    ENDIF
 
    IF ::hBrush == NIL
-      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
+      ::hBrush := hmg_CreateSolidBrush(waGetRValue(::nClrPane), waGetGValue(::nClrPane), waGetBValue(::nClrPane))
    ENDIF
 
    IF GetClassInfo(hmg_GetInstance(), cClsName) == NIL
@@ -596,7 +596,7 @@ METHOD TControl:Register(nClsStyle)
 
    DEFAULT nClsStyle  := nOr(CS_VREDRAW, CS_HREDRAW)
    DEFAULT ::nClrPane := waGetSysColor(COLOR_WINDOW)
-   DEFAULT ::hBrush   := hmg_CreateSolidBrush(hmg_GetRed(::nClrPane), hmg_GetGreen(::nClrPane), hmg_GetBlue(::nClrPane))
+   DEFAULT ::hBrush   := hmg_CreateSolidBrush(waGetRValue(::nClrPane), waGetGValue(::nClrPane), waGetBValue(::nClrPane))
 
    nClsStyle := nOr(nClsStyle, CS_GLOBALCLASS, CS_DBLCLKS)
 
@@ -658,7 +658,7 @@ METHOD TControl:SetColor(nClrFore, nClrBack, hBrush)
    IF hBrush != NIL
       ::hBrush := hBrush
    ELSE
-      ::hBrush := hmg_CreateSolidBrush(hmg_GetRed(nClrBack), hmg_GetGreen(nClrBack), hmg_GetBlue(nClrBack))
+      ::hBrush := hmg_CreateSolidBrush(waGetRValue(nClrBack), waGetGValue(nClrBack), waGetBValue(nClrBack))
    ENDIF
 
 RETURN NIL

@@ -298,31 +298,40 @@ HB_FUNC( HMG_CLEARCLIPBOARD )
 HB_FUNC_TRANSLATE( CLEARCLIPBOARD, HMG_CLEARCLIPBOARD )
 #endif
 
-HB_FUNC( HMG_GETBLUE )
-{
-   hb_retnl( GetBValue(hb_parnl(1)) );
-}
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETBLUE, HMG_GETBLUE )
-#endif
-
-HB_FUNC( HMG_GETRED )
+#if 0
+HB_FUNC( HMG_GETRED ) // TODO: deprecated (using waGetRValue from WinApi library)
 {
    hb_retnl( GetRValue(hb_parnl(1)) );
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETRED, HMG_GETRED )
 #endif
 
-HB_FUNC( HMG_GETGREEN )
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE( GETRED, WAGETRVALUE )
+HB_FUNC_TRANSLATE( HMG_GETRED, WAGETRVALUE )
+#endif
+
+#if 0
+HB_FUNC( HMG_GETGREEN ) // TODO: deprecated (using waGetGValue from WinApi library)
 {
    hb_retnl( GetGValue(hb_parnl(1)) );
 }
+#endif
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETGREEN, HMG_GETGREEN )
+HB_FUNC_TRANSLATE( GETGREEN, WAGETGVALUE )
+HB_FUNC_TRANSLATE( HMG_GETGREEN, WAGETGVALUE )
+#endif
+
+#if 0
+HB_FUNC( HMG_GETBLUE ) // TODO: deprecated (using waGetBValue from WinApi library)
+{
+   hb_retnl( GetBValue(hb_parnl(1)) );
+}
+#endif
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE( GETBLUE, WAGETBVALUE )
+HB_FUNC_TRANSLATE( HMG_GETBLUE, WAGETBVALUE )
 #endif
 
 HB_FUNC( HMG_GETKEYSTATE ) // TODO: deprecated (using waGetKeyState from WinApi library)

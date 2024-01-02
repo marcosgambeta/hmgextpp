@@ -2197,7 +2197,7 @@ FUNCTION ValueTran(cValue, ItType, cData, nSubIt)
       CASE PG_SYSCOLOR
       CASE PG_COLOR
          xData := PgIdentColor(0, cValue)
-         xData := { hmg_GetRed(xData), hmg_GetGreen(xData), hmg_GetBlue(xData) }
+         xData := { waGetRValue(xData), waGetGValue(xData), waGetBValue(xData) }
          EXIT
       CASE PG_LOGIC
          xData := IIF(RTrim(cValue) == "true", .T., .F.)

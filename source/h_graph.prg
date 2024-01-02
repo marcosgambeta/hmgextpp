@@ -592,7 +592,7 @@ FUNCTION ClrShadow(nColor, nFactor)
    LOCAL aHSL
    LOCAL aRGB
 
-   aHSL := RGB2HSL(hmg_GetRed(nColor), hmg_GetGreen(nColor), hmg_GetBlue(nColor))
+   aHSL := RGB2HSL(waGetRValue(nColor), waGetGValue(nColor), waGetBValue(nColor))
    aHSL[3] -= nFactor
    aRGB := HSL2RGB(aHSL[1], aHSL[2], aHSL[3])
 
@@ -609,9 +609,9 @@ FUNCTION RGB2HSL(nR, nG, nB)
 
    IF nR < 0
       nR := Abs(nR)
-      nG := hmg_GetGreen(nR)
-      nB := hmg_GetBlue(nR)
-      nR := hmg_GetRed(nR)
+      nG := waGetGValue(nR)
+      nB := waGetBValue(nR)
+      nR := waGetRValue(nR)
    ENDIF
 
    nR /= 255

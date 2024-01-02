@@ -92,8 +92,8 @@ METHOD TGetBox:New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ParentFormName  := oWnd:cParentWnd
 
    uValue          := Eval(bSetGet)
-   aFontColor      := { hmg_GetRed(nClrFore), hmg_GetGreen(nClrFore), hmg_GetBlue(nClrFore) }
-   aBackColor      := { hmg_GetRed(nClrBack), hmg_GetGreen(nClrBack), hmg_GetBlue(nClrBack) }
+   aFontColor      := { waGetRValue(nClrFore), waGetGValue(nClrFore), waGetBValue(nClrFore) }
+   aBackColor      := { waGetRValue(nClrBack), waGetGValue(nClrBack), waGetBValue(nClrBack) }
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 

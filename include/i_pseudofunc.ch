@@ -282,7 +282,7 @@
 #xtranslate GetFontNameByHandle(<hFont>) => GetFontParam(<hFont>)\[10]
 #translate HMG_RGB2n(<p1>, <p2>, <p3>) => iif(hb_IsNumeric(<p1>), RGB(<p1>, <p2>, <p3>), <p1>)
 #translate HMG_RGB2n(<x>) => iif(hb_IsArray(<x>), RGB(<x>\[1], <x>\[2], <x>\[3]), <x>)
-#translate HMG_n2RGB(<x>) => {hmg_GetRed(<x>), hmg_GetGreen(<x>), hmg_GetBlue(<x>)}
+#translate HMG_n2RGB(<x>) => {waGetRValue(<x>), waGetGValue(<x>), waGetBValue(<x>)}
 #translate _DelGlobal(<cVarName>) => _SetGetGlobal(<cVarName>, , .T.)
 #xtranslate _SetNameList(<x>, <v>) => _SetGetNamesList(<x>, <v>)
 #xtranslate _GetNameList(<x>) => _SetGetNamesList(<x>)
