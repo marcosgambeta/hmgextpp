@@ -17,9 +17,9 @@ PROCEDURE Main()
       HEIGHT 480 ;
       TITLE "Test6" ;
       MAIN ;
-      ON SIZE waInvalidateRgn(waNToP(MainWindow.Handle), NIL, .T.) ;
-      ON MAXIMIZE waInvalidateRgn(waNToP(MainWindow.Handle), NIL, .T.) ;
-      ON RESTORE waInvalidateRgn(waNToP(MainWindow.Handle), NIL, .T.) ;
+      ON SIZE waInvalidateRgn(NTOP(MainWindow.Handle), NIL, .T.) ;
+      ON MAXIMIZE waInvalidateRgn(NTOP(MainWindow.Handle), NIL, .T.) ;
+      ON RESTORE waInvalidateRgn(NTOP(MainWindow.Handle), NIL, .T.) ;
       ON PAINT {||
          LOCAL oPS
          LOCAL pDC
@@ -31,7 +31,7 @@ PROCEDURE Main()
          LOCAL nWidth
          LOCAL nHeight
 
-         pWND := waNToP(MainWindow.Handle)
+         pWND := NTOP(MainWindow.Handle)
 
          oRect := wasRECT():new()
          waGetWindowRect(pWND, oRect)

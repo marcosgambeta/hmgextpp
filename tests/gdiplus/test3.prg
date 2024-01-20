@@ -20,7 +20,7 @@ PROCEDURE Main()
       ON PAINT {||
          LOCAL pGraphics
          LOCAL pImage
-         waGdipCreateFromHWND(waNToP(MainWindow.Handle), @pGraphics)
+         waGdipCreateFromHWND(NTOP(MainWindow.Handle), @pGraphics)
          waGdipLoadImageFromFile("harbour.gif", @pImage)
          waGdipDrawImageRectI(pGraphics, pImage, 0, 0, MainWindow.Width, MainWindow.Height)
          waGdipDisposeImage(pImage)

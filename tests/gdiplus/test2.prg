@@ -22,7 +22,7 @@ PROCEDURE Main()
          LOCAL pImage
          LOCAL nWidth
          LOCAL nHeight
-         waGdipCreateFromHWND(waNToP(MainWindow.handle), @pGraphics)
+         waGdipCreateFromHWND(NTOP(MainWindow.handle), @pGraphics)
          waGdipLoadImageFromFile("harbour.gif", @pImage)
          waGdipGetImageDimension(pImage, @nWidth, @nHeight)
          waGdipDrawImageI(pGraphics, pImage, (MainWindow.Width - nWidth) / 2, (MainWindow.Height - nHeight) / 2)

@@ -23,7 +23,7 @@ PROCEDURE Main()
       MAIN ;
       ON PAINT {||
          LOCAL pGraphics
-         waGdipCreateFromHWND(waNToP(MainWindow.Handle), @pGraphics)
+         waGdipCreateFromHWND(NTOP(MainWindow.Handle), @pGraphics)
          waGdipDrawImageRectI(pGraphics, pImage, 0, 0, MainWindow.Width, MainWindow.Height)
          waGdipDeleteGraphics(pGraphics)
       }

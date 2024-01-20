@@ -29,7 +29,7 @@ PROCEDURE Main()
          LOCAL pGraphics
          LOCAL pPen
          LOCAL pBrush
-         waGdipCreateFromHWND(waNToP(MainWindow.Handle), @pGraphics)
+         waGdipCreateFromHWND(NTOP(MainWindow.Handle), @pGraphics)
          waGdipCreatePen1(0xFF00FFFF, 5, 2 /* pixel */, @pPen)
          waGdipCreateSolidFill(0xFFFF8C00, @pBrush)
          waGdipDrawLinesI(pGraphics, pPen, a, len(a))
