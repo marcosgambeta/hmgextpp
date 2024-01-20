@@ -17,17 +17,24 @@ PROCEDURE Main()
       HEIGHT 480 ;
       TITLE "Test2" ;
       MAIN ;
+      ON SIZE waInvalidateRgn(NTOP(MainWindow.Handle), NIL, .T.) ;
+      ON MAXIMIZE waInvalidateRgn(NTOP(MainWindow.Handle), NIL, .T.) ;
       ON PAINT {||
+         LOCAL oPS
+         LOCAL pDC
          LOCAL pGraphics
          LOCAL pImage
          LOCAL nWidth
          LOCAL nHeight
-         waGdipCreateFromHWND(NTOP(MainWindow.handle), @pGraphics)
+         oPS := wasPAINTSTRUCT():new()
+         pDC := waBeginPaint(NTOP(MainWindow.handle), oPS)
+         waGdipCreateFromHDC(pDC, @pGraphics)
          waGdipLoadImageFromFile("harbour.gif", @pImage)
          waGdipGetImageDimension(pImage, @nWidth, @nHeight)
          waGdipDrawImageI(pGraphics, pImage, (MainWindow.Width - nWidth) / 2, (MainWindow.Height - nHeight) / 2)
          waGdipDisposeImage(pImage)
          waGdipDeleteGraphics(pGraphics)
+         waEndPaint(NTOP(MainWindow.handle), oPS)
      }
 
    END WINDOW
