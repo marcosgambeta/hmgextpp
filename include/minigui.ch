@@ -47,15 +47,21 @@
 #ifndef __HMG__
 
 #ifdef HMG_USE_POINTERS
-   #define HMG_NULLHANDLE NIL
+   #define HMG_NULLHANDLE   NIL
 #else
-   #define HMG_NULLHANDLE 0
+   #define HMG_NULLHANDLE   0
 #endif
 
 #ifdef HMG_USE_POINTERS
-   #define hmg_numbertohandle(x)      win_n2p(x)
+   #define hmg_numbertohandle(x)   win_n2p(x)
 #else
-   #define hmg_numbertohandle(x)      x
+   #define hmg_numbertohandle(x)   x
+#endif
+
+#ifdef HMG_USE_POINTERS
+   #define NTOP(v)   (v)
+#else
+   #define NTOP(v)   waNToP(v)
 #endif
 
 #include "mgver.h"
