@@ -50,8 +50,8 @@
  *
  */
 
-/*  
-    
+/*
+
    Used parts from Harbour for use with SQLite3 lib
    November 18, 2011 by R.Visscher <richard@irvis.com>
 */
@@ -64,17 +64,16 @@
 
 HB_EXTERN_BEGIN
 
-extern HB_EXPORT const char * hb_parstr_utf8( int iParam, void ** phString, ULONG * pnLen );
+extern HB_EXPORT const char *hb_parstr_utf8(int iParam, void **phString, ULONG *pnLen);
 
-extern HB_EXPORT void hb_retstrlen_utf8( const char * szText, ULONG nLen );
-extern HB_EXPORT void hb_retstr_utf8( const char * szText );
-extern HB_EXPORT void hb_strfree( void * hString );
-extern HB_EXPORT const char * hb_strnull( const char * str );
-extern HB_EXPORT const char * hb_itemGetStrUTF8( PHB_ITEM pItem, void ** phString, ULONG * pnLen );
-extern HB_EXPORT PHB_ITEM hb_itemPutStrLenUTF8( PHB_ITEM pItem, const char * pStr, ULONG nLen );
-extern HB_EXPORT PHB_ITEM hb_itemPutStrUTF8( PHB_ITEM pItem, const char * pStr );
-extern HB_EXPORT BOOL hb_arraySetStrUTF8( PHB_ITEM pArray, ULONG nIndex, const char * pStr);
-
+extern HB_EXPORT void hb_retstrlen_utf8(const char *szText, ULONG nLen);
+extern HB_EXPORT void hb_retstr_utf8(const char *szText);
+extern HB_EXPORT void hb_strfree(void *hString);
+extern HB_EXPORT const char *hb_strnull(const char *str);
+extern HB_EXPORT const char *hb_itemGetStrUTF8(PHB_ITEM pItem, void **phString, ULONG *pnLen);
+extern HB_EXPORT PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char *pStr, ULONG nLen);
+extern HB_EXPORT PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char *pStr);
+extern HB_EXPORT BOOL hb_arraySetStrUTF8(PHB_ITEM pArray, ULONG nIndex, const char *pStr);
 
 HB_EXTERN_END
 

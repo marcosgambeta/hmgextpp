@@ -50,7 +50,7 @@
  * If you write modifications of your own for Harbour, it is your choice
  * whether to permit this exception to apply to your modifications.
  * If you do not wish that, delete this exception notice.
-*/
+ */
 
 /*
  * Notes:
@@ -62,30 +62,29 @@
  *
  */
 
-#define _WIN32_WINNT   0x0400
-#define  WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0400
+#define WIN32_LEAN_AND_MEAN
 
 #include <hbapiitm.hpp>
 
-//#if defined(HB_OS_WIN_32)
+// #if defined(HB_OS_WIN_32)
 
 #include <windows.h>
 
 #include "hbdll.ch"
 
-#define EXEC_DLL               0x45584543
+#define EXEC_DLL 0x45584543
 
 typedef struct tag_ExecStruct
 {
-   DWORD     dwType;       // type info
-   char *    cDLL;         // DLL
-   HINSTANCE hDLL;         // Handle
-   char *    cProc;        // Ordinal or Name
-   DWORD     dwOrdinal;
-   DWORD     dwFlags;      // Calling Flags
-   LPVOID    lpFunc;
+  DWORD dwType;   // type info
+  char *cDLL;     // DLL
+  HINSTANCE hDLL; // Handle
+  char *cProc;    // Ordinal or Name
+  DWORD dwOrdinal;
+  DWORD dwFlags; // Calling Flags
+  LPVOID lpFunc;
 } EXECSTRUCT, *PEXECSTRUCT;
-
 
 static PHB_DYNS pHB_CSTRUCTURE = NULL, pPOINTER, pVALUE, pBUFFER, pDEVALUE;
 
@@ -94,250 +93,248 @@ static PHB_DYNS pHB_CSTRUCTURE = NULL, pPOINTER, pVALUE, pBUFFER, pDEVALUE;
 #include <hbvm.hpp>
 
 HB_EXTERN_BEGIN
-   HB_EXPORT char * hb_parcstruct(int iParam, ...);
+HB_EXPORT char *hb_parcstruct(int iParam, ...);
 HB_EXTERN_END
 
-HB_EXPORT char * hb_parcstruct(int iParam, ...)
+HB_EXPORT char *hb_parcstruct(int iParam, ...)
 {
-   HB_THREAD_STUB_ANY
+  HB_THREAD_STUB_ANY
 
-   HB_TRACE(HB_TR_DEBUG, ("hb_parcstruct(%d, ...)", iParam));
+  HB_TRACE(HB_TR_DEBUG, ("hb_parcstruct(%d, ...)", iParam));
 
-   if( pHB_CSTRUCTURE == NULL )
-   {
-       pHB_CSTRUCTURE = hb_dynsymFind("HB_CSTRUCTURE");
+  if (pHB_CSTRUCTURE == NULL)
+  {
+    pHB_CSTRUCTURE = hb_dynsymFind("HB_CSTRUCTURE");
 
-       pPOINTER       = hb_dynsymGetCase("POINTER");
-       pVALUE         = hb_dynsymGetCase("VALUE");
-       pBUFFER        = hb_dynsymGetCase("BUFFER");
-       pDEVALUE       = hb_dynsymGetCase("DEVALUE");
-   }
+    pPOINTER = hb_dynsymGetCase("POINTER");
+    pVALUE = hb_dynsymGetCase("VALUE");
+    pBUFFER = hb_dynsymGetCase("BUFFER");
+    pDEVALUE = hb_dynsymGetCase("DEVALUE");
+  }
 
-   if( ( iParam >= 0 && iParam <= hb_pcount() ) || ( iParam == -1 ) )
-   {
-      PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase(iParam);
-      BOOL bRelease = FALSE;
+  if ((iParam >= 0 && iParam <= hb_pcount()) || (iParam == -1))
+  {
+    PHB_ITEM pItem = (iParam == -1) ? hb_stackReturnItem() : hb_stackItemFromBase(iParam);
+    BOOL bRelease = FALSE;
 
-      if( HB_IS_BYREF(pItem) )
+    if (HB_IS_BYREF(pItem))
+    {
+      pItem = hb_itemUnRef(pItem);
+    }
+
+    if (HB_IS_ARRAY(pItem) && !HB_IS_OBJECT(pItem))
+    {
+      va_list va;
+      ULONG ulArrayIndex;
+      PHB_ITEM pArray = pItem;
+
+      va_start(va, iParam);
+      ulArrayIndex = va_arg(va, ULONG);
+      va_end(va);
+
+      pItem = hb_itemNew(NULL);
+      bRelease = TRUE;
+
+      hb_arrayGet(pArray, ulArrayIndex, pItem);
+    }
+
+    if (strncmp(hb_objGetClsName(pItem), "C Structure", 11) == 0)
+    {
+      hb_vmPushSymbol(pVALUE->pSymbol);
+      hb_vmPush(pItem);
+      hb_vmSend(0);
+
+      if (bRelease)
       {
-         pItem = hb_itemUnRef(pItem);
+        hb_itemRelease(pItem);
       }
 
-      if( HB_IS_ARRAY(pItem) && !HB_IS_OBJECT(pItem) )
-      {
-         va_list va;
-         ULONG ulArrayIndex;
-         PHB_ITEM pArray = pItem;
+      return hb_stackReturnItem()->item.asString.value;
+    }
+  }
 
-         va_start(va, iParam);
-         ulArrayIndex = va_arg(va, ULONG);
-         va_end(va);
-
-         pItem = hb_itemNew(NULL);
-         bRelease = TRUE;
-
-         hb_arrayGet(pArray, ulArrayIndex, pItem);
-      }
-
-      if( strncmp(hb_objGetClsName(pItem), "C Structure", 11) == 0 )
-      {
-         hb_vmPushSymbol(pVALUE->pSymbol);
-         hb_vmPush(pItem);
-         hb_vmSend(0);
-
-         if( bRelease )
-         {
-            hb_itemRelease(pItem);
-         }
-
-         return hb_stackReturnItem()->item.asString.value;
-      }
-   }
-
-   return NULL;
+  return NULL;
 }
 
-static HB_GARBAGE_FUNC( _DLLUnload )
+static HB_GARBAGE_FUNC(_DLLUnload)
 {
-   PEXECSTRUCT xec = (PEXECSTRUCT) Cargo;  // provided by decl.
+  PEXECSTRUCT xec = (PEXECSTRUCT)Cargo; // provided by decl.
 
-   if ( xec->dwType == EXEC_DLL )
-   {
-      if ( xec->cDLL != NULL )
+  if (xec->dwType == EXEC_DLL)
+  {
+    if (xec->cDLL != NULL)
+    {
+      if (xec->hDLL != (HINSTANCE)0)
       {
-         if ( xec->hDLL != (HINSTANCE) 0 )
-         {
-            FreeLibrary(xec->hDLL);
-         }
-
-         hb_xfree(xec->cDLL);
+        FreeLibrary(xec->hDLL);
       }
 
-      if ( xec->cProc != NULL )
-      {
-         hb_xfree(xec->cProc);
-      }
+      hb_xfree(xec->cDLL);
+    }
 
-      xec->dwType = 0;
-   }
+    if (xec->cProc != NULL)
+    {
+      hb_xfree(xec->cProc);
+    }
+
+    xec->dwType = 0;
+  }
 }
 
-
-HB_FUNC( DLLPREPARECALL )
+HB_FUNC(DLLPREPARECALL)
 {
-   PEXECSTRUCT xec = (PEXECSTRUCT) hb_gcAlloc(sizeof(EXECSTRUCT), _DLLUnload);
+  PEXECSTRUCT xec = (PEXECSTRUCT)hb_gcAlloc(sizeof(EXECSTRUCT), _DLLUnload);
 
-   memset(xec, 0, sizeof(EXECSTRUCT));
+  memset(xec, 0, sizeof(EXECSTRUCT));
 
-   if ( ISCHAR(1) )
-   {
-      xec->cDLL = hb_strdup(hb_parc(1));
-      xec->hDLL = LoadLibrary(xec->cDLL);
-   }
-   else if (ISNUM(1) )
-   {
-      xec->hDLL = (HINSTANCE) hb_parnl(1);
-   }
+  if (ISCHAR(1))
+  {
+    xec->cDLL = hb_strdup(hb_parc(1));
+    xec->hDLL = LoadLibrary(xec->cDLL);
+  }
+  else if (ISNUM(1))
+  {
+    xec->hDLL = (HINSTANCE)hb_parnl(1);
+  }
 
-   if (ISNUM(2) )
-   {
-      xec->dwFlags = hb_parnl(2);
-   }
-   else
-   {
-      xec->dwFlags = DC_CALL_STD;
-   }
+  if (ISNUM(2))
+  {
+    xec->dwFlags = hb_parnl(2);
+  }
+  else
+  {
+    xec->dwFlags = DC_CALL_STD;
+  }
 
-   if ( xec->hDLL )
-   {
-      if ( ISCHAR(3) )
-      {
-         // Not a typo - reserving space for possible Ansi 'A' suffix!
-         xec->cProc = (char *) hb_xgrab(hb_parclen(3) + 2);
-         strncpy(xec->cProc, hb_parc(3), hb_parclen(3) + 1);
-      }
-      else if (ISNUM(3) )
-      {
-         xec->dwOrdinal = hb_parnl(3);
-      }
-   }
-   else
-   {
-      if( xec->cDLL )
-      {
-         MessageBox(GetActiveWindow(), "DllPrepareCall:LoadLibrary() failed!", xec->cDLL, MB_OK | MB_ICONERROR);
-      }
-      else
-      {
-         MessageBox(GetActiveWindow(), "DllPrepareCall() invalid handle argument!", "DllPrepareCall", MB_OK | MB_ICONERROR);
-      }
-   }
+  if (xec->hDLL)
+  {
+    if (ISCHAR(3))
+    {
+      // Not a typo - reserving space for possible Ansi 'A' suffix!
+      xec->cProc = (char *)hb_xgrab(hb_parclen(3) + 2);
+      strncpy(xec->cProc, hb_parc(3), hb_parclen(3) + 1);
+    }
+    else if (ISNUM(3))
+    {
+      xec->dwOrdinal = hb_parnl(3);
+    }
+  }
+  else
+  {
+    if (xec->cDLL)
+    {
+      MessageBox(GetActiveWindow(), "DllPrepareCall:LoadLibrary() failed!", xec->cDLL,
+                 MB_OK | MB_ICONERROR);
+    }
+    else
+    {
+      MessageBox(GetActiveWindow(), "DllPrepareCall() invalid handle argument!", "DllPrepareCall",
+                 MB_OK | MB_ICONERROR);
+    }
+  }
 
-   xec->dwType = EXEC_DLL;
-   xec->lpFunc = (LPVOID) GetProcAddress(xec->hDLL, xec->cProc != NULL ? (LPCSTR) xec->cProc : (LPCSTR) xec->dwOrdinal);
+  xec->dwType = EXEC_DLL;
+  xec->lpFunc = (LPVOID)GetProcAddress(xec->hDLL, xec->cProc != NULL ? (LPCSTR)xec->cProc
+                                                                     : (LPCSTR)xec->dwOrdinal);
 
-   if( xec->lpFunc == NULL && xec->cProc )
-   {
+  if (xec->lpFunc == NULL && xec->cProc)
+  {
+    // try ANSI flavour ?
+    xec->cProc[hb_parclen(3)] = 'A';
+    xec->cProc[hb_parclen(3) + 1] = '\0';
+
+    xec->lpFunc = (LPVOID)GetProcAddress(xec->hDLL, xec->cProc != NULL ? (LPCSTR)xec->cProc
+                                                                       : (LPCSTR)xec->dwOrdinal);
+  }
+
+  if (xec->hDLL && xec->lpFunc)
+  {
+    hb_retptrGC(xec);
+  }
+  else if (xec->hDLL && xec->lpFunc == NULL)
+  {
+    if (xec->cProc)
+    {
+      LPVOID lpMsgBuf;
+
+      FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, NULL,
+                    GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&lpMsgBuf, 0,
+                    NULL);
+
+      MessageBox(GetActiveWindow(), (LPCSTR)lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!",
+                 MB_OK | MB_ICONERROR);
+
+      LocalFree(lpMsgBuf);
+    }
+    else
+    {
+      MessageBox(GetActiveWindow(), "DllPrepareCall:GetProcAddress() invalid oridnal argument!",
+                 "DllPrepareCall", MB_OK | MB_ICONERROR);
+    }
+  }
+}
+
+HB_FUNC(LOADLIBRARY)
+{
+  hb_retnl((DWORD)LoadLibraryA((LPCSTR)hb_parcx(1)));
+}
+
+HB_FUNC(FREELIBRARY)
+{
+  hb_retl(FreeLibrary((HMODULE)hb_parnl(1)));
+}
+
+// compatibility
+HB_FUNC(DLLLOAD)
+{
+  HB_FUNCNAME(LOADLIBRARY)();
+}
+
+// compatibility
+HB_FUNC(DLLUNLOAD)
+{
+  HB_FUNCNAME(FREELIBRARY)();
+}
+
+HB_FUNC(GETLASTERROR)
+{
+  hb_retnl(GetLastError());
+}
+
+HB_FUNC(SETLASTERROR)
+{
+  hb_retnl(GetLastError());
+  SetLastError(hb_parnl(1));
+}
+
+HB_FUNC(GETPROCADDRESS)
+{
+  LPVOID lpProcAddr;
+  char cFuncName[MAX_PATH];
+
+  if ((lpProcAddr = (LPVOID)GetProcAddress(
+           (HMODULE)hb_parnl(1), ISCHAR(2) ? (LPCSTR)hb_parcx(2) : (LPCSTR)hb_parnl(2))) == 0)
+  {
+    if (ISCHAR(2))
+    {
       // try ANSI flavour ?
-      xec->cProc[ hb_parclen(3) ] = 'A';
-      xec->cProc[ hb_parclen(3) +1  ] = '\0';
+      strcpy(cFuncName, hb_parc(2));
+      strcat(cFuncName, "A");
+      lpProcAddr = (LPVOID)GetProcAddress((HMODULE)hb_parnl(1), cFuncName);
+    }
+  }
 
-      xec->lpFunc = (LPVOID) GetProcAddress(xec->hDLL, xec->cProc != NULL ? (LPCSTR) xec->cProc : (LPCSTR) xec->dwOrdinal);
-   }
-
-   if( xec->hDLL && xec->lpFunc )
-   {
-       hb_retptrGC(xec);
-   }
-   else if( xec->hDLL && xec->lpFunc == NULL )
-   {
-      if( xec->cProc )
-      {
-         LPVOID lpMsgBuf;
-
-         FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
-         FORMAT_MESSAGE_FROM_SYSTEM,
-         NULL,
-         GetLastError(),
-         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-         (LPTSTR) &lpMsgBuf,
-         0, NULL);
-
-         MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!", MB_OK | MB_ICONERROR);
-
-         LocalFree(lpMsgBuf);
-      }
-      else
-      {
-         MessageBox(GetActiveWindow(), "DllPrepareCall:GetProcAddress() invalid oridnal argument!", "DllPrepareCall", MB_OK | MB_ICONERROR);
-      }
-   }
+  hb_retptr(lpProcAddr);
 }
-
-
-HB_FUNC( LOADLIBRARY )
-{
-   hb_retnl( (DWORD) LoadLibraryA((LPCSTR) hb_parcx(1)) );
-}
-
-HB_FUNC( FREELIBRARY )
-{
-   hb_retl(FreeLibrary((HMODULE) hb_parnl(1)));
-}
-
-// compatibility
-HB_FUNC( DLLLOAD )
-{
-   HB_FUNCNAME( LOADLIBRARY )();
-}
-
-// compatibility
-HB_FUNC( DLLUNLOAD )
-{
-   HB_FUNCNAME( FREELIBRARY )();
-}
-
-HB_FUNC( GETLASTERROR )
-{
-   hb_retnl( GetLastError() );
-}
-
-HB_FUNC( SETLASTERROR )
-{
-   hb_retnl( GetLastError() );
-   SetLastError( hb_parnl(1) );
-}
-
-HB_FUNC( GETPROCADDRESS )
-{
-   LPVOID lpProcAddr;
-   char  cFuncName[MAX_PATH];
-
-   if ((lpProcAddr = (LPVOID) GetProcAddress((HMODULE) hb_parnl(1),
-                                ISCHAR(2) ? (LPCSTR) hb_parcx(2) :
-                                              (LPCSTR) hb_parnl(2))) == 0 )
-   {
-      if ( ISCHAR(2) )
-      {
-         // try ANSI flavour ?
-         strcpy(cFuncName, hb_parc(2));
-         strcat(cFuncName, "A");
-         lpProcAddr = (LPVOID) GetProcAddress((HMODULE) hb_parnl(1), cFuncName);
-      }
-   }
-
-   hb_retptr(lpProcAddr);
-}
-
 
 //==================================================================
 // See DynaCall support comments below
 
-#define DC_CALL_STD_BO         (DC_CALL_STD | DC_BORLAND)
-#define DC_CALL_STD_MS         (DC_CALL_STD | DC_MICROSOFT)
-#define DC_CALL_STD_M8         (DC_CALL_STD | DC_RETVAL_MATH8)
+#define DC_CALL_STD_BO (DC_CALL_STD | DC_BORLAND)
+#define DC_CALL_STD_MS (DC_CALL_STD | DC_MICROSOFT)
+#define DC_CALL_STD_M8 (DC_CALL_STD | DC_RETVAL_MATH8)
 
-#define DC_FLAG_ARGPTR         0x00000002
+#define DC_FLAG_ARGPTR 0x00000002
 
 #define CTYPE_VOID 0
 #define CTYPE_CHAR 1
@@ -374,360 +371,361 @@ HB_FUNC( GETPROCADDRESS )
 #define CTYPE_STRUCTURE 1000
 #define CTYPE_STRUCTURE_PTR 10000
 
-
 #pragma pack(1)
 
-typedef union RESULT {          // Various result types
-    int     Int;                // Generic four-byte type
-    long    Long;               // Four-byte long
-    void   *Pointer;            // 32-bit pointer
-    float   Float;              // Four byte real
-    double  Double;             // 8-byte real
-    __int64 int64;              // big int (64-bit)
+typedef union RESULT { // Various result types
+  int Int;             // Generic four-byte type
+  long Long;           // Four-byte long
+  void *Pointer;       // 32-bit pointer
+  float Float;         // Four byte real
+  double Double;       // 8-byte real
+  __int64 int64;       // big int (64-bit)
 } RESULT;
 
-typedef struct DYNAPARM {
-    DWORD       dwFlags;        // Parameter flags
-    int         nWidth;         // Byte width
-    union {                     //
-            BYTE    bArg;          // 1-byte argument
-            SHORT   usArg;         // 2-byte argument
-            DWORD   dwArg;         // 4-byte argument
-          };
-    void   *pArg;           // Pointer to argument
+typedef struct DYNAPARM
+{
+  DWORD dwFlags; // Parameter flags
+  int nWidth;    // Byte width
+  union {        //
+    BYTE bArg;   // 1-byte argument
+    SHORT usArg; // 2-byte argument
+    DWORD dwArg; // 4-byte argument
+  };
+  void *pArg; // Pointer to argument
 } DYNAPARM;
 
 #pragma pack()
 
-RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs,
-                DYNAPARM Parm[], LPVOID pRet, int nRetSiz);
+RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID pRet, int nRetSiz);
 //
 //==================================================================
 
 // Based originally on CallDLL from What32
-static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int iArgCnt, PEXECSTRUCT xec)
+static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int iArgCnt,
+                    PEXECSTRUCT xec)
 {
-   int iRtype;
-   auto iCnt = 0;
-//   int iCmode;
-   int i;
-   double DblParms[15];
-   DYNAPARM   Parm[15];
-   RESULT     rc;
+  int iRtype;
+  auto iCnt = 0;
+  //   int iCmode;
+  int i;
+  double DblParms[15];
+  DYNAPARM Parm[15];
+  RESULT rc;
 
-   if( xec )
-   {
-      iFlags     = xec->dwFlags;
-      lpFunction = xec->lpFunc;
+  if (xec)
+  {
+    iFlags = xec->dwFlags;
+    lpFunction = xec->lpFunc;
 
-      //TODO Params maybe explictly specified in xec!
-   }
+    // TODO Params maybe explictly specified in xec!
+  }
 
-//   iCmode = iFlags & 0xf000;  // Unsupported Mode (specifies XBase++ Function1)
-   iRtype = iFlags & 0x0f00;  // Return type - An additional flag over XBase++
-   iFlags = iFlags & 0x00ff;  // Calling Convention
+  //   iCmode = iFlags & 0xf000;  // Unsupported Mode (specifies XBase++ Function1)
+  iRtype = iFlags & 0x0f00; // Return type - An additional flag over XBase++
+  iFlags = iFlags & 0x00ff; // Calling Convention
 
-   if ( iRtype == 0 )
-   {
-      iRtype = CTYPE_UNSIGNED_LONG;
-   }
+  if (iRtype == 0)
+  {
+    iRtype = CTYPE_UNSIGNED_LONG;
+  }
 
-   memset(Parm, 0, sizeof(Parm));
-   memset(DblParms, 0, sizeof(DblParms));
+  memset(Parm, 0, sizeof(Parm));
+  memset(DblParms, 0, sizeof(DblParms));
 
-   if( iArgCnt > 0)
-   {
-      for( i = iFirst; i <= iParams; i++)
+  if (iArgCnt > 0)
+  {
+    for (i = iFirst; i <= iParams; i++)
+    {
+      switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
       {
-         switch( hb_parinfo(i) & ~Harbour::Item::BYREF )
-         {
-            case Harbour::Item::NIL               :
-               Parm[iCnt].nWidth = sizeof(void*);
-               Parm[iCnt].dwArg = (DWORD) NULL;
-               break;
+      case Harbour::Item::NIL:
+        Parm[iCnt].nWidth = sizeof(void *);
+        Parm[iCnt].dwArg = (DWORD)NULL;
+        break;
 
-            case Harbour::Item::POINTER           :
-               Parm[iCnt].nWidth = sizeof(void*);
-               Parm[iCnt].dwArg = (DWORD) hb_parptr(i);
-               break;
+      case Harbour::Item::POINTER:
+        Parm[iCnt].nWidth = sizeof(void *);
+        Parm[iCnt].dwArg = (DWORD)hb_parptr(i);
+        break;
 
-            case Harbour::Item::INTEGER           :
-            case Harbour::Item::LONG              :
-            case Harbour::Item::DATE              :
-            case Harbour::Item::LOGICAL           :
-               Parm[iCnt].nWidth = sizeof(DWORD);
-               Parm[iCnt].dwArg = (DWORD) hb_parnl(i);
+      case Harbour::Item::INTEGER:
+      case Harbour::Item::LONG:
+      case Harbour::Item::DATE:
+      case Harbour::Item::LOGICAL:
+        Parm[iCnt].nWidth = sizeof(DWORD);
+        Parm[iCnt].dwArg = (DWORD)hb_parnl(i);
 
-               if( hb_parinfo(i) & Harbour::Item::BYREF )
-               {
-                  Parm[iCnt].pArg   = &( Parm[iCnt].dwArg );
-                  Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
-               }
-               break;
+        if (hb_parinfo(i) & Harbour::Item::BYREF)
+        {
+          Parm[iCnt].pArg = &(Parm[iCnt].dwArg);
+          Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
+        }
+        break;
 
-            case Harbour::Item::DOUBLE            :
-               Parm[iCnt].nWidth = sizeof(double);
-               DblParms[iCnt] = hb_parnd(i);
-               Parm[iCnt].pArg   = &( DblParms[iCnt] );
-               Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
-               iFlags |= DC_RETVAL_MATH8;
-               break;
+      case Harbour::Item::DOUBLE:
+        Parm[iCnt].nWidth = sizeof(double);
+        DblParms[iCnt] = hb_parnd(i);
+        Parm[iCnt].pArg = &(DblParms[iCnt]);
+        Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
+        iFlags |= DC_RETVAL_MATH8;
+        break;
 
-            case Harbour::Item::STRING            :
-            case Harbour::Item::MEMO              :
-               Parm[iCnt].nWidth = sizeof(void*);
-               if ( hb_parinfo(i) & Harbour::Item::BYREF )
-               {
-                  Parm[iCnt].pArg = malloc(hb_parclen(i));
-                  memcpy(Parm[iCnt].pArg, hb_parc(i), hb_parclen(i));
-               }
-               else
-               {
-                  Parm[iCnt].pArg = (void *) hb_parc(i);
-               }
-               Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
-               break;
+      case Harbour::Item::STRING:
+      case Harbour::Item::MEMO:
+        Parm[iCnt].nWidth = sizeof(void *);
+        if (hb_parinfo(i) & Harbour::Item::BYREF)
+        {
+          Parm[iCnt].pArg = malloc(hb_parclen(i));
+          memcpy(Parm[iCnt].pArg, hb_parc(i), hb_parclen(i));
+        }
+        else
+        {
+          Parm[iCnt].pArg = (void *)hb_parc(i);
+        }
+        Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
+        break;
 
-            case Harbour::Item::ARRAY             :
-               if( strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0 )
-               {
-                  Parm[iCnt].nWidth = sizeof(void*);
-                  Parm[iCnt].dwArg = (DWORD) hb_parcstruct(i);
-                  break;
-               }
+      case Harbour::Item::ARRAY:
+        if (strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0)
+        {
+          Parm[iCnt].nWidth = sizeof(void *);
+          Parm[iCnt].dwArg = (DWORD)hb_parcstruct(i);
+          break;
+        }
 
-            case Harbour::Item::HASH              :
-            case Harbour::Item::SYMBOL            :
-            case Harbour::Item::ALIAS             :
-            case Harbour::Item::MEMOFLAG          :
-            case Harbour::Item::BLOCK             :
-            case Harbour::Item::MEMVAR            :
-
-            default:
-               MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
-               return;
-         }
-
-         iCnt++;
-      }
-   }
-
-   /*SetLastError(0);*/
-   rc = DynaCall(iFlags, lpFunction, iArgCnt, Parm, NULL, 0);
-
-   /*if( GetLastError() )
-   {
-      LPVOID lpMsgBuf;
-
-      FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
-      FORMAT_MESSAGE_FROM_SYSTEM,
-      NULL,
-      GetLastError(),
-      MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-      (LPTSTR) &lpMsgBuf,
-      0, NULL);
-
-      MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllExec:DynaCall() failed!", MB_OK | MB_ICONERROR);
-
-      LocalFree(lpMsgBuf);
-   }*/
-
-   if( iArgCnt > 0)
-   {
-      iCnt = 0;
-
-      for( i = iFirst; i <= iParams; i++)
-      {
-         if( hb_parinfo(i) & Harbour::Item::BYREF )
-         {
-            switch( hb_parinfo(i) & ~Harbour::Item::BYREF )
-            {
-               case Harbour::Item::NIL               :
-                  hb_stornl( Parm[iCnt].dwArg, i );
-                  break;
-
-               case Harbour::Item::POINTER           :
-                  break;
-
-               case Harbour::Item::INTEGER           :
-               case Harbour::Item::LONG              :
-               case Harbour::Item::DATE              :
-               case Harbour::Item::LOGICAL           :
-                  hb_stornl( *(LONG *) ( Parm[iCnt].pArg ), i );
-                  break;
-
-               case Harbour::Item::DOUBLE            :
-                  hb_stornd(DblParms[iCnt], i);
-                  break;
-
-               case Harbour::Item::STRING            :
-               case Harbour::Item::MEMO              :
-                  hb_storclen((char *) Parm[iCnt].pArg, hb_parclen(i), i);
-                  free(Parm[iCnt].pArg);
-                  break;
-
-               case Harbour::Item::ARRAY             :
-                  if( strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0 )
-                  {
-                     hb_vmPushSymbol(pDEVALUE->pSymbol);
-                     hb_vmPush(hb_param(i, Harbour::Item::ANY));
-                     hb_vmSend(0);
-
-                     break;
-                  }
-
-               default:
-                  MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
-                  return;
-            }
-         }
-
-         iCnt++;
-      }
-   }
-
-   // return the correct value
-   switch( iRtype )
-   {
-      case CTYPE_BOOL :
-         hb_retl((BOOL) rc.Long);
-         break;
-
-      case CTYPE_VOID :
-         hb_retni(0);
-         break;
-
-      case CTYPE_CHAR              :
-      case CTYPE_UNSIGNED_CHAR     :
-         hb_retni((char) rc.Int);
-         break;
-
-      case CTYPE_SHORT             :
-      case CTYPE_UNSIGNED_SHORT    :
-         hb_retni((int) rc.Int);
-         break;
-
-      case CTYPE_INT               :
-         hb_retni((int) rc.Long);
-         break;
-
-      case CTYPE_LONG              :
-         hb_retnl((LONG) rc.Long);
-         break;
-
-      case CTYPE_CHAR_PTR          :
-      case CTYPE_UNSIGNED_CHAR_PTR :
-         hb_retc((char *) rc.Long);
-         break;
-
-      case CTYPE_UNSIGNED_INT      :
-      case CTYPE_UNSIGNED_LONG     :
-         hb_retnl(rc.Long);
-         break;
-
-      case CTYPE_INT_PTR           :
-      case CTYPE_UNSIGNED_SHORT_PTR:
-      case CTYPE_UNSIGNED_INT_PTR  :
-      case CTYPE_STRUCTURE_PTR     :
-      case CTYPE_LONG_PTR          :
-      case CTYPE_UNSIGNED_LONG_PTR :
-      case CTYPE_VOID_PTR          :
-      case CTYPE_FLOAT_PTR         :
-      case CTYPE_DOUBLE_PTR        :
-         hb_retptr((void *) rc.Long);
-         break;
-
-      case CTYPE_FLOAT             :
-         hb_retnd(rc.Float);
-         break;
-
-      case CTYPE_DOUBLE            :
-         hb_retnd(rc.Double);
-         break;
+      case Harbour::Item::HASH:
+      case Harbour::Item::SYMBOL:
+      case Harbour::Item::ALIAS:
+      case Harbour::Item::MEMOFLAG:
+      case Harbour::Item::BLOCK:
+      case Harbour::Item::MEMVAR:
 
       default:
-         MessageBox(GetActiveWindow(), "Unknown return type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
-         break;
-   }
+        MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!",
+                   MB_OK | MB_ICONERROR);
+        return;
+      }
+
+      iCnt++;
+    }
+  }
+
+  /*SetLastError(0);*/
+  rc = DynaCall(iFlags, lpFunction, iArgCnt, Parm, NULL, 0);
+
+  /*if( GetLastError() )
+  {
+     LPVOID lpMsgBuf;
+
+     FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
+     FORMAT_MESSAGE_FROM_SYSTEM,
+     NULL,
+     GetLastError(),
+     MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+     (LPTSTR) &lpMsgBuf,
+     0, NULL);
+
+     MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllExec:DynaCall() failed!", MB_OK |
+  MB_ICONERROR);
+
+     LocalFree(lpMsgBuf);
+  }*/
+
+  if (iArgCnt > 0)
+  {
+    iCnt = 0;
+
+    for (i = iFirst; i <= iParams; i++)
+    {
+      if (hb_parinfo(i) & Harbour::Item::BYREF)
+      {
+        switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
+        {
+        case Harbour::Item::NIL:
+          hb_stornl(Parm[iCnt].dwArg, i);
+          break;
+
+        case Harbour::Item::POINTER:
+          break;
+
+        case Harbour::Item::INTEGER:
+        case Harbour::Item::LONG:
+        case Harbour::Item::DATE:
+        case Harbour::Item::LOGICAL:
+          hb_stornl(*(LONG *)(Parm[iCnt].pArg), i);
+          break;
+
+        case Harbour::Item::DOUBLE:
+          hb_stornd(DblParms[iCnt], i);
+          break;
+
+        case Harbour::Item::STRING:
+        case Harbour::Item::MEMO:
+          hb_storclen((char *)Parm[iCnt].pArg, hb_parclen(i), i);
+          free(Parm[iCnt].pArg);
+          break;
+
+        case Harbour::Item::ARRAY:
+          if (strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0)
+          {
+            hb_vmPushSymbol(pDEVALUE->pSymbol);
+            hb_vmPush(hb_param(i, Harbour::Item::ANY));
+            hb_vmSend(0);
+
+            break;
+          }
+
+        default:
+          MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!",
+                     MB_OK | MB_ICONERROR);
+          return;
+        }
+      }
+
+      iCnt++;
+    }
+  }
+
+  // return the correct value
+  switch (iRtype)
+  {
+  case CTYPE_BOOL:
+    hb_retl((BOOL)rc.Long);
+    break;
+
+  case CTYPE_VOID:
+    hb_retni(0);
+    break;
+
+  case CTYPE_CHAR:
+  case CTYPE_UNSIGNED_CHAR:
+    hb_retni((char)rc.Int);
+    break;
+
+  case CTYPE_SHORT:
+  case CTYPE_UNSIGNED_SHORT:
+    hb_retni((int)rc.Int);
+    break;
+
+  case CTYPE_INT:
+    hb_retni((int)rc.Long);
+    break;
+
+  case CTYPE_LONG:
+    hb_retnl((LONG)rc.Long);
+    break;
+
+  case CTYPE_CHAR_PTR:
+  case CTYPE_UNSIGNED_CHAR_PTR:
+    hb_retc((char *)rc.Long);
+    break;
+
+  case CTYPE_UNSIGNED_INT:
+  case CTYPE_UNSIGNED_LONG:
+    hb_retnl(rc.Long);
+    break;
+
+  case CTYPE_INT_PTR:
+  case CTYPE_UNSIGNED_SHORT_PTR:
+  case CTYPE_UNSIGNED_INT_PTR:
+  case CTYPE_STRUCTURE_PTR:
+  case CTYPE_LONG_PTR:
+  case CTYPE_UNSIGNED_LONG_PTR:
+  case CTYPE_VOID_PTR:
+  case CTYPE_FLOAT_PTR:
+  case CTYPE_DOUBLE_PTR:
+    hb_retptr((void *)rc.Long);
+    break;
+
+  case CTYPE_FLOAT:
+    hb_retnd(rc.Float);
+    break;
+
+  case CTYPE_DOUBLE:
+    hb_retnd(rc.Double);
+    break;
+
+  default:
+    MessageBox(GetActiveWindow(), "Unknown return type!", "DLLCall Parameter Error!",
+               MB_OK | MB_ICONERROR);
+    break;
+  }
 }
 
 //------------------------------------------------------------------
 
-HB_FUNC( DLLEXECUTECALL )
+HB_FUNC(DLLEXECUTECALL)
 {
-   auto iParams = hb_pcount();
-   auto iFirst  = 2;
-   int iArgCnt = iParams - 1;
-   PEXECSTRUCT xec = (PEXECSTRUCT) hb_parptr(1);
+  auto iParams = hb_pcount();
+  auto iFirst = 2;
+  int iArgCnt = iParams - 1;
+  PEXECSTRUCT xec = (PEXECSTRUCT)hb_parptr(1);
 
-   if ( xec != NULL )
-   {
-      if ( xec->dwType == EXEC_DLL )
+  if (xec != NULL)
+  {
+    if (xec->dwType == EXEC_DLL)
+    {
+      if (xec->hDLL != (HINSTANCE)NULL)
       {
-         if ( xec->hDLL != (HINSTANCE) NULL )
-         {
-            if ( xec->lpFunc != NULL )
-            {
-               DllExec(0, NULL, iParams, iFirst, iArgCnt, xec);
-            }
-         }
+        if (xec->lpFunc != NULL)
+        {
+          DllExec(0, NULL, iParams, iFirst, iArgCnt, xec);
+        }
       }
-   }
+    }
+  }
 }
 
-HB_FUNC( DLLCALL )
+HB_FUNC(DLLCALL)
 {
-   auto iParams = hb_pcount();
-   auto iFirst = 4;
-   int iArgCnt = iParams - 3;
-   BOOL lUnload = FALSE;
-   HINSTANCE  hInst;
-   LPVOID     lpFunction;
-   BYTE       cFuncName[MAX_PATH];
+  auto iParams = hb_pcount();
+  auto iFirst = 4;
+  int iArgCnt = iParams - 3;
+  BOOL lUnload = FALSE;
+  HINSTANCE hInst;
+  LPVOID lpFunction;
+  BYTE cFuncName[MAX_PATH];
 
-   if ( ISCHAR(1) )
-   {
-      hInst = LoadLibrary(hb_parc(1));
-      lUnload = TRUE;
-   }
-   else
-   {
-      hInst = (HINSTANCE) hb_parnl(1);
-   }
+  if (ISCHAR(1))
+  {
+    hInst = LoadLibrary(hb_parc(1));
+    lUnload = TRUE;
+  }
+  else
+  {
+    hInst = (HINSTANCE)hb_parnl(1);
+  }
 
-   if ( hInst == NULL || (DWORD) hInst < 32)
-   {
-      hb_ret();
-      return;
-   }
+  if (hInst == NULL || (DWORD)hInst < 32)
+  {
+    hb_ret();
+    return;
+  }
 
-   auto iFlags = hb_parni(2);
+  auto iFlags = hb_parni(2);
 
-   if ((lpFunction = (LPVOID) GetProcAddress((HMODULE) hInst,
-                                ISCHAR(3) ? (LPCSTR) hb_parcx(3) :
-                                              (LPCSTR) hb_parnl(3))) == 0 )
-   {
-      if ( ISCHAR(3) )
-      {
-         // try forced ANSI flavour ?
-         strcpy((char *) cFuncName, hb_parc(3));
-         strcat((char *) cFuncName, "A");
-         lpFunction = (LPVOID) GetProcAddress((HMODULE) hInst, (const char *) cFuncName);
-      }
-   }
+  if ((lpFunction = (LPVOID)GetProcAddress((HMODULE)hInst, ISCHAR(3) ? (LPCSTR)hb_parcx(3)
+                                                                     : (LPCSTR)hb_parnl(3))) == 0)
+  {
+    if (ISCHAR(3))
+    {
+      // try forced ANSI flavour ?
+      strcpy((char *)cFuncName, hb_parc(3));
+      strcat((char *)cFuncName, "A");
+      lpFunction = (LPVOID)GetProcAddress((HMODULE)hInst, (const char *)cFuncName);
+    }
+  }
 
-   if (lpFunction != NULL)
-   {
-      DllExec(iFlags, lpFunction, iParams, iFirst, iArgCnt, NULL);
-   }
+  if (lpFunction != NULL)
+  {
+    DllExec(iFlags, lpFunction, iParams, iFirst, iArgCnt, NULL);
+  }
 
-   if ( lUnload )
-   {
-      FreeLibrary(hInst);
-   }
+  if (lUnload)
+  {
+    FreeLibrary(hInst);
+  }
 }
-
-
 
 //------------------------------------------------------------------
 // DynaCall support comments below
@@ -755,7 +753,6 @@ HB_FUNC( DLLCALL )
 //
 //
 //////////////////////////////////////////////////////
-
 
 /*
 
@@ -793,223 +790,216 @@ linking the VMGUI library code into it.
 
 //------------------------------------------------------------------
 
-
 //------------------------------------------------------------------
 
-RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
-                DYNAPARM Parm[], LPVOID pRet,      int nRetSiz)
+RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID pRet, int nRetSiz)
 {
-   // Call the specified function with the given parameters. Build a
-   // proper stack and take care of correct return value processing.
-   RESULT  Res = { 0 };
-   int    i, nInd, nSize;
-   DWORD   dwEAX, dwEDX, dwVal, *pStack, dwStSize = 0;
-   BYTE   *pArg;
+  // Call the specified function with the given parameters. Build a
+  // proper stack and take care of correct return value processing.
+  RESULT Res = {0};
+  int i, nInd, nSize;
+  DWORD dwEAX, dwEDX, dwVal, *pStack, dwStSize = 0;
+  BYTE *pArg;
 
-   #if defined(__MINGW32__)
-   #elif defined(__BORLANDC__)
-   #else
-      DWORD *pESP;
-   #endif
+#if defined(__MINGW32__)
+#elif defined(__BORLANDC__)
+#else
+  DWORD *pESP;
+#endif
 
-   // Reserve 256 bytes of stack space for our arguments
-   #if defined(__MINGW32__)
-      asm volatile("\tmovl %%esp, %0\n"
-                   "\tsubl $0x100, %%esp\n"
-                   : "=r" (pStack));
-   #elif defined(__BORLANDC__)
-      pStack = (DWORD *)_ESP;
-      _ESP -= 0x100;
-   #else
-      _asm mov pStack, esp
-      _asm mov pESP, esp
-      _asm sub esp, 0x100
-   #endif
+// Reserve 256 bytes of stack space for our arguments
+#if defined(__MINGW32__)
+  asm volatile("\tmovl %%esp, %0\n"
+               "\tsubl $0x100, %%esp\n"
+               : "=r"(pStack));
+#elif defined(__BORLANDC__)
+  pStack = (DWORD *)_ESP;
+  _ESP -= 0x100;
+#else
+  _asm mov pStack, esp _asm mov pESP, esp _asm sub esp,
+      0x100
+#endif
 
-   // Push args onto the stack. Every argument is aligned on a
-   // 4-byte boundary. We start at the rightmost argument.
-   for( i = 0; i < nArgs; i++ )
-   {
-      nInd  = (nArgs - 1) - i;
-      // Start at the back of the arg ptr, aligned on a DWORD
-      nSize = (Parm[nInd].nWidth + 3) / 4 * 4;
-      pArg  = (BYTE *)Parm[nInd].pArg + nSize - 4;
-      dwStSize += (DWORD)nSize; // Count no of bytes on stack
-      while (nSize > 0)
+  // Push args onto the stack. Every argument is aligned on a
+  // 4-byte boundary. We start at the rightmost argument.
+  for (i = 0; i < nArgs; i++)
+  {
+    nInd = (nArgs - 1) - i;
+    // Start at the back of the arg ptr, aligned on a DWORD
+    nSize = (Parm[nInd].nWidth + 3) / 4 * 4;
+    pArg = (BYTE *)Parm[nInd].pArg + nSize - 4;
+    dwStSize += (DWORD)nSize; // Count no of bytes on stack
+    while (nSize > 0)
+    {
+      // Copy argument to the stack
+      if (Parm[nInd].dwFlags & DC_FLAG_ARGPTR)
       {
-         // Copy argument to the stack
-         if (Parm[nInd].dwFlags & DC_FLAG_ARGPTR)
-         {
-            // Arg has a ptr to a variable that has the arg
-            dwVal = (DWORD) pArg; // Get first four bytes
-            pArg -= 4;           // Next part of argument
-         }
-         else
-         {
-            // Arg has the real arg
-            dwVal = Parm[nInd].dwArg;
-         }
-         // Do push dwVal
-         pStack--;         // ESP = ESP - 4
-         *pStack = dwVal;   // SS:[ESP] = dwVal
-         nSize -= 4;
+        // Arg has a ptr to a variable that has the arg
+        dwVal = (DWORD)pArg; // Get first four bytes
+        pArg -= 4;           // Next part of argument
       }
-   }
+      else
+      {
+        // Arg has the real arg
+        dwVal = Parm[nInd].dwArg;
+      }
+      // Do push dwVal
+      pStack--;        // ESP = ESP - 4
+      *pStack = dwVal; // SS:[ESP] = dwVal
+      nSize -= 4;
+    }
+  }
 
-   if ((pRet != NULL) && ((Flags & DC_BORLAND) || (nRetSiz > 8)))
-   {
-      // Return value isn't passed through registers, memory copy
-      // is performed instead. Pass the pointer as hidden arg.
-      dwStSize += 4;        // Add stack size
-      pStack--;            // ESP = ESP - 4
-      *pStack = (DWORD)pRet;  // SS:[ESP] = pMem
-   }
-   #if defined(__MINGW32__)
-      asm volatile("\taddl $0x100, %%esp\n" /* Restore to original position */
-                   "\tsubl %2, %%esp\n"     /* Adjust for our new parameters */
+  if ((pRet != NULL) && ((Flags & DC_BORLAND) || (nRetSiz > 8)))
+  {
+    // Return value isn't passed through registers, memory copy
+    // is performed instead. Pass the pointer as hidden arg.
+    dwStSize += 4;         // Add stack size
+    pStack--;              // ESP = ESP - 4
+    *pStack = (DWORD)pRet; // SS:[ESP] = pMem
+  }
+#if defined(__MINGW32__)
+  asm volatile("\taddl $0x100, %%esp\n" /* Restore to original position */
+               "\tsubl %2, %%esp\n"     /* Adjust for our new parameters */
 
-                   /* Stack is now properly built, we can call the function */
-                   "\tcall *%3\n"
-                   : "=a" (dwEAX), "=d" (dwEDX) /* Save eax/edx registers */
-                   : "r" (dwStSize), "r" (lpFunction));
+               /* Stack is now properly built, we can call the function */
+               "\tcall *%3\n"
+               : "=a"(dwEAX), "=d"(dwEDX) /* Save eax/edx registers */
+               : "r"(dwStSize), "r"(lpFunction));
 
-      /* Possibly adjust stack and read return values. */
-      if (Flags & DC_CALL_CDECL)
-      {
-         asm volatile("\taddl %0, %%esp\n" : : "r" (dwStSize));
-      }
+  /* Possibly adjust stack and read return values. */
+  if (Flags & DC_CALL_CDECL)
+  {
+    asm volatile("\taddl %0, %%esp\n" : : "r"(dwStSize));
+  }
 
-      if (Flags & DC_RETVAL_MATH4)
-      {
-         asm volatile("\tfstps (%0)\n" : "=r" (Res));
-      }
-      else if (Flags & DC_RETVAL_MATH8)
-      {
-         asm volatile("\tfstpl (%0)\n" : "=r" (Res));
-      }
-      else if (pRet == NULL)
-      {
-         Res.Int = dwEAX;
-         (&Res.Int)[1] = dwEDX;
-      }
-      else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
-      {
-         /* Microsoft optimized less than 8-bytes structure passing */
-         ((int *)pRet)[0] = dwEAX;
-         ((int *)pRet)[1] = dwEDX;
-      }
-   #elif defined(__BORLANDC__)
-      _ESP += (0x100 - dwStSize);
-      _EDX =  (DWORD) &lpFunction;
-      __emit__(0xff,0x12); // call [edx];
-      dwEAX = _EAX;
-      dwEDX = _EDX;
+  if (Flags & DC_RETVAL_MATH4)
+  {
+    asm volatile("\tfstps (%0)\n" : "=r"(Res));
+  }
+  else if (Flags & DC_RETVAL_MATH8)
+  {
+    asm volatile("\tfstpl (%0)\n" : "=r"(Res));
+  }
+  else if (pRet == NULL)
+  {
+    Res.Int = dwEAX;
+    (&Res.Int)[1] = dwEDX;
+  }
+  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
+  {
+    /* Microsoft optimized less than 8-bytes structure passing */
+    ((int *)pRet)[0] = dwEAX;
+    ((int *)pRet)[1] = dwEDX;
+  }
+#elif defined(__BORLANDC__)
+  _ESP += (0x100 - dwStSize);
+  _EDX = (DWORD)&lpFunction;
+  __emit__(0xff, 0x12); // call [edx];
+  dwEAX = _EAX;
+  dwEDX = _EDX;
 
-      // Possibly adjust stack and read return values.
-      if (Flags & DC_CALL_CDECL)
-      {
-         _ESP += dwStSize;
-      }
+  // Possibly adjust stack and read return values.
+  if (Flags & DC_CALL_CDECL)
+  {
+    _ESP += dwStSize;
+  }
 
-      if (Flags & DC_RETVAL_MATH4)
-      {
-         _EBX = (DWORD) &Res;
-         _EAX = dwEAX;
-         _EDX = dwEDX;
-         __emit__(0xd9,0x1b);   //     _asm fnstp float ptr [ebx]
-      }
-      else if (Flags & DC_RETVAL_MATH8)
-      {
-         _EBX = (DWORD) &Res;
-         _EAX = dwEAX;
-         _EDX = dwEDX;
-         __emit__(0xdd,0x1b);   //     _asm fnstp qword ptr [ebx]
-      }
-      else if (pRet == NULL)
-      {
-         _EBX = (DWORD) &Res;
-         _EAX = dwEAX;
-         _EDX = dwEDX;
-//         _asm mov DWORD PTR [ebx], eax
-//         _asm mov DWORD PTR [ebx + 4], edx
-         __emit__(0x89,0x03,0x89,0x53,0x04);
-      }
-      else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
-      {
-         _EBX = (DWORD) pRet;
-         _EAX = dwEAX;
-         _EDX = dwEDX;
-//         _asm mov DWORD PTR [ebx], eax
-//         _asm mov DWORD PTR [ebx + 4], edx
-         __emit__(0x89,0x03,0x89,0x53,0x04);
-      }
-   #else
-      _asm add esp, 0x100       // Restore to original position
-      _asm sub esp, dwStSize     // Adjust for our new parameters
+  if (Flags & DC_RETVAL_MATH4)
+  {
+    _EBX = (DWORD)&Res;
+    _EAX = dwEAX;
+    _EDX = dwEDX;
+    __emit__(0xd9, 0x1b); //     _asm fnstp float ptr [ebx]
+  }
+  else if (Flags & DC_RETVAL_MATH8)
+  {
+    _EBX = (DWORD)&Res;
+    _EAX = dwEAX;
+    _EDX = dwEDX;
+    __emit__(0xdd, 0x1b); //     _asm fnstp qword ptr [ebx]
+  }
+  else if (pRet == NULL)
+  {
+    _EBX = (DWORD)&Res;
+    _EAX = dwEAX;
+    _EDX = dwEDX;
+    //         _asm mov DWORD PTR [ebx], eax
+    //         _asm mov DWORD PTR [ebx + 4], edx
+    __emit__(0x89, 0x03, 0x89, 0x53, 0x04);
+  }
+  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
+  {
+    _EBX = (DWORD)pRet;
+    _EAX = dwEAX;
+    _EDX = dwEDX;
+    //         _asm mov DWORD PTR [ebx], eax
+    //         _asm mov DWORD PTR [ebx + 4], edx
+    __emit__(0x89, 0x03, 0x89, 0x53, 0x04);
+  }
+#else
+  _asm add esp,
+      0x100 // Restore to original position
+      _asm sub esp,
+      dwStSize // Adjust for our new parameters
 
       // Stack is now properly built, we can call the function
-      _asm call [lpFunction]
+      _asm call[lpFunction]
 
-      _asm mov dwEAX, eax       // Save eax/edx registers
-      _asm mov dwEDX, edx       //
+      _asm mov dwEAX,
+      eax // Save eax/edx registers
+      _asm mov dwEDX,
+      edx //
 
       // Possibly adjust stack and read return values.
       if (Flags & DC_CALL_CDECL)
-      {
-         _asm add esp, dwStSize
-      }
+  {
+    _asm add esp, dwStSize
+  }
 
-      if (Flags & DC_RETVAL_MATH4)
-      {
-         _asm fstp dword ptr [Res]
-      }
-      else if (Flags & DC_RETVAL_MATH8)
-      {
-         _asm fstp qword ptr [Res]
-      }
-      else if (pRet == NULL)
-      {
-         _asm mov eax, [dwEAX]
-         _asm mov DWORD PTR [Res], eax
-         _asm mov edx, [dwEDX]
-         _asm mov DWORD PTR [Res + 4], edx
-      }
-      else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
-      {
-         // Microsoft optimized less than 8-bytes structure passing
-         _asm mov ecx, DWORD PTR [pRet]
-         _asm mov eax, [dwEAX]
-         _asm mov DWORD PTR [ecx], eax
-         _asm mov edx, [dwEDX]
-         _asm mov DWORD PTR [ecx + 4], edx
-      }
+  if (Flags & DC_RETVAL_MATH4)
+  {
+    _asm fstp dword ptr[Res]
+  }
+  else if (Flags & DC_RETVAL_MATH8)
+  {
+    _asm fstp qword ptr[Res]
+  }
+  else if (pRet == NULL)
+  {
+    _asm mov eax, [dwEAX] _asm mov DWORD PTR[Res],
+        eax _asm mov edx, [dwEDX] _asm mov DWORD PTR[Res + 4], edx
+  }
+  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8))
+  {
+    // Microsoft optimized less than 8-bytes structure passing
+    _asm mov ecx, DWORD PTR[pRet] _asm mov eax, [dwEAX] _asm mov DWORD PTR[ecx],
+        eax _asm mov edx, [dwEDX] _asm mov DWORD PTR[ecx + 4], edx
+  }
 
-      _asm mov esp, pESP
-   #endif
+  _asm mov esp, pESP
+#endif
 
-   return Res;
+  return Res;
 }
-
 
 //
 // Call a DLL function from (x)Harbour, the first parameter is a pointer returned from
 // GetProcAddress above. Note that it is hardcoded to use PASCAL calling convention.
 //
 
-HB_FUNC( CALLDLL )
+HB_FUNC(CALLDLL)
 {
-   auto iParams = hb_pcount();
-   auto iFirst = 2;
-   int iArgCnt = iParams - 1;
-   LPVOID     lpFunction;
+  auto iParams = hb_pcount();
+  auto iFirst = 2;
+  int iArgCnt = iParams - 1;
+  LPVOID lpFunction;
 
-   lpFunction = (LPVOID) hb_parptr(1);
-   if (lpFunction != NULL)
-   {
-      DllExec(DC_CALL_STD, lpFunction, iParams, iFirst, iArgCnt, NULL);
-   }
-
+  lpFunction = (LPVOID)hb_parptr(1);
+  if (lpFunction != NULL)
+  {
+    DllExec(DC_CALL_STD, lpFunction, iParams, iFirst, iArgCnt, NULL);
+  }
 }
 
-
-//#endif /* HB_OS_WIN32 */
+// #endif /* HB_OS_WIN32 */
