@@ -54,83 +54,68 @@
 /*
 HMG_INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
 */
-HB_FUNC( HMG_INITRADIOGROUP )
+HB_FUNC(HMG_INITRADIOGROUP)
 {
-   void * str;
+  void *str;
 
-   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
+  DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
-   if( !hb_parl(9) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(10) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(10))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   if( hb_parl(11) ) {
-      style |= BS_LEFTTEXT;
-   }
+  if (hb_parl(11))
+  {
+    style |= BS_LEFTTEXT;
+  }
 
-   auto hbutton = CreateWindowEx(
-      0,
-      WC_BUTTON,
-      HB_PARSTR(2, &str, nullptr),
-      style,
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(8),
-      28,
-      hmg_par_HWND(1),
-      hmg_par_HMENU(3),
-      GetInstance(),
-      nullptr);
+  auto hbutton =
+      CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5),
+                     hb_parni(8), 28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITRADIOGROUP, HMG_INITRADIOGROUP )
+HB_FUNC_TRANSLATE(INITRADIOGROUP, HMG_INITRADIOGROUP)
 #endif
 
 /*
 HMG_INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
 */
-HB_FUNC( HMG_INITRADIOBUTTON )
+HB_FUNC(HMG_INITRADIOBUTTON)
 {
-   void * str;
+  void *str;
 
-   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
+  DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
-   if( !hb_parl(9) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( hb_parl(10) ) {
-      style |= BS_LEFTTEXT;
-   }
+  if (hb_parl(10))
+  {
+    style |= BS_LEFTTEXT;
+  }
 
-   auto hbutton = CreateWindowEx(
-      0,
-      WC_BUTTON,
-      HB_PARSTR(2, &str, nullptr),
-      style,
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(8),
-      28,
-      hmg_par_HWND(1),
-      hmg_par_HMENU(3),
-      GetInstance(),
-      nullptr);
+  auto hbutton =
+      CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5),
+                     hb_parni(8), 28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITRADIOBUTTON, HMG_INITRADIOBUTTON )
+HB_FUNC_TRANSLATE(INITRADIOBUTTON, HMG_INITRADIOBUTTON)
 #endif

@@ -46,21 +46,21 @@
 
 #include "mgdefs.hpp"
 
-HB_FUNC( HMG_INITTIMER )
+HB_FUNC(HMG_INITTIMER)
 {
-   hb_retl(SetTimer( hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), ( TIMERPROC ) nullptr ));
+  hb_retl(SetTimer(hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), (TIMERPROC) nullptr));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITTIMER, HMG_INITTIMER )
+HB_FUNC_TRANSLATE(INITTIMER, HMG_INITTIMER)
 #endif
 
-HB_FUNC( HMG_KILLTIMER )
+HB_FUNC(HMG_KILLTIMER)
 {
-   KillTimer( hmg_par_HWND(1),     // handle of main window
-              hmg_par_UINT(2) );   // timer identifier
+  KillTimer(hmg_par_HWND(1),  // handle of main window
+            hmg_par_UINT(2)); // timer identifier
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( KILLTIMER, HMG_KILLTIMER )
+HB_FUNC_TRANSLATE(KILLTIMER, HMG_KILLTIMER)
 #endif

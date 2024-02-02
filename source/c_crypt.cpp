@@ -54,32 +54,37 @@
 
 #include <hbapi.hpp>
 
-HB_FUNC( HMG_CHARXOR )
+HB_FUNC(HMG_CHARXOR)
 {
-   unsigned int len1, nl1, len2, nl2;
+  unsigned int len1, nl1, len2, nl2;
 
-   auto Str1 = static_cast<char*>(hb_parc(1));
-   len1 = hb_parclen(1);
-   auto Str2 = static_cast<char*>(hb_parc(2));
-   len2 = hb_parclen(2);
-   if( !len1 ) {
-      hb_retclen("", 0);
-   } else {
-      auto Res = static_cast<char*>(hb_xgrab(len1));
-      for( nl1 = nl2 = 0; nl1 < len1; nl1++ ) {
-         Res[nl1] = Str1[nl1] ^ Str2[nl2];
-         if( (++nl2) >= len2 ) {
-            nl2 = 0;
-         }
+  auto Str1 = static_cast<char *>(hb_parc(1));
+  len1 = hb_parclen(1);
+  auto Str2 = static_cast<char *>(hb_parc(2));
+  len2 = hb_parclen(2);
+  if (!len1)
+  {
+    hb_retclen("", 0);
+  }
+  else
+  {
+    auto Res = static_cast<char *>(hb_xgrab(len1));
+    for (nl1 = nl2 = 0; nl1 < len1; nl1++)
+    {
+      Res[nl1] = Str1[nl1] ^ Str2[nl2];
+      if ((++nl2) >= len2)
+      {
+        nl2 = 0;
       }
+    }
 
-      hb_retclen(Res, len1);
-      hb_xfree(Res);
-   }
+    hb_retclen(Res, len1);
+    hb_xfree(Res);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CHARXOR, HMG_CHARXOR )
+HB_FUNC_TRANSLATE(CHARXOR, HMG_CHARXOR)
 #endif
 
 #endif

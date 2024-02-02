@@ -47,7 +47,7 @@
  * author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#define WINVER  0x0410
+#define WINVER 0x0410
 
 #include "mgdefs.hpp"
 #include "shlwapi.h"
@@ -57,39 +57,42 @@
 #include "hbgdiplus.h"
 #undef _HMG_STUB_
 
-#define PACKVERSION(major, minor)  MAKELONG(minor, major)
+#define PACKVERSION(major, minor) MAKELONG(minor, major)
 
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 extern GpStatus GdiplusInit(void);
-HMODULE   hmg_LoadLibrarySystem(LPCTSTR pFileName);
+HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName);
 // auxiliary functions
-TCHAR * hmg_tstrdup(const TCHAR * pszText);
-TCHAR * hmg_tstrncat(TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen);
-HB_SIZE hmg_tstrlen(const TCHAR * pText);
+TCHAR *hmg_tstrdup(const TCHAR *pszText);
+TCHAR *hmg_tstrncat(TCHAR *pDest, const TCHAR *pSource, HB_SIZE nLen);
+HB_SIZE hmg_tstrlen(const TCHAR *pText);
 static DWORD DllGetVersion(LPCTSTR lpszDllName);
-static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName);
-using _DLLGETVERSIONPROC = HRESULT (CALLBACK *)(DLLVERSIONINFO2 *);
+static TCHAR *hmg_FileNameAtSystemDir(const TCHAR *pFileName);
+using _DLLGETVERSIONPROC = HRESULT(CALLBACK *)(DLLVERSIONINFO2 *);
 
 static HINSTANCE g_hInstance = nullptr;
 static DWORD g_dwComCtl32Ver = 0;
 
-static void hmg_init(void * cargo)
+static void hmg_init(void *cargo)
 {
-   LPCTSTR lpszDllName = TEXT("ComCtl32.dll");
+  LPCTSTR lpszDllName = TEXT("ComCtl32.dll");
 
-   HB_SYMBOL_UNUSED(cargo);
+  HB_SYMBOL_UNUSED(cargo);
 
-   if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) ) {
-      hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
-   }
+  if (S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE |
+                                             COINIT_SPEED_OVER_MEMORY))
+  {
+    hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
+  }
 
-   g_dwComCtl32Ver = DllGetVersion(lpszDllName);
+  g_dwComCtl32Ver = DllGetVersion(lpszDllName);
 
-   GetInstance();
+  GetInstance();
 
-   if( Ok != GdiplusInit() ) {
-      hmg_ErrorExit(TEXT("GdiplusInit(void)"), 0, TRUE);
-   }
+  if (Ok != GdiplusInit())
+  {
+    hmg_ErrorExit(TEXT("GdiplusInit(void)"), 0, TRUE);
+  }
 }
 
 HB_CALL_ON_STARTUP_BEGIN(_hmg_init_)
@@ -97,152 +100,168 @@ hb_vmAtInit(hmg_init, nullptr);
 HB_CALL_ON_STARTUP_END(_hmg_init_)
 
 #if defined(HB_PRAGMA_STARTUP)
-   #pragma startup _hmg_init_
+#pragma startup _hmg_init_
 #elif defined(HB_DATASEG_STARTUP)
-   #define HB_DATASEG_BODY  HB_DATASEG_FUNC(_hmg_init_)
-   #include <hbiniseg.hpp>
+#define HB_DATASEG_BODY HB_DATASEG_FUNC(_hmg_init_)
+#include <hbiniseg.hpp>
 #endif
 
 HINSTANCE GetInstance(void)
 {
-   if( !g_hInstance ) {
-      g_hInstance = GetModuleHandle(0);
-   }
+  if (!g_hInstance)
+  {
+    g_hInstance = GetModuleHandle(0);
+  }
 
-   return g_hInstance;
+  return g_hInstance;
 }
 
 static DWORD DllGetVersion(LPCTSTR lpszDllName)
 {
-   DWORD dwVersion = 0;
+  DWORD dwVersion = 0;
 
-   HINSTANCE hinstDll = hmg_LoadLibrarySystem(lpszDllName);
+  HINSTANCE hinstDll = hmg_LoadLibrarySystem(lpszDllName);
 
-   if( hinstDll ) {
-      auto pDllGetVersion = reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
+  if (hinstDll)
+  {
+    auto pDllGetVersion =
+        reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
 
-      if( pDllGetVersion ) {
-         DLLVERSIONINFO2 dvi{};
-         dvi.info1.cbSize = sizeof(dvi);
-         HRESULT hr = (*pDllGetVersion)(&dvi);
-         if( S_OK == hr ) {
-            dwVersion = PACKVERSION(dvi.info1.dwMajorVersion, dvi.info1.dwMinorVersion);
-         }
+    if (pDllGetVersion)
+    {
+      DLLVERSIONINFO2 dvi{};
+      dvi.info1.cbSize = sizeof(dvi);
+      HRESULT hr = (*pDllGetVersion)(&dvi);
+      if (S_OK == hr)
+      {
+        dwVersion = PACKVERSION(dvi.info1.dwMajorVersion, dvi.info1.dwMinorVersion);
       }
-      FreeLibrary(hinstDll);
-   }
+    }
+    FreeLibrary(hinstDll);
+  }
 
-   return dwVersion;
+  return dwVersion;
 }
 
-HB_FUNC( HMG_GETINSTANCE )
+HB_FUNC(HMG_GETINSTANCE)
 {
-   hmg_ret_HANDLE(g_hInstance);
+  hmg_ret_HANDLE(g_hInstance);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETINSTANCE, HMG_GETINSTANCE )
+HB_FUNC_TRANSLATE(GETINSTANCE, HMG_GETINSTANCE)
 #endif
 
-HB_FUNC( HMG_GETCOMCTL32DLLVER )
+HB_FUNC(HMG_GETCOMCTL32DLLVER)
 {
-   hb_retnint(g_dwComCtl32Ver);
+  hb_retnint(g_dwComCtl32Ver);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETCOMCTL32DLLVER, HMG_GETCOMCTL32DLLVER )
+HB_FUNC_TRANSLATE(GETCOMCTL32DLLVER, HMG_GETCOMCTL32DLLVER)
 #endif
 
-HB_FUNC( HMG_OLEDATARELEASE )
+HB_FUNC(HMG_OLEDATARELEASE)
 {
-   CoUninitialize();
+  CoUninitialize();
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( OLEDATARELEASE, HMG_OLEDATARELEASE )
+HB_FUNC_TRANSLATE(OLEDATARELEASE, HMG_OLEDATARELEASE)
 #endif
 
 // borrowed from hbwapi.lib [vszakats]
 #ifndef LOAD_LIBRARY_SEARCH_SYSTEM32
-#define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
+#define LOAD_LIBRARY_SEARCH_SYSTEM32 0x00000800
 #endif
 
 static bool win_has_search_system32(void)
 {
-   HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
+  HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
-   if( hKernel32 ) {
-      return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;  /* Detect KB2533623 */
-   }
+  if (hKernel32)
+  {
+    return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr; /* Detect KB2533623 */
+  }
 
-   return false;
+  return false;
 }
 
 HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)
 {
-   TCHAR * pLibPath = hmg_FileNameAtSystemDir(pFileName);
-   HMODULE h = LoadLibraryEx(pLibPath, nullptr, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
-   hb_xfree(pLibPath);
-   return h;
+  TCHAR *pLibPath = hmg_FileNameAtSystemDir(pFileName);
+  HMODULE h = LoadLibraryEx(pLibPath, nullptr,
+                            win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32
+                                                      : LOAD_WITH_ALTERED_SEARCH_PATH);
+  hb_xfree(pLibPath);
+  return h;
 }
 
-static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName)
+static TCHAR *hmg_FileNameAtSystemDir(const TCHAR *pFileName)
 {
-   UINT nLen = GetSystemDirectory(nullptr, 0);
+  UINT nLen = GetSystemDirectory(nullptr, 0);
 
-   if( nLen ) {
-      if( pFileName ) {
-         nLen += static_cast<UINT>(hmg_tstrlen(pFileName)) + 1;
-      }
+  if (nLen)
+  {
+    if (pFileName)
+    {
+      nLen += static_cast<UINT>(hmg_tstrlen(pFileName)) + 1;
+    }
 
-      auto buffer = static_cast<LPTSTR>(hb_xgrab(nLen * sizeof(TCHAR)));
+    auto buffer = static_cast<LPTSTR>(hb_xgrab(nLen * sizeof(TCHAR)));
 
-      GetSystemDirectory(buffer, nLen);
+    GetSystemDirectory(buffer, nLen);
 
-      if( pFileName ) {
-         hmg_tstrncat(buffer, TEXT("\\"), nLen - 1);
-         hmg_tstrncat(buffer, pFileName, nLen - 1);
-      }
+    if (pFileName)
+    {
+      hmg_tstrncat(buffer, TEXT("\\"), nLen - 1);
+      hmg_tstrncat(buffer, pFileName, nLen - 1);
+    }
 
-      return buffer;
-   } else {
-      return hmg_tstrdup(pFileName);
-   }
+    return buffer;
+  }
+  else
+  {
+    return hmg_tstrdup(pFileName);
+  }
 }
 
-TCHAR * hmg_tstrdup(const TCHAR * pszText)
+TCHAR *hmg_tstrdup(const TCHAR *pszText)
 {
-   HB_SIZE nLen = (hmg_tstrlen(pszText) + 1) * sizeof(TCHAR);
-   auto pszDup = static_cast<TCHAR*>(hb_xgrab(nLen));
-   memcpy(pszDup, pszText, nLen);
-   return pszDup;
+  HB_SIZE nLen = (hmg_tstrlen(pszText) + 1) * sizeof(TCHAR);
+  auto pszDup = static_cast<TCHAR *>(hb_xgrab(nLen));
+  memcpy(pszDup, pszText, nLen);
+  return pszDup;
 }
 
-TCHAR * hmg_tstrncat(TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen)
+TCHAR *hmg_tstrncat(TCHAR *pDest, const TCHAR *pSource, HB_SIZE nLen)
 {
-   TCHAR * pBuf = pDest;
+  TCHAR *pBuf = pDest;
 
-   pDest[nLen] = '\0';
+  pDest[nLen] = '\0';
 
-   while( nLen && *pDest ) {
-      pDest++;
-      nLen--;
-   }
+  while (nLen && *pDest)
+  {
+    pDest++;
+    nLen--;
+  }
 
-   while( nLen && (*pDest++ = *pSource++) != '\0' ) {
-      nLen--;
-   }
+  while (nLen && (*pDest++ = *pSource++) != '\0')
+  {
+    nLen--;
+  }
 
-   return pBuf;
+  return pBuf;
 }
 
-HB_SIZE hmg_tstrlen(const TCHAR * pText)
+HB_SIZE hmg_tstrlen(const TCHAR *pText)
 {
-   HB_SIZE nLen = 0;
+  HB_SIZE nLen = 0;
 
-   while( pText[nLen] != '\0' ) {
-      ++nLen;
-   }
+  while (pText[nLen] != '\0')
+  {
+    ++nLen;
+  }
 
-   return nLen;
+  return nLen;
 }

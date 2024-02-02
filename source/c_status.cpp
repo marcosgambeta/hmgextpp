@@ -44,373 +44,411 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbwinuni.hpp>
 
 #ifdef UNICODE
-LPSTR  WideToAnsi(LPWSTR);
+LPSTR WideToAnsi(LPWSTR);
 #endif
 
-HB_FUNC( HMG_INITMESSAGEBAR )
+HB_FUNC(HMG_INITMESSAGEBAR)
 {
-   HWND hWndSB;
-   int  ptArray[40];  // Array defining the number of parts/sections
-   auto nrOfParts = 1;
+  HWND hWndSB;
+  int ptArray[40]; // Array defining the number of parts/sections
+  auto nrOfParts = 1;
 
-   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
+  hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1),
+                              hb_parni(2));
 
-   if( hWndSB ) {
-      SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
-   }
+  if (hWndSB)
+  {
+    SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
+  }
 
-   hmg_ret_HWND(hWndSB);
+  hmg_ret_HWND(hWndSB);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITMESSAGEBAR, HMG_INITMESSAGEBAR )
+HB_FUNC_TRANSLATE(INITMESSAGEBAR, HMG_INITMESSAGEBAR)
 #endif
 
-HB_FUNC( HMG_INITITEMBAR )
+HB_FUNC(HMG_INITITEMBAR)
 {
-   auto cSpaceInBetween = 8;
-   int   ptArray[40]; // Array defining the number of parts/sections
-   auto nrOfParts = 0;
-   RECT  rect;
-   WORD  displayFlags;
-   int   style;
-   int   cx;
-   int   cy;
+  auto cSpaceInBetween = 8;
+  int ptArray[40]; // Array defining the number of parts/sections
+  auto nrOfParts = 0;
+  RECT rect;
+  WORD displayFlags;
+  int style;
+  int cx;
+  int cy;
 
-   void * str1;
-   LPCTSTR lpText     = HB_PARSTR(2, &str1, nullptr);
-   void * str2;
-   LPCTSTR lpIconName = HB_PARSTR(6, &str2, nullptr);
-   void * str3;
-   LPCTSTR lpTipText  = HB_PARSTR(7, &str3, nullptr);
+  void *str1;
+  LPCTSTR lpText = HB_PARSTR(2, &str1, nullptr);
+  void *str2;
+  LPCTSTR lpIconName = HB_PARSTR(6, &str2, nullptr);
+  void *str3;
+  LPCTSTR lpTipText = HB_PARSTR(7, &str3, nullptr);
 
-   auto hWndSB = hmg_par_HWND(1);
-   style  = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
+  auto hWndSB = hmg_par_HWND(1);
+  style = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
 
-   switch( hb_parni(8) ) {
-      case 0:  displayFlags = 0; break;
-      case 1:  displayFlags = SBT_POPOUT; break;
-      case 2:  displayFlags = SBT_NOBORDERS; break;
-      default: displayFlags = 0;
-   }
+  switch (hb_parni(8))
+  {
+  case 0:
+    displayFlags = 0;
+    break;
+  case 1:
+    displayFlags = SBT_POPOUT;
+    break;
+  case 2:
+    displayFlags = SBT_NOBORDERS;
+    break;
+  default:
+    displayFlags = 0;
+  }
 
-   if( hb_parnl(5) ) {
-      nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-      SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
-   }
+  if (hb_parnl(5))
+  {
+    nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+    SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
+  }
 
-   nrOfParts++;
+  nrOfParts++;
 
-   auto hDC = GetDC(hWndSB);
-   GetClientRect(hWndSB, &rect);
+  auto hDC = GetDC(hWndSB);
+  GetClientRect(hWndSB, &rect);
 
-   if( hb_parnl(5) == 0 ) {
+  if (hb_parnl(5) == 0)
+  {
+    ptArray[nrOfParts - 1] = rect.right;
+  }
+  else
+  {
+    for (auto n = 0; n < nrOfParts - 1; n++)
+    {
+      ptArray[n] -= hb_parni(4) - cSpaceInBetween;
+    }
+
+    if (style & WS_SIZEBOX)
+    {
+      if (nrOfParts == 2)
+      {
+        ptArray[0] -= 21;
+      }
+
+      ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
+    }
+    else
+    {
       ptArray[nrOfParts - 1] = rect.right;
-   } else {
-      for( auto n = 0; n < nrOfParts - 1; n++ ) {
-         ptArray[n] -= hb_parni(4) - cSpaceInBetween;
-      }
+    }
+  }
 
-      if( style & WS_SIZEBOX ) {
-         if( nrOfParts == 2 ) {
-            ptArray[0] -= 21;
-         }
+  ReleaseDC(hWndSB, hDC);
 
-         ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
-      } else {
-         ptArray[nrOfParts - 1] = rect.right;
-      }
-   }
+  SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
 
-   ReleaseDC(hWndSB, hDC);
+  cy = rect.bottom - rect.top - 4;
+  cx = cy;
 
-   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
+  auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
-   cy = rect.bottom - rect.top - 4;
-   cx = cy;
+  if (hIcon == nullptr)
+  {
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
+  }
 
-   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
+  if (!(hIcon == nullptr))
+  {
+    SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, reinterpret_cast<LPARAM>(hIcon));
+  }
 
-   if( hIcon == nullptr ) {
-      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
-   }
+  SendMessage(hWndSB, SB_SETTEXT, (nrOfParts - 1) | displayFlags, reinterpret_cast<LPARAM>(lpText));
+  SendMessage(hWndSB, SB_SETTIPTEXT, nrOfParts - 1, reinterpret_cast<LPARAM>(lpTipText));
 
-   if( !( hIcon == nullptr ) ) {
-      SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, reinterpret_cast<LPARAM>(hIcon));
-   }
+  hb_retni(nrOfParts);
 
-   SendMessage(hWndSB, SB_SETTEXT, ( nrOfParts - 1 ) | displayFlags, reinterpret_cast<LPARAM>(lpText));
-   SendMessage(hWndSB, SB_SETTIPTEXT, nrOfParts - 1, reinterpret_cast<LPARAM>(lpTipText));
-
-   hb_retni( nrOfParts );
-
-   hb_strfree(str1);
-   hb_strfree(str2);
-   hb_strfree(str3);
+  hb_strfree(str1);
+  hb_strfree(str2);
+  hb_strfree(str3);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITITEMBAR, HMG_INITITEMBAR )
+HB_FUNC_TRANSLATE(INITITEMBAR, HMG_INITITEMBAR)
 #endif
 
-HB_FUNC( HMG_SETITEMBAR )
+HB_FUNC(HMG_SETITEMBAR)
 {
-   auto hWnd = hmg_par_HWND(1);
-   auto iPos = hb_parni(3);
-   WORD nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
-   void * str;
-   LPCTSTR lpText = HB_PARSTR(2, &str, nullptr);
-   SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, reinterpret_cast<LPARAM>(lpText));
-   hb_strfree(str);
+  auto hWnd = hmg_par_HWND(1);
+  auto iPos = hb_parni(3);
+  WORD nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
+  void *str;
+  LPCTSTR lpText = HB_PARSTR(2, &str, nullptr);
+  SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, reinterpret_cast<LPARAM>(lpText));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETITEMBAR, HMG_SETITEMBAR )
+HB_FUNC_TRANSLATE(SETITEMBAR, HMG_SETITEMBAR)
 #endif
 
-HB_FUNC( HMG_GETITEMBAR )
+HB_FUNC(HMG_GETITEMBAR)
 {
 #ifdef UNICODE
-   LPSTR pStr;
+  LPSTR pStr;
 #endif
-   auto hWnd = hmg_par_HWND(1);
-   auto iPos = hb_parni(2);
+  auto hWnd = hmg_par_HWND(1);
+  auto iPos = hb_parni(2);
 
-   auto cString = static_cast<TCHAR*>(hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
-   SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
+  auto cString = static_cast<TCHAR *>(
+      hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
+  SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
 
 #ifndef UNICODE
-   hb_retc( cString );
+  hb_retc(cString);
 #else
-   pStr = WideToAnsi(cString);
-   hb_retc( pStr );
-   hb_xfree(pStr);
+  pStr = WideToAnsi(cString);
+  hb_retc(pStr);
+  hb_xfree(pStr);
 #endif
-   hb_xfree(cString);
+  hb_xfree(cString);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETITEMBAR, HMG_GETITEMBAR )
+HB_FUNC_TRANSLATE(GETITEMBAR, HMG_GETITEMBAR)
 #endif
 
-HB_FUNC( HMG_REFRESHITEMBAR )
+HB_FUNC(HMG_REFRESHITEMBAR)
 {
-   int  ptArray[40];  // Array defining the number of parts/sections
-   int  nDev;
-   int  s;
-   int  nrOfParts;
-   RECT rect;
+  int ptArray[40]; // Array defining the number of parts/sections
+  int nDev;
+  int s;
+  int nrOfParts;
+  RECT rect;
 
-   auto hWndSB = hmg_par_HWND(1);
-   auto size = hb_parni(2);
-   nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-   SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
+  auto hWndSB = hmg_par_HWND(1);
+  auto size = hb_parni(2);
+  nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+  SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
 
-   auto hDC = GetDC(hWndSB);
-   GetClientRect(hWndSB, &rect);
+  auto hDC = GetDC(hWndSB);
+  GetClientRect(hWndSB, &rect);
 
-   if( ( nrOfParts == 1 ) || ( IsZoomed(GetParent(hWndSB)) ) || ( !(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) ) {
-      nDev = rect.right - ptArray[nrOfParts - 1];
-   } else {
-      nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
-   }
+  if ((nrOfParts == 1) || (IsZoomed(GetParent(hWndSB))) ||
+      (!(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX)))
+  {
+    nDev = rect.right - ptArray[nrOfParts - 1];
+  }
+  else
+  {
+    nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
+  }
 
-   s = TRUE;
-   if( rect.right > 0 ) {
-      for( auto n = 0; n <= nrOfParts - 1; n++ ) {
+  s = TRUE;
+  if (rect.right > 0)
+  {
+    for (auto n = 0; n <= nrOfParts - 1; n++)
+    {
 
-         if( n == 0 ) {
-            if( size >= ptArray[n] && nDev < 0 ) {
-               s = FALSE;
-            } else {
-               if( ptArray[n] + nDev < size ) {
-                  nDev = size - ptArray[n];
-               }
+      if (n == 0)
+      {
+        if (size >= ptArray[n] && nDev < 0)
+        {
+          s = FALSE;
+        }
+        else
+        {
+          if (ptArray[n] + nDev < size)
+          {
+            nDev = size - ptArray[n];
+          }
 
-               ptArray[n] += nDev;
-            }
-         } else if( s ) {
-            ptArray[n] += nDev;
-         }
-
+          ptArray[n] += nDev;
+        }
       }
-   }
+      else if (s)
+      {
+        ptArray[n] += nDev;
+      }
+    }
+  }
 
-   ReleaseDC(hWndSB, hDC);
+  ReleaseDC(hWndSB, hDC);
 
-   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
-   hb_retni( nrOfParts );
+  SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
+  hb_retni(nrOfParts);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REFRESHITEMBAR, HMG_REFRESHITEMBAR )
+HB_FUNC_TRANSLATE(REFRESHITEMBAR, HMG_REFRESHITEMBAR)
 #endif
 
-HB_FUNC( HMG_KEYTOGGLE )
+HB_FUNC(HMG_KEYTOGGLE)
 {
-   BYTE pBuffer[256];
-   WORD wKey = hmg_par_WORD(1);
+  BYTE pBuffer[256];
+  WORD wKey = hmg_par_WORD(1);
 
-   GetKeyboardState(pBuffer);
+  GetKeyboardState(pBuffer);
 
-   if( pBuffer[wKey] & 0x01 ) {
-      pBuffer[wKey] &= 0xFE;
-   } else {
-      pBuffer[wKey] |= 0x01;
-   }
+  if (pBuffer[wKey] & 0x01)
+  {
+    pBuffer[wKey] &= 0xFE;
+  }
+  else
+  {
+    pBuffer[wKey] |= 0x01;
+  }
 
-   SetKeyboardState(pBuffer);
+  SetKeyboardState(pBuffer);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( KEYTOGGLE, HMG_KEYTOGGLE )
+HB_FUNC_TRANSLATE(KEYTOGGLE, HMG_KEYTOGGLE)
 #endif
 
-HB_FUNC( HMG_KEYTOGGLENT )
+HB_FUNC(HMG_KEYTOGGLENT)
 {
-   auto wKey = hmg_par_BYTE(1);
+  auto wKey = hmg_par_BYTE(1);
 
-   keybd_event(wKey, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0);
-   keybd_event(wKey, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+  keybd_event(wKey, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0);
+  keybd_event(wKey, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( KEYTOGGLENT, HMG_KEYTOGGLENT )
+HB_FUNC_TRANSLATE(KEYTOGGLENT, HMG_KEYTOGGLENT)
 #endif
 
-HB_FUNC( HMG_SETSTATUSITEMICON )
+HB_FUNC(HMG_SETSTATUSITEMICON)
 {
-   RECT  rect;
-   int   cx;
-   int   cy;
+  RECT rect;
+  int cx;
+  int cy;
 
-   void * str;
-   LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
+  void *str;
+  LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   // Unloads from memory current icon
+  // Unloads from memory current icon
 
-   DestroyIcon(reinterpret_cast<HICON>(SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, 0)));
+  DestroyIcon(reinterpret_cast<HICON>(SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, 0)));
 
-   GetClientRect(hwnd, &rect);
+  GetClientRect(hwnd, &rect);
 
-   cy = rect.bottom - rect.top - 4;
-   cx = cy;
+  cy = rect.bottom - rect.top - 4;
+  cx = cy;
 
-   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
+  auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
-   if( hIcon == nullptr ) {
-      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
-   }
+  if (hIcon == nullptr)
+  {
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
+  }
 
-   SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(hIcon));
+  SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(hIcon));
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETSTATUSITEMICON, HMG_SETSTATUSITEMICON )
+HB_FUNC_TRANSLATE(SETSTATUSITEMICON, HMG_SETSTATUSITEMICON)
 #endif
 
-HB_FUNC( HMG_SETSTATUSBARSIZE )
+HB_FUNC(HMG_SETSTATUSBARSIZE)
 {
-   HLOCAL hloc;
+  HLOCAL hloc;
 
-   auto hwndStatus = hmg_par_HWND(1);
-   auto nParts = static_cast<int>(hb_parinfa(2, 0));
-   int  nWidth;
+  auto hwndStatus = hmg_par_HWND(1);
+  auto nParts = static_cast<int>(hb_parinfa(2, 0));
+  int nWidth;
 
-   // Set Widths from array
+  // Set Widths from array
 
-   hloc    = LocalAlloc(LHND, sizeof(int) * nParts);
-   auto lpParts = static_cast<LPINT>(LocalLock(hloc));
+  hloc = LocalAlloc(LHND, sizeof(int) * nParts);
+  auto lpParts = static_cast<LPINT>(LocalLock(hloc));
 
-   nWidth = 0;
+  nWidth = 0;
 
-   for( auto i = 0; i < nParts; i++ ) {
-      nWidth       = nWidth + HB_PARNI(2, i + 1);
-      lpParts[i] = nWidth;
-   }
+  for (auto i = 0; i < nParts; i++)
+  {
+    nWidth = nWidth + HB_PARNI(2, i + 1);
+    lpParts[i] = nWidth;
+  }
 
-   SendMessage(hwndStatus, SB_SETPARTS, nParts, reinterpret_cast<LPARAM>(lpParts));
+  SendMessage(hwndStatus, SB_SETPARTS, nParts, reinterpret_cast<LPARAM>(lpParts));
 
-   MoveWindow(hwndStatus, 0, 0, 0, 0, TRUE);
+  MoveWindow(hwndStatus, 0, 0, 0, 0, TRUE);
 
-   LocalUnlock(hloc);
-   LocalFree(hloc);
+  LocalUnlock(hloc);
+  LocalFree(hloc);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETSTATUSBARSIZE, HMG_SETSTATUSBARSIZE )
+HB_FUNC_TRANSLATE(SETSTATUSBARSIZE, HMG_SETSTATUSBARSIZE)
 #endif
 
-HB_FUNC( HMG_REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, hProgress)
+HB_FUNC(HMG_REFRESHPROGRESSITEM) // RefreshProgressItem(HwndStatus, NrItem, hProgress)
 {
-   auto hwndStatus = hmg_par_HWND(1);
-   RECT rc;
+  auto hwndStatus = hmg_par_HWND(1);
+  RECT rc;
 
-   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
-   SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+  SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
+  SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0,
+               SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REFRESHPROGRESSITEM, HMG_REFRESHPROGRESSITEM )
+HB_FUNC_TRANSLATE(REFRESHPROGRESSITEM, HMG_REFRESHPROGRESSITEM)
 #endif
 
-HB_FUNC( HMG_CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem)
+HB_FUNC(HMG_CREATEPROGRESSBARITEM) // CreateProgressBarItem(HwndStatus, NrItem)
 {
-   auto hwndStatus = hmg_par_HWND(1);
-   HWND hwndProgressBar;
-   RECT rc;
-   int  style = WS_CHILD | PBS_SMOOTH;
+  auto hwndStatus = hmg_par_HWND(1);
+  HWND hwndProgressBar;
+  RECT rc;
+  int style = WS_CHILD | PBS_SMOOTH;
 
-   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
-   if( hb_parni(3) ) {
-      style |= WS_VISIBLE;
-   }
+  SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
+  if (hb_parni(3))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( ( hwndProgressBar = CreateWindowEx(
-            0,
-            PROGRESS_CLASS,
-            ( LPCTSTR ) nullptr,
-            style,
-            rc.top,
-            rc.left,
-            rc.right - rc.left,
-            rc.bottom - rc.top - 1, // No size or position.
-            hwndStatus,             // Handle to the parent window.
-            ( HMENU ) nullptr,         // ID for the progress window.
-            GetInstance(),          // Current instance.
-            nullptr) ) != nullptr ) {
-      SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
-      SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
+  if ((hwndProgressBar = CreateWindowEx(0, PROGRESS_CLASS, (LPCTSTR) nullptr, style, rc.top,
+                                        rc.left, rc.right - rc.left,
+                                        rc.bottom - rc.top - 1, // No size or position.
+                                        hwndStatus,             // Handle to the parent window.
+                                        (HMENU) nullptr,        // ID for the progress window.
+                                        GetInstance(),          // Current instance.
+                                        nullptr)) != nullptr)
+  {
+    SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
+    SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 
-      hmg_ret_HWND(hwndProgressBar);
-   } else { // No application-defined data.
-      hmg_ret_HWND(nullptr);
-   }
+    hmg_ret_HWND(hwndProgressBar);
+  }
+  else
+  { // No application-defined data.
+    hmg_ret_HWND(nullptr);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CREATEPROGRESSBARITEM, HMG_CREATEPROGRESSBARITEM )
+HB_FUNC_TRANSLATE(CREATEPROGRESSBARITEM, HMG_CREATEPROGRESSBARITEM)
 #endif
 
-HB_FUNC( HMG_SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem(HwndProgressBar, nPos)
+HB_FUNC(HMG_SETPOSPROGRESSBARITEM) // SetPosProgressBarItem(HwndProgressBar, nPos)
 {
-   auto hwndProgressBar = hmg_par_HWND(1);
+  auto hwndProgressBar = hmg_par_HWND(1);
 
-   ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
-   SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(2), 0);
+  ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
+  SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(2), 0);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETPOSPROGRESSBARITEM, HMG_SETPOSPROGRESSBARITEM )
+HB_FUNC_TRANSLATE(SETPOSPROGRESSBARITEM, HMG_SETPOSPROGRESSBARITEM)
 #endif

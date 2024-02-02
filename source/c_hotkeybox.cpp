@@ -52,146 +52,143 @@
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
-LPSTR  WideToAnsi(LPWSTR);
+LPSTR WideToAnsi(LPWSTR);
 #endif
 
-void InterpretHotKey(UINT setting, TCHAR * szKeyName)
+void InterpretHotKey(UINT setting, TCHAR *szKeyName)
 {
 #ifndef UNICODE
-   LPSTR lpString;
+  LPSTR lpString;
 #else
-   LPWSTR lpString;
+  LPWSTR lpString;
 #endif
 
-   UINT uCode = (setting & 0x0000FF00) >> 8;
-   UINT uVKey = setting & 255;
-   *szKeyName = 0;
+  UINT uCode = (setting & 0x0000FF00) >> 8;
+  UINT uVKey = setting & 255;
+  *szKeyName = 0;
 
-   BOOL Ctrl  = uCode & HOTKEYF_CONTROL;
-   BOOL Alt   = uCode & HOTKEYF_ALT;
-   BOOL Shift = uCode & HOTKEYF_SHIFT;
+  BOOL Ctrl = uCode & HOTKEYF_CONTROL;
+  BOOL Alt = uCode & HOTKEYF_ALT;
+  BOOL Shift = uCode & HOTKEYF_SHIFT;
 
-   lstrcat(szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT(""));
-   lstrcat(szKeyName, Shift ? TEXT("Shift + ") : TEXT(""));
-   lstrcat(szKeyName, Alt ? TEXT("Alt + ") : TEXT(""));
+  lstrcat(szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT(""));
+  lstrcat(szKeyName, Shift ? TEXT("Shift + ") : TEXT(""));
+  lstrcat(szKeyName, Alt ? TEXT("Alt + ") : TEXT(""));
 
 #ifndef UNICODE
-   lpString = szKeyName;
+  lpString = szKeyName;
 #else
-   lpString = AnsiToWide(static_cast<char*>(szKeyName));
+  lpString = AnsiToWide(static_cast<char *>(szKeyName));
 #endif
-   UINT WorkKey = MapVirtualKey(uVKey, 0);
+  UINT WorkKey = MapVirtualKey(uVKey, 0);
 
-   if( uCode & 0x00000008 ) { // extended key
-      WorkKey = 0x03000000 | (WorkKey << 16);
-   } else {
-      WorkKey = 0x02000000 | (WorkKey << 16);
-   }
+  if (uCode & 0x00000008)
+  { // extended key
+    WorkKey = 0x03000000 | (WorkKey << 16);
+  }
+  else
+  {
+    WorkKey = 0x02000000 | (WorkKey << 16);
+  }
 
-   GetKeyNameText(WorkKey, lpString + lstrlen(lpString), 100);
+  GetKeyNameText(WorkKey, lpString + lstrlen(lpString), 100);
 
 #ifdef UNICODE
-   hb_xfree(static_cast<TCHAR*>(lpString));
+  hb_xfree(static_cast<TCHAR *>(lpString));
 #endif
 }
 
-HB_FUNC( HMG_C_GETHOTKEYNAME )
+HB_FUNC(HMG_C_GETHOTKEYNAME)
 {
 #ifdef UNICODE
-   LPSTR pStr;
+  LPSTR pStr;
 #endif
 
-   auto hWnd = hmg_par_HWND(1);
-   auto wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
-   TCHAR szKeyName[100];
-   InterpretHotKey(wHotKey, szKeyName);
+  auto hWnd = hmg_par_HWND(1);
+  auto wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
+  TCHAR szKeyName[100];
+  InterpretHotKey(wHotKey, szKeyName);
 
 #ifndef UNICODE
-   hb_retclen(szKeyName, 100);
+  hb_retclen(szKeyName, 100);
 #else
-   pStr = WideToAnsi(szKeyName);
-   hb_retclen(pStr, 100);
-   hb_xfree(pStr);
+  pStr = WideToAnsi(szKeyName);
+  hb_retclen(pStr, 100);
+  hb_xfree(pStr);
 #endif
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_GETHOTKEYNAME, HMG_C_GETHOTKEYNAME )
+HB_FUNC_TRANSLATE(C_GETHOTKEYNAME, HMG_C_GETHOTKEYNAME)
 #endif
 
-HB_FUNC( HMG_INITHOTKEYBOX )
+HB_FUNC(HMG_INITHOTKEYBOX)
 {
-   DWORD style = WS_CHILD;
+  DWORD style = WS_CHILD;
 
-   if( !hb_parl(8) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(8))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(9) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   auto hwndHotKey = CreateWindowEx(
-      0,
-      HOTKEY_CLASS,
-      TEXT(""),
-      style,
-      hb_parni(2),
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hmg_par_HWND(1),
-      nullptr,
-      GetInstance(),
-      nullptr);
+  auto hwndHotKey =
+      CreateWindowEx(0, HOTKEY_CLASS, TEXT(""), style, hb_parni(2), hb_parni(3), hb_parni(4),
+                     hb_parni(5), hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
 
-   hmg_ret_HWND(hwndHotKey);
+  hmg_ret_HWND(hwndHotKey);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITHOTKEYBOX, HMG_INITHOTKEYBOX )
+HB_FUNC_TRANSLATE(INITHOTKEYBOX, HMG_INITHOTKEYBOX)
 #endif
 
-HB_FUNC( HMG_SETHOTKEYVALUE )
+HB_FUNC(HMG_SETHOTKEYVALUE)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   auto wHotKey = static_cast<WORD>(hb_parnl(2));
+  auto wHotKey = static_cast<WORD>(hb_parnl(2));
 
-   if( wHotKey != 0 ) {
-      SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
-   }
+  if (wHotKey != 0)
+  {
+    SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
+  }
 
-   SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S, /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
+  SendMessage(
+      hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S,
+      /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETHOTKEYVALUE, HMG_SETHOTKEYVALUE )
+HB_FUNC_TRANSLATE(SETHOTKEYVALUE, HMG_SETHOTKEYVALUE)
 #endif
 
-HB_FUNC( HMG_C_GETHOTKEYVALUE )
+HB_FUNC(HMG_C_GETHOTKEYVALUE)
 {
-   auto wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
-   UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
-   UINT uModifiers = HIBYTE(LOWORD(wHotKey));
-   UINT iModifierKeys =
-      ((uModifiers & HOTKEYF_CONTROL) ? MOD_CONTROL : 0)
-      | ((uModifiers & HOTKEYF_ALT) ? MOD_ALT : 0)
-      | ((uModifiers & HOTKEYF_SHIFT) ? MOD_SHIFT : 0);
-   hb_reta(2);
-   HB_STORVNL(static_cast<UINT>(uVirtualKeyCode), -1, 1);
-   HB_STORNI(static_cast<UINT>(iModifierKeys), -1, 2);
+  auto wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
+  UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
+  UINT uModifiers = HIBYTE(LOWORD(wHotKey));
+  UINT iModifierKeys = ((uModifiers & HOTKEYF_CONTROL) ? MOD_CONTROL : 0) |
+                       ((uModifiers & HOTKEYF_ALT) ? MOD_ALT : 0) |
+                       ((uModifiers & HOTKEYF_SHIFT) ? MOD_SHIFT : 0);
+  hb_reta(2);
+  HB_STORVNL(static_cast<UINT>(uVirtualKeyCode), -1, 1);
+  HB_STORNI(static_cast<UINT>(iModifierKeys), -1, 2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_GETHOTKEYVALUE, HMG_C_GETHOTKEYVALUE )
+HB_FUNC_TRANSLATE(C_GETHOTKEYVALUE, HMG_C_GETHOTKEYVALUE)
 #endif
 
-HB_FUNC( HMG_C_GETHOTKEY )
+HB_FUNC(HMG_C_GETHOTKEY)
 {
-   hb_retnl(static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0)));
+  hb_retnl(static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_GETHOTKEY, HMG_C_GETHOTKEY )
+HB_FUNC_TRANSLATE(C_GETHOTKEY, HMG_C_GETHOTKEY)
 #endif

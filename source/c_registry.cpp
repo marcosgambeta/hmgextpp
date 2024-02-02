@@ -56,255 +56,291 @@
 /*
 HMG_REGCLOSEKEY(HKEY) --> numeric
 */
-HB_FUNC( HMG_REGCLOSEKEY )
+HB_FUNC(HMG_REGCLOSEKEY)
 {
-   hb_retnl((RegCloseKey(hmg_par_HKEY(1)) == ERROR_SUCCESS) ? ERROR_SUCCESS : -1);
+  hb_retnl((RegCloseKey(hmg_par_HKEY(1)) == ERROR_SUCCESS) ? ERROR_SUCCESS : -1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGCLOSEKEY, HMG_REGCLOSEKEY )
+HB_FUNC_TRANSLATE(REGCLOSEKEY, HMG_REGCLOSEKEY)
 #endif
 
 /*
 HMG_REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
 */
-HB_FUNC( HMG_REGOPENKEYEX )
+HB_FUNC(HMG_REGOPENKEYEX)
 {
-   HKEY phwHandle;
+  HKEY phwHandle;
 
-   void * str;
-   long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
-   hb_strfree(str);
+  void *str;
+  long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0,
+                             static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
+  hb_strfree(str);
 
-   if( lError != ERROR_SUCCESS ) {
-      hb_retnl(-1);
-   } else {
-      HB_STORNL(PtrToLong(phwHandle), 5);
-      hb_retnl(0);
-   }
-
+  if (lError != ERROR_SUCCESS)
+  {
+    hb_retnl(-1);
+  }
+  else
+  {
+    HB_STORNL(PtrToLong(phwHandle), 5);
+    hb_retnl(0);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGOPENKEYEX, HMG_REGOPENKEYEX )
+HB_FUNC_TRANSLATE(REGOPENKEYEX, HMG_REGOPENKEYEX)
 #endif
 
-HB_FUNC( REGOPENKEYEXA ) // INFO: deprecated
+HB_FUNC(REGOPENKEYEXA) // INFO: deprecated
 {
-   HB_FUNC_EXEC( HMG_REGOPENKEYEX );
+  HB_FUNC_EXEC(HMG_REGOPENKEYEX);
 }
 
 /*
 HMG_REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
 */
-HB_FUNC( HMG_REGQUERYVALUEEX )
+HB_FUNC(HMG_REGQUERYVALUEEX)
 {
-   DWORD lpType = hb_parnl(4);
-   DWORD lpcbData = 0;
+  DWORD lpType = hb_parnl(4);
+  DWORD lpcbData = 0;
 
-   void * str;
-   long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, nullptr, &lpcbData);
-   hb_strfree(str);
+  void *str;
+  long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType,
+                                nullptr, &lpcbData);
+  hb_strfree(str);
 
-   if( lError == ERROR_SUCCESS ) {
-      auto lpData = static_cast<BYTE*>(hb_xgrab(lpcbData + 1));
-      void * str;
-      lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, static_cast<BYTE*>(lpData), &lpcbData);
-      hb_strfree(str);
+  if (lError == ERROR_SUCCESS)
+  {
+    auto lpData = static_cast<BYTE *>(hb_xgrab(lpcbData + 1));
+    void *str;
+    lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType,
+                             static_cast<BYTE *>(lpData), &lpcbData);
+    hb_strfree(str);
 
-      if( lError != ERROR_SUCCESS ) {
-         hb_retnl(-1);
-      } else {
-         HB_STORNL(lpType, 4);
-         hb_storc(reinterpret_cast<char*>(lpData), 5);
-         HB_STORNL(lpcbData, 6);
-
-         hb_retnl(0);
-      }
-
-      hb_xfree(lpData);
-   } else {
+    if (lError != ERROR_SUCCESS)
+    {
       hb_retnl(-1);
-   }
+    }
+    else
+    {
+      HB_STORNL(lpType, 4);
+      hb_storc(reinterpret_cast<char *>(lpData), 5);
+      HB_STORNL(lpcbData, 6);
+
+      hb_retnl(0);
+    }
+
+    hb_xfree(lpData);
+  }
+  else
+  {
+    hb_retnl(-1);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGQUERYVALUEEX, HMG_REGQUERYVALUEEX )
+HB_FUNC_TRANSLATE(REGQUERYVALUEEX, HMG_REGQUERYVALUEEX)
 #endif
 
-HB_FUNC( REGQUERYVALUEEXA ) // INFO: deprecated
+HB_FUNC(REGQUERYVALUEEXA) // INFO: deprecated
 {
-  HB_FUNC_EXEC( HMG_REGQUERYVALUEEX );
+  HB_FUNC_EXEC(HMG_REGQUERYVALUEEX);
 }
 
 /*
 HMG_REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
 */
-HB_FUNC( HMG_REGENUMKEYEX )
+HB_FUNC(HMG_REGENUMKEYEX)
 {
-   TCHAR Buffer[255];
-   DWORD dwBuffSize = 255;
-   TCHAR Class[255];
-   DWORD dwClass = 255;
-   FILETIME ft;
+  TCHAR Buffer[255];
+  DWORD dwBuffSize = 255;
+  TCHAR Class[255];
+  DWORD dwClass = 255;
+  FILETIME ft;
 
-   long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
+  long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class,
+                           &dwClass, &ft);
 
-   if( bErr != ERROR_SUCCESS ) {
-      hb_retnl(-1);
-   } else {
-      hb_storc(static_cast<const char*>(Buffer), 3);
-      HB_STORNL(dwBuffSize, 4);
-      hb_storc(static_cast<const char*>(Class), 6);
-      HB_STORNL(dwClass, 7);
-      hb_retnl(0);
-   }
+  if (bErr != ERROR_SUCCESS)
+  {
+    hb_retnl(-1);
+  }
+  else
+  {
+    hb_storc(static_cast<const char *>(Buffer), 3);
+    HB_STORNL(dwBuffSize, 4);
+    hb_storc(static_cast<const char *>(Class), 6);
+    HB_STORNL(dwClass, 7);
+    hb_retnl(0);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGENUMKEYEX, HMG_REGENUMKEYEX )
+HB_FUNC_TRANSLATE(REGENUMKEYEX, HMG_REGENUMKEYEX)
 #endif
 
-HB_FUNC( REGENUMKEYEXA ) // INFO: deprecated
+HB_FUNC(REGENUMKEYEXA) // INFO: deprecated
 {
-  HB_FUNC_EXEC( HMG_REGENUMKEYEX );
+  HB_FUNC_EXEC(HMG_REGENUMKEYEX);
 }
 
 /*
 HMG_REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
 */
-HB_FUNC( HMG_REGSETVALUEEX )
+HB_FUNC(HMG_REGSETVALUEEX)
 {
-   DWORD nType = hb_parnl(4);
+  DWORD nType = hb_parnl(4);
 
-   if( nType != REG_DWORD ) {
-      void * str;
-      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), reinterpret_cast<BYTE*>(const_cast<char*>(hb_parc(5))), static_cast<DWORD>(hb_parclen(5)) + 1) == ERROR_SUCCESS) ? 0 : -1);
-      hb_strfree(str);
-   } else {
-      void * str;
-      DWORD nSpace = hb_parnl(5);
-      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), reinterpret_cast<BYTE*>(&nSpace), sizeof(REG_DWORD)) == ERROR_SUCCESS) ? 0 : -1);
-      hb_strfree(str);
-   }
+  if (nType != REG_DWORD)
+  {
+    void *str;
+    hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4),
+                            reinterpret_cast<BYTE *>(const_cast<char *>(hb_parc(5))),
+                            static_cast<DWORD>(hb_parclen(5)) + 1) == ERROR_SUCCESS)
+                 ? 0
+                 : -1);
+    hb_strfree(str);
+  }
+  else
+  {
+    void *str;
+    DWORD nSpace = hb_parnl(5);
+    hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4),
+                            reinterpret_cast<BYTE *>(&nSpace), sizeof(REG_DWORD)) == ERROR_SUCCESS)
+                 ? 0
+                 : -1);
+    hb_strfree(str);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGSETVALUEEX, HMG_REGSETVALUEEX )
+HB_FUNC_TRANSLATE(REGSETVALUEEX, HMG_REGSETVALUEEX)
 #endif
 
-HB_FUNC( REGSETVALUEEXA ) // INFO: deprecated
+HB_FUNC(REGSETVALUEEXA) // INFO: deprecated
 {
-  HB_FUNC_EXEC( HMG_REGSETVALUEEX );
+  HB_FUNC_EXEC(HMG_REGSETVALUEEX);
 }
 
 /*
 HMG_REGCREATEKEY(HKEY, cKey, np3) --> numeric
 */
-HB_FUNC( HMG_REGCREATEKEY )
+HB_FUNC(HMG_REGCREATEKEY)
 {
-   void * str;
-   HKEY hKey;
+  void *str;
+  HKEY hKey;
 
-   if( RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS ) {
-      HB_STORNL(PtrToLong(hKey), 3);
-      hb_retnl(0);
-   } else {
-      hb_retnl(-1);
-   }
+  if (RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS)
+  {
+    HB_STORNL(PtrToLong(hKey), 3);
+    hb_retnl(0);
+  }
+  else
+  {
+    hb_retnl(-1);
+  }
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGCREATEKEY, HMG_REGCREATEKEY )
+HB_FUNC_TRANSLATE(REGCREATEKEY, HMG_REGCREATEKEY)
 #endif
 
 /*
 HMG_REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
 */
-HB_FUNC( HMG_REGENUMVALUE )
+HB_FUNC(HMG_REGENUMVALUE)
 {
-   DWORD lpType = 1;
-   TCHAR Buffer[255];
-   DWORD dwBuffSize = 255;
-   DWORD dwClass = 255;
+  DWORD lpType = 1;
+  TCHAR Buffer[255];
+  DWORD dwBuffSize = 255;
+  DWORD dwClass = 255;
 
-   long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
+  long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType,
+                             nullptr, &dwClass);
 
-   if( lError != ERROR_SUCCESS ) {
-      hb_retnl(-1);
-   } else {
-      hb_storc(static_cast<const char*>(Buffer), 3);
-      HB_STORNL(dwBuffSize, 4);
-      HB_STORNL(lpType, 6);
-      HB_STORNL(dwClass, 8);
-      hb_retnl(lError);
-   }
+  if (lError != ERROR_SUCCESS)
+  {
+    hb_retnl(-1);
+  }
+  else
+  {
+    hb_storc(static_cast<const char *>(Buffer), 3);
+    HB_STORNL(dwBuffSize, 4);
+    HB_STORNL(lpType, 6);
+    HB_STORNL(dwClass, 8);
+    hb_retnl(lError);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGENUMVALUE, HMG_REGENUMVALUE )
+HB_FUNC_TRANSLATE(REGENUMVALUE, HMG_REGENUMVALUE)
 #endif
 
-HB_FUNC( REGENUMVALUEA ) // INFO: deprecated
+HB_FUNC(REGENUMVALUEA) // INFO: deprecated
 {
-  HB_FUNC_EXEC( HMG_REGENUMVALUE );
+  HB_FUNC_EXEC(HMG_REGENUMVALUE);
 }
 
 /*
 HMG_REGDELETEKEY(HKEY, cKey) --> numeric
 */
-HB_FUNC( HMG_REGDELETEKEY )
+HB_FUNC(HMG_REGDELETEKEY)
 {
-   void * str;
-   hb_retnl(RegDeleteKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)));
-   hb_strfree(str);
+  void *str;
+  hb_retnl(RegDeleteKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGDELETEKEY, HMG_REGDELETEKEY )
+HB_FUNC_TRANSLATE(REGDELETEKEY, HMG_REGDELETEKEY)
 #endif
 
 /*
 HMG_REGDELETEVALUE(HKEY, cKey) --> numeric
 */
-HB_FUNC( HMG_REGDELETEVALUE )
+HB_FUNC(HMG_REGDELETEVALUE)
 {
-   void * str;
-   hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0 : -1);
-   hb_strfree(str);
+  void *str;
+  hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0
+                                                                                           : -1);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGDELETEVALUE, HMG_REGDELETEVALUE )
+HB_FUNC_TRANSLATE(REGDELETEVALUE, HMG_REGDELETEVALUE)
 #endif
 
-HB_FUNC( REGDELETEVALUEA ) // INFO: deprecated
+HB_FUNC(REGDELETEVALUEA) // INFO: deprecated
 {
-  HB_FUNC_EXEC( HMG_REGDELETEVALUE );
+  HB_FUNC_EXEC(HMG_REGDELETEVALUE);
 }
 
 /*
 HMG_REGCONNECTREGISTRY(cp1, HKEY) --> numeric
 */
-HB_FUNC( HMG_REGCONNECTREGISTRY )
+HB_FUNC(HMG_REGCONNECTREGISTRY)
 {
-   void * str;
-   HKEY phwHandle;
+  void *str;
+  HKEY phwHandle;
 
-   long lError = RegConnectRegistry(HB_PARSTR(1, &str, nullptr), hmg_par_HKEY(2), &phwHandle);
+  long lError = RegConnectRegistry(HB_PARSTR(1, &str, nullptr), hmg_par_HKEY(2), &phwHandle);
 
-   if( lError != ERROR_SUCCESS ) {
-      hb_retnl(-1);
-   } else {
-      HB_STORNL(PtrToLong(phwHandle), 3);
-      hb_retnl(lError);
-   }
+  if (lError != ERROR_SUCCESS)
+  {
+    hb_retnl(-1);
+  }
+  else
+  {
+    HB_STORNL(PtrToLong(phwHandle), 3);
+    hb_retnl(lError);
+  }
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REGCONNECTREGISTRY, HMG_REGCONNECTREGISTRY )
+HB_FUNC_TRANSLATE(REGCONNECTREGISTRY, HMG_REGCONNECTREGISTRY)
 #endif

@@ -51,28 +51,30 @@
 #include <hbapierr.hpp>
 #include <hbapiitm.hpp>
 
-bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
-HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc);
-BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
-//BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt);
+HB_EXPORT PHB_ITEM Rect2Hash(RECT *rc);
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor,
+                                LPARAM dwData);
+// BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM
+// dwData);
 static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags);
 
-HB_FUNC( HMG_COUNTMONITORS )
+HB_FUNC(HMG_COUNTMONITORS)
 {
-   hb_retni(GetSystemMetrics(SM_CMONITORS));
+  hb_retni(GetSystemMetrics(SM_CMONITORS));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COUNTMONITORS, HMG_COUNTMONITORS )
+HB_FUNC_TRANSLATE(COUNTMONITORS, HMG_COUNTMONITORS)
 #endif
 
-HB_FUNC( HMG_ISSAMEDISPLAYFORMAT )
+HB_FUNC(HMG_ISSAMEDISPLAYFORMAT)
 {
-   hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? true : false);
+  hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? true : false);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ISSAMEDISPLAYFORMAT, HMG_ISSAMEDISPLAYFORMAT )
+HB_FUNC_TRANSLATE(ISSAMEDISPLAYFORMAT, HMG_ISSAMEDISPLAYFORMAT)
 #endif
 
 // The  EnumDisplayMonitors  function  enumerates  display monitors
@@ -80,93 +82,108 @@ HB_FUNC_TRANSLATE( ISSAMEDISPLAYFORMAT, HMG_ISSAMEDISPLAYFORMAT )
 
 // BOOL EnumDisplayMonitors(HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData)
 
-HB_FUNC( HMG_ENUMDISPLAYMONITORS )
+HB_FUNC(HMG_ENUMDISPLAYMONITORS)
 {
-   auto pMonitorEnum = hb_itemArrayNew(0);
-   EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
-   hb_itemReturnRelease(pMonitorEnum);
+  auto pMonitorEnum = hb_itemArrayNew(0);
+  EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
+  hb_itemReturnRelease(pMonitorEnum);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ENUMDISPLAYMONITORS, HMG_ENUMDISPLAYMONITORS )
+HB_FUNC_TRANSLATE(ENUMDISPLAYMONITORS, HMG_ENUMDISPLAYMONITORS)
 #endif
 
-BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor,
+                                LPARAM dwData)
 {
-   HB_SYMBOL_UNUSED(hdcMonitor);
-   auto pMonitor = hb_itemArrayNew(2);
-   PHB_ITEM pRect = Rect2Hash(lprcMonitor);
-   hb_arraySetNInt(pMonitor, 1, reinterpret_cast<LONG_PTR>(hMonitor));
-   hb_itemArrayPut(pMonitor, 2, pRect);
-   hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(dwData), pMonitor);
-   hb_itemRelease(pMonitor);
-   hb_itemRelease(pRect);
-   return TRUE;
+  HB_SYMBOL_UNUSED(hdcMonitor);
+  auto pMonitor = hb_itemArrayNew(2);
+  PHB_ITEM pRect = Rect2Hash(lprcMonitor);
+  hb_arraySetNInt(pMonitor, 1, reinterpret_cast<LONG_PTR>(hMonitor));
+  hb_itemArrayPut(pMonitor, 2, pRect);
+  hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(dwData), pMonitor);
+  hb_itemRelease(pMonitor);
+  hb_itemRelease(pRect);
+  return TRUE;
 }
 
 //        BOOL GetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpmi)
-HB_FUNC( HMG_GETMONITORINFO )
+HB_FUNC(HMG_GETMONITORINFO)
 {
-   MONITORINFO mi;
-   mi.cbSize = sizeof(MONITORINFO);
+  MONITORINFO mi;
+  mi.cbSize = sizeof(MONITORINFO);
 
-   if( GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi) ) {
-      auto pMonInfo = hb_itemArrayNew(3);
-      PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
-      PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
-      hb_itemArrayPut(pMonInfo, 1, pMonitor);
-      hb_itemArrayPut(pMonInfo, 2, pWork);
-      hb_arraySetNInt(pMonInfo, 3, static_cast<LONG_PTR>(mi.dwFlags));
-      hb_itemReturnRelease(pMonInfo);
-      hb_itemRelease(pMonitor);
-      hb_itemRelease(pWork);
-   } else {
-      hb_ret();
-   }
+  if (GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi))
+  {
+    auto pMonInfo = hb_itemArrayNew(3);
+    PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
+    PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
+    hb_itemArrayPut(pMonInfo, 1, pMonitor);
+    hb_itemArrayPut(pMonInfo, 2, pWork);
+    hb_arraySetNInt(pMonInfo, 3, static_cast<LONG_PTR>(mi.dwFlags));
+    hb_itemReturnRelease(pMonInfo);
+    hb_itemRelease(pMonitor);
+    hb_itemRelease(pWork);
+  }
+  else
+  {
+    hb_ret();
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMONITORINFO, HMG_GETMONITORINFO )
+HB_FUNC_TRANSLATE(GETMONITORINFO, HMG_GETMONITORINFO)
 #endif
 
 // HMONITOR MonitorFromPoint(POINT pt, DWORD dwFlags)
-HB_FUNC( HMG_MONITORFROMPOINT )
+HB_FUNC(HMG_MONITORFROMPOINT)
 {
-   POINT pt;
+  POINT pt;
 
-   if( HB_ISARRAY(1) ) {
-      if( !hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &pt) ) {
-         hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
-      } else {
-         hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
-      }
-   } else if( HB_ISNUM(1) && HB_ISNUM(2) ) {
-      pt.x = hb_parnl(1);
-      pt.y = hb_parnl(2);
-      hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
-   } else {
+  if (HB_ISARRAY(1))
+  {
+    if (!hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &pt))
+    {
       hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
-   }
+    }
+    else
+    {
+      hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
+    }
+  }
+  else if (HB_ISNUM(1) && HB_ISNUM(2))
+  {
+    pt.x = hb_parnl(1);
+    pt.y = hb_parnl(2);
+    hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MONITORFROMPOINT, HMG_MONITORFROMPOINT )
+HB_FUNC_TRANSLATE(MONITORFROMPOINT, HMG_MONITORFROMPOINT)
 #endif
 
 // HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
-HB_FUNC( HMG_MONITORFROMWINDOW )
+HB_FUNC(HMG_MONITORFROMWINDOW)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) ) {
-      hmg_ret_HMONITOR(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
-   }
+  if (IsWindow(hwnd))
+  {
+    hmg_ret_HMONITOR(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MONITORFROMWINDOW, HMG_MONITORFROMWINDOW )
+HB_FUNC_TRANSLATE(MONITORFROMWINDOW, HMG_MONITORFROMWINDOW)
 #endif
 
 // Based on
@@ -179,84 +196,91 @@ HB_FUNC_TRANSLATE( MONITORFROMWINDOW, HMG_MONITORFROMWINDOW )
 //
 // This shows how you use the multi-monitor functions to do the same thing.
 
-#define MONITOR_CENTER    0x0001       // center rect to monitor
-#define MONITOR_CLIP      0x0000       // clip rect to monitor
-#define MONITOR_WORKAREA  0x0002       // use monitor work area
-#define MONITOR_AREA      0x0000       // use monitor entire area
+#define MONITOR_CENTER 0x0001   // center rect to monitor
+#define MONITOR_CLIP 0x0000     // clip rect to monitor
+#define MONITOR_WORKAREA 0x0002 // use monitor work area
+#define MONITOR_AREA 0x0000     // use monitor entire area
 
-HB_FUNC( HMG_WINDOWTOMONITOR )
+HB_FUNC(HMG_WINDOWTOMONITOR)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) ) {
-      HMONITOR hMonitor = HB_ISNUM(2) ? reinterpret_cast<HMONITOR>(HB_PARNL(2)) : nullptr;
-      UINT flags = 0 | (static_cast<UINT>(hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA))));
-      RECT rc;
-      GetWindowRect(hwnd, &rc);
-      ClipOrCenterRectToMonitor(&rc, hMonitor, flags);
-      SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
-   }
+  if (IsWindow(hwnd))
+  {
+    HMONITOR hMonitor = HB_ISNUM(2) ? reinterpret_cast<HMONITOR>(HB_PARNL(2)) : nullptr;
+    UINT flags = 0 | (static_cast<UINT>(hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA))));
+    RECT rc;
+    GetWindowRect(hwnd, &rc);
+    ClipOrCenterRectToMonitor(&rc, hMonitor, flags);
+    SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( WINDOWTOMONITOR, HMG_WINDOWTOMONITOR )
+HB_FUNC_TRANSLATE(WINDOWTOMONITOR, HMG_WINDOWTOMONITOR)
 #endif
 
 static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
 {
-   int w = prc->right - prc->left;
-   int h = prc->bottom - prc->top;
+  int w = prc->right - prc->left;
+  int h = prc->bottom - prc->top;
 
-   // get the nearest monitor to the passed rect.
-   if( hMonitor == nullptr ) {
-      hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
-   }
+  // get the nearest monitor to the passed rect.
+  if (hMonitor == nullptr)
+  {
+    hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
+  }
 
-   // get the work area or entire monitor rect.
-   MONITORINFO mi;
-   mi.cbSize = sizeof(mi);
-   GetMonitorInfo(hMonitor, &mi);
+  // get the work area or entire monitor rect.
+  MONITORINFO mi;
+  mi.cbSize = sizeof(mi);
+  GetMonitorInfo(hMonitor, &mi);
 
-   RECT rc = (flags & MONITOR_WORKAREA) ? mi.rcWork : mi.rcMonitor;
+  RECT rc = (flags & MONITOR_WORKAREA) ? mi.rcWork : mi.rcMonitor;
 
-   // center or clip the passed rect to the monitor rect
-   if( flags & MONITOR_CENTER ) {
-      prc->left   = rc.left + (rc.right - rc.left - w) / 2;
-      prc->top    = rc.top + (rc.bottom - rc.top - h) / 2;
-      prc->right  = prc->left + w;
-      prc->bottom = prc->top + h;
-   } else {
-      prc->left   = HB_MAX(rc.left, HB_MIN(rc.right - w, prc->left));
-      prc->top    = HB_MAX(rc.top, HB_MIN(rc.bottom - h, prc->top));
-      prc->right  = prc->left + w;
-      prc->bottom = prc->top + h;
-   }
+  // center or clip the passed rect to the monitor rect
+  if (flags & MONITOR_CENTER)
+  {
+    prc->left = rc.left + (rc.right - rc.left - w) / 2;
+    prc->top = rc.top + (rc.bottom - rc.top - h) / 2;
+    prc->right = prc->left + w;
+    prc->bottom = prc->top + h;
+  }
+  else
+  {
+    prc->left = HB_MAX(rc.left, HB_MIN(rc.right - w, prc->left));
+    prc->top = HB_MAX(rc.top, HB_MIN(rc.bottom - h, prc->top));
+    prc->right = prc->left + w;
+    prc->bottom = prc->top + h;
+  }
 }
 
-HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
+HB_EXPORT PHB_ITEM Rect2Hash(RECT *rc)
 {
-   PHB_ITEM phRect = hb_hashNew(nullptr);
-   auto pKey = hb_itemPutCConst(nullptr, "left");
-   auto pValue = hb_itemPutNL( nullptr, rc->left );
+  PHB_ITEM phRect = hb_hashNew(nullptr);
+  auto pKey = hb_itemPutCConst(nullptr, "left");
+  auto pValue = hb_itemPutNL(nullptr, rc->left);
 
-   hb_hashAddNew(phRect, pKey, pValue);
+  hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst(pKey, "top");
-   hb_itemPutNL(pValue, rc->top);
-   hb_hashAddNew(phRect, pKey, pValue);
+  hb_itemPutCConst(pKey, "top");
+  hb_itemPutNL(pValue, rc->top);
+  hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst(pKey, "right");
-   hb_itemPutNL(pValue, rc->right);
-   hb_hashAddNew(phRect, pKey, pValue);
+  hb_itemPutCConst(pKey, "right");
+  hb_itemPutNL(pValue, rc->right);
+  hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst(pKey, "bottom");
-   hb_itemPutNL(pValue, rc->bottom);
-   hb_hashAddNew(phRect, pKey, pValue);
+  hb_itemPutCConst(pKey, "bottom");
+  hb_itemPutNL(pValue, rc->bottom);
+  hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemRelease(pKey);
-   hb_itemRelease(pValue);
+  hb_itemRelease(pKey);
+  hb_itemRelease(pValue);
 
-   return phRect;
+  return phRect;
 }

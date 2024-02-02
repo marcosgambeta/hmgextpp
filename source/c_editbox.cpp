@@ -48,60 +48,61 @@
 #include <commctrl.h>
 
 #ifndef WC_EDIT
-#define WC_EDIT  "Edit"
+#define WC_EDIT "Edit"
 #endif
 
 extern LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 /*
-HMG_INITEDITBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, p9, lReadOnly, lInvisible, lNoTabStop, lNoVScroll, lNoHScroll) --> HWND
+HMG_INITEDITBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, p9, lReadOnly, lInvisible, lNoTabStop,
+lNoVScroll, lNoHScroll) --> HWND
 */
-HB_FUNC( HMG_INITEDITBOX )
+HB_FUNC(HMG_INITEDITBOX)
 {
-   DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
+  DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 
-   if( hb_parl(10) ) {
-      style |= ES_READONLY;
-   }
+  if (hb_parl(10))
+  {
+    style |= ES_READONLY;
+  }
 
-   if( !hb_parl(11) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(11))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(12) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(12))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   if( !hb_parl(13) ) {
-      style |= WS_VSCROLL;
-   } else {
-      style |= ES_AUTOVSCROLL;
-   }
+  if (!hb_parl(13))
+  {
+    style |= WS_VSCROLL;
+  }
+  else
+  {
+    style |= ES_AUTOVSCROLL;
+  }
 
-   if( !hb_parl(14) ) {
-      style |= WS_HSCROLL;
-   }
+  if (!hb_parl(14))
+  {
+    style |= WS_HSCROLL;
+  }
 
-   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
-                                 WC_EDIT,
-                                 TEXT(""),
-                                 style,
-                                 hmg_par_int(3),
-                                 hmg_par_int(4),
-                                 hmg_par_int(5),
-                                 hmg_par_int(6),
-                                 hmg_par_HWND(1),
-                                 hmg_par_HMENU(2),
-                                 GetInstance(),
-                                 nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style, hmg_par_int(3),
+                                hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1),
+                                hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   SendMessage(hbutton, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
-   SetProp(hbutton, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
+  SendMessage(hbutton, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
+  SetProp(hbutton, TEXT("oldeditproc"),
+          reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC,
+                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITEDITBOX, HMG_INITEDITBOX )
+HB_FUNC_TRANSLATE(INITEDITBOX, HMG_INITEDITBOX)
 #endif

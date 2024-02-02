@@ -44,204 +44,211 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbwinuni.hpp>
 
-bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt);
 
-HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
+                                  int *nHeight);
+void HMG_ImageListAdd(HIMAGELIST himl, char *FileName, int Transparent);
 
-HB_FUNC( HMG_INITTABCONTROL )
+HB_FUNC(HMG_INITTABCONTROL)
 {
-   DWORD style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
+  DWORD style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
-   if( hb_parl(11) ) {
-      style |= TCS_BUTTONS;
-   }
+  if (hb_parl(11))
+  {
+    style |= TCS_BUTTONS;
+  }
 
-   if( hb_parl(12) ) {
-      style |= TCS_FLATBUTTONS;
-   }
+  if (hb_parl(12))
+  {
+    style |= TCS_FLATBUTTONS;
+  }
 
-   if( hb_parl(13) ) {
-      style |= TCS_HOTTRACK;
-   }
+  if (hb_parl(13))
+  {
+    style |= TCS_HOTTRACK;
+  }
 
-   if( hb_parl(14) ) {
-      style |= TCS_VERTICAL;
-   }
+  if (hb_parl(14))
+  {
+    style |= TCS_VERTICAL;
+  }
 
-   if( hb_parl(15) ) {
-      style |= TCS_BOTTOM;
-   }
+  if (hb_parl(15))
+  {
+    style |= TCS_BOTTOM;
+  }
 
-   if( hb_parl(16) ) {
-      style |= TCS_MULTILINE;
-   }
+  if (hb_parl(16))
+  {
+    style |= TCS_MULTILINE;
+  }
 
-   if( hb_parl(17) ) {
-      style |= TCS_OWNERDRAWFIXED;
-   }
+  if (hb_parl(17))
+  {
+    style |= TCS_OWNERDRAWFIXED;
+  }
 
-   if( !hb_parl(18) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(18))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   auto hbutton = CreateWindowEx(
-      0,
-      WC_TABCONTROL,
-      nullptr,
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton =
+      CreateWindowEx(0, WC_TABCONTROL, nullptr, style, hb_parni(3), hb_parni(4), hb_parni(5),
+                     hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   int l = hb_parinfa(7, 0) - 1;
-   auto hArray = hb_param(7, Harbour::Item::ARRAY);
+  int l = hb_parinfa(7, 0) - 1;
+  auto hArray = hb_param(7, Harbour::Item::ARRAY);
 
-   TC_ITEM tie{};
-   tie.mask   = TCIF_TEXT;
-   tie.iImage = -1;
+  TC_ITEM tie{};
+  tie.mask = TCIF_TEXT;
+  tie.iImage = -1;
 
-   for( int i = l; i >= 0; i = i - 1 ) {
-      void * str;
-      tie.pszText = const_cast<TCHAR*>(HB_ARRAYGETSTR(hArray, i + 1, &str, nullptr));
-      TabCtrl_InsertItem(hbutton, 0, &tie);
-      hb_strfree(str);
-   }
+  for (int i = l; i >= 0; i = i - 1)
+  {
+    void *str;
+    tie.pszText = const_cast<TCHAR *>(HB_ARRAYGETSTR(hArray, i + 1, &str, nullptr));
+    TabCtrl_InsertItem(hbutton, 0, &tie);
+    hb_strfree(str);
+  }
 
-   TabCtrl_SetCurSel(hbutton, hb_parni(8) - 1);
-   hmg_ret_HWND(hbutton);
+  TabCtrl_SetCurSel(hbutton, hb_parni(8) - 1);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITTABCONTROL, HMG_INITTABCONTROL )
+HB_FUNC_TRANSLATE(INITTABCONTROL, HMG_INITTABCONTROL)
 #endif
 
-HB_FUNC( HMG_TABCTRL_SETCURSEL )
+HB_FUNC(HMG_TABCTRL_SETCURSEL)
 {
-   TabCtrl_SetCurSel(hmg_par_HWND(1), hb_parni(2) - 1);
+  TabCtrl_SetCurSel(hmg_par_HWND(1), hb_parni(2) - 1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( TABCTRL_SETCURSEL, HMG_TABCTRL_SETCURSEL )
+HB_FUNC_TRANSLATE(TABCTRL_SETCURSEL, HMG_TABCTRL_SETCURSEL)
 #endif
 
-HB_FUNC( HMG_TABCTRL_GETCURSEL )
+HB_FUNC(HMG_TABCTRL_GETCURSEL)
 {
-   hb_retni(TabCtrl_GetCurSel(hmg_par_HWND(1)) + 1);
+  hb_retni(TabCtrl_GetCurSel(hmg_par_HWND(1)) + 1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( TABCTRL_GETCURSEL, HMG_TABCTRL_GETCURSEL )
+HB_FUNC_TRANSLATE(TABCTRL_GETCURSEL, HMG_TABCTRL_GETCURSEL)
 #endif
 
-HB_FUNC( HMG_TABCTRL_INSERTITEM )
+HB_FUNC(HMG_TABCTRL_INSERTITEM)
 {
-   void * str;
-   TC_ITEM tie{};
-   tie.mask    = TCIF_TEXT;
-   tie.iImage  = -1;
-   tie.pszText = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
-   TabCtrl_InsertItem(hmg_par_HWND(1), hb_parni(2), &tie);
-   hb_strfree(str);
+  void *str;
+  TC_ITEM tie{};
+  tie.mask = TCIF_TEXT;
+  tie.iImage = -1;
+  tie.pszText = const_cast<TCHAR *>(HB_PARSTR(3, &str, nullptr));
+  TabCtrl_InsertItem(hmg_par_HWND(1), hb_parni(2), &tie);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( TABCTRL_INSERTITEM, HMG_TABCTRL_INSERTITEM )
+HB_FUNC_TRANSLATE(TABCTRL_INSERTITEM, HMG_TABCTRL_INSERTITEM)
 #endif
 
-HB_FUNC( HMG_TABCTRL_DELETEITEM )
+HB_FUNC(HMG_TABCTRL_DELETEITEM)
 {
-   TabCtrl_DeleteItem(hmg_par_HWND(1), hb_parni(2));
+  TabCtrl_DeleteItem(hmg_par_HWND(1), hb_parni(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( TABCTRL_DELETEITEM, HMG_TABCTRL_DELETEITEM )
+HB_FUNC_TRANSLATE(TABCTRL_DELETEITEM, HMG_TABCTRL_DELETEITEM)
 #endif
 
-HB_FUNC( HMG_SETTABCAPTION )
+HB_FUNC(HMG_SETTABCAPTION)
 {
-   void * str;
-   TC_ITEM tie{};
-   tie.mask = TCIF_TEXT;
-   tie.pszText = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
-   TabCtrl_SetItem(hmg_par_HWND(1), hb_parni(2) - 1, &tie);
-   hb_strfree(str);
+  void *str;
+  TC_ITEM tie{};
+  tie.mask = TCIF_TEXT;
+  tie.pszText = const_cast<TCHAR *>(HB_PARSTR(3, &str, nullptr));
+  TabCtrl_SetItem(hmg_par_HWND(1), hb_parni(2) - 1, &tie);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTABCAPTION, HMG_SETTABCAPTION )
+HB_FUNC_TRANSLATE(SETTABCAPTION, HMG_SETTABCAPTION)
 #endif
 
-HB_FUNC( HMG_ADDTABBITMAP )
+HB_FUNC(HMG_ADDTABBITMAP)
 {
-   auto hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl = nullptr;
-   int nCount = hb_parinfa(2, 0);
+  auto hbutton = hmg_par_HWND(1);
+  HIMAGELIST himl = nullptr;
+  int nCount = hb_parinfa(2, 0);
 
-   if( nCount > 0 ) {
-      int Transparent = hb_parl(3) ? 0 : 1;
-      auto hArray = hb_param(2, Harbour::Item::ARRAY);
+  if (nCount > 0)
+  {
+    int Transparent = hb_parl(3) ? 0 : 1;
+    auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
-      TCHAR * FileName;
+    TCHAR *FileName;
 
-      for( auto i = 1; i <= nCount; i++ ) {
-         FileName = const_cast<TCHAR*>(hb_arrayGetCPtr(hArray, i));
+    for (auto i = 1; i <= nCount; i++)
+    {
+      FileName = const_cast<TCHAR *>(hb_arrayGetCPtr(hArray, i));
 
-         if( himl == nullptr ) {
-            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-         } else {
-            HMG_ImageListAdd(himl, FileName, Transparent);
-         }
+      if (himl == nullptr)
+      {
+        himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
       }
-
-      if( himl != nullptr ) {
-         SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
+      else
+      {
+        HMG_ImageListAdd(himl, FileName, Transparent);
       }
+    }
 
-      TC_ITEM tie{};
+    if (himl != nullptr)
+    {
+      SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
+    }
 
-      for( auto i = 0; i < nCount; i++ ) {
-         tie.mask = TCIF_IMAGE;
-         tie.iImage = i;
-         TabCtrl_SetItem(hbutton, i, &tie);
-      }
-   }
+    TC_ITEM tie{};
 
-   RegisterResource(himl, "IMAGELIST");
-   hmg_ret_HIMAGELIST(himl);
+    for (auto i = 0; i < nCount; i++)
+    {
+      tie.mask = TCIF_IMAGE;
+      tie.iImage = i;
+      TabCtrl_SetItem(hbutton, i, &tie);
+    }
+  }
+
+  RegisterResource(himl, "IMAGELIST");
+  hmg_ret_HIMAGELIST(himl);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ADDTABBITMAP, HMG_ADDTABBITMAP )
+HB_FUNC_TRANSLATE(ADDTABBITMAP, HMG_ADDTABBITMAP)
 #endif
 
-HB_FUNC( HMG_WINDOWFROMPOINT )
+HB_FUNC(HMG_WINDOWFROMPOINT)
 {
-   POINT Point;
-   hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &Point);
-   hmg_ret_HWND(WindowFromPoint(Point));
+  POINT Point;
+  hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &Point);
+  hmg_ret_HWND(WindowFromPoint(Point));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( WINDOWFROMPOINT, HMG_WINDOWFROMPOINT )
+HB_FUNC_TRANSLATE(WINDOWFROMPOINT, HMG_WINDOWFROMPOINT)
 #endif
 
-HB_FUNC( HMG_GETMESSAGEPOS )
+HB_FUNC(HMG_GETMESSAGEPOS)
 {
-   hb_retnl(GetMessagePos());
+  hb_retnl(GetMessagePos());
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMESSAGEPOS, HMG_GETMESSAGEPOS )
+HB_FUNC_TRANSLATE(GETMESSAGEPOS, HMG_GETMESSAGEPOS)
 #endif

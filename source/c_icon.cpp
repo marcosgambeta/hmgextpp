@@ -54,154 +54,168 @@
 /*
 HMG_COPYICON(HICON) --> HICON
 */
-HB_FUNC( HMG_COPYICON )
+HB_FUNC(HMG_COPYICON)
 {
-   auto hIcon = CopyIcon(hmg_par_HICON(1));
-   RegisterResource(hIcon, "ICON");
-   hmg_ret_HICON(hIcon);
+  auto hIcon = CopyIcon(hmg_par_HICON(1));
+  RegisterResource(hIcon, "ICON");
+  hmg_ret_HICON(hIcon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COPYICON, HMG_COPYICON )
+HB_FUNC_TRANSLATE(COPYICON, HMG_COPYICON)
 #endif
 
 /*
 HMG_DESTROYICON(HICON) --> .T.|.F.
 */
-HB_FUNC( HMG_DESTROYICON )
+HB_FUNC(HMG_DESTROYICON)
 {
-   auto hIcon = hmg_par_HICON(1);
-   DelResource(hIcon);
-   hb_retl(DestroyIcon(hIcon));
+  auto hIcon = hmg_par_HICON(1);
+  DelResource(hIcon);
+  hb_retl(DestroyIcon(hIcon));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DESTROYICON, HMG_DESTROYICON )
+HB_FUNC_TRANSLATE(DESTROYICON, HMG_DESTROYICON)
 #endif
 
 /*
 HMG_DUPLICATEICON(HICON) --> HICON
 */
-HB_FUNC( HMG_DUPLICATEICON )
+HB_FUNC(HMG_DUPLICATEICON)
 {
-   auto hIcon = DuplicateIcon(nullptr, hmg_par_HICON(1));
-   RegisterResource(hIcon, "ICON");
-   hmg_ret_HICON(hIcon);
+  auto hIcon = DuplicateIcon(nullptr, hmg_par_HICON(1));
+  RegisterResource(hIcon, "ICON");
+  hmg_ret_HICON(hIcon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DUPLICATEICON, HMG_DUPLICATEICON )
+HB_FUNC_TRANSLATE(DUPLICATEICON, HMG_DUPLICATEICON)
 #endif
 
 /*
 HMG_LOADICON(HINSTANCE, nIcon|cIcon) --> HICON
 */
-HB_FUNC( HMG_LOADICON )
+HB_FUNC(HMG_LOADICON)
 {
-   HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
-   void * str;
-   auto hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
-   hb_strfree(str);
-   RegisterResource(hIcon, "ICON");
-   hmg_ret_HICON(hIcon);
+  HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
+  void *str;
+  auto hIcon = LoadIcon(hinstance,
+                        HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
+  hb_strfree(str);
+  RegisterResource(hIcon, "ICON");
+  hmg_ret_HICON(hIcon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADICON, HMG_LOADICON )
+HB_FUNC_TRANSLATE(LOADICON, HMG_LOADICON)
 #endif
 
 /*
 HMG_EXTRACTICON(cExeFileName, nIconIndex) --> HICON
 */
-HB_FUNC( HMG_EXTRACTICON )
+HB_FUNC(HMG_EXTRACTICON)
 {
-   void * str;
-   auto hIcon = ExtractIcon(GetInstance(), HB_PARSTR(1, &str, nullptr), hmg_par_UINT(2));
-   hb_strfree(str);
-   RegisterResource(hIcon, "ICON");
-   hmg_ret_HICON(hIcon);
+  void *str;
+  auto hIcon = ExtractIcon(GetInstance(), HB_PARSTR(1, &str, nullptr), hmg_par_UINT(2));
+  hb_strfree(str);
+  RegisterResource(hIcon, "ICON");
+  hmg_ret_HICON(hIcon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( EXTRACTICON, HMG_EXTRACTICON )
+HB_FUNC_TRANSLATE(EXTRACTICON, HMG_EXTRACTICON)
 #endif
 
 /*
 HMG_EXTRACTICONEX(cFileName, nIconIndex) --> {HIconLarge, HIconSmall}
 */
-HB_FUNC( HMG_EXTRACTICONEX )
+HB_FUNC(HMG_EXTRACTICONEX)
 {
-   void * str;
-   auto nIconIndex = hb_parni(2);
-   if( nIconIndex == -1 ) {
-      hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
-   } else {
-      HICON hIconLarge, hIconSmall;
-      UINT nIconCount = ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
-      if( nIconCount > 0 ) {
-         hb_reta(2);
-         hmg_storvhandle(hIconLarge, -1, 1);
-         hmg_storvhandle(hIconSmall, -1, 2);
-      }
-   }
-   hb_strfree(str);
+  void *str;
+  auto nIconIndex = hb_parni(2);
+  if (nIconIndex == -1)
+  {
+    hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
+  }
+  else
+  {
+    HICON hIconLarge, hIconSmall;
+    UINT nIconCount =
+        ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
+    if (nIconCount > 0)
+    {
+      hb_reta(2);
+      hmg_storvhandle(hIconLarge, -1, 1);
+      hmg_storvhandle(hIconSmall, -1, 2);
+    }
+  }
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( EXTRACTICONEX, HMG_EXTRACTICONEX )
+HB_FUNC_TRANSLATE(EXTRACTICONEX, HMG_EXTRACTICONEX)
 #endif
 
 /*
 HMG_LOADICONBYNAME(cResource|cFile, cxDesired, cyDesired, HINSTANCE) --> HICON
 */
-HB_FUNC( HMG_LOADICONBYNAME )
+HB_FUNC(HMG_LOADICONBYNAME)
 {
-   HICON hIcon = nullptr;
+  HICON hIcon = nullptr;
 
-   if( hb_parclen(1) > 0 ) {
-      void * str;
-      LPCTSTR pszResOrFile = HB_PARSTR(1, &str, nullptr);
-      auto cxDesired = hb_parni(2);
-      auto cyDesired = hb_parni(3);
-      HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
-      hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
-      if( hIcon == nullptr ) {
-         hIcon = static_cast<HICON>(LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
-      }
-      if( hIcon != nullptr ) {
-         RegisterResource(hIcon, "ICON");
-      }
-      hb_strfree(str);
-   }
+  if (hb_parclen(1) > 0)
+  {
+    void *str;
+    LPCTSTR pszResOrFile = HB_PARSTR(1, &str, nullptr);
+    auto cxDesired = hb_parni(2);
+    auto cyDesired = hb_parni(3);
+    HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
+    hIcon = static_cast<HICON>(
+        LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
+    if (hIcon == nullptr)
+    {
+      hIcon = static_cast<HICON>(LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired,
+                                           LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    }
+    if (hIcon != nullptr)
+    {
+      RegisterResource(hIcon, "ICON");
+    }
+    hb_strfree(str);
+  }
 
-   hmg_ret_HICON(hIcon);
+  hmg_ret_HICON(hIcon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADICONBYNAME, HMG_LOADICONBYNAME )
+HB_FUNC_TRANSLATE(LOADICONBYNAME, HMG_LOADICONBYNAME)
 #endif
 
 /*
 HMG_DRAWICONEX(HWND, np2, np3, HICON, np5, np6, np7, lp8) --> .T.|.F.|NIL
 */
-HB_FUNC( HMG_DRAWICONEX )
+HB_FUNC(HMG_DRAWICONEX)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) ) {
-      auto hIcon = hmg_par_HICON(4);
-      auto hdc = GetDC(hwnd);
-      auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
-      hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));
-      DeleteObject(hbrFlickerFreeDraw);
-      if( hb_parldef(8, true) ) {
-         DelResource(hIcon);
-         DestroyIcon(hIcon);
-      }
-      ReleaseDC(hwnd, hdc);
-   }
+  if (IsWindow(hwnd))
+  {
+    auto hIcon = hmg_par_HICON(4);
+    auto hdc = GetDC(hwnd);
+    auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
+    hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0,
+                       hbrFlickerFreeDraw, DI_NORMAL));
+    DeleteObject(hbrFlickerFreeDraw);
+    if (hb_parldef(8, true))
+    {
+      DelResource(hIcon);
+      DestroyIcon(hIcon);
+    }
+    ReleaseDC(hwnd, hdc);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DRAWICONEX, HMG_DRAWICONEX )
+HB_FUNC_TRANSLATE(DRAWICONEX, HMG_DRAWICONEX)
 #endif

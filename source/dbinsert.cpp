@@ -50,74 +50,92 @@
 #include <hbrdddbf.hpp>
 #include <hbset.hpp>
 
-HB_FUNC( DBINSERT )
+HB_FUNC(DBINSERT)
 {
-   DBFAREAP pArea = ( DBFAREAP ) hb_rddGetCurrentWorkAreaPointer();
-   BOOL     bOk   = TRUE;
+  DBFAREAP pArea = (DBFAREAP)hb_rddGetCurrentWorkAreaPointer();
+  BOOL bOk = TRUE;
 
-   if( pArea && !pArea->fReadonly && !pArea->fShared ) {
-      ULONG      ulRec, ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
-      HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);
+  if (pArea && !pArea->fReadonly && !pArea->fShared)
+  {
+    ULONG ulRec, ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
+    HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);
 
-      if( HB_ISNUM(1) ) {
-         ulRec = hb_parnl(1);
-      } else {
-         SELF_RECNO(( AREAP ) pArea, &ulRec);
+    if (HB_ISNUM(1))
+    {
+      ulRec = hb_parnl(1);
+    }
+    else
+    {
+      SELF_RECNO((AREAP)pArea, &ulRec);
+    }
+
+    if (ulRec == 0 || ulRec > pArea->ulRecCount)
+    {
+      bOk = FALSE;
+    }
+
+    if (bOk && SELF_GOCOLD((AREAP)pArea) != HB_SUCCESS)
+    {
+      bOk = FALSE;
+    }
+    else
+    {
+      for (ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++)
+      {
+        if (bOk && SELF_APPEND((AREAP)pArea, TRUE) != HB_SUCCESS)
+        {
+          bOk = FALSE;
+        }
       }
 
-      if( ulRec == 0 || ulRec > pArea->ulRecCount ) {
-         bOk = FALSE;
+      if (hb_setGetHardCommit())
+      {
+        SELF_FLUSH((AREAP)pArea);
       }
 
-      if( bOk && SELF_GOCOLD(( AREAP ) pArea) != HB_SUCCESS ) {
-         bOk = FALSE;
-      } else {
-         for( ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++ ) {
-            if( bOk && SELF_APPEND(( AREAP ) pArea, TRUE) != HB_SUCCESS ) {
-               bOk = FALSE;
-            }
-         }
+      if (bOk)
+      {
+        ULONG ulLen = (pArea->ulRecCount - ulRec) * pArea->uiRecordLen;
+        ULONG ulLen1 = ulCount * pArea->uiRecordLen;
+        auto pData = reinterpret_cast<char *>(hb_xgrab(ulLen + 1));
+        auto pZero = reinterpret_cast<char *>(hb_xgrab(ulLen1 + 1));
 
-         if( hb_setGetHardCommit() ) {
-            SELF_FLUSH(( AREAP ) pArea);
-         }
+        hb_fsSeekLarge(hFile,
+                       (HB_FOFFSET)pArea->uiHeaderLen +
+                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
+                       FS_SET);
+        hb_fsReadLarge(hFile, pData, ulLen);
 
-         if( bOk ) {
-            ULONG  ulLen  = ( pArea->ulRecCount - ulRec ) * pArea->uiRecordLen;
-            ULONG  ulLen1 = ulCount * pArea->uiRecordLen;
-            auto pData = reinterpret_cast<char*>(hb_xgrab(ulLen + 1));
-            auto pZero = reinterpret_cast<char*>(hb_xgrab(ulLen1 + 1));
+        hb_fsSeekLarge(hFile,
+                       (HB_FOFFSET)pArea->uiHeaderLen +
+                           (HB_FOFFSET)pArea->uiRecordLen *
+                               (HB_FOFFSET)(pArea->ulRecCount - ulCount),
+                       FS_SET);
+        hb_fsReadLarge(hFile, pZero, ulLen1);
 
-            hb_fsSeekLarge(hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
-                           ( HB_FOFFSET ) pArea->uiRecordLen *
-                           ( HB_FOFFSET ) ( ulRec - 1 ), FS_SET);
-            hb_fsReadLarge(hFile, pData, ulLen);
+        hb_fsSeekLarge(hFile,
+                       (HB_FOFFSET)pArea->uiHeaderLen +
+                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
+                       FS_SET);
+        hb_fsWriteLarge(hFile, pZero, ulLen1);
 
-            hb_fsSeekLarge(hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
-                           ( HB_FOFFSET ) pArea->uiRecordLen *
-                           ( HB_FOFFSET ) ( pArea->ulRecCount - ulCount ), FS_SET);
-            hb_fsReadLarge(hFile, pZero, ulLen1);
+        hb_fsSeekLarge(hFile,
+                       (HB_FOFFSET)pArea->uiHeaderLen +
+                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec + ulCount - 1),
+                       FS_SET);
 
-            hb_fsSeekLarge(hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
-                           ( HB_FOFFSET ) pArea->uiRecordLen *
-                           ( HB_FOFFSET ) ( ulRec - 1 ), FS_SET);
-            hb_fsWriteLarge(hFile, pZero, ulLen1);
+        hb_fsWriteLarge(hFile, pData, ulLen);
 
-            hb_fsSeekLarge(hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
-                           ( HB_FOFFSET ) pArea->uiRecordLen *
-                           ( HB_FOFFSET ) ( ulRec + ulCount - 1 ), FS_SET);
-
-            hb_fsWriteLarge(hFile, pData, ulLen);
-
-            hb_xfree(pData);
-            hb_xfree(pZero);
-         }
+        hb_xfree(pData);
+        hb_xfree(pZero);
       }
+    }
 
-      if( bOk && SELF_GOTO(( AREAP ) pArea, ulRec) != HB_SUCCESS ) {
-         bOk = FALSE;
-      }
-   }
+    if (bOk && SELF_GOTO((AREAP)pArea, ulRec) != HB_SUCCESS)
+    {
+      bOk = FALSE;
+    }
+  }
 
-   hb_retl(bOk);
+  hb_retl(bOk);
 }

@@ -57,140 +57,164 @@ LPWSTR AnsiToWide(LPCSTR);
 static HINSTANCE hResources = 0;
 static HINSTANCE HMG_DllStore[256];
 
-static HINSTANCE HMG_LoadDll( char * DllName )
+static HINSTANCE HMG_LoadDll(char *DllName)
 {
-   static int DllCnt;
+  static int DllCnt;
 
 #ifndef UNICODE
-   LPCSTR lpLibFileName = DllName;
+  LPCSTR lpLibFileName = DllName;
 #else
-   LPCWSTR lpLibFileName = AnsiToWide(DllName);
+  LPCWSTR lpLibFileName = AnsiToWide(DllName);
 #endif
 
-   DllCnt = ( DllCnt + 1 ) & 255;
-   FreeLibrary(HMG_DllStore[DllCnt]);
+  DllCnt = (DllCnt + 1) & 255;
+  FreeLibrary(HMG_DllStore[DllCnt]);
 
-   return HMG_DllStore[DllCnt] = LoadLibraryEx(lpLibFileName, nullptr, 0);
+  return HMG_DllStore[DllCnt] = LoadLibraryEx(lpLibFileName, nullptr, 0);
 }
 
 static void HMG_UnloadDll(void)
 {
-   for( auto i = 255; i >= 0; i-- ) {
-      FreeLibrary(HMG_DllStore[i]);
-   }
+  for (auto i = 255; i >= 0; i--)
+  {
+    FreeLibrary(HMG_DllStore[i]);
+  }
 }
 
 HINSTANCE GetResources(void)
 {
-   return (hResources) ? (hResources) : (GetInstance());
+  return (hResources) ? (hResources) : (GetInstance());
 }
 
-HB_FUNC( HMG_GETRESOURCES )
+HB_FUNC(HMG_GETRESOURCES)
 {
-   hmg_ret_HANDLE(GetResources());
-}
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETRESOURCES, HMG_GETRESOURCES )
-#endif
-
-HB_FUNC( HMG_SETRESOURCES )
-{
-   if( HB_ISCHAR(1) ) {
-      hResources = HMG_LoadDll(const_cast<char*>(hb_parc(1)));
-   } else if( HB_ISNUM(1) ) {
-      hResources = hmg_par_HINSTANCE(1);
-   }
-
-   hmg_ret_HANDLE(hResources);
+  hmg_ret_HANDLE(GetResources());
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETRESOURCES, HMG_SETRESOURCES )
+HB_FUNC_TRANSLATE(GETRESOURCES, HMG_GETRESOURCES)
 #endif
 
-HB_FUNC( HMG_FREERESOURCES )
+HB_FUNC(HMG_SETRESOURCES)
 {
-   HMG_UnloadDll();
+  if (HB_ISCHAR(1))
+  {
+    hResources = HMG_LoadDll(const_cast<char *>(hb_parc(1)));
+  }
+  else if (HB_ISNUM(1))
+  {
+    hResources = hmg_par_HINSTANCE(1);
+  }
 
-   if( hResources ) {
-      hResources = 0;
-   }
+  hmg_ret_HANDLE(hResources);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( FREERESOURCES, HMG_FREERESOURCES )
+HB_FUNC_TRANSLATE(SETRESOURCES, HMG_SETRESOURCES)
 #endif
 
-HB_FUNC( HMG_RCDATATOFILE )
+HB_FUNC(HMG_FREERESOURCES)
 {
-   HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources() );
+  HMG_UnloadDll();
 
-   /* lpType is RT_RCDATA by default */
+  if (hResources)
+  {
+    hResources = 0;
+  }
+}
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(FREERESOURCES, HMG_FREERESOURCES)
+#endif
+
+HB_FUNC(HMG_RCDATATOFILE)
+{
+  HMODULE hModule = (HMODULE)(0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources());
+
+  /* lpType is RT_RCDATA by default */
 #ifndef UNICODE
-   LPCSTR lpName = hb_parc(1);
-   LPCSTR lpType = ( hb_parclen(3) > 0 ) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));
+  LPCSTR lpName = hb_parc(1);
+  LPCSTR lpType =
+      (hb_parclen(3) > 0) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));
 #else
-   LPCWSTR lpName = AnsiToWide(static_cast<char*>(hb_parc(1)));
-   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(static_cast<char*>(hb_parc(3))) : static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parnidef(3, 10)));
+  LPCWSTR lpName = AnsiToWide(static_cast<char *>(hb_parc(1)));
+  LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(static_cast<char *>(hb_parc(3)))
+                                : static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parnidef(3, 10)));
 #endif
-   HRSRC   hResInfo;
-   HGLOBAL hResData = nullptr;
-   HB_SIZE dwResult = 0;
+  HRSRC hResInfo;
+  HGLOBAL hResData = nullptr;
+  HB_SIZE dwResult = 0;
 
-   if( HB_ISCHAR(1) ) {
-      hResInfo = FindResource(hModule, lpName, lpType);
-   } else {
-      hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
-   }
+  if (HB_ISCHAR(1))
+  {
+    hResInfo = FindResource(hModule, lpName, lpType);
+  }
+  else
+  {
+    hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
+  }
 
-   if( hResInfo != nullptr ) {
-      hResData = LoadResource(hModule, hResInfo);
+  if (hResInfo != nullptr)
+  {
+    hResData = LoadResource(hModule, hResInfo);
 
-      if( hResData == nullptr ) {
-         dwResult = ( HB_SIZE ) -2;  // can't load
+    if (hResData == nullptr)
+    {
+      dwResult = (HB_SIZE)-2; // can't load
+    }
+  }
+  else
+  {
+    dwResult = (HB_SIZE)-1; // can't find
+  }
+
+  if (0 == dwResult)
+  {
+    LPVOID lpData = LockResource(hResData);
+
+    if (lpData != nullptr)
+    {
+      DWORD dwSize = SizeofResource(hModule, hResInfo);
+      PHB_FILE pFile;
+
+      pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE,
+                             nullptr, nullptr);
+
+      if (pFile != nullptr)
+      {
+        dwResult = hb_fileWrite(pFile, (const void *)lpData, (HB_SIZE)dwSize, -1);
+
+        if (dwResult != dwSize)
+        {
+          dwResult = (HB_SIZE)-5; // can't write
+        }
+
+        hb_fileClose(pFile);
       }
-   } else {
-      dwResult = ( HB_SIZE ) -1;  // can't find
-   }
-
-   if( 0 == dwResult ) {
-      LPVOID lpData = LockResource(hResData);
-
-      if( lpData != nullptr ) {
-         DWORD    dwSize = SizeofResource(hModule, hResInfo);
-         PHB_FILE pFile;
-
-         pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, nullptr, nullptr);
-
-         if( pFile != nullptr ) {
-            dwResult = hb_fileWrite(pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1);
-
-            if( dwResult != dwSize ) {
-               dwResult = ( HB_SIZE ) -5;  // can't write
-            }
-
-            hb_fileClose(pFile);
-         } else {
-            dwResult = ( HB_SIZE ) -4;  // can't open
-         }
-      } else {
-         dwResult = ( HB_SIZE ) -3;  // can't lock
+      else
+      {
+        dwResult = (HB_SIZE)-4; // can't open
       }
+    }
+    else
+    {
+      dwResult = (HB_SIZE)-3; // can't lock
+    }
 
-      FreeResource(hResData);
-   }
+    FreeResource(hResData);
+  }
 
-   hb_retnl( dwResult );
+  hb_retnl(dwResult);
 
 #ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpName);
-   if( HB_ISCHAR(3) ) {
-      hb_xfree(( TCHAR * ) lpType);
-   }
+  hb_xfree((TCHAR *)lpName);
+  if (HB_ISCHAR(3))
+  {
+    hb_xfree((TCHAR *)lpType);
+  }
 #endif
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( RCDATATOFILE, HMG_RCDATATOFILE )
+HB_FUNC_TRANSLATE(RCDATATOFILE, HMG_RCDATATOFILE)
 #endif

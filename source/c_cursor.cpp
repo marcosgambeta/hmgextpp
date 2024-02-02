@@ -56,116 +56,126 @@
 /*
 HMG_LOADCURSOR(HINSTANCE, cCursor|nCursor) --> HANDLE|NIL
 */
-HB_FUNC( HMG_LOADCURSOR )
+HB_FUNC(HMG_LOADCURSOR)
 {
-   HINSTANCE hInstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
+  HINSTANCE hInstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
 
-   if( HB_ISCHAR(2) ) {
-      void * str;
-      LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
-      hmg_ret_HCURSOR(LoadCursor(hInstance, lpCursorName));
-      hb_strfree(str);
-   } else if( HB_ISNUM(2) ) {
-      hmg_ret_HCURSOR(LoadCursor(hInstance, MAKEINTRESOURCE(hb_parni(2))));
-   }
+  if (HB_ISCHAR(2))
+  {
+    void *str;
+    LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
+    hmg_ret_HCURSOR(LoadCursor(hInstance, lpCursorName));
+    hb_strfree(str);
+  }
+  else if (HB_ISNUM(2))
+  {
+    hmg_ret_HCURSOR(LoadCursor(hInstance, MAKEINTRESOURCE(hb_parni(2))));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADCURSOR, HMG_LOADCURSOR )
+HB_FUNC_TRANSLATE(LOADCURSOR, HMG_LOADCURSOR)
 #endif
 
 /*
 HMG_LOADCURSORFROMFILE(cFileName) --> HANDLE
 */
-HB_FUNC( HMG_LOADCURSORFROMFILE )
+HB_FUNC(HMG_LOADCURSORFROMFILE)
 {
-   void * str;
-   hmg_ret_HCURSOR(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr)));
-   hb_strfree(str);
+  void *str;
+  hmg_ret_HCURSOR(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr)));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADCURSORFROMFILE, HMG_LOADCURSORFROMFILE )
+HB_FUNC_TRANSLATE(LOADCURSORFROMFILE, HMG_LOADCURSORFROMFILE)
 #endif
 
 /*
 HMG_SETRESCURSOR(HCURSOR) --> HANDLE
 */
-HB_FUNC( HMG_SETRESCURSOR )
+HB_FUNC(HMG_SETRESCURSOR)
 {
-   hmg_ret_HCURSOR(SetCursor(reinterpret_cast<HCURSOR>(HB_PARNL(1))));
+  hmg_ret_HCURSOR(SetCursor(reinterpret_cast<HCURSOR>(HB_PARNL(1))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETRESCURSOR, HMG_SETRESCURSOR )
+HB_FUNC_TRANSLATE(SETRESCURSOR, HMG_SETRESCURSOR)
 #endif
 
 /*
 HMG_FILECURSOR(cFileName) --> HANDLE
 */
-HB_FUNC( HMG_FILECURSOR )
+HB_FUNC(HMG_FILECURSOR)
 {
-   void * str;
-   hmg_ret_HCURSOR(SetCursor(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr))));
-   hb_strfree(str);
+  void *str;
+  hmg_ret_HCURSOR(SetCursor(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr))));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( FILECURSOR, HMG_FILECURSOR )
+HB_FUNC_TRANSLATE(FILECURSOR, HMG_FILECURSOR)
 #endif
 
 /*
 HMG_CURSORHAND() --> HANDLE
 */
-HB_FUNC( HMG_CURSORHAND )
+HB_FUNC(HMG_CURSORHAND)
 {
-   hmg_ret_HCURSOR(SetCursor(LoadCursor(nullptr, IDC_HAND)));
+  hmg_ret_HCURSOR(SetCursor(LoadCursor(nullptr, IDC_HAND)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CURSORHAND, HMG_CURSORHAND )
+HB_FUNC_TRANSLATE(CURSORHAND, HMG_CURSORHAND)
 #endif
 
 /*
 HMG_SETWINDOWCURSOR(HWND, cp2|np2) --> NIL
 */
-HB_FUNC( HMG_SETWINDOWCURSOR )
+HB_FUNC(HMG_SETWINDOWCURSOR)
 {
-   if( HB_ISCHAR(2) ) {
-      void * str;
-      LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
-      auto ch = LoadCursor(GetResources(), lpCursorName);
+  if (HB_ISCHAR(2))
+  {
+    void *str;
+    LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
+    auto ch = LoadCursor(GetResources(), lpCursorName);
 
-      if( ch == nullptr ) {
-         ch = LoadCursorFromFile(lpCursorName);
-      }
+    if (ch == nullptr)
+    {
+      ch = LoadCursorFromFile(lpCursorName);
+    }
 
-      if( ch != nullptr ) {
-         SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
-      }
+    if (ch != nullptr)
+    {
+      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+    }
 
-      hb_strfree(str);
-   } else if( HB_ISNUM(2) ) {
-      auto ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
+    hb_strfree(str);
+  }
+  else if (HB_ISNUM(2))
+  {
+    auto ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
 
-      if( ch != nullptr ) {
-         SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
-      }
-   }
+    if (ch != nullptr)
+    {
+      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+    }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETWINDOWCURSOR, HMG_SETWINDOWCURSOR )
+HB_FUNC_TRANSLATE(SETWINDOWCURSOR, HMG_SETWINDOWCURSOR)
 #endif
 
 /*
 HMG_SETHANDCURSOR(HWND) --> NIL
 */
-HB_FUNC( HMG_SETHANDCURSOR )
+HB_FUNC(HMG_SETHANDCURSOR)
 {
-   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
+  SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
+                  reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETHANDCURSOR, HMG_SETHANDCURSOR )
+HB_FUNC_TRANSLATE(SETHANDCURSOR, HMG_SETHANDCURSOR)
 #endif

@@ -50,26 +50,44 @@
 /*
 HMG_WINHELP(HWND, cp2, np3, np4) --> .T.|.F.
 */
-HB_FUNC( HMG_WINHELP )
+HB_FUNC(HMG_WINHELP)
 {
-   UINT style;
-   DWORD context;
-   void * str;
+  UINT style;
+  DWORD context;
+  void *str;
 
-   switch( hb_parni(3) ) {
-      case 0:  style = HELP_FINDER;       context = 0;           break;
-      case 1:  style = HELP_CONTEXT;      context = hb_parni(4); break;
-      case 2:  style = HELP_CONTEXTPOPUP; context = hb_parni(4); break;
-      case 3:  style = HELP_FORCEFILE;    context = 0;           break;
-      case 4:  style = HELP_QUIT;         context = 0;           break;
-      default: style = HELP_CONTENTS;     context = 0;
-   }
+  switch (hb_parni(3))
+  {
+  case 0:
+    style = HELP_FINDER;
+    context = 0;
+    break;
+  case 1:
+    style = HELP_CONTEXT;
+    context = hb_parni(4);
+    break;
+  case 2:
+    style = HELP_CONTEXTPOPUP;
+    context = hb_parni(4);
+    break;
+  case 3:
+    style = HELP_FORCEFILE;
+    context = 0;
+    break;
+  case 4:
+    style = HELP_QUIT;
+    context = 0;
+    break;
+  default:
+    style = HELP_CONTENTS;
+    context = 0;
+  }
 
-   hb_retl(WinHelp(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr), style, context));
+  hb_retl(WinHelp(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr), style, context));
 
-   hb_strfree(str);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( WINHELP, HMG_WINHELP )
+HB_FUNC_TRANSLATE(WINHELP, HMG_WINHELP)
 #endif

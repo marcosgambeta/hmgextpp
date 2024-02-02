@@ -47,7 +47,7 @@
  * Copyright 2006 (C) Grigory Filatov <gfilatov@gmail.com>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
@@ -56,313 +56,339 @@
 #include <hbdate.hpp>
 #include <hbwinuni.hpp>
 
-extern HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
+extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic,
+                         DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
 LRESULT CALLBACK OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 /*
-HMG_INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
+HMG_INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) -->
+HANDLE
 */
-HB_FUNC( HMG_INITMONTHCAL )
+HB_FUNC(HMG_INITMONTHCAL)
 {
-   int  bold      = FW_NORMAL;
-   auto italic    = 0;
-   auto underline = 0;
-   auto strikeout = 0;
-   auto angle     = 0;
+  int bold = FW_NORMAL;
+  auto italic = 0;
+  auto underline = 0;
+  auto strikeout = 0;
+  auto angle = 0;
 
-   INITCOMMONCONTROLSEX icex;
-   icex.dwSize = sizeof(icex);
-   icex.dwICC = ICC_DATE_CLASSES;
-   InitCommonControlsEx(&icex);
+  INITCOMMONCONTROLSEX icex;
+  icex.dwSize = sizeof(icex);
+  icex.dwICC = ICC_DATE_CLASSES;
+  InitCommonControlsEx(&icex);
 
-   DWORD style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
+  DWORD style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
-   if( hb_parl(9) ) {
-      style |= MCS_NOTODAY;
-   }
+  if (hb_parl(9))
+  {
+    style |= MCS_NOTODAY;
+  }
 
-   if( hb_parl(10) ) {
-      style |= MCS_NOTODAYCIRCLE;
-   }
+  if (hb_parl(10))
+  {
+    style |= MCS_NOTODAYCIRCLE;
+  }
 
-   if( hb_parl(11) ) {
-      style |= MCS_WEEKNUMBERS;
-   }
+  if (hb_parl(11))
+  {
+    style |= MCS_WEEKNUMBERS;
+  }
 
-   if( !hb_parl(12) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(12))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(13) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(13))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   auto hmonthcal = CreateWindowEx(
-      0,
-      MONTHCAL_CLASS,
-      TEXT(""),
-      style,
-      0,
-      0,
-      0,
-      0,
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hmg_par_HWND(1),
+                                  hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
-   SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
+  SetProp(hmonthcal, TEXT("oldmcproc"),
+          reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
+  SetWindowLongPtr(hmonthcal, GWLP_WNDPROC,
+                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
 
-   if( hb_parl(14) ) {
-      bold = FW_BOLD;
-   }
+  if (hb_parl(14))
+  {
+    bold = FW_BOLD;
+  }
 
-   if( hb_parl(15) ) {
-      italic = 1;
-   }
+  if (hb_parl(15))
+  {
+    italic = 1;
+  }
 
-   if( hb_parl(16) ) {
-      underline = 1;
-   }
+  if (hb_parl(16))
+  {
+    underline = 1;
+  }
 
-   if( hb_parl(17) ) {
-      strikeout = 1;
-   }
+  if (hb_parl(17))
+  {
+    strikeout = 1;
+  }
 
-   void * str;
-   auto hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
-   hb_strfree(str);
+  void *str;
+  auto hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline,
+                           strikeout, angle, DEFAULT_CHARSET);
+  hb_strfree(str);
 
-   SendMessage(hmonthcal, WM_SETFONT, reinterpret_cast<WPARAM>(hfont), 1);
+  SendMessage(hmonthcal, WM_SETFONT, reinterpret_cast<WPARAM>(hfont), 1);
 
-   RECT rc;
-   MonthCal_GetMinReqRect(hmonthcal, &rc);
-   SetWindowPos(hmonthcal, nullptr, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
+  RECT rc;
+  MonthCal_GetMinReqRect(hmonthcal, &rc);
+  SetWindowPos(hmonthcal, nullptr, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
 
-   hb_reta(2);
-   hmg_storvhandle(hmonthcal, -1, 1);
-   hmg_storvhandle(hfont, -1, 2);
+  hb_reta(2);
+  hmg_storvhandle(hmonthcal, -1, 1);
+  hmg_storvhandle(hfont, -1, 2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITMONTHCAL, HMG_INITMONTHCAL )
+HB_FUNC_TRANSLATE(INITMONTHCAL, HMG_INITMONTHCAL)
 #endif
 
 /*
 HMG_SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
 */
-HB_FUNC( HMG_SETMONTHCALVALUE )
+HB_FUNC(HMG_SETMONTHCALVALUE)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   SYSTEMTIME sysTime{};
-   sysTime.wYear         = hmg_par_WORD(2);
-   sysTime.wMonth        = hmg_par_WORD(3);
-   sysTime.wDay          = hmg_par_WORD(4);
-   sysTime.wDayOfWeek    = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
-   //sysTime.wHour         = 0;
-   //sysTime.wMinute       = 0;
-   //sysTime.wSecond       = 0;
-   //sysTime.wMilliseconds = 0;
+  SYSTEMTIME sysTime{};
+  sysTime.wYear = hmg_par_WORD(2);
+  sysTime.wMonth = hmg_par_WORD(3);
+  sysTime.wDay = hmg_par_WORD(4);
+  sysTime.wDayOfWeek = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
+  // sysTime.wHour         = 0;
+  // sysTime.wMinute       = 0;
+  // sysTime.wSecond       = 0;
+  // sysTime.wMilliseconds = 0;
 
-   MonthCal_SetCurSel(hwnd, &sysTime);
+  MonthCal_SetCurSel(hwnd, &sysTime);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMONTHCALVALUE, HMG_SETMONTHCALVALUE )
+HB_FUNC_TRANSLATE(SETMONTHCALVALUE, HMG_SETMONTHCALVALUE)
 #endif
 
 /*
 HMG_GETMONTHCALVALUE(HWND, np2) --> numeric
 */
-HB_FUNC( HMG_GETMONTHCALVALUE )
+HB_FUNC(HMG_GETMONTHCALVALUE)
 {
-   SYSTEMTIME st;
+  SYSTEMTIME st;
 
-   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
+  SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
-   switch( hb_parni(2) ) {
-      case 1: hb_retni(st.wYear); break;
-      case 2: hb_retni(st.wMonth); break;
-      case 3: hb_retni(st.wDay);
-   }
+  switch (hb_parni(2))
+  {
+  case 1:
+    hb_retni(st.wYear);
+    break;
+  case 2:
+    hb_retni(st.wMonth);
+    break;
+  case 3:
+    hb_retni(st.wDay);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMONTHCALVALUE, HMG_GETMONTHCALVALUE )
+HB_FUNC_TRANSLATE(GETMONTHCALVALUE, HMG_GETMONTHCALVALUE)
 #endif
 
 /*
 HMG_GETMONTHCALDATE(HWND) --> data
 */
-HB_FUNC( HMG_GETMONTHCALDATE )
+HB_FUNC(HMG_GETMONTHCALDATE)
 {
-   SYSTEMTIME st;
-   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
-   long lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
-   hb_retdl(lJulian);
+  SYSTEMTIME st;
+  SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
+  long lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
+  hb_retdl(lJulian);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMONTHCALDATE, HMG_GETMONTHCALDATE )
+HB_FUNC_TRANSLATE(GETMONTHCALDATE, HMG_GETMONTHCALDATE)
 #endif
 
 /*
 HMG_SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
 */
-HB_FUNC( HMG_SETPOSMONTHCAL )
+HB_FUNC(HMG_SETPOSMONTHCAL)
 {
-   auto hWndMonthCal = hmg_par_HWND(1);
+  auto hWndMonthCal = hmg_par_HWND(1);
 
-   RECT rc;
-   MonthCal_GetMinReqRect(hWndMonthCal, &rc);
+  RECT rc;
+  MonthCal_GetMinReqRect(hWndMonthCal, &rc);
 
-   DWORD dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
+  DWORD dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
 
-   if( dwWidth > static_cast<DWORD>(rc.right) ) {
-      rc.right = dwWidth;
-   }
+  if (dwWidth > static_cast<DWORD>(rc.right))
+  {
+    rc.right = dwWidth;
+  }
 
-   if( hb_parldef(4, false) ) {
-      InflateRect(&rc, 6, 6);
-   }
+  if (hb_parldef(4, false))
+  {
+    InflateRect(&rc, 6, 6);
+  }
 
-   SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
+  SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETPOSMONTHCAL, HMG_SETPOSMONTHCAL )
+HB_FUNC_TRANSLATE(SETPOSMONTHCAL, HMG_SETPOSMONTHCAL)
 #endif
 
 /*
 HMG_GETMONTHRANGE(HWND) --> array
 */
-HB_FUNC( HMG_GETMONTHRANGE )
+HB_FUNC(HMG_GETMONTHRANGE)
 {
-   SYSTEMTIME sysTime[2];
-   memset(&sysTime, 0, sizeof(sysTime));
-   int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, reinterpret_cast<LPARAM>(&sysTime));
+  SYSTEMTIME sysTime[2];
+  memset(&sysTime, 0, sizeof(sysTime));
+  int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE,
+                           reinterpret_cast<LPARAM>(&sysTime));
 
-   hb_reta(3);
-   HB_STORNI(iCount, -1, 1);
-   HB_STORDL(hb_dateEncode(sysTime[0].wYear, sysTime[0].wMonth, sysTime[0].wDay), -1, 2);
-   HB_STORDL(hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3);
+  hb_reta(3);
+  HB_STORNI(iCount, -1, 1);
+  HB_STORDL(hb_dateEncode(sysTime[0].wYear, sysTime[0].wMonth, sysTime[0].wDay), -1, 2);
+  HB_STORDL(hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMONTHRANGE, HMG_GETMONTHRANGE )
+HB_FUNC_TRANSLATE(GETMONTHRANGE, HMG_GETMONTHRANGE)
 #endif
 
 #ifndef BOLDDAY
-#define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= (0x00000001 << (iDay - 1))
+#define BOLDDAY(ds, iDay)                                                                          \
+  if (iDay > 0 && iDay < 32)                                                                       \
+  (ds) |= (0x00000001 << (iDay - 1))
 #endif
 
 /*
 HMG_C_SETDAYSTATE(HWND, np2, ap3) --> NIL
 */
-HB_FUNC( HMG_C_SETDAYSTATE )
+HB_FUNC(HMG_C_SETDAYSTATE)
 {
-   auto iCount = hb_parni(2);
-   auto hArray = hb_param(3, Harbour::Item::ARRAY);
-   int iSize = sizeof(MONTHDAYSTATE) * iCount;
-   auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
-   memset(rgMonths, 0, iSize);
+  auto iCount = hb_parni(2);
+  auto hArray = hb_param(3, Harbour::Item::ARRAY);
+  int iSize = sizeof(MONTHDAYSTATE) * iCount;
+  auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
+  memset(rgMonths, 0, iSize);
 
-   for( auto i = 0; i < iCount; i++ ) {
-      for( auto j = 1; j <= 32; j++ ) {
-         if( hb_arrayGetNI(hArray, i * 32 + j) == 1 ) {
-            BOLDDAY(rgMonths[i], j);
-         }
+  for (auto i = 0; i < iCount; i++)
+  {
+    for (auto j = 1; j <= 32; j++)
+    {
+      if (hb_arrayGetNI(hArray, i * 32 + j) == 1)
+      {
+        BOLDDAY(rgMonths[i], j);
       }
-   }
+    }
+  }
 
-   SendMessage(hmg_par_HWND(1), MCM_SETDAYSTATE, iCount, reinterpret_cast<LPARAM>(rgMonths));
-   hb_xfree(rgMonths);
+  SendMessage(hmg_par_HWND(1), MCM_SETDAYSTATE, iCount, reinterpret_cast<LPARAM>(rgMonths));
+  hb_xfree(rgMonths);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_SETDAYSTATE, HMG_C_SETDAYSTATE )
+HB_FUNC_TRANSLATE(C_SETDAYSTATE, HMG_C_SETDAYSTATE)
 #endif
 
 /*
 HMG_C_RETDAYSTATE(p1, p2, p3) --> NIL
 */
-HB_FUNC( HMG_C_RETDAYSTATE )
+HB_FUNC(HMG_C_RETDAYSTATE)
 {
-   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
-   auto iCount = hb_parni(2);
-   auto hArray = hb_param(3, Harbour::Item::ARRAY);
-   int iSize = sizeof(MONTHDAYSTATE) * iCount;
-   auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
-   memset(rgMonths, 0, iSize);
+  LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE *>(HB_PARNL(1));
+  auto iCount = hb_parni(2);
+  auto hArray = hb_param(3, Harbour::Item::ARRAY);
+  int iSize = sizeof(MONTHDAYSTATE) * iCount;
+  auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
+  memset(rgMonths, 0, iSize);
 
-   for( auto i = 0; i < iCount; i++ ) {
-      for( auto j = 1; j <= 32; j++ ) {
-         if( hb_arrayGetNI(hArray, i * 32 + j) == 1 ) {
-            BOLDDAY(rgMonths[i], j);
-         }
+  for (auto i = 0; i < iCount; i++)
+  {
+    for (auto j = 1; j <= 32; j++)
+    {
+      if (hb_arrayGetNI(hArray, i * 32 + j) == 1)
+      {
+        BOLDDAY(rgMonths[i], j);
       }
-   }
+    }
+  }
 
-   pData->prgDayState = rgMonths;
-   hb_xfree(rgMonths);
+  pData->prgDayState = rgMonths;
+  hb_xfree(rgMonths);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_RETDAYSTATE, HMG_C_RETDAYSTATE )
+HB_FUNC_TRANSLATE(C_RETDAYSTATE, HMG_C_RETDAYSTATE)
 #endif
 
 /*
 HMG_GETDAYSTATEDATA(p1) --> array
 */
-HB_FUNC( HMG_GETDAYSTATEDATA )
+HB_FUNC(HMG_GETDAYSTATEDATA)
 {
-   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
-   hb_reta(2);
-   HB_STORNI(pData->cDayState, -1, 1);
-   HB_STORDL(hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2);
+  LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE *>(HB_PARNL(1));
+  hb_reta(2);
+  HB_STORNI(pData->cDayState, -1, 1);
+  HB_STORDL(hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETDAYSTATEDATA, HMG_GETDAYSTATEDATA )
+HB_FUNC_TRANSLATE(GETDAYSTATEDATA, HMG_GETDAYSTATEDATA)
 #endif
 
 LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = nullptr;
+  static PHB_SYMB pSymbol = nullptr;
 
-   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
+  auto OldWndProc =
+      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
 
-   switch( Msg ) {
-      case WM_DESTROY:
-         SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
-         RemoveProp(hwnd, TEXT("oldmcproc"));
-         break;
+  switch (Msg)
+  {
+  case WM_DESTROY:
+    SetWindowLongPtr(hwnd, GWLP_WNDPROC,
+                     reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    RemoveProp(hwnd, TEXT("oldmcproc"));
+    break;
 
-      case WM_MOUSEACTIVATE:
-      case WM_SETFOCUS:
-      case WM_KILLFOCUS:
-         if( !pSymbol ) {
-            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
-         }
+  case WM_MOUSEACTIVATE:
+  case WM_SETFOCUS:
+  case WM_KILLFOCUS:
+    if (!pSymbol)
+    {
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
+    }
 
-         if( pSymbol ) {
-            hb_vmPushSymbol(pSymbol);
-            hb_vmPushNil();
-            hmg_vmPushHandle(hwnd);
-            hb_vmPushLong(Msg);
-            hb_vmPushNumInt(wParam);
-            hb_vmPushNumInt(lParam);
-            hb_vmDo(4);
-         }
+    if (pSymbol)
+    {
+      hb_vmPushSymbol(pSymbol);
+      hb_vmPushNil();
+      hmg_vmPushHandle(hwnd);
+      hb_vmPushLong(Msg);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
+      hb_vmDo(4);
+    }
 
-         long int r = hb_parnl(-1);
+    long int r = hb_parnl(-1);
 
-         if( r != 0 ) {
-            return r;
-         }
-   }
+    if (r != 0)
+    {
+      return r;
+    }
+  }
 
-   return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
+  return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
 }

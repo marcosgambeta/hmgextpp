@@ -47,8 +47,8 @@
  * author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#define _WIN32_IE     0x0501
-#define _WIN32_WINNT  0x0600
+#define _WIN32_IE 0x0501
+#define _WIN32_WINNT 0x0600
 
 #include "mgdefs.hpp"
 #include <hbapierr.hpp>
@@ -59,10 +59,10 @@
 
 #if 0
 #ifndef TTS_CLOSE
-#define TTS_CLOSE  0x80
+#define TTS_CLOSE 0x80
 #endif
 #ifndef TTM_POPUP
-#define TTM_POPUP  (WM_USER + 34)
+#define TTM_POPUP (WM_USER + 34)
 #endif
 #endif
 
@@ -77,73 +77,75 @@ typedef struct _tagEDITBALLOONTIP
 } EDITBALLOONTIP, * PEDITBALLOONTIP;
 #endif
 
-#define ECM_FIRST          0x1500            // Edit control messages
+#define ECM_FIRST 0x1500 // Edit control messages
 
-#define EM_SHOWBALLOONTIP  (ECM_FIRST + 3) // Show a balloon tip associated to the edit control
-#define Edit_ShowBalloonTip(hwnd, peditballoontip)  static_cast<BOOL>(SNDMSG(( hwnd ), EM_SHOWBALLOONTIP, 0, ( LPARAM ) ( peditballoontip )))
-#define EM_HIDEBALLOONTIP  (ECM_FIRST + 4) // Hide any balloon tip associated with the edit control
-#define Edit_HideBalloonTip(hwnd)                   static_cast<BOOL>(SNDMSG(( hwnd ), EM_HIDEBALLOONTIP, 0, 0))
+#define EM_SHOWBALLOONTIP (ECM_FIRST + 3) // Show a balloon tip associated to the edit control
+#define Edit_ShowBalloonTip(hwnd, peditballoontip)                                                 \
+  static_cast<BOOL>(SNDMSG((hwnd), EM_SHOWBALLOONTIP, 0, (LPARAM)(peditballoontip)))
+#define EM_HIDEBALLOONTIP (ECM_FIRST + 4) // Hide any balloon tip associated with the edit control
+#define Edit_HideBalloonTip(hwnd) static_cast<BOOL>(SNDMSG((hwnd), EM_HIDEBALLOONTIP, 0, 0))
 #endif
 
-#define HB_cdpGetU16(cdp, fCtrl, ch)               hb_cdpGetU16(cdp, ch)
+#define HB_cdpGetU16(cdp, fCtrl, ch) hb_cdpGetU16(cdp, ch)
 
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
-bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT * pt);
-bool hmg_ArrayToRect(PHB_ITEM aPoint, RECT * rect);
-bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
-PHB_ITEM hmg_RectToArray(RECT * rc);
+bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt);
+bool hmg_ArrayToRect(PHB_ITEM aPoint, RECT *rect);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
+PHB_ITEM hmg_RectToArray(RECT *rc);
 
 static auto g_bIsToolTipActive = true;
 static auto g_bIsToolTipBalloon = false;
 
 static int g_iToolTipMaxWidth = -1;
 
-HB_FUNC( HMG_SETTOOLTIPACTIVATE )
+HB_FUNC(HMG_SETTOOLTIPACTIVATE)
 {
-   bool g_bOldToolTipActive = g_bIsToolTipActive;
+  bool g_bOldToolTipActive = g_bIsToolTipActive;
 
-   if( HB_ISLOG(1) )
-   {
-      g_bIsToolTipActive = hb_parl(1);
-   }
+  if (HB_ISLOG(1))
+  {
+    g_bIsToolTipActive = hb_parl(1);
+  }
 
-   hb_retl(g_bOldToolTipActive);
+  hb_retl(g_bOldToolTipActive);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTOOLTIPACTIVATE, HMG_SETTOOLTIPACTIVATE )
+HB_FUNC_TRANSLATE(SETTOOLTIPACTIVATE, HMG_SETTOOLTIPACTIVATE)
 #endif
 
-HB_FUNC( HMG_SETTOOLTIPBALLOON )
+HB_FUNC(HMG_SETTOOLTIPBALLOON)
 {
-   bool g_bOldToolTipBalloon = g_bIsToolTipBalloon;
+  bool g_bOldToolTipBalloon = g_bIsToolTipBalloon;
 
-   if( HB_ISLOG(1) )
-   {
-      g_bIsToolTipBalloon = hb_parl(1);
-   }
+  if (HB_ISLOG(1))
+  {
+    g_bIsToolTipBalloon = hb_parl(1);
+  }
 
-   hb_retl(g_bOldToolTipBalloon);
+  hb_retl(g_bOldToolTipBalloon);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTOOLTIPBALLOON, HMG_SETTOOLTIPBALLOON )
+HB_FUNC_TRANSLATE(SETTOOLTIPBALLOON, HMG_SETTOOLTIPBALLOON)
 #endif
 
-HB_FUNC( HMG_SETTOOLTIPMAXWIDTH )
+HB_FUNC(HMG_SETTOOLTIPMAXWIDTH)
 {
-   bool g_iOldToolTipMaxWidth = g_iToolTipMaxWidth;
+  bool g_iOldToolTipMaxWidth = g_iToolTipMaxWidth;
 
-   if( HB_ISNUM(1) ) {
-      g_iToolTipMaxWidth = hb_parni(1);
-   }
+  if (HB_ISNUM(1))
+  {
+    g_iToolTipMaxWidth = hb_parni(1);
+  }
 
-   hb_retni(g_iOldToolTipMaxWidth);
+  hb_retni(g_iOldToolTipMaxWidth);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH )
+HB_FUNC_TRANSLATE(SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH)
 #endif
 
 /*
@@ -155,233 +157,249 @@ HB_FUNC_TRANSLATE( SETTOOLTIPMAXWIDTH, HMG_SETTOOLTIPMAXWIDTH )
 /*
 HMG_INITTOOLTIP(HWND, lBalloon) --> hTooltip
 */
-HB_FUNC( HMG_INITTOOLTIP )
+HB_FUNC(HMG_INITTOOLTIP)
 {
-   HWND hwndParent = HB_ISNIL(1) ? nullptr : hmg_par_HWND(1);
+  HWND hwndParent = HB_ISNIL(1) ? nullptr : hmg_par_HWND(1);
 
-   if( HB_ISNIL(1) ? true : IsWindow(hwndParent) ) { // hack for ModalWindow
-      INITCOMMONCONTROLSEX icex = {sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES};
-      InitCommonControlsEx(&icex);
+  if (HB_ISNIL(1) ? true : IsWindow(hwndParent))
+  { // hack for ModalWindow
+    INITCOMMONCONTROLSEX icex = {sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES};
+    InitCommonControlsEx(&icex);
 
-      DWORD dwStyle = WS_POPUP | TTS_ALWAYSTIP;
+    DWORD dwStyle = WS_POPUP | TTS_ALWAYSTIP;
 
-      if( hb_pcount() > 1 ) {
-         if( HB_ISLOG(2) && hb_parl(2) ) {
-            dwStyle |= TTS_BALLOON;
-         }
-      } else if( g_bIsToolTipBalloon ) {
-         dwStyle |= TTS_BALLOON;
+    if (hb_pcount() > 1)
+    {
+      if (HB_ISLOG(2) && hb_parl(2))
+      {
+        dwStyle |= TTS_BALLOON;
       }
+    }
+    else if (g_bIsToolTipBalloon)
+    {
+      dwStyle |= TTS_BALLOON;
+    }
 
-      /* Create a tooltip */
-      auto hwndToolTip = CreateWindowEx(
-         0,
-         TOOLTIPS_CLASS,
-         nullptr,
-         dwStyle,
-         CW_USEDEFAULT,
-         CW_USEDEFAULT,
-         CW_USEDEFAULT,
-         CW_USEDEFAULT,
-         hwndParent,
-         nullptr,
-         GetInstance(),
-         nullptr);
+    /* Create a tooltip */
+    auto hwndToolTip =
+        CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT,
+                       CW_USEDEFAULT, CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
-      hmg_ret_HWND(hwndToolTip);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    hmg_ret_HWND(hwndToolTip);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITTOOLTIP, HMG_INITTOOLTIP )
+HB_FUNC_TRANSLATE(INITTOOLTIP, HMG_INITTOOLTIP)
 #endif
 
 /*
 HMG_SETTOOLTIP(hwndTool, cText, hwndToolTip) -->
 */
-HB_FUNC( HMG_SETTOOLTIP )
+HB_FUNC(HMG_SETTOOLTIP)
 {
-   auto hwndTool = hmg_par_HWND(1);
-   auto hwndToolTip = hmg_par_HWND(3);
+  auto hwndTool = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(3);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      if( IsWindow(hwndTool) ) {
-         void * str = nullptr;
-         TOOLINFO ti{};
-         ti.cbSize = sizeof(ti);
-         ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
-         ti.hwnd   = GetParent(hwndTool);
-         ti.uId    = reinterpret_cast<UINT_PTR>(hwndTool);
-         if( SendMessage(hwndToolTip, TTM_GETTOOLINFO, 0, reinterpret_cast<LPARAM>(&ti)) ) {
-            SendMessage(hwndToolTip, TTM_DELTOOL, 0, reinterpret_cast<LPARAM>(&ti));
-         }
-         if( hb_parclen(2) > 0 ) {
-            ti.lpszText = const_cast<TCHAR*>(HB_PARSTR(2, &str, nullptr));
-         }
-         hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti)) ? true : false);
-         SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
-         hb_strfree(str);
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    if (IsWindow(hwndTool))
+    {
+      void *str = nullptr;
+      TOOLINFO ti{};
+      ti.cbSize = sizeof(ti);
+      ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
+      ti.hwnd = GetParent(hwndTool);
+      ti.uId = reinterpret_cast<UINT_PTR>(hwndTool);
+      if (SendMessage(hwndToolTip, TTM_GETTOOLINFO, 0, reinterpret_cast<LPARAM>(&ti)))
+      {
+        SendMessage(hwndToolTip, TTM_DELTOOL, 0, reinterpret_cast<LPARAM>(&ti));
       }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
-   }
+      if (hb_parclen(2) > 0)
+      {
+        ti.lpszText = const_cast<TCHAR *>(HB_PARSTR(2, &str, nullptr));
+      }
+      hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti)) ? true
+                                                                                      : false);
+      SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
+      hb_strfree(str);
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
+                         hb_paramError(2));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTOOLTIP, HMG_SETTOOLTIP )
+HB_FUNC_TRANSLATE(SETTOOLTIP, HMG_SETTOOLTIP)
 #endif
 
 /*
    hmg_ShowBalloonTip(hWnd, cText [, cTitle] [, nTypeIcon])
  */
-HB_FUNC( HMG_SHOWBALLOONTIP )
+HB_FUNC(HMG_SHOWBALLOONTIP)
 {
-   WCHAR Text[512];
-   WCHAR Title[512];
+  WCHAR Text[512];
+  WCHAR Title[512];
 
-   PHB_CODEPAGE s_cdpHost = hb_vmCDP();
+  PHB_CODEPAGE s_cdpHost = hb_vmCDP();
 
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      EDITBALLOONTIP bl{};
-      bl.cbStruct = sizeof(EDITBALLOONTIP);
-      bl.pszTitle = nullptr;
-      bl.pszText  = nullptr;
-      bl.ttiIcon  = hb_parnidef(4, 0 /*TTI_NONE*/);
+  if (IsWindow(hWnd))
+  {
+    EDITBALLOONTIP bl{};
+    bl.cbStruct = sizeof(EDITBALLOONTIP);
+    bl.pszTitle = nullptr;
+    bl.pszText = nullptr;
+    bl.ttiIcon = hb_parnidef(4, 0 /*TTI_NONE*/);
 
-      if( HB_ISCHAR(2) ) {
-         ZeroMemory(Text, sizeof(Text));
-         int k = hb_parclen(2);
-         const char * s = hb_parc(2);
-         for( auto i = 0; i < k; i++ ) {
-            Text[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
-         }
-         bl.pszText = Text;
+    if (HB_ISCHAR(2))
+    {
+      ZeroMemory(Text, sizeof(Text));
+      int k = hb_parclen(2);
+      const char *s = hb_parc(2);
+      for (auto i = 0; i < k; i++)
+      {
+        Text[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
       }
+      bl.pszText = Text;
+    }
 
-      if( HB_ISCHAR(3) ) {
-         ZeroMemory(Title, sizeof(Title));
-         int k = hb_parclen(3);
-         const char * s = hb_parc(3);
-         for( auto i = 0; i < k; i++ ) {
-            Title[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
-         }
-         bl.pszTitle = Title;
+    if (HB_ISCHAR(3))
+    {
+      ZeroMemory(Title, sizeof(Title));
+      int k = hb_parclen(3);
+      const char *s = hb_parc(3);
+      for (auto i = 0; i < k; i++)
+      {
+        Title[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
       }
+      bl.pszTitle = Title;
+    }
 
-      Edit_ShowBalloonTip(hWnd, &bl);
-   }
+    Edit_ShowBalloonTip(hWnd, &bl);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SHOWBALLOONTIP, HMG_SHOWBALLOONTIP )
+HB_FUNC_TRANSLATE(SHOWBALLOONTIP, HMG_SHOWBALLOONTIP)
 #endif
 
-HB_FUNC( HMG_HIDEBALLOONTIP )
+HB_FUNC(HMG_HIDEBALLOONTIP)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      Edit_HideBalloonTip(hWnd);
-   }
+  if (IsWindow(hWnd))
+  {
+    Edit_HideBalloonTip(hWnd);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( HIDEBALLOONTIP, HMG_HIDEBALLOONTIP )
+HB_FUNC_TRANSLATE(HIDEBALLOONTIP, HMG_HIDEBALLOONTIP)
 #endif
 
 /*
-   nToolTip := hmg_InitToolTipEx(nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ])
+   nToolTip := hmg_InitToolTipEx(nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle
+   ][, nFlags ])
  */
-HB_FUNC( HMG_INITTOOLTIPEX )
+HB_FUNC(HMG_INITTOOLTIPEX)
 {
-   auto hwndParent = hmg_par_HWND(1);
+  auto hwndParent = hmg_par_HWND(1);
 
-   if( IsWindow(hwndParent) ) {
-      auto aRect = hb_param(2, Harbour::Item::ANY);
+  if (IsWindow(hwndParent))
+  {
+    auto aRect = hb_param(2, Harbour::Item::ANY);
 
-      RECT rect;
-      if( !hmg_ArrayToRect(aRect, &rect) ) {
-         GetClientRect(hwndParent, &rect);
-      }
+    RECT rect;
+    if (!hmg_ArrayToRect(aRect, &rect))
+    {
+      GetClientRect(hwndParent, &rect);
+    }
 
-      void * str1 = nullptr;
-      LPTSTR lpszText = nullptr;
-      void * str2 = nullptr;
-      LPTSTR lpszTitle = HB_ISCHAR(4) ? const_cast<TCHAR*>(HB_PARSTR(4, &str2, nullptr)) : nullptr;
+    void *str1 = nullptr;
+    LPTSTR lpszText = nullptr;
+    void *str2 = nullptr;
+    LPTSTR lpszTitle = HB_ISCHAR(4) ? const_cast<TCHAR *>(HB_PARSTR(4, &str2, nullptr)) : nullptr;
 
-      if( hb_parclen(3) > 0 ) {
-         lpszText = const_cast<TCHAR*>(HB_PARSTR(3, &str1, nullptr));
-      } else if( HB_ISNUM(3) ) {
-         lpszText = static_cast<LPTSTR>(MAKEINTRESOURCE(hb_parni(3)));
-      }
+    if (hb_parclen(3) > 0)
+    {
+      lpszText = const_cast<TCHAR *>(HB_PARSTR(3, &str1, nullptr));
+    }
+    else if (HB_ISNUM(3))
+    {
+      lpszText = static_cast<LPTSTR>(MAKEINTRESOURCE(hb_parni(3)));
+    }
 
-      DWORD dwStyle = WS_POPUP;
-      if( HB_ISNUM(6) ) {
-         dwStyle |= hmg_par_DWORD(6);
-      }
+    DWORD dwStyle = WS_POPUP;
+    if (HB_ISNUM(6))
+    {
+      dwStyle |= hmg_par_DWORD(6);
+    }
 
-      UINT uFlags = 0;
-      if( HB_ISNUM(7) ) {
-         uFlags = hmg_par_UINT(7);
-      }
+    UINT uFlags = 0;
+    if (HB_ISNUM(7))
+    {
+      uFlags = hmg_par_UINT(7);
+    }
 
-      INITCOMMONCONTROLSEX icex = { sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES };
-      InitCommonControlsEx(&icex);
+    INITCOMMONCONTROLSEX icex = {sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES};
+    InitCommonControlsEx(&icex);
 
-      /* Create a tooltip */
-      auto hwndToolTip = CreateWindowEx(
-         WS_EX_TOPMOST,
-         TOOLTIPS_CLASS,
-         nullptr,
-         dwStyle,
-         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-         hwndParent,
-         nullptr,
-         GetInstance(),
-         nullptr);
+    /* Create a tooltip */
+    auto hwndToolTip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, nullptr, dwStyle,
+                                      CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+                                      hwndParent, nullptr, GetInstance(), nullptr);
 
-      SetWindowPos(hwndToolTip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    SetWindowPos(hwndToolTip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 
-      /* Set up "tool" information. In this case, the "tool" is the entire parent window. */
-      TOOLINFO ti{};
-      ti.cbSize   = sizeof(ti);
-      ti.uFlags   = uFlags;
-      ti.hwnd     = hwndParent;
-      ti.uId      = ( UINT_PTR ) hwndParent;
-      ti.rect     = rect;
-      ti.hinst    = GetInstance();
-      ti.lpszText = lpszText;
+    /* Set up "tool" information. In this case, the "tool" is the entire parent window. */
+    TOOLINFO ti{};
+    ti.cbSize = sizeof(ti);
+    ti.uFlags = uFlags;
+    ti.hwnd = hwndParent;
+    ti.uId = (UINT_PTR)hwndParent;
+    ti.rect = rect;
+    ti.hinst = GetInstance();
+    ti.lpszText = lpszText;
 
-      // Associate the tooltip with the "tool" window.
-      SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti));
+    // Associate the tooltip with the "tool" window.
+    SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti));
 
-      int nIcon = hb_parnidef(5, TTI_NONE);
+    int nIcon = hb_parnidef(5, TTI_NONE);
 
-      if( lpszTitle != nullptr ) {
-         SendMessage(hwndToolTip, TTM_SETTITLE, nIcon, reinterpret_cast<LPARAM>(lpszTitle));
-      }
+    if (lpszTitle != nullptr)
+    {
+      SendMessage(hwndToolTip, TTM_SETTITLE, nIcon, reinterpret_cast<LPARAM>(lpszTitle));
+    }
 
-      if( g_iToolTipMaxWidth != -1 ) {
-         SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, g_iToolTipMaxWidth);
-      }
+    if (g_iToolTipMaxWidth != -1)
+    {
+      SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, g_iToolTipMaxWidth);
+    }
 
-      SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
+    SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
 
-      hmg_ret_HWND(hwndToolTip);
+    hmg_ret_HWND(hwndToolTip);
 
-      hb_strfree(str1);
-      hb_strfree(str2);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    hb_strfree(str1);
+    hb_strfree(str2);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITTOOLTIPEX, HMG_INITTOOLTIPEX )
+HB_FUNC_TRANSLATE(INITTOOLTIPEX, HMG_INITTOOLTIPEX)
 #endif
 
 /*
@@ -393,24 +411,28 @@ HB_FUNC_TRANSLATE( INITTOOLTIPEX, HMG_INITTOOLTIPEX )
 
    has no effect if g_bIsToolTipActive == FALSE ( after hmg_SetToolTipActivate(.F.) )
  */
-HB_FUNC( HMG_TTM_ACTIVATE )
+HB_FUNC(HMG_TTM_ACTIVATE)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      if( g_bIsToolTipActive ) {
-         SendMessage(hwndToolTip, TTM_ACTIVATE, hmg_par_BOOL(2), 0);
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    if (g_bIsToolTipActive)
+    {
+      SendMessage(hwndToolTip, TTM_ACTIVATE, hmg_par_BOOL(2), 0);
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_ACTIVATE
 #undef TTM_ACTIVATE
 #endif
-HB_FUNC_TRANSLATE( TTM_ACTIVATE, HMG_TTM_ACTIVATE )
+HB_FUNC_TRANSLATE(TTM_ACTIVATE, HMG_TTM_ACTIVATE)
 #endif
 
 /* TODO
@@ -439,22 +461,25 @@ HB_FUNC_TRANSLATE( TTM_ACTIVATE, HMG_TTM_ACTIVATE )
    retrieves  the initial, pop-up, and reshow durations currently set for a
    tooltip control
  */
-HB_FUNC( HMG_TTM_GETDELAYTIME )
+HB_FUNC(HMG_TTM_GETDELAYTIME)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETDELAYTIME
 #undef TTM_GETDELAYTIME
 #endif
-HB_FUNC_TRANSLATE( TTM_GETDELAYTIME, HMG_TTM_GETDELAYTIME )
+HB_FUNC_TRANSLATE(TTM_GETDELAYTIME, HMG_TTM_GETDELAYTIME)
 #endif
 
 /*
@@ -463,47 +488,53 @@ HB_FUNC_TRANSLATE( TTM_GETDELAYTIME, HMG_TTM_GETDELAYTIME )
    window.  A margin is the distance, in pixels, between the tooltip window
    border and the text contained within the tooltip window
  */
-HB_FUNC( HMG_TTM_GETMARGIN )
+HB_FUNC(HMG_TTM_GETMARGIN)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      RECT rect;
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    RECT rect;
 
-      SendMessage(hwndToolTip, TTM_GETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
+    SendMessage(hwndToolTip, TTM_GETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
 
-      hb_itemReturnRelease(hmg_RectToArray(&rect));
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    hb_itemReturnRelease(hmg_RectToArray(&rect));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETMARGIN
 #undef TTM_GETMARGIN
 #endif
-HB_FUNC_TRANSLATE( TTM_GETMARGIN, HMG_TTM_GETMARGIN )
+HB_FUNC_TRANSLATE(TTM_GETMARGIN, HMG_TTM_GETMARGIN)
 #endif
 
 /*
    TTM_GETMAXTIPWIDTH - retrieves the maximum width for a tooltip window
  */
-HB_FUNC( HMG_TTM_GETMAXTIPWIDTH )
+HB_FUNC(HMG_TTM_GETMAXTIPWIDTH)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETMAXTIPWIDTH
 #undef TTM_GETMAXTIPWIDTH
 #endif
-HB_FUNC_TRANSLATE( TTM_GETMAXTIPWIDTH, HMG_TTM_GETMAXTIPWIDTH )
+HB_FUNC_TRANSLATE(TTM_GETMAXTIPWIDTH, HMG_TTM_GETMAXTIPWIDTH)
 #endif
 
 /* TODO
@@ -514,43 +545,49 @@ HB_FUNC_TRANSLATE( TTM_GETMAXTIPWIDTH, HMG_TTM_GETMAXTIPWIDTH )
 /*
    TTM_GETTIPBKCOLOR - retrieves the background color in a tooltip window
  */
-HB_FUNC( HMG_TTM_GETTIPBKCOLOR )
+HB_FUNC(HMG_TTM_GETTIPBKCOLOR)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETTIPBKCOLOR
 #undef TTM_GETTIPBKCOLOR
 #endif
-HB_FUNC_TRANSLATE( TTM_GETTIPBKCOLOR, HMG_TTM_GETTIPBKCOLOR )
+HB_FUNC_TRANSLATE(TTM_GETTIPBKCOLOR, HMG_TTM_GETTIPBKCOLOR)
 #endif
 
 /*
    TTM_GETTIPTEXTCOLOR  - retrieves the text color in a tooltip window
  */
-HB_FUNC( HMG_TTM_GETTIPTEXTCOLOR )
+HB_FUNC(HMG_TTM_GETTIPTEXTCOLOR)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETTIPTEXTCOLOR
 #undef TTM_GETTIPTEXTCOLOR
 #endif
-HB_FUNC_TRANSLATE( TTM_GETTIPTEXTCOLOR, HMG_TTM_GETTIPTEXTCOLOR )
+HB_FUNC_TRANSLATE(TTM_GETTIPTEXTCOLOR, HMG_TTM_GETTIPTEXTCOLOR)
 #endif
 
 /* TODO
@@ -562,22 +599,25 @@ HB_FUNC_TRANSLATE( TTM_GETTIPTEXTCOLOR, HMG_TTM_GETTIPTEXTCOLOR )
    TTM_GETTOOLCOUNT -
    retrieves a count of the tools maintained by a tooltip control
  */
-HB_FUNC( HMG_TTM_GETTOOLCOUNT )
+HB_FUNC(HMG_TTM_GETTOOLCOUNT)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_GETTOOLCOUNT
 #undef TTM_GETTOOLCOUNT
 #endif
-HB_FUNC_TRANSLATE( TTM_GETTOOLCOUNT, HMG_TTM_GETTOOLCOUNT )
+HB_FUNC_TRANSLATE(TTM_GETTOOLCOUNT, HMG_TTM_GETTOOLCOUNT)
 #endif
 
 /* TODO
@@ -595,44 +635,50 @@ HB_FUNC_TRANSLATE( TTM_GETTOOLCOUNT, HMG_TTM_GETTOOLCOUNT )
 /*
    TTM_POP - removes a displayed tooltip window from view
  */
-HB_FUNC( HMG_TTM_POP )
+HB_FUNC(HMG_TTM_POP)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      SendMessage(hwndToolTip, TTM_POP, 0, 0);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    SendMessage(hwndToolTip, TTM_POP, 0, 0);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_POP
 #undef TTM_POP
 #endif
-HB_FUNC_TRANSLATE( TTM_POP, HMG_TTM_POP )
+HB_FUNC_TRANSLATE(TTM_POP, HMG_TTM_POP)
 #endif
 
 /*
    TTM_POPUP -
    causes the tooltip to display at the coordinates of the last mouse message
  */
-HB_FUNC( HMG_TTM_POPUP )
+HB_FUNC(HMG_TTM_POPUP)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      SendMessage(hwndToolTip, TTM_POPUP, 0, 0);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    SendMessage(hwndToolTip, TTM_POPUP, 0, 0);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_POPUP
 #undef TTM_POPUP
 #endif
-HB_FUNC_TRANSLATE( TTM_POPUP, HMG_TTM_POPUP )
+HB_FUNC_TRANSLATE(TTM_POPUP, HMG_TTM_POPUP)
 #endif
 
 /* TODO
@@ -644,28 +690,35 @@ HB_FUNC_TRANSLATE( TTM_POPUP, HMG_TTM_POPUP )
    TTM_SETDELAYTIME
    sets the initial, pop-up, and reshow durations for a tooltip control
  */
-HB_FUNC( HMG_TTM_SETDELAYTIME )
+HB_FUNC(HMG_TTM_SETDELAYTIME)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      int nMilliSec = hb_parnidef(3, -1);
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    int nMilliSec = hb_parnidef(3, -1);
 
-      if( nMilliSec < 0 ) {
-         SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), -1);
-      } else {
-         SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), static_cast<LPARAM>(static_cast<DWORD>(nMilliSec)));
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    if (nMilliSec < 0)
+    {
+      SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), -1);
+    }
+    else
+    {
+      SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP),
+                  static_cast<LPARAM>(static_cast<DWORD>(nMilliSec)));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_SETDELAYTIME
 #undef TTM_SETDELAYTIME
 #endif
-HB_FUNC_TRANSLATE( TTM_SETDELAYTIME, HMG_TTM_SETDELAYTIME )
+HB_FUNC_TRANSLATE(TTM_SETDELAYTIME, HMG_TTM_SETDELAYTIME)
 #endif
 
 /*
@@ -674,111 +727,135 @@ HB_FUNC_TRANSLATE( TTM_SETDELAYTIME, HMG_TTM_SETDELAYTIME )
    margin is the distance, in pixels, between the tooltip window border and
    the text contained within the tooltip window.
  */
-HB_FUNC( HMG_TTM_SETMARGIN )
+HB_FUNC(HMG_TTM_SETMARGIN)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      RECT rect;
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    RECT rect;
 
-      if( hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect) ) {
-         SendMessage(hwndToolTip, TTM_SETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
-      } else {
-         hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    if (hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect))
+    {
+      SendMessage(hwndToolTip, TTM_SETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
+    }
+    else
+    {
+      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_SETMARGIN
 #undef TTM_SETMARGIN
 #endif
-HB_FUNC_TRANSLATE( TTM_SETMARGIN, HMG_TTM_SETMARGIN )
+HB_FUNC_TRANSLATE(TTM_SETMARGIN, HMG_TTM_SETMARGIN)
 #endif
 
 /*
    TTM_SETMAXTIPWIDTH - sets the maximum width for a tooltip window
  */
-HB_FUNC( HMG_TTM_SETMAXTIPWIDTH )
+HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      hb_retni( SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, ( LPARAM ) hb_parnidef(2, g_iToolTipMaxWidth)) );
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0,
+                         (LPARAM)hb_parnidef(2, g_iToolTipMaxWidth)));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_SETMAXTIPWIDTH
 #undef TTM_SETMAXTIPWIDTH
 #endif
-HB_FUNC_TRANSLATE( TTM_SETMAXTIPWIDTH, HMG_TTM_SETMAXTIPWIDTH )
+HB_FUNC_TRANSLATE(TTM_SETMAXTIPWIDTH, HMG_TTM_SETMAXTIPWIDTH)
 #endif
 
 /*
    TTM_SETTIPBKCOLOR - sets the background color in a tooltip window
  */
-HB_FUNC( HMG_TTM_SETTIPBKCOLOR )
+HB_FUNC(HMG_TTM_SETTIPBKCOLOR)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      auto cr = static_cast<COLORREF>(0);
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    auto cr = static_cast<COLORREF>(0);
 
-      if( HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ARRAY), &cr) ) {
-         if( HB_ISNUM(2) ) {
-            cr = static_cast<COLORREF>(HB_PARNL(2));
-         }
-
-         SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, cr, 0);
-      } else {
-         hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
+    if (HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ARRAY), &cr))
+    {
+      if (HB_ISNUM(2))
+      {
+        cr = static_cast<COLORREF>(HB_PARNL(2));
       }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+
+      SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, cr, 0);
+    }
+    else
+    {
+      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_SETTIPBKCOLOR
 #undef TTM_SETTIPBKCOLOR
 #endif
-HB_FUNC_TRANSLATE( TTM_SETTIPBKCOLOR, HMG_TTM_SETTIPBKCOLOR )
+HB_FUNC_TRANSLATE(TTM_SETTIPBKCOLOR, HMG_TTM_SETTIPBKCOLOR)
 #endif
 
 /*
    TTM_SETTIPTEXTCOLOR - sets the text color in a tooltip window
  */
-HB_FUNC( HMG_TTM_SETTIPTEXTCOLOR )
+HB_FUNC(HMG_TTM_SETTIPTEXTCOLOR)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      auto cr = static_cast<COLORREF>(0);
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    auto cr = static_cast<COLORREF>(0);
 
-      if( HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
-         if( HB_ISNUM(2) ) {
-            cr = static_cast<COLORREF>(HB_PARNL(2));
-         }
-
-         SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, cr, 0);
-      } else {
-         hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
+    if (HB_ISNUM(2) || hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr))
+    {
+      if (HB_ISNUM(2))
+      {
+        cr = static_cast<COLORREF>(HB_PARNL(2));
       }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+
+      SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, cr, 0);
+    }
+    else
+    {
+      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_SETTIPTEXTCOLOR
 #undef TTM_SETTIPTEXTCOLOR
 #endif
-HB_FUNC_TRANSLATE( TTM_SETTIPTEXTCOLOR, HMG_TTM_SETTIPTEXTCOLOR )
+HB_FUNC_TRANSLATE(TTM_SETTIPTEXTCOLOR, HMG_TTM_SETTIPTEXTCOLOR)
 #endif
 
 /* TODO
@@ -793,112 +870,131 @@ HB_FUNC_TRANSLATE( TTM_SETTIPTEXTCOLOR, HMG_TTM_SETTIPTEXTCOLOR )
 /*
    TTM_TRACKACTIVATE - activates or deactivates a tracking tooltip
  */
-HB_FUNC( HMG_TTM_TRACKACTIVATE )
+HB_FUNC(HMG_TTM_TRACKACTIVATE)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
-   auto hwndTool = hmg_par_HWND(2);
+  auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndTool = hmg_par_HWND(2);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
-      TOOLINFO ti{};
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool))
+  {
+    TOOLINFO ti{};
 
-      ti.cbSize = sizeof(ti);
-      ti.hwnd   = hwndTool;
-      ti.uId    = ( UINT_PTR ) hwndTool;
+    ti.cbSize = sizeof(ti);
+    ti.hwnd = hwndTool;
+    ti.uId = (UINT_PTR)hwndTool;
 
-      SendMessage(hwndToolTip, TTM_TRACKACTIVATE, hb_parl(3), reinterpret_cast<LPARAM>(&ti));
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
-   }
+    SendMessage(hwndToolTip, TTM_TRACKACTIVATE, hb_parl(3), reinterpret_cast<LPARAM>(&ti));
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
+                         hb_paramError(2));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_TRACKACTIVATE
 #undef TTM_TRACKACTIVATE
 #endif
-HB_FUNC_TRANSLATE( TTM_TRACKACTIVATE, HMG_TTM_TRACKACTIVATE )
+HB_FUNC_TRANSLATE(TTM_TRACKACTIVATE, HMG_TTM_TRACKACTIVATE)
 #endif
 
 /*
    TTM_TRACKPOSITION - sets the position of a tracking tooltip
  */
-HB_FUNC( HMG_TTM_TRACKPOSITION )
+HB_FUNC(HMG_TTM_TRACKPOSITION)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
-   auto hwndTool = hmg_par_HWND(2);
+  auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndTool = hmg_par_HWND(2);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
-      POINT point;
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool))
+  {
+    POINT point;
 
-      if( hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point) ) {
-         ClientToScreen(hwndTool, &point);
+    if (hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point))
+    {
+      ClientToScreen(hwndTool, &point);
 
-         SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, MAKELONG(point.x, point.y));
-      } else {
-         hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
-   }
+      SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, MAKELONG(point.x, point.y));
+    }
+    else
+    {
+      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
+                         hb_paramError(2));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_TRACKPOSITION
 #undef TTM_TRACKPOSITION
 #endif
-HB_FUNC_TRANSLATE( TTM_TRACKPOSITION, HMG_TTM_TRACKPOSITION )
+HB_FUNC_TRANSLATE(TTM_TRACKPOSITION, HMG_TTM_TRACKPOSITION)
 #endif
 
 /*
    TTM_UPDATE - forces the current tooltip to be redrawn
  */
-HB_FUNC( HMG_TTM_UPDATE )
+HB_FUNC(HMG_TTM_UPDATE)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndToolTip = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      SendMessage(hwndToolTip, TTM_UPDATE, 0, 0);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
+  {
+    SendMessage(hwndToolTip, TTM_UPDATE, 0, 0);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_UPDATE
 #undef TTM_UPDATE
 #endif
-HB_FUNC_TRANSLATE( TTM_UPDATE, HMG_TTM_UPDATE )
+HB_FUNC_TRANSLATE(TTM_UPDATE, HMG_TTM_UPDATE)
 #endif
 
 /*
    TTM_UPDATETIPTEXT - sets the tooltip text for a tool
  */
-HB_FUNC( HMG_TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
+HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC( UPDATETOOLTIPTEXT )
 {
-   auto hwndToolTip = hmg_par_HWND(1);
-   auto hwndTool = hmg_par_HWND(2);
+  auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndTool = hmg_par_HWND(2);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
-      if( hb_parclen(3) > 0 ) {
-         void * str = nullptr;
-         TOOLINFO ti{};
-         ti.cbSize   = sizeof(ti);
-         ti.hinst    = nullptr;
-         ti.hwnd     = hwndTool;
-         ti.uId      = ( UINT_PTR ) hwndTool;
-         ti.lpszText = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
-         SendMessage(hwndToolTip, TTM_UPDATETIPTEXT, 0, reinterpret_cast<LPARAM>(&ti));
-         hb_strfree(str);
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
-   }
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool))
+  {
+    if (hb_parclen(3) > 0)
+    {
+      void *str = nullptr;
+      TOOLINFO ti{};
+      ti.cbSize = sizeof(ti);
+      ti.hinst = nullptr;
+      ti.hwnd = hwndTool;
+      ti.uId = (UINT_PTR)hwndTool;
+      ti.lpszText = const_cast<TCHAR *>(HB_PARSTR(3, &str, nullptr));
+      SendMessage(hwndToolTip, TTM_UPDATETIPTEXT, 0, reinterpret_cast<LPARAM>(&ti));
+      hb_strfree(str);
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
+                         hb_paramError(2));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_UPDATETIPTEXT
 #undef TTM_UPDATETIPTEXT
 #endif
-HB_FUNC_TRANSLATE( TTM_UPDATETIPTEXT, HMG_TTM_UPDATETIPTEXT )
+HB_FUNC_TRANSLATE(TTM_UPDATETIPTEXT, HMG_TTM_UPDATETIPTEXT)
 #endif
 
 /*
@@ -906,29 +1002,37 @@ HB_FUNC_TRANSLATE( TTM_UPDATETIPTEXT, HMG_TTM_UPDATETIPTEXT )
    allows  a  subclass  procedure  to cause a tooltip to display text for a
    window other than the one beneath the mouse cursor
  */
-HB_FUNC( HMG_TTM_WINDOWFROMPOINT )
+HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
 {
-   auto hwndToolTip = hmg_par_HWND(1);
-   auto hwndTool = hmg_par_HWND(2);
+  auto hwndToolTip = hmg_par_HWND(1);
+  auto hwndTool = hmg_par_HWND(2);
 
-   if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool) ) {
-      POINT point;
+  if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) && IsWindow(hwndTool))
+  {
+    POINT point;
 
-      if( hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point) ) {
-         ClientToScreen(hwndTool, &point);
+    if (hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point))
+    {
+      ClientToScreen(hwndTool, &point);
 
-         HB_RETNL( static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))) );
-      } else {
-         hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
-   }
+      HB_RETNL(static_cast<LONG_PTR>(
+          SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
+    }
+    else
+    {
+      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
+                         hb_paramError(2));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 #ifdef TTM_WINDOWFROMPOINT
 #undef TTM_WINDOWFROMPOINT
 #endif
-HB_FUNC_TRANSLATE( TTM_WINDOWFROMPOINT, HMG_TTM_WINDOWFROMPOINT )
+HB_FUNC_TRANSLATE(TTM_WINDOWFROMPOINT, HMG_TTM_WINDOWFROMPOINT)
 #endif

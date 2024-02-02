@@ -44,161 +44,167 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE   0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbwinuni.h>
 
 #ifndef WC_COMBOBOX
-#define WC_COMBOBOX   TEXT("ComboBox")
+#define WC_COMBOBOX TEXT("ComboBox")
 #endif
 
-HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
+                                  int *nHeight);
+void HMG_ImageListAdd(HIMAGELIST himl, const char *FileName, int Transparent);
 
 /*
-HMG_INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND
+HMG_INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) -->
+HWND
 */
-HB_FUNC( HMG_INITCOMBOBOXEX )
+HB_FUNC(HMG_INITCOMBOBOXEX)
 {
-   INITCOMMONCONTROLSEX icex;
-   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   icex.dwICC = ICC_USEREX_CLASSES;
-   InitCommonControlsEx(&icex);
+  INITCOMMONCONTROLSEX icex;
+  icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+  icex.dwICC = ICC_USEREX_CLASSES;
+  InitCommonControlsEx(&icex);
 
-   DWORD style = WS_CHILD | WS_VSCROLL;
+  DWORD style = WS_CHILD | WS_VSCROLL;
 
-   if( !hb_parl(9) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(10) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(10))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
+  style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
 
-   if( hb_parl(13) ) {
-      style |= CBS_NOINTEGRALHEIGHT;
-   }
+  if (hb_parl(13))
+  {
+    style |= CBS_NOINTEGRALHEIGHT;
+  }
 
-   auto hCombo = CreateWindowEx(0,
-                                WC_COMBOBOXEX,
-                                TEXT(""),
-                                style,
-                                hmg_par_int(3),
-                                hmg_par_int(4),
-                                hmg_par_int(5),
-                                hmg_par_int(8),
-                                hmg_par_HWND(1),
-                                hmg_par_HMENU(2),
-                                GetInstance(),
-                                nullptr);
+  auto hCombo = CreateWindowEx(0, WC_COMBOBOXEX, TEXT(""), style, hmg_par_int(3), hmg_par_int(4),
+                               hmg_par_int(5), hmg_par_int(8), hmg_par_HWND(1), hmg_par_HMENU(2),
+                               GetInstance(), nullptr);
 
-   // create ImageList from aImage array
+  // create ImageList from aImage array
 
-   PHB_ITEM hArray;
-   HIMAGELIST himl = nullptr;
+  PHB_ITEM hArray;
+  HIMAGELIST himl = nullptr;
 
-   auto nCount = static_cast<int>(hb_parinfa(14, 0));
+  auto nCount = static_cast<int>(hb_parinfa(14, 0));
 
-   if( nCount > 0 ) {
-      int Transparent = hb_parl(7) ? 0 : 1;
-      hArray = hb_param(14, Harbour::Item::ARRAY);
+  if (nCount > 0)
+  {
+    int Transparent = hb_parl(7) ? 0 : 1;
+    hArray = hb_param(14, Harbour::Item::ARRAY);
 
-      for( auto s = 1; s <= nCount; s++ ) {
-         const char * FileName = hb_arrayGetCPtr(hArray, s);
+    for (auto s = 1; s <= nCount; s++)
+    {
+      const char *FileName = hb_arrayGetCPtr(hArray, s);
 
-         if( himl == nullptr ) {
-            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-         } else {
-            HMG_ImageListAdd(himl, FileName, Transparent);
-         }
+      if (himl == nullptr)
+      {
+        himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
       }
-   }
+      else
+      {
+        HMG_ImageListAdd(himl, FileName, Transparent);
+      }
+    }
+  }
 
-   if( himl == nullptr && HB_PARNL(15) > 0 ) {
-      himl = hmg_par_HIMAGELIST(15);
-   }
+  if (himl == nullptr && HB_PARNL(15) > 0)
+  {
+    himl = hmg_par_HIMAGELIST(15);
+  }
 
-   // set imagelist for created ComboEx
+  // set imagelist for created ComboEx
 
-   if( himl != nullptr ) {
-      SendMessage(hCombo, CBEM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
-   } else {
-      // extend combo without images
-      SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
-   }
+  if (himl != nullptr)
+  {
+    SendMessage(hCombo, CBEM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
+  }
+  else
+  {
+    // extend combo without images
+    SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
+  }
 
-   hmg_ret_HWND(hCombo);
+  hmg_ret_HWND(hCombo);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITCOMBOBOXEX, HMG_INITCOMBOBOXEX )
+HB_FUNC_TRANSLATE(INITCOMBOBOXEX, HMG_INITCOMBOBOXEX)
 #endif
 
 /*
 HMG_COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
 */
-HB_FUNC( HMG_COMBOSETITEMHEIGHT )
+HB_FUNC(HMG_COMBOSETITEMHEIGHT)
 {
-   SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, -1, hb_parni(2));
+  SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, -1, hb_parni(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOSETITEMHEIGHT, HMG_COMBOSETITEMHEIGHT )
+HB_FUNC_TRANSLATE(COMBOSETITEMHEIGHT, HMG_COMBOSETITEMHEIGHT)
 #endif
 
 /*
 HMG_COMBOSHOWDROPDOWN(HWND) --> NIL
 */
-HB_FUNC( HMG_COMBOSHOWDROPDOWN )
+HB_FUNC(HMG_COMBOSHOWDROPDOWN)
 {
-   SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, 1, 0);
+  SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, 1, 0);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOSHOWDROPDOWN, HMG_COMBOSHOWDROPDOWN )
+HB_FUNC_TRANSLATE(COMBOSHOWDROPDOWN, HMG_COMBOSHOWDROPDOWN)
 #endif
 
 /*
 HMG_COMBOEDITSETSEL(HWND, np2, np3) --> numeric
 */
-HB_FUNC( HMG_COMBOEDITSETSEL )
+HB_FUNC(HMG_COMBOEDITSETSEL)
 {
-   hb_retni(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
+  hb_retni(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOEDITSETSEL, HMG_COMBOEDITSETSEL )
+HB_FUNC_TRANSLATE(COMBOEDITSETSEL, HMG_COMBOEDITSETSEL)
 #endif
 
 /*
 HMG_COMBOGETEDITSEL(HWND) --> array
 */
-HB_FUNC( HMG_COMBOGETEDITSEL )
+HB_FUNC(HMG_COMBOGETEDITSEL)
 {
-   DWORD pos = SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr));
-   hb_reta(2);
-   HB_STORNI(LOWORD(pos), -1, 1);
-   HB_STORNI(HIWORD(pos), -1, 2);
+  DWORD pos = SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
+                          reinterpret_cast<LPARAM>(nullptr));
+  hb_reta(2);
+  HB_STORNI(LOWORD(pos), -1, 1);
+  HB_STORNI(HIWORD(pos), -1, 2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOGETEDITSEL, HMG_COMBOGETEDITSEL )
+HB_FUNC_TRANSLATE(COMBOGETEDITSEL, HMG_COMBOGETEDITSEL)
 #endif
 
 /*
 HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
-HB_FUNC( HMG_COMBOSELECTSTRING )
+HB_FUNC(HMG_COMBOSELECTSTRING)
 {
-   hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, -1, reinterpret_cast<LPARAM>(hb_parc(2))));
+  hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, -1, reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOSELECTSTRING, HMG_COMBOSELECTSTRING )
+HB_FUNC_TRANSLATE(COMBOSELECTSTRING, HMG_COMBOSELECTSTRING)
 #endif
 
 /* Added by P.Ch. 16.10. */
@@ -206,29 +212,33 @@ HB_FUNC_TRANSLATE( COMBOSELECTSTRING, HMG_COMBOSELECTSTRING )
 /*
 HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 */
-HB_FUNC( HMG_COMBOFINDSTRING )
+HB_FUNC(HMG_COMBOFINDSTRING)
 {
-   void * Text;
-   hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
-   hb_strfree(Text);
+  void *Text;
+  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1,
+                       reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
+           1);
+  hb_strfree(Text);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOFINDSTRING, HMG_COMBOFINDSTRING )
+HB_FUNC_TRANSLATE(COMBOFINDSTRING, HMG_COMBOFINDSTRING)
 #endif
 
 /*
 HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 */
-HB_FUNC( HMG_COMBOFINDSTRINGEXACT )
+HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
-   void * Text;
-   hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
-   hb_strfree(Text);
+  void *Text;
+  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1,
+                       reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
+           1);
+  hb_strfree(Text);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOFINDSTRINGEXACT, HMG_COMBOFINDSTRINGEXACT )
+HB_FUNC_TRANSLATE(COMBOFINDSTRINGEXACT, HMG_COMBOFINDSTRINGEXACT)
 #endif
 
 // Modified by P.Ch. 16.10.
@@ -236,50 +246,56 @@ HB_FUNC_TRANSLATE( COMBOFINDSTRINGEXACT, HMG_COMBOFINDSTRINGEXACT )
 /*
 HMG_COMBOGETSTRING(HWND, np2) --> cString
 */
-HB_FUNC( HMG_COMBOGETSTRING )
+HB_FUNC(HMG_COMBOGETSTRING)
 {
-   int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
+  int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
 
-   if( strlen > 0 ) {
-      TCHAR * str = new TCHAR[strlen + 1];
-      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(str));
-      HB_RETSTR(str);
-      delete[] str;
-   } else {
-     hb_retc_null();
-   }
+  if (strlen > 0)
+  {
+    TCHAR *str = new TCHAR[strlen + 1];
+    SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1,
+                reinterpret_cast<LPARAM>(str));
+    HB_RETSTR(str);
+    delete[] str;
+  }
+  else
+  {
+    hb_retc_null();
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOGETSTRING, HMG_COMBOGETSTRING )
+HB_FUNC_TRANSLATE(COMBOGETSTRING, HMG_COMBOGETSTRING)
 #endif
 
 /*
 HMG_COMBOADDSTRING(HWND, cString) --> NIL
 */
-HB_FUNC( HMG_COMBOADDSTRING )
+HB_FUNC(HMG_COMBOADDSTRING)
 {
-   void * String;
-   SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
-   hb_strfree(String);
+  void *String;
+  SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0,
+              reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
+  hb_strfree(String);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOADDSTRING, HMG_COMBOADDSTRING )
+HB_FUNC_TRANSLATE(COMBOADDSTRING, HMG_COMBOADDSTRING)
 #endif
 
 /*
 HMG_COMBOINSERTSTRING(HWND, cString, np3) --> NIL
 */
-HB_FUNC( HMG_COMBOINSERTSTRING )
+HB_FUNC(HMG_COMBOINSERTSTRING)
 {
-   void * String;
-   SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
-   hb_strfree(String);
+  void *String;
+  SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hmg_par_WPARAM(3) - 1,
+              reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
+  hb_strfree(String);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOINSERTSTRING, HMG_COMBOINSERTSTRING )
+HB_FUNC_TRANSLATE(COMBOINSERTSTRING, HMG_COMBOINSERTSTRING)
 #endif
 
 // extend combo functions  (JK)  HMG 1.0 Exp. Build 8
@@ -287,70 +303,70 @@ HB_FUNC_TRANSLATE( COMBOINSERTSTRING, HMG_COMBOINSERTSTRING )
 /*
 HMG_COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
 */
-HB_FUNC( HMG_COMBOADDSTRINGEX )
+HB_FUNC(HMG_COMBOADDSTRINGEX)
 {
-   void * Text;
-   auto nImage = hb_parni(3);
-   COMBOBOXEXITEM cbei;
-   cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
-   cbei.iItem          = -1;
-   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
-   cbei.cchTextMax     = hb_parclen(2);
-   cbei.iImage         = (nImage - 1) * 3;
-   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
-   cbei.iOverlay       = (nImage - 1) * 3 + 2;
-   cbei.iIndent        = 0;
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-   hb_strfree(Text);
+  void *Text;
+  auto nImage = hb_parni(3);
+  COMBOBOXEXITEM cbei;
+  cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
+  cbei.iItem = -1;
+  cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
+  cbei.cchTextMax = hb_parclen(2);
+  cbei.iImage = (nImage - 1) * 3;
+  cbei.iSelectedImage = (nImage - 1) * 3 + 1;
+  cbei.iOverlay = (nImage - 1) * 3 + 2;
+  cbei.iIndent = 0;
+  SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
+  hb_strfree(Text);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOADDSTRINGEX, HMG_COMBOADDSTRINGEX )
+HB_FUNC_TRANSLATE(COMBOADDSTRINGEX, HMG_COMBOADDSTRINGEX)
 #endif
 
 /*
 HMG_COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
 */
-HB_FUNC( HMG_COMBOINSERTSTRINGEX )
+HB_FUNC(HMG_COMBOINSERTSTRINGEX)
 {
-   void * Text;
-   auto nImage = hb_parni(3);
-   COMBOBOXEXITEM cbei;
-   cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
-   cbei.iItem          = hb_parni(4) - 1;
-   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
-   cbei.cchTextMax     = hb_parclen(2);
-   cbei.iImage         = (nImage - 1) * 3;
-   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
-   cbei.iOverlay       = (nImage - 1) * 3 + 2;
-   cbei.iIndent        = 0;
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-   hb_strfree(Text);
+  void *Text;
+  auto nImage = hb_parni(3);
+  COMBOBOXEXITEM cbei;
+  cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
+  cbei.iItem = hb_parni(4) - 1;
+  cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
+  cbei.cchTextMax = hb_parclen(2);
+  cbei.iImage = (nImage - 1) * 3;
+  cbei.iSelectedImage = (nImage - 1) * 3 + 1;
+  cbei.iOverlay = (nImage - 1) * 3 + 2;
+  cbei.iIndent = 0;
+  SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
+  hb_strfree(Text);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOINSERTSTRINGEX, HMG_COMBOINSERTSTRINGEX )
+HB_FUNC_TRANSLATE(COMBOINSERTSTRINGEX, HMG_COMBOINSERTSTRINGEX)
 #endif
 
 /*
 HMG_COMBOADDDATASTRINGEX(HWND, cString) --> NIL
 */
-HB_FUNC( HMG_COMBOADDDATASTRINGEX )
+HB_FUNC(HMG_COMBOADDDATASTRINGEX)
 {
-   void * Text;
-   COMBOBOXEXITEM cbei;
-   cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
-   cbei.iItem          = -1;
-   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
-   cbei.cchTextMax     = hb_parclen(2);
-   cbei.iImage         = 0;
-   cbei.iSelectedImage = 1;
-   cbei.iOverlay       = 2;
-   cbei.iIndent        = 0;
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-   hb_strfree(Text);
+  void *Text;
+  COMBOBOXEXITEM cbei;
+  cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
+  cbei.iItem = -1;
+  cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
+  cbei.cchTextMax = hb_parclen(2);
+  cbei.iImage = 0;
+  cbei.iSelectedImage = 1;
+  cbei.iOverlay = 2;
+  cbei.iIndent = 0;
+  SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
+  hb_strfree(Text);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COMBOADDDATASTRINGEX, HMG_COMBOADDDATASTRINGEX )
+HB_FUNC_TRANSLATE(COMBOADDDATASTRINGEX, HMG_COMBOADDDATASTRINGEX)
 #endif

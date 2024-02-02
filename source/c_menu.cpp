@@ -57,156 +57,171 @@
 #include <hbapiitm.hpp>
 #include <hbwinuni.hpp>
 
-#define MAX_ITEM_TEXT  256
+#define MAX_ITEM_TEXT 256
 
 #include "c_menu.h"
 
 // extern functions
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
-LPSTR  WideToAnsi(LPWSTR);
+LPSTR WideToAnsi(LPWSTR);
 #endif
-HINSTANCE        GetResources(void);
-extern HBITMAP   Icon2Bmp(HICON hIcon);
-extern BOOL      SetAcceleratorTable(HWND, HACCEL);
+HINSTANCE GetResources(void);
+extern HBITMAP Icon2Bmp(HICON hIcon);
+extern BOOL SetAcceleratorTable(HWND, HACCEL);
 
 /*
 HMG_SETACCELERATORTABLE(HWND, HACCEL) --> NIL
 */
-HB_FUNC( HMG_SETACCELERATORTABLE )
+HB_FUNC(HMG_SETACCELERATORTABLE)
 {
-   auto hWndMain = hmg_par_HWND(1);
-   HACCEL hAccel = hmg_par_HACCEL(2);
+  auto hWndMain = hmg_par_HWND(1);
+  HACCEL hAccel = hmg_par_HACCEL(2);
 
-   if( hWndMain != nullptr && hAccel != nullptr ) {
-      SetAcceleratorTable(hWndMain, hAccel);
-   }
+  if (hWndMain != nullptr && hAccel != nullptr)
+  {
+    SetAcceleratorTable(hWndMain, hAccel);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETACCELERATORTABLE, HMG_SETACCELERATORTABLE )
+HB_FUNC_TRANSLATE(SETACCELERATORTABLE, HMG_SETACCELERATORTABLE)
 #endif
 
 /*
 HMG_ACCELERATORTABLE2ARRAY(HACCEL) --> array
 */
-HB_FUNC( HMG_ACCELERATORTABLE2ARRAY )
+HB_FUNC(HMG_ACCELERATORTABLE2ARRAY)
 {
-   HACCEL hAccel = hmg_par_HACCEL(1);
-   auto aAccels = hb_itemArrayNew(0);
+  HACCEL hAccel = hmg_par_HACCEL(1);
+  auto aAccels = hb_itemArrayNew(0);
 
-   if( hAccel != nullptr ) {
-      int cAccelEntries = CopyAcceleratorTable(hAccel, nullptr, 0);
-      if( cAccelEntries > 0 ) {
-         auto lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
-         if( lpAccel != nullptr ) {
-            if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) ) {
-               for( auto i = 0; i < cAccelEntries; i++ ) {
-                  auto aAccel = hb_itemArrayNew(3);
-                  hb_arraySetNI(aAccel, 1, lpAccel[i].fVirt);
-                  hb_arraySetNL(aAccel, 2, lpAccel[i].key);
-                  hb_arraySetNL(aAccel, 3, lpAccel[i].cmd);
-                  hb_arrayAddForward(aAccels, aAccel);
-                  hb_itemRelease(aAccel);
-               }
-               hb_xfree(lpAccel);
-            }
-         }
+  if (hAccel != nullptr)
+  {
+    int cAccelEntries = CopyAcceleratorTable(hAccel, nullptr, 0);
+    if (cAccelEntries > 0)
+    {
+      auto lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
+      if (lpAccel != nullptr)
+      {
+        if (CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries))
+        {
+          for (auto i = 0; i < cAccelEntries; i++)
+          {
+            auto aAccel = hb_itemArrayNew(3);
+            hb_arraySetNI(aAccel, 1, lpAccel[i].fVirt);
+            hb_arraySetNL(aAccel, 2, lpAccel[i].key);
+            hb_arraySetNL(aAccel, 3, lpAccel[i].cmd);
+            hb_arrayAddForward(aAccels, aAccel);
+            hb_itemRelease(aAccel);
+          }
+          hb_xfree(lpAccel);
+        }
       }
-   }
+    }
+  }
 
-   hb_itemReturnRelease(aAccels);
+  hb_itemReturnRelease(aAccels);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ACCELERATORTABLE2ARRAY, HMG_ACCELERATORTABLE2ARRAY )
+HB_FUNC_TRANSLATE(ACCELERATORTABLE2ARRAY, HMG_ACCELERATORTABLE2ARRAY)
 #endif
 
 /*
 HMG_ARRAY2ACCELERATORTABLE(array) --> HACCEL
 */
-HB_FUNC( HMG_ARRAY2ACCELERATORTABLE )
+HB_FUNC(HMG_ARRAY2ACCELERATORTABLE)
 {
-   auto pArray = hb_param(1, Harbour::Item::ARRAY);
-   int nLen;
-   HACCEL hAccel = nullptr;
+  auto pArray = hb_param(1, Harbour::Item::ARRAY);
+  int nLen;
+  HACCEL hAccel = nullptr;
 
-   if( pArray != nullptr && ((nLen = hb_arrayLen(pArray)) > 0)) {
-      auto lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
-      if( lpAccel != nullptr ) {
-         for( auto i = 0; i < nLen; i++ ) {
-            if( hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY ) {
-               PHB_ITEM pAccel = hb_arrayGetItemPtr(pArray, i + 1);
-               if( hb_arrayLen(pAccel) == 3 ) {
-                  lpAccel[i].fVirt = static_cast<BYTE>(hb_arrayGetNI(pAccel, 1));
-                  lpAccel[i].key   = static_cast<WORD>(hb_arrayGetNL(pAccel, 2));
-                  lpAccel[i].cmd   = static_cast<WORD>(hb_arrayGetNL(pAccel, 3));
-               }
-            }
-         }
-         hAccel = CreateAcceleratorTable(lpAccel, nLen);
-         hb_xfree(lpAccel);
+  if (pArray != nullptr && ((nLen = hb_arrayLen(pArray)) > 0))
+  {
+    auto lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
+    if (lpAccel != nullptr)
+    {
+      for (auto i = 0; i < nLen; i++)
+      {
+        if (hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY)
+        {
+          PHB_ITEM pAccel = hb_arrayGetItemPtr(pArray, i + 1);
+          if (hb_arrayLen(pAccel) == 3)
+          {
+            lpAccel[i].fVirt = static_cast<BYTE>(hb_arrayGetNI(pAccel, 1));
+            lpAccel[i].key = static_cast<WORD>(hb_arrayGetNL(pAccel, 2));
+            lpAccel[i].cmd = static_cast<WORD>(hb_arrayGetNL(pAccel, 3));
+          }
+        }
       }
-   }
+      hAccel = CreateAcceleratorTable(lpAccel, nLen);
+      hb_xfree(lpAccel);
+    }
+  }
 
-   hmg_ret_HACCEL(hAccel);
+  hmg_ret_HACCEL(hAccel);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ARRAY2ACCELERATORTABLE, HMG_ARRAY2ACCELERATORTABLE )
+HB_FUNC_TRANSLATE(ARRAY2ACCELERATORTABLE, HMG_ARRAY2ACCELERATORTABLE)
 #endif
 
 // int WINAPI CopyAcceleratorTable(HACCEL hAccelSrc, LPACCEL lpAccelDst, int cAccelEntries)
 
-HB_FUNC( HMG_COPYACCELERATORTABLE )
+HB_FUNC(HMG_COPYACCELERATORTABLE)
 {
-   HACCEL hAccelSrc = hmg_par_HACCEL(1);
+  HACCEL hAccelSrc = hmg_par_HACCEL(1);
 
-   hb_retni(0);
+  hb_retni(0);
 
-   if( hAccelSrc != nullptr ) {
-      int cAccelEntries = CopyAcceleratorTable(hAccelSrc, nullptr, 0);
-      if( cAccelEntries > 0 ) {
-         auto lpAccelDst = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
-         if( lpAccelDst != nullptr ) {
-            hb_retni(CopyAcceleratorTable(hAccelSrc, lpAccelDst, cAccelEntries));
-            hb_storptr(lpAccelDst, 2);
-         }
+  if (hAccelSrc != nullptr)
+  {
+    int cAccelEntries = CopyAcceleratorTable(hAccelSrc, nullptr, 0);
+    if (cAccelEntries > 0)
+    {
+      auto lpAccelDst = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
+      if (lpAccelDst != nullptr)
+      {
+        hb_retni(CopyAcceleratorTable(hAccelSrc, lpAccelDst, cAccelEntries));
+        hb_storptr(lpAccelDst, 2);
       }
-   }
+    }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( COPYACCELERATORTABLE, HMG_COPYACCELERATORTABLE )
+HB_FUNC_TRANSLATE(COPYACCELERATORTABLE, HMG_COPYACCELERATORTABLE)
 #endif
 
 // HACCEL WINAPI CreateAcceleratorTable(LPACCEL lpAccel, int cAccelEntries)
-HB_FUNC( HMG_CREATEACCELERATORTABLE )
+HB_FUNC(HMG_CREATEACCELERATORTABLE)
 {
-   auto lpAccels = static_cast<LPACCEL>(hb_parptr(1));
-   HACCEL  hAccel = nullptr;
-   auto cAccelEntries = hb_parni(2);
+  auto lpAccels = static_cast<LPACCEL>(hb_parptr(1));
+  HACCEL hAccel = nullptr;
+  auto cAccelEntries = hb_parni(2);
 
-   if( lpAccels && (cAccelEntries > 0) ) {
-      hAccel = CreateAcceleratorTable(lpAccels, cAccelEntries);
-      hb_xfree(lpAccels);
-   }
+  if (lpAccels && (cAccelEntries > 0))
+  {
+    hAccel = CreateAcceleratorTable(lpAccels, cAccelEntries);
+    hb_xfree(lpAccels);
+  }
 
-   hmg_ret_HACCEL(hAccel);
+  hmg_ret_HACCEL(hAccel);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CREATEACCELERATORTABLE, HMG_CREATEACCELERATORTABLE )
+HB_FUNC_TRANSLATE(CREATEACCELERATORTABLE, HMG_CREATEACCELERATORTABLE)
 #endif
 
 // BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
-HB_FUNC( HMG_DESTROYACCELERATORTABLE )
+HB_FUNC(HMG_DESTROYACCELERATORTABLE)
 {
-   hb_retl(DestroyAcceleratorTable(hmg_par_HACCEL(1)) ? true : false);
+  hb_retl(DestroyAcceleratorTable(hmg_par_HACCEL(1)) ? true : false);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DESTROYACCELERATORTABLE, HMG_DESTROYACCELERATORTABLE )
+HB_FUNC_TRANSLATE(DESTROYACCELERATORTABLE, HMG_DESTROYACCELERATORTABLE)
 #endif
 
 // HACCEL WINAPI LoadAccelerators(HINSTANCE hInstance, LPCTSTR lpTableName)
@@ -214,27 +229,30 @@ HB_FUNC_TRANSLATE( DESTROYACCELERATORTABLE, HMG_DESTROYACCELERATORTABLE )
 /*
 HMG_LOADACCELERATORS(HINSTANCE, cTableName|np2) --> HACCEL
 */
-HB_FUNC( HMG_LOADACCELERATORS )
+HB_FUNC(HMG_LOADACCELERATORS)
 {
-   HACCEL hAccel = nullptr;
-   HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
-   LPCTSTR lpTableName;
+  HACCEL hAccel = nullptr;
+  HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
+  LPCTSTR lpTableName;
 
-   if( HB_ISNUM(2) ) {
-      lpTableName = MAKEINTRESOURCE(hmg_par_WORD(2));
-      hAccel = LoadAccelerators(hInstance, lpTableName);
-   } else if( hb_parclen(2) > 0 ) {
-      void * hTableName;
-      lpTableName = HB_PARSTR(2, &hTableName, nullptr);
-      hAccel = LoadAccelerators(hInstance, lpTableName);
-      hb_strfree(hTableName);
-   }
+  if (HB_ISNUM(2))
+  {
+    lpTableName = MAKEINTRESOURCE(hmg_par_WORD(2));
+    hAccel = LoadAccelerators(hInstance, lpTableName);
+  }
+  else if (hb_parclen(2) > 0)
+  {
+    void *hTableName;
+    lpTableName = HB_PARSTR(2, &hTableName, nullptr);
+    hAccel = LoadAccelerators(hInstance, lpTableName);
+    hb_strfree(hTableName);
+  }
 
-   hmg_ret_HACCEL(hAccel);
+  hmg_ret_HACCEL(hAccel);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADACCELERATORS, HMG_LOADACCELERATORS )
+HB_FUNC_TRANSLATE(LOADACCELERATORS, HMG_LOADACCELERATORS)
 #endif
 
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
@@ -242,616 +260,677 @@ HB_FUNC_TRANSLATE( LOADACCELERATORS, HMG_LOADACCELERATORS )
 /*
 HMG_LOADMENU(HINSTANCE, cMenuName|np2) --> HMENU
 */
-HB_FUNC( HMG_LOADMENU )
+HB_FUNC(HMG_LOADMENU)
 {
-   HMENU hMenu = nullptr;
-   HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
-   LPCTSTR lpMenuName;
+  HMENU hMenu = nullptr;
+  HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
+  LPCTSTR lpMenuName;
 
-   if( HB_ISNUM(2) ) {
-      lpMenuName = MAKEINTRESOURCE(hmg_par_WORD(2));
-      hMenu = LoadMenu(hInstance, lpMenuName);
-   } else if( HB_ISCHAR(2) ) {
-      void * hMenuName;
-      lpMenuName = HB_PARSTR(2, &hMenuName, nullptr);
-      hMenu = LoadMenu(hInstance, lpMenuName);
-      hb_strfree(hMenuName);
-   }
+  if (HB_ISNUM(2))
+  {
+    lpMenuName = MAKEINTRESOURCE(hmg_par_WORD(2));
+    hMenu = LoadMenu(hInstance, lpMenuName);
+  }
+  else if (HB_ISCHAR(2))
+  {
+    void *hMenuName;
+    lpMenuName = HB_PARSTR(2, &hMenuName, nullptr);
+    hMenu = LoadMenu(hInstance, lpMenuName);
+    hb_strfree(hMenuName);
+  }
 
-   hmg_ret_HMENU(hMenu);
+  hmg_ret_HMENU(hMenu);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LOADMENU, HMG_LOADMENU )
+HB_FUNC_TRANSLATE(LOADMENU, HMG_LOADMENU)
 #endif
 
 /*
 HMG__NEWMENUSTYLE(lp1) --> .T.|.F.
 */
-HB_FUNC( HMG__NEWMENUSTYLE )
+HB_FUNC(HMG__NEWMENUSTYLE)
 {
-   if( HB_ISLOG(1) ) {
-      s_bCustomDraw = hb_parl(1);
-   }
+  if (HB_ISLOG(1))
+  {
+    s_bCustomDraw = hb_parl(1);
+  }
 
-   hb_retl(s_bCustomDraw);
+  hb_retl(s_bCustomDraw);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _NEWMENUSTYLE, HMG__NEWMENUSTYLE )
+HB_FUNC_TRANSLATE(_NEWMENUSTYLE, HMG__NEWMENUSTYLE)
 #endif
 
 /*
 HMG__CLOSEMENU() --> .T.|.F.
 */
-HB_FUNC( HMG__CLOSEMENU )
+HB_FUNC(HMG__CLOSEMENU)
 {
-   hb_retl(EndMenu());
+  hb_retl(EndMenu());
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _CLOSEMENU, HMG__CLOSEMENU )
+HB_FUNC_TRANSLATE(_CLOSEMENU, HMG__CLOSEMENU)
 #endif
 
 /*
 HMG_TRACKPOPUPMENU(HMENU, np2, np3, HWND, lp5) --> NIL
 */
-HB_FUNC( HMG_TRACKPOPUPMENU )
+HB_FUNC(HMG_TRACKPOPUPMENU)
 {
-   auto hwnd = hmg_par_HWND(4);
-   SetForegroundWindow(hwnd); // hack for Microsoft "feature"
-   TrackPopupMenu(hmg_par_HMENU(1), 0, hb_parni(2), hb_parni(3), 0, hwnd, nullptr);
-   if( hb_pcount() > 4 && HB_ISLOG(5) && hb_parl(5) ) {
-      PostMessage(hwnd, WM_NULL, 0, 0); // hack for tray menu closing
-   }
+  auto hwnd = hmg_par_HWND(4);
+  SetForegroundWindow(hwnd); // hack for Microsoft "feature"
+  TrackPopupMenu(hmg_par_HMENU(1), 0, hb_parni(2), hb_parni(3), 0, hwnd, nullptr);
+  if (hb_pcount() > 4 && HB_ISLOG(5) && hb_parl(5))
+  {
+    PostMessage(hwnd, WM_NULL, 0, 0); // hack for tray menu closing
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( TRACKPOPUPMENU, HMG_TRACKPOPUPMENU )
+HB_FUNC_TRANSLATE(TRACKPOPUPMENU, HMG_TRACKPOPUPMENU)
 #endif
 
 /*
 HMG_SETMENU(HWND, HMENU) --> NIL
 */
-HB_FUNC( HMG_SETMENU )
+HB_FUNC(HMG_SETMENU)
 {
-   SetMenu(hmg_par_HWND(1), hmg_par_HMENU(2));
+  SetMenu(hmg_par_HWND(1), hmg_par_HMENU(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENU, HMG_SETMENU )
+HB_FUNC_TRANSLATE(SETMENU, HMG_SETMENU)
 #endif
 
 /*
 HMG_SETMENUDEFAULTITEM(HMENU, np2) --> NIL
 */
-HB_FUNC( HMG_SETMENUDEFAULTITEM )
+HB_FUNC(HMG_SETMENUDEFAULTITEM)
 {
-   SetMenuDefaultItem(hmg_par_HMENU(1), hb_parni(2), FALSE);
+  SetMenuDefaultItem(hmg_par_HMENU(1), hb_parni(2), FALSE);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUDEFAULTITEM, HMG_SETMENUDEFAULTITEM )
+HB_FUNC_TRANSLATE(SETMENUDEFAULTITEM, HMG_SETMENUDEFAULTITEM)
 #endif
 
 /*
 HMG_XCHECKMENUITEM(HMENU, np2) --> NIL
 */
-HB_FUNC( HMG_XCHECKMENUITEM )
+HB_FUNC(HMG_XCHECKMENUITEM)
 {
-   CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_CHECKED);
+  CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_CHECKED);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XCHECKMENUITEM, HMG_XCHECKMENUITEM )
+HB_FUNC_TRANSLATE(XCHECKMENUITEM, HMG_XCHECKMENUITEM)
 #endif
 
 /*
 HMG_XUNCHECKMENUITEM(HMENU, np2) --> NIL
 */
-HB_FUNC( HMG_XUNCHECKMENUITEM )
+HB_FUNC(HMG_XUNCHECKMENUITEM)
 {
-   CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_UNCHECKED);
+  CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_UNCHECKED);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XUNCHECKMENUITEM, HMG_XUNCHECKMENUITEM )
+HB_FUNC_TRANSLATE(XUNCHECKMENUITEM, HMG_XUNCHECKMENUITEM)
 #endif
 
 /*
 HMG_XENABLEMENUITEM(HMENU, np2) --> NIL
 */
-HB_FUNC( HMG_XENABLEMENUITEM )
+HB_FUNC(HMG_XENABLEMENUITEM)
 {
-   EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_ENABLED);
+  EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_ENABLED);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XENABLEMENUITEM, HMG_XENABLEMENUITEM )
+HB_FUNC_TRANSLATE(XENABLEMENUITEM, HMG_XENABLEMENUITEM)
 #endif
 
 /*
 HMG_XDISABLEMENUITEM(HMENU, np2) --> NIL
 */
-HB_FUNC( HMG_XDISABLEMENUITEM )
+HB_FUNC(HMG_XDISABLEMENUITEM)
 {
-   EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_GRAYED);
+  EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_GRAYED);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XDISABLEMENUITEM, HMG_XDISABLEMENUITEM )
+HB_FUNC_TRANSLATE(XDISABLEMENUITEM, HMG_XDISABLEMENUITEM)
 #endif
 
 /*
 HMG_XDISABLECLOSEBUTTON(HWND, lp2) --> NIL
 */
-HB_FUNC( HMG_XDISABLECLOSEBUTTON )
+HB_FUNC(HMG_XDISABLECLOSEBUTTON)
 {
-   EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE, MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
+  EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE,
+                 MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XDISABLECLOSEBUTTON, HMG_XDISABLECLOSEBUTTON )
+HB_FUNC_TRANSLATE(XDISABLECLOSEBUTTON, HMG_XDISABLECLOSEBUTTON)
 #endif
 
 /*
 HMG_CREATEMENU() --> HMENU
 */
-HB_FUNC( HMG_CREATEMENU )
+HB_FUNC(HMG_CREATEMENU)
 {
-   HMENU hMenu = CreateMenu();
+  HMENU hMenu = CreateMenu();
 
-   #ifndef __WINNT__
-   if( s_bCustomDraw ) {
-      SetMenuBarColor(hMenu, clrMenuBar1, TRUE);
-   }
-   #endif
+#ifndef __WINNT__
+  if (s_bCustomDraw)
+  {
+    SetMenuBarColor(hMenu, clrMenuBar1, TRUE);
+  }
+#endif
 
-   hmg_ret_HMENU(hMenu);
+  hmg_ret_HMENU(hMenu);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CREATEMENU, HMG_CREATEMENU )
+HB_FUNC_TRANSLATE(CREATEMENU, HMG_CREATEMENU)
 #endif
 
 /*
 HMG_CREATEPOPUPMENU() --> HMENU
 */
-HB_FUNC( HMG_CREATEPOPUPMENU )
+HB_FUNC(HMG_CREATEPOPUPMENU)
 {
-   hmg_ret_HMENU(CreatePopupMenu());
+  hmg_ret_HMENU(CreatePopupMenu());
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CREATEPOPUPMENU, HMG_CREATEPOPUPMENU )
+HB_FUNC_TRANSLATE(CREATEPOPUPMENU, HMG_CREATEPOPUPMENU)
 #endif
 
 /*
 HMG_APPENDMENUSTRING(HMENU, p2, p3, p4) -->  .T.|.F.
 */
-HB_FUNC( HMG_APPENDMENUSTRING )
+HB_FUNC(HMG_APPENDMENUSTRING)
 {
-   void * strNewItem;
-   LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
-   UINT style;
+  void *strNewItem;
+  LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
+  UINT style;
 
-   if( s_bCustomDraw ) {
-      UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+  if (s_bCustomDraw)
+  {
+    UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
-      ZeroMemory(lpMenuItem, sizeof(MENUITEM));
-      lpMenuItem->cbSize     = hb_parni(2);
-      lpMenuItem->uiID       = hb_parni(2);
-      lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
-      lpMenuItem->cch        = cch;
-      lpMenuItem->hBitmap    = nullptr;
-      lpMenuItem->hFont      = nullptr;
-      lpMenuItem->uiItemType = hb_parni(4);
-      lpMenuItem->hwnd       = nullptr;
+    auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
+    ZeroMemory(lpMenuItem, sizeof(MENUITEM));
+    lpMenuItem->cbSize = hb_parni(2);
+    lpMenuItem->uiID = hb_parni(2);
+    lpMenuItem->caption = HB_STRNDUP(lpNewItem, cch);
+    lpMenuItem->cch = cch;
+    lpMenuItem->hBitmap = nullptr;
+    lpMenuItem->hFont = nullptr;
+    lpMenuItem->uiItemType = hb_parni(4);
+    lpMenuItem->hwnd = nullptr;
 
-      switch( hb_parni(4) ) {
-         case 1:
-            style = MF_OWNERDRAW | MF_MENUBREAK;
-            break;
-         case 2:
-            style = MF_OWNERDRAW | MF_MENUBARBREAK;
-            break;
-         default:
-            style = MF_OWNERDRAW;
-      }
+    switch (hb_parni(4))
+    {
+    case 1:
+      style = MF_OWNERDRAW | MF_MENUBREAK;
+      break;
+    case 2:
+      style = MF_OWNERDRAW | MF_MENUBARBREAK;
+      break;
+    default:
+      style = MF_OWNERDRAW;
+    }
 
-      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
-   } else {
-      switch( hb_parni(4) ) {
-         case 1:
-            style = MF_STRING | MF_MENUBREAK; break;
-         case 2:
-            style = MF_STRING | MF_MENUBARBREAK; break;
-         default:
-            style = MF_STRING;
-      }
+    hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
+  }
+  else
+  {
+    switch (hb_parni(4))
+    {
+    case 1:
+      style = MF_STRING | MF_MENUBREAK;
+      break;
+    case 2:
+      style = MF_STRING | MF_MENUBARBREAK;
+      break;
+    default:
+      style = MF_STRING;
+    }
 
-      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem));
-   }
+    hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem));
+  }
 
-   hb_strfree(strNewItem);
+  hb_strfree(strNewItem);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( APPENDMENUSTRING, HMG_APPENDMENUSTRING )
+HB_FUNC_TRANSLATE(APPENDMENUSTRING, HMG_APPENDMENUSTRING)
 #endif
 
 /*
 HMG_APPENDMENUPOPUP(HMENU, p2, p3, p4, HFONT) --> .T.|.F.
 */
-HB_FUNC( HMG_APPENDMENUPOPUP )
+HB_FUNC(HMG_APPENDMENUPOPUP)
 {
-   void * strNewItem;
-   LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
+  void *strNewItem;
+  LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
 
-   if( s_bCustomDraw ) {
-      UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+  if (s_bCustomDraw)
+  {
+    UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
-      lpMenuItem->cbSize     = hb_parni(2);
-      lpMenuItem->uiID       = hb_parni(2);
-      lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
-      lpMenuItem->cch        = cch;
-      lpMenuItem->hBitmap    = nullptr;
-      lpMenuItem->hFont      = hmg_par_HFONT(5);
-      lpMenuItem->uiItemType = hb_parni(4);
+    auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
+    lpMenuItem->cbSize = hb_parni(2);
+    lpMenuItem->uiID = hb_parni(2);
+    lpMenuItem->caption = HB_STRNDUP(lpNewItem, cch);
+    lpMenuItem->cch = cch;
+    lpMenuItem->hBitmap = nullptr;
+    lpMenuItem->hFont = hmg_par_HFONT(5);
+    lpMenuItem->uiItemType = hb_parni(4);
 
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
-   } else {
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_STRING, hb_parni(2), lpNewItem));
-   }
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2),
+                       reinterpret_cast<LPTSTR>(lpMenuItem)));
+  }
+  else
+  {
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_STRING, hb_parni(2), lpNewItem));
+  }
 
-   hb_strfree(strNewItem);
+  hb_strfree(strNewItem);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( APPENDMENUPOPUP, HMG_APPENDMENUPOPUP )
+HB_FUNC_TRANSLATE(APPENDMENUPOPUP, HMG_APPENDMENUPOPUP)
 #endif
 
 /*
 HMG_APPENDMENUSEPARATOR(HMENU) --> .T.|.F.
 */
-HB_FUNC( HMG_APPENDMENUSEPARATOR )
+HB_FUNC(HMG_APPENDMENUSEPARATOR)
 {
-   if( s_bCustomDraw ) {
-      auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
-      lpMenuItem->uiItemType = 1000;
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, reinterpret_cast<LPTSTR>(lpMenuItem)));
-   } else {
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR, 0, nullptr));
-   }
+  if (s_bCustomDraw)
+  {
+    auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
+    lpMenuItem->uiItemType = 1000;
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0,
+                       reinterpret_cast<LPTSTR>(lpMenuItem)));
+  }
+  else
+  {
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR, 0, nullptr));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( APPENDMENUSEPARATOR, HMG_APPENDMENUSEPARATOR )
+HB_FUNC_TRANSLATE(APPENDMENUSEPARATOR, HMG_APPENDMENUSEPARATOR)
 #endif
 
 /*
 HMG_MODIFYMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
 */
-HB_FUNC( HMG_MODIFYMENUITEM )
+HB_FUNC(HMG_MODIFYMENUITEM)
 {
-   void * strNewItem;
-   hb_retl(ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), HB_PARSTR(4, &strNewItem, nullptr)));
-   hb_strfree(strNewItem);
+  void *strNewItem;
+  hb_retl(ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3),
+                     HB_PARSTR(4, &strNewItem, nullptr)));
+  hb_strfree(strNewItem);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MODIFYMENUITEM, HMG_MODIFYMENUITEM )
+HB_FUNC_TRANSLATE(MODIFYMENUITEM, HMG_MODIFYMENUITEM)
 #endif
 
 /*
 HMG_INSERTMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
 */
-HB_FUNC( HMG_INSERTMENUITEM )
+HB_FUNC(HMG_INSERTMENUITEM)
 {
-   void * strNewItem;
-   hb_retl(InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), HB_PARSTR(4, &strNewItem, nullptr)));
-   hb_strfree(strNewItem);
+  void *strNewItem;
+  hb_retl(InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3),
+                     HB_PARSTR(4, &strNewItem, nullptr)));
+  hb_strfree(strNewItem);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INSERTMENUITEM, HMG_INSERTMENUITEM )
+HB_FUNC_TRANSLATE(INSERTMENUITEM, HMG_INSERTMENUITEM)
 #endif
 
 /*
 HMG_REMOVEMENUITEM(HMENU, p2) --> .T.|.F.
 */
-HB_FUNC( HMG_REMOVEMENUITEM )
+HB_FUNC(HMG_REMOVEMENUITEM)
 {
-   hb_retl(RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND));
+  hb_retl(RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REMOVEMENUITEM, HMG_REMOVEMENUITEM )
+HB_FUNC_TRANSLATE(REMOVEMENUITEM, HMG_REMOVEMENUITEM)
 #endif
 
 /*
 HMG_MENUITEM_SETBITMAPS(HMENU, p2, p3) --> HBITMAP
 */
-HB_FUNC( HMG_MENUITEM_SETBITMAPS )
+HB_FUNC(HMG_MENUITEM_SETBITMAPS)
 {
-   int Transparent = s_bCustomDraw ? 0 : 1;
-   auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
+  int Transparent = s_bCustomDraw ? 0 : 1;
+  auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
 
-   if( s_bCustomDraw ) {
-      MENUITEM * pMENUITEM;
+  if (s_bCustomDraw)
+  {
+    MENUITEM *pMENUITEM;
 
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_DATA;
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_DATA;
 
-      if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         pMENUITEM = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
-         if( pMENUITEM->hBitmap != nullptr ) {
-            DeleteObject(pMENUITEM->hBitmap);
-         }
-
-         pMENUITEM->hBitmap = himage1;
+    if (GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo))
+    {
+      pMENUITEM = reinterpret_cast<MENUITEM *>(MenuItemInfo.dwItemData);
+      if (pMENUITEM->hBitmap != nullptr)
+      {
+        DeleteObject(pMENUITEM->hBitmap);
       }
-   } else {
-      auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
-      SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
-   }
 
-   hmg_ret_HBITMAP(himage1);
+      pMENUITEM->hBitmap = himage1;
+    }
+  }
+  else
+  {
+    auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
+    SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
+  }
+
+  hmg_ret_HBITMAP(himage1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MENUITEM_SETBITMAPS, HMG_MENUITEM_SETBITMAPS )
+HB_FUNC_TRANSLATE(MENUITEM_SETBITMAPS, HMG_MENUITEM_SETBITMAPS)
 #endif
 
-HB_FUNC( HMG_MENUITEM_SETCHECKMARKS )
+HB_FUNC(HMG_MENUITEM_SETCHECKMARKS)
 {
-   if( s_bCustomDraw ) {
-      MENUITEMINFO MenuItemInfo;
+  if (s_bCustomDraw)
+  {
+    MENUITEMINFO MenuItemInfo;
 
-      auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
-      auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+    auto himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+    auto himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
 
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_CHECKMARKS;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_CHECKMARKS;
 
-      if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         if( MenuItemInfo.hbmpChecked != nullptr ) {
-            DeleteObject(MenuItemInfo.hbmpChecked);
-         }
-
-         MenuItemInfo.hbmpChecked = himage1;
-
-         if( MenuItemInfo.hbmpUnchecked != nullptr ) {
-            DeleteObject(MenuItemInfo.hbmpUnchecked);
-         }
-
-         MenuItemInfo.hbmpUnchecked = himage2;
-
-         SetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
+    if (GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo))
+    {
+      if (MenuItemInfo.hbmpChecked != nullptr)
+      {
+        DeleteObject(MenuItemInfo.hbmpChecked);
       }
-   }
+
+      MenuItemInfo.hbmpChecked = himage1;
+
+      if (MenuItemInfo.hbmpUnchecked != nullptr)
+      {
+        DeleteObject(MenuItemInfo.hbmpUnchecked);
+      }
+
+      MenuItemInfo.hbmpUnchecked = himage2;
+
+      SetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
+    }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MENUITEM_SETCHECKMARKS, HMG_MENUITEM_SETCHECKMARKS )
+HB_FUNC_TRANSLATE(MENUITEM_SETCHECKMARKS, HMG_MENUITEM_SETCHECKMARKS)
 #endif
 
 /*
 HMG_MENUITEM_SETICON(HMENU, np2, cIconName) --> HBITMAP
 */
-HB_FUNC( HMG_MENUITEM_SETICON )
+HB_FUNC(HMG_MENUITEM_SETICON)
 {
-   void * str;
-   LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
+  void *str;
+  LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
-   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
-   if( hIcon == nullptr ) {
-      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
-   }
+  auto hIcon = static_cast<HICON>(
+      LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
+  if (hIcon == nullptr)
+  {
+    hIcon = static_cast<HICON>(
+        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+  }
 
-   HBITMAP himage1 = Icon2Bmp(hIcon); // convert icon to bitmap
+  HBITMAP himage1 = Icon2Bmp(hIcon); // convert icon to bitmap
 
-   if( s_bCustomDraw ) {
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_DATA;
-      if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
-         if( lpMenuItem->hBitmap != nullptr ) {
-            DeleteObject(lpMenuItem->hBitmap);
-         }
-         lpMenuItem->hBitmap = himage1;
+  if (s_bCustomDraw)
+  {
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_DATA;
+    if (GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo))
+    {
+      auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
+      if (lpMenuItem->hBitmap != nullptr)
+      {
+        DeleteObject(lpMenuItem->hBitmap);
       }
-   } else {
-      SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage1);
-   }
+      lpMenuItem->hBitmap = himage1;
+    }
+  }
+  else
+  {
+    SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage1);
+  }
 
-   DestroyIcon(hIcon);
-   hmg_ret_HBITMAP(himage1);
-   hb_strfree(str);
+  DestroyIcon(hIcon);
+  hmg_ret_HBITMAP(himage1);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MENUITEM_SETICON, HMG_MENUITEM_SETICON )
+HB_FUNC_TRANSLATE(MENUITEM_SETICON, HMG_MENUITEM_SETICON)
 #endif
 
-HB_FUNC( HMG_MENUITEM_SETFONT )
+HB_FUNC(HMG_MENUITEM_SETFONT)
 {
-   if( s_bCustomDraw ) {
-      MENUITEMINFO MenuItemInfo;
-      LPMENUITEM   lpMenuItem;
+  if (s_bCustomDraw)
+  {
+    MENUITEMINFO MenuItemInfo;
+    LPMENUITEM lpMenuItem;
 
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_DATA;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_DATA;
 
-      if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
+    if (GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo))
+    {
+      lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
 
-         if( GetObjectType(hmg_par_HGDIOBJ(3)) == OBJ_FONT ) {
-            if( lpMenuItem->hFont != nullptr ) {
-               DeleteObject(lpMenuItem->hFont);
-            }
+      if (GetObjectType(hmg_par_HGDIOBJ(3)) == OBJ_FONT)
+      {
+        if (lpMenuItem->hFont != nullptr)
+        {
+          DeleteObject(lpMenuItem->hFont);
+        }
 
-            lpMenuItem->hFont = hmg_par_HFONT(3);
-         }
+        lpMenuItem->hFont = hmg_par_HFONT(3);
       }
-   }
+    }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( MENUITEM_SETFONT, HMG_MENUITEM_SETFONT )
+HB_FUNC_TRANSLATE(MENUITEM_SETFONT, HMG_MENUITEM_SETFONT)
 #endif
 
-HB_FUNC( HMG_XGETMENUCAPTION )
+HB_FUNC(HMG_XGETMENUCAPTION)
 {
-   if( s_bCustomDraw ) {
-   #ifdef UNICODE
-      LPSTR pStr;
-   #endif
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_DATA;
-      GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
+  if (s_bCustomDraw)
+  {
+#ifdef UNICODE
+    LPSTR pStr;
+#endif
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_DATA;
+    GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
 
-      auto lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
+    auto lpMenuItem = reinterpret_cast<MENUITEM *>(MenuItemInfo.dwItemData);
 
-      if( lpMenuItem->caption != nullptr ) {
-      #ifndef UNICODE
-         hb_retclen(lpMenuItem->caption, lpMenuItem->cch);
-      #else
-         pStr = WideToAnsi(lpMenuItem->caption);
-         hb_retclen(pStr, lpMenuItem->cch);
-         hb_xfree(pStr);
-      #endif
-      } else {
-         hb_retc("");
-      }
-   }
+    if (lpMenuItem->caption != nullptr)
+    {
+#ifndef UNICODE
+      hb_retclen(lpMenuItem->caption, lpMenuItem->cch);
+#else
+      pStr = WideToAnsi(lpMenuItem->caption);
+      hb_retclen(pStr, lpMenuItem->cch);
+      hb_xfree(pStr);
+#endif
+    }
+    else
+    {
+      hb_retc("");
+    }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XGETMENUCAPTION, HMG_XGETMENUCAPTION )
+HB_FUNC_TRANSLATE(XGETMENUCAPTION, HMG_XGETMENUCAPTION)
 #endif
 
-HB_FUNC( HMG_XSETMENUCAPTION )
+HB_FUNC(HMG_XSETMENUCAPTION)
 {
-   if( s_bCustomDraw ) {
-   #ifndef UNICODE
-      LPCSTR lpNewItem = hb_parc(3);
-   #else
-      LPWSTR lpNewItem = AnsiToWide(static_cast<char*>(hb_parc(3)));
-      LPSTR  pStr;
-   #endif
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_DATA;
-      GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
+  if (s_bCustomDraw)
+  {
+#ifndef UNICODE
+    LPCSTR lpNewItem = hb_parc(3);
+#else
+    LPWSTR lpNewItem = AnsiToWide(static_cast<char *>(hb_parc(3)));
+    LPSTR pStr;
+#endif
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_DATA;
+    GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo);
 
-      auto lpMenuItem = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
+    auto lpMenuItem = reinterpret_cast<MENUITEM *>(MenuItemInfo.dwItemData);
 
-      if( lpMenuItem->caption != nullptr ) {
-         auto cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
+    if (lpMenuItem->caption != nullptr)
+    {
+      auto cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
-      #ifndef UNICODE
-         hb_retclen(lpMenuItem->caption, lpMenuItem->cch);
-      #else
-         pStr = WideToAnsi(lpMenuItem->caption);
-         hb_retclen(pStr, lpMenuItem->cch);
-         hb_xfree(pStr);
-      #endif
+#ifndef UNICODE
+      hb_retclen(lpMenuItem->caption, lpMenuItem->cch);
+#else
+      pStr = WideToAnsi(lpMenuItem->caption);
+      hb_retclen(pStr, lpMenuItem->cch);
+      hb_xfree(pStr);
+#endif
 
-         hb_xfree(lpMenuItem->caption);
+      hb_xfree(lpMenuItem->caption);
 
-         lpMenuItem->cch     = cch;
-         lpMenuItem->caption = HB_STRNDUP(lpNewItem, cch);
-      } else {
-         hb_retc("");
-      }
+      lpMenuItem->cch = cch;
+      lpMenuItem->caption = HB_STRNDUP(lpNewItem, cch);
+    }
+    else
+    {
+      hb_retc("");
+    }
 
 #ifdef UNICODE
-      hb_xfree(lpNewItem);
+    hb_xfree(lpNewItem);
 #endif
-   }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XSETMENUCAPTION, HMG_XSETMENUCAPTION )
+HB_FUNC_TRANSLATE(XSETMENUCAPTION, HMG_XSETMENUCAPTION)
 #endif
 
-HB_FUNC( HMG_XGETMENUCHECKSTATE )
+HB_FUNC(HMG_XGETMENUCHECKSTATE)
 {
-   UINT state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
+  UINT state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
 
-   if( state != 0xFFFFFFFF ) {
-      hb_retl((state & MF_CHECKED) ? TRUE : FALSE);
-   } else {
-      hb_retl(false);
-   }
+  if (state != 0xFFFFFFFF)
+  {
+    hb_retl((state & MF_CHECKED) ? TRUE : FALSE);
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XGETMENUCHECKSTATE, HMG_XGETMENUCHECKSTATE )
+HB_FUNC_TRANSLATE(XGETMENUCHECKSTATE, HMG_XGETMENUCHECKSTATE)
 #endif
 
-HB_FUNC( HMG_XGETMENUENABLEDSTATE )
+HB_FUNC(HMG_XGETMENUENABLEDSTATE)
 {
-   UINT state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
+  UINT state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
 
-   if( state != 0xFFFFFFFF ) {
-      hb_retl(((state & MF_GRAYED) || (state & MF_DISABLED)) ? FALSE : TRUE);
-   } else {
-      hb_retl(false);
-   }
+  if (state != 0xFFFFFFFF)
+  {
+    hb_retl(((state & MF_GRAYED) || (state & MF_DISABLED)) ? FALSE : TRUE);
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( XGETMENUENABLEDSTATE, HMG_XGETMENUENABLEDSTATE )
+HB_FUNC_TRANSLATE(XGETMENUENABLEDSTATE, HMG_XGETMENUENABLEDSTATE)
 #endif
 
-HB_FUNC( HMG_ISMENU )
+HB_FUNC(HMG_ISMENU)
 {
-   hb_retl(IsMenu(hmg_par_HMENU(1)));
+  hb_retl(IsMenu(hmg_par_HMENU(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ISMENU, HMG_ISMENU )
+HB_FUNC_TRANSLATE(ISMENU, HMG_ISMENU)
 #endif
 
-HB_FUNC( HMG_GETMENU )
+HB_FUNC(HMG_GETMENU)
 {
-   hmg_ret_HMENU(GetMenu(hmg_par_HWND(1)));
+  hmg_ret_HMENU(GetMenu(hmg_par_HWND(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMENU, HMG_GETMENU )
+HB_FUNC_TRANSLATE(GETMENU, HMG_GETMENU)
 #endif
 
-HB_FUNC( HMG_GETSYSTEMMENU )
+HB_FUNC(HMG_GETSYSTEMMENU)
 {
-   hmg_ret_HMENU(GetSystemMenu(hmg_par_HWND(1), FALSE));
+  hmg_ret_HMENU(GetSystemMenu(hmg_par_HWND(1), FALSE));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETSYSTEMMENU, HMG_GETSYSTEMMENU )
+HB_FUNC_TRANSLATE(GETSYSTEMMENU, HMG_GETSYSTEMMENU)
 #endif
 
-HB_FUNC( HMG_GETMENUITEMCOUNT )
+HB_FUNC(HMG_GETMENUITEMCOUNT)
 {
-   hb_retni(GetMenuItemCount(hmg_par_HMENU(1)));
+  hb_retni(GetMenuItemCount(hmg_par_HMENU(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMENUITEMCOUNT, HMG_GETMENUITEMCOUNT )
+HB_FUNC_TRANSLATE(GETMENUITEMCOUNT, HMG_GETMENUITEMCOUNT)
 #endif
 
 // Owner draw function
 
 // ODA_DRAWENTIRE - This bit is set when the entire control needs to be drawn.
-// ODA_FOCUS - This bit is set when the control gains or loses input focus. The itemState member should be checked to determine whether the control has focus.
-// ODA_SELECT - This bit is set when only the selection status has changed. The itemState member should be checked to determine the new selection state.
+// ODA_FOCUS - This bit is set when the control gains or loses input focus. The itemState member
+// should be checked to determine whether the control has focus. ODA_SELECT - This bit is set when
+// only the selection status has changed. The itemState member should be checked to determine the
+// new selection state.
 //
 // Owner draw state
 //
@@ -860,427 +939,485 @@ HB_FUNC_TRANSLATE( GETMENUITEMCOUNT, HMG_GETMENUITEMCOUNT )
 // ODS_FOCUS - This bit is set if the item has input focus.
 // ODS_GRAYED - This bit is set if the item is to be dimmed. This bit is used only in a menu.
 // ODS_SELECTED - This bit is set if the item's status is selected.
-// ODS_COMBOBOXEDIT - The drawing takes place in the selection field (edit control) of an ownerdrawn combo box.
-// ODS_DEFAULT - The item is the default item.
+// ODS_COMBOBOXEDIT - The drawing takes place in the selection field (edit control) of an ownerdrawn
+// combo box. ODS_DEFAULT - The item is the default item.
 
-HB_FUNC( HMG__ONDRAWMENUITEM )
+HB_FUNC(HMG__ONDRAWMENUITEM)
 {
-   auto lpdis = reinterpret_cast<LPDRAWITEMSTRUCT>(HB_PARNL(1));
-   auto lpMenuItem = reinterpret_cast<MENUITEM*>(lpdis->itemData);
+  auto lpdis = reinterpret_cast<LPDRAWITEMSTRUCT>(HB_PARNL(1));
+  auto lpMenuItem = reinterpret_cast<MENUITEM *>(lpdis->itemData);
 
-   if( lpdis->CtlType != ODT_MENU ) {
-      return;
-   }
+  if (lpdis->CtlType != ODT_MENU)
+  {
+    return;
+  }
 
-   // draw SEPARATOR
-   if( lpdis->itemID == 0 ) {
-      DrawSeparator(lpdis->hDC, lpdis->rcItem);
-      return;
-   }
+  // draw SEPARATOR
+  if (lpdis->itemID == 0)
+  {
+    DrawSeparator(lpdis->hDC, lpdis->rcItem);
+    return;
+  }
 
-   HFONT oldfont;
+  HFONT oldfont;
 
-   if( lpMenuItem->hFont != nullptr ) {
-      oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, lpMenuItem->hFont));
-   } else {
-      oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, GetStockObject(DEFAULT_GUI_FONT)));
-   }
+  if (lpMenuItem->hFont != nullptr)
+  {
+    oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, lpMenuItem->hFont));
+  }
+  else
+  {
+    oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, GetStockObject(DEFAULT_GUI_FONT)));
+  }
 
-   // save prev. colours state
-   COLORREF clrText = SetTextColor(lpdis->hDC, clrText1);
-   COLORREF clrBackground = SetBkColor(lpdis->hDC, clrBk1);
-   UINT bkMode = SetBkMode(lpdis->hDC, TRANSPARENT);
+  // save prev. colours state
+  COLORREF clrText = SetTextColor(lpdis->hDC, clrText1);
+  COLORREF clrBackground = SetBkColor(lpdis->hDC, clrBk1);
+  UINT bkMode = SetBkMode(lpdis->hDC, TRANSPARENT);
 
-   BOOL fSelected = FALSE;
+  BOOL fSelected = FALSE;
 
-   // set colours and flags ( fSelected etc. )
-   if( ((lpdis->itemAction & ODA_SELECT) || (lpdis->itemAction & ODA_DRAWENTIRE)) && (!(lpdis->itemState & ODS_GRAYED)) ) {
-      if( lpdis->itemState & ODS_SELECTED ) {
-         clrText       = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedText1 : clrMenuBarSelectedText);
-         clrBackground = SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedBk1 : clrMenuBar1);
-         fSelected     = TRUE;
-      } else {
-         clrText       = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrText1 : clrMenuBarText);
-         clrBackground = SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrBk2 : clrMenuBar2);
-         fSelected     = FALSE;
-      }
-   }
+  // set colours and flags ( fSelected etc. )
+  if (((lpdis->itemAction & ODA_SELECT) || (lpdis->itemAction & ODA_DRAWENTIRE)) &&
+      (!(lpdis->itemState & ODS_GRAYED)))
+  {
+    if (lpdis->itemState & ODS_SELECTED)
+    {
+      clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedText1
+                                                                       : clrMenuBarSelectedText);
+      clrBackground =
+          SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedBk1 : clrMenuBar1);
+      fSelected = TRUE;
+    }
+    else
+    {
+      clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrText1 : clrMenuBarText);
+      clrBackground = SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrBk2 : clrMenuBar2);
+      fSelected = FALSE;
+    }
+  }
 
-   BOOL fGrayed   = FALSE;
+  BOOL fGrayed = FALSE;
 
-   if( lpdis->itemState & ODS_GRAYED ) {
-      clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrGrayedText1 : clrMenuBarGrayedText);
-      fGrayed = TRUE;
-   }
+  if (lpdis->itemState & ODS_GRAYED)
+  {
+    clrText = SetTextColor(lpdis->hDC,
+                           (lpMenuItem->uiItemType != 1) ? clrGrayedText1 : clrMenuBarGrayedText);
+    fGrayed = TRUE;
+  }
 
-   BOOL fChecked  = FALSE;
+  BOOL fChecked = FALSE;
 
-   if( lpdis->itemState & ODS_CHECKED ) {
-      fChecked = TRUE;
-   }
+  if (lpdis->itemState & ODS_CHECKED)
+  {
+    fChecked = TRUE;
+  }
 
-   // draw menu item bitmap background
-   if( lpMenuItem->uiItemType != 1 ) {
-      DrawBitmapBK(lpdis->hDC, lpdis->rcItem);
-   }
+  // draw menu item bitmap background
+  if (lpMenuItem->uiItemType != 1)
+  {
+    DrawBitmapBK(lpdis->hDC, lpdis->rcItem);
+  }
 
-   //draw menu item background
-   DrawItemBk(lpdis->hDC, lpdis->rcItem, fSelected, fGrayed, lpMenuItem->uiItemType, ((lpMenuItem->hBitmap == nullptr) && (!fChecked)));
+  // draw menu item background
+  DrawItemBk(lpdis->hDC, lpdis->rcItem, fSelected, fGrayed, lpMenuItem->uiItemType,
+             ((lpMenuItem->hBitmap == nullptr) && (!fChecked)));
 
-   // draw menu item border
-   if( fSelected && (!fGrayed) ) {
-      DrawSelectedItemBorder(lpdis->hDC, lpdis->rcItem, lpMenuItem->uiItemType, ((lpMenuItem->hBitmap == nullptr) && (!fChecked)));
-   }
+  // draw menu item border
+  if (fSelected && (!fGrayed))
+  {
+    DrawSelectedItemBorder(lpdis->hDC, lpdis->rcItem, lpMenuItem->uiItemType,
+                           ((lpMenuItem->hBitmap == nullptr) && (!fChecked)));
+  }
 
-   // draw bitmap
-   if( (lpMenuItem->hBitmap != nullptr) && (!fChecked) ) {
-      DrawGlyph(
-         lpdis->hDC,
-         lpdis->rcItem.left + cx_delta - 2,
-         lpdis->rcItem.top + cy_delta,
-         bm_size,
-         bm_size,
-         lpMenuItem->hBitmap,
-         static_cast<COLORREF>(RGB(125, 125, 125)),
-         ((fGrayed) ? TRUE : FALSE),
-         TRUE);
+  // draw bitmap
+  if ((lpMenuItem->hBitmap != nullptr) && (!fChecked))
+  {
+    DrawGlyph(lpdis->hDC, lpdis->rcItem.left + cx_delta - 2, lpdis->rcItem.top + cy_delta, bm_size,
+              bm_size, lpMenuItem->hBitmap, static_cast<COLORREF>(RGB(125, 125, 125)),
+              ((fGrayed) ? TRUE : FALSE), TRUE);
 
-      if( fSelected && (lpMenuItem->uiItemType != 1) && (eMenuCursorType == Short) && bSelectedItemBorder3d ) {
-         auto pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
-         auto pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
+    if (fSelected && (lpMenuItem->uiItemType != 1) && (eMenuCursorType == Short) &&
+        bSelectedItemBorder3d)
+    {
+      auto pen = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
+      auto pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
 
-         auto oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
+      auto oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
 
-         RECT rect;
-         CopyRect(&rect, &lpdis->rcItem);
-         rect.left  += (cx_delta / 2 - 2);
-         rect.top   += (cy_delta / 2);
-         rect.right  = rect.left + bm_size + cx_delta;
-         rect.bottom = rect.top + bm_size + cy_delta;
+      RECT rect;
+      CopyRect(&rect, &lpdis->rcItem);
+      rect.left += (cx_delta / 2 - 2);
+      rect.top += (cy_delta / 2);
+      rect.right = rect.left + bm_size + cx_delta;
+      rect.bottom = rect.top + bm_size + cy_delta;
 
-         MoveToEx(lpdis->hDC, rect.left, rect.top, nullptr);
+      MoveToEx(lpdis->hDC, rect.left, rect.top, nullptr);
 
-         LineTo(lpdis->hDC, rect.right, rect.top);
-         SelectObject(lpdis->hDC, pen);
-         LineTo(lpdis->hDC, rect.right, rect.bottom);
-         LineTo(lpdis->hDC, rect.left, rect.bottom);
-         SelectObject(lpdis->hDC, pen1);
-         LineTo(lpdis->hDC, rect.left, rect.top);
+      LineTo(lpdis->hDC, rect.right, rect.top);
+      SelectObject(lpdis->hDC, pen);
+      LineTo(lpdis->hDC, rect.right, rect.bottom);
+      LineTo(lpdis->hDC, rect.left, rect.bottom);
+      SelectObject(lpdis->hDC, pen1);
+      LineTo(lpdis->hDC, rect.left, rect.top);
 
-         SelectObject(lpdis->hDC, oldPen);
+      SelectObject(lpdis->hDC, oldPen);
 
-         DeleteObject(pen);
-         DeleteObject(pen1);
-      }
-   }
+      DeleteObject(pen);
+      DeleteObject(pen1);
+    }
+  }
 
-   // draw menu item text
-   int iLen = HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
+  // draw menu item text
+  int iLen = HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-   if( lpMenuItem->uiItemType == 1 ) {
-      DrawText(lpdis->hDC, lpMenuItem->caption, iLen, &lpdis->rcItem, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_EXPANDTABS);
-   } else {
-      lpdis->rcItem.left += (min_width + cx_delta + 2);
-      DrawText(lpdis->hDC, lpMenuItem->caption, iLen, &lpdis->rcItem, DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_EXPANDTABS);
-      lpdis->rcItem.left -= (min_width + cx_delta + 2);
-   }
+  if (lpMenuItem->uiItemType == 1)
+  {
+    DrawText(lpdis->hDC, lpMenuItem->caption, iLen, &lpdis->rcItem,
+             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_EXPANDTABS);
+  }
+  else
+  {
+    lpdis->rcItem.left += (min_width + cx_delta + 2);
+    DrawText(lpdis->hDC, lpMenuItem->caption, iLen, &lpdis->rcItem,
+             DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_EXPANDTABS);
+    lpdis->rcItem.left -= (min_width + cx_delta + 2);
+  }
 
-   // draw menu item checked mark
-   if( fChecked ) {
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask = MIIM_CHECKMARKS;
-      GetMenuItemInfo(reinterpret_cast<HMENU>(lpdis->hwndItem), lpdis->itemID, FALSE, &MenuItemInfo);
-      SIZE size;
-      size.cx = bm_size;      //GetSystemMetrics(SM_CXMENUCHECK);
-      size.cy = bm_size;      //GetSystemMetrics(SM_CYMENUCHECK);
-      DrawCheck(lpdis->hDC, size, lpdis->rcItem, fGrayed, fSelected, MenuItemInfo.hbmpChecked);
-   }
+  // draw menu item checked mark
+  if (fChecked)
+  {
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_CHECKMARKS;
+    GetMenuItemInfo(reinterpret_cast<HMENU>(lpdis->hwndItem), lpdis->itemID, FALSE, &MenuItemInfo);
+    SIZE size;
+    size.cx = bm_size; // GetSystemMetrics(SM_CXMENUCHECK);
+    size.cy = bm_size; // GetSystemMetrics(SM_CYMENUCHECK);
+    DrawCheck(lpdis->hDC, size, lpdis->rcItem, fGrayed, fSelected, MenuItemInfo.hbmpChecked);
+  }
 
-   SelectObject(lpdis->hDC, oldfont);
+  SelectObject(lpdis->hDC, oldfont);
 
-   // restore prev. colours state
-   SetTextColor(lpdis->hDC, clrText);
-   SetBkColor(lpdis->hDC, clrBackground);
-   SetBkMode(lpdis->hDC, bkMode);
+  // restore prev. colours state
+  SetTextColor(lpdis->hDC, clrText);
+  SetBkColor(lpdis->hDC, clrBackground);
+  SetBkMode(lpdis->hDC, bkMode);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _ONDRAWMENUITEM, HMG__ONDRAWMENUITEM )
+HB_FUNC_TRANSLATE(_ONDRAWMENUITEM, HMG__ONDRAWMENUITEM)
 #endif
 
-VOID DrawSeparator( HDC hDC, RECT r )
+VOID DrawSeparator(HDC hDC, RECT r)
 {
-   RECT rect;
-   CopyRect(&rect, &r);
-   rect.right = rect.left + min_width + cx_delta / 2;
+  RECT rect;
+  CopyRect(&rect, &r);
+  rect.right = rect.left + min_width + cx_delta / 2;
 
-   if( (EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)) ) {
-      FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
-   } else {
-      auto brush = CreateSolidBrush(clrImageBk1);
-      FillRect(hDC, &rect, brush);
-      DeleteObject(brush);
-   }
+  if ((EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)))
+  {
+    FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
+  }
+  else
+  {
+    auto brush = CreateSolidBrush(clrImageBk1);
+    FillRect(hDC, &rect, brush);
+    DeleteObject(brush);
+  }
 
-   CopyRect(&rect, &r);
-   rect.left += (min_width + cx_delta / 2);
+  CopyRect(&rect, &r);
+  rect.left += (min_width + cx_delta / 2);
 
-   if( (EnabledGradient()) && (!IsColorEqual(clrBk1, clrBk2)) ) {
-      FillGradient(hDC, &rect, FALSE, clrBk1, clrBk2);
-   } else {
-      auto brush = CreateSolidBrush(clrBk1);
-      FillRect(hDC, &rect, brush);
-      DeleteObject(brush);
-   }
+  if ((EnabledGradient()) && (!IsColorEqual(clrBk1, clrBk2)))
+  {
+    FillGradient(hDC, &rect, FALSE, clrBk1, clrBk2);
+  }
+  else
+  {
+    auto brush = CreateSolidBrush(clrBk1);
+    FillRect(hDC, &rect, brush);
+    DeleteObject(brush);
+  }
 
-   CopyRect(&rect, &r);
+  CopyRect(&rect, &r);
 
-   auto pen = CreatePen(PS_SOLID, 1, clrSeparator1);
-   auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
+  auto pen = CreatePen(PS_SOLID, 1, clrSeparator1);
+  auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
-   if( eSeparatorPosition == Right ) {
-      rect.left += (min_width + cx_delta + 2);
-   } else if( eSeparatorPosition == Middle ) {
-      rect.left  += (min_width - cx_delta);
-      rect.right -= (min_width - cx_delta);
-   }
+  if (eSeparatorPosition == Right)
+  {
+    rect.left += (min_width + cx_delta + 2);
+  }
+  else if (eSeparatorPosition == Middle)
+  {
+    rect.left += (min_width - cx_delta);
+    rect.right -= (min_width - cx_delta);
+  }
 
-   rect.top += (rect.bottom - rect.top) / 2;
-   MoveToEx(hDC, rect.left, rect.top, nullptr);
-   LineTo(hDC, rect.right, rect.top);
+  rect.top += (rect.bottom - rect.top) / 2;
+  MoveToEx(hDC, rect.left, rect.top, nullptr);
+  LineTo(hDC, rect.right, rect.top);
 
-   if( eSeparatorType == Double ) {
-      auto pen1 = CreatePen(PS_SOLID, 1, clrSeparator2);
-      auto oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
+  if (eSeparatorType == Double)
+  {
+    auto pen1 = CreatePen(PS_SOLID, 1, clrSeparator2);
+    auto oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
 
-      rect.top += 1;
-      MoveToEx(hDC, rect.left, rect.top, nullptr);
-      LineTo(hDC, rect.right, rect.top);
+    rect.top += 1;
+    MoveToEx(hDC, rect.left, rect.top, nullptr);
+    LineTo(hDC, rect.right, rect.top);
 
-      SelectObject(hDC, oldPen1);
-      DeleteObject(pen1);
-   }
+    SelectObject(hDC, oldPen1);
+    DeleteObject(pen1);
+  }
 
-   SelectObject(hDC, oldPen);
-   DeleteObject(pen);
+  SelectObject(hDC, oldPen);
+  DeleteObject(pen);
 }
 
 VOID DrawBitmapBK(HDC hDC, RECT r)
 {
-   RECT rect;
-   CopyRect(&rect, &r);
-   rect.right = rect.left + min_width + cx_delta / 2;
+  RECT rect;
+  CopyRect(&rect, &r);
+  rect.right = rect.left + min_width + cx_delta / 2;
 
-   if( (EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)) ) {
-      FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
-   } else {
-      auto brush = CreateSolidBrush(clrImageBk1);
-      FillRect(hDC, &rect, brush);
-      DeleteObject(brush);
-   }
+  if ((EnabledGradient()) && (!IsColorEqual(clrImageBk1, clrImageBk2)))
+  {
+    FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
+  }
+  else
+  {
+    auto brush = CreateSolidBrush(clrImageBk1);
+    FillRect(hDC, &rect, brush);
+    DeleteObject(brush);
+  }
 }
 
 VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL clear)
 {
-   RECT rect;
-   CopyRect(&rect, &r);
-   if( (!Selected) && (itemType != 1) ) {
-      rect.left += (min_width + cx_delta / 2);
-   }
+  RECT rect;
+  CopyRect(&rect, &r);
+  if ((!Selected) && (itemType != 1))
+  {
+    rect.left += (min_width + cx_delta / 2);
+  }
 
-   if( (Selected) && (itemType != 1) && (eMenuCursorType == Short) && (!clear) ) {
-      rect.left += (min_width + cx_delta / 2);
-   }
+  if ((Selected) && (itemType != 1) && (eMenuCursorType == Short) && (!clear))
+  {
+    rect.left += (min_width + cx_delta / 2);
+  }
 
-   if( !Grayed ) {
-      if( Selected ) {
-         if( EnabledGradient() ) {
-            FillGradient(hDC, &rect,
-               (itemType == 1) ? TRUE : gradientVertical,
-               (itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1,
-               (itemType == 1) ? clrSelectedMenuBarItem2 : clrSelectedBk2);
-         } else {
-            auto brush = CreateSolidBrush((itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1);
-            FillRect(hDC, &rect, brush);
-            DeleteObject(brush);
-         }
-      } else {
-         if( EnabledGradient() && (!IsColorEqual(clrMenuBar1, clrMenuBar2) || (!IsColorEqual(clrBk1, clrBk2) && (itemType != 1))) ) {
-            FillGradient(hDC, &rect,
-               ((itemType == 1) ? TRUE : FALSE),
-               ((itemType == 1) ? clrMenuBar1 : clrBk1),
-               ((itemType == 1) ? clrMenuBar2 : clrBk2));
-         } else {
-            auto brush = CreateSolidBrush((itemType == 1) ? clrMenuBar1 : clrBk1);
-            FillRect(hDC, &rect, brush);
-            DeleteObject(brush);
-         }
+  if (!Grayed)
+  {
+    if (Selected)
+    {
+      if (EnabledGradient())
+      {
+        FillGradient(hDC, &rect, (itemType == 1) ? TRUE : gradientVertical,
+                     (itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1,
+                     (itemType == 1) ? clrSelectedMenuBarItem2 : clrSelectedBk2);
       }
-   } else {
-      if( EnabledGradient() ) {
-         FillGradient(hDC, &rect, FALSE, clrGrayedBk1, clrGrayedBk2);
-      } else {
-         auto brush = CreateSolidBrush(clrGrayedBk1);
-         FillRect(hDC, &rect, brush);
-         DeleteObject(brush);
+      else
+      {
+        auto brush = CreateSolidBrush((itemType == 1) ? clrSelectedMenuBarItem1 : clrSelectedBk1);
+        FillRect(hDC, &rect, brush);
+        DeleteObject(brush);
       }
-   }
+    }
+    else
+    {
+      if (EnabledGradient() && (!IsColorEqual(clrMenuBar1, clrMenuBar2) ||
+                                (!IsColorEqual(clrBk1, clrBk2) && (itemType != 1))))
+      {
+        FillGradient(hDC, &rect, ((itemType == 1) ? TRUE : FALSE),
+                     ((itemType == 1) ? clrMenuBar1 : clrBk1),
+                     ((itemType == 1) ? clrMenuBar2 : clrBk2));
+      }
+      else
+      {
+        auto brush = CreateSolidBrush((itemType == 1) ? clrMenuBar1 : clrBk1);
+        FillRect(hDC, &rect, brush);
+        DeleteObject(brush);
+      }
+    }
+  }
+  else
+  {
+    if (EnabledGradient())
+    {
+      FillGradient(hDC, &rect, FALSE, clrGrayedBk1, clrGrayedBk2);
+    }
+    else
+    {
+      auto brush = CreateSolidBrush(clrGrayedBk1);
+      FillRect(hDC, &rect, brush);
+      DeleteObject(brush);
+    }
+  }
 }
 
 VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
 {
-   HPEN pen, pen1;
+  HPEN pen, pen1;
 
-   if( itemType != 1 ) {
-      pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder1);
-      pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder3);
-   } else {
-      pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
-      pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
-   }
+  if (itemType != 1)
+  {
+    pen = CreatePen(PS_SOLID, 1, clrSelectedItemBorder1);
+    pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder3);
+  }
+  else
+  {
+    pen = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
+    pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
+  }
 
-   auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
+  auto oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
-   RECT rect;
-   CopyRect(&rect, &r);
-   if( (eMenuCursorType == Short) && (itemType != 1) && (!clear) ) {
-      rect.left += (min_width + cx_delta / 2);
-   }
+  RECT rect;
+  CopyRect(&rect, &r);
+  if ((eMenuCursorType == Short) && (itemType != 1) && (!clear))
+  {
+    rect.left += (min_width + cx_delta / 2);
+  }
 
-   InflateRect(&rect, -1, -1);
+  InflateRect(&rect, -1, -1);
 
-   MoveToEx(hDC, rect.left, rect.top, nullptr);
+  MoveToEx(hDC, rect.left, rect.top, nullptr);
 
-   if( (itemType == 1) && bSelectedItemBorder3d ) {
-      LineTo(hDC, rect.right, rect.top);
-      SelectObject(hDC, pen1);
-      LineTo(hDC, rect.right, rect.bottom);
-      LineTo(hDC, rect.left, rect.bottom);
-      SelectObject(hDC, pen);
-      LineTo(hDC, rect.left, rect.top);
-   } else {
-      LineTo(hDC, rect.right, rect.top);
-      LineTo(hDC, rect.right, rect.bottom);
-      LineTo(hDC, rect.left, rect.bottom);
-      LineTo(hDC, rect.left, rect.top);
-   }
+  if ((itemType == 1) && bSelectedItemBorder3d)
+  {
+    LineTo(hDC, rect.right, rect.top);
+    SelectObject(hDC, pen1);
+    LineTo(hDC, rect.right, rect.bottom);
+    LineTo(hDC, rect.left, rect.bottom);
+    SelectObject(hDC, pen);
+    LineTo(hDC, rect.left, rect.top);
+  }
+  else
+  {
+    LineTo(hDC, rect.right, rect.top);
+    LineTo(hDC, rect.right, rect.bottom);
+    LineTo(hDC, rect.left, rect.bottom);
+    LineTo(hDC, rect.left, rect.top);
+  }
 
-   SelectObject(hDC, oldPen);
-   DeleteObject(pen);
-   DeleteObject(pen1);
+  SelectObject(hDC, oldPen);
+  DeleteObject(pen);
+  DeleteObject(pen1);
 }
 
 VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBITMAP hbitmap)
 {
-   if( hbitmap != 0 ) {
-      DrawGlyph(
-         hdc,
-         rect.left + cx_delta / 2,
-         rect.top + cy_delta / 2 + 2,
-         size.cx,
-         size.cy,
-         hbitmap,
-         static_cast<COLORREF>(RGB(125, 125, 125)),
-         ((disabled) ? TRUE : FALSE),
-         TRUE);
-   } else {
-      HBRUSH brush;
-      if( (selected) && (eMenuCursorType != Short) ) {
-         brush = CreateSolidBrush(clrSelectedBk1);
-      } else {
-         brush = CreateSolidBrush(clrCheckMarkBk);
-      }
+  if (hbitmap != 0)
+  {
+    DrawGlyph(hdc, rect.left + cx_delta / 2, rect.top + cy_delta / 2 + 2, size.cx, size.cy, hbitmap,
+              static_cast<COLORREF>(RGB(125, 125, 125)), ((disabled) ? TRUE : FALSE), TRUE);
+  }
+  else
+  {
+    HBRUSH brush;
+    if ((selected) && (eMenuCursorType != Short))
+    {
+      brush = CreateSolidBrush(clrSelectedBk1);
+    }
+    else
+    {
+      brush = CreateSolidBrush(clrCheckMarkBk);
+    }
 
-      auto oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
+    auto oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
 
-      auto pen = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
-      auto oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
+    auto pen = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
+    auto oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
 
-      UINT w = (size.cx > min_width ? min_width : size.cx);
-      UINT h = w;
-      UINT x = rect.left + (min_width - w) / 2;
-      UINT y = rect.top + (min_height + cy_delta - h) / 2;
+    UINT w = (size.cx > min_width ? min_width : size.cx);
+    UINT h = w;
+    UINT x = rect.left + (min_width - w) / 2;
+    UINT y = rect.top + (min_height + cy_delta - h) / 2;
 
-      Rectangle(hdc, x, y, x + w, y + h);
+    Rectangle(hdc, x, y, x + w, y + h);
 
-      DeleteObject(pen);
+    DeleteObject(pen);
 
-      if( disabled ) {
-         pen = CreatePen(PS_SOLID, 1, clrCheckMarkGr);
-      } else {
-         pen = CreatePen(PS_SOLID, 1, clrCheckMark);
-      }
+    if (disabled)
+    {
+      pen = CreatePen(PS_SOLID, 1, clrCheckMarkGr);
+    }
+    else
+    {
+      pen = CreatePen(PS_SOLID, 1, clrCheckMark);
+    }
 
-      SelectObject(hdc, pen);
+    SelectObject(hdc, pen);
 
-      MoveToEx(hdc, x + 1, y + 5, nullptr);
-      LineTo(hdc, x + 4, y + h - 2);
-      MoveToEx(hdc, x + 2, y + 5, nullptr);
-      LineTo(hdc, x + 4, y + h - 3);
-      MoveToEx(hdc, x + 2, y + 4, nullptr);
-      LineTo(hdc, x + 5, y + h - 3);
-      MoveToEx(hdc, x + 4, y + h - 3, nullptr);
-      LineTo(hdc, x + w + 2, y - 1);
-      MoveToEx(hdc, x + 4, y + h - 2, nullptr);
-      LineTo(hdc, x + w - 2, y + 3);
+    MoveToEx(hdc, x + 1, y + 5, nullptr);
+    LineTo(hdc, x + 4, y + h - 2);
+    MoveToEx(hdc, x + 2, y + 5, nullptr);
+    LineTo(hdc, x + 4, y + h - 3);
+    MoveToEx(hdc, x + 2, y + 4, nullptr);
+    LineTo(hdc, x + 5, y + h - 3);
+    MoveToEx(hdc, x + 4, y + h - 3, nullptr);
+    LineTo(hdc, x + w + 2, y - 1);
+    MoveToEx(hdc, x + 4, y + h - 2, nullptr);
+    LineTo(hdc, x + w - 2, y + 3);
 
-      SelectObject(hdc, oldPen);
-      SelectObject(hdc, oldBrush);
+    SelectObject(hdc, oldPen);
+    SelectObject(hdc, oldBrush);
 
-      DeleteObject(pen);
-      DeleteObject(brush);
-   }
+    DeleteObject(pen);
+    DeleteObject(brush);
+  }
 }
 
 // Misc
 
-HB_FUNC( HMG_SETMENUBITMAPHEIGHT )
+HB_FUNC(HMG_SETMENUBITMAPHEIGHT)
 {
-   bm_size = hb_parni(1);
-   min_height = min_width = bm_size + 4;
-   hb_retni(bm_size);
+  bm_size = hb_parni(1);
+  min_height = min_width = bm_size + 4;
+  hb_retni(bm_size);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUBITMAPHEIGHT, HMG_SETMENUBITMAPHEIGHT )
+HB_FUNC_TRANSLATE(SETMENUBITMAPHEIGHT, HMG_SETMENUBITMAPHEIGHT)
 #endif
 
-HB_FUNC( HMG_GETMENUBITMAPHEIGHT )
+HB_FUNC(HMG_GETMENUBITMAPHEIGHT)
 {
-   hb_retni(bm_size);
+  hb_retni(bm_size);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMENUBITMAPHEIGHT, HMG_GETMENUBITMAPHEIGHT )
+HB_FUNC_TRANSLATE(GETMENUBITMAPHEIGHT, HMG_GETMENUBITMAPHEIGHT)
 #endif
 
-HB_FUNC( HMG_SETMENUSEPARATORTYPE )
+HB_FUNC(HMG_SETMENUSEPARATORTYPE)
 {
-   eSeparatorType = static_cast<SEPARATORTYPE>(hb_parni(1));
-   eSeparatorPosition = static_cast<SEPARATORPOSITION>(hb_parni(2));
+  eSeparatorType = static_cast<SEPARATORTYPE>(hb_parni(1));
+  eSeparatorPosition = static_cast<SEPARATORPOSITION>(hb_parni(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUSEPARATORTYPE, HMG_SETMENUSEPARATORTYPE )
+HB_FUNC_TRANSLATE(SETMENUSEPARATORTYPE, HMG_SETMENUSEPARATORTYPE)
 #endif
 
-HB_FUNC( HMG_SETMENUSELECTEDITEM3D )
+HB_FUNC(HMG_SETMENUSELECTEDITEM3D)
 {
-   bSelectedItemBorder3d = hmg_par_BOOL(1);
+  bSelectedItemBorder3d = hmg_par_BOOL(1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUSELECTEDITEM3D, HMG_SETMENUSELECTEDITEM3D )
+HB_FUNC_TRANSLATE(SETMENUSELECTEDITEM3D, HMG_SETMENUSELECTEDITEM3D)
 #endif
 
-HB_FUNC( HMG_SETMENUCURSORTYPE )
+HB_FUNC(HMG_SETMENUCURSORTYPE)
 {
-   eMenuCursorType = static_cast<MENUCURSORTYPE>(hb_parni(1));
+  eMenuCursorType = static_cast<MENUCURSORTYPE>(hb_parni(1));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUCURSORTYPE, HMG_SETMENUCURSORTYPE )
+HB_FUNC_TRANSLATE(SETMENUCURSORTYPE, HMG_SETMENUCURSORTYPE)
 #endif
 
 // Color Management of HMG menus
@@ -1288,254 +1425,286 @@ HB_FUNC_TRANSLATE( SETMENUCURSORTYPE, HMG_SETMENUCURSORTYPE )
 #ifndef __WINNT__
 VOID SetMenuBarColor(HMENU hMenu, COLORREF clrBk, BOOL fSubMenu)
 {
-   MENUINFO MenuInfo;
-   MenuInfo.cbSize = sizeof(MENUINFO);
-   GetMenuInfo(hMenu, &MenuInfo);
-   MenuInfo.fMask = MIM_BACKGROUND;
-   if( fSubMenu ) {
-      MenuInfo.fMask |= MIM_APPLYTOSUBMENUS;
-   }
-   MenuInfo.hbrBack = CreateSolidBrush(clrBk);
-   SetMenuInfo(hMenu, &MenuInfo);
+  MENUINFO MenuInfo;
+  MenuInfo.cbSize = sizeof(MENUINFO);
+  GetMenuInfo(hMenu, &MenuInfo);
+  MenuInfo.fMask = MIM_BACKGROUND;
+  if (fSubMenu)
+  {
+    MenuInfo.fMask |= MIM_APPLYTOSUBMENUS;
+  }
+  MenuInfo.hbrBack = CreateSolidBrush(clrBk);
+  SetMenuInfo(hMenu, &MenuInfo);
 }
 #endif
 
 static BOOL IsColorEqual(COLORREF clr1, COLORREF clr2)
 {
-   return   ((GetRValue(clr1) == GetRValue(clr2))
-          && (GetGValue(clr1) == GetGValue(clr2))
-          && (GetBValue(clr1) == GetBValue(clr2))) ? TRUE : FALSE;
+  return ((GetRValue(clr1) == GetRValue(clr2)) && (GetGValue(clr1) == GetGValue(clr2)) &&
+          (GetBValue(clr1) == GetBValue(clr2)))
+             ? TRUE
+             : FALSE;
 }
 
-HB_FUNC( HMG_GETMENUCOLORS )
+HB_FUNC(HMG_GETMENUCOLORS)
 {
-   auto aResult = hb_itemArrayNew(28);
+  auto aResult = hb_itemArrayNew(28);
 
-   HB_arraySetNL(aResult, 1, clrMenuBar1);
-   HB_arraySetNL(aResult, 2, clrMenuBar2);
-   HB_arraySetNL(aResult, 3, clrMenuBarText);
-   HB_arraySetNL(aResult, 4, clrMenuBarSelectedText);
-   HB_arraySetNL(aResult, 5, clrMenuBarGrayedText);
-   HB_arraySetNL(aResult, 6, clrSelectedMenuBarItem1);
-   HB_arraySetNL(aResult, 7, clrSelectedMenuBarItem2);
-   HB_arraySetNL(aResult, 8, clrText1);
-   HB_arraySetNL(aResult, 9, clrSelectedText1);
-   HB_arraySetNL(aResult, 10, clrGrayedText1);
-   HB_arraySetNL(aResult, 11, clrBk1);
-   HB_arraySetNL(aResult, 12, clrBk2);
-   HB_arraySetNL(aResult, 13, clrSelectedBk1);
-   HB_arraySetNL(aResult, 14, clrSelectedBk2);
-   HB_arraySetNL(aResult, 15, clrGrayedBk1);
-   HB_arraySetNL(aResult, 16, clrGrayedBk2);
-   HB_arraySetNL(aResult, 17, clrImageBk1);
-   HB_arraySetNL(aResult, 18, clrImageBk2);
-   HB_arraySetNL(aResult, 19, clrSeparator1);
-   HB_arraySetNL(aResult, 20, clrSeparator2);
-   HB_arraySetNL(aResult, 21, clrSelectedItemBorder1);
-   HB_arraySetNL(aResult, 22, clrSelectedItemBorder2);
-   HB_arraySetNL(aResult, 23, clrSelectedItemBorder3);
-   HB_arraySetNL(aResult, 24, clrSelectedItemBorder4);
-   HB_arraySetNL(aResult, 25, clrCheckMark);
-   HB_arraySetNL(aResult, 26, clrCheckMarkBk);
-   HB_arraySetNL(aResult, 27, clrCheckMarkSq);
-   HB_arraySetNL(aResult, 28, clrCheckMarkGr);
+  HB_arraySetNL(aResult, 1, clrMenuBar1);
+  HB_arraySetNL(aResult, 2, clrMenuBar2);
+  HB_arraySetNL(aResult, 3, clrMenuBarText);
+  HB_arraySetNL(aResult, 4, clrMenuBarSelectedText);
+  HB_arraySetNL(aResult, 5, clrMenuBarGrayedText);
+  HB_arraySetNL(aResult, 6, clrSelectedMenuBarItem1);
+  HB_arraySetNL(aResult, 7, clrSelectedMenuBarItem2);
+  HB_arraySetNL(aResult, 8, clrText1);
+  HB_arraySetNL(aResult, 9, clrSelectedText1);
+  HB_arraySetNL(aResult, 10, clrGrayedText1);
+  HB_arraySetNL(aResult, 11, clrBk1);
+  HB_arraySetNL(aResult, 12, clrBk2);
+  HB_arraySetNL(aResult, 13, clrSelectedBk1);
+  HB_arraySetNL(aResult, 14, clrSelectedBk2);
+  HB_arraySetNL(aResult, 15, clrGrayedBk1);
+  HB_arraySetNL(aResult, 16, clrGrayedBk2);
+  HB_arraySetNL(aResult, 17, clrImageBk1);
+  HB_arraySetNL(aResult, 18, clrImageBk2);
+  HB_arraySetNL(aResult, 19, clrSeparator1);
+  HB_arraySetNL(aResult, 20, clrSeparator2);
+  HB_arraySetNL(aResult, 21, clrSelectedItemBorder1);
+  HB_arraySetNL(aResult, 22, clrSelectedItemBorder2);
+  HB_arraySetNL(aResult, 23, clrSelectedItemBorder3);
+  HB_arraySetNL(aResult, 24, clrSelectedItemBorder4);
+  HB_arraySetNL(aResult, 25, clrCheckMark);
+  HB_arraySetNL(aResult, 26, clrCheckMarkBk);
+  HB_arraySetNL(aResult, 27, clrCheckMarkSq);
+  HB_arraySetNL(aResult, 28, clrCheckMarkGr);
 
-   hb_itemReturnRelease(aResult);
+  hb_itemReturnRelease(aResult);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETMENUCOLORS, HMG_GETMENUCOLORS )
+HB_FUNC_TRANSLATE(GETMENUCOLORS, HMG_GETMENUCOLORS)
 #endif
 
-HB_FUNC( HMG_SETMENUCOLORS )
+HB_FUNC(HMG_SETMENUCOLORS)
 {
-   auto pArray = hb_param(1, Harbour::Item::ARRAY);
+  auto pArray = hb_param(1, Harbour::Item::ARRAY);
 
-   if( (pArray != nullptr) && (hb_arrayLen(pArray) >= 28) ) {
-      clrMenuBar1             = static_cast<COLORREF>(HB_PARVNL(1, 1));
-      clrMenuBar2             = static_cast<COLORREF>(HB_PARVNL(1, 2));
-      clrMenuBarText          = static_cast<COLORREF>(HB_PARVNL(1, 3));
-      clrMenuBarSelectedText  = static_cast<COLORREF>(HB_PARVNL(1, 4));
-      clrMenuBarGrayedText    = static_cast<COLORREF>(HB_PARVNL(1, 5));
-      clrSelectedMenuBarItem1 = static_cast<COLORREF>(HB_PARVNL(1, 6));
-      clrSelectedMenuBarItem2 = static_cast<COLORREF>(HB_PARVNL(1, 7));
-      clrText1                = static_cast<COLORREF>(HB_PARVNL(1, 8));
-      clrSelectedText1        = static_cast<COLORREF>(HB_PARVNL(1, 9));
-      clrGrayedText1          = static_cast<COLORREF>(HB_PARVNL(1, 10));
-      clrBk1                  = static_cast<COLORREF>(HB_PARVNL(1, 11));
-      clrBk2                  = static_cast<COLORREF>(HB_PARVNL(1, 12));
-      clrSelectedBk1          = static_cast<COLORREF>(HB_PARVNL(1, 13));
-      clrSelectedBk2          = static_cast<COLORREF>(HB_PARVNL(1, 14));
-      clrGrayedBk1            = static_cast<COLORREF>(HB_PARVNL(1, 15));
-      clrGrayedBk2            = static_cast<COLORREF>(HB_PARVNL(1, 16));
-      clrImageBk1             = static_cast<COLORREF>(HB_PARVNL(1, 17));
-      clrImageBk2             = static_cast<COLORREF>(HB_PARVNL(1, 18));
-      clrSeparator1           = static_cast<COLORREF>(HB_PARVNL(1, 19));
-      clrSeparator2           = static_cast<COLORREF>(HB_PARVNL(1, 20));
-      clrSelectedItemBorder1  = static_cast<COLORREF>(HB_PARVNL(1, 21));
-      clrSelectedItemBorder2  = static_cast<COLORREF>(HB_PARVNL(1, 22));
-      clrSelectedItemBorder3  = static_cast<COLORREF>(HB_PARVNL(1, 23));
-      clrSelectedItemBorder4  = static_cast<COLORREF>(HB_PARVNL(1, 24));
-      clrCheckMark            = static_cast<COLORREF>(HB_PARVNL(1, 25));
-      clrCheckMarkBk          = static_cast<COLORREF>(HB_PARVNL(1, 26));
-      clrCheckMarkSq          = static_cast<COLORREF>(HB_PARVNL(1, 27));
-      clrCheckMarkGr          = static_cast<COLORREF>(HB_PARVNL(1, 28));
-   }
+  if ((pArray != nullptr) && (hb_arrayLen(pArray) >= 28))
+  {
+    clrMenuBar1 = static_cast<COLORREF>(HB_PARVNL(1, 1));
+    clrMenuBar2 = static_cast<COLORREF>(HB_PARVNL(1, 2));
+    clrMenuBarText = static_cast<COLORREF>(HB_PARVNL(1, 3));
+    clrMenuBarSelectedText = static_cast<COLORREF>(HB_PARVNL(1, 4));
+    clrMenuBarGrayedText = static_cast<COLORREF>(HB_PARVNL(1, 5));
+    clrSelectedMenuBarItem1 = static_cast<COLORREF>(HB_PARVNL(1, 6));
+    clrSelectedMenuBarItem2 = static_cast<COLORREF>(HB_PARVNL(1, 7));
+    clrText1 = static_cast<COLORREF>(HB_PARVNL(1, 8));
+    clrSelectedText1 = static_cast<COLORREF>(HB_PARVNL(1, 9));
+    clrGrayedText1 = static_cast<COLORREF>(HB_PARVNL(1, 10));
+    clrBk1 = static_cast<COLORREF>(HB_PARVNL(1, 11));
+    clrBk2 = static_cast<COLORREF>(HB_PARVNL(1, 12));
+    clrSelectedBk1 = static_cast<COLORREF>(HB_PARVNL(1, 13));
+    clrSelectedBk2 = static_cast<COLORREF>(HB_PARVNL(1, 14));
+    clrGrayedBk1 = static_cast<COLORREF>(HB_PARVNL(1, 15));
+    clrGrayedBk2 = static_cast<COLORREF>(HB_PARVNL(1, 16));
+    clrImageBk1 = static_cast<COLORREF>(HB_PARVNL(1, 17));
+    clrImageBk2 = static_cast<COLORREF>(HB_PARVNL(1, 18));
+    clrSeparator1 = static_cast<COLORREF>(HB_PARVNL(1, 19));
+    clrSeparator2 = static_cast<COLORREF>(HB_PARVNL(1, 20));
+    clrSelectedItemBorder1 = static_cast<COLORREF>(HB_PARVNL(1, 21));
+    clrSelectedItemBorder2 = static_cast<COLORREF>(HB_PARVNL(1, 22));
+    clrSelectedItemBorder3 = static_cast<COLORREF>(HB_PARVNL(1, 23));
+    clrSelectedItemBorder4 = static_cast<COLORREF>(HB_PARVNL(1, 24));
+    clrCheckMark = static_cast<COLORREF>(HB_PARVNL(1, 25));
+    clrCheckMarkBk = static_cast<COLORREF>(HB_PARVNL(1, 26));
+    clrCheckMarkSq = static_cast<COLORREF>(HB_PARVNL(1, 27));
+    clrCheckMarkGr = static_cast<COLORREF>(HB_PARVNL(1, 28));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETMENUCOLORS, HMG_SETMENUCOLORS )
+HB_FUNC_TRANSLATE(SETMENUCOLORS, HMG_SETMENUCOLORS)
 #endif
 
 // Call this funtions on WM_DESTROY, WM_MEASUREITEM of menu owner window
 
-HB_FUNC( HMG__ONDESTROYMENU )
+HB_FUNC(HMG__ONDESTROYMENU)
 {
-   auto menu = hmg_par_HMENU(1);
+  auto menu = hmg_par_HMENU(1);
 
-   if( IsMenu(menu) ) {
-      bool bResult = _DestroyMenu(menu);
+  if (IsMenu(menu))
+  {
+    bool bResult = _DestroyMenu(menu);
 
 #ifdef _ERRORMSG_
-      if( !bResult ) {
-         MessageBox(nullptr, "Menu is not destroyed successfully", "Warning", MB_OK | MB_ICONWARNING);
-      }
+    if (!bResult)
+    {
+      MessageBox(nullptr, "Menu is not destroyed successfully", "Warning", MB_OK | MB_ICONWARNING);
+    }
 #endif
-      if( hb_pcount() > 1 && hb_parl(2) ) {
-         bResult = bResult && DestroyMenu(menu);
-      }
+    if (hb_pcount() > 1 && hb_parl(2))
+    {
+      bResult = bResult && DestroyMenu(menu);
+    }
 
-      hb_retl(bResult);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    hb_retl(bResult);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _ONDESTROYMENU, HMG__ONDESTROYMENU )
+HB_FUNC_TRANSLATE(_ONDESTROYMENU, HMG__ONDESTROYMENU)
 #endif
 
 static BOOL _DestroyMenu(HMENU menu)
 {
-   BOOL bResult = TRUE;
+  BOOL bResult = TRUE;
 
-   for( auto i = 0; i < GetMenuItemCount(menu); i++ ) { // TODO: move declarations to outside of the loop
-      HMENU pSubMenu;
+  for (auto i = 0; i < GetMenuItemCount(menu); i++)
+  { // TODO: move declarations to outside of the loop
+    HMENU pSubMenu;
 
-      MENUITEMINFO MenuItemInfo;
-      MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
-      MenuItemInfo.fMask  = MIIM_CHECKMARKS | MIIM_DATA;
-      GetMenuItemInfo(menu, i, TRUE, &MenuItemInfo);
+    MENUITEMINFO MenuItemInfo;
+    MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+    MenuItemInfo.fMask = MIIM_CHECKMARKS | MIIM_DATA;
+    GetMenuItemInfo(menu, i, TRUE, &MenuItemInfo);
 
-      if( MenuItemInfo.hbmpChecked != nullptr ) {
-         bResult = DeleteObject(MenuItemInfo.hbmpChecked);
-         MenuItemInfo.hbmpChecked = nullptr;
+    if (MenuItemInfo.hbmpChecked != nullptr)
+    {
+      bResult = DeleteObject(MenuItemInfo.hbmpChecked);
+      MenuItemInfo.hbmpChecked = nullptr;
+    }
+
+    if (MenuItemInfo.hbmpUnchecked != nullptr)
+    {
+      bResult = bResult && DeleteObject(MenuItemInfo.hbmpUnchecked);
+      MenuItemInfo.hbmpUnchecked = nullptr;
+    }
+
+    if (s_bCustomDraw)
+    {
+      auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
+
+      if (lpMenuItem->caption != nullptr)
+      {
+        hb_xfree(lpMenuItem->caption);
+        lpMenuItem->caption = nullptr;
       }
 
-      if( MenuItemInfo.hbmpUnchecked != nullptr ) {
-         bResult = bResult && DeleteObject(MenuItemInfo.hbmpUnchecked);
-         MenuItemInfo.hbmpUnchecked = nullptr;
+      if (lpMenuItem->hBitmap != nullptr)
+      {
+        bResult = bResult && DeleteObject(lpMenuItem->hBitmap);
+        lpMenuItem->hBitmap = nullptr;
       }
 
-      if( s_bCustomDraw ) {
-         auto lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
-
-         if( lpMenuItem->caption != nullptr ) {
-            hb_xfree(lpMenuItem->caption);
-            lpMenuItem->caption = nullptr;
-         }
-
-         if( lpMenuItem->hBitmap != nullptr ) {
-            bResult = bResult && DeleteObject(lpMenuItem->hBitmap);
-            lpMenuItem->hBitmap = nullptr;
-         }
-
-         if( GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT ) {
-            bResult = bResult && DeleteObject(lpMenuItem->hFont);
-            lpMenuItem->hFont = nullptr;
-         }
-
-         hb_xfree(lpMenuItem);
+      if (GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT)
+      {
+        bResult = bResult && DeleteObject(lpMenuItem->hFont);
+        lpMenuItem->hFont = nullptr;
       }
 
-      pSubMenu = GetSubMenu(menu, i);
+      hb_xfree(lpMenuItem);
+    }
 
-      if( pSubMenu != nullptr ) {
-         bResult = bResult && _DestroyMenu(pSubMenu);
-      }
-   }
+    pSubMenu = GetSubMenu(menu, i);
 
-   return bResult;
+    if (pSubMenu != nullptr)
+    {
+      bResult = bResult && _DestroyMenu(pSubMenu);
+    }
+  }
+
+  return bResult;
 }
 
-HB_FUNC( HMG__ONMEASUREMENUITEM )
+HB_FUNC(HMG__ONMEASUREMENUITEM)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) ) {
-      auto hdc = GetDC(hwnd);
-      auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(4));
-      auto lpMenuItem = reinterpret_cast<MENUITEM*>(lpmis->itemData);
-      SIZE size = {0, 0};
+  if (IsWindow(hwnd))
+  {
+    auto hdc = GetDC(hwnd);
+    auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(4));
+    auto lpMenuItem = reinterpret_cast<MENUITEM *>(lpmis->itemData);
+    SIZE size = {0, 0};
 
-      HFONT oldfont;
-      if( GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT ) {
-         oldfont = static_cast<HFONT>(SelectObject(hdc, lpMenuItem->hFont));
-      } else {
-         oldfont = static_cast<HFONT>(SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT)));
-      }
+    HFONT oldfont;
+    if (GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT)
+    {
+      oldfont = static_cast<HFONT>(SelectObject(hdc, lpMenuItem->hFont));
+    }
+    else
+    {
+      oldfont = static_cast<HFONT>(SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT)));
+    }
 
-      if( lpMenuItem->uiItemType == 1000 ) {
-         lpmis->itemHeight = 2 * cy_delta;
-         lpmis->itemWidth  = 0;
-      } else {
-         GetTextExtentPoint32(hdc, lpMenuItem->caption, lpMenuItem->cch, &size);
-      }
+    if (lpMenuItem->uiItemType == 1000)
+    {
+      lpmis->itemHeight = 2 * cy_delta;
+      lpmis->itemWidth = 0;
+    }
+    else
+    {
+      GetTextExtentPoint32(hdc, lpMenuItem->caption, lpMenuItem->cch, &size);
+    }
 
-      if( lpMenuItem->uiItemType == 1 ) {
-         lpmis->itemWidth = size.cx;
-      } else if( lpmis->itemID > 0 ) {
-         lpmis->itemWidth = min_width + cx_delta + size.cx + 8;
-      }
+    if (lpMenuItem->uiItemType == 1)
+    {
+      lpmis->itemWidth = size.cx;
+    }
+    else if (lpmis->itemID > 0)
+    {
+      lpmis->itemWidth = min_width + cx_delta + size.cx + 8;
+    }
 
-      if( lpMenuItem->uiItemType != 1000 ) {
-         lpmis->itemHeight = (size.cy > min_height ? size.cy : min_height);
-         lpmis->itemHeight += cy_delta;
-      }
+    if (lpMenuItem->uiItemType != 1000)
+    {
+      lpmis->itemHeight = (size.cy > min_height ? size.cy : min_height);
+      lpmis->itemHeight += cy_delta;
+    }
 
-      SelectObject(hdc, oldfont);
+    SelectObject(hdc, oldfont);
 
-      ReleaseDC(hwnd, hdc);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    ReleaseDC(hwnd, hdc);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _ONMEASUREMENUITEM, HMG__ONMEASUREMENUITEM )
+HB_FUNC_TRANSLATE(_ONMEASUREMENUITEM, HMG__ONMEASUREMENUITEM)
 #endif
 
-HB_FUNC( HMG__COLORMENU )
+HB_FUNC(HMG__COLORMENU)
 {
-   auto hWnd = hmg_par_HWND(1);
-   HMENU iMenu = GetMenu(hWnd);
-   MENUINFO iMenuInfo;
-   GetMenuInfo(iMenu, &iMenuInfo);
-   iMenuInfo.cbSize = sizeof(MENUINFO);
-   BOOL lSubMenu = HB_ISLOG(3) ? hb_parl(3) : FALSE;
-   if( lSubMenu ) {
-      iMenuInfo.fMask = MIM_BACKGROUND | MIM_APPLYTOSUBMENUS;
-   } else {
-      iMenuInfo.fMask = MIM_BACKGROUND;
-   }
-   INT nRed = HB_PARNI(2, 1);
-   INT nGreen = HB_PARNI(2, 2);
-   INT nBlue = HB_PARNI(2, 3);
-   iMenuInfo.hbrBack = CreateSolidBrush(RGB(nRed, nGreen, nBlue));
-   SetMenuInfo(iMenu, &iMenuInfo);
-   DrawMenuBar(hWnd);
+  auto hWnd = hmg_par_HWND(1);
+  HMENU iMenu = GetMenu(hWnd);
+  MENUINFO iMenuInfo;
+  GetMenuInfo(iMenu, &iMenuInfo);
+  iMenuInfo.cbSize = sizeof(MENUINFO);
+  BOOL lSubMenu = HB_ISLOG(3) ? hb_parl(3) : FALSE;
+  if (lSubMenu)
+  {
+    iMenuInfo.fMask = MIM_BACKGROUND | MIM_APPLYTOSUBMENUS;
+  }
+  else
+  {
+    iMenuInfo.fMask = MIM_BACKGROUND;
+  }
+  INT nRed = HB_PARNI(2, 1);
+  INT nGreen = HB_PARNI(2, 2);
+  INT nBlue = HB_PARNI(2, 3);
+  iMenuInfo.hbrBack = CreateSolidBrush(RGB(nRed, nGreen, nBlue));
+  SetMenuInfo(iMenu, &iMenuInfo);
+  DrawMenuBar(hWnd);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _COLORMENU, HMG__COLORMENU )
+HB_FUNC_TRANSLATE(_COLORMENU, HMG__COLORMENU)
 #endif

@@ -47,104 +47,110 @@
 #include "mgdefs.hpp"
 
 #if defined(_MSC_VER)
-#pragma warning (disable:4996)
+#pragma warning(disable : 4996)
 #endif
 #include <commctrl.h>
 
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-using VERIFYSCREENSAVEPWD = BOOL (WINAPI *)(HWND hwnd);
-using PWDCHANGEPASSWORD = VOID (WINAPI *)(LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1, UINT uiReserved2);
+using VERIFYSCREENSAVEPWD = BOOL(WINAPI *)(HWND hwnd);
+using PWDCHANGEPASSWORD = VOID(WINAPI *)(LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1,
+                                         UINT uiReserved2);
 
-HB_FUNC( HMG_VERIFYPASSWORD )
+HB_FUNC(HMG_VERIFYPASSWORD)
 {
-   // Under NT, we return TRUE immediately. This lets the saver quit,
-   // and the system manages passwords. Under '95, we call VerifyScreenSavePwd.
-   // This checks the appropriate registry key and, if necessary,
-   // pops up a verify dialog.
+  // Under NT, we return TRUE immediately. This lets the saver quit,
+  // and the system manages passwords. Under '95, we call VerifyScreenSavePwd.
+  // This checks the appropriate registry key and, if necessary,
+  // pops up a verify dialog.
 
-   HINSTANCE hpwdcpl;
-   VERIFYSCREENSAVEPWD VerifyScreenSavePwd;
-   BOOL bres;
-   OSVERSIONINFO osvi;
+  HINSTANCE hpwdcpl;
+  VERIFYSCREENSAVEPWD VerifyScreenSavePwd;
+  BOOL bres;
+  OSVERSIONINFO osvi;
 
-   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx(&osvi);
+  osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  GetVersionEx(&osvi);
 
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
-      hb_retl(true);
-   }
+  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+  {
+    hb_retl(true);
+  }
 
-   hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
+  hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
 
-   if( hpwdcpl == nullptr ) {
-      hb_retl(false);
-   }
+  if (hpwdcpl == nullptr)
+  {
+    hb_retl(false);
+  }
 
-   VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
-   if( VerifyScreenSavePwd == nullptr ) {
-      FreeLibrary(hpwdcpl);
-      hb_retl(false);
-   }
+  VerifyScreenSavePwd = (VERIFYSCREENSAVEPWD)wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
+  if (VerifyScreenSavePwd == nullptr)
+  {
+    FreeLibrary(hpwdcpl);
+    hb_retl(false);
+  }
 
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   bres = VerifyScreenSavePwd(hwnd);
-   FreeLibrary(hpwdcpl);
+  bres = VerifyScreenSavePwd(hwnd);
+  FreeLibrary(hpwdcpl);
 
-   hb_retl(bres);
+  hb_retl(bres);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( VERIFYPASSWORD, HMG_VERIFYPASSWORD )
+HB_FUNC_TRANSLATE(VERIFYPASSWORD, HMG_VERIFYPASSWORD)
 #endif
 
-HB_FUNC( HMG_CHANGEPASSWORD )
+HB_FUNC(HMG_CHANGEPASSWORD)
 {
-   // This only ever gets called under '95, when started with the /a option.
+  // This only ever gets called under '95, when started with the /a option.
 
-   HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
-   PWDCHANGEPASSWORD PwdChangePassword;
+  HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
+  PWDCHANGEPASSWORD PwdChangePassword;
 
-   if( hmpr == nullptr ) {
-      hb_retl(false);
-   }
+  if (hmpr == nullptr)
+  {
+    hb_retl(false);
+  }
 
-   PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
+  PwdChangePassword = (PWDCHANGEPASSWORD)wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
 
-   if( PwdChangePassword == nullptr ) {
-      FreeLibrary(hmpr);
-      hb_retl(false);
-   }
+  if (PwdChangePassword == nullptr)
+  {
+    FreeLibrary(hmpr);
+    hb_retl(false);
+  }
 
-   auto hwnd = hmg_par_HWND(1);
-   PwdChangePassword("SCRSAVE", hwnd, 0, 0);
-   FreeLibrary(hmpr);
+  auto hwnd = hmg_par_HWND(1);
+  PwdChangePassword("SCRSAVE", hwnd, 0, 0);
+  FreeLibrary(hmpr);
 
-   hb_retl(true);
+  hb_retl(true);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( CHANGEPASSWORD, HMG_CHANGEPASSWORD )
+HB_FUNC_TRANSLATE(CHANGEPASSWORD, HMG_CHANGEPASSWORD)
 #endif
 
 /*
    Moved from c_controlmisc.c
  */
-HB_FUNC( HMG_SETCURSORPOS )
+HB_FUNC(HMG_SETCURSORPOS)
 {
-   SetCursorPos(hb_parni(1), hb_parni(2));
+  SetCursorPos(hb_parni(1), hb_parni(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETCURSORPOS, HMG_SETCURSORPOS )
+HB_FUNC_TRANSLATE(SETCURSORPOS, HMG_SETCURSORPOS)
 #endif
 
-HB_FUNC( HMG_SHOWCURSOR )
+HB_FUNC(HMG_SHOWCURSOR)
 {
-   hb_retni( ShowCursor(hb_parl(1)) );
+  hb_retni(ShowCursor(hb_parl(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SHOWCURSOR, HMG_SHOWCURSOR )
+HB_FUNC_TRANSLATE(SHOWCURSOR, HMG_SHOWCURSOR)
 #endif

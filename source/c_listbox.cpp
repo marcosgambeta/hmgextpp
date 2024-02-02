@@ -56,299 +56,308 @@
 #define TOTAL_TABS 10
 
 #ifdef UNICODE
-LPSTR  WideToAnsi(LPWSTR);
+LPSTR WideToAnsi(LPWSTR);
 #endif
 
-HB_FUNC( HMG_INITLISTBOX )
+HB_FUNC(HMG_INITLISTBOX)
 {
-   DWORD style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
+  DWORD style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
 
-   if( !hb_parl(9) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(10) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(10))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   if( hb_parl(11) ) {
-      style |= LBS_SORT;
-   }
+  if (hb_parl(11))
+  {
+    style |= LBS_SORT;
+  }
 
-   if( hb_parl(13) ) {
-      style |= LBS_USETABSTOPS;
-   }
+  if (hb_parl(13))
+  {
+    style |= LBS_USETABSTOPS;
+  }
 
-   if( hb_parl(14) ) {
-      style |= LBS_MULTICOLUMN | WS_HSCROLL;
-   }
+  if (hb_parl(14))
+  {
+    style |= LBS_MULTICOLUMN | WS_HSCROLL;
+  }
 
-   auto hbutton = CreateWindowEx(
-      WS_EX_CLIENTEDGE,
-      WC_LISTBOX,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3),
+                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
+                                hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   if( hb_parl(12) ) {
-      MakeDragList(hbutton);
-   }
+  if (hb_parl(12))
+  {
+    MakeDragList(hbutton);
+  }
 
-   if( hb_parl(14) ) {
-      SendMessage(hbutton, LB_SETCOLUMNWIDTH, hb_parni(5) - 20, 0);
-   }
+  if (hb_parl(14))
+  {
+    SendMessage(hbutton, LB_SETCOLUMNWIDTH, hb_parni(5) - 20, 0);
+  }
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITLISTBOX, HMG_INITLISTBOX )
+HB_FUNC_TRANSLATE(INITLISTBOX, HMG_INITLISTBOX)
 #endif
 
-HB_FUNC( HMG_LISTBOXADDSTRING )
+HB_FUNC(HMG_LISTBOXADDSTRING)
 {
-   void * str;
-   LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
-   SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString));
-   hb_strfree(str);
+  void *str;
+  LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
+  SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXADDSTRING, HMG_LISTBOXADDSTRING )
+HB_FUNC_TRANSLATE(LISTBOXADDSTRING, HMG_LISTBOXADDSTRING)
 #endif
 
-HB_FUNC( HMG_LISTBOXINSERTSTRING )
+HB_FUNC(HMG_LISTBOXINSERTSTRING)
 {
-   void * str;
-   LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
-   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(lpString));
-   hb_strfree(str);
+  void *str;
+  LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
+  SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1,
+              reinterpret_cast<LPARAM>(lpString));
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXINSERTSTRING, HMG_LISTBOXINSERTSTRING )
+HB_FUNC_TRANSLATE(LISTBOXINSERTSTRING, HMG_LISTBOXINSERTSTRING)
 #endif
 
 /* Modified by P.Ch. 16.10. */
-HB_FUNC( HMG_LISTBOXGETSTRING )
+HB_FUNC(HMG_LISTBOXGETSTRING)
 {
 #ifdef UNICODE
-   LPSTR lpString;
+  LPSTR lpString;
 #endif
-   int iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
-   TCHAR * cString;
+  int iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
+  TCHAR *cString;
 
-   if( iLen > 0 && (cString = static_cast<TCHAR*>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr ) {
-      SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
-   #ifdef UNICODE
-      lpString = WideToAnsi(cString);
-      hb_retc(lpString);
-      hb_xfree(lpString);
-   #else
-      hb_retclen_buffer(cString, iLen);
-   #endif
-   } else {
-      hb_retc_null();
-   }
+  if (iLen > 0 && (cString = static_cast<TCHAR *>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr)
+  {
+    SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1,
+                reinterpret_cast<LPARAM>(cString));
+#ifdef UNICODE
+    lpString = WideToAnsi(cString);
+    hb_retc(lpString);
+    hb_xfree(lpString);
+#else
+    hb_retclen_buffer(cString, iLen);
+#endif
+  }
+  else
+  {
+    hb_retc_null();
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXGETSTRING, HMG_LISTBOXGETSTRING )
+HB_FUNC_TRANSLATE(LISTBOXGETSTRING, HMG_LISTBOXGETSTRING)
 #endif
 
-HB_FUNC( HMG_INITMULTILISTBOX )
+HB_FUNC(HMG_INITMULTILISTBOX)
 {
-   DWORD style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
+  DWORD style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY |
+                LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
 
-   if( !hb_parl(9) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(9))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(10) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(10))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   if( hb_parl(11) ) {
-      style |= LBS_SORT;
-   }
+  if (hb_parl(11))
+  {
+    style |= LBS_SORT;
+  }
 
-   if( hb_parl(13) ) {
-      style |= LBS_USETABSTOPS;
-   }
+  if (hb_parl(13))
+  {
+    style |= LBS_USETABSTOPS;
+  }
 
-   if( hb_parl(14) ) {
-      style |= LBS_MULTICOLUMN;
-   }
+  if (hb_parl(14))
+  {
+    style |= LBS_MULTICOLUMN;
+  }
 
-   auto hbutton = CreateWindowEx(
-      WS_EX_CLIENTEDGE,
-      WC_LISTBOX,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3),
+                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
+                                hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   if( hb_parl(12) ) {
-      MakeDragList(hbutton);
-   }
+  if (hb_parl(12))
+  {
+    MakeDragList(hbutton);
+  }
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITMULTILISTBOX, HMG_INITMULTILISTBOX )
+HB_FUNC_TRANSLATE(INITMULTILISTBOX, HMG_INITMULTILISTBOX)
 #endif
 
-HB_FUNC( HMG_LISTBOXGETMULTISEL )
+HB_FUNC(HMG_LISTBOXGETMULTISEL)
 {
-   auto hwnd = hmg_par_HWND(1);
-   INT n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
-   int buffer[32768];
+  auto hwnd = hmg_par_HWND(1);
+  INT n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
+  int buffer[32768];
 
-   SendMessage(hwnd, LB_GETSELITEMS, n, reinterpret_cast<LPARAM>(buffer));
+  SendMessage(hwnd, LB_GETSELITEMS, n, reinterpret_cast<LPARAM>(buffer));
 
-   hb_reta(n);
+  hb_reta(n);
 
-   for( auto i = 0; i < n; i++ ) {
-      HB_STORNI(buffer[i] + 1, -1, i + 1);
-   }
+  for (auto i = 0; i < n; i++)
+  {
+    HB_STORNI(buffer[i] + 1, -1, i + 1);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXGETMULTISEL, HMG_LISTBOXGETMULTISEL )
+HB_FUNC_TRANSLATE(LISTBOXGETMULTISEL, HMG_LISTBOXGETMULTISEL)
 #endif
 
-HB_FUNC( HMG_LISTBOXSETMULTISEL )
+HB_FUNC(HMG_LISTBOXSETMULTISEL)
 {
-   auto hwnd = hmg_par_HWND(1);
-   int n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
+  auto hwnd = hmg_par_HWND(1);
+  int n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
-   // CLEAR CURRENT SELECTIONS
-   for( auto i = 0; i < n; i++ ) {
-      SendMessage(hwnd, LB_SETSEL, 0, i);
-   }
+  // CLEAR CURRENT SELECTIONS
+  for (auto i = 0; i < n; i++)
+  {
+    SendMessage(hwnd, LB_SETSEL, 0, i);
+  }
 
-   auto wArray = hb_param(2, Harbour::Item::ARRAY);
-   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto wArray = hb_param(2, Harbour::Item::ARRAY);
+  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
 
-   // SET NEW SELECTIONS
-   for( auto i = 0; i <= l; i++ ) {
-      SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI(wArray, i + 1) - 1);
-   }
+  // SET NEW SELECTIONS
+  for (auto i = 0; i <= l; i++)
+  {
+    SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI(wArray, i + 1) - 1);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXSETMULTISEL, HMG_LISTBOXSETMULTISEL )
+HB_FUNC_TRANSLATE(LISTBOXSETMULTISEL, HMG_LISTBOXSETMULTISEL)
 #endif
 
-HB_FUNC( HMG_LISTBOXSETMULTITAB )
+HB_FUNC(HMG_LISTBOXSETMULTITAB)
 {
-   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
-   int nTabStops[TOTAL_TABS];
-   auto wArray = hb_param(2, Harbour::Item::ARRAY);
-   DWORD dwDlgBase = GetDialogBaseUnits();
-   int baseunitX = LOWORD(dwDlgBase);
+  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  int nTabStops[TOTAL_TABS];
+  auto wArray = hb_param(2, Harbour::Item::ARRAY);
+  DWORD dwDlgBase = GetDialogBaseUnits();
+  int baseunitX = LOWORD(dwDlgBase);
 
-   for( auto i = 0; i <= l; i++ ) {
-      nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
-   }
+  for (auto i = 0; i <= l; i++)
+  {
+    nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
+  }
 
-   SendMessage(hmg_par_HWND(1), LB_SETTABSTOPS, l, reinterpret_cast<LPARAM>(&nTabStops));
+  SendMessage(hmg_par_HWND(1), LB_SETTABSTOPS, l, reinterpret_cast<LPARAM>(&nTabStops));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( LISTBOXSETMULTITAB, HMG_LISTBOXSETMULTITAB )
+HB_FUNC_TRANSLATE(LISTBOXSETMULTITAB, HMG_LISTBOXSETMULTITAB)
 #endif
 
-HB_FUNC( HMG__GETDDLMESSAGE )
+HB_FUNC(HMG__GETDDLMESSAGE)
 {
-   hb_retnl(RegisterWindowMessage(DRAGLISTMSGSTRING));
+  hb_retnl(RegisterWindowMessage(DRAGLISTMSGSTRING));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _GETDDLMESSAGE, HMG__GETDDLMESSAGE )
+HB_FUNC_TRANSLATE(_GETDDLMESSAGE, HMG__GETDDLMESSAGE)
 #endif
 
-HB_FUNC( HMG_GET_DRAG_LIST_NOTIFICATION_CODE )
+HB_FUNC(HMG_GET_DRAG_LIST_NOTIFICATION_CODE)
 {
-   LPARAM lParam = HB_PARNL(1);
-   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
-   hb_retni(lpdli->uNotification);
+  LPARAM lParam = HB_PARNL(1);
+  auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+  hb_retni(lpdli->uNotification);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GET_DRAG_LIST_NOTIFICATION_CODE, HMG_GET_DRAG_LIST_NOTIFICATION_CODE )
+HB_FUNC_TRANSLATE(GET_DRAG_LIST_NOTIFICATION_CODE, HMG_GET_DRAG_LIST_NOTIFICATION_CODE)
 #endif
 
-HB_FUNC( HMG_GET_DRAG_LIST_DRAGITEM )
+HB_FUNC(HMG_GET_DRAG_LIST_DRAGITEM)
 {
-   LPARAM lParam = HB_PARNL(1);
-   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
-   int nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
-   hb_retni(nDragItem);
+  LPARAM lParam = HB_PARNL(1);
+  auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+  int nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
+  hb_retni(nDragItem);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GET_DRAG_LIST_DRAGITEM, HMG_GET_DRAG_LIST_DRAGITEM )
+HB_FUNC_TRANSLATE(GET_DRAG_LIST_DRAGITEM, HMG_GET_DRAG_LIST_DRAGITEM)
 #endif
 
-HB_FUNC( HMG_DRAG_LIST_DRAWINSERT )
+HB_FUNC(HMG_DRAG_LIST_DRAWINSERT)
 {
-   auto hwnd = hmg_par_HWND(1);
-   LPARAM lParam = HB_PARNL(2);
-   auto nItem = hb_parni(3);
-   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+  auto hwnd = hmg_par_HWND(1);
+  LPARAM lParam = HB_PARNL(2);
+  auto nItem = hb_parni(3);
+  auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
-   int nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
+  int nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
-   if( nItem < nItemCount ) {
-      DrawInsert(hwnd, lpdli->hWnd, nItem);
-   } else {
-      DrawInsert(hwnd, lpdli->hWnd, -1);
-   }
+  if (nItem < nItemCount)
+  {
+    DrawInsert(hwnd, lpdli->hWnd, nItem);
+  }
+  else
+  {
+    DrawInsert(hwnd, lpdli->hWnd, -1);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DRAG_LIST_DRAWINSERT, HMG_DRAG_LIST_DRAWINSERT )
+HB_FUNC_TRANSLATE(DRAG_LIST_DRAWINSERT, HMG_DRAG_LIST_DRAWINSERT)
 #endif
 
-HB_FUNC( HMG_DRAG_LIST_MOVE_ITEMS )
+HB_FUNC(HMG_DRAG_LIST_MOVE_ITEMS)
 {
-   LPARAM lParam = HB_PARNL(1);
-   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+  LPARAM lParam = HB_PARNL(1);
+  auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
-   char string[1024];
+  char string[1024];
 
-   int result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
+  int result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
 
-   if( result != LB_ERR ) {
-      result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
-   }
+  if (result != LB_ERR)
+  {
+    result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
+  }
 
-   if( result != LB_ERR ) {
-      result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
-   }
+  if (result != LB_ERR)
+  {
+    result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
+  }
 
-   if( result != LB_ERR ) {
-      result = ListBox_SetCurSel(lpdli->hWnd, hb_parni(3));
-   }
+  if (result != LB_ERR)
+  {
+    result = ListBox_SetCurSel(lpdli->hWnd, hb_parni(3));
+  }
 
-   hb_retl(result != LB_ERR ? TRUE : FALSE);
+  hb_retl(result != LB_ERR ? TRUE : FALSE);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DRAG_LIST_MOVE_ITEMS, HMG_DRAG_LIST_MOVE_ITEMS )
+HB_FUNC_TRANSLATE(DRAG_LIST_MOVE_ITEMS, HMG_DRAG_LIST_MOVE_ITEMS)
 #endif

@@ -52,50 +52,63 @@
 
 #if (!defined(EM_GETCUEBANNER))
 #if (!defined(ECM_FIRST))
-#define ECM_FIRST   0x1500
+#define ECM_FIRST 0x1500
 #endif
-#define EM_GETCUEBANNER   (ECM_FIRST + 2)
+#define EM_GETCUEBANNER (ECM_FIRST + 2)
 #endif
 
-HB_FUNC( HMG_GETCUEBANNERTEXT )
+HB_FUNC(HMG_GETCUEBANNERTEXT)
 {
-   auto hwnd = hmg_par_HWND(1);
+  auto hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) ) {
-      auto lpWCStr = static_cast<HB_WCHAR*>(hb_xgrab(256 * sizeof(HB_WCHAR)));
+  if (IsWindow(hwnd))
+  {
+    auto lpWCStr = static_cast<HB_WCHAR *>(hb_xgrab(256 * sizeof(HB_WCHAR)));
 
-      if( SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)), 256) ) {
-         hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
-      } else {
-         hb_retc_null();
-      }
+    if (SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)),
+                    256))
+    {
+      hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
+    }
+    else
+    {
+      hb_retc_null();
+    }
 
+    hb_xfree(lpWCStr);
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
+}
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(GETCUEBANNERTEXT, HMG_GETCUEBANNERTEXT)
+#endif
+
+HB_FUNC(HMG_SENDMESSAGESTRINGW)
+{
+  auto hwnd = hmg_par_HWND(1);
+
+  if (IsWindow(hwnd))
+  {
+    auto lpWCStr = static_cast<HB_WCHAR *>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));
+
+    HB_RETNL(
+        static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), static_cast<WPARAM>(hb_parl(3)),
+                                          reinterpret_cast<LPARAM>(lpWCStr))));
+    if (lpWCStr != nullptr)
+    {
       hb_xfree(lpWCStr);
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
+    }
+  }
+  else
+  {
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETCUEBANNERTEXT, HMG_GETCUEBANNERTEXT )
-#endif
-
-HB_FUNC( HMG_SENDMESSAGESTRINGW )
-{
-   auto hwnd = hmg_par_HWND(1);
-
-   if( IsWindow(hwnd) ) {
-      auto lpWCStr = static_cast<HB_WCHAR*>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));
-
-      HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), static_cast<WPARAM>(hb_parl(3)), reinterpret_cast<LPARAM>(lpWCStr))));
-      if( lpWCStr != nullptr ) {
-         hb_xfree(lpWCStr);
-      }
-   } else {
-      hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
-   }
-}
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SENDMESSAGESTRINGW, HMG_SENDMESSAGESTRINGW )
+HB_FUNC_TRANSLATE(SENDMESSAGESTRINGW, HMG_SENDMESSAGESTRINGW)
 #endif

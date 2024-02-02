@@ -48,153 +48,161 @@
 #include <hbwinuni.hpp>
 
 #ifdef UNICODE
-LPSTR  WideToAnsi(LPWSTR);
+LPSTR WideToAnsi(LPWSTR);
 #endif
 
 /*
 HMG_GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFileName) --> string
 */
-HB_FUNC( HMG_GETPRIVATEPROFILESTRING )
+HB_FUNC(HMG_GETPRIVATEPROFILESTRING)
 {
-   void * str1 = nullptr;
-   LPCTSTR lpSection  = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : nullptr;
-   void * str2 = nullptr;
-   LPCTSTR lpEntry    = HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr;
-   void * str3;
-   LPCTSTR lpDefault  = HB_PARSTR(3, &str3, nullptr);
-   void * str4;
-   LPCTSTR lpFileName = HB_PARSTR(4, &str4, nullptr);
+  void *str1 = nullptr;
+  LPCTSTR lpSection = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : nullptr;
+  void *str2 = nullptr;
+  LPCTSTR lpEntry = HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr;
+  void *str3;
+  LPCTSTR lpDefault = HB_PARSTR(3, &str3, nullptr);
+  void *str4;
+  LPCTSTR lpFileName = HB_PARSTR(4, &str4, nullptr);
 
 #ifdef UNICODE
-   LPSTR   pStr;
+  LPSTR pStr;
 #endif
 
-   DWORD nSize = 256;
-   TCHAR * bBuffer;
-   DWORD dwLen;
+  DWORD nSize = 256;
+  TCHAR *bBuffer;
+  DWORD dwLen;
 
-   do {
-      nSize  *= 2;
-      bBuffer = static_cast<TCHAR*>(hb_xgrab(sizeof(TCHAR) * nSize));
-      dwLen = GetPrivateProfileString(lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName);
-   } while( dwLen >= nSize - 1 );
+  do
+  {
+    nSize *= 2;
+    bBuffer = static_cast<TCHAR *>(hb_xgrab(sizeof(TCHAR) * nSize));
+    dwLen = GetPrivateProfileString(lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName);
+  } while (dwLen >= nSize - 1);
 
-   if( dwLen ) {
+  if (dwLen)
+  {
 #ifndef UNICODE
-      hb_retclen(static_cast<TCHAR*>(bBuffer), dwLen);
+    hb_retclen(static_cast<TCHAR *>(bBuffer), dwLen);
 #else
-      pStr = WideToAnsi(bBuffer);
-      hb_retc(pStr);
-      hb_xfree(pStr);
+    pStr = WideToAnsi(bBuffer);
+    hb_retc(pStr);
+    hb_xfree(pStr);
 #endif
-   } else {
-      HB_RETSTR(lpDefault);
-   }
+  }
+  else
+  {
+    HB_RETSTR(lpDefault);
+  }
 
-   hb_xfree(bBuffer);
-   hb_strfree(str1);
-   hb_strfree(str2);
-   hb_strfree(str3);
-   hb_strfree(str4);
+  hb_xfree(bBuffer);
+  hb_strfree(str1);
+  hb_strfree(str2);
+  hb_strfree(str3);
+  hb_strfree(str4);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETPRIVATEPROFILESTRING, HMG_GETPRIVATEPROFILESTRING )
+HB_FUNC_TRANSLATE(GETPRIVATEPROFILESTRING, HMG_GETPRIVATEPROFILESTRING)
 #endif
 
 /*
 HMG_WRITEPRIVATEPROFILESTRING(cSection, cEntry|NIL, cData|NIL, cFileName) --> .T.|.F.
 */
-HB_FUNC( HMG_WRITEPRIVATEPROFILESTRING )
+HB_FUNC(HMG_WRITEPRIVATEPROFILESTRING)
 {
-   void * str1;
-   void * str2 = nullptr;
-   void * str3 = nullptr;
-   void * str4;
-   hb_retl(WritePrivateProfileString(
-      HB_PARSTR(1, &str1, nullptr),
-      HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr,
-      HB_ISCHAR(3) ? HB_PARSTR(3, &str3, nullptr) : nullptr,
-      HB_PARSTR(4, &str4, nullptr)));
-   hb_strfree(str1);
-   hb_strfree(str2);
-   hb_strfree(str3);
-   hb_strfree(str4);
+  void *str1;
+  void *str2 = nullptr;
+  void *str3 = nullptr;
+  void *str4;
+  hb_retl(WritePrivateProfileString(
+      HB_PARSTR(1, &str1, nullptr), HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr,
+      HB_ISCHAR(3) ? HB_PARSTR(3, &str3, nullptr) : nullptr, HB_PARSTR(4, &str4, nullptr)));
+  hb_strfree(str1);
+  hb_strfree(str2);
+  hb_strfree(str3);
+  hb_strfree(str4);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( WRITEPRIVATEPROFILESTRING, HMG_WRITEPRIVATEPROFILESTRING )
+HB_FUNC_TRANSLATE(WRITEPRIVATEPROFILESTRING, HMG_WRITEPRIVATEPROFILESTRING)
 #endif
 
 /*
 HMG_DELINIENTRY(cSection, cEntry, cFileName) --> .T.|.F.
 */
-HB_FUNC( HMG_DELINIENTRY )
+HB_FUNC(HMG_DELINIENTRY)
 {
-   void * str1;
-   void * str2;
-   void * str3;
-   hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_PARSTR(2, &str2, nullptr), nullptr, HB_PARSTR(3, &str3, nullptr)));
-   hb_strfree(str1);
-   hb_strfree(str2);
-   hb_strfree(str3);
+  void *str1;
+  void *str2;
+  void *str3;
+  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_PARSTR(2, &str2, nullptr),
+                                    nullptr, HB_PARSTR(3, &str3, nullptr)));
+  hb_strfree(str1);
+  hb_strfree(str2);
+  hb_strfree(str3);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DELINIENTRY, HMG_DELINIENTRY )
+HB_FUNC_TRANSLATE(DELINIENTRY, HMG_DELINIENTRY)
 #endif
 
 /*
 HMG_DELINISECTION(cSection, cFileName) --> .T.|.F.
 */
-HB_FUNC( HMG_DELINISECTION )
+HB_FUNC(HMG_DELINISECTION)
 {
-   void * str1;
-   void * str2;
-   hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), nullptr, TEXT(""), HB_PARSTR(2, &str2, nullptr)));
-   hb_strfree(str1);
-   hb_strfree(str2);
+  void *str1;
+  void *str2;
+  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), nullptr, TEXT(""),
+                                    HB_PARSTR(2, &str2, nullptr)));
+  hb_strfree(str1);
+  hb_strfree(str2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DELINISECTION, HMG_DELINISECTION )
+HB_FUNC_TRANSLATE(DELINISECTION, HMG_DELINISECTION)
 #endif
 
-static TCHAR * FindFirstSubString(TCHAR * Strings)
+static TCHAR *FindFirstSubString(TCHAR *Strings)
 {
-   TCHAR * p = Strings;
+  TCHAR *p = Strings;
 
-   if( *p == 0 ) {
-      p = nullptr;
-   }
+  if (*p == 0)
+  {
+    p = nullptr;
+  }
 
-   return p;
+  return p;
 }
 
-static TCHAR * FindNextSubString(TCHAR * Strings)
+static TCHAR *FindNextSubString(TCHAR *Strings)
 {
-   TCHAR * p = Strings;
+  TCHAR *p = Strings;
 
-   p = p + lstrlen(Strings) + 1;
+  p = p + lstrlen(Strings) + 1;
 
-   if( *p == 0 ) {
-      p = nullptr;
-   }
+  if (*p == 0)
+  {
+    p = nullptr;
+  }
 
-   return p;
+  return p;
 }
 
-static INT FindLenSubString(TCHAR * Strings)
+static INT FindLenSubString(TCHAR *Strings)
 {
-   INT i = 0;
-   TCHAR * p = Strings;
+  INT i = 0;
+  TCHAR *p = Strings;
 
-   if( (p = FindFirstSubString(p)) != nullptr ) {
-      for( i = 1; (p = FindNextSubString(p)) != nullptr; i++ ) {
-      }
-   }
+  if ((p = FindFirstSubString(p)) != nullptr)
+  {
+    for (i = 1; (p = FindNextSubString(p)) != nullptr; i++)
+    {
+    }
+  }
 
-   return i;
+  return i;
 }
 
 // (JK) HMG 1.0 Experimental build 6
@@ -202,43 +210,47 @@ static INT FindLenSubString(TCHAR * Strings)
 /*
 HMG__GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
 */
-HB_FUNC( HMG__GETPRIVATEPROFILESECTIONNAMES )
+HB_FUNC(HMG__GETPRIVATEPROFILESECTIONNAMES)
 {
-   TCHAR bBuffer[32767];
-   INT nLen;
+  TCHAR bBuffer[32767];
+  INT nLen;
 #ifdef UNICODE
-   LPSTR pStr;
+  LPSTR pStr;
 #endif
 
-   ZeroMemory(bBuffer, sizeof(bBuffer));
-   void * str;
-   GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(1, &str, nullptr));
-   hb_strfree(str);
+  ZeroMemory(bBuffer, sizeof(bBuffer));
+  void *str;
+  GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR),
+                                HB_PARSTR(1, &str, nullptr));
+  hb_strfree(str);
 
-   auto p = static_cast<TCHAR*>(bBuffer);
-   nLen = FindLenSubString(p);
-   hb_reta(nLen);
-   if( nLen > 0 ) {
+  auto p = static_cast<TCHAR *>(bBuffer);
+  nLen = FindLenSubString(p);
+  hb_reta(nLen);
+  if (nLen > 0)
+  {
 #ifndef UNICODE
-      HB_STORC((p = FindFirstSubString(p)), -1, 1);
-      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
-         HB_STORC(p, -1, i);
-      }
+    HB_STORC((p = FindFirstSubString(p)), -1, 1);
+    for (auto i = 2; (p = FindNextSubString(p)) != nullptr; i++)
+    {
+      HB_STORC(p, -1, i);
+    }
 #else
-      p = FindFirstSubString(p);
+    p = FindFirstSubString(p);
+    pStr = WideToAnsi(p);
+    HB_STORC(pStr, -1, 1);
+    for (auto i = 2; (p = FindNextSubString(p)) != nullptr; i++)
+    {
       pStr = WideToAnsi(p);
-      HB_STORC(pStr, -1, 1);
-      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
-         pStr = WideToAnsi(p);
-         HB_STORC(pStr, -1, i);
-      }
-      hb_xfree(pStr);
+      HB_STORC(pStr, -1, i);
+    }
+    hb_xfree(pStr);
 #endif
-   }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _GETPRIVATEPROFILESECTIONNAMES, HMG__GETPRIVATEPROFILESECTIONNAMES )
+HB_FUNC_TRANSLATE(_GETPRIVATEPROFILESECTIONNAMES, HMG__GETPRIVATEPROFILESECTIONNAMES)
 #endif
 
 // Used to retrieve all key/value pairs of a given section.
@@ -246,41 +258,45 @@ HB_FUNC_TRANSLATE( _GETPRIVATEPROFILESECTIONNAMES, HMG__GETPRIVATEPROFILESECTION
 /*
 HMG__GETPRIVATEPROFILESECTION(cSectionName, cFileName) --> array
 */
-HB_FUNC( HMG__GETPRIVATEPROFILESECTION )
+HB_FUNC(HMG__GETPRIVATEPROFILESECTION)
 {
 #ifdef UNICODE
-   LPSTR pStr;
+  LPSTR pStr;
 #endif
 
-   TCHAR bBuffer[32767];
-   ZeroMemory(bBuffer, sizeof(bBuffer));
-   void * str1;
-   void * str2;
-   GetPrivateProfileSection(HB_PARSTR(1, &str1, nullptr), bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(2, &str2, nullptr));
-   hb_strfree(str1);
-   hb_strfree(str2);
-   auto p = static_cast<TCHAR*>(bBuffer);
-   INT nLen = FindLenSubString(p);
-   hb_reta(nLen);
-   if( nLen > 0 ) {
+  TCHAR bBuffer[32767];
+  ZeroMemory(bBuffer, sizeof(bBuffer));
+  void *str1;
+  void *str2;
+  GetPrivateProfileSection(HB_PARSTR(1, &str1, nullptr), bBuffer, sizeof(bBuffer) / sizeof(TCHAR),
+                           HB_PARSTR(2, &str2, nullptr));
+  hb_strfree(str1);
+  hb_strfree(str2);
+  auto p = static_cast<TCHAR *>(bBuffer);
+  INT nLen = FindLenSubString(p);
+  hb_reta(nLen);
+  if (nLen > 0)
+  {
 #ifndef UNICODE
-      HB_STORC((p = FindFirstSubString(p)), -1, 1);
-      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
-         HB_STORC(p, -1, i);
-      }
+    HB_STORC((p = FindFirstSubString(p)), -1, 1);
+    for (auto i = 2; (p = FindNextSubString(p)) != nullptr; i++)
+    {
+      HB_STORC(p, -1, i);
+    }
 #else
-      p = FindFirstSubString(p);
+    p = FindFirstSubString(p);
+    pStr = WideToAnsi(p);
+    HB_STORC(pStr, -1, 1);
+    for (auto i = 2; (p = FindNextSubString(p)) != nullptr; i++)
+    {
       pStr = WideToAnsi(p);
-      HB_STORC(pStr, -1, 1);
-      for( auto i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
-         pStr = WideToAnsi(p);
-         HB_STORC(pStr, -1, i);
-      }
-      hb_xfree(pStr);
+      HB_STORC(pStr, -1, i);
+    }
+    hb_xfree(pStr);
 #endif
-   }
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( _GETPRIVATEPROFILESECTION, HMG__GETPRIVATEPROFILESECTION )
+HB_FUNC_TRANSLATE(_GETPRIVATEPROFILESECTION, HMG__GETPRIVATEPROFILESECTION)
 #endif

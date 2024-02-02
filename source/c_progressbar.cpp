@@ -44,52 +44,45 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-HB_FUNC( HMG_INITPROGRESSBAR )
+HB_FUNC(HMG_INITPROGRESSBAR)
 {
-   INITCOMMONCONTROLSEX i;
-   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC = ICC_PROGRESS_CLASS;
-   InitCommonControlsEx(&i);
+  INITCOMMONCONTROLSEX i;
+  i.dwSize = sizeof(INITCOMMONCONTROLSEX);
+  i.dwICC = ICC_PROGRESS_CLASS;
+  InitCommonControlsEx(&i);
 
-   DWORD style = WS_CHILD;
+  DWORD style = WS_CHILD;
 
-   if( hb_parl(9) ) {
-      style |= PBS_VERTICAL;
-   }
+  if (hb_parl(9))
+  {
+    style |= PBS_VERTICAL;
+  }
 
-   if( hb_parl(10) ) {
-      style |= PBS_SMOOTH;
-   }
+  if (hb_parl(10))
+  {
+    style |= PBS_SMOOTH;
+  }
 
-   if( !hb_parl(11) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(11))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   auto hbutton = CreateWindowEx(
-      WS_EX_CLIENTEDGE,
-      PROGRESS_CLASS,
-      0,
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, PROGRESS_CLASS, 0, style, hb_parni(3),
+                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
+                                hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
-   SendMessage(hbutton, PBM_SETPOS, hmg_par_WPARAM(12), 0);
+  SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
+  SendMessage(hbutton, PBM_SETPOS, hmg_par_WPARAM(12), 0);
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITPROGRESSBAR, HMG_INITPROGRESSBAR )
+HB_FUNC_TRANSLATE(INITPROGRESSBAR, HMG_INITPROGRESSBAR)
 #endif

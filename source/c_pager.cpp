@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <shlobj.h>
@@ -52,190 +52,205 @@
 #include <hbwinuni.hpp>
 
 #if defined(__MINGW32__) && defined(__MINGW32_VERSION)
-#define Pager_ForwardMouse(hwnd, bForward) static_cast<void>(SendMessage((hwnd), PGM_FORWARDMOUSE, static_cast<WPARAM>(bForward), 0))
-#define Pager_SetBorder(hwnd, iBorder)     SendMessage((hwnd), PGM_SETBORDER, 0, static_cast<LPARAM>(iBorder))
-#define Pager_GetBorder(hwnd)              SendMessage((hwnd), PGM_GETBORDER, 0, 0)
-#define Pager_SetPos(hwnd, iPos)           SendMessage((hwnd), PGM_SETPOS, 0, static_cast<LPARAM>(iPos))
-#define Pager_GetPos(hwnd)                 SendMessage((hwnd), PGM_GETPOS, 0, 0)
-#define Pager_SetButtonSize(hwnd, iSize)   SendMessage((hwnd), PGM_SETBUTTONSIZE, 0, static_cast<LPARAM>(iSize))
-#define Pager_GetButtonSize(hwnd)          SendMessage((hwnd), PGM_GETBUTTONSIZE, 0, 0)
+#define Pager_ForwardMouse(hwnd, bForward)                                                         \
+  static_cast<void>(SendMessage((hwnd), PGM_FORWARDMOUSE, static_cast<WPARAM>(bForward), 0))
+#define Pager_SetBorder(hwnd, iBorder)                                                             \
+  SendMessage((hwnd), PGM_SETBORDER, 0, static_cast<LPARAM>(iBorder))
+#define Pager_GetBorder(hwnd) SendMessage((hwnd), PGM_GETBORDER, 0, 0)
+#define Pager_SetPos(hwnd, iPos) SendMessage((hwnd), PGM_SETPOS, 0, static_cast<LPARAM>(iPos))
+#define Pager_GetPos(hwnd) SendMessage((hwnd), PGM_GETPOS, 0, 0)
+#define Pager_SetButtonSize(hwnd, iSize)                                                           \
+  SendMessage((hwnd), PGM_SETBUTTONSIZE, 0, static_cast<LPARAM>(iSize))
+#define Pager_GetButtonSize(hwnd) SendMessage((hwnd), PGM_GETBUTTONSIZE, 0, 0)
 #endif
 
-HB_FUNC( HMG_GETHANDLEREBAR ) // GetHandleRebar(hPager)
+HB_FUNC(HMG_GETHANDLEREBAR) // GetHandleRebar(hPager)
 {
-   hmg_ret_HWND(reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA)));
+  hmg_ret_HWND(reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETHANDLEREBAR, HMG_GETHANDLEREBAR )
+HB_FUNC_TRANSLATE(GETHANDLEREBAR, HMG_GETHANDLEREBAR)
 #endif
 
-HB_FUNC( HMG_ADDTOPAGER ) // AdToPager(hwndPG , hToolBar)
+HB_FUNC(HMG_ADDTOPAGER) // AdToPager(hwndPG , hToolBar)
 {
-   auto hPager = hmg_par_HWND(1);
-   SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hmg_par_HWND(2)));
-   SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
+  auto hPager = hmg_par_HWND(1);
+  SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hmg_par_HWND(2)));
+  SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ADDTOPAGER, HMG_ADDTOPAGER )
+HB_FUNC_TRANSLATE(ADDTOPAGER, HMG_ADDTOPAGER)
 #endif
 
-HB_FUNC( HMG_SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
+HB_FUNC(HMG_SETBKCOLORPAGER) // SetBkColorPager(hwndPG , COLOR[])
 {
-   SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
+  SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETBKCOLORPAGER, HMG_SETBKCOLORPAGER )
+HB_FUNC_TRANSLATE(SETBKCOLORPAGER, HMG_SETBKCOLORPAGER)
 #endif
 
-HB_FUNC( HMG_PAGERCALCSIZE ) // PagerCalcSize(lParam , nWidth)
+HB_FUNC(HMG_PAGERCALCSIZE) // PagerCalcSize(lParam , nWidth)
 {
-   auto lpCalcSize = reinterpret_cast<LPNMPGCALCSIZE>(HB_PARNL(1));
+  auto lpCalcSize = reinterpret_cast<LPNMPGCALCSIZE>(HB_PARNL(1));
 
-   if( lpCalcSize->dwFlag == PGF_CALCWIDTH ) {
-      lpCalcSize->iWidth = hmg_par_INT(2);
-   }
+  if (lpCalcSize->dwFlag == PGF_CALCWIDTH)
+  {
+    lpCalcSize->iWidth = hmg_par_INT(2);
+  }
 
-   if( lpCalcSize->dwFlag == PGF_CALCHEIGHT ) {
-      lpCalcSize->iHeight = hmg_par_INT(2);
-   }
+  if (lpCalcSize->dwFlag == PGF_CALCHEIGHT)
+  {
+    lpCalcSize->iHeight = hmg_par_INT(2);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERCALCSIZE, HMG_PAGERCALCSIZE )
+HB_FUNC_TRANSLATE(PAGERCALCSIZE, HMG_PAGERCALCSIZE)
 #endif
 
-HB_FUNC( HMG_PAGERSCROLL ) // PagerScroll(lParam , nScroll)
+HB_FUNC(HMG_PAGERSCROLL) // PagerScroll(lParam , nScroll)
 {
-   auto lpScroll = reinterpret_cast<LPNMPGSCROLL>(HB_PARNL(1));
-   lpScroll->iScroll = hb_parnl(2);
+  auto lpScroll = reinterpret_cast<LPNMPGSCROLL>(HB_PARNL(1));
+  lpScroll->iScroll = hb_parnl(2);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERSCROLL, HMG_PAGERSCROLL )
+HB_FUNC_TRANSLATE(PAGERSCROLL, HMG_PAGERSCROLL)
 #endif
 
-HB_FUNC( HMG_INITPAGER ) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertical, autoscroll)
+HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertical, autoscroll)
 {
-   INITCOMMONCONTROLSEX i;
-   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
-   InitCommonControlsEx(&i);
+  INITCOMMONCONTROLSEX i;
+  i.dwSize = sizeof(INITCOMMONCONTROLSEX);
+  i.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
+  InitCommonControlsEx(&i);
 
-   auto hRebar = hmg_par_HWND(1);
-   int nWidth = hmg_par_INT(2);
-   int nHeight = hmg_par_INT(3);
+  auto hRebar = hmg_par_HWND(1);
+  int nWidth = hmg_par_INT(2);
+  int nHeight = hmg_par_INT(3);
 
-   DWORD style = WS_CHILD | WS_VISIBLE;
+  DWORD style = WS_CHILD | WS_VISIBLE;
 
-   if( hb_parl(4) ) {
-      style |= PGS_VERT;
-   } else {
-      style |= PGS_HORZ;
-   }
+  if (hb_parl(4))
+  {
+    style |= PGS_VERT;
+  }
+  else
+  {
+    style |= PGS_HORZ;
+  }
 
-   if( hb_parl(5) ) {
-      style |= PGS_AUTOSCROLL;
-   }
+  if (hb_parl(5))
+  {
+    style |= PGS_AUTOSCROLL;
+  }
 
-   REBARBANDINFO rbBand{};
-   rbBand.cbSize     = sizeof(REBARBANDINFO);
-   rbBand.fMask      = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE | RBBS_BREAK | RBBIM_COLORS;
-   rbBand.fStyle     = RBBS_CHILDEDGE;
-   //rbBand.cxMinChild = 0;
-   //rbBand.cyMinChild = 0;
+  REBARBANDINFO rbBand{};
+  rbBand.cbSize = sizeof(REBARBANDINFO);
+  rbBand.fMask = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE |
+                 RBBS_BREAK | RBBIM_COLORS;
+  rbBand.fStyle = RBBS_CHILDEDGE;
+  // rbBand.cxMinChild = 0;
+  // rbBand.cyMinChild = 0;
 
-   auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
+  auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr,
+                               GetInstance(), nullptr);
 
-   void * str;
+  void *str;
 
-   if( hb_parclen(6) > 0 ) {
-      rbBand.lpText = const_cast<TCHAR*>(HB_PARSTR(6, &str, nullptr));
-   }
+  if (hb_parclen(6) > 0)
+  {
+    rbBand.lpText = const_cast<TCHAR *>(HB_PARSTR(6, &str, nullptr));
+  }
 
-   rbBand.hwndChild = hPager;
+  rbBand.hwndChild = hPager;
 
-   if( hb_parl(4) ) {
-      rbBand.cyMinChild = nWidth ? nWidth : 0;
-      rbBand.cxMinChild = 0;
-      rbBand.cx = nHeight;
-   } else {
-      rbBand.cxMinChild = 0;
-      rbBand.cyMinChild = nHeight ? nHeight : 0;
-      rbBand.cx = nWidth;
-   }
+  if (hb_parl(4))
+  {
+    rbBand.cyMinChild = nWidth ? nWidth : 0;
+    rbBand.cxMinChild = 0;
+    rbBand.cx = nHeight;
+  }
+  else
+  {
+    rbBand.cxMinChild = 0;
+    rbBand.cyMinChild = nHeight ? nHeight : 0;
+    rbBand.cx = nWidth;
+  }
 
-   SendMessage(hRebar, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
-   SetWindowLongPtr(hPager, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(hRebar));
-   hmg_ret_HWND(hPager);
-   hb_strfree(str);
+  SendMessage(hRebar, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
+  SetWindowLongPtr(hPager, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(hRebar));
+  hmg_ret_HWND(hPager);
+  hb_strfree(str);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITPAGER, HMG_INITPAGER )
+HB_FUNC_TRANSLATE(INITPAGER, HMG_INITPAGER)
 #endif
 
-HB_FUNC( HMG_PAGERFORWARDMOUSE )
+HB_FUNC(HMG_PAGERFORWARDMOUSE)
 {
-   Pager_ForwardMouse(hmg_par_HWND(1), hmg_par_BOOL(2));
+  Pager_ForwardMouse(hmg_par_HWND(1), hmg_par_BOOL(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERFORWARDMOUSE, HMG_PAGERFORWARDMOUSE )
+HB_FUNC_TRANSLATE(PAGERFORWARDMOUSE, HMG_PAGERFORWARDMOUSE)
 #endif
 
-HB_FUNC( HMG_PAGERGETBUTTONSIZE )
+HB_FUNC(HMG_PAGERGETBUTTONSIZE)
 {
-   hb_retni(Pager_GetButtonSize(hmg_par_HWND(1)));
+  hb_retni(Pager_GetButtonSize(hmg_par_HWND(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERGETBUTTONSIZE, HMG_PAGERGETBUTTONSIZE )
+HB_FUNC_TRANSLATE(PAGERGETBUTTONSIZE, HMG_PAGERGETBUTTONSIZE)
 #endif
 
-HB_FUNC( HMG_PAGERSETBUTTONSIZE )
+HB_FUNC(HMG_PAGERSETBUTTONSIZE)
 {
-   Pager_SetButtonSize(hmg_par_HWND(1), hmg_par_INT(2));
+  Pager_SetButtonSize(hmg_par_HWND(1), hmg_par_INT(2));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERSETBUTTONSIZE, HMG_PAGERSETBUTTONSIZE )
+HB_FUNC_TRANSLATE(PAGERSETBUTTONSIZE, HMG_PAGERSETBUTTONSIZE)
 #endif
 
-HB_FUNC( HMG_PAGERGETBORDER )
+HB_FUNC(HMG_PAGERGETBORDER)
 {
-   hb_retni(Pager_GetBorder(hmg_par_HWND(1)));
+  hb_retni(Pager_GetBorder(hmg_par_HWND(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERGETBORDER, HMG_PAGERGETBORDER )
+HB_FUNC_TRANSLATE(PAGERGETBORDER, HMG_PAGERGETBORDER)
 #endif
 
-HB_FUNC( HMG_PAGERSETBORDER )
+HB_FUNC(HMG_PAGERSETBORDER)
 {
-   hb_retni(Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)));
+  hb_retni(Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERSETBORDER, HMG_PAGERSETBORDER )
+HB_FUNC_TRANSLATE(PAGERSETBORDER, HMG_PAGERSETBORDER)
 #endif
 
-HB_FUNC( HMG_PAGERGETPOS )
+HB_FUNC(HMG_PAGERGETPOS)
 {
-   hb_retni(Pager_GetPos(hmg_par_HWND(1)));
+  hb_retni(Pager_GetPos(hmg_par_HWND(1)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERGETPOS, HMG_PAGERGETPOS )
+HB_FUNC_TRANSLATE(PAGERGETPOS, HMG_PAGERGETPOS)
 #endif
 
-HB_FUNC( HMG_PAGERSETPOS )
+HB_FUNC(HMG_PAGERSETPOS)
 {
-   hb_retni(Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)));
+  hb_retni(Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( PAGERSETPOS, HMG_PAGERSETPOS )
+HB_FUNC_TRANSLATE(PAGERSETPOS, HMG_PAGERSETPOS)
 #endif

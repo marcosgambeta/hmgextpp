@@ -49,224 +49,229 @@
 #include <hbvm.hpp>
 
 #ifndef WC_EDIT
-#define WC_EDIT  "Edit"
+#define WC_EDIT "Edit"
 #endif
 
 LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 /*
-HMG_INITMASKEDTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
+HMG_INITMASKEDTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight,
+lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
 */
-HB_FUNC( HMG_INITMASKEDTEXTBOX )
+HB_FUNC(HMG_INITMASKEDTEXTBOX)
 {
-   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
+  DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
-   if( hb_parl(9) ) {
-      style |= ES_UPPERCASE;
-   }
+  if (hb_parl(9))
+  {
+    style |= ES_UPPERCASE;
+  }
 
-   if( hb_parl(10) ) {
-      style |= ES_LOWERCASE;
-   }
+  if (hb_parl(10))
+  {
+    style |= ES_LOWERCASE;
+  }
 
-   if( hb_parl(12) ) {
-      style |= ES_RIGHT;
-   }
+  if (hb_parl(12))
+  {
+    style |= ES_RIGHT;
+  }
 
-   if( hb_parl(13) ) {
-      style |= ES_READONLY;
-   }
+  if (hb_parl(13))
+  {
+    style |= ES_READONLY;
+  }
 
-   if( !hb_parl(14) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(14))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(15) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(15))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
+  DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-   auto hbutton = CreateWindowEx(
-      ExStyle,
-      WC_EDIT,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(11),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton =
+      CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                     hb_parni(11), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITMASKEDTEXTBOX, HMG_INITMASKEDTEXTBOX )
+HB_FUNC_TRANSLATE(INITMASKEDTEXTBOX, HMG_INITMASKEDTEXTBOX)
 #endif
 
 /*
-HMG_INITTEXTBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, np9, lUpperCase, lLowerCase, lNumber, lPassword, lRight, lReadOnly, lVisible, lTabStop, lp18) --> HWND
+HMG_INITTEXTBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, np9, lUpperCase, lLowerCase, lNumber,
+lPassword, lRight, lReadOnly, lVisible, lTabStop, lp18) --> HWND
 */
-HB_FUNC( HMG_INITTEXTBOX )
+HB_FUNC(HMG_INITTEXTBOX)
 {
-   DWORD style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT; // TEXTBOX window base style.
+  DWORD style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT; // TEXTBOX window base style.
 
-   if( hb_parl(12) ) {            // if <lNumeric> is TRUE, then ES_NUMBER style is added.
-      style |= ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
-   } else {
-      if( hb_parl(10) ) { // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
-         style |= ES_UPPERCASE;
-      }
-      if( hb_parl(11) ) { // if <lLower> is TRUE, then ES_LOWERCASE style is added.
-         style |= ES_LOWERCASE;
-      }
-   }
+  if (hb_parl(12))
+  {                     // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+    style |= ES_NUMBER; // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
+  }
+  else
+  {
+    if (hb_parl(10))
+    { // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+      style |= ES_UPPERCASE;
+    }
+    if (hb_parl(11))
+    { // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+      style |= ES_LOWERCASE;
+    }
+  }
 
-   if( hb_parl(13) ) { // if <lPassword> is TRUE, then ES_PASSWORD style is added.
-      style |= ES_PASSWORD;
-   }
+  if (hb_parl(13))
+  { // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+    style |= ES_PASSWORD;
+  }
 
-   if( hb_parl(14) ) {
-      style |= ES_RIGHT;
-   }
+  if (hb_parl(14))
+  {
+    style |= ES_RIGHT;
+  }
 
-   if( hb_parl(15) ) {
-      style |= ES_READONLY;
-   }
+  if (hb_parl(15))
+  {
+    style |= ES_READONLY;
+  }
 
-   if( !hb_parl(16) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(16))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(17) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(17))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   DWORD iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE; // TEXTBOX window extended style.
+  DWORD iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE; // TEXTBOX window extended style.
 
-   // Handle of the child window/control.
-   // Creates the child control.
-   auto hedit = CreateWindowEx(
-      iExStyle,
-      WC_EDIT,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  // Handle of the child window/control.
+  // Creates the child control.
+  auto hedit =
+      CreateWindowEx(iExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                     hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
+  SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
-   SetProp(hedit, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-   SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
+  SetProp(hedit, TEXT("oldeditproc"),
+          reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC,
+                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
 
-   hmg_ret_HWND(hedit);
+  hmg_ret_HWND(hedit);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITTEXTBOX, HMG_INITTEXTBOX )
+HB_FUNC_TRANSLATE(INITTEXTBOX, HMG_INITTEXTBOX)
 #endif
 
 /*
-HMG_INITCHARMASKTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
+HMG_INITCHARMASKTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight,
+lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
 */
-HB_FUNC( HMG_INITCHARMASKTEXTBOX )
+HB_FUNC(HMG_INITCHARMASKTEXTBOX)
 {
-   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
+  DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
-   if( hb_parl(9) ) {
-      style |= ES_UPPERCASE;
-   }
+  if (hb_parl(9))
+  {
+    style |= ES_UPPERCASE;
+  }
 
-   if( hb_parl(10) ) {
-      style |= ES_LOWERCASE;
-   }
+  if (hb_parl(10))
+  {
+    style |= ES_LOWERCASE;
+  }
 
-   if( hb_parl(12) ) {
-      style |= ES_RIGHT;
-   }
+  if (hb_parl(12))
+  {
+    style |= ES_RIGHT;
+  }
 
-   if( hb_parl(13) ) {
-      style |= ES_READONLY;
-   }
+  if (hb_parl(13))
+  {
+    style |= ES_READONLY;
+  }
 
-   if( !hb_parl(14) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(14))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(15) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(15))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
+  DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-   auto hbutton = CreateWindowEx(
-      ExStyle,
-      WC_EDIT,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(11),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hbutton =
+      CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                     hb_parni(11), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITCHARMASKTEXTBOX, HMG_INITCHARMASKTEXTBOX )
+HB_FUNC_TRANSLATE(INITCHARMASKTEXTBOX, HMG_INITCHARMASKTEXTBOX)
 #endif
 
 LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = nullptr;
-   long int        r;
+  static PHB_SYMB pSymbol = nullptr;
+  long int r;
 
-   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
+  auto OldWndProc =
+      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
 
-   switch( Msg ) {
-      case WM_DESTROY:
-         SetWindowLongPtr(hButton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
-         RemoveProp(hButton, TEXT("oldeditproc"));
-         break;
+  switch (Msg)
+  {
+  case WM_DESTROY:
+    SetWindowLongPtr(hButton, GWLP_WNDPROC,
+                     reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    RemoveProp(hButton, TEXT("oldeditproc"));
+    break;
 
-      case WM_CONTEXTMENU:
-      case WM_CHAR:
-         if( !pSymbol ) {
-            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
-         }
+  case WM_CONTEXTMENU:
+  case WM_CHAR:
+    if (!pSymbol)
+    {
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
+    }
 
-         if( pSymbol ) {
-            hb_vmPushSymbol(pSymbol);
-            hb_vmPushNil();
-            hmg_vmPushHandle(hButton);
-            hb_vmPushLong(Msg);
-            hb_vmPushNumInt(wParam);
-            hb_vmPushNumInt(lParam);
-            hb_vmDo(4);
-         }
+    if (pSymbol)
+    {
+      hb_vmPushSymbol(pSymbol);
+      hb_vmPushNil();
+      hmg_vmPushHandle(hButton);
+      hb_vmPushLong(Msg);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
+      hb_vmDo(4);
+    }
 
-         r = hb_parnl( -1 );
+    r = hb_parnl(-1);
 
-         if( r != 0 ) {
-            return r;
-         } else {
-            return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
-         }
-   }
+    if (r != 0)
+    {
+      return r;
+    }
+    else
+    {
+      return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
+    }
+  }
 
-   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
+  return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
 }

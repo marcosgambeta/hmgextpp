@@ -44,14 +44,14 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE   0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
 #ifndef WC_STATIC
-#define WC_SCROLLBAR   "ScrollBar"
-#define WC_STATIC      "Static"
+#define WC_SCROLLBAR "ScrollBar"
+#define WC_STATIC "Static"
 #endif
 
 LRESULT APIENTRY SubClassFunc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -60,136 +60,117 @@ static WNDPROC lpfnOldWndProc;
 /*
 HMG_INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( HMG_INITBROWSE )
+HB_FUNC(HMG_INITBROWSE)
 {
-   INITCOMMONCONTROLSEX i;
-   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC = ICC_LISTVIEW_CLASSES;
-   InitCommonControlsEx(&i);
+  INITCOMMONCONTROLSEX i;
+  i.dwSize = sizeof(INITCOMMONCONTROLSEX);
+  i.dwICC = ICC_LISTVIEW_CLASSES;
+  InitCommonControlsEx(&i);
 
-   DWORD style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
+  DWORD style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-   if( !hb_parl(7) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(7))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
-                                 WC_LISTVIEW,
-                                 TEXT(""),
-                                 style,
-                                 hmg_par_int(3),
-                                 hmg_par_int(4),
-                                 hmg_par_int(5),
-                                 hmg_par_int(6),
-                                 hmg_par_HWND(1),
-                                 hmg_par_HMENU(2),
-                                 GetInstance(),
-                                 nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, TEXT(""), style, hmg_par_int(3),
+                                hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1),
+                                hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   lpfnOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
+  lpfnOldWndProc = reinterpret_cast<WNDPROC>(
+      SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
 
-   hmg_ret_HWND(hbutton);
+  hmg_ret_HWND(hbutton);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITBROWSE, HMG_INITBROWSE )
+HB_FUNC_TRANSLATE(INITBROWSE, HMG_INITBROWSE)
 #endif
 
-LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+LRESULT APIENTRY SubClassFunc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-   if( msg == WM_MOUSEWHEEL ) {
-      // sprintf( res,"zDelta: %d", (short) HIWORD(wParam) );
-      // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
-      if( static_cast<short>(HIWORD(wParam)) > 0 ) {
-         keybd_event(VK_UP, 0, 0, 0);
-      } else {
-         keybd_event(VK_DOWN, 0, 0, 0);
-      }
-      return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
-   } else {
-      return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
-   }
+  if (msg == WM_MOUSEWHEEL)
+  {
+    // sprintf( res,"zDelta: %d", (short) HIWORD(wParam) );
+    // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
+    if (static_cast<short>(HIWORD(wParam)) > 0)
+    {
+      keybd_event(VK_UP, 0, 0, 0);
+    }
+    else
+    {
+      keybd_event(VK_DOWN, 0, 0, 0);
+    }
+    return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
+  }
+  else
+  {
+    return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
+  }
 }
 
 /*
 HMG_INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( HMG_INITVSCROLLBAR )
+HB_FUNC(HMG_INITVSCROLLBAR)
 {
-   auto hscrollbar = CreateWindowEx(0,
-                                    WC_SCROLLBAR,
-                                    TEXT(""),
-                                    WS_CHILD | WS_VISIBLE | SBS_VERT,
-                                    hmg_par_int(2),
-                                    hmg_par_int(3),
-                                    hmg_par_int(4),
-                                    hmg_par_int(5),
-                                    hmg_par_HWND(1),
-                                    nullptr,
-                                    GetInstance(),
-                                    nullptr);
+  auto hscrollbar = CreateWindowEx(0, WC_SCROLLBAR, TEXT(""), WS_CHILD | WS_VISIBLE | SBS_VERT,
+                                   hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                                   hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
 
-   SetScrollRange(hscrollbar, SB_CTL, 1, 100, 1);
+  SetScrollRange(hscrollbar, SB_CTL, 1, 100, 1);
 
-   hmg_ret_HWND(hscrollbar);
+  hmg_ret_HWND(hscrollbar);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITVSCROLLBAR, HMG_INITVSCROLLBAR )
+HB_FUNC_TRANSLATE(INITVSCROLLBAR, HMG_INITVSCROLLBAR)
 #endif
 
 /*
 HMG_GETSCROLLRANGEMAX(HWND, nBar) --> numeric
 */
-HB_FUNC( HMG_GETSCROLLRANGEMAX )
+HB_FUNC(HMG_GETSCROLLRANGEMAX)
 {
-   int MinPos, MaxPos;
-   GetScrollRange(hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos);
-   hb_retni(MaxPos);
+  int MinPos, MaxPos;
+  GetScrollRange(hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos);
+  hb_retni(MaxPos);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETSCROLLRANGEMAX, HMG_GETSCROLLRANGEMAX )
+HB_FUNC_TRANSLATE(GETSCROLLRANGEMAX, HMG_GETSCROLLRANGEMAX)
 #endif
 
 /*
 HMG_INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
-HB_FUNC( HMG_INITVSCROLLBARBUTTON )
+HB_FUNC(HMG_INITVSCROLLBARBUTTON)
 {
-   hmg_ret_HWND(CreateWindowEx(0,
-                               WC_STATIC,
-                               TEXT(""),
-                               WS_CHILD | WS_VISIBLE | SS_SUNKEN,
-                               hmg_par_int(2),
-                               hmg_par_int(3),
-                               hmg_par_int(4),
-                               hmg_par_int(5),
-                               hmg_par_HWND(1),
-                               nullptr,
-                               GetInstance(),
-                               nullptr));
+  hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD | WS_VISIBLE | SS_SUNKEN,
+                              hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                              hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITVSCROLLBARBUTTON, HMG_INITVSCROLLBARBUTTON )
+HB_FUNC_TRANSLATE(INITVSCROLLBARBUTTON, HMG_INITVSCROLLBARBUTTON)
 #endif
 
 /*
 HMG_SETSCROLLINFO(HWND, nMax, nPos, nPage) --> numeric
 */
-HB_FUNC( HMG_SETSCROLLINFO )
+HB_FUNC(HMG_SETSCROLLINFO)
 {
-   SCROLLINFO lpsi;
-   lpsi.cbSize = sizeof(SCROLLINFO);
-   lpsi.fMask  = SIF_PAGE | SIF_POS | SIF_RANGE;
-   lpsi.nMin   = 1;
-   lpsi.nMax   = hb_parni(2);
-   lpsi.nPage  = hb_parni(4);
-   lpsi.nPos   = hb_parni(3);
-   hb_retni(SetScrollInfo(hmg_par_HWND(1), SB_CTL, static_cast<LPSCROLLINFO>(&lpsi), 1));
+  SCROLLINFO lpsi;
+  lpsi.cbSize = sizeof(SCROLLINFO);
+  lpsi.fMask = SIF_PAGE | SIF_POS | SIF_RANGE;
+  lpsi.nMin = 1;
+  lpsi.nMax = hb_parni(2);
+  lpsi.nPage = hb_parni(4);
+  lpsi.nPos = hb_parni(3);
+  hb_retni(SetScrollInfo(hmg_par_HWND(1), SB_CTL, static_cast<LPSCROLLINFO>(&lpsi), 1));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETSCROLLINFO, HMG_SETSCROLLINFO )
+HB_FUNC_TRANSLATE(SETSCROLLINFO, HMG_SETSCROLLINFO)
 #endif

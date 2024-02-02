@@ -44,69 +44,62 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE 0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-HB_FUNC( HMG_INITIPADDRESS )
+HB_FUNC(HMG_INITIPADDRESS)
 {
-   INITCOMMONCONTROLSEX icex;
-   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   icex.dwICC = ICC_INTERNET_CLASSES;
-   InitCommonControlsEx(&icex);
+  INITCOMMONCONTROLSEX icex;
+  icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+  icex.dwICC = ICC_INTERNET_CLASSES;
+  InitCommonControlsEx(&icex);
 
-   DWORD style = WS_CHILD;
+  DWORD style = WS_CHILD;
 
-   if( !hb_parl(7) ) {
-      style |= WS_VISIBLE;
-   }
+  if (!hb_parl(7))
+  {
+    style |= WS_VISIBLE;
+  }
 
-   if( !hb_parl(8) ) {
-      style |= WS_TABSTOP;
-   }
+  if (!hb_parl(8))
+  {
+    style |= WS_TABSTOP;
+  }
 
-   auto hIpAddress = CreateWindowEx(
-      WS_EX_CLIENTEDGE,
-      WC_IPADDRESS,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hmg_par_HWND(1),
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr);
+  auto hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), style, hb_parni(3),
+                                   hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
+                                   hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   hmg_ret_HWND(hIpAddress);
+  hmg_ret_HWND(hIpAddress);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INITIPADDRESS, HMG_INITIPADDRESS )
+HB_FUNC_TRANSLATE(INITIPADDRESS, HMG_INITIPADDRESS)
 #endif
 
-HB_FUNC( HMG_SETIPADDRESS )
+HB_FUNC(HMG_SETIPADDRESS)
 {
-   SendMessage(hmg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(hmg_par_BYTE(2), hmg_par_BYTE(3), hmg_par_BYTE(4), hmg_par_BYTE(5)));
+  SendMessage(hmg_par_HWND(1), IPM_SETADDRESS, 0,
+              MAKEIPADDRESS(hmg_par_BYTE(2), hmg_par_BYTE(3), hmg_par_BYTE(4), hmg_par_BYTE(5)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETIPADDRESS, HMG_SETIPADDRESS )
+HB_FUNC_TRANSLATE(SETIPADDRESS, HMG_SETIPADDRESS)
 #endif
 
-HB_FUNC( HMG_GETIPADDRESS )
+HB_FUNC(HMG_GETIPADDRESS)
 {
-   DWORD pdwAddr;
-   SendMessage(hmg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
-   hb_reta(4);
-   HB_STORNI(FIRST_IPADDRESS(pdwAddr), -1, 1);
-   HB_STORNI(SECOND_IPADDRESS(pdwAddr), -1, 2);
-   HB_STORNI(THIRD_IPADDRESS(pdwAddr), -1, 3);
-   HB_STORNI(FOURTH_IPADDRESS(pdwAddr), -1, 4);
+  DWORD pdwAddr;
+  SendMessage(hmg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
+  hb_reta(4);
+  HB_STORNI(FIRST_IPADDRESS(pdwAddr), -1, 1);
+  HB_STORNI(SECOND_IPADDRESS(pdwAddr), -1, 2);
+  HB_STORNI(THIRD_IPADDRESS(pdwAddr), -1, 3);
+  HB_STORNI(FOURTH_IPADDRESS(pdwAddr), -1, 4);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETIPADDRESS, HMG_GETIPADDRESS )
+HB_FUNC_TRANSLATE(GETIPADDRESS, HMG_GETIPADDRESS)
 #endif

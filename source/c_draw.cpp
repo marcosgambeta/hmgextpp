@@ -56,396 +56,478 @@ WINGDIAPI BOOL WINAPI GdiFlush(void);
 #endif
 #endif
 
-bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF * cr);
-bool hmg_ArrayToRect(PHB_ITEM aRect, RECT * rc);
-PHB_ITEM hmg_RectToArray(RECT * rc);
+bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
+bool hmg_ArrayToRect(PHB_ITEM aRect, RECT *rc);
+PHB_ITEM hmg_RectToArray(RECT *rc);
 
 /*
 HMG_BEGINPAINT(HWND, cp2) --> HANDLE
 */
-HB_FUNC( HMG_BEGINPAINT )
+HB_FUNC(HMG_BEGINPAINT)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      PAINTSTRUCT ps;
-      hmg_ret_HDC(BeginPaint(hWnd, &ps));
-      hb_storclen(reinterpret_cast<const char*>(&ps), sizeof(PAINTSTRUCT), 2);
-   } else {
-      hmg_ret_HDC(nullptr);
-   }
+  if (IsWindow(hWnd))
+  {
+    PAINTSTRUCT ps;
+    hmg_ret_HDC(BeginPaint(hWnd, &ps));
+    hb_storclen(reinterpret_cast<const char *>(&ps), sizeof(PAINTSTRUCT), 2);
+  }
+  else
+  {
+    hmg_ret_HDC(nullptr);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( BEGINPAINT, HMG_BEGINPAINT )
+HB_FUNC_TRANSLATE(BEGINPAINT, HMG_BEGINPAINT)
 #endif
 
 /*
 HMG_ENDPAINT(HWND, cp2) --> .T.|.F.
 */
-HB_FUNC( HMG_ENDPAINT )
+HB_FUNC(HMG_ENDPAINT)
 {
-   auto hWnd = hmg_par_HWND(1);
-   auto pps = reinterpret_cast<PAINTSTRUCT*>(const_cast<char*>(hb_parc(2)));
+  auto hWnd = hmg_par_HWND(1);
+  auto pps = reinterpret_cast<PAINTSTRUCT *>(const_cast<char *>(hb_parc(2)));
 
-   if( IsWindow(hWnd) && pps ) {
-      hb_retl(EndPaint(hWnd, pps));
-   } else {
-      hb_retl(false);
-   }
+  if (IsWindow(hWnd) && pps)
+  {
+    hb_retl(EndPaint(hWnd, pps));
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( ENDPAINT, HMG_ENDPAINT )
+HB_FUNC_TRANSLATE(ENDPAINT, HMG_ENDPAINT)
 #endif
 
 /*
 HMG_DRAWFOCUSRECT(p1) --> NIL
 */
-HB_FUNC( HMG_DRAWFOCUSRECT )
+HB_FUNC(HMG_DRAWFOCUSRECT)
 {
-   auto pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
+  auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-   if( pps ) {
-      InflateRect(&pps->rcItem, -3, -3);
-      DrawFocusRect(pps->hDC, &pps->rcItem);
-      InflateRect(&pps->rcItem, +3, +3);
-   }
+  if (pps)
+  {
+    InflateRect(&pps->rcItem, -3, -3);
+    DrawFocusRect(pps->hDC, &pps->rcItem);
+    InflateRect(&pps->rcItem, +3, +3);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DRAWFOCUSRECT, HMG_DRAWFOCUSRECT )
+HB_FUNC_TRANSLATE(DRAWFOCUSRECT, HMG_DRAWFOCUSRECT)
 #endif
 
 /*
 HMG_DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
 */
-HB_FUNC( HMG_DRAWSTATE )
+HB_FUNC(HMG_DRAWSTATE)
 {
-   auto hWnd = hmg_par_HWND(1);
-   HDC hDC;
-   auto bDC = false;
+  auto hWnd = hmg_par_HWND(1);
+  HDC hDC;
+  auto bDC = false;
 
-   if( IsWindow(hWnd) ) {
-      hDC = GetDC(hWnd);
-      bDC = true;
-   } else {
-      hDC = hmg_par_HDC(1);
-   }
+  if (IsWindow(hWnd))
+  {
+    hDC = GetDC(hWnd);
+    bDC = true;
+  }
+  else
+  {
+    hDC = hmg_par_HDC(1);
+  }
 
-   if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
-      HBRUSH hBrush = nullptr;
-      COLORREF crBrush;
-      LPARAM lpData;
-      auto wData = static_cast<WPARAM>(hb_parclen(4));
-      HB_ISIZ fuFlags = hb_parns(10);
+  if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC)
+  {
+    HBRUSH hBrush = nullptr;
+    COLORREF crBrush;
+    LPARAM lpData;
+    auto wData = static_cast<WPARAM>(hb_parclen(4));
+    HB_ISIZ fuFlags = hb_parns(10);
 
-      if( hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
-         hBrush = CreateSolidBrush(crBrush);
+    if (hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush))
+    {
+      hBrush = CreateSolidBrush(crBrush);
+    }
+
+    if (wData > 0)
+    {
+      lpData = reinterpret_cast<LPARAM>(hb_parc(4));
+    }
+    else
+    {
+      lpData = static_cast<LPARAM>(static_cast<LONG_PTR>(HB_PARNL(4)));
+    }
+
+    hb_retl(DrawState(hDC, hBrush, nullptr, lpData, wData, hmg_par_int(6), hmg_par_int(7),
+                      hmg_par_int(8), hmg_par_int(9), static_cast<UINT>(fuFlags))
+                ? true
+                : false);
+
+    if (bDC)
+    {
+      ReleaseDC(hWnd, hDC);
+    }
+
+    if (hb_parl(11))
+    {
+      if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_BITMAP)
+      {
+        DeleteObject(reinterpret_cast<HBITMAP>(lpData));
       }
-
-      if( wData > 0 ) {
-         lpData = reinterpret_cast<LPARAM>(hb_parc(4));
-      } else {
-         lpData = static_cast<LPARAM>(static_cast<LONG_PTR>(HB_PARNL(4)));
+      else
+      {
+        DestroyIcon(reinterpret_cast<HICON>(lpData));
       }
-
-      hb_retl(DrawState(hDC, hBrush, nullptr, lpData, wData, hmg_par_int(6), hmg_par_int(7), hmg_par_int(8), hmg_par_int(9), static_cast<UINT>(fuFlags)) ? true : false);
-
-      if( bDC ) {
-         ReleaseDC(hWnd, hDC);
-      }
-
-      if( hb_parl(11) ) {
-         if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_BITMAP ) {
-            DeleteObject(reinterpret_cast<HBITMAP>(lpData));
-         } else {
-            DestroyIcon(reinterpret_cast<HICON>(lpData));
-         }
-      }
-   } else {
-      hb_retl(false);
-   }
+    }
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( DRAWSTATE, HMG_DRAWSTATE )
+HB_FUNC_TRANSLATE(DRAWSTATE, HMG_DRAWSTATE)
 #endif
 
 /*
 HMG_GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
 */
-HB_FUNC( HMG_GETUPDATERECT )
+HB_FUNC(HMG_GETUPDATERECT)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      if( HB_ISNIL(2) ) {
-         hb_retl(GetUpdateRect(hWnd, nullptr, hmg_par_BOOL(3)) ? true : false);
-      } else {
-         RECT rc;
-         hb_retl(GetUpdateRect(hWnd, &rc, hmg_par_BOOL(3)) ? true : false);
-         hb_itemParamStoreRelease(2, hmg_RectToArray(&rc));
-      }
-   } else {
-      hb_retl(false);
-   }
+  if (IsWindow(hWnd))
+  {
+    if (HB_ISNIL(2))
+    {
+      hb_retl(GetUpdateRect(hWnd, nullptr, hmg_par_BOOL(3)) ? true : false);
+    }
+    else
+    {
+      RECT rc;
+      hb_retl(GetUpdateRect(hWnd, &rc, hmg_par_BOOL(3)) ? true : false);
+      hb_itemParamStoreRelease(2, hmg_RectToArray(&rc));
+    }
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GETUPDATERECT, HMG_GETUPDATERECT )
+HB_FUNC_TRANSLATE(GETUPDATERECT, HMG_GETUPDATERECT)
 #endif
 
 /*
 HMG_GDIFLUSH() --> .T.|.F.
 */
-HB_FUNC( HMG_GDIFLUSH )
+HB_FUNC(HMG_GDIFLUSH)
 {
-   hb_retl(GdiFlush() ? true : false);
+  hb_retl(GdiFlush() ? true : false);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GDIFLUSH, HMG_GDIFLUSH )
+HB_FUNC_TRANSLATE(GDIFLUSH, HMG_GDIFLUSH)
 #endif
 
 /*
 HMG_GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
 */
-HB_FUNC( HMG_GRAYSTRING )
+HB_FUNC(HMG_GRAYSTRING)
 {
-   auto nCount = hb_parni(5);
-   auto nLen = static_cast<int>(hb_parclen(4));
+  auto nCount = hb_parni(5);
+  auto nLen = static_cast<int>(hb_parclen(4));
 
-   if( nCount > 0 ) {
-      nCount = HB_MIN(nCount, nLen);
-   } else {
-      nCount = nLen;
-   }
+  if (nCount > 0)
+  {
+    nCount = HB_MIN(nCount, nLen);
+  }
+  else
+  {
+    nCount = nLen;
+  }
 
-   if( nLen > 0 ) {
-      auto hWnd = hmg_par_HWND(1);
-      HDC hDC;
-      auto bDC = false;
+  if (nLen > 0)
+  {
+    auto hWnd = hmg_par_HWND(1);
+    HDC hDC;
+    auto bDC = false;
 
-      if( IsWindow(hWnd) ) {
-         hDC = GetDC(hWnd);
-         bDC = true;
-      } else {
-         hDC = hmg_par_HDC(1);
+    if (IsWindow(hWnd))
+    {
+      hDC = GetDC(hWnd);
+      bDC = true;
+    }
+    else
+    {
+      hDC = hmg_par_HDC(1);
+    }
+
+    if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC)
+    {
+      HBRUSH hBrush = nullptr;
+      COLORREF crBrush;
+      const char *lpData = hb_parc(4);
+
+      if (hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush))
+      {
+        hBrush = CreateSolidBrush(crBrush);
       }
 
-      if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
-         HBRUSH hBrush = nullptr;
-         COLORREF crBrush;
-         const char * lpData = hb_parc(4);
+      hb_retl(GrayString(hDC, hBrush, nullptr, reinterpret_cast<LPARAM>(lpData), nCount,
+                         hmg_par_int(6), hmg_par_int(7), hmg_par_int(8), hmg_par_int(9))
+                  ? true
+                  : false);
 
-         if( hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) ) {
-            hBrush = CreateSolidBrush(crBrush);
-         }
-
-         hb_retl(GrayString(hDC, hBrush, nullptr, reinterpret_cast<LPARAM>(lpData), nCount, hmg_par_int(6), hmg_par_int(7), hmg_par_int(8), hmg_par_int(9)) ? true : false);
-
-         if( bDC ) {
-            ReleaseDC(hWnd, hDC);
-         }
-      } else {
-         hb_retl(false);
+      if (bDC)
+      {
+        ReleaseDC(hWnd, hDC);
       }
-   } else {
+    }
+    else
+    {
       hb_retl(false);
-   }
+    }
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( GRAYSTRING, HMG_GRAYSTRING )
+HB_FUNC_TRANSLATE(GRAYSTRING, HMG_GRAYSTRING)
 #endif
 
 /*
 HMG_INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
 */
-HB_FUNC( HMG_INVALIDATERECT )
+HB_FUNC(HMG_INVALIDATERECT)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      auto bRect = false;
-      RECT rc;
+  if (IsWindow(hWnd))
+  {
+    auto bRect = false;
+    RECT rc;
 
-      if( (hb_pcount() > 2) && (!HB_ISNIL(3)) ) {
-         bRect = hmg_ArrayToRect(hb_param(3, Harbour::Item::ANY), &rc);
+    if ((hb_pcount() > 2) && (!HB_ISNIL(3)))
+    {
+      bRect = hmg_ArrayToRect(hb_param(3, Harbour::Item::ANY), &rc);
 
-         if( !bRect ) {
-            rc.left   = hmg_par_LONG(3);
-            rc.top    = hmg_par_LONG(4);
-            rc.right  = hmg_par_LONG(5);
-            rc.bottom = hmg_par_LONG(6);
+      if (!bRect)
+      {
+        rc.left = hmg_par_LONG(3);
+        rc.top = hmg_par_LONG(4);
+        rc.right = hmg_par_LONG(5);
+        rc.bottom = hmg_par_LONG(6);
 
-            bRect = true;
-         }
+        bRect = true;
       }
+    }
 
-      hb_retl(InvalidateRect(hWnd, bRect ? &rc : nullptr, hb_parni(2) /* erase-background flag */) ? true : false);
-   } else {
-      hb_retl(false);
-   }
+    hb_retl(InvalidateRect(hWnd, bRect ? &rc : nullptr, hb_parni(2) /* erase-background flag */)
+                ? true
+                : false);
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( INVALIDATERECT, HMG_INVALIDATERECT )
+HB_FUNC_TRANSLATE(INVALIDATERECT, HMG_INVALIDATERECT)
 #endif
 
 /*
 HMG_REDRAWWINDOW(HWND, p2) --> .T.|.F.
 */
-HB_FUNC( HMG_REDRAWWINDOW )
+HB_FUNC(HMG_REDRAWWINDOW)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
+  if (IsWindow(hWnd))
+  {
+    UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
 
-      if( hb_parl(2) == true ) {
-         uiFlags |= RDW_INTERNALPAINT;
-      }
+    if (hb_parl(2) == true)
+    {
+      uiFlags |= RDW_INTERNALPAINT;
+    }
 
-      hb_retl(RedrawWindow(hWnd, nullptr, nullptr, uiFlags) ? true : false);
-   } else {
-      hb_retl(false);
-   }
+    hb_retl(RedrawWindow(hWnd, nullptr, nullptr, uiFlags) ? true : false);
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( REDRAWWINDOW, HMG_REDRAWWINDOW )
+HB_FUNC_TRANSLATE(REDRAWWINDOW, HMG_REDRAWWINDOW)
 #endif
 
 /*
 HMG_C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
 */
-HB_FUNC( HMG_C_SETBACKCOLOR )
+HB_FUNC(HMG_C_SETBACKCOLOR)
 {
-   auto hWnd = hmg_par_HWND(1);
-   HDC hDC;
-   auto bDC = false;
+  auto hWnd = hmg_par_HWND(1);
+  HDC hDC;
+  auto bDC = false;
 
-   if( IsWindow(hWnd) ) {
-      hDC = GetDC(hWnd);
-      bDC = true;
-   } else {
-      hDC = hmg_par_HDC(1);
-   }
+  if (IsWindow(hWnd))
+  {
+    hDC = GetDC(hWnd);
+    bDC = true;
+  }
+  else
+  {
+    hDC = hmg_par_HDC(1);
+  }
 
-   if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
-      COLORREF cr;
+  if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC)
+  {
+    COLORREF cr;
 
-      if( !hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
-         cr = static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
-      }
+    if (!hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &cr))
+    {
+      cr = static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
+    }
 
-      hb_retns(static_cast<HB_ISIZ>(SetBkColor(hDC, cr)));
+    hb_retns(static_cast<HB_ISIZ>(SetBkColor(hDC, cr)));
 
-      if( bDC ) {
-         ReleaseDC(hWnd, hDC);
-      }
-   } else {
-      hb_retns(static_cast<HB_ISIZ>(CLR_INVALID));
-   }
+    if (bDC)
+    {
+      ReleaseDC(hWnd, hDC);
+    }
+  }
+  else
+  {
+    hb_retns(static_cast<HB_ISIZ>(CLR_INVALID));
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( C_SETBACKCOLOR, HMG_C_SETBACKCOLOR )
+HB_FUNC_TRANSLATE(C_SETBACKCOLOR, HMG_C_SETBACKCOLOR)
 #endif
 
 /*
 HMG_SETBKMODE(HWND|HDC, p2) --> numeric
 */
-HB_FUNC( HMG_SETBKMODE )
+HB_FUNC(HMG_SETBKMODE)
 {
-   auto hWnd = hmg_par_HWND(1);
-   HDC hDC;
-   auto bDC = false;
+  auto hWnd = hmg_par_HWND(1);
+  HDC hDC;
+  auto bDC = false;
 
-   if( IsWindow(hWnd) ) {
-      hDC = GetDC(hWnd);
-      bDC = true;
-   } else {
-      hDC = hmg_par_HDC(1);
-   }
+  if (IsWindow(hWnd))
+  {
+    hDC = GetDC(hWnd);
+    bDC = true;
+  }
+  else
+  {
+    hDC = hmg_par_HDC(1);
+  }
 
-   if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC ) {
-      hb_retni(SetBkMode(hDC, hb_parnidef(2, OPAQUE)));
+  if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC)
+  {
+    hb_retni(SetBkMode(hDC, hb_parnidef(2, OPAQUE)));
 
-      if( bDC ) {
-         ReleaseDC(hWnd, hDC);
-      }
-   } else {
-      hb_retni(0);
-   }
+    if (bDC)
+    {
+      ReleaseDC(hWnd, hDC);
+    }
+  }
+  else
+  {
+    hb_retni(0);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETBKMODE, HMG_SETBKMODE )
+HB_FUNC_TRANSLATE(SETBKMODE, HMG_SETBKMODE)
 #endif
 
 /*
 HMG_UPDATEWINDOW(HWND) --> .T.|.F.
 */
-HB_FUNC( HMG_UPDATEWINDOW )
+HB_FUNC(HMG_UPDATEWINDOW)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      hb_retl(UpdateWindow(hWnd) ? true : false);
-   } else {
-      hb_retl(false);
-   }
+  if (IsWindow(hWnd))
+  {
+    hb_retl(UpdateWindow(hWnd) ? true : false);
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( UPDATEWINDOW, HMG_UPDATEWINDOW )
+HB_FUNC_TRANSLATE(UPDATEWINDOW, HMG_UPDATEWINDOW)
 #endif
 
 /*
 HMG_VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
 */
-HB_FUNC( HMG_VALIDATERECT )
+HB_FUNC(HMG_VALIDATERECT)
 {
-   auto hWnd = hmg_par_HWND(1);
+  auto hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) ) {
-      auto bRect = false;
-      RECT rc;
+  if (IsWindow(hWnd))
+  {
+    auto bRect = false;
+    RECT rc;
 
-      if( (hb_pcount() > 1) && (!HB_ISNIL(2)) ) {
-         bRect = hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rc);
+    if ((hb_pcount() > 1) && (!HB_ISNIL(2)))
+    {
+      bRect = hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rc);
 
-         if( !bRect ) {
-            rc.left   = hmg_par_LONG(2);
-            rc.top    = hmg_par_LONG(3);
-            rc.right  = hmg_par_LONG(4);
-            rc.bottom = hmg_par_LONG(5);
+      if (!bRect)
+      {
+        rc.left = hmg_par_LONG(2);
+        rc.top = hmg_par_LONG(3);
+        rc.right = hmg_par_LONG(4);
+        rc.bottom = hmg_par_LONG(5);
 
-            bRect = true;
-         }
+        bRect = true;
       }
+    }
 
-      hb_retl(ValidateRect(hWnd, bRect ? &rc : nullptr));
-   } else {
-      hb_retl(false);
-   }
+    hb_retl(ValidateRect(hWnd, bRect ? &rc : nullptr));
+  }
+  else
+  {
+    hb_retl(false);
+  }
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( VALIDATERECT, HMG_VALIDATERECT )
+HB_FUNC_TRANSLATE(VALIDATERECT, HMG_VALIDATERECT)
 #endif
 
 /*
 HMG_WINDOWFROMDC(HDC) --> numeric
 */
-HB_FUNC( HMG_WINDOWFROMDC )
+HB_FUNC(HMG_WINDOWFROMDC)
 {
-   HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));
+  HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( WINDOWFROMDC, HMG_WINDOWFROMDC )
+HB_FUNC_TRANSLATE(WINDOWFROMDC, HMG_WINDOWFROMDC)
 #endif
