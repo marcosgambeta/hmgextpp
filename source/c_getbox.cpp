@@ -145,13 +145,11 @@ HB_FUNC(HMG_INITGETBOX)
 
   // Creates the child control.
 
-  auto hedit = CreateWindowEx(hb_parl(23) ? 0 : WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style,
-                              hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd,
-                              static_cast<HMENU>(nullptr), GetInstance(), nullptr);
+  auto hedit = CreateWindowEx(hb_parl(23) ? 0 : WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4),
+                              hb_parni(5), hb_parni(6), hwnd, static_cast<HMENU>(nullptr), GetInstance(), nullptr);
 
   SetProp(hedit, TEXT("OldWndProc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnGetProc)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnGetProc)));
 
   SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
@@ -162,14 +160,13 @@ HB_FUNC(HMG_INITGETBOX)
 #else
     LPWSTR lpImageName = AnsiToWide(static_cast<char *>(hb_parc(18)));
 #endif
-    himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0,
-                                         LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage = static_cast<HWND>(
+        LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
     if (himage == nullptr)
     {
-      himage =
-          static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
-                                      LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
+                                           LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
 
     if (himage != nullptr)
@@ -179,14 +176,12 @@ HB_FUNC(HMG_INITGETBOX)
       if (bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5)
       {
         DeleteObject(himage);
-        himage =
-            static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4,
-                                        hb_parni(6) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+        himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(6) - 6,
+                                             LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
         if (himage == nullptr)
         {
-          himage = static_cast<HWND>(
-              LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(6) - 6,
-                        LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+          himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(6) - 6,
+                                               LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
         }
       }
     }
@@ -206,14 +201,13 @@ HB_FUNC(HMG_INITGETBOX)
 #else
     LPWSTR lpImageName2 = AnsiToWide(static_cast<char *>(hb_parc(21)));
 #endif
-    himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0,
-                                          LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage2 = static_cast<HWND>(
+        LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
     if (himage2 == nullptr)
     {
-      himage2 =
-          static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0,
-                                      LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0,
+                                            LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
 
     if (himage2 != nullptr)
@@ -223,15 +217,13 @@ HB_FUNC(HMG_INITGETBOX)
       if (bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5)
       {
         DeleteObject(himage2);
-        himage2 =
-            static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4,
-                                        hb_parni(6) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+        himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4,
+                                              hb_parni(6) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
         if (himage2 == nullptr)
         {
-          himage2 = static_cast<HWND>(
-              LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(6) - 6,
-                        LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+          himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(6) - 6,
+                                                LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
         }
       }
     }
@@ -260,9 +252,8 @@ HB_FUNC(HMG_INITGETBOX)
 
   if (fBtns)
   {
-    hBtn1 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle1, hb_parni(5) - BtnWidth - 3, -1,
-                           BtnWidth, hb_parni(6) - 2, hedit, reinterpret_cast<HMENU>(GBB1),
-                           GetInstance(), nullptr);
+    hBtn1 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle1, hb_parni(5) - BtnWidth - 3, -1, BtnWidth,
+                           hb_parni(6) - 2, hedit, reinterpret_cast<HMENU>(GBB1), GetInstance(), nullptr);
   }
   else
   {
@@ -271,9 +262,8 @@ HB_FUNC(HMG_INITGETBOX)
 
   if (fBtn2)
   {
-    hBtn2 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle2,
-                           hb_parni(5) - BtnWidth - BtnWidth2 - 3, -1, BtnWidth, hb_parni(6) - 2,
-                           hedit, reinterpret_cast<HMENU>(GBB2), GetInstance(), nullptr);
+    hBtn2 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle2, hb_parni(5) - BtnWidth - BtnWidth2 - 3, -1, BtnWidth,
+                           hb_parni(6) - 2, hedit, reinterpret_cast<HMENU>(GBB2), GetInstance(), nullptr);
   }
   else
   {
@@ -290,8 +280,7 @@ HB_FUNC(HMG_INITGETBOX)
     SendMessage(hBtn2, BM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(himage2));
   }
 
-  SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN,
-              MAKELONG(0, BtnWidth + BtnWidth2 + 2));
+  SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 
   hb_reta(5);
   hmg_storvhandle(hedit, -1, 1);
@@ -368,8 +357,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc =
-      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("OldWndProc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("OldWndProc"))));
   switch (Msg)
   {
   case WM_NCDESTROY: {

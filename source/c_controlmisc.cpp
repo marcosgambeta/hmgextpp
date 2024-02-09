@@ -122,8 +122,7 @@ HB_FUNC_TRANSLATE(INSERTSHIFTTAB, HMG_INSERTSHIFTTAB)
 
 HB_FUNC(HMG_SYSTEMPARAMETERSINFO)
 {
-  hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2),
-                                static_cast<VOID *>(const_cast<char *>(hb_parc(3))),
+  hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), static_cast<VOID *>(const_cast<char *>(hb_parc(3))),
                                 hmg_par_UINT(4)));
 }
 
@@ -180,8 +179,7 @@ HB_FUNC_TRANSLATE(GETTEXTWIDTH, HMG_GETTEXTWIDTH)
 
 HB_FUNC(HMG_KEYBD_EVENT)
 {
-  keybd_event(hmg_par_BYTE(1), static_cast<BYTE>(MapVirtualKey(hb_parni(1), 0)),
-              hb_parl(2) ? KEYEVENTF_KEYUP : 0, 0);
+  keybd_event(hmg_par_BYTE(1), static_cast<BYTE>(MapVirtualKey(hb_parni(1), 0)), hb_parl(2) ? KEYEVENTF_KEYUP : 0, 0);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -265,8 +263,7 @@ HB_FUNC(HMG_CHANGESTYLE)
 
   HB_RETNL(static_cast<LONG_PTR>(SetWindowLongPtr(hWnd, iStyle, dwNewStyle)));
 
-  SetWindowPos(hWnd, nullptr, 0, 0, 0, 0,
-               SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
+  SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -289,12 +286,10 @@ HB_FUNC(HMG_MOVEBTNTEXTBOX) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWid
   BtnWidth = (fBtns ? BtnWidth : 0);
   BtnWidth2 = (fBtn2 ? BtnWidth : 0);
 
-  SetWindowPos(hedit, nullptr, 0, 0, width, height,
-               SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
+  SetWindowPos(hedit, nullptr, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
   if (fBtns)
   {
-    SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2,
-                 SWP_NOACTIVATE | SWP_NOZORDER);
+    SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
     if (fBtn2)
     {
       SetWindowPos(hBtn2, nullptr, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2,

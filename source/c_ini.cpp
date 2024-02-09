@@ -115,9 +115,9 @@ HB_FUNC(HMG_WRITEPRIVATEPROFILESTRING)
   void *str2 = nullptr;
   void *str3 = nullptr;
   void *str4;
-  hb_retl(WritePrivateProfileString(
-      HB_PARSTR(1, &str1, nullptr), HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr,
-      HB_ISCHAR(3) ? HB_PARSTR(3, &str3, nullptr) : nullptr, HB_PARSTR(4, &str4, nullptr)));
+  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr,
+                                    HB_ISCHAR(3) ? HB_PARSTR(3, &str3, nullptr) : nullptr,
+                                    HB_PARSTR(4, &str4, nullptr)));
   hb_strfree(str1);
   hb_strfree(str2);
   hb_strfree(str3);
@@ -136,8 +136,8 @@ HB_FUNC(HMG_DELINIENTRY)
   void *str1;
   void *str2;
   void *str3;
-  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_PARSTR(2, &str2, nullptr),
-                                    nullptr, HB_PARSTR(3, &str3, nullptr)));
+  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_PARSTR(2, &str2, nullptr), nullptr,
+                                    HB_PARSTR(3, &str3, nullptr)));
   hb_strfree(str1);
   hb_strfree(str2);
   hb_strfree(str3);
@@ -154,8 +154,7 @@ HB_FUNC(HMG_DELINISECTION)
 {
   void *str1;
   void *str2;
-  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), nullptr, TEXT(""),
-                                    HB_PARSTR(2, &str2, nullptr)));
+  hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), nullptr, TEXT(""), HB_PARSTR(2, &str2, nullptr)));
   hb_strfree(str1);
   hb_strfree(str2);
 }
@@ -220,8 +219,7 @@ HB_FUNC(HMG__GETPRIVATEPROFILESECTIONNAMES)
 
   ZeroMemory(bBuffer, sizeof(bBuffer));
   void *str;
-  GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR),
-                                HB_PARSTR(1, &str, nullptr));
+  GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(1, &str, nullptr));
   hb_strfree(str);
 
   auto p = static_cast<TCHAR *>(bBuffer);

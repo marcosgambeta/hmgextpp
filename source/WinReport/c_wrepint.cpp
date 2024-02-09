@@ -18,16 +18,14 @@ void CALLBACK MessageBoxTimer(HWND hwnd, UINT uiMsg, UINT idEvent, DWORD dwTime)
   PostQuitMessage(0);
 }
 
-UINT TimedMessageBox(HWND hwndParent, LPCTSTR ptszMessage, LPCTSTR ptszTitle, UINT flags,
-                     DWORD dwTimeout)
+UINT TimedMessageBox(HWND hwndParent, LPCTSTR ptszMessage, LPCTSTR ptszTitle, UINT flags, DWORD dwTimeout)
 {
   /*
    *  Set a timer to dismiss the Message box.
    */
   UINT idTimer = SetTimer(nullptr, 0, dwTimeout, reinterpret_cast<TIMERPROC>(MessageBoxTimer));
 
-  UINT uiResult =
-      MessageBox(hwndParent, ptszMessage ? ptszMessage : "", ptszTitle ? ptszTitle : "", flags);
+  UINT uiResult = MessageBox(hwndParent, ptszMessage ? ptszMessage : "", ptszTitle ? ptszTitle : "", flags);
 
   /*
    *  Finished with the timer.
@@ -57,8 +55,8 @@ C_T_MSGRETRYCANCEL(message, title, timeout) --> numeric
 */
 HB_FUNC(C_T_MSGRETRYCANCEL)
 {
-  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2),
-                           MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
+  hb_retni(
+      TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
 }
 
 /*
@@ -66,8 +64,8 @@ C_T_MSGOKCANCEL(message, title, timeout) --> numeric
 */
 HB_FUNC(C_T_MSGOKCANCEL)
 {
-  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2),
-                           MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
+  hb_retni(
+      TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
 }
 
 /*
@@ -75,8 +73,7 @@ C_T_MSGYESNO(message, title, timeout) --> numeric
 */
 HB_FUNC(C_T_MSGYESNO)
 {
-  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2),
-                           MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
+  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3)));
 }
 
 /*
@@ -84,8 +81,7 @@ C_T_MSGYESNO_ID(message, title, timeout) --> numeric
 */
 HB_FUNC(C_T_MSGYESNO_ID)
 {
-  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2),
-                           MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2,
+  hb_retni(TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2,
                            hb_parni(3)));
 }
 
@@ -102,8 +98,7 @@ C_T_MSGINFO(message, title, timeout) --> NIL
 */
 HB_FUNC(C_T_MSGINFO)
 {
-  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL,
-                  hb_parni(3));
+  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 /*
@@ -111,8 +106,7 @@ C_T_MSGSTOP(message, title, timeout) --> NIL
 */
 HB_FUNC(C_T_MSGSTOP)
 {
-  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL,
-                  hb_parni(3));
+  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 /*
@@ -120,8 +114,7 @@ C_T_MSGEXCLAMATION(message, title, timeout) --> NIL
 */
 HB_FUNC(C_T_MSGEXCLAMATION)
 {
-  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL,
-                  hb_parni(3));
+  TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 /*

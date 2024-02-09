@@ -47,8 +47,7 @@ public:
   //
   //        Two drawing methods QHTM needs.
   virtual BOOL DrawFrame(UINT nFrame, HDC hdc, int left, int top) const = 0;
-  virtual BOOL StretchFrame(UINT nFrame, HDC hdc, int left, int top, int right,
-                            int bottom) const = 0;
+  virtual BOOL StretchFrame(UINT nFrame, HDC hdc, int left, int top, int right, int bottom) const = 0;
 
   //
   //        Return the number of frames in this image
@@ -123,8 +122,7 @@ extern "C"
 
   typedef HBITMAP(CALLBACK *funcQHTMBitmapCallback)(LPCTSTR pcszImageURL, LPARAM lParam);
   typedef HGLOBAL(CALLBACK *funcQHTMResourceCallback)(LPCTSTR pcszResourceName, LPARAM lParam);
-  typedef void(CALLBACK *funcQHTMFORMCallback)(HWND hwndQHTM, LPQHTMFORMSubmit pFormSubmit,
-                                               LPARAM lParam);
+  typedef void(CALLBACK *funcQHTMFORMCallback)(HWND hwndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM lParam);
 
 //
 //        Flags used for QHTM_DEFAULTS via QHTM_SET_DEFAULTS
@@ -307,67 +305,58 @@ extern "C"
 
 //
 //        Message cracker style macros
-#define QHTM_LoadFromResourceName(hwnd, hinst, name)                                               \
+#define QHTM_LoadFromResourceName(hwnd, hinst, name)                                                                   \
   ((BOOL)QHTM_SENDMESSAGE((hwnd), QHTM_LOAD_FROM_RESOURCE, (WPARAM)(hinst), (LPARAM)(name)))
-#define QHTM_LoadFromFile(hwnd, filename)                                                          \
+#define QHTM_LoadFromFile(hwnd, filename)                                                                              \
   ((BOOL)QHTM_SENDMESSAGE((hwnd), QHTM_LOAD_FROM_FILE, 0, (LPARAM)(LPCTSTR)(filename)))
-#define QHTM_SetTooltips(hwnd, bEnable)                                                            \
+#define QHTM_SetTooltips(hwnd, bEnable)                                                                                \
   ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_TOOLTIPS, (LPARAM)bEnable))
 #define QHTM_GetTooltips(hwnd) ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_TOOLTIPS, 0))
-#define QHTM_SetZoomLevel(hwnd, nLevel)                                                            \
+#define QHTM_SetZoomLevel(hwnd, nLevel)                                                                                \
   ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_ZOOMLEVEL, (LPARAM)nLevel))
-#define QHTM_GetZoomLevel(hwnd)                                                                    \
-  ((int)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_ZOOMLEVEL, 0))
-#define QHTM_GotoLink(hwnd, pcszLinkName)                                                          \
-  ((void)QHTM_SENDMESSAGE((hwnd), QHTM_GOTO_LINK, 0, (LPARAM)(pcszLinkName)))
+#define QHTM_GetZoomLevel(hwnd) ((int)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_ZOOMLEVEL, 0))
+#define QHTM_GotoLink(hwnd, pcszLinkName) ((void)QHTM_SENDMESSAGE((hwnd), QHTM_GOTO_LINK, 0, (LPARAM)(pcszLinkName)))
 #define QHTM_GetTitleLength(hwnd) ((UINT)QHTM_SENDMESSAGE((hwnd), QHTM_GET_HTML_TITLE_LENGTH, 0, 0))
-#define QHTM_GetTitle(hwnd, pszBuffer, uBufferLength)                                              \
-  ((UINT)QHTM_SENDMESSAGE((hwnd), QHTM_GET_HTML_TITLE, (WPARAM)(uBufferLength),                    \
-                          (LPARAM)(pszBuffer)))
+#define QHTM_GetTitle(hwnd, pszBuffer, uBufferLength)                                                                  \
+  ((UINT)QHTM_SENDMESSAGE((hwnd), QHTM_GET_HTML_TITLE, (WPARAM)(uBufferLength), (LPARAM)(pszBuffer)))
 #define QHTM_GetScrollPos(hwnd) ((UINT)QHTM_SENDMESSAGE((hwnd), QHTM_GET_SCROLL_POS, 0, 0))
-#define QHTM_SetScrollPos(hwnd, uScrollPos)                                                        \
+#define QHTM_SetScrollPos(hwnd, uScrollPos)                                                                            \
   ((UINT)QHTM_SENDMESSAGE((hwnd), QHTM_SET_SCROLL_POS, (WPARAM)(uScrollPos), 0))
-#define QHTM_SetMargins(hwnd, rcMargins)                                                           \
-  ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_MARGINS, (LPARAM)&rcMargins))
-#define QHTM_GetMargins(hwnd, rcMargins)                                                           \
-  ((void)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_MARGINS, (LPARAM)&rcMargins))
-#define QHTM_GetDrawnSize(hwnd, size)                                                              \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_DRAWN_SIZE, 0, (LPARAM)size))
-#define QHTM_SetUseColorStatic(hwnd, bUse)                                                         \
+#define QHTM_SetMargins(hwnd, rcMargins)                                                                               \
+  ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_MARGINS, (LPARAM) & rcMargins))
+#define QHTM_GetMargins(hwnd, rcMargins)                                                                               \
+  ((void)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_MARGINS, (LPARAM) & rcMargins))
+#define QHTM_GetDrawnSize(hwnd, size) ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_DRAWN_SIZE, 0, (LPARAM)size))
+#define QHTM_SetUseColorStatic(hwnd, bUse)                                                                             \
   ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_USE_COLOR_STATIC, (LPARAM)bUse))
-#define QHTM_GetUseColorStatic(hwnd)                                                               \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_USE_COLOR_STATIC, 0))
-#define QHTM_EnableScrollbars(hwnd, bEnable)                                                       \
+#define QHTM_GetUseColorStatic(hwnd) ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_OPTION, QHTM_OPT_USE_COLOR_STATIC, 0))
+#define QHTM_EnableScrollbars(hwnd, bEnable)                                                                           \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_ENABLE_SCROLLBARS, bEnable))
 #define QHTM_AddHTML(hwnd, pcsz) ((BOOL)QHTM_SENDMESSAGE((hwnd), QHTM_ADD_HTML, 0, (LPARAM)(pcsz)))
-#define QHTM_AddHTML2(hwnd, pcsz, bScrollToEnd)                                                    \
+#define QHTM_AddHTML2(hwnd, pcsz, bScrollToEnd)                                                                        \
   ((BOOL)QHTM_SENDMESSAGE((hwnd), QHTM_ADD_HTML, (WPARAM)bScrollToEnd, (LPARAM)(pcsz)))
-#define QHTM_SetImageCallback(hwnd, pfuncImageCallback)                                            \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_IMAGE_CALLBACK,                      \
-                          (LPARAM)(pfuncImageCallback)))
-#define QHTM_SetBitmapCallback(hwnd, pfuncBitmapCallback)                                          \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_BITMAP_CALLBACK,                     \
-                          (LPARAM)(pfuncBitmapCallback)))
-#define QHTM_SetResourceCallback(hwnd, pfuncResourceCallback)                                      \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_RESOURCE_CALLBACK,                   \
-                          (LPARAM)(pfuncResourceCallback)))
-#define QHTM_SetFormSubmitCallback(hwnd, pfuncCallback)                                            \
-  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_FORM_SUBMIT_CALLBACK,                \
-                          (LPARAM)(pfuncCallback)))
-#define QHTM_SetAlwaysShowTips(hwnd, bShow)                                                        \
+#define QHTM_SetImageCallback(hwnd, pfuncImageCallback)                                                                \
+  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_IMAGE_CALLBACK, (LPARAM)(pfuncImageCallback)))
+#define QHTM_SetBitmapCallback(hwnd, pfuncBitmapCallback)                                                              \
+  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_BITMAP_CALLBACK, (LPARAM)(pfuncBitmapCallback)))
+#define QHTM_SetResourceCallback(hwnd, pfuncResourceCallback)                                                          \
+  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_RESOURCE_CALLBACK, (LPARAM)(pfuncResourceCallback)))
+#define QHTM_SetFormSubmitCallback(hwnd, pfuncCallback)                                                                \
+  ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_FORM_SUBMIT_CALLBACK, (LPARAM)(pfuncCallback)))
+#define QHTM_SetAlwaysShowTips(hwnd, bShow)                                                                            \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_OPTION, QHTM_OPT_SET_ALWAYS_SHOW_TIPS, (LPARAM)(bShow)))
-#define QHTM_GetLinkInfo(hwnd, lppt, lpLinkInfo)                                                   \
+#define QHTM_GetLinkInfo(hwnd, lppt, lpLinkInfo)                                                                       \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_GET_LINK_FROM_POINT, (WPARAM)(lppt), (LPARAM)(lpLinkInfo)))
-#define QHTM_SubmitForm(hwnd, pcszFormName)                                                        \
+#define QHTM_SubmitForm(hwnd, pcszFormName)                                                                            \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SUBMIT_FORM, 0, (LPARAM)(LPCTSTR)(pcszFormName)))
-#define QHTM_GetLinkRegion(hwnd, pcszLinkID)                                                       \
+#define QHTM_GetLinkRegion(hwnd, pcszLinkID)                                                                           \
   ((HRGN)QHTM_SENDMESSAGE(hwnd, QHTM_GET_LINK_REGION, 0, (LPARAM)(LPCTSTR)(pcszLinkID)))
 #define QHTM_SetLPARAM(hwnd, lParam) ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_LPARAM, 0, lParam))
-#define QHTM_ResetForm(hwnd, pcszFormName)                                                         \
+#define QHTM_ResetForm(hwnd, pcszFormName)                                                                             \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_RESET_FORM, 0, (LPARAM)(LPCTSTR)(pcszFormName)))
-#define QHTM_SetDefaultResourceHandle(hwnd, hinstance)                                             \
+#define QHTM_SetDefaultResourceHandle(hwnd, hinstance)                                                                 \
   ((void)QHTM_SENDMESSAGE(hwnd, QHTM_SET_DEFAULT_RESOURCE_HANDLE, 0, (LPARAM)hinstance))
-#define QHTM_SetDefaults(hwnd, qhtm_defaults)                                                      \
+#define QHTM_SetDefaults(hwnd, qhtm_defaults)                                                                          \
   ((BOOL)QHTM_SENDMESSAGE(hwnd, QHTM_SET_DEFAULTS, 0, (LPARAM)qhtm_defaults))
 
   //
@@ -396,14 +385,12 @@ extern "C"
 #define QHTM_SOURCE_FILENAME QHTM_RENDER_FLAG_FILENAME
 
   //        Measure the height of some HTML given a width (registered only)
-  BOOL WINAPI QHTM_GetHTMLHeight(HDC hdc, LPCTSTR pcsz, HINSTANCE hInst, UINT uFlags, UINT uWidth,
-                                 UINT *lpuHeight);
+  BOOL WINAPI QHTM_GetHTMLHeight(HDC hdc, LPCTSTR pcsz, HINSTANCE hInst, UINT uFlags, UINT uWidth, UINT *lpuHeight);
 
   //        Given a width render some HTML to a device context (registered only)
   BOOL WINAPI QHTM_RenderHTML(HDC hdc, LPCTSTR pcsz, HINSTANCE hInst, UINT uFlags, UINT uWidth);
 
-  BOOL WINAPI QHTM_RenderHTMLRect(HDC hdc, LPCTSTR pcsz, HINSTANCE hInst, UINT uFlags,
-                                  LPCRECT lprc);
+  BOOL WINAPI QHTM_RenderHTMLRect(HDC hdc, LPCTSTR pcsz, HINSTANCE hInst, UINT uFlags, LPCRECT lprc);
 
   //        Call this to create a new print context using a zoom level
   QHTMCONTEXT WINAPI QHTM_PrintCreateContext(UINT uZoomLevel);
@@ -463,8 +450,7 @@ public:
   //        Load the HTML from a resource
   inline BOOL LoadFromResource(LPCTSTR pcszName)
   {
-    return (BOOL)SendMessage(QHTM_LOAD_FROM_RESOURCE, (WPARAM)AfxGetResourceHandle(),
-                             (LPARAM)pcszName);
+    return (BOOL)SendMessage(QHTM_LOAD_FROM_RESOURCE, (WPARAM)AfxGetResourceHandle(), (LPARAM)pcszName);
   }
 
   //        Enable/disable tooltips on the control

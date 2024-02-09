@@ -65,8 +65,7 @@ HB_FUNC(HMG_GETCUEBANNERTEXT)
   {
     auto lpWCStr = static_cast<HB_WCHAR *>(hb_xgrab(256 * sizeof(HB_WCHAR)));
 
-    if (SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)),
-                    256))
+    if (SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)), 256))
     {
       hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
     }
@@ -95,9 +94,8 @@ HB_FUNC(HMG_SENDMESSAGESTRINGW)
   {
     auto lpWCStr = static_cast<HB_WCHAR *>((hb_parclen(4) == 0) ? nullptr : hb_mbtowc(hb_parc(4)));
 
-    HB_RETNL(
-        static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), static_cast<WPARAM>(hb_parl(3)),
-                                          reinterpret_cast<LPARAM>(lpWCStr))));
+    HB_RETNL(static_cast<LONG_PTR>(
+        SendMessage(hwnd, hmg_par_UINT(2), static_cast<WPARAM>(hb_parl(3)), reinterpret_cast<LPARAM>(lpWCStr))));
     if (lpWCStr != nullptr)
     {
       hb_xfree(lpWCStr);

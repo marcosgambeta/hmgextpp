@@ -136,9 +136,8 @@ HB_FUNC(HMG_INITHOTKEYBOX)
     style |= WS_TABSTOP;
   }
 
-  auto hwndHotKey =
-      CreateWindowEx(0, HOTKEY_CLASS, TEXT(""), style, hb_parni(2), hb_parni(3), hb_parni(4),
-                     hb_parni(5), hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
+  auto hwndHotKey = CreateWindowEx(0, HOTKEY_CLASS, TEXT(""), style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
+                                   hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
 
   hmg_ret_HWND(hwndHotKey);
 }
@@ -158,9 +157,8 @@ HB_FUNC(HMG_SETHOTKEYVALUE)
     SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
   }
 
-  SendMessage(
-      hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S,
-      /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
+  SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S,
+              /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -172,8 +170,7 @@ HB_FUNC(HMG_C_GETHOTKEYVALUE)
   auto wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
   UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
   UINT uModifiers = HIBYTE(LOWORD(wHotKey));
-  UINT iModifierKeys = ((uModifiers & HOTKEYF_CONTROL) ? MOD_CONTROL : 0) |
-                       ((uModifiers & HOTKEYF_ALT) ? MOD_ALT : 0) |
+  UINT iModifierKeys = ((uModifiers & HOTKEYF_CONTROL) ? MOD_CONTROL : 0) | ((uModifiers & HOTKEYF_ALT) ? MOD_ALT : 0) |
                        ((uModifiers & HOTKEYF_SHIFT) ? MOD_SHIFT : 0);
   hb_reta(2);
   HB_STORVNL(static_cast<UINT>(uVirtualKeyCode), -1, 1);

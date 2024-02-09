@@ -75,9 +75,8 @@ HB_FUNC(HMG_INITRADIOGROUP)
     style |= BS_LEFTTEXT;
   }
 
-  auto hbutton =
-      CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5),
-                     hb_parni(8), 28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5), hb_parni(8),
+                                28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
   hmg_ret_HWND(hbutton);
 
@@ -107,9 +106,8 @@ HB_FUNC(HMG_INITRADIOBUTTON)
     style |= BS_LEFTTEXT;
   }
 
-  auto hbutton =
-      CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5),
-                     hb_parni(8), 28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &str, nullptr), style, hb_parni(4), hb_parni(5), hb_parni(8),
+                                28, hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr);
 
   hmg_ret_HWND(hbutton);
 

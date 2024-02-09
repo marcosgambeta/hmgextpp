@@ -192,8 +192,7 @@ HB_FUNC(HMG_INITPLAYER)
 
   if (hwnd == nullptr)
   {
-    MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     return;
   }
 
@@ -317,8 +316,7 @@ HB_FUNC(HMG_INITANIMATE)
 
   if (hwnd == nullptr)
   {
-    MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     return;
   }
 

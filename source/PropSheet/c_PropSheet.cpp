@@ -307,13 +307,12 @@ HB_FUNC(CREATEPROPERTYSHEET)
 
   if (Style & PSP_USEHICON)
   {
-    hicon = static_cast<HICON>(LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0,
-                                         LR_LOADFROMFILE + LR_DEFAULTSIZE));
+    hicon = static_cast<HICON>(
+        LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
     if (hicon == nullptr)
     {
-      hicon =
-          static_cast<HICON>(LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20),
-                                       IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      hicon = static_cast<HICON>(LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0,
+                                           LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
   }
   else
@@ -340,8 +339,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   psh.pszbmHeader = MAKEINTRESOURCE(idHeader);
   psh.pszCaption = strPropSheet;
   psh.nPages = nPages;
-  psh.pfnCallback =
-      reinterpret_cast<PFNPROPSHEETCALLBACK>(reinterpret_cast<void *>(HMG_PropSheetProc));
+  psh.pfnCallback = reinterpret_cast<PFNPROPSHEETCALLBACK>(reinterpret_cast<void *>(HMG_PropSheetProc));
 
   if (hb_parl(4))
   {
@@ -440,8 +438,7 @@ HB_FUNC(DESTROYPROPSHEET)
 
 HB_FUNC(SENDDLGITEMMESSAGE)
 {
-  hb_retnl(SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4),
-                              hmg_par_LPARAM(5)));
+  hb_retnl(SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4), hmg_par_LPARAM(5)));
 }
 
 /****************************************************************************

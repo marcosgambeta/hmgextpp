@@ -89,14 +89,12 @@ HB_FUNC(HMG_IL_ADD) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
 
   void *strImageName1;
   LPCTSTR lpImageName1 = HB_PARSTR(2, &strImageName1, nullptr);
-  auto himage1 =
-      static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName1, IMAGE_BITMAP, 0, 0,
-                                     LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
+  auto himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName1, IMAGE_BITMAP, 0, 0,
+                                                LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
   if (himage1 == nullptr)
   {
-    himage1 =
-        static_cast<HBITMAP>(LoadImage(nullptr, lpImageName1, IMAGE_BITMAP, 0, 0,
-                                       LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage1 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName1, IMAGE_BITMAP, 0, 0,
+                                             LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   }
   if (himage1 == nullptr)
   {
@@ -109,13 +107,12 @@ HB_FUNC(HMG_IL_ADD) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
   HBITMAP himage2 = nullptr; // handle to maskimage
   if (hb_parclen(3))
   {
-    himage2 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0,
-                                             LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage2 = static_cast<HBITMAP>(
+        LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     if (himage2 == nullptr)
     {
-      himage2 = static_cast<HBITMAP>(
-          LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0,
-                    LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      himage2 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0,
+                                               LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
     if (himage2 == nullptr)
     {
@@ -167,14 +164,12 @@ HB_FUNC(HMG_IL_ADDMASKED) // IL_AddMasked(himl, image, color, ix, iy, imagecount
 
   void *strImageName;
   LPCTSTR lpImageName = HB_PARSTR(2, &strImageName, nullptr);
-  auto himage1 =
-      static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0,
-                                     LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
+  auto himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0,
+                                                LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT)); // handle to image
   if (himage1 == nullptr)
   {
-    himage1 =
-        static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
-                                       LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage1 = static_cast<HBITMAP>(
+        LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   }
   if (himage1 == nullptr)
   {
@@ -215,8 +210,7 @@ HB_FUNC(HMG_IL_DRAW) // BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex,
     hb_retl(false);
   }
 
-  if (!ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_int(3), hdc, hmg_par_int(4), hmg_par_int(5),
-                      ILD_TRANSPARENT))
+  if (!ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_int(3), hdc, hmg_par_int(4), hmg_par_int(5), ILD_TRANSPARENT))
   {
     hb_retl(false);
   }
@@ -266,8 +260,7 @@ HMG_IL_ERASEIMAGE(HWND, p2, p3, p4, p5) --> NIL
 HB_FUNC(HMG_IL_ERASEIMAGE) // IL_EraseImage(hwnd, ix, iy, dx, dy)
 {
   RECT rcImage;
-  SetRect(&rcImage, hmg_par_int(2), hmg_par_int(3), hmg_par_int(4) + hmg_par_int(2),
-          hmg_par_int(5) + hmg_par_int(3));
+  SetRect(&rcImage, hmg_par_int(2), hmg_par_int(3), hmg_par_int(4) + hmg_par_int(2), hmg_par_int(5) + hmg_par_int(3));
   InvalidateRect(hmg_par_HWND(1), &rcImage, TRUE);
   UpdateWindow(hmg_par_HWND(1));
 }
@@ -287,8 +280,7 @@ HB_FUNC(HMG_IL_BEGINDRAG) // IL_BeginDrag(hwnd, himl, ImageInx, ix, iy)
   if (ImageList_GetIconSize(hmg_par_HIMAGELIST(2), &cx, &cy))
   {
     RECT rcImage;
-    SetRect(&rcImage, hmg_par_int(4) - 2, hmg_par_int(5) - 2, hmg_par_int(4) + cx + 2,
-            hmg_par_int(5) + cy + 2);
+    SetRect(&rcImage, hmg_par_int(4) - 2, hmg_par_int(5) - 2, hmg_par_int(4) + cx + 2, hmg_par_int(5) + cy + 2);
     InvalidateRect(hmg_par_HWND(1), &rcImage, TRUE);
     UpdateWindow(hmg_par_HWND(1));
   }

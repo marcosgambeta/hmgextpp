@@ -410,9 +410,8 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
 /*
 HMG_C_BROWSEFORFOLDER(HWND, cTitle, nFlags, np4, cp5) --> string
 */
-HB_FUNC(
-    HMG_C_BROWSEFORFOLDER) // Syntax:
-                           // C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[<nFlags>],[<nFolderType>],[<cInitPath>])
+HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
+                               // C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[<nFlags>],[<nFolderType>],[<cInitPath>])
 {
   HWND hWnd = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
 
@@ -468,8 +467,7 @@ HB_FUNC(HMG_CHOOSECOLOR)
   COLORREF crCustClr[16];
   for (auto i = 0; i < 16; i++)
   {
-    crCustClr[i] =
-        (HB_ISARRAY(3) ? static_cast<COLORREF>(HB_PARVNL(3, i + 1)) : GetSysColor(COLOR_BTNFACE));
+    crCustClr[i] = (HB_ISARRAY(3) ? static_cast<COLORREF>(HB_PARVNL(3, i + 1)) : GetSysColor(COLOR_BTNFACE));
   }
 
   CHOOSECOLOR cc{};

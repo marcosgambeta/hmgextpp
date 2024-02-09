@@ -412,8 +412,7 @@ HB_FUNC(HMG_ENUMPROPSEX)
 
   if (IsWindow(hWnd) && pCodeBlock)
   {
-    hb_retni(
-        EnumPropsEx(hWnd, (PROPENUMPROCEX)PropsEnumProcEx, reinterpret_cast<LPARAM>(pCodeBlock)));
+    hb_retni(EnumPropsEx(hWnd, (PROPENUMPROCEX)PropsEnumProcEx, reinterpret_cast<LPARAM>(pCodeBlock)));
   }
   else
   {

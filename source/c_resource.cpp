@@ -134,8 +134,7 @@ HB_FUNC(HMG_RCDATATOFILE)
   /* lpType is RT_RCDATA by default */
 #ifndef UNICODE
   LPCSTR lpName = hb_parc(1);
-  LPCSTR lpType =
-      (hb_parclen(3) > 0) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));
+  LPCSTR lpType = (hb_parclen(3) > 0) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));
 #else
   LPCWSTR lpName = AnsiToWide(static_cast<char *>(hb_parc(1)));
   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(static_cast<char *>(hb_parc(3)))
@@ -177,8 +176,7 @@ HB_FUNC(HMG_RCDATATOFILE)
       DWORD dwSize = SizeofResource(hModule, hResInfo);
       PHB_FILE pFile;
 
-      pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE,
-                             nullptr, nullptr);
+      pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, nullptr, nullptr);
 
       if (pFile != nullptr)
       {

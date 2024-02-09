@@ -65,8 +65,7 @@ static int bInit = FALSE;
 /* If startup fails no other functions are allowed */
 HB_FUNC(SOCKETINIT)
 {
-#define HB_MKWORD(l, h)                                                                            \
-  (static_cast<WORD>((static_cast<BYTE>(l)) | ((static_cast<WORD>(static_cast<BYTE>(h))) << 8)))
+#define HB_MKWORD(l, h) (static_cast<WORD>((static_cast<BYTE>(l)) | ((static_cast<WORD>(static_cast<BYTE>(h))) << 8)))
 
   WSADATA WSAData;
 
@@ -120,8 +119,7 @@ HB_FUNC(SOCKETCONNECT)
         }
       }
 
-      hb_retl(connect(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) !=
-              SOCKET_ERROR);
+      hb_retl(connect(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) != SOCKET_ERROR);
     }
     else
       hb_retl(false);
@@ -168,8 +166,7 @@ HB_FUNC(SOCKETBIND)
         }
       }
 
-      hb_retl(bind(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) !=
-              SOCKET_ERROR);
+      hb_retl(bind(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) != SOCKET_ERROR);
     }
     else
       hb_retl(false);
@@ -266,8 +263,7 @@ HB_FUNC(SOCKETRECEIVE)
         {
           auto recvtimeout = hb_parni(3);
           if (recvtimeout != -1)
-            setsockopt(m_hSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&recvtimeout,
-                       sizeof(recvtimeout));
+            setsockopt(m_hSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&recvtimeout, sizeof(recvtimeout));
         }
 
         nLen = recv(m_hSocket, pRead, nLen, 0);
@@ -442,8 +438,8 @@ HB_FUNC(SOCKETHMAC_MD5)
     char *password = (char *)hb_parc(2);
     char *challenge = (char *)hb_parc(3);
 
-    hmac_md5((unsigned char *)challenge, strlen(challenge), (unsigned char *)password,
-             strlen(password), (unsigned char *)digest);
+    hmac_md5((unsigned char *)challenge, strlen(challenge), (unsigned char *)password, strlen(password),
+             (unsigned char *)digest);
 
     digasc[32] = 0;
     for (i = 0; i < 16; i++)

@@ -108,8 +108,7 @@ HB_FUNC(REGISTER_CLASS)
 
   if (!RegisterClass(&WndClass))
   {
-    MessageBox(0, "Window Registration Failed!", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Window Registration Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     ExitProcess(0);
   }
 
@@ -138,9 +137,8 @@ HB_FUNC(_CREATEWINDOWEX)
   int nWidth = HB_ISNIL(7) ? 0 : hb_parni(7);
   int nHeight = HB_ISNIL(8) ? 0 : hb_parni(8);
 
-  auto hWnd =
-      CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hmg_par_HWND(9),
-                     nullptr, static_cast<HINSTANCE>(hmg_par_HANDLE(11)), nullptr);
+  auto hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hmg_par_HWND(9), nullptr,
+                             static_cast<HINSTANCE>(hmg_par_HANDLE(11)), nullptr);
 
   HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 
@@ -205,8 +203,7 @@ void MaskRegion(HDC hdc, RECT *rct, COLORREF cTransparentColor, COLORREF cBackgr
   DeleteDC(hdcTemp);
 }
 
-void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wHeight,
-                DWORD dwRaster)
+void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wHeight, DWORD dwRaster)
 {
   auto hDCmem = CreateCompatibleDC(hDC);
   BITMAP bitmap;
@@ -218,8 +215,7 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
   GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 
   if (wWidth && (wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight))
-    StretchBlt(hDC, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight,
-               dwRaster);
+    StretchBlt(hDC, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster);
   else
     BitBlt(hDC, wCol, wRow, bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwRaster);
 
@@ -349,9 +345,9 @@ HB_FUNC(TSDRAWCELL)
       rct.top = (bHeader ? nHeightSuper - (nHeightSuper ? 1 : 0) : 0);
   }
   else
-    rct.top = (bFooter ? rct.bottom - nHeightFoot + 1
-                       : nHeightHead + nHeightSuper - (nHeightSuper ? 1 : 0) + nHeightSpec +
-                             (nHeightCell * (nRow - 1)));
+    rct.top =
+        (bFooter ? rct.bottom - nHeightFoot + 1
+                 : nHeightHead + nHeightSuper - (nHeightSuper ? 1 : 0) + nHeightSpec + (nHeightCell * (nRow - 1)));
 
   rct.bottom = rct.top + (bHeader ? nHeightHead : (bSuper ? nHeightSuper : nHeightCell) - 1);
   rct.bottom = (bSpecHd ? rct.bottom + nHeightSpec : rct.bottom);
@@ -367,8 +363,7 @@ HB_FUNC(TSDRAWCELL)
     /* if nWidth == -1 or -2, it indicates the last column so go to limit,
        Don't let right side go beyond rct.right of Client Rect. */
 
-    if ((nWidth >= 0) &&
-        ((rct.left + nWidth - rct.right) <= 0)) // negative values have different meanings
+    if ((nWidth >= 0) && ((rct.left + nWidth - rct.right) <= 0)) // negative values have different meanings
       rct.right = rct.left + nWidth;
 
     if (!bDegrad)
@@ -409,8 +404,7 @@ HB_FUNC(TSDRAWCELL)
           break;
 
         case 3: // left of centered text
-          nLeft = HB_MAX(rct.left, rct.left + ((rct.right - rct.left + 1) / 2) - (iTxtW / 2) -
-                                       bm.bmWidth - 2);
+          nLeft = HB_MAX(rct.left, rct.left + ((rct.right - rct.left + 1) / 2) - (iTxtW / 2) - bm.bmWidth - 2);
           break;
 
         case 4: // right of centered text
@@ -433,8 +427,8 @@ HB_FUNC(TSDRAWCELL)
         if (bAdjBmp)
         {
           nTop = rct.top + 1;
-          DrawBitmap(hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1,
-                     rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
+          DrawBitmap(hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1, rct.bottom - rct.top - 1,
+                     bSelec ? 0 : nBitmapMask);
           hBitMap = 0;
 
           if (!bOpaque)
@@ -449,8 +443,8 @@ HB_FUNC(TSDRAWCELL)
       {
         if (bAdjBmp)
         {
-          DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3,
-                     rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
+          DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1,
+                     bSelec ? 0 : nBitmapMask);
           hBitMap = 0;
 
           if (!bOpaque)
@@ -532,8 +526,7 @@ HB_FUNC(TSDRAWCELL)
     {
       bHeader = (bSuper ? bSuper : bHeader);
 
-      if ((nWidth != -2) &&
-          bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
+      if ((nWidth != -2) && bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
         WndBoxDraw(hDC, &rct, hWhitePen, hGrayPen, b3DLook ? 4 : nLineStyle, bHeader);
 
       if (lCursor)
@@ -543,8 +536,7 @@ HB_FUNC(TSDRAWCELL)
     {
       bHeader = (bFooter ? bFooter : (bHeader || bSuper));
 
-      if ((nWidth != -2) &&
-          bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
+      if ((nWidth != -2) && bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
         WndBoxDraw(hDC, &rct, hGrayPen, hGrayPen, nLineStyle, bHeader);
 
       if (lCursor)
@@ -998,9 +990,7 @@ static void DegradColor(HDC hDC, RECT *rori, COLORREF cFrom, signed long cTo)
 void cDrawCursor(HWND hWnd, RECT *rctc, long lCursor, COLORREF nClr)
 {
   auto hDC = GetDC(hWnd);
-  COLORREF lclr = (lCursor == 1   ? RGB(5, 5, 5)
-                   : lCursor == 2 ? nClr
-                                  : static_cast<COLORREF>(lCursor));
+  COLORREF lclr = (lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor));
   RECT rct;
 
   if (lCursor != 3)
@@ -1043,8 +1033,7 @@ HB_FUNC(GETSCRLRANGE) // ( hWnd, nFlags )
 HB_FUNC(INITEDSPINNER)
 {
   HWND hupdown;
-  int Style = WS_CHILD | WS_VISIBLE | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT |
-              UDS_NOTHOUSANDS | UDS_HOTTRACK;
+  int Style = WS_CHILD | WS_VISIBLE | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS | UDS_HOTTRACK;
 
   INITCOMMONCONTROLSEX i;
 

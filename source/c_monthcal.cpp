@@ -56,8 +56,8 @@
 #include <hbdate.hpp>
 #include <hbwinuni.hpp>
 
-extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic,
-                         DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
+extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline,
+                         DWORD StrikeOut, DWORD Angle, DWORD charset);
 LRESULT CALLBACK OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 /*
@@ -104,13 +104,11 @@ HB_FUNC(HMG_INITMONTHCAL)
     style |= WS_TABSTOP;
   }
 
-  auto hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hmg_par_HWND(1),
-                                  hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hmg_par_HWND(1), hmg_par_HMENU(2),
+                                  GetInstance(), nullptr);
 
-  SetProp(hmonthcal, TEXT("oldmcproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
-  SetWindowLongPtr(hmonthcal, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
+  SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
+  SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
 
   if (hb_parl(14))
   {
@@ -133,8 +131,8 @@ HB_FUNC(HMG_INITMONTHCAL)
   }
 
   void *str;
-  auto hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline,
-                           strikeout, angle, DEFAULT_CHARSET);
+  auto hfont =
+      PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
   hb_strfree(str);
 
   SendMessage(hmonthcal, WM_SETFONT, reinterpret_cast<WPARAM>(hfont), 1);
@@ -253,8 +251,7 @@ HB_FUNC(HMG_GETMONTHRANGE)
 {
   SYSTEMTIME sysTime[2];
   memset(&sysTime, 0, sizeof(sysTime));
-  int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE,
-                           reinterpret_cast<LPARAM>(&sysTime));
+  int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, reinterpret_cast<LPARAM>(&sysTime));
 
   hb_reta(3);
   HB_STORNI(iCount, -1, 1);
@@ -267,8 +264,8 @@ HB_FUNC_TRANSLATE(GETMONTHRANGE, HMG_GETMONTHRANGE)
 #endif
 
 #ifndef BOLDDAY
-#define BOLDDAY(ds, iDay)                                                                          \
-  if (iDay > 0 && iDay < 32)                                                                       \
+#define BOLDDAY(ds, iDay)                                                                                              \
+  if (iDay > 0 && iDay < 32)                                                                                           \
   (ds) |= (0x00000001 << (iDay - 1))
 #endif
 
@@ -352,14 +349,12 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc =
-      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
 
   switch (Msg)
   {
   case WM_DESTROY:
-    SetWindowLongPtr(hwnd, GWLP_WNDPROC,
-                     reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hwnd, TEXT("oldmcproc"));
     break;
 

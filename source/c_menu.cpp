@@ -410,8 +410,7 @@ HMG_XDISABLECLOSEBUTTON(HWND, lp2) --> NIL
 */
 HB_FUNC(HMG_XDISABLECLOSEBUTTON)
 {
-  EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE,
-                 MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
+  EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE, MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -534,8 +533,7 @@ HB_FUNC(HMG_APPENDMENUPOPUP)
     lpMenuItem->hFont = hmg_par_HFONT(5);
     lpMenuItem->uiItemType = hb_parni(4);
 
-    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2),
-                       reinterpret_cast<LPTSTR>(lpMenuItem)));
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
   }
   else
   {
@@ -558,8 +556,7 @@ HB_FUNC(HMG_APPENDMENUSEPARATOR)
   {
     auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
     lpMenuItem->uiItemType = 1000;
-    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0,
-                       reinterpret_cast<LPTSTR>(lpMenuItem)));
+    hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, reinterpret_cast<LPTSTR>(lpMenuItem)));
   }
   else
   {
@@ -698,12 +695,11 @@ HB_FUNC(HMG_MENUITEM_SETICON)
   void *str;
   LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
-  auto hIcon = static_cast<HICON>(
-      LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
+  auto hIcon =
+      static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
   if (hIcon == nullptr)
   {
-    hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
   HBITMAP himage1 = Icon2Bmp(hIcon); // convert icon to bitmap
@@ -978,15 +974,12 @@ HB_FUNC(HMG__ONDRAWMENUITEM)
   BOOL fSelected = FALSE;
 
   // set colours and flags ( fSelected etc. )
-  if (((lpdis->itemAction & ODA_SELECT) || (lpdis->itemAction & ODA_DRAWENTIRE)) &&
-      (!(lpdis->itemState & ODS_GRAYED)))
+  if (((lpdis->itemAction & ODA_SELECT) || (lpdis->itemAction & ODA_DRAWENTIRE)) && (!(lpdis->itemState & ODS_GRAYED)))
   {
     if (lpdis->itemState & ODS_SELECTED)
     {
-      clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedText1
-                                                                       : clrMenuBarSelectedText);
-      clrBackground =
-          SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedBk1 : clrMenuBar1);
+      clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedText1 : clrMenuBarSelectedText);
+      clrBackground = SetBkColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrSelectedBk1 : clrMenuBar1);
       fSelected = TRUE;
     }
     else
@@ -1001,8 +994,7 @@ HB_FUNC(HMG__ONDRAWMENUITEM)
 
   if (lpdis->itemState & ODS_GRAYED)
   {
-    clrText = SetTextColor(lpdis->hDC,
-                           (lpMenuItem->uiItemType != 1) ? clrGrayedText1 : clrMenuBarGrayedText);
+    clrText = SetTextColor(lpdis->hDC, (lpMenuItem->uiItemType != 1) ? clrGrayedText1 : clrMenuBarGrayedText);
     fGrayed = TRUE;
   }
 
@@ -1033,12 +1025,10 @@ HB_FUNC(HMG__ONDRAWMENUITEM)
   // draw bitmap
   if ((lpMenuItem->hBitmap != nullptr) && (!fChecked))
   {
-    DrawGlyph(lpdis->hDC, lpdis->rcItem.left + cx_delta - 2, lpdis->rcItem.top + cy_delta, bm_size,
-              bm_size, lpMenuItem->hBitmap, static_cast<COLORREF>(RGB(125, 125, 125)),
-              ((fGrayed) ? TRUE : FALSE), TRUE);
+    DrawGlyph(lpdis->hDC, lpdis->rcItem.left + cx_delta - 2, lpdis->rcItem.top + cy_delta, bm_size, bm_size,
+              lpMenuItem->hBitmap, static_cast<COLORREF>(RGB(125, 125, 125)), ((fGrayed) ? TRUE : FALSE), TRUE);
 
-    if (fSelected && (lpMenuItem->uiItemType != 1) && (eMenuCursorType == Short) &&
-        bSelectedItemBorder3d)
+    if (fSelected && (lpMenuItem->uiItemType != 1) && (eMenuCursorType == Short) && bSelectedItemBorder3d)
     {
       auto pen = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
       auto pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
@@ -1227,11 +1217,10 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
     }
     else
     {
-      if (EnabledGradient() && (!IsColorEqual(clrMenuBar1, clrMenuBar2) ||
-                                (!IsColorEqual(clrBk1, clrBk2) && (itemType != 1))))
+      if (EnabledGradient() &&
+          (!IsColorEqual(clrMenuBar1, clrMenuBar2) || (!IsColorEqual(clrBk1, clrBk2) && (itemType != 1))))
       {
-        FillGradient(hDC, &rect, ((itemType == 1) ? TRUE : FALSE),
-                     ((itemType == 1) ? clrMenuBar1 : clrBk1),
+        FillGradient(hDC, &rect, ((itemType == 1) ? TRUE : FALSE), ((itemType == 1) ? clrMenuBar1 : clrBk1),
                      ((itemType == 1) ? clrMenuBar2 : clrBk2));
       }
       else

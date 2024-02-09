@@ -52,15 +52,13 @@
 #include <hbwinuni.hpp>
 
 #if defined(__MINGW32__) && defined(__MINGW32_VERSION)
-#define Pager_ForwardMouse(hwnd, bForward)                                                         \
+#define Pager_ForwardMouse(hwnd, bForward)                                                                             \
   static_cast<void>(SendMessage((hwnd), PGM_FORWARDMOUSE, static_cast<WPARAM>(bForward), 0))
-#define Pager_SetBorder(hwnd, iBorder)                                                             \
-  SendMessage((hwnd), PGM_SETBORDER, 0, static_cast<LPARAM>(iBorder))
+#define Pager_SetBorder(hwnd, iBorder) SendMessage((hwnd), PGM_SETBORDER, 0, static_cast<LPARAM>(iBorder))
 #define Pager_GetBorder(hwnd) SendMessage((hwnd), PGM_GETBORDER, 0, 0)
 #define Pager_SetPos(hwnd, iPos) SendMessage((hwnd), PGM_SETPOS, 0, static_cast<LPARAM>(iPos))
 #define Pager_GetPos(hwnd) SendMessage((hwnd), PGM_GETPOS, 0, 0)
-#define Pager_SetButtonSize(hwnd, iSize)                                                           \
-  SendMessage((hwnd), PGM_SETBUTTONSIZE, 0, static_cast<LPARAM>(iSize))
+#define Pager_SetButtonSize(hwnd, iSize) SendMessage((hwnd), PGM_SETBUTTONSIZE, 0, static_cast<LPARAM>(iSize))
 #define Pager_GetButtonSize(hwnd) SendMessage((hwnd), PGM_GETBUTTONSIZE, 0, 0)
 #endif
 
@@ -151,14 +149,12 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
 
   REBARBANDINFO rbBand{};
   rbBand.cbSize = sizeof(REBARBANDINFO);
-  rbBand.fMask = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE |
-                 RBBS_BREAK | RBBIM_COLORS;
+  rbBand.fMask = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE | RBBS_BREAK | RBBIM_COLORS;
   rbBand.fStyle = RBBS_CHILDEDGE;
   // rbBand.cxMinChild = 0;
   // rbBand.cyMinChild = 0;
 
-  auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr,
-                               GetInstance(), nullptr);
+  auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
 
   void *str;
 

@@ -68,9 +68,8 @@ HB_FUNC(HMG_INITIPADDRESS)
     style |= WS_TABSTOP;
   }
 
-  auto hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), style, hb_parni(3),
-                                   hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
-                                   hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), style, hb_parni(3), hb_parni(4),
+                                   hb_parni(5), hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   hmg_ret_HWND(hIpAddress);
 }

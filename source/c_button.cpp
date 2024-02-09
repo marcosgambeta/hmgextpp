@@ -60,13 +60,11 @@
 #define BCM_SETIMAGELIST (BCM_FIRST + 0x0002)
 #endif
 
-static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1,
-                                  COLORREF Color2);
+static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2);
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char *FileName, int Transparent, UINT uAlign);
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR *FileName);
 
-#if (defined(__BORLANDC__) && __BORLANDC__ < 1410) ||                                              \
-    (defined(__MINGW32__) && defined(__MINGW32_VERSION))
+#if (defined(__BORLANDC__) && __BORLANDC__ < 1410) || (defined(__MINGW32__) && defined(__MINGW32_VERSION))
 struct BUTTON_IMAGELIST
 {
   HIMAGELIST himl;
@@ -86,26 +84,23 @@ HB_FUNC(HMG__SETBTNPICTURE)
 
   auto hwnd = hmg_par_HWND(1);
 
-  auto himage = static_cast<HWND>(
-      LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
-                HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+  auto himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
+                                            HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
   if (himage == nullptr)
   {
-    himage = static_cast<HWND>(LoadImage(
-        nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
-        HB_MAX(hb_parnidef(4, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
+                                         HB_MAX(hb_parnidef(4, 0), 0),
+                                         LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   }
 
   if (himage == nullptr)
   {
-    himage =
-        reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1,
-                                               0, false, 255)); // TODO: hb_parc(2) -> lpImageName
+    himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, false,
+                                                    255)); // TODO: hb_parc(2) -> lpImageName
   }
 
-  SendMessage(hwnd, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP),
-              reinterpret_cast<LPARAM>(himage));
+  SendMessage(hwnd, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
   RegisterResource(himage, "BMP");
   hmg_ret_HWND(himage);
   hb_strfree(ImageName);
@@ -120,8 +115,7 @@ HMG__GETBTNPICTUREHANDLE(HWND) --> HWND
 */
 HB_FUNC(HMG__GETBTNPICTUREHANDLE)
 {
-  hmg_ret_HWND(reinterpret_cast<HWND>(
-      SendMessage(hmg_par_HWND(1), BM_GETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), 0)));
+  hmg_ret_HWND(reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), BM_GETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), 0)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -134,8 +128,7 @@ HMG__SETMIXEDBTNPICTURE(p1, p2, p3) --> HANDLE
 HB_FUNC(HMG__SETMIXEDBTNPICTURE)
 {
   int Transparent = hb_parl(3) ? 0 : 1;
-  HIMAGELIST himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent,
-                                           BUTTON_IMAGELIST_ALIGN_CENTER);
+  HIMAGELIST himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
   RegisterResource(himl, "IMAGELIST");
   hmg_ret_HIMAGELIST(himl);
 }
@@ -154,17 +147,14 @@ HB_FUNC(HMG__SETBTNICON)
   void *IconName;
   LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
-  auto hIcon =
-      static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+  auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
   if (hIcon == nullptr)
   {
-    hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
-  SendMessage(hmg_par_HWND(1), BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON),
-              reinterpret_cast<LPARAM>(hIcon));
+  SendMessage(hmg_par_HWND(1), BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
   RegisterResource(hIcon, "ICON");
   hmg_ret_HICON(hIcon);
   hb_strfree(IconName);
@@ -182,13 +172,11 @@ HB_FUNC(HMG__SETMIXEDBTNICON)
   void *IconName;
   LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
-  auto hIcon =
-      static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+  auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
   if (hIcon == nullptr)
   {
-    hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
   ICONINFO sIconInfo;
@@ -401,16 +389,15 @@ HMG_CREATEBUTTONBRUSH(p1, p2, p3, p4, p5) --> HANDLE
 */
 HB_FUNC(HMG_CREATEBUTTONBRUSH)
 {
-  hmg_ret_HBRUSH(CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_COLORREF(4),
-                                     hmg_par_COLORREF(5)));
+  hmg_ret_HBRUSH(
+      CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_COLORREF(4), hmg_par_COLORREF(5)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE(CREATEBUTTONBRUSH, HMG_CREATEBUTTONBRUSH)
 #endif
 
-static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1,
-                                  COLORREF Color2)
+static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2)
 {
   int r1 = GetRValue(Color1);
   int g1 = GetGValue(Color1);
@@ -436,8 +423,8 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 
   for (auto i = 0; i < nCount; i++)
   {
-    hBrush = CreateSolidBrush(RGB(r1 + (i * (r2 - r1) / nCount), g1 + (i * (g2 - g1) / nCount),
-                                  b1 + (i * (b2 - b1) / nCount)));
+    hBrush = CreateSolidBrush(
+        RGB(r1 + (i * (r2 - r1) / nCount), g1 + (i * (g2 - g1) / nCount), b1 + (i * (b2 - b1) / nCount)));
     hBrushOld = reinterpret_cast<HBRUSH>(SelectObject(hDCComp, hBrush));
     FillRect(hDCComp, &rcF, hBrush);
     SelectObject(hDCComp, hBrushOld);
@@ -474,14 +461,12 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char *FileName, int Transp
 
   if (Transparent == 1)
   {
-    hImageList = ImageList_LoadImage(
-        GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP,
-        LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+    hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP,
+                                     LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
   }
   else
   {
-    hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_NONE,
-                                     IMAGE_BITMAP,
+    hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_NONE, IMAGE_BITMAP,
                                      LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS);
   }
 

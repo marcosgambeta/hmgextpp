@@ -60,8 +60,7 @@ HB_FUNC(HMG_INITMESSAGEBAR)
   int ptArray[40]; // Array defining the number of parts/sections
   auto nrOfParts = 1;
 
-  hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1),
-                              hb_parni(2));
+  hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
 
   if (hWndSB)
   {
@@ -204,8 +203,8 @@ HB_FUNC(HMG_GETITEMBAR)
   auto hWnd = hmg_par_HWND(1);
   auto iPos = hb_parni(2);
 
-  auto cString = static_cast<TCHAR *>(
-      hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
+  auto cString =
+      static_cast<TCHAR *>(hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR)));
   SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
 
 #ifndef UNICODE
@@ -397,8 +396,7 @@ HB_FUNC(HMG_REFRESHPROGRESSITEM) // RefreshProgressItem(HwndStatus, NrItem, hPro
   RECT rc;
 
   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
-  SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0,
-               SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+  SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -418,13 +416,13 @@ HB_FUNC(HMG_CREATEPROGRESSBARITEM) // CreateProgressBarItem(HwndStatus, NrItem)
     style |= WS_VISIBLE;
   }
 
-  if ((hwndProgressBar = CreateWindowEx(0, PROGRESS_CLASS, (LPCTSTR) nullptr, style, rc.top,
-                                        rc.left, rc.right - rc.left,
-                                        rc.bottom - rc.top - 1, // No size or position.
-                                        hwndStatus,             // Handle to the parent window.
-                                        (HMENU) nullptr,        // ID for the progress window.
-                                        GetInstance(),          // Current instance.
-                                        nullptr)) != nullptr)
+  if ((hwndProgressBar =
+           CreateWindowEx(0, PROGRESS_CLASS, (LPCTSTR) nullptr, style, rc.top, rc.left, rc.right - rc.left,
+                          rc.bottom - rc.top - 1, // No size or position.
+                          hwndStatus,             // Handle to the parent window.
+                          (HMENU) nullptr,        // ID for the progress window.
+                          GetInstance(),          // Current instance.
+                          nullptr)) != nullptr)
   {
     SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
     SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);

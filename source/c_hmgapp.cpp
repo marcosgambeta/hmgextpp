@@ -79,8 +79,7 @@ static void hmg_init(void *cargo)
 
   HB_SYMBOL_UNUSED(cargo);
 
-  if (S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE |
-                                             COINIT_SPEED_OVER_MEMORY))
+  if (S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY))
   {
     hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
   }
@@ -124,8 +123,7 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
 
   if (hinstDll)
   {
-    auto pDllGetVersion =
-        reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
+    auto pDllGetVersion = reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
 
     if (pDllGetVersion)
     {
@@ -191,8 +189,7 @@ HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)
 {
   TCHAR *pLibPath = hmg_FileNameAtSystemDir(pFileName);
   HMODULE h = LoadLibraryEx(pLibPath, nullptr,
-                            win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32
-                                                      : LOAD_WITH_ALTERED_SEARCH_PATH);
+                            win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
   hb_xfree(pLibPath);
   return h;
 }

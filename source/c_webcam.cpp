@@ -67,9 +67,8 @@ handle
 HB_FUNC(HMG_CAP_CREATECAPTUREWINDOW)
 {
   void *str;
-  hmg_ret_HWND(capCreateCaptureWindow(HB_PARSTR(1, &str, nullptr), hmg_par_DWORD(2), hmg_par_int(3),
-                                      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
-                                      hmg_par_HWND(7), hmg_par_int(8)));
+  hmg_ret_HWND(capCreateCaptureWindow(HB_PARSTR(1, &str, nullptr), hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4),
+                                      hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
   hb_strfree(str);
 }
 

@@ -54,8 +54,7 @@
 
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
-HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
-                                  int *nHeight);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth, int *nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char *FileName, int Transparent);
 
 #ifdef UNICODE
@@ -162,8 +161,7 @@ typedef struct tagLVGROUP
 } LVGROUP, *PLVGROUP;
 
 #define LVM_ENABLEGROUPVIEW (LVM_FIRST + 157)
-#define ListView_EnableGroupView(hwnd, fEnable)                                                    \
-  SNDMSG((hwnd), LVM_ENABLEGROUPVIEW, static_cast<WPARAM>(fEnable), 0)
+#define ListView_EnableGroupView(hwnd, fEnable) SNDMSG((hwnd), LVM_ENABLEGROUPVIEW, static_cast<WPARAM>(fEnable), 0)
 
 #define LVM_REMOVEALLGROUPS (LVM_FIRST + 160)
 #define ListView_RemoveAllGroups(hwnd) SNDMSG((hwnd), LVM_REMOVEALLGROUPS, 0, 0)
@@ -172,23 +170,21 @@ typedef struct tagLVGROUP
 #define ListView_HasGroup(hwnd, dwGroupId) SNDMSG((hwnd), LVM_HASGROUP, dwGroupId, 0)
 
 #define LVM_ISGROUPVIEWENABLED (LVM_FIRST + 175)
-#define ListView_IsGroupViewEnabled(hwnd)                                                          \
-  static_cast<BOOL>(SNDMSG((hwnd), LVM_ISGROUPVIEWENABLED, 0, 0))
+#define ListView_IsGroupViewEnabled(hwnd) static_cast<BOOL>(SNDMSG((hwnd), LVM_ISGROUPVIEWENABLED, 0, 0))
 
 #define LVM_INSERTGROUP (LVM_FIRST + 145)
-#define ListView_InsertGroup(hwnd, index, pgrp)                                                    \
+#define ListView_InsertGroup(hwnd, index, pgrp)                                                                        \
   SNDMSG((hwnd), LVM_INSERTGROUP, static_cast<WPARAM>(index), static_cast<LPARAM>(pgrp))
 #define LVM_SETGROUPINFO (LVM_FIRST + 147)
-#define ListView_SetGroupInfo(hwnd, iGroupId, pgrp)                                                \
+#define ListView_SetGroupInfo(hwnd, iGroupId, pgrp)                                                                    \
   SNDMSG((hwnd), LVM_SETGROUPINFO, static_cast<WPARAM>(iGroupId), static_cast<LPARAM>(pgrp))
 #define LVM_GETGROUPINFO (LVM_FIRST + 149)
-#define ListView_GetGroupInfo(hwnd, iGroupId, pgrp)                                                \
+#define ListView_GetGroupInfo(hwnd, iGroupId, pgrp)                                                                    \
   SNDMSG((hwnd), LVM_GETGROUPINFO, static_cast<WPARAM>(iGroupId), static_cast<LPARAM>(pgrp))
 #define LVM_REMOVEGROUP (LVM_FIRST + 150)
-#define ListView_RemoveGroup(hwnd, iGroupId)                                                       \
-  SNDMSG((hwnd), LVM_REMOVEGROUP, static_cast<WPARAM>(iGroupId), 0)
+#define ListView_RemoveGroup(hwnd, iGroupId) SNDMSG((hwnd), LVM_REMOVEGROUP, static_cast<WPARAM>(iGroupId), 0)
 #define LVM_MOVEGROUP (LVM_FIRST + 151)
-#define ListView_MoveGroup(hwnd, iGroupId, toIndex)                                                \
+#define ListView_MoveGroup(hwnd, iGroupId, toIndex)                                                                    \
   SNDMSG((hwnd), LVM_MOVEGROUP, static_cast<WPARAM>(iGroupId), static_cast<LPARAM>(toIndex))
 #define LVM_GETGROUPCOUNT (LVM_FIRST + 152)
 #define ListView_GetGroupCount(hwnd) SNDMSG((hwnd), LVM_GETGROUPCOUNT, 0, 0)
@@ -231,9 +227,8 @@ HB_FUNC(HMG_INITLISTVIEW)
     style |= LVS_OWNERDATA;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, "", style, hb_parni(3), hb_parni(4),
-                                hb_parni(5), hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2),
-                                GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, "", style, hb_parni(3), hb_parni(4), hb_parni(5),
+                                hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   if (hb_parl(7))
   {
@@ -955,8 +950,7 @@ HMG_LISTVIEW_SETBKCOLOR() -->
 */
 HB_FUNC(HMG_LISTVIEW_SETBKCOLOR)
 {
-  ListView_SetBkColor(hmg_par_HWND(1),
-                      static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
+  ListView_SetBkColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -968,8 +962,7 @@ HMG_LISTVIEW_SETTEXTBKCOLOR() -->
 */
 HB_FUNC(HMG_LISTVIEW_SETTEXTBKCOLOR)
 {
-  ListView_SetTextBkColor(hmg_par_HWND(1),
-                          static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
+  ListView_SetTextBkColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -981,8 +974,7 @@ HMG_LISTVIEW_SETTEXTCOLOR() -->
 */
 HB_FUNC(HMG_LISTVIEW_SETTEXTCOLOR)
 {
-  ListView_SetTextColor(hmg_par_HWND(1),
-                        static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
+  ListView_SetTextColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1104,8 +1096,7 @@ HB_FUNC(HMG_LISTVIEW_ADDCOLUMN)
 
   SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
 
-  RedrawWindow(hwnd, nullptr, nullptr,
-               RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+  RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1120,8 +1111,7 @@ HB_FUNC(HMG_LISTVIEW_DELETECOLUMN)
   auto hwnd = hmg_par_HWND(1);
   ListView_DeleteColumn(hwnd, hb_parni(2) - 1);
   SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
-  RedrawWindow(hwnd, nullptr, nullptr,
-               RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+  RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1401,15 +1391,13 @@ HB_FUNC(HMG_LISTVIEW_SETSORTHEADER)
     {
       if (nType > 0)
       {
-        hdItem.hbm = static_cast<HBITMAP>(
-            LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0,
-                      LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
+        hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0,
+                                                    LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
       }
       else
       {
-        hdItem.hbm = static_cast<HBITMAP>(
-            LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0,
-                      LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
+        hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0,
+                                                    LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
       }
 
       hdItem.fmt |= HDF_BITMAP;

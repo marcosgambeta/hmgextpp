@@ -110,8 +110,8 @@ HB_FUNC(HMG_DOMESSAGELOOP)
     {
       hDlgModeless = GetActiveWindow();
 
-      if (hDlgModeless == nullptr || (!IsDialogMessage(hDlgModeless, &Msg) &&
-                                      !TranslateAccelerator(g_hWndMain, g_hAccel, &Msg)))
+      if (hDlgModeless == nullptr ||
+          (!IsDialogMessage(hDlgModeless, &Msg) && !TranslateAccelerator(g_hWndMain, g_hAccel, &Msg)))
       {
         TranslateMessage(&Msg);
         DispatchMessage(&Msg);
@@ -289,8 +289,8 @@ HB_FUNC_TRANSLATE(SETWINDOWTEXTW, HMG_SETWINDOWTEXTW)
 
 HB_FUNC(HMG_SETWINDOWPOS)
 {
-  hb_retl(static_cast<BOOL>(SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4),
-                                         hb_parni(5), hb_parni(6), hb_parni(7))));
+  hb_retl(static_cast<BOOL>(
+      SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -337,8 +337,8 @@ HB_FUNC(HMG_SETLAYEREDWINDOWATTRIBUTES)
     {
       using SetLayeredWindowAttributes_ptr = BOOL(__stdcall *)(HWND, COLORREF, BYTE, DWORD);
 
-      auto fn_SetLayeredWindowAttributes = reinterpret_cast<SetLayeredWindowAttributes_ptr>(
-          wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes"));
+      auto fn_SetLayeredWindowAttributes =
+          reinterpret_cast<SetLayeredWindowAttributes_ptr>(wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes"));
 
       if (fn_SetLayeredWindowAttributes != nullptr)
       {
@@ -463,8 +463,7 @@ HB_FUNC(HMG_SENDMESSAGE)
 
   if (IsWindow(hwnd))
   {
-    HB_RETNL(
-        static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
+    HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
   }
   else
   {
@@ -478,8 +477,8 @@ HB_FUNC_TRANSLATE(SENDMESSAGE, HMG_SENDMESSAGE)
 
 HB_FUNC(HMG_SENDMESSAGESTRING)
 {
-  HB_RETNL(static_cast<LONG_PTR>(SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3),
-                                             reinterpret_cast<LPARAM>(hb_parc(4)))));
+  HB_RETNL(static_cast<LONG_PTR>(
+      SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4)))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -681,8 +680,8 @@ static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, const TCHAR *szTex
 HB_FUNC(HMG_SHOWNOTIFYICON)
 {
   void *str;
-  hb_retl(static_cast<BOOL>(ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3),
-                                           HB_PARSTR(4, &str, nullptr))));
+  hb_retl(static_cast<BOOL>(
+      ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), HB_PARSTR(4, &str, nullptr))));
   hb_strfree(str);
 }
 
@@ -763,17 +762,15 @@ HB_FUNC(HMG_LOADTRAYICON)
 {
   HINSTANCE hInstance = hmg_par_HINSTANCE(1); // handle to application instance
   void *str = nullptr;
-  LPCTSTR lpIconName = HB_ISCHAR(2)
-                           ? HB_PARSTR(2, &str, nullptr)
-                           : MAKEINTRESOURCE(hb_parni(2)); // name string or resource identifier
+  LPCTSTR lpIconName =
+      HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)); // name string or resource identifier
   int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
   int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
-  auto hIcon = static_cast<HICON>(
-      LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
+  auto hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
   if (hIcon == nullptr)
   {
-    hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired,
-                                         LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    hIcon = static_cast<HICON>(
+        LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
   RegisterResource(hIcon, "ICON");
   hmg_ret_HICON(hIcon);
@@ -802,8 +799,7 @@ static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, const TCHAR *szText)
 HB_FUNC(HMG_CHANGENOTIFYICON)
 {
   void *str;
-  hb_retl(static_cast<BOOL>(
-      ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), HB_PARSTR(3, &str, nullptr))));
+  hb_retl(static_cast<BOOL>(ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), HB_PARSTR(3, &str, nullptr))));
   hb_strfree(str);
 }
 
@@ -813,8 +809,7 @@ HB_FUNC_TRANSLATE(CHANGENOTIFYICON, HMG_CHANGENOTIFYICON)
 
 HB_FUNC(HMG_GETITEMPOS)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      (reinterpret_cast<NMMOUSE FAR *>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<NMMOUSE FAR *>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -910,8 +905,7 @@ HB_FUNC(HMG_C_ENUMCHILDWINDOWS)
 
   if (IsWindow(hWnd) && pCodeBlock)
   {
-    hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? true
-                                                                                        : false);
+    hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? true : false);
   }
 }
 
@@ -1043,18 +1037,15 @@ HB_FUNC(HMG_C_SETWINDOWRGN)
       hRgn = CreateRoundRectRgn(0, 0, hb_parni(4), hb_parni(5), hb_parni(2), hb_parni(3));
       break;
     case 4:
-      hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), const_cast<TCHAR *>(hb_parc(2)),
-                                            IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+      hbmp = static_cast<HBITMAP>(
+          LoadImage(GetResources(), const_cast<TCHAR *>(hb_parc(2)), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
       if (hbmp == nullptr)
       {
-        hbmp =
-            static_cast<HBITMAP>(LoadImage(nullptr, const_cast<TCHAR *>(hb_parc(2)), IMAGE_BITMAP,
-                                           0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
+        hbmp = static_cast<HBITMAP>(LoadImage(nullptr, const_cast<TCHAR *>(hb_parc(2)), IMAGE_BITMAP, 0, 0,
+                                              LR_LOADFROMFILE | LR_CREATEDIBSECTION));
       }
 
-      hRgn = BitmapToRegion(
-          hbmp, static_cast<COLORREF>(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3))),
-          0x101010);
+      hRgn = BitmapToRegion(hbmp, static_cast<COLORREF>(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3))), 0x101010);
       DeleteObject(hbmp);
       break;
     default:
@@ -1116,8 +1107,7 @@ HB_FUNC_TRANSLATE(GETHELPDATA, HMG_GETHELPDATA)
 
 HB_FUNC(HMG_GETMSKTEXTMESSAGE)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      (reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1126,8 +1116,7 @@ HB_FUNC_TRANSLATE(GETMSKTEXTMESSAGE, HMG_GETMSKTEXTMESSAGE)
 
 HB_FUNC(HMG_GETMSKTEXTWPARAM)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      (reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1136,8 +1125,7 @@ HB_FUNC_TRANSLATE(GETMSKTEXTWPARAM, HMG_GETMSKTEXTWPARAM)
 
 HB_FUNC(HMG_GETMSKTEXTLPARAM)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      (reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1227,8 +1215,8 @@ HB_FUNC(HMG_FINDWINDOWEX)
 {
   void *str1 = nullptr;
   void *str2 = nullptr;
-  hmg_ret_HWND(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), HB_PARSTR(3, &str1, nullptr),
-                            HB_PARSTR(4, &str2, nullptr)));
+  hmg_ret_HWND(
+      FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), HB_PARSTR(3, &str1, nullptr), HB_PARSTR(4, &str2, nullptr)));
   hb_strfree(str1);
   hb_strfree(str2);
 }
@@ -1335,8 +1323,7 @@ HB_FUNC(HMG_GETTABBRUSH)
   auto hDCMem = CreateCompatibleDC(hDC);
   auto hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
   auto hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
-  SendMessage(hWnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hDCMem),
-              PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
+  SendMessage(hWnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hDCMem), PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
   auto hBrush = CreatePatternBrush(hBmp);
   hmg_ret_HBRUSH(hBrush);
   SelectObject(hDCMem, hOldBmp);
@@ -1447,8 +1434,8 @@ HB_FUNC_TRANSLATE(GETWINDOWBRUSH, HMG_GETWINDOWBRUSH)
 
 HB_FUNC(HMG_SETWINDOWBRUSH)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<LONG_PTR>(HB_PARNL(2)))));
+  HB_RETNL(
+      static_cast<LONG_PTR>(SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<LONG_PTR>(HB_PARNL(2)))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1468,15 +1455,14 @@ HB_FUNC_TRANSLATE(CREATEHATCHBRUSH, HMG_CREATEHATCHBRUSH)
 HB_FUNC(HMG_CREATEPATTERNBRUSH)
 {
   void *str = nullptr;
-  LPCTSTR lpImageName = HB_ISCHAR(1) ? HB_PARSTR(1, &str, nullptr)
-                                     : (HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr);
-  auto hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0,
-                                               LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+  LPCTSTR lpImageName =
+      HB_ISCHAR(1) ? HB_PARSTR(1, &str, nullptr) : (HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr);
+  auto hImage = static_cast<HBITMAP>(
+      LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   if (hImage == nullptr && HB_ISCHAR(1))
   {
-    hImage =
-        static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
-                                       LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    hImage = static_cast<HBITMAP>(
+        LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   }
   if (hImage == nullptr)
   {
@@ -1537,8 +1523,8 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
       // RGB32BITSBITMAPINFO.biClrUsed       = 0;
       // RGB32BITSBITMAPINFO.biClrImportant  = 0;
 
-      HBITMAP hbm32 = CreateDIBSection(hMemDC, reinterpret_cast<BITMAPINFO *>(&RGB32BITSBITMAPINFO),
-                                       DIB_RGB_COLORS, &pbits32, nullptr, 0);
+      HBITMAP hbm32 = CreateDIBSection(hMemDC, reinterpret_cast<BITMAPINFO *>(&RGB32BITSBITMAPINFO), DIB_RGB_COLORS,
+                                       &pbits32, nullptr, 0);
       if (hbm32 != nullptr)
       {
         auto holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
@@ -1565,8 +1551,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
           // For better performances, we will use the  ExtCreateRegion() function to create the
           // region. This function take a RGNDATA structure on  entry. We will add rectangles by
           // amount of ALLOC_UNIT number in this structure.
-          HANDLE hData =
-              GlobalAlloc(GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects));
+          HANDLE hData = GlobalAlloc(GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects));
 
           auto pData = static_cast<RGNDATA *>(GlobalLock(hData));
           pData->rdh.dwSize = sizeof(RGNDATAHEADER);
@@ -1617,8 +1602,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                 {
                   GlobalUnlock(hData);
                   maxRects += ALLOC_UNIT;
-                  hData = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects),
-                                        GMEM_MOVEABLE);
+                  hData = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), GMEM_MOVEABLE);
                   pData = static_cast<RGNDATA *>(GlobalLock(hData));
                 }
 
@@ -1651,8 +1635,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                 // Therefore, we have to create the region by multiple steps.
                 if (pData->rdh.nCount == 2000)
                 {
-                  h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects),
-                                      pData);
+                  h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), pData);
                   if (hRgn != nullptr)
                   {
                     CombineRgn(hRgn, hRgn, h, RGN_OR);

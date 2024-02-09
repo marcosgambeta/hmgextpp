@@ -129,13 +129,11 @@ extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
 // local functions
 static size_t AppEventScan(EVENTSHOLDER *events, UINT message);
-static LRESULT AppEventDo(EVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam,
-                          LPARAM lParam);
+static LRESULT AppEventDo(EVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static bool AppEventRemove(HWND hWnd, const char *pszName, UINT message);
 static size_t WinEventScan(WINEVENTSHOLDER *events, UINT message);
-static LRESULT WinEventDo(WINEVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message,
-                          WPARAM wParam, LPARAM lParam);
+static LRESULT WinEventDo(WINEVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static bool WinEventRemove(HWND hWnd, const char *pszName, UINT message);
 
@@ -279,14 +277,13 @@ static bool AppEventRemove(HWND hWnd, const char *pszProp, UINT message)
   return false;
 }
 
-static LRESULT AppEventDo(EVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam,
-                          LPARAM lParam)
+static LRESULT AppEventDo(EVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   size_t nPos = AppEventScan(events, message);
 
   if ((nPos > 0) && events->active &&
-      (events->events[nPos - 1].active && ((events->events[nPos - 1].bAction != nullptr) &&
-                                           HB_IS_BLOCK(events->events[nPos - 1].bAction))))
+      (events->events[nPos - 1].active &&
+       ((events->events[nPos - 1].bAction != nullptr) && HB_IS_BLOCK(events->events[nPos - 1].bAction))))
   {
     auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
     auto pmessage = hb_itemPutNS(nullptr, message);
@@ -658,14 +655,13 @@ static bool WinEventRemove(HWND hWnd, const char *pszProp, UINT message)
   return false;
 }
 
-static LRESULT WinEventDo(WINEVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message,
-                          WPARAM wParam, LPARAM lParam)
+static LRESULT WinEventDo(WINEVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   size_t nPos = WinEventScan(events, message);
 
   if ((nPos > 0) && events->active &&
-      (events->events[nPos - 1].active && ((events->events[nPos - 1].bAction != nullptr) &&
-                                           HB_IS_BLOCK(events->events[nPos - 1].bAction))))
+      (events->events[nPos - 1].active &&
+       ((events->events[nPos - 1].bAction != nullptr) && HB_IS_BLOCK(events->events[nPos - 1].bAction))))
   {
     auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
     auto pmessage = hb_itemPutNS(nullptr, message);
@@ -1087,8 +1083,8 @@ HB_FUNC_TRANSLATE(INITMESSAGEONLYWINDOW, HMG_INITMESSAGEONLYWINDOW)
 /* Modified by P.Ch. 17.06. */
 HB_FUNC(HMG_INITDUMMY)
 {
-  hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1),
-                              nullptr, GetInstance(), nullptr));
+  hmg_ret_HWND(
+      CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1206,9 +1202,8 @@ HB_FUNC(HMG_INITWINDOW)
   void *str1;
   void *str2;
 
-  auto hwnd = CreateWindowEx(ExStyle, HB_PARSTR(12, &str1, nullptr), HB_PARSTR(1, &str2, nullptr),
-                             style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-                             hmg_par_HWND(13), nullptr, GetInstance(), nullptr);
+  auto hwnd = CreateWindowEx(ExStyle, HB_PARSTR(12, &str1, nullptr), HB_PARSTR(1, &str2, nullptr), style, hb_parni(2),
+                             hb_parni(3), hb_parni(4), hb_parni(5), hmg_par_HWND(13), nullptr, GetInstance(), nullptr);
 
   hb_strfree(str1);
   hb_strfree(str2);
@@ -1219,8 +1214,7 @@ HB_FUNC(HMG_INITWINDOW)
   }
   else
   {
-    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
 
@@ -1267,9 +1261,8 @@ HB_FUNC(HMG_INITMODALWINDOW)
   void *str1;
   void *str2;
 
-  auto hwnd = CreateWindowEx(ExStyle, HB_PARSTR(10, &str1, nullptr), HB_PARSTR(1, &str2, nullptr),
-                             style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-                             hmg_par_HWND(6), nullptr, GetInstance(), nullptr);
+  auto hwnd = CreateWindowEx(ExStyle, HB_PARSTR(10, &str1, nullptr), HB_PARSTR(1, &str2, nullptr), style, hb_parni(2),
+                             hb_parni(3), hb_parni(4), hb_parni(5), hmg_par_HWND(6), nullptr, GetInstance(), nullptr);
 
   hb_strfree(str1);
   hb_strfree(str2);
@@ -1280,8 +1273,7 @@ HB_FUNC(HMG_INITMODALWINDOW)
   }
   else
   {
-    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
 
@@ -1311,9 +1303,9 @@ HB_FUNC(HMG_INITSPLITCHILDWINDOW)
   void *str1;
   void *str2;
 
-  auto hwnd = CreateWindowEx(WS_EX_STATICEDGE | WS_EX_TOOLWINDOW, HB_PARSTR(3, &str1, nullptr),
-                             HB_PARSTR(5, &str2, nullptr), style, 0, 0, hb_parni(1), hb_parni(2), 0,
-                             nullptr, GetInstance(), nullptr);
+  auto hwnd =
+      CreateWindowEx(WS_EX_STATICEDGE | WS_EX_TOOLWINDOW, HB_PARSTR(3, &str1, nullptr), HB_PARSTR(5, &str2, nullptr),
+                     style, 0, 0, hb_parni(1), hb_parni(2), 0, nullptr, GetInstance(), nullptr);
 
   hb_strfree(str1);
   hb_strfree(str2);
@@ -1324,8 +1316,7 @@ HB_FUNC(HMG_INITSPLITCHILDWINDOW)
   }
   else
   {
-    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
 
@@ -1340,8 +1331,8 @@ HB_FUNC(HMG_INITSPLITBOX)
   icex.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES;
   InitCommonControlsEx(&icex);
 
-  DWORD style = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_BANDBORDERS |
-                RBS_VARHEIGHT | RBS_FIXEDORDER;
+  DWORD style =
+      WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_BANDBORDERS | RBS_VARHEIGHT | RBS_FIXEDORDER;
 
   if (hb_parl(2))
   {
@@ -1353,8 +1344,8 @@ HB_FUNC(HMG_INITSPLITBOX)
     style |= CCS_VERT;
   }
 
-  auto hwndRB = CreateWindowEx(WS_EX_TOOLWINDOW | WS_EX_DLGMODALFRAME, REBARCLASSNAME, nullptr,
-                               style, 0, 0, 0, 0, hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
+  auto hwndRB = CreateWindowEx(WS_EX_TOOLWINDOW | WS_EX_DLGMODALFRAME, REBARCLASSNAME, nullptr, style, 0, 0, 0, 0,
+                               hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
 
   // Initialize and send the REBARINFO structure.
   REBARINFO rbi;
@@ -1374,15 +1365,13 @@ HB_FUNC_TRANSLATE(INITSPLITBOX, HMG_INITSPLITBOX)
 HB_FUNC(HMG_REGISTERWINDOW)
 {
   void *str1 = nullptr;
-  LPCTSTR lpIconName =
-      HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr)
-                   : (HB_ISNUM(1) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) : nullptr);
+  LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr)
+                                    : (HB_ISNUM(1) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) : nullptr);
   void *str2;
   LPCTSTR lpClassName = HB_PARSTR(2, &str2, nullptr);
   void *str3 = nullptr;
-  LPCTSTR lpCursorName =
-      HB_ISCHAR(4) ? HB_PARSTR(4, &str3, nullptr)
-                   : (HB_ISNUM(4) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(4))) : nullptr);
+  LPCTSTR lpCursorName = HB_ISCHAR(4) ? HB_PARSTR(4, &str3, nullptr)
+                                      : (HB_ISNUM(4) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(4))) : nullptr);
 
   WNDCLASS WndClass{};
   WndClass.style = CS_DBLCLKS | /*CS_HREDRAW | CS_VREDRAW |*/ CS_OWNDC;
@@ -1396,8 +1385,7 @@ HB_FUNC(HMG_REGISTERWINDOW)
   // from file
   if (hIcon == nullptr && HB_ISCHAR(1))
   {
-    hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
+    hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
   }
   WndClass.hIcon = ((hIcon != nullptr) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION));
 
@@ -1426,16 +1414,14 @@ HB_FUNC(HMG_REGISTERWINDOW)
   else if (HB_ISCHAR(3) || HB_ISNUM(3))
   {
     void *str;
-    LPCTSTR lpImageName =
-        HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr)
-                     : (HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr);
-    auto hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0,
-                                                 LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+    LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr)
+                                       : (HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr);
+    auto hImage = static_cast<HBITMAP>(
+        LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     if (hImage == nullptr && HB_ISCHAR(3))
     {
-      hImage = static_cast<HBITMAP>(
-          LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
-                    LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+      hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
+                                              LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
     if (hImage == nullptr)
     {
@@ -1448,8 +1434,7 @@ HB_FUNC(HMG_REGISTERWINDOW)
     hb_strfree(str);
   }
 
-  WndClass.hbrBackground =
-      (hBrush != nullptr) ? hBrush : (hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
+  WndClass.hbrBackground = (hBrush != nullptr) ? hBrush : (hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
   WndClass.lpszMenuName = nullptr;
   WndClass.lpszClassName = lpClassName;
 
@@ -1473,9 +1458,8 @@ HB_FUNC_TRANSLATE(REGISTERWINDOW, HMG_REGISTERWINDOW)
 HB_FUNC(HMG_REGISTERSPLITCHILDWINDOW)
 {
   void *str1 = nullptr;
-  LPCTSTR lpIcon = HB_ISCHAR(1)
-                       ? HB_PARSTR(1, &str1, nullptr)
-                       : (HB_ISNIL(1) ? nullptr : MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))));
+  LPCTSTR lpIcon = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr)
+                                : (HB_ISNIL(1) ? nullptr : MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))));
   void *str2;
   LPCTSTR lpClassName = HB_PARSTR(2, &str2, nullptr);
 
@@ -1488,8 +1472,7 @@ HB_FUNC(HMG_REGISTERSPLITCHILDWINDOW)
   WndClass.hIcon = LoadIcon(GetInstance(), lpIcon);
   if (WndClass.hIcon == nullptr)
   {
-    WndClass.hIcon = static_cast<HICON>(
-        LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
+    WndClass.hIcon = static_cast<HICON>(LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
   }
 
   if (WndClass.hIcon == nullptr)
@@ -1594,13 +1577,11 @@ HB_FUNC(HMG_BORLANDC)
   {
     if (iVerPatch != 0)
     {
-      hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d.%d", pszName, szSub, iVerMajor,
-                  iVerMinor, iVerPatch);
+      hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d.%d", pszName, szSub, iVerMajor, iVerMinor, iVerPatch);
     }
     else if (iVerMajor != 0 || iVerMinor != 0)
     {
-      hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d0", pszName, szSub, iVerMajor,
-                  iVerMinor);
+      hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d0", pszName, szSub, iVerMajor, iVerMinor);
     }
     else
     {
@@ -1635,8 +1616,8 @@ HB_FUNC_TRANSLATE(BORLANDC, HMG_BORLANDC)
 HB_FUNC(HMG_VERSION)
 {
   auto pszVersion = static_cast<char *>(hb_xgrab(40));
-  hb_snprintf(pszVersion, 40, "Harbour MiniGUI %d.%d.%d (%s)", MG_VER_MAJOR, MG_VER_MINOR,
-              MG_VER_RELEASE, MG_VER_STATUS);
+  hb_snprintf(pszVersion, 40, "Harbour MiniGUI %d.%d.%d (%s)", MG_VER_MAJOR, MG_VER_MINOR, MG_VER_RELEASE,
+              MG_VER_STATUS);
   hb_retc_buffer(pszVersion);
 }
 

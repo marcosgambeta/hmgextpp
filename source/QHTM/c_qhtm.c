@@ -26,8 +26,7 @@ using QHTM_ENABLECOOLTIPS = BOOL(WINAPI *)(void);
 using QHTM_SETHTMLBUTTON = BOOL(WINAPI *)(HWND hwndButton);
 using QHTM_PRINTSETTEXT = BOOL(WINAPI *)(QHTMCONTEXT ctx, LPCTSTR pcszText);
 using QHTM_PRINTSETTEXTFILE = BOOL(WINAPI *)(QHTMCONTEXT ctx, LPCTSTR pcszText);
-using QHTM_PRINTSETTEXTRESOURCE = BOOL(WINAPI *)(QHTMCONTEXT ctx, HINSTANCE hInst,
-                                                 LPCTSTR pcszName);
+using QHTM_PRINTSETTEXTRESOURCE = BOOL(WINAPI *)(QHTMCONTEXT ctx, HINSTANCE hInst, LPCTSTR pcszName);
 using QHTM_PRINTLAYOUT = BOOL(WINAPI *)(QHTMCONTEXT ctx, HDC dc, LPCRECT pRect, LPINT nPages);
 using QHTM_PRINTPAGE = BOOL(WINAPI *)(QHTMCONTEXT ctx, HDC hDC, UINT nPage, LPCRECT prDest);
 using QHTM_PRINTDESTROYCONTEXT = void(WINAPI *)(QHTMCONTEXT);
@@ -231,8 +230,7 @@ HB_FUNC(QHTM_LOADRES)
 {
   if (hQhtmDll)
   {
-    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, (WPARAM)GetModuleHandle(NULL),
-                        (LPARAM)hb_parc(2)));
+    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, (WPARAM)GetModuleHandle(NULL), (LPARAM)hb_parc(2)));
   }
 }
 
@@ -323,8 +321,8 @@ HB_FUNC(QHTM_FORMCALLBACK)
 {
   if (hQhtmDll)
   {
-    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, (WPARAM)QHTM_OPT_SET_FORM_SUBMIT_CALLBACK,
-                        (LPARAM)FormCallback));
+    hb_retl(
+        SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, (WPARAM)QHTM_OPT_SET_FORM_SUBMIT_CALLBACK, (LPARAM)FormCallback));
   }
   else
   {
@@ -341,8 +339,7 @@ HB_FUNC(QHTM_ENABLECOOLTIPS)
 {
   if (hQhtmDll)
   {
-    QHTM_ENABLECOOLTIPS pFunc =
-        (QHTM_ENABLECOOLTIPS)GetProcAddress(hQhtmDll, "QHTM_EnableCooltips");
+    QHTM_ENABLECOOLTIPS pFunc = (QHTM_ENABLECOOLTIPS)GetProcAddress(hQhtmDll, "QHTM_EnableCooltips");
     if (pFunc)
     {
       hb_retl(pFunc());
@@ -392,8 +389,7 @@ HB_FUNC(QHTM_PRINTCREATECONTEXT)
 {
   if (hQhtmDll)
   {
-    QHTM_PRINTCREATECONTEXT pFunc =
-        (QHTM_PRINTCREATECONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintCreateContext");
+    QHTM_PRINTCREATECONTEXT pFunc = (QHTM_PRINTCREATECONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintCreateContext");
     hb_retnl((LONG)pFunc((hb_pcount() == 0) ? 1 : (UINT)hb_parni(1)));
   }
   else
@@ -429,8 +425,7 @@ HB_FUNC(QHTM_PRINTSETTEXTFILE)
 {
   if (hQhtmDll)
   {
-    QHTM_PRINTSETTEXTFILE pFunc =
-        (QHTM_PRINTSETTEXTFILE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextFile");
+    QHTM_PRINTSETTEXTFILE pFunc = (QHTM_PRINTSETTEXTFILE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextFile");
     hb_retl(pFunc((QHTMCONTEXT)hb_parnl(1), hb_parc(2)));
   }
   else
@@ -448,8 +443,7 @@ HB_FUNC(QHTM_PRINTSETTEXTRESOURCE)
 {
   if (hQhtmDll)
   {
-    QHTM_PRINTSETTEXTRESOURCE pFunc =
-        (QHTM_PRINTSETTEXTRESOURCE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextResource");
+    QHTM_PRINTSETTEXTRESOURCE pFunc = (QHTM_PRINTSETTEXTRESOURCE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextResource");
     hb_retl(pFunc((QHTMCONTEXT)hb_parnl(1), GetModuleHandle(NULL), hb_parc(2)));
   }
   else
@@ -521,8 +515,7 @@ HB_FUNC(QHTM_PRINTDESTROYCONTEXT)
 {
   if (hQhtmDll)
   {
-    QHTM_PRINTDESTROYCONTEXT pFunc =
-        (QHTM_PRINTDESTROYCONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintDestroyContext");
+    QHTM_PRINTDESTROYCONTEXT pFunc = (QHTM_PRINTDESTROYCONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintDestroyContext");
     pFunc((QHTMCONTEXT)hb_parnl(1));
   }
 }

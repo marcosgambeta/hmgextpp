@@ -50,14 +50,14 @@
 #include <hbwinuni.hpp>
 #include <hbstack.hpp>
 
-HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline,
-                  DWORD StrikeOut, DWORD Angle, DWORD charset)
+HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut,
+                  DWORD Angle, DWORD charset)
 {
   auto hDC = GetDC(HWND_DESKTOP);
   FontSize = -MulDiv(FontSize, GetDeviceCaps(hDC, LOGPIXELSY), 72);
   ReleaseDC(HWND_DESKTOP, hDC);
-  return CreateFont(FontSize, 0, Angle, 0, Weight, Italic, Underline, StrikeOut, charset,
-                    OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
+  return CreateFont(FontSize, 0, Angle, 0, Weight, Italic, Underline, StrikeOut, charset, OUT_TT_PRECIS,
+                    CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 }
 
 /*
@@ -73,8 +73,8 @@ HB_FUNC(HMG_INITFONT)
   DWORD angle = hb_parnl(7);
   DWORD charset = hb_parnldef(8, DEFAULT_CHARSET);
   void *str;
-  auto hFont = PrepareFont(HB_PARSTR(1, &str, nullptr), hb_parni(2), bold, italic, underline,
-                           strikeout, angle, charset);
+  auto hFont =
+      PrepareFont(HB_PARSTR(1, &str, nullptr), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
   hb_strfree(str);
   RegisterResource(hFont, "FONT");
   hmg_ret_HFONT(hFont);
@@ -101,8 +101,8 @@ HB_FUNC(HMG__SETFONT)
     DWORD angle = hb_parnl(8);
     DWORD charset = hb_parnldef(9, DEFAULT_CHARSET);
     void *str;
-    auto hFont = PrepareFont(HB_PARSTR(2, &str, nullptr), hb_parni(3), bold, italic, underline,
-                             strikeout, angle, charset);
+    auto hFont =
+        PrepareFont(HB_PARSTR(2, &str, nullptr), hb_parni(3), bold, italic, underline, strikeout, angle, charset);
     hb_strfree(str);
     SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 1);
     RegisterResource(hFont, "FONT");
@@ -133,8 +133,7 @@ HB_FUNC(HMG__SETFONTHANDLE)
     }
     else
     {
-      hb_errRT_BASE_SubstR(EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME,
-                           HB_ERR_ARGS_BASEPARAMS);
+      hb_errRT_BASE_SubstR(EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
     }
   }
   else
@@ -175,8 +174,7 @@ HB_FUNC_TRANSLATE(GETSYSTEMFONT, HMG_GETSYSTEMFONT)
              --> return array { { cFontName, nCharSet, nPitchAndFamily, nFontType }, ... }
  */
 
-int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType,
-                               LPARAM lParam);
+int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam);
 
 /*
 HMG_ENUMFONTSEX(HDC, cp2, nCharSet, nPitchAndFamily, p5, bp6, ap7) --> array
@@ -201,22 +199,20 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
   if (hb_parclen(2) > 0)
   {
-    HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)),
-               HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
+    HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
   }
   else
   {
     lf.lfFaceName[0] = '\0';
   }
 
-  lf.lfCharSet = static_cast<BYTE>(
-      HB_ISNUM(3) ? (hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset(hdc) : hb_parni(3)) : -1);
-  lf.lfPitchAndFamily = static_cast<BYTE>(
-      HB_ISNUM(4) ? (hb_parni(4) == DEFAULT_PITCH ? -1 : (hb_parni(4) | FF_DONTCARE)) : -1);
+  lf.lfCharSet =
+      static_cast<BYTE>(HB_ISNUM(3) ? (hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset(hdc) : hb_parni(3)) : -1);
+  lf.lfPitchAndFamily =
+      static_cast<BYTE>(HB_ISNUM(4) ? (hb_parni(4) == DEFAULT_PITCH ? -1 : (hb_parni(4) | FF_DONTCARE)) : -1);
   /* TODO - nFontType */
 
-  EnumFontFamiliesEx(hdc, &lf, reinterpret_cast<FONTENUMPROC>(EnumFontFamExProc),
-                     reinterpret_cast<LPARAM>(pArray), 0);
+  EnumFontFamiliesEx(hdc, &lf, reinterpret_cast<FONTENUMPROC>(EnumFontFamExProc), reinterpret_cast<LPARAM>(pArray), 0);
 
   if (bReleaseDC)
   {
@@ -248,8 +244,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
 HB_FUNC_TRANSLATE(ENUMFONTSEX, HMG_ENUMFONTSEX)
 #endif
 
-int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType,
-                               LPARAM lParam)
+int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam)
 {
   HB_SYMBOL_UNUSED(lpntme);
 

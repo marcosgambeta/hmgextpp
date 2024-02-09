@@ -146,16 +146,14 @@ const char *hb_itemGetStrUTF8(PHB_ITEM pItem, void **phString, ULONG *pnLen)
   {
     PHB_CODEPAGE cdp = hb_cdppage();
 
-    ULONG nLen = hb_cdpStringInUTF8Length(cdp, FALSE, pItem->item.asString.value,
-                                          pItem->item.asString.length);
+    ULONG nLen = hb_cdpStringInUTF8Length(cdp, FALSE, pItem->item.asString.value, pItem->item.asString.length);
     if (pnLen)
       *pnLen = nLen;
 
     if (nLen != pItem->item.asString.length)
     {
       auto pszUtf8 = static_cast<char *>(hb_xgrab(nLen + 1));
-      hb_cdpStrnToUTF8n(cdp, FALSE, pItem->item.asString.value, pItem->item.asString.length,
-                        pszUtf8, nLen + 1);
+      hb_cdpStrnToUTF8n(cdp, FALSE, pItem->item.asString.value, pItem->item.asString.length, pszUtf8, nLen + 1);
       *phString = static_cast<void *>(pszUtf8);
       return pszUtf8;
     }

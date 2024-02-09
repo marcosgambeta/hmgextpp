@@ -53,8 +53,7 @@
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt);
 HB_EXPORT PHB_ITEM Rect2Hash(RECT *rc);
-BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor,
-                                LPARAM dwData);
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
 // BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM
 // dwData);
 static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags);
@@ -93,8 +92,7 @@ HB_FUNC(HMG_ENUMDISPLAYMONITORS)
 HB_FUNC_TRANSLATE(ENUMDISPLAYMONITORS, HMG_ENUMDISPLAYMONITORS)
 #endif
 
-BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor,
-                                LPARAM dwData)
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
   HB_SYMBOL_UNUSED(hdcMonitor);
   auto pMonitor = hb_itemArrayNew(2);

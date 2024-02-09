@@ -70,8 +70,7 @@ HB_FUNC(HMG_INITSPINNER)
   InitCommonControlsEx(&i);
 
   DWORD style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
-  DWORD style2 =
-      WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
+  DWORD style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
 
   if (!hb_parl(11))
   {
@@ -101,22 +100,18 @@ HB_FUNC(HMG_INITSPINNER)
 
   auto hwnd = hmg_par_HWND(1);
 
-  auto hedit =
-      CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style1, hb_parni(3), hb_parni(4),
-                     hb_parni(5), hb_parni(10), hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style1, hb_parni(3), hb_parni(4), hb_parni(5),
+                              hb_parni(10), hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  auto hupdown =
-      CreateWindowEx(WS_EX_CLIENTEDGE, UPDOWN_CLASS, TEXT(""), style2, hb_parni(3) + hb_parni(5),
-                     hb_parni(4), 15, hb_parni(10), hwnd, nullptr, GetInstance(), nullptr);
+  auto hupdown = CreateWindowEx(WS_EX_CLIENTEDGE, UPDOWN_CLASS, TEXT(""), style2, hb_parni(3) + hb_parni(5),
+                                hb_parni(4), 15, hb_parni(10), hwnd, nullptr, GetInstance(), nullptr);
 
   SendMessage(hupdown, UDM_SETBUDDY, (WPARAM)hedit, reinterpret_cast<LPARAM>(nullptr));
   SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
 
   // 2006.08.13 JD
-  SetProp(hedit, TEXT("oldspinproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnSpinProc)));
+  SetProp(hedit, TEXT("oldspinproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnSpinProc)));
 
   hb_reta(2);
   hmg_storvhandle(hedit, -1, 1);
@@ -144,14 +139,12 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc =
-      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hedit, TEXT("oldspinproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hedit, TEXT("oldspinproc"))));
 
   switch (Msg)
   {
   case WM_DESTROY:
-    SetWindowLongPtr(hedit, GWLP_WNDPROC,
-                     reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hedit, TEXT("oldspinproc"));
     break;
   case WM_CONTEXTMENU:

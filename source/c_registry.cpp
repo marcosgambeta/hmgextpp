@@ -73,8 +73,8 @@ HB_FUNC(HMG_REGOPENKEYEX)
   HKEY phwHandle;
 
   void *str;
-  long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0,
-                             static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
+  long lError =
+      RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
   hb_strfree(str);
 
   if (lError != ERROR_SUCCESS)
@@ -106,8 +106,7 @@ HB_FUNC(HMG_REGQUERYVALUEEX)
   DWORD lpcbData = 0;
 
   void *str;
-  long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType,
-                                nullptr, &lpcbData);
+  long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, nullptr, &lpcbData);
   hb_strfree(str);
 
   if (lError == ERROR_SUCCESS)
@@ -159,8 +158,7 @@ HB_FUNC(HMG_REGENUMKEYEX)
   DWORD dwClass = 255;
   FILETIME ft;
 
-  long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class,
-                           &dwClass, &ft);
+  long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
   if (bErr != ERROR_SUCCESS)
   {
@@ -258,8 +256,7 @@ HB_FUNC(HMG_REGENUMVALUE)
   DWORD dwBuffSize = 255;
   DWORD dwClass = 255;
 
-  long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType,
-                             nullptr, &dwClass);
+  long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
 
   if (lError != ERROR_SUCCESS)
   {
@@ -304,8 +301,7 @@ HMG_REGDELETEVALUE(HKEY, cKey) --> numeric
 HB_FUNC(HMG_REGDELETEVALUE)
 {
   void *str;
-  hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0
-                                                                                           : -1);
+  hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0 : -1);
   hb_strfree(str);
 }
 

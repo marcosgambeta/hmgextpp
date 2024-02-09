@@ -124,13 +124,11 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 
   if (hRELib)
   {
-    hRE = CreateWindowEx(WS_EX_CLIENTEDGE, lpClassName, TEXT(""), style, hb_parni(3), hb_parni(4),
-                         hb_parni(5), hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(),
-                         nullptr);
+    hRE = CreateWindowEx(WS_EX_CLIENTEDGE, lpClassName, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                         hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
     SendMessage(hRE, EM_EXLIMITTEXT, hmg_par_WPARAM(9), 0);
-    SendMessage(hRE, EM_SETEVENTMASK, 0,
-                ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
+    SendMessage(hRE, EM_SETEVENTMASK, 0, ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
   }
 
   hmg_ret_HWND(hRE);
@@ -214,8 +212,8 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
   // open the source file.
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr,
-                            OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+                            FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
   if (hFile == INVALID_HANDLE_VALUE)
   {
@@ -279,8 +277,8 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 
   // open the destination file.
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr,
-                            CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
+                            FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
   if (hFile == INVALID_HANDLE_VALUE)
   {
@@ -449,8 +447,8 @@ HB_FUNC(HMG_SETFONTRTF)
 #endif
 
   cF.cbSize = sizeof(CHARFORMAT);
-  auto Mask = static_cast<DWORD>(
-      SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
+  auto Mask =
+      static_cast<DWORD>(SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
 
   if (hb_parni(10) > 0)
   {

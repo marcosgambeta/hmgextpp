@@ -94,9 +94,8 @@ HB_FUNC(HMG_INITMASKEDTEXTBOX)
 
   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-  auto hbutton =
-      CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
-                     hb_parni(11), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(11),
+                                hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   hmg_ret_HWND(hbutton);
 }
@@ -158,16 +157,13 @@ HB_FUNC(HMG_INITTEXTBOX)
 
   // Handle of the child window/control.
   // Creates the child control.
-  auto hedit =
-      CreateWindowEx(iExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
-                     hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hedit = CreateWindowEx(iExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
+                              hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
-  SetProp(hedit, TEXT("oldeditproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
+  SetProp(hedit, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
 
   hmg_ret_HWND(hedit);
 }
@@ -216,9 +212,8 @@ HB_FUNC(HMG_INITCHARMASKTEXTBOX)
 
   DWORD ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
-  auto hbutton =
-      CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
-                     hb_parni(11), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(ExStyle, WC_EDIT, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(11),
+                                hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   hmg_ret_HWND(hbutton);
 }
@@ -232,14 +227,12 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
   static PHB_SYMB pSymbol = nullptr;
   long int r;
 
-  auto OldWndProc =
-      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
 
   switch (Msg)
   {
   case WM_DESTROY:
-    SetWindowLongPtr(hButton, GWLP_WNDPROC,
-                     reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hButton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hButton, TEXT("oldeditproc"));
     break;
 

@@ -365,23 +365,20 @@ HB_FUNC(HMG_CREATEFOLDERPAGEINDIRECT)
   auto dArray = hb_param(2, Harbour::Item::ARRAY); // Folder Page Array
   auto cArray = hb_param(3, Harbour::Item::ARRAY); // Page Controls Array
   lTemplateSize = GetSizeDlgTemp(dArray, cArray);
-  auto pdlgtemplate =
-      reinterpret_cast<DLGTEMPLATE *>(CreateDlgTemplate(lTemplateSize, dArray, cArray));
+  auto pdlgtemplate = reinterpret_cast<DLGTEMPLATE *>(CreateDlgTemplate(lTemplateSize, dArray, cArray));
   ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
 #ifndef UNICODE
   auto strTitle = const_cast<TCHAR *>(hb_arrayGetCPtr(sArray, 1)); // Tab Title
 #else
-  auto strTitle = static_cast<TCHAR *>(
-      AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 1)))); // Tab Title
+  auto strTitle = static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 1)))); // Tab Title
 #endif
   auto idRC = hb_arrayGetNI(sArray, 2);      // Id Dialog resource
   auto PageStyle = hb_arrayGetNI(sArray, 3); // Page Style
 #ifndef UNICODE
   auto ImageName = const_cast<TCHAR *>(hb_arrayGetCPtr(sArray, 4));
 #else
-  auto ImageName =
-      static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 4))));
+  auto ImageName = static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 4))));
 #endif
 
   pfpi->dwFlags = PageStyle;
@@ -422,16 +419,14 @@ HB_FUNC(HMG_CREATEFOLDERPAGE)
 #ifndef UNICODE
   auto strTitle = const_cast<TCHAR *>(hb_arrayGetCPtr(sArray, 1)); // Caption
 #else
-  auto strTitle =
-      static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 1)))); // Caption
+  auto strTitle = static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 1)))); // Caption
 #endif
   auto idRC = hb_arrayGetNI(sArray, 2);      // Id Dialog resource
   auto PageStyle = hb_arrayGetNI(sArray, 3); // Page Style
 #ifndef UNICODE
   auto caption = const_cast<TCHAR *>(hb_arrayGetCPtr(sArray, 4)); // Page Image
 #else
-  auto caption = static_cast<TCHAR *>(
-      AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 4)))); // Page Image
+  auto caption = static_cast<TCHAR *>(AnsiToWide(static_cast<char *>(hb_arrayGetCPtr(sArray, 4)))); // Page Image
 #endif
   pfpi->dwFlags = PageStyle;
   pfpi->pszTemplate = MAKEINTRESOURCE(idRC);
@@ -552,22 +547,19 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
   pFhi->FolderStyle = style;
 
   lTemplateSize = GetSizeDlgTemp(pArray, cArray);
-  auto pdlgtemplate =
-      reinterpret_cast<LPDLGTEMPLATE>(CreateDlgTemplate(lTemplateSize, pArray, cArray));
+  auto pdlgtemplate = reinterpret_cast<LPDLGTEMPLATE>(CreateDlgTemplate(lTemplateSize, pArray, cArray));
 
   if (modal)
   {
     lResult = DialogBoxIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd,
-                                     reinterpret_cast<DLGPROC>(HMG_FldProc),
-                                     reinterpret_cast<LPARAM>(pFhi));
+                                     reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
     LocalFree(pdlgtemplate);
     HB_RETNL(static_cast<LONG_PTR>(lResult));
   }
   else
   {
-    hWndDlg = CreateDialogIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate),
-                                        hwnd, reinterpret_cast<DLGPROC>(HMG_FldProc),
-                                        reinterpret_cast<LPARAM>(pFhi));
+    hWndDlg = CreateDialogIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd,
+                                        reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
     LocalFree(pdlgtemplate);
   }
 
@@ -799,8 +791,8 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO *pFhi)
   style = pFhi->FolderStyle;
 
   // Create the tab control.
-  pFhi->hwndTab = CreateWindowEx(0, WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg,
-                                 nullptr, GetInstance(), nullptr);
+  pFhi->hwndTab =
+      CreateWindowEx(0, WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
   if (pFhi->hwndTab == nullptr)
   {
@@ -855,8 +847,8 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO *pFhi)
   TabCtrl_AdjustRect(pFhi->hwndTab, FALSE, &pFhi->rcDisplay);
 
   // Set the size and position of the tab control, buttons and dialog box.
-  SetWindowPos(pFhi->hwndTab, nullptr, rcTab.left, rcTab.top, rcTab.right - rcTab.left,
-               rcTab.bottom - rcTab.top, SWP_NOZORDER);
+  SetWindowPos(pFhi->hwndTab, nullptr, rcTab.left, rcTab.top, rcTab.right - rcTab.left, rcTab.bottom - rcTab.top,
+               SWP_NOZORDER);
 
   // Created and position of the buttons
   {
@@ -969,10 +961,9 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO *pFhi)
     }
 
     // Size the dialog box.
-    SetWindowPos(hWndDlg, nullptr, 0, 0,
-                 rcTab.right + cyMargin + 2 * GetSystemMetrics(SM_CXDLGFRAME) + 2 * cx,
-                 rcTab.bottom + 2 * cx + buttonHeight + 2 * cyMargin +
-                     2 * GetSystemMetrics(SM_CYDLGFRAME) + GetSystemMetrics(SM_CYCAPTION),
+    SetWindowPos(hWndDlg, nullptr, 0, 0, rcTab.right + cyMargin + 2 * GetSystemMetrics(SM_CXDLGFRAME) + 2 * cx,
+                 rcTab.bottom + 2 * cx + buttonHeight + 2 * cyMargin + 2 * GetSystemMetrics(SM_CYDLGFRAME) +
+                     GetSystemMetrics(SM_CYCAPTION),
                  SWP_NOMOVE | SWP_NOZORDER);
   }
 
@@ -1531,9 +1522,9 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO *pFhi)
   fpi = reinterpret_cast<FLDPAGEINFO *>(hfpi[index]);
   if (fpi->hwndPage == nullptr)
   {
-    pFhi->hwndDisplay = CreateDialogIndirectParam(
-        GetResources(), static_cast<DLGTEMPLATE *>(fpi->apRes), hWndDlg,
-        reinterpret_cast<DLGPROC>(HMG_PageFldProc), reinterpret_cast<LPARAM>(pFhi));
+    pFhi->hwndDisplay =
+        CreateDialogIndirectParam(GetResources(), static_cast<DLGTEMPLATE *>(fpi->apRes), hWndDlg,
+                                  reinterpret_cast<DLGPROC>(HMG_PageFldProc), reinterpret_cast<LPARAM>(pFhi));
     fpi->hwndPage = pFhi->hwndDisplay;
   }
   else
@@ -1649,8 +1640,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
     if (himl == nullptr)
     {
       himl = ImageList_LoadImage(GetResources(), pfpi->pszTemplate, 0, l, CLR_DEFAULT, IMAGE_BITMAP,
-                                 LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR |
-                                     LR_LOADMAP3DCOLORS);
+                                 LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
     }
 
     if (himl != nullptr)
@@ -1673,15 +1663,14 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
           if (pfpi->hasIcon)
           {
-            hbmp = static_cast<HBITMAP>(
-                LoadImage(GetResources(), pfpi->pszTemplate, IMAGE_BITMAP, cx, cy,
-                          LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
+            hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), pfpi->pszTemplate, IMAGE_BITMAP, cx, cy,
+                                                  LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
 
             if (hbmp == nullptr)
             {
-              hbmp = static_cast<HBITMAP>(LoadImage(
-                  nullptr, pfpi->pszTemplate, IMAGE_BITMAP, cx, cy,
-                  LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
+              hbmp = static_cast<HBITMAP>(
+                  LoadImage(nullptr, pfpi->pszTemplate, IMAGE_BITMAP, cx, cy,
+                            LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
             }
           }
 

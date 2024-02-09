@@ -76,8 +76,8 @@ HB_FUNC(HMG_REGISTERMDIWINDOW)
   WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
   if (WndClass.hIcon == nullptr)
   {
-    WndClass.hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
+    WndClass.hIcon =
+        static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
   }
 
   if (WndClass.hIcon == nullptr)
@@ -102,8 +102,7 @@ HB_FUNC(HMG_REGISTERMDIWINDOW)
 
   if (!RegisterClass(&WndClass))
   {
-    MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     ExitProcess(0);
   }
 
@@ -118,8 +117,8 @@ HB_FUNC(HMG_REGISTERMDIWINDOW)
   WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
   if (WndClass.hIcon == nullptr)
   {
-    WndClass.hIcon = static_cast<HICON>(
-        LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
+    WndClass.hIcon =
+        static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
   }
 
   if (WndClass.hIcon == nullptr)
@@ -277,17 +276,15 @@ HB_FUNC(HMG_INITMDIWINDOW)
     style |= WS_HSCROLL;
   }
 
-  auto hwnd =
-      CreateWindowEx(ExStyle, lpClassName, lpWindowName, style, hb_parni(2), hb_parni(3),
-                     hb_parni(4), hb_parni(5), hmg_par_HWND(13), nullptr, GetInstance(), nullptr);
+  auto hwnd = CreateWindowEx(ExStyle, lpClassName, lpWindowName, style, hb_parni(2), hb_parni(3), hb_parni(4),
+                             hb_parni(5), hmg_par_HWND(13), nullptr, GetInstance(), nullptr);
 
   hb_strfree(str1);
   hb_strfree(str2);
 
   if (hwnd == nullptr)
   {
-    MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"),
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     return;
   }
 
@@ -315,9 +312,8 @@ HB_FUNC(HMG_INITMDICLIENTWINDOW)
   // Create the MDI client filling the client area
 
   auto hwndMDIClient =
-      CreateWindowEx(0, TEXT("mdiclient"), nullptr,
-                     WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | WS_HSCROLL | WS_VISIBLE, 0, 0, 0, 0,
-                     hwndparent, (HMENU)0xCAC, GetInstance(), reinterpret_cast<LPSTR>(&ccs));
+      CreateWindowEx(0, TEXT("mdiclient"), nullptr, WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | WS_HSCROLL | WS_VISIBLE,
+                     0, 0, 0, 0, hwndparent, (HMENU)0xCAC, GetInstance(), reinterpret_cast<LPSTR>(&ccs));
 
   ShowWindow(hwndMDIClient, SW_SHOW);
   hmg_ret_HWND(hwndMDIClient);
@@ -380,8 +376,8 @@ HB_FUNC(HMG_INITMDICHILDWINDOW)
   mcs.style = style;                      // window style
   mcs.lParam = 0;                         // lparam
 
-  auto hwndChild = reinterpret_cast<HWND>(
-      SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
+  auto hwndChild =
+      reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
 
   if (hwndChild != nullptr)
   {

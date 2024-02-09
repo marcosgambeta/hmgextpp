@@ -73,9 +73,8 @@ HB_FUNC(HMG_INITPROGRESSBAR)
     style |= WS_VISIBLE;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, PROGRESS_CLASS, 0, style, hb_parni(3),
-                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
-                                hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, PROGRESS_CLASS, 0, style, hb_parni(3), hb_parni(4), hb_parni(5),
+                                hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
   SendMessage(hbutton, PBM_SETPOS, hmg_par_WPARAM(12), 0);

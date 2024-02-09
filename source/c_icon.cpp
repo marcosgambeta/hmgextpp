@@ -100,8 +100,7 @@ HB_FUNC(HMG_LOADICON)
 {
   HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
   void *str;
-  auto hIcon = LoadIcon(hinstance,
-                        HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
+  auto hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
   hb_strfree(str);
   RegisterResource(hIcon, "ICON");
   hmg_ret_HICON(hIcon);
@@ -141,8 +140,7 @@ HB_FUNC(HMG_EXTRACTICONEX)
   else
   {
     HICON hIconLarge, hIconSmall;
-    UINT nIconCount =
-        ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
+    UINT nIconCount = ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
     if (nIconCount > 0)
     {
       hb_reta(2);
@@ -171,12 +169,11 @@ HB_FUNC(HMG_LOADICONBYNAME)
     auto cxDesired = hb_parni(2);
     auto cyDesired = hb_parni(3);
     HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
-    hIcon = static_cast<HICON>(
-        LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
+    hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
     if (hIcon == nullptr)
     {
-      hIcon = static_cast<HICON>(LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired,
-                                           LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+      hIcon = static_cast<HICON>(
+          LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
     }
     if (hIcon != nullptr)
     {
@@ -204,8 +201,8 @@ HB_FUNC(HMG_DRAWICONEX)
     auto hIcon = hmg_par_HICON(4);
     auto hdc = GetDC(hwnd);
     auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
-    hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0,
-                       hbrFlickerFreeDraw, DI_NORMAL));
+    hb_retl(
+        DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));
     DeleteObject(hbrFlickerFreeDraw);
     if (hb_parldef(8, true))
     {

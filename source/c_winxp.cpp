@@ -184,14 +184,12 @@ HTHEME WINAPI GetWindowTheme(HWND);
 #define HTTB_RESIZINGBORDER_TOP 0x0020
 #define HTTB_RESIZINGBORDER_RIGHT 0x0040
 #define HTTB_RESIZINGBORDER_BOTTOM 0x0080
-#define HTTB_RESIZINGBORDER                                                                        \
-  (HTTB_RESIZINGBORDER_LEFT | HTTB_RESIZINGBORDER_TOP | HTTB_RESIZINGBORDER_RIGHT |                \
-   HTTB_RESIZINGBORDER_BOTTOM)
+#define HTTB_RESIZINGBORDER                                                                                            \
+  (HTTB_RESIZINGBORDER_LEFT | HTTB_RESIZINGBORDER_TOP | HTTB_RESIZINGBORDER_RIGHT | HTTB_RESIZINGBORDER_BOTTOM)
 #define HTTB_SIZINGTEMPLATE 0x0100
 #define HTTB_SYSTEMSIZINGMARGINS 0x0200
 
-HRESULT WINAPI HitTestThemeBackground(HTHEME, HDC, int, int, DWORD, const RECT *, HRGN, POINT,
-                                      WORD *);
+HRESULT WINAPI HitTestThemeBackground(HTHEME, HDC, int, int, DWORD, const RECT *, HRGN, POINT, WORD *);
 BOOL WINAPI IsAppThemed(void);
 BOOL WINAPI IsThemeActive(void);
 BOOL WINAPI IsThemeBackgroundPartiallyTransparent(HTHEME, int, int);
@@ -209,42 +207,35 @@ bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
 
 using fnOpenThemeData = HTHEME(WINAPI *)(HWND hwnd, LPCWSTR pszClassList);
 using fnCloseThemeData = HRESULT(WINAPI *)(HTHEME hTheme);
-using fnDrawThemeBackground = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                                const RECT *pRect, const RECT *pClipRect);
-using fnGetThemeBackgroundContentRect = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId,
-                                                          int iStateId, const RECT *pBoundingRect,
-                                                          RECT *pContentRect);
-using fnDrawThemeText = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                          LPCWSTR pszText, int iCharCount, DWORD dwTextFlags,
-                                          DWORD dwTextFlags2, const RECT *pRect);
-using fnHitTestThemeBackground = HRESULT(WINAPI *)(HTHEME hTheme, OPTIONAL HDC hdc, int iPartId,
-                                                   int iStateId, DWORD dwOptions, const RECT *pRect,
-                                                   OPTIONAL HRGN hrgn, POINT ptTest,
+using fnDrawThemeBackground = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT *pRect,
+                                                const RECT *pClipRect);
+using fnGetThemeBackgroundContentRect = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
+                                                          const RECT *pBoundingRect, RECT *pContentRect);
+using fnDrawThemeText = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCWSTR pszText,
+                                          int iCharCount, DWORD dwTextFlags, DWORD dwTextFlags2, const RECT *pRect);
+using fnHitTestThemeBackground = HRESULT(WINAPI *)(HTHEME hTheme, OPTIONAL HDC hdc, int iPartId, int iStateId,
+                                                   DWORD dwOptions, const RECT *pRect, OPTIONAL HRGN hrgn, POINT ptTest,
                                                    OUT WORD *pwHitTestCode);
 using fnIsAppThemed = BOOL(WINAPI *)(void);
 using fnGetThemeSysColor = COLORREF(WINAPI *)(HTHEME hTheme, int iColorId);
 using fnGetThemeSysFont = HRESULT(WINAPI *)(HTHEME hTheme, int iFontId, OUT LOGFONT *plf);
-using fnDrawThemeIcon = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                          const RECT *pRect, HIMAGELIST himl, int iImageIndex);
-using fnGetThemeTextExtent = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                               LPCWSTR pszText, int iCharCount, DWORD dwTextFlags,
-                                               const RECT *pRect, OUT RECT *pExtent);
+using fnDrawThemeIcon = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT *pRect,
+                                          HIMAGELIST himl, int iImageIndex);
+using fnGetThemeTextExtent = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCWSTR pszText,
+                                               int iCharCount, DWORD dwTextFlags, const RECT *pRect, OUT RECT *pExtent);
 using fnDrawThemeParentBackground = HRESULT(WINAPI *)(HWND hwnd, HDC hdc, OPTIONAL RECT *prc);
-using fnDrawThemeEdge = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                          const RECT *pDestRect, UINT uEdge, UINT uFlags,
-                                          OPTIONAL OUT RECT *pContentRect);
-using fnGetThemeRect = HRESULT(WINAPI *)(HTHEME hTheme, int iPartId, int iStateId, int iPropId,
-                                         RECT *pPoint);
-using fnGetThemePartSize = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-                                             RECT *prc, THEMESIZE eSize, SIZE *psz);
+using fnDrawThemeEdge = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT *pDestRect,
+                                          UINT uEdge, UINT uFlags, OPTIONAL OUT RECT *pContentRect);
+using fnGetThemeRect = HRESULT(WINAPI *)(HTHEME hTheme, int iPartId, int iStateId, int iPropId, RECT *pPoint);
+using fnGetThemePartSize = HRESULT(WINAPI *)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, RECT *prc,
+                                             THEMESIZE eSize, SIZE *psz);
 using fnSetThemeAppProperties = void(WINAPI *)(DWORD dwFlags);
 using fnGetThemeAppProperties = DWORD(WINAPI *)(void);
 using fnGetWindowTheme = HTHEME(WINAPI *)(HWND hWnd);
 using fnIsThemeActive = BOOL(WINAPI *)(void);
 using fnSetWindowTheme = HRESULT(WINAPI *)(HWND hwnd, LPCWSTR pszSubAppName, LPCWSTR pszSubIdList);
 using fnEnableThemeDialogTexture = HRESULT(WINAPI *)(HWND hwnd, DWORD dwFlags);
-using fnGetThemeColor = HRESULT(WINAPI *)(HTHEME hTheme, int iPartId, int iStateId, int iPropId,
-                                          COLORREF *pColor);
+using fnGetThemeColor = HRESULT(WINAPI *)(HTHEME hTheme, int iPartId, int iStateId, int iPropId, COLORREF *pColor);
 
 static HINSTANCE hUxTheme;
 
@@ -305,8 +296,7 @@ HB_FUNC(HMG_ISTHEMEACTIVE)
 
   if (hUxTheme)
   {
-    fnIsThemeActive pfn =
-        reinterpret_cast<fnIsThemeActive>(wapi_GetProcAddress(hUxTheme, "IsThemeActive"));
+    fnIsThemeActive pfn = reinterpret_cast<fnIsThemeActive>(wapi_GetProcAddress(hUxTheme, "IsThemeActive"));
     if (pfn)
     {
       bRet = static_cast<BOOL>(pfn());
@@ -334,8 +324,7 @@ HB_FUNC(HMG_ISAPPTHEMED)
 
   if (hUxTheme)
   {
-    fnIsAppThemed pfn =
-        reinterpret_cast<fnIsAppThemed>(wapi_GetProcAddress(hUxTheme, "IsAppThemed"));
+    fnIsAppThemed pfn = reinterpret_cast<fnIsAppThemed>(wapi_GetProcAddress(hUxTheme, "IsAppThemed"));
     if (pfn)
     {
       bRet = static_cast<BOOL>(pfn());
@@ -365,8 +354,7 @@ HB_FUNC(HMG_OPENTHEMEDATA)
 
   if (hUxTheme)
   {
-    fnOpenThemeData pfn =
-        reinterpret_cast<fnOpenThemeData>(wapi_GetProcAddress(hUxTheme, "OpenThemeData"));
+    fnOpenThemeData pfn = reinterpret_cast<fnOpenThemeData>(wapi_GetProcAddress(hUxTheme, "OpenThemeData"));
     if (pfn)
     {
       nRet = static_cast<HTHEME>(pfn(hWnd, (LPCWSTR)HB_PARSTR(2, &str, nullptr)));
@@ -401,8 +389,7 @@ HB_FUNC(HMG_CLOSETHEMEDATA)
 
   if (hUxTheme)
   {
-    fnCloseThemeData pfn =
-        reinterpret_cast<fnCloseThemeData>(wapi_GetProcAddress(hUxTheme, "CloseThemeData"));
+    fnCloseThemeData pfn = reinterpret_cast<fnCloseThemeData>(wapi_GetProcAddress(hUxTheme, "CloseThemeData"));
     if (pfn)
     {
       nRet = static_cast<HRESULT>(pfn(hTheme));
@@ -444,8 +431,8 @@ HB_FUNC(HMG_DRAWTHEMEBACKGROUND)
 
   if (hUxTheme)
   {
-    fnDrawThemeBackground pfn = reinterpret_cast<fnDrawThemeBackground>(
-        wapi_GetProcAddress(hUxTheme, "DrawThemeBackground"));
+    fnDrawThemeBackground pfn =
+        reinterpret_cast<fnDrawThemeBackground>(wapi_GetProcAddress(hUxTheme, "DrawThemeBackground"));
     if (pfn)
     {
       nRet = static_cast<HRESULT>(pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect));
@@ -482,8 +469,8 @@ HB_FUNC(HMG_DRAWTHEMEPARENTBACKGROUND)
 
   if (hUxTheme)
   {
-    fnDrawThemeParentBackground pfn = reinterpret_cast<fnDrawThemeParentBackground>(
-        wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground"));
+    fnDrawThemeParentBackground pfn =
+        reinterpret_cast<fnDrawThemeParentBackground>(wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground"));
     if (pfn)
     {
       nRet = static_cast<HRESULT>(pfn(hWnd, hDC, &pRect));
@@ -515,12 +502,11 @@ HB_FUNC(HMG_SETWINDOWTHEME)
 
   if (hUxTheme)
   {
-    fnSetWindowTheme pfn =
-        reinterpret_cast<fnSetWindowTheme>(wapi_GetProcAddress(hUxTheme, "SetWindowTheme"));
+    fnSetWindowTheme pfn = reinterpret_cast<fnSetWindowTheme>(wapi_GetProcAddress(hUxTheme, "SetWindowTheme"));
     if (pfn)
     {
-      nRet = static_cast<HRESULT>(
-          pfn(hWnd, (LPCWSTR)HB_PARSTR(2, &str1, nullptr), (LPCWSTR)HB_PARSTR(3, &str2, nullptr)));
+      nRet =
+          static_cast<HRESULT>(pfn(hWnd, (LPCWSTR)HB_PARSTR(2, &str1, nullptr), (LPCWSTR)HB_PARSTR(3, &str2, nullptr)));
     }
   }
 
@@ -551,8 +537,8 @@ HB_FUNC(HMG_ENABLETHEMEDIALOGTEXTURE)
 
   if (hUxTheme)
   {
-    fnEnableThemeDialogTexture pfn = reinterpret_cast<fnEnableThemeDialogTexture>(
-        wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture"));
+    fnEnableThemeDialogTexture pfn =
+        reinterpret_cast<fnEnableThemeDialogTexture>(wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture"));
     if (pfn)
     {
       nRet = static_cast<HRESULT>(pfn(hWnd, flags));

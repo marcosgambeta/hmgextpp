@@ -172,8 +172,7 @@ HMG_SETHANDCURSOR(HWND) --> NIL
 */
 HB_FUNC(HMG_SETHANDCURSOR)
 {
-  SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
-                  reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
+  SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS

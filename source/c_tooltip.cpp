@@ -80,7 +80,7 @@ typedef struct _tagEDITBALLOONTIP
 #define ECM_FIRST 0x1500 // Edit control messages
 
 #define EM_SHOWBALLOONTIP (ECM_FIRST + 3) // Show a balloon tip associated to the edit control
-#define Edit_ShowBalloonTip(hwnd, peditballoontip)                                                 \
+#define Edit_ShowBalloonTip(hwnd, peditballoontip)                                                                     \
   static_cast<BOOL>(SNDMSG((hwnd), EM_SHOWBALLOONTIP, 0, (LPARAM)(peditballoontip)))
 #define EM_HIDEBALLOONTIP (ECM_FIRST + 4) // Hide any balloon tip associated with the edit control
 #define Edit_HideBalloonTip(hwnd) static_cast<BOOL>(SNDMSG((hwnd), EM_HIDEBALLOONTIP, 0, 0))
@@ -181,9 +181,8 @@ HB_FUNC(HMG_INITTOOLTIP)
     }
 
     /* Create a tooltip */
-    auto hwndToolTip =
-        CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT,
-                       CW_USEDEFAULT, CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
+    auto hwndToolTip = CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+                                      CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
     hmg_ret_HWND(hwndToolTip);
   }
@@ -223,16 +222,14 @@ HB_FUNC(HMG_SETTOOLTIP)
       {
         ti.lpszText = const_cast<TCHAR *>(HB_PARSTR(2, &str, nullptr));
       }
-      hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti)) ? true
-                                                                                      : false);
+      hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&ti)) ? true : false);
       SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
       hb_strfree(str);
     }
   }
   else
   {
-    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
-                         hb_paramError(2));
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
 
@@ -354,9 +351,8 @@ HB_FUNC(HMG_INITTOOLTIPEX)
     InitCommonControlsEx(&icex);
 
     /* Create a tooltip */
-    auto hwndToolTip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, nullptr, dwStyle,
-                                      CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-                                      hwndParent, nullptr, GetInstance(), nullptr);
+    auto hwndToolTip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT,
+                                      CW_USEDEFAULT, CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
     SetWindowPos(hwndToolTip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 
@@ -766,8 +762,7 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0,
-                         (LPARAM)hb_parnidef(2, g_iToolTipMaxWidth)));
+    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, (LPARAM)hb_parnidef(2, g_iToolTipMaxWidth)));
   }
   else
   {
@@ -887,8 +882,7 @@ HB_FUNC(HMG_TTM_TRACKACTIVATE)
   }
   else
   {
-    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
-                         hb_paramError(2));
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
 
@@ -924,8 +918,7 @@ HB_FUNC(HMG_TTM_TRACKPOSITION)
   }
   else
   {
-    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
-                         hb_paramError(2));
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
 
@@ -985,8 +978,7 @@ HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC( UPDATETOOLTIPTEXT )
   }
   else
   {
-    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
-                         hb_paramError(2));
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
 
@@ -1015,8 +1007,7 @@ HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
     {
       ClientToScreen(hwndTool, &point);
 
-      HB_RETNL(static_cast<LONG_PTR>(
-          SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
+      HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
     }
     else
     {
@@ -1025,8 +1016,7 @@ HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
   }
   else
   {
-    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1),
-                         hb_paramError(2));
+    hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
 

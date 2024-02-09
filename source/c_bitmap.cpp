@@ -96,9 +96,8 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
   SelectObject(hMemDC, hOldBmp);
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
-  HANDLE filehandle =
-      CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+  HANDLE filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+                                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
   if (lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER))
@@ -106,12 +105,10 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
     BITMAPFILEHEADER bmfHdr;
     bmfHdr.bfType = static_cast<WORD>('M' << 8) | 'B';
 
-    DWORD dwDIBSize = *reinterpret_cast<LPDWORD>(lpBI) +
-                      (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
+    DWORD dwDIBSize =
+        *reinterpret_cast<LPDWORD>(lpBI) + (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
 
-    DWORD dwBmBitsSize =
-        ((((lpBI->biWidth) * (static_cast<DWORD>(lpBI->biBitCount))) + 31) / 32 * 4) *
-        lpBI->biHeight;
+    DWORD dwBmBitsSize = ((((lpBI->biWidth) * (static_cast<DWORD>(lpBI->biBitCount))) + 31) / 32 * 4) * lpBI->biHeight;
     dwDIBSize += dwBmBitsSize;
     lpBI->biSizeImage = dwBmBitsSize;
 
@@ -123,8 +120,7 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
                        (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
 
     DWORD dwWritten;
-    WriteFile(filehandle, reinterpret_cast<LPSTR>(&bmfHdr), sizeof(BITMAPFILEHEADER), &dwWritten,
-              nullptr);
+    WriteFile(filehandle, reinterpret_cast<LPSTR>(&bmfHdr), sizeof(BITMAPFILEHEADER), &dwWritten, nullptr);
     WriteFile(filehandle, reinterpret_cast<LPSTR>(lpBI), dwDIBSize, &dwWritten, nullptr);
   }
 
@@ -171,9 +167,8 @@ HB_FUNC(HMG_WNDCOPY)
   SelectObject(hMemDC, hOldBmp);
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
-  HANDLE filehandle =
-      CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+  HANDLE filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+                                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
   if (lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER))
@@ -181,12 +176,10 @@ HB_FUNC(HMG_WNDCOPY)
     BITMAPFILEHEADER bmfHdr;
     bmfHdr.bfType = (static_cast<WORD>('M' << 8) | 'B');
 
-    DWORD dwDIBSize = *reinterpret_cast<LPDWORD>(lpBI) +
-                      (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
+    DWORD dwDIBSize =
+        *reinterpret_cast<LPDWORD>(lpBI) + (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
 
-    DWORD dwBmBitsSize =
-        ((((lpBI->biWidth) * (static_cast<DWORD>(lpBI->biBitCount))) + 31) / 32 * 4) *
-        lpBI->biHeight;
+    DWORD dwBmBitsSize = ((((lpBI->biWidth) * (static_cast<DWORD>(lpBI->biBitCount))) + 31) / 32 * 4) * lpBI->biHeight;
     dwDIBSize += dwBmBitsSize;
     lpBI->biSizeImage = dwBmBitsSize;
 
@@ -198,8 +191,7 @@ HB_FUNC(HMG_WNDCOPY)
                        (GetDIBColors(reinterpret_cast<LPSTR>(lpBI)) * sizeof(RGBTRIPLE));
 
     DWORD dwWritten;
-    WriteFile(filehandle, reinterpret_cast<LPSTR>(&bmfHdr), sizeof(BITMAPFILEHEADER), &dwWritten,
-              nullptr);
+    WriteFile(filehandle, reinterpret_cast<LPSTR>(&bmfHdr), sizeof(BITMAPFILEHEADER), &dwWritten, nullptr);
     WriteFile(filehandle, reinterpret_cast<LPSTR>(lpBI), dwDIBSize, &dwWritten, nullptr);
   }
 
@@ -260,9 +252,8 @@ static WORD PaletteSize(VOID FAR *pv)
 {
   auto lpbi = static_cast<LPBITMAPINFOHEADER>(pv);
   WORD NumColors = DibNumColors(lpbi);
-  return (lpbi->biSize == sizeof(BITMAPCOREHEADER))
-             ? static_cast<WORD>(NumColors * sizeof(RGBTRIPLE))
-             : static_cast<WORD>(NumColors * sizeof(RGBQUAD));
+  return (lpbi->biSize == sizeof(BITMAPCOREHEADER)) ? static_cast<WORD>(NumColors * sizeof(RGBTRIPLE))
+                                                    : static_cast<WORD>(NumColors * sizeof(RGBQUAD));
 }
 
 #define WIDTHBYTES(i) ((i + 31) / 32 * 4)
@@ -319,8 +310,8 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
   // call GetDIBits with a nullptr lpBits param, so it will calculate the
   // biSizeImage field for us
 
-  GetDIBits(hdc, hbm, 0L, static_cast<DWORD>(bi.biHeight), nullptr,
-            reinterpret_cast<LPBITMAPINFO>(lpbi), static_cast<DWORD>(DIB_RGB_COLORS));
+  GetDIBits(hdc, hbm, 0L, static_cast<DWORD>(bi.biHeight), nullptr, reinterpret_cast<LPBITMAPINFO>(lpbi),
+            static_cast<DWORD>(DIB_RGB_COLORS));
 
   memcpy(reinterpret_cast<char *>(&bi), reinterpret_cast<char *>(lpbi), sizeof(bi));
   GlobalUnlock(hdib);
@@ -353,8 +344,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
   lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
 
   if (GetDIBits(hdc, hbm, 0L, static_cast<DWORD>(bi.biHeight),
-                reinterpret_cast<LPBYTE>(lpbi) + static_cast<WORD>(lpbi->biSize) +
-                    PaletteSize(lpbi),
+                reinterpret_cast<LPBYTE>(lpbi) + static_cast<WORD>(lpbi->biSize) + PaletteSize(lpbi),
                 reinterpret_cast<LPBITMAPINFO>(lpbi),
                 static_cast<DWORD>(static_cast<unsigned int>(DIB_RGB_COLORS))) == 0)
   {
@@ -398,8 +388,8 @@ HB_FUNC(HMG_C_HASALPHA) // hBitmap --> lYesNo
   if (hDib)
   {
     auto lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hDib));
-    unsigned char *uc = reinterpret_cast<LPBYTE>(lpbmi) +
-                        static_cast<WORD>(lpbmi->bmiHeader.biSize) + PaletteSize(lpbmi);
+    unsigned char *uc =
+        reinterpret_cast<LPBYTE>(lpbmi) + static_cast<WORD>(lpbmi->bmiHeader.biSize) + PaletteSize(lpbmi);
 
     for (unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && !bAlphaChannel; ul += 4)
     {
@@ -499,8 +489,7 @@ HB_FUNC(HMG_DRAWGLYPH)
   BITMAP bitmap;
 
   // is it a bitmap?
-  if (static_cast<UINT>(GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap))) !=
-      sizeof(BITMAP))
+  if (static_cast<UINT>(GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap))) != sizeof(BITMAP))
   {
     ICONINFO icon;
 
@@ -711,13 +700,12 @@ HB_FUNC(HMG_LOADBITMAP)
   void *ImageName;
   LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
 
-  auto hBitmap = static_cast<HBITMAP>(
-      LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR));
+  auto hBitmap = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR));
 
   if (hBitmap == nullptr)
   {
-    hBitmap = static_cast<HBITMAP>(
-        LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+    hBitmap =
+        static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
   RegisterResource(hBitmap, "BMP");
@@ -734,8 +722,8 @@ HB_FUNC_TRANSLATE(LOADBITMAP, HMG_LOADBITMAP)
 
 // Harbour MiniGUI 1.3 Extended (Build 34)
 
-VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent,
-               BOOL disabled, BOOL stretched)
+VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled,
+               BOOL stretched)
 {
   HBITMAP hBmpDefault;
   HBITMAP hBmpStretch = nullptr;
@@ -745,8 +733,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
   BITMAP bitmap;
 
   // is it a bitmap?
-  if (static_cast<UINT>(GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap))) !=
-      sizeof(BITMAP))
+  if (static_cast<UINT>(GetObject(hBmp, sizeof(BITMAP), static_cast<LPVOID>(&bitmap))) != sizeof(BITMAP))
   {
     ICONINFO icon;
 
@@ -920,14 +907,14 @@ BOOL GetImageSize(const char *fn, int *x, int *y)
   // For JPEGs, we need to read the first 12 bytes of each chunk.
   // We'll read those 12 bytes at buf+2...buf+14, i.e. overwriting
   // the existing buf.
-  if (buf[0] == 0xFF && buf[1] == 0xD8 && buf[2] == 0xFF && buf[3] == 0xE0 && buf[6] == 'J' &&
-      buf[7] == 'F' && buf[8] == 'I' && buf[9] == 'F')
+  if (buf[0] == 0xFF && buf[1] == 0xD8 && buf[2] == 0xFF && buf[3] == 0xE0 && buf[6] == 'J' && buf[7] == 'F' &&
+      buf[8] == 'I' && buf[9] == 'F')
   {
     long pos = 2;
     while (buf[2] == 0xFF)
     {
-      if (buf[3] == 0xC0 || buf[3] == 0xC1 || buf[3] == 0xC2 || buf[3] == 0xC3 || buf[3] == 0xC9 ||
-          buf[3] == 0xCA || buf[3] == 0xCB)
+      if (buf[3] == 0xC0 || buf[3] == 0xC1 || buf[3] == 0xC2 || buf[3] == 0xC3 || buf[3] == 0xC9 || buf[3] == 0xCA ||
+          buf[3] == 0xCB)
       {
         break;
       }
@@ -963,9 +950,8 @@ BOOL GetImageSize(const char *fn, int *x, int *y)
 
   // PNG: the first frame is by definition an IHDR frame, which gives
   // dimensions
-  if (buf[0] == 0x89 && buf[1] == 'P' && buf[2] == 'N' && buf[3] == 'G' && buf[4] == 0x0D &&
-      buf[5] == 0x0A && buf[6] == 0x1A && buf[7] == 0x0A && buf[12] == 'I' && buf[13] == 'H' &&
-      buf[14] == 'D' && buf[15] == 'R')
+  if (buf[0] == 0x89 && buf[1] == 'P' && buf[2] == 'N' && buf[3] == 'G' && buf[4] == 0x0D && buf[5] == 0x0A &&
+      buf[6] == 0x1A && buf[7] == 0x0A && buf[12] == 'I' && buf[13] == 'H' && buf[14] == 'D' && buf[15] == 'R')
   {
     *x = (buf[16] << 24) + (buf[17] << 16) + (buf[18] << 8) + (buf[19] << 0);
     *y = (buf[20] << 24) + (buf[21] << 16) + (buf[22] << 8) + (buf[23] << 0);
@@ -1043,12 +1029,11 @@ HB_FUNC(HMG_GETBITMAPSIZE)
   {
     void *ImageName;
     LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
-    hBitmap = static_cast<HBITMAP>(
-        LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+    hBitmap = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
     if (hBitmap == nullptr)
     {
-      hBitmap = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0,
-                                               LR_LOADFROMFILE | LR_CREATEDIBSECTION));
+      hBitmap = static_cast<HBITMAP>(
+          LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
     }
     hb_strfree(ImageName);
   }

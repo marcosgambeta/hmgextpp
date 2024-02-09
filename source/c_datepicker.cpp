@@ -56,8 +56,8 @@
 #include <hbwinuni.hpp>
 
 LRESULT CALLBACK OwnPickProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
-extern HB_EXPORT double hb_timeStampPack(int iYear, int iMonth, int iDay, int iHour, int iMinutes,
-                                         int iSeconds, int iMSec);
+extern HB_EXPORT double hb_timeStampPack(int iYear, int iMonth, int iDay, int iHour, int iMinutes, int iSeconds,
+                                         int iMSec);
 
 /*
 HMG_INITDATEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lUpDown, lRightAlign,
@@ -97,14 +97,12 @@ HB_FUNC(HMG_INITDATEPICK)
     style |= WS_TABSTOP;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, DATETIMEPICK_CLASS, TEXT("DateTime"), style,
-                                hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
-                                hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton =
+      CreateWindowEx(WS_EX_CLIENTEDGE, DATETIMEPICK_CLASS, TEXT("DateTime"), style, hmg_par_int(3), hmg_par_int(4),
+                     hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  SetProp(hbutton, TEXT("oldpickproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-  SetWindowLongPtr(hbutton, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
+  SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
 
   hmg_ret_HWND(hbutton);
 }
@@ -141,14 +139,12 @@ HB_FUNC(HMG_INITTIMEPICK)
     style |= WS_TABSTOP;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, DATETIMEPICK_CLASS, TEXT("DateTime"), style,
-                                hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
-                                hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton =
+      CreateWindowEx(WS_EX_CLIENTEDGE, DATETIMEPICK_CLASS, TEXT("DateTime"), style, hmg_par_int(3), hmg_par_int(4),
+                     hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  SetProp(hbutton, TEXT("oldpickproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-  SetWindowLongPtr(hbutton, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
+  SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
 
   hmg_ret_HWND(hbutton);
 }
@@ -161,8 +157,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc =
-      reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldpickproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldpickproc"))));
 
   switch (Msg)
   {
@@ -232,8 +227,7 @@ HB_FUNC(HMG_SETDATEPICK)
   // sysTime.wSecond       = 0;
   // sysTime.wMilliseconds = 0;
 
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID,
-                      reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
+  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
               ? true
               : false);
 }
@@ -258,8 +252,7 @@ HB_FUNC(HMG_SETTIMEPICK)
   sysTime.wSecond = hmg_par_WORD(4);
   // sysTime.wMilliseconds = 0;
 
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID,
-                      reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
+  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
               ? true
               : false);
 }
@@ -330,10 +323,8 @@ HMG_GETDATEPICKHOUR(HWND) --> nHour
 HB_FUNC(HMG_GETDATEPICKHOUR)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) ==
-                   GDT_VALID
-               ? st.wHour
-               : -1);
+  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour
+                                                                                                          : -1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -346,10 +337,8 @@ HMG_GETDATEPICKMINUTE(HWND) --> nMinute
 HB_FUNC(HMG_GETDATEPICKMINUTE)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) ==
-                   GDT_VALID
-               ? st.wMinute
-               : -1);
+  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute
+                                                                                                          : -1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -362,10 +351,8 @@ HMG_GETDATEPICKSECOND(HWND) --> nSeconds
 HB_FUNC(HMG_GETDATEPICKSECOND)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) ==
-                   GDT_VALID
-               ? st.wSecond
-               : -1);
+  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond
+                                                                                                          : -1);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -434,8 +421,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     sysTime.wMilliseconds = 0;
   }
 
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID,
-                      reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
+  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID
               ? true
               : false);
 }
@@ -451,8 +437,7 @@ HB_FUNC(HMG_DTP_GETDATETIME)
 {
   SYSTEMTIME st{};
   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
-  hb_rettd(hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond,
-                            st.wMilliseconds));
+  hb_rettd(hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -487,8 +472,8 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
     cDate = const_cast<char *>(hb_pards(2));
     if (!(cDate[0] == ' '))
     {
-      y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) +
-          ((cDate[2] - '0') * 10) + (cDate[3] - '0');
+      y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) +
+          (cDate[3] - '0');
       sysTime[0].wYear = y;
       m = static_cast<DWORD>((cDate[4] - '0') * 10) + (cDate[5] - '0');
       sysTime[0].wMonth = m;
@@ -500,8 +485,8 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
     cDate = const_cast<char *>(hb_pards(3));
     if (!(cDate[0] == ' '))
     {
-      y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) +
-          ((cDate[2] - '0') * 10) + (cDate[3] - '0');
+      y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) +
+          (cDate[3] - '0');
       sysTime[1].wYear = y;
       m = static_cast<DWORD>((cDate[4] - '0') * 10) + (cDate[5] - '0');
       sysTime[1].wMonth = m;
@@ -524,8 +509,7 @@ HMG_SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
 HB_FUNC(HMG_SETDATEPICKERDATEFORMAT)
 {
   void *str;
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0,
-                      reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr))));
+  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr))));
   hb_strfree(str);
 }
 
@@ -539,10 +523,8 @@ HMG_DTP_ISCHECKED(HWND) --> .T.|.F.
 HB_FUNC(HMG_DTP_ISCHECKED)
 {
   SYSTEMTIME st{};
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) ==
-                  GDT_VALID
-              ? true
-              : false);
+  hb_retl(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? true
+                                                                                                         : false);
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS

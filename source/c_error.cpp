@@ -51,9 +51,8 @@
 
 extern HB_SIZE hmg_tstrlen(const TCHAR *pText);
 
-extern HB_EXPORT PHB_ITEM hb_errRT_SubstParams(const char *szSubSystem, HB_ERRCODE errGenCode,
-                                               HB_ERRCODE errSubCode, const char *szDescription,
-                                               const char *szOperation);
+extern HB_EXPORT PHB_ITEM hb_errRT_SubstParams(const char *szSubSystem, HB_ERRCODE errGenCode, HB_ERRCODE errSubCode,
+                                               const char *szDescription, const char *szOperation);
 
 // fixed P.Ch. 16.12.
 void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
@@ -62,29 +61,24 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
 
   DWORD nError = ((0 != dwError) ? dwError : GetLastError());
 
-  FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-                    FORMAT_MESSAGE_IGNORE_INSERTS,
-                nullptr, nError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                reinterpret_cast<LPTSTR>(&lpMsgBuf), 0, nullptr);
+  FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, nullptr,
+                nError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPTSTR>(&lpMsgBuf), 0, nullptr);
 
   // Display the error message and exit the process
   auto lpDisplayBuf = static_cast<LPVOID>(LocalAlloc(
-      LMEM_ZEROINIT, (hmg_tstrlen(static_cast<LPCTSTR>(lpMsgBuf)) + hmg_tstrlen(lpszMessage) + 40) *
-                         sizeof(TCHAR)));
+      LMEM_ZEROINIT, (hmg_tstrlen(static_cast<LPCTSTR>(lpMsgBuf)) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR)));
 
 #ifdef UNICODE
 #if ((defined(__BORLANDC__) && __BORLANDC__ <= 1410))
-  swprintf(static_cast<LPTSTR>(lpDisplayBuf), "'%s' failed with error %lu : %s", lpszMessage,
-           nError, static_cast<LPTSTR>(lpMsgBuf));
+  swprintf(static_cast<LPTSTR>(lpDisplayBuf), "'%s' failed with error %lu : %s", lpszMessage, nError,
+           static_cast<LPTSTR>(lpMsgBuf));
 #else
   swprintf_s(static_cast<LPTSTR>(lpDisplayBuf), LocalSize(lpDisplayBuf) / sizeof(TCHAR),
-             TEXT("'%s' failed with error %lu : %s"), lpszMessage, nError,
-             static_cast<LPTSTR>(lpMsgBuf));
+             TEXT("'%s' failed with error %lu : %s"), lpszMessage, nError, static_cast<LPTSTR>(lpMsgBuf));
 #endif
 #else
   hb_snprintf(static_cast<LPTSTR>(lpDisplayBuf), LocalSize(lpDisplayBuf) / sizeof(TCHAR),
-              "'%s' failed with error %lu : %s", lpszMessage, nError,
-              static_cast<LPTSTR>(lpMsgBuf));
+              "'%s' failed with error %lu : %s", lpszMessage, nError, static_cast<LPTSTR>(lpMsgBuf));
 #endif
 
   MessageBox(nullptr, static_cast<LPCTSTR>(lpDisplayBuf), TEXT("MiniGUI Error"), MB_OK);

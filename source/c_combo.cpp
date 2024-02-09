@@ -54,8 +54,7 @@
 #define WC_COMBOBOX TEXT("ComboBox")
 #endif
 
-HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
-                                  int *nHeight);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth, int *nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, const char *FileName, int Transparent);
 
 /*
@@ -88,9 +87,8 @@ HB_FUNC(HMG_INITCOMBOBOXEX)
     style |= CBS_NOINTEGRALHEIGHT;
   }
 
-  auto hCombo = CreateWindowEx(0, WC_COMBOBOXEX, TEXT(""), style, hmg_par_int(3), hmg_par_int(4),
-                               hmg_par_int(5), hmg_par_int(8), hmg_par_HWND(1), hmg_par_HMENU(2),
-                               GetInstance(), nullptr);
+  auto hCombo = CreateWindowEx(0, WC_COMBOBOXEX, TEXT(""), style, hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                               hmg_par_int(8), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   // create ImageList from aImage array
 
@@ -184,8 +182,8 @@ HMG_COMBOGETEDITSEL(HWND) --> array
 */
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
-  DWORD pos = SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
-                          reinterpret_cast<LPARAM>(nullptr));
+  DWORD pos =
+      SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr));
   hb_reta(2);
   HB_STORNI(LOWORD(pos), -1, 1);
   HB_STORNI(HIWORD(pos), -1, 2);
@@ -215,9 +213,7 @@ HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRING)
 {
   void *Text;
-  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1,
-                       reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
-           1);
+  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
 
@@ -231,9 +227,8 @@ HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
   void *Text;
-  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1,
-                       reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
-           1);
+  hb_retnl(
+      SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
 
@@ -253,8 +248,7 @@ HB_FUNC(HMG_COMBOGETSTRING)
   if (strlen > 0)
   {
     TCHAR *str = new TCHAR[strlen + 1];
-    SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1,
-                reinterpret_cast<LPARAM>(str));
+    SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(str));
     HB_RETSTR(str);
     delete[] str;
   }
@@ -274,8 +268,7 @@ HMG_COMBOADDSTRING(HWND, cString) --> NIL
 HB_FUNC(HMG_COMBOADDSTRING)
 {
   void *String;
-  SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0,
-              reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
+  SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
   hb_strfree(String);
 }
 

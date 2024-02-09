@@ -88,9 +88,8 @@ HB_FUNC(HMG_INITLISTBOX)
     style |= LBS_MULTICOLUMN | WS_HSCROLL;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3),
-                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
-                                hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                                hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   if (hb_parl(12))
   {
@@ -125,8 +124,7 @@ HB_FUNC(HMG_LISTBOXINSERTSTRING)
 {
   void *str;
   LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
-  SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1,
-              reinterpret_cast<LPARAM>(lpString));
+  SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(lpString));
   hb_strfree(str);
 }
 
@@ -145,8 +143,7 @@ HB_FUNC(HMG_LISTBOXGETSTRING)
 
   if (iLen > 0 && (cString = static_cast<TCHAR *>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr)
   {
-    SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1,
-                reinterpret_cast<LPARAM>(cString));
+    SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
 #ifdef UNICODE
     lpString = WideToAnsi(cString);
     hb_retc(lpString);
@@ -167,8 +164,8 @@ HB_FUNC_TRANSLATE(LISTBOXGETSTRING, HMG_LISTBOXGETSTRING)
 
 HB_FUNC(HMG_INITMULTILISTBOX)
 {
-  DWORD style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY |
-                LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
+  DWORD style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL |
+                LBS_NOINTEGRALHEIGHT;
 
   if (!hb_parl(9))
   {
@@ -195,9 +192,8 @@ HB_FUNC(HMG_INITMULTILISTBOX)
     style |= LBS_MULTICOLUMN;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3),
-                                hb_parni(4), hb_parni(5), hb_parni(6), hmg_par_HWND(1),
-                                hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTBOX, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
+                                hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   if (hb_parl(12))
   {

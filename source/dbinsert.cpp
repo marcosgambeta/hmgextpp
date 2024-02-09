@@ -100,29 +100,23 @@ HB_FUNC(DBINSERT)
         auto pData = reinterpret_cast<char *>(hb_xgrab(ulLen + 1));
         auto pZero = reinterpret_cast<char *>(hb_xgrab(ulLen1 + 1));
 
-        hb_fsSeekLarge(hFile,
-                       (HB_FOFFSET)pArea->uiHeaderLen +
-                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
+        hb_fsSeekLarge(hFile, (HB_FOFFSET)pArea->uiHeaderLen + (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
                        FS_SET);
         hb_fsReadLarge(hFile, pData, ulLen);
 
         hb_fsSeekLarge(hFile,
                        (HB_FOFFSET)pArea->uiHeaderLen +
-                           (HB_FOFFSET)pArea->uiRecordLen *
-                               (HB_FOFFSET)(pArea->ulRecCount - ulCount),
+                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(pArea->ulRecCount - ulCount),
                        FS_SET);
         hb_fsReadLarge(hFile, pZero, ulLen1);
 
-        hb_fsSeekLarge(hFile,
-                       (HB_FOFFSET)pArea->uiHeaderLen +
-                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
+        hb_fsSeekLarge(hFile, (HB_FOFFSET)pArea->uiHeaderLen + (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec - 1),
                        FS_SET);
         hb_fsWriteLarge(hFile, pZero, ulLen1);
 
-        hb_fsSeekLarge(hFile,
-                       (HB_FOFFSET)pArea->uiHeaderLen +
-                           (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec + ulCount - 1),
-                       FS_SET);
+        hb_fsSeekLarge(
+            hFile, (HB_FOFFSET)pArea->uiHeaderLen + (HB_FOFFSET)pArea->uiRecordLen * (HB_FOFFSET)(ulRec + ulCount - 1),
+            FS_SET);
 
         hb_fsWriteLarge(hFile, pData, ulLen);
 

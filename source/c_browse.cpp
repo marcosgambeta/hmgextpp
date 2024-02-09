@@ -74,12 +74,12 @@ HB_FUNC(HMG_INITBROWSE)
     style |= WS_TABSTOP;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, TEXT(""), style, hmg_par_int(3),
-                                hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1),
-                                hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton =
+      CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, TEXT(""), style, hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                     hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  lpfnOldWndProc = reinterpret_cast<WNDPROC>(
-      SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
+  lpfnOldWndProc =
+      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
 
   hmg_ret_HWND(hbutton);
 }
@@ -115,9 +115,9 @@ HMG_INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
 HB_FUNC(HMG_INITVSCROLLBAR)
 {
-  auto hscrollbar = CreateWindowEx(0, WC_SCROLLBAR, TEXT(""), WS_CHILD | WS_VISIBLE | SBS_VERT,
-                                   hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
-                                   hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
+  auto hscrollbar =
+      CreateWindowEx(0, WC_SCROLLBAR, TEXT(""), WS_CHILD | WS_VISIBLE | SBS_VERT, hmg_par_int(2), hmg_par_int(3),
+                     hmg_par_int(4), hmg_par_int(5), hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
 
   SetScrollRange(hscrollbar, SB_CTL, 1, 100, 1);
 
@@ -147,9 +147,8 @@ HMG_INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
 HB_FUNC(HMG_INITVSCROLLBARBUTTON)
 {
-  hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD | WS_VISIBLE | SS_SUNKEN,
-                              hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
-                              hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
+  hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD | WS_VISIBLE | SS_SUNKEN, hmg_par_int(2), hmg_par_int(3),
+                              hmg_par_int(4), hmg_par_int(5), hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS

@@ -52,8 +52,7 @@
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt);
 
-HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
-                                  int *nHeight);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth, int *nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char *FileName, int Transparent);
 
 HB_FUNC(HMG_INITTABCONTROL)
@@ -100,9 +99,8 @@ HB_FUNC(HMG_INITTABCONTROL)
     style |= WS_TABSTOP;
   }
 
-  auto hbutton =
-      CreateWindowEx(0, WC_TABCONTROL, nullptr, style, hb_parni(3), hb_parni(4), hb_parni(5),
-                     hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton = CreateWindowEx(0, WC_TABCONTROL, nullptr, style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
+                                hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   int l = hb_parinfa(7, 0) - 1;
   auto hArray = hb_param(7, Harbour::Item::ARRAY);

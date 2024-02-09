@@ -50,8 +50,7 @@
 #include <commctrl.h>
 #include <hbwinuni.hpp>
 
-HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth,
-                                  int *nHeight);
+HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth, int *nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char *FileName, int Transparent);
 
 /*
@@ -74,11 +73,10 @@ HB_FUNC(HMG_INITTREE)
     mask = TVS_LINESATROOT;
   }
 
-  auto hWndTV = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, TEXT(""),
-                               WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASLINES | TVS_HASBUTTONS |
-                                   mask | TVS_SHOWSELALWAYS,
-                               hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hmg_par_HWND(1),
-                               hmg_par_HMENU(6), GetInstance(), nullptr);
+  auto hWndTV = CreateWindowEx(
+      WS_EX_CLIENTEDGE, WC_TREEVIEW, TEXT(""),
+      WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASLINES | TVS_HASBUTTONS | mask | TVS_SHOWSELALWAYS, hb_parni(2),
+      hb_parni(3), hb_parni(4), hb_parni(5), hmg_par_HWND(1), hmg_par_HMENU(6), GetInstance(), nullptr);
 
   hmg_ret_HWND(hWndTV);
 }
@@ -166,8 +164,7 @@ void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeF
 {
   if ((hWndTV != nullptr) && (ItemHandle != nullptr))
   {
-    auto TreeItemLPARAM =
-        static_cast<HMG_StructTreeItemLPARAM *>(hb_xgrab(sizeof(HMG_StructTreeItemLPARAM)));
+    auto TreeItemLPARAM = static_cast<HMG_StructTreeItemLPARAM *>(hb_xgrab(sizeof(HMG_StructTreeItemLPARAM)));
     TreeItemLPARAM->ItemHandle = ItemHandle;
     TreeItemLPARAM->nID = nID;
     TreeItemLPARAM->IsNodeFlag = IsNodeFlag;
@@ -581,13 +578,9 @@ int CALLBACK TreeViewCompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
   TreeView_GetItem(hWndTV, &TV_Item2);
 
   IsTreeNode1 =
-      (TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle1) != nullptr)
-          ? TRUE
-          : FALSE;
+      (TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle1) != nullptr) ? TRUE : FALSE;
   IsTreeNode2 =
-      (TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle2) != nullptr)
-          ? TRUE
-          : FALSE;
+      (TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle2) != nullptr) ? TRUE : FALSE;
 
   if (TreeViewCompareInfo->CaseSensitive == FALSE)
   {

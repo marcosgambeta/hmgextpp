@@ -202,9 +202,8 @@ HB_FUNC(_HMG_PRINTER_C_PRINT)
 
     int FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
-    auto hfont = CreateFont(FontHeight, 0, FontAngle, FontAngle, fnWeight, fdwItalic, fdwUnderline,
-                            fdwStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS,
-                            DEFAULT_QUALITY, FF_DONTCARE, FontName);
+    auto hfont = CreateFont(FontHeight, 0, FontAngle, FontAngle, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut,
+                            charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 
     auto hgdiobj = SelectObject(hdcPrint, hfont);
 
@@ -219,18 +218,14 @@ HB_FUNC(_HMG_PRINTER_C_PRINT)
 #endif
 
 #ifndef UNICODE
-    TextOut(
-        hdcPrint,
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-        hb_parc(9), strlen(hb_parc(9)));
+    TextOut(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+            (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY), hb_parc(9),
+            strlen(hb_parc(9)));
 #else
     pText = AnsiToWide(hb_parc(9));
-    TextOut(
-        hdcPrint,
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-        pText, lstrlen(pText));
+    TextOut(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+            (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY), pText,
+            lstrlen(pText));
     hb_xfree(pText);
 #endif
 
@@ -385,9 +380,8 @@ HB_FUNC(_HMG_PRINTER_C_MULTILINE_PRINT)
 
     FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
-    hfont =
-        CreateFont(FontHeight, 0, 0, 0, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut, charset,
-                   OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
+    hfont = CreateFont(FontHeight, 0, 0, 0, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut, charset, OUT_TT_PRECIS,
+                       CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 
     if (hb_parni(19) == 0)
     {
@@ -407,14 +401,10 @@ HB_FUNC(_HMG_PRINTER_C_MULTILINE_PRINT)
     SetTextColor(hdcPrint, RGB(r, g, b));
     SetBkMode(hdcPrint, TRANSPARENT);
 
-    rect.left =
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
-    rect.top =
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
-    rect.right = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) -
-                 GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
-    rect.bottom = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) -
-                  GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
+    rect.left = (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
+    rect.top = (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
+    rect.right = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
+    rect.bottom = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
 
 #ifndef UNICODE
     DrawText(hdcPrint, hb_parc(9), strlen(hb_parc(9)), &rect, uFormat);
@@ -543,8 +533,7 @@ HB_FUNC(APRINTERS)
   DWORD dwPrinters = 0;
   if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
-    EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, nullptr, 0, &dwSize,
-                 &dwPrinters);
+    EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, nullptr, 0, &dwSize, &dwPrinters);
   }
   else
   {
@@ -562,13 +551,12 @@ HB_FUNC(APRINTERS)
 
   if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
-    EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4,
-                 static_cast<LPBYTE>(pBuffer), dwSize, &dwSize, &dwPrinters);
+    EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, static_cast<LPBYTE>(pBuffer), dwSize,
+                 &dwSize, &dwPrinters);
   }
   else
   {
-    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, static_cast<LPBYTE>(pBuffer), dwSize, &dwSize,
-                 &dwPrinters);
+    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, static_cast<LPBYTE>(pBuffer), dwSize, &dwSize, &dwPrinters);
   }
 
   if (dwPrinters == 0)
@@ -705,14 +693,10 @@ HB_FUNC(_HMG_PRINTER_C_RECTANGLE)
 
     // Border  ( contributed by Alen Uzelac 08.06.2011 )
 
-    rect.left =
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
-    rect.top =
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
-    rect.right = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) -
-                 GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
-    rect.bottom = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) -
-                  GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
+    rect.left = (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
+    rect.top = (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
+    rect.right = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
+    rect.bottom = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
 
     if (hb_parl(12) && hb_parl(13))
     {
@@ -812,22 +796,15 @@ HB_FUNC(_HMG_PRINTER_C_ROUNDRECTANGLE)
       hgdiobj = SelectObject(hdcPrint, hpen);
     }
 
-    w = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) -
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000);
-    h = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) -
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000);
+    w = (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000);
+    h = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000);
     p = (w + h) / 2;
     p = p / 10;
 
-    RoundRect(
-        hdcPrint,
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-        (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) -
-            GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-        (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) -
-            GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-        p, p);
+    RoundRect(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+              (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
+              (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+              (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY), p, p);
 
     SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
@@ -924,22 +901,15 @@ HB_FUNC(_HMG_PRINTER_C_LINE)
       Style = PS_SOLID;
     }
 
-    hpen = CreatePen(Style, (width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000),
-                     static_cast<COLORREF>(RGB(r, g, b)));
+    hpen = CreatePen(Style, (width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000), static_cast<COLORREF>(RGB(r, g, b)));
 
     hgdiobj = SelectObject(hdcPrint, hpen);
 
-    MoveToEx(
-        hdcPrint,
-        (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-        (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-        nullptr);
+    MoveToEx(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+             (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY), nullptr);
 
-    LineTo(hdcPrint,
-           (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) -
-               GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-           (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) -
-               GetDeviceCaps(hdcPrint, PHYSICALOFFSETY));
+    LineTo(hdcPrint, (tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+           (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY));
 
     SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
@@ -974,8 +944,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
   if (!bFlag || (hPrinter == nullptr))
   {
 #ifdef _ERRORMSG_
-    MessageBox(0, "Printer Configuration Failed! (001)", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Printer Configuration Failed! (001)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
     hb_reta(4);
     HB_STORVNL(0, -1, 1);
@@ -994,8 +963,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
   {
     ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-    MessageBox(0, "Printer Configuration Failed! (002)", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Printer Configuration Failed! (002)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
     hb_reta(4);
     HB_STORVNL(0, -1, 1);
@@ -1012,8 +980,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
   {
     ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-    MessageBox(0, "Printer Configuration Failed! (003)", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Printer Configuration Failed! (003)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
     hb_reta(4);
     HB_STORVNL(0, -1, 1);
@@ -1031,8 +998,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     GlobalFree(pi2);
     ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-    MessageBox(0, "Printer Configuration Failed! (004)", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Printer Configuration Failed! (004)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
     hb_reta(4);
     HB_STORVNL(0, -1, 1);
@@ -1046,8 +1012,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
   if (pi2->pDevMode == nullptr)
   {
 #ifndef UNICODE
-    dwNeeded =
-        DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), nullptr, nullptr, 0);
+    dwNeeded = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), nullptr, nullptr, 0);
 #else
     pDeviceName = AnsiToWide(hb_parc(1));
     dwNeeded = DocumentProperties(nullptr, hPrinter, pDeviceName, nullptr, nullptr, 0);
@@ -1062,8 +1027,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       GlobalFree(pi2);
       ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-      MessageBox(0, "Printer Configuration Failed! (005)", "Error!",
-                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (005)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1079,8 +1043,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       GlobalFree(pi2);
       ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-      MessageBox(0, "Printer Configuration Failed! (006)", "Error! (006)",
-                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (006)", "Error! (006)", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1092,8 +1055,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     }
 
 #ifndef UNICODE
-    lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pDevMode, nullptr,
-                               DM_OUT_BUFFER);
+    lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pDevMode, nullptr, DM_OUT_BUFFER);
 #else
     pDeviceName = AnsiToWide(hb_parc(1));
     lFlag = DocumentProperties(nullptr, hPrinter, pDeviceName, pDevMode, nullptr, DM_OUT_BUFFER);
@@ -1105,8 +1067,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       GlobalFree(pi2);
       ClosePrinter(hPrinter);
 #ifdef _ERRORMSG_
-      MessageBox(0, "Printer Configuration Failed! (007)", "Error!",
-                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (007)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1194,9 +1155,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_ORIENTATION))
     {
 #ifdef _ERRORMSG_
-      MessageBox(
-          0, "Printer Configuration Failed: ORIENTATION Property Not Supported By Selected Printer",
-          "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: ORIENTATION Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1216,9 +1176,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_PAPERSIZE))
     {
 #ifdef _ERRORMSG_
-      MessageBox(
-          0, "Printer Configuration Failed: PAPERSIZE Property Not Supported By Selected Printer",
-          "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: PAPERSIZE Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1238,9 +1197,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_PAPERLENGTH))
     {
 #ifdef _ERRORMSG_
-      MessageBox(
-          0, "Printer Configuration Failed: PAPERLENGTH Property Not Supported By Selected Printer",
-          "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: PAPERLENGTH Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1260,9 +1218,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_PAPERWIDTH))
     {
 #ifdef _ERRORMSG_
-      MessageBox(
-          0, "Printer Configuration Failed: PAPERWIDTH Property Not Supported By Selected Printer",
-          "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: PAPERWIDTH Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1282,9 +1239,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_COPIES))
     {
 #ifdef _ERRORMSG_
-      MessageBox(0,
-                 "Printer Configuration Failed: COPIES Property Not Supported By Selected Printer",
-                 "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: COPIES Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1304,10 +1260,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_DEFAULTSOURCE))
     {
 #ifdef _ERRORMSG_
-      MessageBox(
-          0,
-          "Printer Configuration Failed: DEFAULTSOURCE Property Not Supported By Selected Printer",
-          "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: DEFAULTSOURCE Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1327,9 +1281,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_PRINTQUALITY))
     {
 #ifdef _ERRORMSG_
-      MessageBox(0,
-                 "Printer Configuration Failed: QUALITY Property Not Supported By Selected Printer",
-                 "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: QUALITY Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1349,9 +1302,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_COLOR))
     {
 #ifdef _ERRORMSG_
-      MessageBox(0,
-                 "Printer Configuration Failed: COLOR Property Not Supported By Selected Printer",
-                 "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: COLOR Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1371,9 +1323,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_DUPLEX))
     {
 #ifdef _ERRORMSG_
-      MessageBox(0,
-                 "Printer Configuration Failed: DUPLEX Property Not Supported By Selected Printer",
-                 "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: DUPLEX Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1393,9 +1344,8 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
     if (!(pi2->pDevMode->dmFields & DM_COLLATE))
     {
 #ifdef _ERRORMSG_
-      MessageBox(0,
-                 "Printer Configuration Failed: COLLATE Property Not Supported By Selected Printer",
-                 "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed: COLLATE Property Not Supported By Selected Printer", "Error!",
+                 MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL(0, -1, 1);
@@ -1414,12 +1364,12 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
   pi2->pSecurityDescriptor = nullptr;
 
 #ifndef UNICODE
-  lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pi2->pDevMode,
-                             pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+  lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pi2->pDevMode, pi2->pDevMode,
+                             DM_IN_BUFFER | DM_OUT_BUFFER);
 #else
   pDeviceName = AnsiToWide(hb_parc(1));
-  lFlag = DocumentProperties(nullptr, hPrinter, pDeviceName, pi2->pDevMode, pi2->pDevMode,
-                             DM_IN_BUFFER | DM_OUT_BUFFER);
+  lFlag =
+      DocumentProperties(nullptr, hPrinter, pDeviceName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
   hb_xfree(pDeviceName);
 #endif
   if (lFlag != IDOK)
@@ -1431,8 +1381,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       GlobalFree(pDevMode);
     }
 #ifdef _ERRORMSG_
-    MessageBox(0, "Printer Configuration Failed! (008)", "Error!",
-               MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+    MessageBox(0, "Printer Configuration Failed! (008)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
     hb_reta(4);
     HB_STORVNL(0, -1, 1);
@@ -1518,8 +1467,7 @@ HB_FUNC(GETDEFAULTPRINTER)
   {
     EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
     PrinterInfo = (LPPRINTER_INFO_5)LocalAlloc(LPTR, Needed);
-    EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, static_cast<LPBYTE>(PrinterInfo), Needed,
-                 &Needed, &Returned);
+    EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, static_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
     lstrcpy(DefaultPrinter, PrinterInfo->pPrinterName);
     LocalFree(PrinterInfo);
   }
@@ -1546,8 +1494,7 @@ _HMG_PRINTER_STARTPAGE_PREVIEW(HDC, filename) --> numeric
 HB_FUNC(_HMG_PRINTER_STARTPAGE_PREVIEW)
 {
   RECT emfrect;
-  SetRect(&emfrect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) * 100,
-          GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) * 100);
+  SetRect(&emfrect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) * 100, GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) * 100);
   void *str;
   HDC tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), HB_PARSTR(2, &str, nullptr), &emfrect, "");
   hb_strfree(str);
@@ -1660,8 +1607,7 @@ HB_FUNC(_HMG_PRINTER_PRINTPAGE)
   HENHMETAFILE hemf = GetEnhMetaFile(HB_PARSTR(2, &str, nullptr));
   hb_strfree(str);
   RECT rect;
-  SetRect(&rect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZRES),
-          GetDeviceCaps(hmg_par_HDC(1), VERTRES));
+  SetRect(&rect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZRES), GetDeviceCaps(hmg_par_HDC(1), VERTRES));
   StartPage(hmg_par_HDC(1));
   PlayEnhMetaFile(hmg_par_HDC(1), (HENHMETAFILE)hemf, &rect);
   EndPage(hmg_par_HDC(1));
@@ -1782,13 +1728,12 @@ HB_FUNC(_HMG_PRINTER_C_IMAGE)
     dc = (odc * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000);
     dr = (odr * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000);
 
-    hBitmap = static_cast<HBITMAP>(
-        LoadImage(GetInstance(), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+    hBitmap = static_cast<HBITMAP>(LoadImage(GetInstance(), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
 
     if (hBitmap == nullptr)
     {
-      hBitmap = static_cast<HBITMAP>(
-          LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
+      hBitmap =
+          static_cast<HBITMAP>(LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
     }
 
     if (hBitmap == nullptr)
@@ -1890,8 +1835,7 @@ HB_FUNC(_HMG_PRINTGETJOBINFO)
       Job_Info_1 = (JOB_INFO_1 *)hb_xgrab(nBytesNeeded);
       ZeroMemory(Job_Info_1, nBytesNeeded);
 
-      if (GetJob(hPrinter, nJobID, 1, reinterpret_cast<LPBYTE>(Job_Info_1), nBytesNeeded,
-                 &nBytesUsed))
+      if (GetJob(hPrinter, nJobID, 1, reinterpret_cast<LPBYTE>(Job_Info_1), nBytesNeeded, &nBytesUsed))
       {
         hb_reta(14);
         HB_STORNI(Job_Info_1->JobId, -1, 1);
@@ -1930,8 +1874,7 @@ HB_FUNC(_HMG_PRINTGETJOBINFO)
 
         SystemTimeToTzSpecificLocalTime(nullptr, &Job_Info_1->Submitted, &LocalSystemTime);
 
-        wsprintf(cDateTime, "%02d/%02d/%02d", LocalSystemTime.wYear, LocalSystemTime.wMonth,
-                 LocalSystemTime.wDay);
+        wsprintf(cDateTime, "%02d/%02d/%02d", LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay);
 #ifndef UNICODE
         HB_STORC(cDateTime, -1, 13);
 #else
@@ -1940,8 +1883,7 @@ HB_FUNC(_HMG_PRINTGETJOBINFO)
         hb_xfree(pStr);
 #endif
 
-        wsprintf(cDateTime, "%02d:%02d:%02d", LocalSystemTime.wHour, LocalSystemTime.wMinute,
-                 LocalSystemTime.wSecond);
+        wsprintf(cDateTime, "%02d:%02d:%02d", LocalSystemTime.wHour, LocalSystemTime.wMinute, LocalSystemTime.wSecond);
 #ifndef UNICODE
         HB_STORC(cDateTime, -1, 14);
 #else
@@ -1996,8 +1938,7 @@ HB_FUNC(_HMG_PRINTERGETSTATUS)
       Printer_Info_6 = (PRINTER_INFO_6 *)hb_xgrab(nBytesNeeded);
       ZeroMemory(Printer_Info_6, nBytesNeeded);
 
-      if (GetPrinter(hPrinter, 6, reinterpret_cast<LPBYTE>(Printer_Info_6), nBytesNeeded,
-                     &nBytesUsed))
+      if (GetPrinter(hPrinter, 6, reinterpret_cast<LPBYTE>(Printer_Info_6), nBytesNeeded, &nBytesUsed))
       {
         hb_retnl(Printer_Info_6->dwStatus);
       }
@@ -2040,8 +1981,8 @@ HB_FUNC(SETTEXTALIGN)
   hb_retni(SetTextAlign(hmg_par_HDC(1), hmg_par_UINT(2)));
 }
 
-static HBITMAP loademffile(const TCHAR *filename, int width, int height, HWND handle,
-                           int scalestrech, int whitebackground);
+static HBITMAP loademffile(const TCHAR *filename, int width, int height, HWND handle, int scalestrech,
+                           int whitebackground);
 
 /*
 INITEMFFILE(HWND, p2, p3, p4, p5, p6) --> HANDLE
@@ -2060,8 +2001,8 @@ HB_FUNC(INITEMFFILE)
     Style |= SS_NOTIFY;
   }
 
-  auto hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hmg_par_int(3), hmg_par_int(4), 0, 0,
-                             hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hmg_par_int(3), hmg_par_int(4), 0, 0, hmg_par_HWND(1),
+                             hmg_par_HMENU(2), GetInstance(), nullptr);
 
   HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 }
@@ -2077,8 +2018,8 @@ HB_FUNC(C_SETEMFFILE)
   }
 
   void *str;
-  HBITMAP hBitmap = loademffile(HB_PARSTR(2, &str, nullptr), hb_parni(3), hb_parni(4),
-                                hmg_par_HWND(1), hb_parni(5), hb_parni(6));
+  HBITMAP hBitmap =
+      loademffile(HB_PARSTR(2, &str, nullptr), hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
   hb_strfree(str);
 
   if (hBitmap != nullptr)
@@ -2092,8 +2033,7 @@ HB_FUNC(C_SETEMFFILE)
 static BOOL read_image(const TCHAR *filename, DWORD *nFileSize, HGLOBAL *hMem)
 {
   // open the file
-  HANDLE hFile =
-      CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  HANDLE hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     return FALSE;
@@ -2135,8 +2075,8 @@ static BOOL read_image(const TCHAR *filename, DWORD *nFileSize, HGLOBAL *hMem)
   return TRUE;
 }
 
-static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG lWidth,
-                      LONG lHeight, RECT *rect, RECT *rect2)
+static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG lWidth, LONG lHeight, RECT *rect,
+                      RECT *rect2)
 {
   if (width == 0 && height == 0)
   {
@@ -2165,8 +2105,8 @@ static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG 
   rect->top = (height - rect->bottom) / 2;
 }
 
-static HBITMAP loademffile(const TCHAR *filename, int width, int height, HWND handle,
-                           int scalestrech, int whitebackground)
+static HBITMAP loademffile(const TCHAR *filename, int width, int height, HWND handle, int scalestrech,
+                           int whitebackground)
 {
   IStream *iStream;
   IPicture *iPicture = nullptr;
@@ -2223,8 +2163,8 @@ static HBITMAP loademffile(const TCHAR *filename, int width, int height, HWND ha
   }
 
   // Render to device context
-  iPicture->lpVtbl->Render(iPicture, tmpDC, rect.left, rect.top, rect.right, rect.bottom, 0,
-                           lHeight, lWidth, -lHeight, nullptr);
+  iPicture->lpVtbl->Render(iPicture, tmpDC, rect.left, rect.top, rect.right, rect.bottom, 0, lHeight, lWidth, -lHeight,
+                           nullptr);
   iPicture->lpVtbl->Release(iPicture);
   GlobalFree(hMem);
 

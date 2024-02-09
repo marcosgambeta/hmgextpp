@@ -140,8 +140,8 @@ HB_FUNC(HMG_WAITRUNPIPE)
   StartupInfo.hStdOutput = WritePipeHandle;
   StartupInfo.hStdError = WritePipeHandle;
 
-  if (!CreateProcess(nullptr, lpCommandLine, 0, 0, FALSE,
-                     CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo))
+  if (!CreateProcess(nullptr, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0,
+                     &StartupInfo, &ProcessInfo))
   {
     hb_retnl(-1);
     return;
@@ -532,8 +532,7 @@ HB_FUNC(HMG_C_GETDLLSPECIALFOLDER)
 
   if (hModule)
   {
-    SHGETFOLDERPATH fnShGetFolderPath =
-        (SHGETFOLDERPATH)wapi_GetProcAddress(hModule, "SHGetFolderPathA");
+    SHGETFOLDERPATH fnShGetFolderPath = (SHGETFOLDERPATH)wapi_GetProcAddress(hModule, "SHGetFolderPathA");
 
     if (fnShGetFolderPath)
     {
@@ -567,8 +566,7 @@ HB_FUNC(HMG_GETPHYSICALLYINSTALLEDSYSTEMMEMORY)
   if (hDll != nullptr)
   {
     GetPhysicallyInstalledSystemMemory_ptr fn_GetPhysicallyInstalledSystemMemory =
-        (GetPhysicallyInstalledSystemMemory_ptr)wapi_GetProcAddress(
-            hDll, "GetPhysicallyInstalledSystemMemory");
+        (GetPhysicallyInstalledSystemMemory_ptr)wapi_GetProcAddress(hDll, "GetPhysicallyInstalledSystemMemory");
 
     if (fn_GetPhysicallyInstalledSystemMemory != nullptr)
     {
@@ -674,8 +672,7 @@ HB_FUNC(HMG_C_SHELLABOUT)
 {
   void *str1;
   void *str2;
-  hb_retl(ShellAbout(hmg_par_HWND(1), HB_PARSTR(2, &str1, nullptr), HB_PARSTR(3, &str2, nullptr),
-                     hmg_par_HICON(4)));
+  hb_retl(ShellAbout(hmg_par_HWND(1), HB_PARSTR(2, &str1, nullptr), HB_PARSTR(3, &str2, nullptr), hmg_par_HICON(4)));
   hb_strfree(str1);
   hb_strfree(str2);
 }
@@ -805,8 +802,7 @@ HMG_DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 */
 HB_FUNC(HMG_DEFWINDOWPROC)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
-      DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
+  HB_RETNL(static_cast<LONG_PTR>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -860,8 +856,7 @@ HB_FUNC(HMG_SHELLEXECUTE)
 
   if (bIsWow64)
   {
-    fnDisable = (LPFN_WOW64DISABLEWOW64FSREDIRECTION)wapi_GetProcAddress(
-        hDll, "Wow64DisableWow64FsRedirection");
+    fnDisable = (LPFN_WOW64DISABLEWOW64FSREDIRECTION)wapi_GetProcAddress(hDll, "Wow64DisableWow64FsRedirection");
     if (fnDisable != nullptr)
     {
       if (fnDisable(&OldValue))
@@ -873,17 +868,16 @@ HB_FUNC(HMG_SHELLEXECUTE)
 
   CoInitialize(nullptr);
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(ShellExecute(
-      hmg_par_HWND(1), HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str1, nullptr),
-      HB_PARSTR(3, &str2, nullptr), HB_ISNIL(4) ? nullptr : HB_PARSTR(4, &str3, nullptr),
-      HB_ISNIL(5) ? nullptr : HB_PARSTR(5, &str4, nullptr), hb_parni(6))));
+  HB_RETNL(reinterpret_cast<LONG_PTR>(
+      ShellExecute(hmg_par_HWND(1), HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str1, nullptr), HB_PARSTR(3, &str2, nullptr),
+                   HB_ISNIL(4) ? nullptr : HB_PARSTR(4, &str3, nullptr),
+                   HB_ISNIL(5) ? nullptr : HB_PARSTR(5, &str4, nullptr), hb_parni(6))));
 
   hb_idleSleep(1.0);
 
   if (bRestore)
   {
-    fnRevert = (LPFN_WOW64REVERTWOW64FSREDIRECTION)wapi_GetProcAddress(
-        hDll, "Wow64RevertWow64FsRedirection");
+    fnRevert = (LPFN_WOW64REVERTWOW64FSREDIRECTION)wapi_GetProcAddress(hDll, "Wow64RevertWow64FsRedirection");
     if (fnRevert != nullptr)
     {
       fnRevert(OldValue);
@@ -946,9 +940,8 @@ HB_FUNC(HMG_WAITRUN)
   stInfo.wShowWindow = hmg_par_WORD(2);
 
   void *str;
-  BOOL bResult =
-      CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &str, nullptr), nullptr, nullptr, TRUE,
-                    CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, nullptr, nullptr, &stInfo, &prInfo);
+  BOOL bResult = CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &str, nullptr), nullptr, nullptr, TRUE,
+                               CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, nullptr, nullptr, &stInfo, &prInfo);
   hb_strfree(str);
 
   if (!bResult)
@@ -987,10 +980,9 @@ HB_FUNC(HMG_WAITRUNTERM)
 
   void *str1 = nullptr;
   void *str2 = nullptr;
-  BOOL bResult =
-      CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &str1, nullptr), nullptr, nullptr, TRUE,
-                    CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, nullptr,
-                    HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str2, nullptr), &stInfo, &prInfo);
+  BOOL bResult = CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &str1, nullptr), nullptr, nullptr, TRUE,
+                               CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, nullptr,
+                               HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str2, nullptr), &stInfo, &prInfo);
   hb_strfree(str1);
   hb_strfree(str2);
 
@@ -1182,8 +1174,8 @@ HMG_SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
 HB_FUNC(HMG_SETTEXTCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(SetTextColor(
-      hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
+  hb_retnl(static_cast<ULONG>(
+      SetTextColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1195,8 +1187,8 @@ HMG_SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
 HB_FUNC(HMG_SETBKCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(SetBkColor(
-      hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
+  hb_retnl(static_cast<ULONG>(
+      SetBkColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -1403,8 +1395,7 @@ HB_FUNC(HMG_WINVERSION)
         TCHAR szProductType[80];
         DWORD dwBufLen = 80;
 
-        LONG lRetVal = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
-                                    TEXT("SYSTEM\\CurrentControlSet\\Control\\ProductOptions"), 0,
+        LONG lRetVal = RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("SYSTEM\\CurrentControlSet\\Control\\ProductOptions"), 0,
                                     KEY_QUERY_VALUE, &hKey);
 
         if (lRetVal != ERROR_SUCCESS)
@@ -1457,8 +1448,7 @@ HB_FUNC(HMG_WINVERSION)
         HKEY hKey;
 
         LONG lRetVal =
-            RegOpenKeyEx(HKEY_LOCAL_MACHINE,
-                         TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Hotfix\\Q246009"),
+            RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Hotfix\\Q246009"),
                          0, KEY_QUERY_VALUE, &hKey);
 
         if (lRetVal == ERROR_SUCCESS)
@@ -1599,8 +1589,7 @@ HB_FUNC(HMG_GETDLLVERSION)
     }
     else
     {
-      MessageBox(nullptr, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"),
-                 MB_OK | MB_ICONERROR);
+      MessageBox(nullptr, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
     }
 
     FreeLibrary(hModule);
@@ -1841,8 +1830,7 @@ HB_FUNC(HMG_GETCOMPACTPATH)
   {
     _GETCOMPACTPATH pFunc;
     pFunc = (_GETCOMPACTPATH)wapi_GetProcAddress(handle, "PathCompactPathExA");
-    hb_retni(pFunc(const_cast<LPTSTR>(hb_parc(1)), const_cast<LPTSTR>(hb_parc(2)), hmg_par_INT(3),
-                   hmg_par_DWORD(4)));
+    hb_retni(pFunc(const_cast<LPTSTR>(hb_parc(1)), const_cast<LPTSTR>(hb_parc(2)), hmg_par_INT(3), hmg_par_DWORD(4)));
     FreeLibrary(handle);
   }
 }
@@ -2186,13 +2174,11 @@ HB_FUNC(HMG_GETLOCALEINFO)
    --------------------------------------------------------------------------------
  */
 #ifndef UNICODE
-static HRESULT CreateShortCut(LPSTR pszTargetfile, LPSTR pszTargetargs, LPSTR pszLinkfile,
-                              LPSTR pszDescription, int iShowmode, LPSTR pszCurdir,
-                              LPSTR pszIconfile, int iIconindex)
+static HRESULT CreateShortCut(LPSTR pszTargetfile, LPSTR pszTargetargs, LPSTR pszLinkfile, LPSTR pszDescription,
+                              int iShowmode, LPSTR pszCurdir, LPSTR pszIconfile, int iIconindex)
 #else
-static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR pszLinkfile,
-                              LPWSTR pszDescription, int iShowmode, LPWSTR pszCurdir,
-                              LPWSTR pszIconfile, int iIconindex)
+static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR pszLinkfile, LPWSTR pszDescription,
+                              int iShowmode, LPWSTR pszCurdir, LPWSTR pszIconfile, int iIconindex)
 #endif
 {
   HRESULT hRes;               /* Returned COM result code */
@@ -2202,13 +2188,13 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR
 
   hRes = E_INVALIDARG;
   if ((pszTargetfile != nullptr) && (lstrlen(pszTargetfile) > 0) && (pszTargetargs != nullptr) &&
-      (pszLinkfile != nullptr) && (lstrlen(pszLinkfile) > 0) && (pszDescription != nullptr) &&
-      (iShowmode >= 0) && (pszCurdir != nullptr) && (pszIconfile != nullptr) && (iIconindex >= 0))
+      (pszLinkfile != nullptr) && (lstrlen(pszLinkfile) > 0) && (pszDescription != nullptr) && (iShowmode >= 0) &&
+      (pszCurdir != nullptr) && (pszIconfile != nullptr) && (iIconindex >= 0))
   {
-    hRes = CoCreateInstance(CLSID_ShellLink, /* pre-defined CLSID of the IShellLink object */
-                            nullptr,         /* pointer to parent interface if part of aggregate */
-                            CLSCTX_INPROC_SERVER, /* caller and called code are in same process */
-                            IID_IShellLink, /* pre-defined interface of the IShellLink object */
+    hRes = CoCreateInstance(CLSID_ShellLink,        /* pre-defined CLSID of the IShellLink object */
+                            nullptr,                /* pointer to parent interface if part of aggregate */
+                            CLSCTX_INPROC_SERVER,   /* caller and called code are in same process */
+                            IID_IShellLink,         /* pre-defined interface of the IShellLink object */
                             (LPVOID *)&pShellLink); /* Returns a pointer to the IShellLink object */
     if (SUCCEEDED(hRes))
     {
@@ -2240,13 +2226,11 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR
       if (SUCCEEDED(hRes))
       {
 #ifndef UNICODE
-        MultiByteToWideChar(CP_ACP, 0, pszLinkfile, -1, reinterpret_cast<LPWSTR>(wszLinkfile),
-                            MAX_PATH);
+        MultiByteToWideChar(CP_ACP, 0, pszLinkfile, -1, reinterpret_cast<LPWSTR>(wszLinkfile), MAX_PATH);
 #else
         lstrcpy(reinterpret_cast<LPWSTR>(wszLinkfile), pszLinkfile);
 #endif
-        hRes = pPersistFile->lpVtbl->Save(pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile),
-                                          TRUE);
+        hRes = pPersistFile->lpVtbl->Save(pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile), TRUE);
         pPersistFile->lpVtbl->Release(pPersistFile);
       }
       pShellLink->lpVtbl->Release(pShellLink);

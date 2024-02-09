@@ -165,8 +165,8 @@ HB_FUNC(HMG_DRAWSTATE)
       lpData = static_cast<LPARAM>(static_cast<LONG_PTR>(HB_PARNL(4)));
     }
 
-    hb_retl(DrawState(hDC, hBrush, nullptr, lpData, wData, hmg_par_int(6), hmg_par_int(7),
-                      hmg_par_int(8), hmg_par_int(9), static_cast<UINT>(fuFlags))
+    hb_retl(DrawState(hDC, hBrush, nullptr, lpData, wData, hmg_par_int(6), hmg_par_int(7), hmg_par_int(8),
+                      hmg_par_int(9), static_cast<UINT>(fuFlags))
                 ? true
                 : false);
 
@@ -283,8 +283,8 @@ HB_FUNC(HMG_GRAYSTRING)
         hBrush = CreateSolidBrush(crBrush);
       }
 
-      hb_retl(GrayString(hDC, hBrush, nullptr, reinterpret_cast<LPARAM>(lpData), nCount,
-                         hmg_par_int(6), hmg_par_int(7), hmg_par_int(8), hmg_par_int(9))
+      hb_retl(GrayString(hDC, hBrush, nullptr, reinterpret_cast<LPARAM>(lpData), nCount, hmg_par_int(6), hmg_par_int(7),
+                         hmg_par_int(8), hmg_par_int(9))
                   ? true
                   : false);
 
@@ -335,9 +335,7 @@ HB_FUNC(HMG_INVALIDATERECT)
       }
     }
 
-    hb_retl(InvalidateRect(hWnd, bRect ? &rc : nullptr, hb_parni(2) /* erase-background flag */)
-                ? true
-                : false);
+    hb_retl(InvalidateRect(hWnd, bRect ? &rc : nullptr, hb_parni(2) /* erase-background flag */) ? true : false);
   }
   else
   {

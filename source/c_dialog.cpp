@@ -105,9 +105,8 @@ HMG_INITMODALDIALOG(HWND, np2) --> LRESULT
 */
 HB_FUNC(HMG_INITMODALDIALOG)
 {
-  HB_RETNL(
-      static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
-                                      reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
+  HB_RETNL(static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
+                                           reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
@@ -467,17 +466,15 @@ HB_FUNC(HMG_CREATEDLGTEMPLATE)
 
   if (modal)
   {
-    LRESULT lResult =
-        DialogBoxIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate),
-                          hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
+    LRESULT lResult = DialogBoxIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
+                                        reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
     LocalFree(pdlgtemplate);
     HB_RETNL(static_cast<LONG_PTR>(lResult));
   }
   else
   {
-    HWND hwndDlg =
-        CreateDialogIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate),
-                             hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_DlgProc));
+    HWND hwndDlg = CreateDialogIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
+                                        reinterpret_cast<DLGPROC>(HMG_DlgProc));
     LocalFree(pdlgtemplate);
     hmg_ret_HWND(hwndDlg);
   }

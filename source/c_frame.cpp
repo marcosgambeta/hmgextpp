@@ -68,10 +68,10 @@ HB_FUNC(HMG_INITFRAME)
     DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; /* opaque | transparent */
     void *str;
 
-    hbutton = CreateWindowEx(dwExStyle, WC_BUTTON, HB_PARSTR(7, &str, nullptr),
-                             WS_CHILD | WS_VISIBLE | BS_GROUPBOX | BS_NOTIFY, hmg_par_int(3),
-                             hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hwnd,
-                             (IsMenu(hmenu) ? hmenu : nullptr), GetInstance(), nullptr);
+    hbutton =
+        CreateWindowEx(dwExStyle, WC_BUTTON, HB_PARSTR(7, &str, nullptr),
+                       WS_CHILD | WS_VISIBLE | BS_GROUPBOX | BS_NOTIFY, hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                       hmg_par_int(6), hwnd, (IsMenu(hmenu) ? hmenu : nullptr), GetInstance(), nullptr);
 
     hb_strfree(str);
   }

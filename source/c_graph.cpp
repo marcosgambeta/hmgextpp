@@ -49,8 +49,8 @@
 #include <hbwinuni.hpp>
 
 bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
-extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic,
-                         DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
+extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline,
+                         DWORD StrikeOut, DWORD Angle, DWORD charset);
 
 /*
 HMG_TEXTDRAW(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16) -->
@@ -88,8 +88,8 @@ HB_FUNC(HMG_TEXTDRAW)
     COLORREF crFgColor = CLR_INVALID;
     RECT rect;
 
-    auto font = PrepareFont(HB_PARSTR(9, &str2, nullptr), hb_parni(10), bold, italic, underline,
-                            strikeout, angle, DEFAULT_CHARSET);
+    auto font = PrepareFont(HB_PARSTR(9, &str2, nullptr), hb_parni(10), bold, italic, underline, strikeout, angle,
+                            DEFAULT_CHARSET);
 
     auto hgdiobj = SelectObject(hDC, font);
 
@@ -114,10 +114,8 @@ HB_FUNC(HMG_TEXTDRAW)
 
     SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
 
-    hb_retl(ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString,
-                       lstrlen(lpString), nullptr)
-                ? true
-                : false);
+    hb_retl(ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, lstrlen(lpString), nullptr) ? true
+                                                                                                               : false);
 
     SelectObject(hDC, hgdiobj);
 
@@ -163,8 +161,8 @@ HB_FUNC(HMG_LINEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(7),
-                        static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
   MoveToEx(hdc1, hmg_par_int(3), hmg_par_int(2), nullptr);
   LineTo(hdc1, hmg_par_int(5), hmg_par_int(4));
@@ -184,8 +182,8 @@ HB_FUNC(HMG_RECTDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(7),
-                        static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
 
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
@@ -195,8 +193,7 @@ HB_FUNC(HMG_RECTDRAW)
 
   if (hb_parl(9))
   {
-    hbrush = CreateSolidBrush(
-        static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
+    hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
   else
@@ -225,8 +222,8 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(9),
-                        static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(9), static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
   HBRUSH hbrush;
@@ -235,8 +232,7 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
 
   if (hb_parl(11))
   {
-    hbrush = CreateSolidBrush(
-        static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
+    hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
   else
@@ -246,8 +242,7 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
 
-  RoundRect(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(6),
-            hmg_par_int(7));
+  RoundRect(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(6), hmg_par_int(7));
   SelectObject(hdc1, hgdiobj1);
   SelectObject(hdc1, hgdiobj2);
   DeleteObject(hpen);
@@ -266,8 +261,8 @@ HB_FUNC(HMG_ELLIPSEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(7),
-                        static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(7), static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
   HBRUSH hbrush;
@@ -276,8 +271,7 @@ HB_FUNC(HMG_ELLIPSEDRAW)
 
   if (hb_parl(9))
   {
-    hbrush = CreateSolidBrush(
-        static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
+    hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
   else
@@ -306,12 +300,11 @@ HB_FUNC(HMG_ARCDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen =
-      CreatePen(PS_SOLID, hmg_par_int(11),
-                static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
+  auto hpen = CreatePen(PS_SOLID, hmg_par_int(11),
+                        static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
-  Arc(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7),
-      hmg_par_int(6), hmg_par_int(9), hmg_par_int(8));
+  Arc(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7), hmg_par_int(6),
+      hmg_par_int(9), hmg_par_int(8));
   SelectObject(hdc1, hgdiobj1);
   DeleteObject(hpen);
   ReleaseDC(hWnd1, hdc1);
@@ -328,9 +321,8 @@ HB_FUNC(HMG_PIEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen =
-      CreatePen(PS_SOLID, hmg_par_int(11),
-                static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
+  auto hpen = CreatePen(PS_SOLID, hmg_par_int(11),
+                        static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
   HBRUSH hbrush;
@@ -339,8 +331,7 @@ HB_FUNC(HMG_PIEDRAW)
 
   if (hb_parl(13))
   {
-    hbrush = CreateSolidBrush(
-        static_cast<COLORREF>(RGB(HB_PARNI(12, 1), HB_PARNI(12, 2), HB_PARNI(12, 3))));
+    hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(12, 1), HB_PARNI(12, 2), HB_PARNI(12, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
   else
@@ -350,8 +341,8 @@ HB_FUNC(HMG_PIEDRAW)
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
 
-  Pie(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7),
-      hmg_par_int(6), hmg_par_int(9), hmg_par_int(8));
+  Pie(hdc1, hmg_par_int(3), hmg_par_int(2), hmg_par_int(5), hmg_par_int(4), hmg_par_int(7), hmg_par_int(6),
+      hmg_par_int(9), hmg_par_int(8));
   SelectObject(hdc1, hgdiobj1);
   SelectObject(hdc1, hgdiobj2);
   DeleteObject(hpen);
@@ -370,8 +361,8 @@ HB_FUNC(HMG_POLYGONDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(5),
-                        static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
   HBRUSH hbrush;
@@ -380,8 +371,7 @@ HB_FUNC(HMG_POLYGONDRAW)
 
   if (hb_parl(7))
   {
-    hbrush = CreateSolidBrush(
-        static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
+    hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
   else
@@ -419,8 +409,8 @@ HB_FUNC(HMG_POLYBEZIERDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
   auto hdc1 = GetDC(hWnd1);
-  auto hpen = CreatePen(PS_SOLID, hmg_par_int(5),
-                        static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
+  auto hpen =
+      CreatePen(PS_SOLID, hmg_par_int(5), static_cast<COLORREF>(RGB(HB_PARNI(4, 1), HB_PARNI(4, 2), HB_PARNI(4, 3))));
   auto hgdiobj1 = SelectObject(hdc1, hpen);
 
   POINT apoints[1024];

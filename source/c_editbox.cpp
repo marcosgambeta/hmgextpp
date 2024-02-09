@@ -90,15 +90,13 @@ HB_FUNC(HMG_INITEDITBOX)
     style |= WS_HSCROLL;
   }
 
-  auto hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style, hmg_par_int(3),
-                                hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1),
-                                hmg_par_HMENU(2), GetInstance(), nullptr);
+  auto hbutton =
+      CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style, hmg_par_int(3), hmg_par_int(4), hmg_par_int(5),
+                     hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   SendMessage(hbutton, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
-  SetProp(hbutton, TEXT("oldeditproc"),
-          reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-  SetWindowLongPtr(hbutton, GWLP_WNDPROC,
-                   reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
+  SetProp(hbutton, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
 
   hmg_ret_HWND(hbutton);
 }
