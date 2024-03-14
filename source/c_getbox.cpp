@@ -290,18 +290,10 @@ HB_FUNC(HMG_INITGETBOX)
   hmg_storvhandle(himage2, -1, 5);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(INITGETBOX, HMG_INITGETBOX)
-#endif
-
 HB_FUNC(HMG_CHECKBIT)
 {
   hb_retl(hb_parnl(1) & (1 << (hb_parni(2) - 1)));
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(CHECKBIT, HMG_CHECKBIT)
-#endif
 
 HB_FUNC(HMG_GETTEXTHEIGHT) // returns the height of a string in pixels
 {
@@ -348,10 +340,6 @@ HB_FUNC(HMG_GETTEXTHEIGHT) // returns the height of a string in pixels
   hb_xfree(static_cast<TCHAR *>(lpString));
 #endif
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(GETTEXTHEIGHT, HMG_GETTEXTHEIGHT)
-#endif
 
 LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
@@ -545,3 +533,9 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
 }
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(INITGETBOX, HMG_INITGETBOX)
+HB_FUNC_TRANSLATE(CHECKBIT, HMG_CHECKBIT)
+HB_FUNC_TRANSLATE(GETTEXTHEIGHT, HMG_GETTEXTHEIGHT)
+#endif

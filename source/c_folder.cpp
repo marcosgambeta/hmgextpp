@@ -401,10 +401,6 @@ HB_FUNC(HMG_CREATEFOLDERPAGEINDIRECT)
 #endif
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(CREATEFOLDERPAGEINDIRECT, HMG_CREATEFOLDERPAGEINDIRECT)
-#endif
-
 /****************************************************************************
   hmg_CreateFolderPage(_HMG_aFolderPagesTemp)
  *****************************************************************************/
@@ -449,10 +445,6 @@ HB_FUNC(HMG_CREATEFOLDERPAGE)
   hb_xfree(caption);
 #endif
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(CREATEFOLDERPAGE, HMG_CREATEFOLDERPAGE)
-#endif
 
 /****************************************************************************
   hmg_CreateDlgFolder(IdFld, _HMG_ActiveFolderHandle, aHwndFolderPages, _HMG_aFolderTemplate,
@@ -566,10 +558,6 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
   hmg_ret_HWND(hWndDlg); // TODO: verificar
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(CREATEDLGFOLDER, HMG_CREATEDLGFOLDER)
-#endif
-
 /****************************************************************************
   hmg_FolderHwndToIndex(hWndParent, hWndDlg)
  *****************************************************************************/
@@ -581,10 +569,6 @@ HB_FUNC(HMG_FOLDERHWNDTOINDEX)
 
   hb_retni(iPageIndex);
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDERHWNDTOINDEX, HMG_FOLDERHWNDTOINDEX)
-#endif
 
 /****************************************************************************
   hmg_FolderGetCurrentPageHwnd(hWndParent)
@@ -605,10 +589,6 @@ HB_FUNC(HMG_FOLDERGETCURRENTPAGEHWND)
   hmg_ret_HWND(fpi->hwndPage);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDERGETCURRENTPAGEHWND, HMG_FOLDERGETCURRENTPAGEHWND)
-#endif
-
 /****************************************************************************
   hmg_Folder_Changed(hWndParent, hWndDlg)
  *****************************************************************************/
@@ -620,10 +600,6 @@ HB_FUNC(HMG_FOLDER_CHANGED)
   FLD_Changed(hWndParent, hWndDlg);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_CHANGED, HMG_FOLDER_CHANGED)
-#endif
-
 /****************************************************************************
   hmg_Folder_UnChanged(hWndParent, hWndDlg)
  *****************************************************************************/
@@ -634,10 +610,6 @@ HB_FUNC(HMG_FOLDER_UNCHANGED)
 
   FLD_UnChanged(hWndParent, hWndDlg);
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_UNCHANGED, HMG_FOLDER_UNCHANGED)
-#endif
 
 /******************************************************************************
   hmg_Folder_IsDirty(hWndParent)
@@ -669,10 +641,6 @@ HB_FUNC(HMG_FOLDER_ISDIRTY)
   hb_retl(static_cast<BOOL>(lPageDirty));
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_ISDIRTY, HMG_FOLDER_ISDIRTY)
-#endif
-
 /******************************************************************************
   hmg_Folder_IsFinish(hWndParent)
  *****************************************************************************/
@@ -695,10 +663,6 @@ HB_FUNC(HMG_FOLDER_ISFINISH)
   hb_retl(static_cast<BOOL>(lFooderFinish));
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_ISFINISH, HMG_FOLDER_ISFINISH)
-#endif
-
 /******************************************************************************
   hmg_Folder_GetIdFld(hWndParent)
  *****************************************************************************/
@@ -716,10 +680,6 @@ HB_FUNC(HMG_FOLDER_GETIDFLD)
     hb_retni(pFhi->nIdFld);
   }
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_GETIDFLD, HMG_FOLDER_GETIDFLD)
-#endif
 
 /******************************************************************************
   hmg_Folder_GetTabHandle(hWndParent)
@@ -739,10 +699,6 @@ HB_FUNC(HMG_FOLDER_GETTABHANDLE)
   }
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_GETTABHANDLE, HMG_FOLDER_GETTABHANDLE)
-#endif
-
 /******************************************************************************
   hmg_Folder_CleanUp(hWndParent)
  *****************************************************************************/
@@ -750,10 +706,6 @@ HB_FUNC(HMG_FOLDER_CLEANUP)
 {
   FLD_CleanUp(hmg_par_HWND(1));
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(FOLDER_CLEANUP, HMG_FOLDER_CLEANUP)
-#endif
 
 /*-----------------------------------------------------------------
       FLD_FolderInit()
@@ -1703,3 +1655,18 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
   pFhi->hImageList = himl;
 }
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(CREATEFOLDERPAGEINDIRECT, HMG_CREATEFOLDERPAGEINDIRECT)
+HB_FUNC_TRANSLATE(CREATEFOLDERPAGE, HMG_CREATEFOLDERPAGE)
+HB_FUNC_TRANSLATE(CREATEDLGFOLDER, HMG_CREATEDLGFOLDER)
+HB_FUNC_TRANSLATE(FOLDERHWNDTOINDEX, HMG_FOLDERHWNDTOINDEX)
+HB_FUNC_TRANSLATE(FOLDERGETCURRENTPAGEHWND, HMG_FOLDERGETCURRENTPAGEHWND)
+HB_FUNC_TRANSLATE(FOLDER_CHANGED, HMG_FOLDER_CHANGED)
+HB_FUNC_TRANSLATE(FOLDER_UNCHANGED, HMG_FOLDER_UNCHANGED)
+HB_FUNC_TRANSLATE(FOLDER_ISDIRTY, HMG_FOLDER_ISDIRTY)
+HB_FUNC_TRANSLATE(FOLDER_ISFINISH, HMG_FOLDER_ISFINISH)
+HB_FUNC_TRANSLATE(FOLDER_GETIDFLD, HMG_FOLDER_GETIDFLD)
+HB_FUNC_TRANSLATE(FOLDER_GETTABHANDLE, HMG_FOLDER_GETTABHANDLE)
+HB_FUNC_TRANSLATE(FOLDER_CLEANUP, HMG_FOLDER_CLEANUP)
+#endif

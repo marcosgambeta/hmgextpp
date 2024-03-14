@@ -83,10 +83,6 @@ HB_FUNC(HMG_MESSAGEBOXINDIRECT)
   hb_retni(MessageBoxIndirect(&mbp));
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(MESSAGEBOXINDIRECT, HMG_MESSAGEBOXINDIRECT)
-#endif
-
 // MessageBoxTimeout(Text, Caption, nTypeButton, nMilliseconds) ---> Return iRetButton
 HB_FUNC(HMG_MESSAGEBOXTIMEOUT)
 {
@@ -105,10 +101,6 @@ HB_FUNC(HMG_MESSAGEBOXTIMEOUT)
 
   hb_retni(MessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds));
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(MESSAGEBOXTIMEOUT, HMG_MESSAGEBOXTIMEOUT)
-#endif
 
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId,
                              DWORD dwMilliseconds)
@@ -131,3 +123,8 @@ int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT 
              ? 0
              : pMessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds);
 }
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(MESSAGEBOXINDIRECT, HMG_MESSAGEBOXINDIRECT)
+HB_FUNC_TRANSLATE(MESSAGEBOXTIMEOUT, HMG_MESSAGEBOXTIMEOUT)
+#endif
