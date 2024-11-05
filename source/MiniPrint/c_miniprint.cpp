@@ -1467,7 +1467,7 @@ HB_FUNC(GETDEFAULTPRINTER)
   {
     EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
     PrinterInfo = (LPPRINTER_INFO_5)LocalAlloc(LPTR, Needed);
-    EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, static_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
+    EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, reinterpret_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
     lstrcpy(DefaultPrinter, PrinterInfo->pPrinterName);
     LocalFree(PrinterInfo);
   }
