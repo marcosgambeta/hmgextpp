@@ -91,9 +91,8 @@ HB_FUNC(SOCKETCONNECT)
   if (bInit && HB_ISCHAR(2) && HB_ISNUM(3))
   {
     SOCKADDR_IN sockDestinationAddr;
-    const char *lpszAsciiDestination;
 
-    lpszAsciiDestination = hb_parc(2);
+    auto lpszAsciiDestination = hb_parc(2);
     auto nPort = hb_parni(3);
 
     m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -138,9 +137,8 @@ HB_FUNC(SOCKETBIND)
   if (bInit && HB_ISCHAR(2) && HB_ISNUM(3))
   {
     SOCKADDR_IN sockDestinationAddr;
-    const char *lpszAsciiDestination;
 
-    lpszAsciiDestination = hb_parc(2);
+    auto lpszAsciiDestination = hb_parc(2);
     auto nPort = hb_parni(3);
 
     m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -227,7 +225,7 @@ HB_FUNC(SOCKETSEND)
   {
     if (m_hSocket != INVALID_SOCKET)
     {
-      const char *pszBuf = hb_parc(2);
+      auto pszBuf = hb_parc(2);
       int nBuf = hb_parclen(2);
       if (HB_ISNUM(3))
       {

@@ -252,7 +252,7 @@ HB_FUNC(HMG_GRAYSTRING)
     {
       HBRUSH hBrush = nullptr;
       COLORREF crBrush;
-      const char *lpData = hb_parc(4);
+      auto lpData = hb_parc(4);
 
       if (hmg_ArrayToColorRef(hb_param(2, Harbour::Item::ANY), &crBrush))
       {

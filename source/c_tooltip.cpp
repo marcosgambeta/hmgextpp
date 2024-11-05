@@ -241,7 +241,7 @@ HB_FUNC(HMG_SHOWBALLOONTIP)
     {
       ZeroMemory(Text, sizeof(Text));
       int k = hb_parclen(2);
-      const char *s = hb_parc(2);
+      auto s = hb_parc(2);
       for (auto i = 0; i < k; i++)
       {
         Text[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
@@ -253,7 +253,7 @@ HB_FUNC(HMG_SHOWBALLOONTIP)
     {
       ZeroMemory(Title, sizeof(Title));
       int k = hb_parclen(3);
-      const char *s = hb_parc(3);
+      auto s = hb_parc(3);
       for (auto i = 0; i < k; i++)
       {
         Title[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);

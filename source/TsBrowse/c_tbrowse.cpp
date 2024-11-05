@@ -84,7 +84,7 @@ HB_FUNC(REGISTER_CLASS)
   void *hClassName;
   LPCTSTR lpClassName = HB_PARSTR(1, &hClassName, nullptr);
 #else
-  const char *lpClassName = hb_parc(1);
+  auto lpClassName = hb_parc(1);
 #endif
   WNDCLASS WndClass;
   HBRUSH hbrush;

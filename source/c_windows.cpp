@@ -169,7 +169,7 @@ HB_FUNC_TRANSLATE(GETGLOBALLISTENER, HMG_GETGLOBALLISTENER)
 
 HB_FUNC(HMG_SETGLOBALLISTENER)
 {
-  const char *pszNewName = hb_parc(1);
+  auto pszNewName = hb_parc(1);
 
   if (pszNewName && hb_dynsymIsFunction(hb_dynsymGet(pszNewName)))
   {
@@ -1049,7 +1049,7 @@ HB_FUNC(HMG_INITMESSAGEONLYWINDOW)
 
     if (RegisterClassEx(&wcx))
     {
-      const char *pszFuncName = hb_parc(2);
+      auto pszFuncName = hb_parc(2);
 
       if (pszFuncName && hb_dynsymIsFunction(hb_dynsymGet(pszFuncName)))
       {

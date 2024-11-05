@@ -89,8 +89,8 @@ HB_FUNC(HMG_MESSAGEBOXTIMEOUT)
   auto hWnd = GetActiveWindow();
 
 #ifndef UNICODE
-  const char *lpText = hb_parc(1);
-  const char *lpCaption = hb_parc(2);
+  auto lpText = hb_parc(1);
+  auto lpCaption = hb_parc(2);
 #else
   TCHAR *lpText = hb_osStrU16Encode(hb_parc(1));
   TCHAR *lpCaption = hb_osStrU16Encode(hb_parc(2));
