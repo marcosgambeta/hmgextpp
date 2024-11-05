@@ -1,8 +1,8 @@
-/*
- * MINIGUI - Harbour Win32 GUI library source code
- *
- * Copyright 2019 Grigory Filatov <gfilatov@gmail.com>
-*/
+//
+// MINIGUI - Harbour Win32 GUI library source code
+//
+// Copyright 2019 Grigory Filatov <gfilatov@gmail.com>
+//
 
 #include "minigui.ch"
 #include "i_winuser.ch"
