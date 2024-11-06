@@ -1396,7 +1396,7 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR *FileName)
   // Bitmap_Info.bmiHeader.biClrUsed       = 0;
   // Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-  HGLOBAL hBits = GlobalAlloc(GHND, nBytes_Bits);
+  auto hBits = GlobalAlloc(GHND, nBytes_Bits);
   if (hBits == nullptr)
   {
     return FALSE;

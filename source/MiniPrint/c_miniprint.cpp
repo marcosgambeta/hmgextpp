@@ -540,7 +540,7 @@ HB_FUNC(APRINTERS)
     EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, nullptr, 0, &dwSize, &dwPrinters);
   }
 
-  HGLOBAL pBuffer = static_cast<char *>(GlobalAlloc(GPTR, dwSize));
+  auto pBuffer = GlobalAlloc(GPTR, dwSize);
 
   if (pBuffer == nullptr)
   {

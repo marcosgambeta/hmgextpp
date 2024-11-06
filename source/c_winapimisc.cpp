@@ -203,7 +203,6 @@ HB_FUNC_TRANSLATE(WAITRUNPIPE, HMG_WAITRUNPIPE)
 
 HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText in Windows clipboard
 {
-  HGLOBAL hglbCopy;
   UINT cf;
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
   int nLen = strlen(cStr);
@@ -218,7 +217,7 @@ HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText i
 
   EmptyClipboard();
 
-  hglbCopy = GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, (nLen + 4) * sizeof(TCHAR));
+  auto hglbCopy = GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, (nLen + 4) * sizeof(TCHAR));
   if (hglbCopy == nullptr)
   {
     CloseClipboard();
@@ -240,8 +239,6 @@ HB_FUNC_TRANSLATE(COPYRTFTOCLIPBOARD, HMG_COPYRTFTOCLIPBOARD)
 
 HB_FUNC(HMG_COPYTOCLIPBOARD) // CopyToClipboard(cText) store cText in Windows clipboard
 {
-  HGLOBAL hglbCopy;
-
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
   int nLen = strlen(cStr);
 
@@ -252,7 +249,7 @@ HB_FUNC(HMG_COPYTOCLIPBOARD) // CopyToClipboard(cText) store cText in Windows cl
 
   EmptyClipboard();
 
-  hglbCopy = GlobalAlloc(GMEM_DDESHARE, (nLen + 1) * sizeof(TCHAR));
+  auto hglbCopy = GlobalAlloc(GMEM_DDESHARE, (nLen + 1) * sizeof(TCHAR));
   if (hglbCopy == nullptr)
   {
     CloseClipboard();

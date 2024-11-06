@@ -1391,7 +1391,6 @@ HB_FUNC(RR_PICTURE)
 {
   IStream *iStream;
   IPicture *iPicture;
-  HGLOBAL hGlobal;
   void *pGlobal;
   DWORD nReadByte;
   long lWidth, lHeight;
@@ -1415,7 +1414,7 @@ HB_FUNC(RR_PICTURE)
   }
 
   auto nFileSize = GetFileSize(hFile, nullptr);
-  hGlobal = GlobalAlloc(GMEM_MOVEABLE, nFileSize);
+  auto hGlobal = GlobalAlloc(GMEM_MOVEABLE, nFileSize);
   pGlobal = GlobalLock(hGlobal);
   ReadFile(hFile, pGlobal, nFileSize, &nReadByte, nullptr);
   CloseHandle(hFile);

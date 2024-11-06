@@ -217,7 +217,7 @@ static HGLOBAL bt_LoadFileFromResources(const TCHAR *FileName, const TCHAR *Type
 
   DWORD nFileSize = SizeofResource(nullptr, hResourceData);
 
-  HGLOBAL hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
+  auto hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
   if (hGlobalAlloc == nullptr)
   {
     FreeResource(hGlobalResource);
@@ -251,7 +251,7 @@ static HGLOBAL bt_LoadFileFromDisk(const TCHAR *FileName)
     return nullptr;
   }
 
-  HGLOBAL hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
+  auto hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
   if (hGlobalAlloc == nullptr)
   {
     CloseHandle(hFile);
@@ -606,7 +606,7 @@ static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
   Bitmap_Info.bmiHeader.biClrUsed = 0;
   Bitmap_Info.bmiHeader.biClrImportant = 0;
 
-  HGLOBAL hGlobalAlloc = GlobalAlloc(GHND, static_cast<DWORD>(BIFH.bfSize));
+  auto hGlobalAlloc = GlobalAlloc(GHND, static_cast<DWORD>(BIFH.bfSize));
   if (hGlobalAlloc == nullptr)
   {
     return nullptr;
@@ -2060,7 +2060,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR *FileName, INT nTypePic
   Bitmap_Info.bmiHeader.biClrUsed = 0;
   Bitmap_Info.bmiHeader.biClrImportant = 0;
 
-  HGLOBAL hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
+  auto hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
   if (hBits == nullptr)
   {
     return FALSE;
@@ -2749,7 +2749,7 @@ HB_FUNC(BT_BMP_PROCESS)
   bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
-  HGLOBAL hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
+  auto hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
   if (hBits == nullptr)
   {
     hb_retl(false);
@@ -2951,14 +2951,14 @@ HB_FUNC(BT_BMP_FILTER3X3)
   bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
   auto nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
-  HGLOBAL hBits_O = GlobalAlloc(GHND, nBytes_Bits);
+  auto hBits_O = GlobalAlloc(GHND, nBytes_Bits);
   if (hBits_O == nullptr)
   {
     hb_retl(false);
     return;
   }
 
-  HGLOBAL hBits_D = GlobalAlloc(GHND, nBytes_Bits);
+  auto hBits_D = GlobalAlloc(GHND, nBytes_Bits);
   if (hBits_D == nullptr)
   {
     GlobalFree(hBits_O);
@@ -3362,7 +3362,7 @@ HB_FUNC(BT_BMP_PUT_CLIPBOARD)
     return;
   }
 
-  HGLOBAL hClipboard = GlobalAlloc(GHND, nBytes_Total);
+  auto hClipboard = GlobalAlloc(GHND, nBytes_Total);
   if (hClipboard == nullptr)
   {
     CloseClipboard();
