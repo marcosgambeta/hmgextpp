@@ -204,7 +204,7 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
   // open the source file.
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+  auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
                             FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
   if (hFile == INVALID_HANDLE_VALUE)
@@ -265,7 +265,7 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 
   // open the destination file.
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
+  auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
   if (hFile == INVALID_HANDLE_VALUE)

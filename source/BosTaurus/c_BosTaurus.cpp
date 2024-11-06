@@ -238,7 +238,7 @@ static HGLOBAL bt_LoadFileFromResources(const TCHAR *FileName, const TCHAR *Type
 //*************************************************************************************************
 static HGLOBAL bt_LoadFileFromDisk(const TCHAR *FileName)
 {
-  HANDLE hFile = CreateFile(FileName, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  auto hFile = CreateFile(FileName, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     return nullptr;
@@ -2071,7 +2071,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR *FileName, INT nTypePic
   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, static_cast<LPVOID>(lp_hBits), &Bitmap_Info,
             DIB_RGB_COLORS);
 
-  HANDLE hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+  auto hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   BOOL ret = FALSE;

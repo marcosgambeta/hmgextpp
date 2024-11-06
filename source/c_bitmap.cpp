@@ -96,7 +96,7 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
   SelectObject(hMemDC, hOldBmp);
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
-  HANDLE filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+  auto filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
                                  FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
@@ -164,7 +164,7 @@ HB_FUNC(HMG_WNDCOPY)
   SelectObject(hMemDC, hOldBmp);
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
-  HANDLE filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+  auto filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
                                  FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));

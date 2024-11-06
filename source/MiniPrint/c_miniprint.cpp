@@ -2033,7 +2033,7 @@ HB_FUNC(C_SETEMFFILE)
 static BOOL read_image(const TCHAR *filename, DWORD *nFileSize, HGLOBAL *hMem)
 {
   // open the file
-  HANDLE hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  auto hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     return FALSE;

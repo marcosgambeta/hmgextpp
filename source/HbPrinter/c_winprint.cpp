@@ -1393,7 +1393,6 @@ HB_FUNC(RR_PICTURE)
   IPicture *iPicture;
   HGLOBAL hGlobal;
   void *pGlobal;
-  HANDLE hFile;
   DWORD nFileSize;
   DWORD nReadByte;
   long lWidth, lHeight;
@@ -1407,7 +1406,7 @@ HB_FUNC(RR_PICTURE)
   POINT lpp;
 
   void *str;
-  hFile =
+  auto hFile =
       CreateFile(HB_PARSTR(1, &str, nullptr), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
 
@@ -1561,10 +1560,9 @@ LPVOID rr_loadpicture(const TCHAR *filename, LONG *lwidth, LONG *lheight)
   IPicture *iPicture = nullptr;
   HGLOBAL hGlobal;
   void *pGlobal;
-  HANDLE hFile;
   DWORD nFileSize, nReadByte;
 
-  hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  auto hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     return nullptr;

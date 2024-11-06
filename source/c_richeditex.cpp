@@ -189,7 +189,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMIN)
   }
 
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+  auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
                             FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
   hb_strfree(str);
 
@@ -254,7 +254,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMOUT)
   }
 
   void *str;
-  HANDLE hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
+  auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
 

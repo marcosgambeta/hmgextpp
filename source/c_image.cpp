@@ -1261,7 +1261,7 @@ BOOL SaveIconToFile(TCHAR *szIconFile, HICON hIcon[], int nNumIcons)
   }
 
   // Save icon to disk:
-  HANDLE hFile = CreateFile(szIconFile, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, 0, 0);
+  auto hFile = CreateFile(szIconFile, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, 0, 0);
 
   if (hFile == INVALID_HANDLE_VALUE)
   {
@@ -1407,7 +1407,7 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR *FileName)
   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, static_cast<LPVOID>(lp_hBits), &Bitmap_Info,
             DIB_RGB_COLORS);
 
-  HANDLE hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+  auto hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   BOOL ret;
