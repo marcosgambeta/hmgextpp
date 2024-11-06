@@ -455,7 +455,7 @@ HMG_LISTVIEWGETMULTISEL() -->
 HB_FUNC(HMG_LISTVIEWGETMULTISEL)
 {
   auto hwnd = hmg_par_HWND(1);
-  int n = SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
+  auto n = SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
   hb_reta(n);
 
   auto i = -1;
@@ -563,7 +563,7 @@ static TCHAR *GetLVItemText(HWND hListView, int i, int iSubItem_)
     lpText = static_cast<TCHAR *>(hb_xrealloc(lpText, sizeof(TCHAR) * nLen));
     lvi.cchTextMax = nLen;
     lvi.pszText = lpText;
-    nRes = SendMessage(hListView, LVM_GETITEMTEXT, i, reinterpret_cast<LPARAM>(&lvi));
+    nRes = static_cast<int>(SendMessage(hListView, LVM_GETITEMTEXT, i, reinterpret_cast<LPARAM>(&lvi)));
   } while (nRes >= nLen - 1);
 
   return static_cast<TCHAR *>(lpText);
@@ -1309,7 +1309,7 @@ HMG_LISTVIEW_GROUPDELETE() -->
 */
 HB_FUNC(HMG_LISTVIEW_GROUPDELETE)
 {
-  hb_retni(ListView_RemoveGroup(hmg_par_HWND(1), hmg_par_INT(2)));
+  hb_retni(static_cast<int>(ListView_RemoveGroup(hmg_par_HWND(1), hmg_par_INT(2))));
 }
 
 //        ListView_GroupAdd(hWnd, nGroupID, [nIndex])
@@ -1328,7 +1328,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPADD)
   LVG.pszFooter = nullptr; // L""; // TODO: check
   LVG.uAlign = LVGA_HEADER_LEFT | LVGA_FOOTER_LEFT;
   LVG.state = LVGS_NORMAL;
-  hb_retni(ListView_InsertGroup(hmg_par_HWND(1), HB_ISNUM(3) ? hb_parni(3) : -1, &LVG));
+  hb_retni(static_cast<int>(ListView_InsertGroup(hmg_par_HWND(1), HB_ISNUM(3) ? hb_parni(3) : -1, &LVG)));
 }
 
 //        ListView_GroupSetInfo(hWnd, nGroupID, cHeader, nAlignHeader, cFooter, nAlingFooter,
@@ -1369,7 +1369,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPSETINFO)
     nAlign = nAlign | ((nAlignFooter != 0) ? (nAlignFooter << 3) : (LVG.uAlign & 0x38));
     LVG.uAlign = nAlign;
     LVG.state = ((nState != 0) ? (nState >> 1) : LVG.state);
-    hb_retni(ListView_SetGroupInfo(hWnd, GroupID, &LVG));
+    hb_retni(static_cast<int>(ListView_SetGroupInfo(hWnd, GroupID, &LVG)));
   }
   else
   {
@@ -1401,7 +1401,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPGETINFO)
   LVG.pszFooter = cFooterBuffer;
   LVG.cchFooter = sizeof(cFooterBuffer) / sizeof(WCHAR);
 
-  if ((nRet = ListView_GetGroupInfo(hWnd, GroupID, &LVG)) != -1)
+  if ((nRet = static_cast<INT>(ListView_GetGroupInfo(hWnd, GroupID, &LVG))) != -1)
   {
     HB_STORC(hb_wctomb(cHeaderBuffer), 3);
     hb_storni((LVG.uAlign & 0x07), 4);
