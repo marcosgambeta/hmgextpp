@@ -1,8 +1,8 @@
-/*
- * MINIGUI - Harbour Win32 GUI library source code
- *
- * Copyright 2016 P.Chornyj <myorg63@mail.ru>
- */
+//
+// MINIGUI - Harbour Win32 GUI library source code
+//
+// Copyright 2016 P.Chornyj <myorg63@mail.ru>
+//
 
 #include <hbapi.hpp>
 
