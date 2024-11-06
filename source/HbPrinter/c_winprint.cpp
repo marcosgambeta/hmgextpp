@@ -1393,7 +1393,6 @@ HB_FUNC(RR_PICTURE)
   IPicture *iPicture;
   HGLOBAL hGlobal;
   void *pGlobal;
-  DWORD nFileSize;
   DWORD nReadByte;
   long lWidth, lHeight;
   int x, y, xe, ye;
@@ -1415,7 +1414,7 @@ HB_FUNC(RR_PICTURE)
     return;
   }
 
-  nFileSize = GetFileSize(hFile, nullptr);
+  auto nFileSize = GetFileSize(hFile, nullptr);
   hGlobal = GlobalAlloc(GMEM_MOVEABLE, nFileSize);
   pGlobal = GlobalLock(hGlobal);
   ReadFile(hFile, pGlobal, nFileSize, &nReadByte, nullptr);
@@ -1560,7 +1559,7 @@ LPVOID rr_loadpicture(const TCHAR *filename, LONG *lwidth, LONG *lheight)
   IPicture *iPicture = nullptr;
   HGLOBAL hGlobal;
   void *pGlobal;
-  DWORD nFileSize, nReadByte;
+  DWORD nReadByte;
 
   auto hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
   if (hFile == INVALID_HANDLE_VALUE)
@@ -1568,7 +1567,7 @@ LPVOID rr_loadpicture(const TCHAR *filename, LONG *lwidth, LONG *lheight)
     return nullptr;
   }
 
-  nFileSize = GetFileSize(hFile, nullptr);
+  auto nFileSize = GetFileSize(hFile, nullptr);
   hGlobal = GlobalAlloc(GMEM_MOVEABLE, nFileSize + 4096);
   pGlobal = GlobalLock(hGlobal);
   ReadFile(hFile, pGlobal, nFileSize, &nReadByte, nullptr);

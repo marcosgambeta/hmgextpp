@@ -244,7 +244,7 @@ static HGLOBAL bt_LoadFileFromDisk(const TCHAR *FileName)
     return nullptr;
   }
 
-  DWORD nFileSize = GetFileSize(hFile, nullptr);
+  auto nFileSize = GetFileSize(hFile, nullptr);
   if (nFileSize == INVALID_FILE_SIZE)
   {
     CloseHandle(hFile);

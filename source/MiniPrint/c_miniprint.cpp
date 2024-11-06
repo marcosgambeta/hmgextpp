@@ -2039,7 +2039,7 @@ static BOOL read_image(const TCHAR *filename, DWORD *nFileSize, HGLOBAL *hMem)
     return FALSE;
   }
   // we will read the whole file in global memory, find the size first
-  DWORD dwFileSize = GetFileSize(hFile, nullptr);
+  auto dwFileSize = GetFileSize(hFile, nullptr);
   // allocate memory to read the whole file
   if (dwFileSize == INVALID_FILE_SIZE || (*hMem = GlobalAlloc(GHND, dwFileSize)) == nullptr)
   {
