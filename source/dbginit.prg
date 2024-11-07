@@ -1,13 +1,11 @@
-/*
-
-  _DbgInit
-
-  Initializes console screen dimensions from init.mgd.
-  Used in debug mode to control debug screen dimensions.
-  init.mgd is a text file similar to init.cld and supports one command:
-  SCREEN SIZE <nRows> <nCols>
-
-*/
+//
+// _DbgInit
+//
+// Initializes console screen dimensions from init.mgd.
+// Used in debug mode to control debug screen dimensions.
+// init.mgd is a text file similar to init.cld and supports one command:
+// SCREEN SIZE <nRows> <nCols>
+//
 
 INIT PROCEDURE _DbgInit
 

@@ -1,8 +1,7 @@
-/*
- * Harbour TCDOMail Class v1.0
- * Copyright 2022 Grigory Filatov <gfilatov@gmail.com>
- *
- */
+//
+// Harbour TCDOMail Class v1.0
+// Copyright 2022 Grigory Filatov <gfilatov@gmail.com>
+//
 
 #include "minigui.ch"
 #include <hbclass.ch>
