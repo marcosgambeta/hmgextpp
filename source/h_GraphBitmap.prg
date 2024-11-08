@@ -1,10 +1,10 @@
-/*
- * (c) Alfredo Arteaga, 2001-2002 ( Original Idea )
- *
- * (c) Grigory Filatov, 2003-2004 ( Translation for MiniGUI )
- *
- * (c) Siri Rathinagiri, 2016 ( Adaptation for Draw in Bitmap )
- */
+//
+// (c) Alfredo Arteaga, 2001-2002 ( Original Idea )
+//
+// (c) Grigory Filatov, 2003-2004 ( Translation for MiniGUI )
+//
+// (c) Siri Rathinagiri, 2016 ( Adaptation for Draw in Bitmap )
+//
 
 #include "hmg.ch"
 

@@ -1,10 +1,10 @@
-/*
- * Harbour TGif Class v1.4
- * Copyright 2009-2022 Grigory Filatov <gfilatov@gmail.com>
- *
- * Revised by Ivanil Marcelino <ivanil/at/linkbr.com.br>
- * Last revision 30.10.2020
- */
+//
+// Harbour TGif Class v1.4
+// Copyright 2009-2022 Grigory Filatov <gfilatov@gmail.com>
+//
+// Revised by Ivanil Marcelino <ivanil/at/linkbr.com.br>
+// Last revision 30.10.2020
+//
 
 ANNOUNCE CLASS_TGIF
 
@@ -13,7 +13,7 @@ ANNOUNCE CLASS_TGIF
 //----------------------------------------------------------------------------//
 FUNCTION _DefineAniGif(cControlName, cParentForm, cFilename, nRow, nCol, nWidth, nHeight, nDelay, aBKColor)
 //----------------------------------------------------------------------------//
-   
+
    LOCAL nControlHandle
    LOCAL nParentFormHandle
    LOCAL mVar
