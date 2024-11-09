@@ -1103,7 +1103,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     }
 
     char achTemp[256]; // temporary buffer
-    SendMessage(lpdis->hwndItem, CB_GETLBTEXT, lpdis->itemID, (LPARAM)(LPCSTR)achTemp);
+    SendMessage(lpdis->hwndItem, CB_GETLBTEXT, lpdis->itemID, reinterpret_cast<LPARAM>((LPCSTR)achTemp));
     rc.left += 6;
     if (lpdis->itemState & ODS_COMBOBOXEDIT)
     {
@@ -1169,7 +1169,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
       iCheck = iCheck == 2 ? 1 : 2;
       tvi.state = INDEXTOSTATEIMAGEMASK(iCheck);
       TreeView_SetItem(hWnd, &tvi);
-      PostMessage(hWnd, WM_COMMAND, MAKEWPARAM(iCheck, BN_CLICKED), (LPARAM)ppgrd->hItemActive);
+      PostMessage(hWnd, WM_COMMAND, MAKEWPARAM(iCheck, BN_CLICKED), reinterpret_cast<LPARAM>(ppgrd->hItemActive));
     }
     break;
   }
@@ -1353,7 +1353,7 @@ PROPGRIDONCUSTOMDRAW() -->
 */
 HB_FUNC(PROPGRIDONCUSTOMDRAW)
 {
-  hb_retnl(PropGridOnCustomDraw(hmg_par_HWND(1), (LPARAM)hb_parnl(2)));
+  hb_retnl(PropGridOnCustomDraw(hmg_par_HWND(1), static_cast<LPARAM>(hb_parnl(2))));
 }
 
 void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent)
@@ -1411,7 +1411,7 @@ HB_FUNC(ADDPGITEM)
   tvi.iImage = hb_parni(4);
   tvi.iSelectedImage = hb_parni(5);
   tvi.state = INDEXTOSTATEIMAGEMASK(hb_parni(6));
-  tvi.lParam = (LPARAM)pData;
+  tvi.lParam = reinterpret_cast<LPARAM>(pData);
 
   TV_INSERTSTRUCT is;
 #if (defined(__BORLANDC__) && __BORLANDC__ <= 1410)
@@ -1455,7 +1455,7 @@ static void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData
       {
         pData->ItemValue = hb_strndup(cValue, 1024);
         pData->ItemChanged = true;
-        PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE), (LPARAM)TreeItemHandle);
+        PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE), reinterpret_cast<LPARAM>(TreeItemHandle));
       }
 
       if (!(strcmp(pData->ItemData, cData) == 0) && lData)
@@ -1811,7 +1811,7 @@ HB_FUNC(INITPROPGRIDIMAGELIST)
   auto himl = hmg_par_HIMAGELIST(2);
   if (himl != nullptr)
   {
-    SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), (LPARAM)himl);
+    SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), reinterpret_cast<LPARAM>(himl));
     cx = ImageList_GetImageCount(himl);
   }
   hb_retni(cx);
@@ -1830,7 +1830,7 @@ HB_FUNC(RESETPROPGRIDIMAGELIST)
   TreeView_GetItem(hWndPG, &TItem);
   HIMAGELIST himl = (HIMAGELIST)SendMessage(hWndPG, TVM_GETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), 0);
   ImageList_Replace(himl, TItem.iImage - 1, hmg_par_HBITMAP(3), 0);
-  SendMessage(hWndPG, TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), (LPARAM)himl);
+  SendMessage(hWndPG, TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), reinterpret_cast<LPARAM>(himl));
   hb_retni(ImageList_GetImageCount(himl));
 }
 
@@ -1882,10 +1882,10 @@ HB_FUNC(PGCOMBOADDSTRING)
 {
   auto hILst = hmg_par_HIMAGELIST(3);
   auto cString = const_cast<char *>(hb_parc(2));
-  DWORD dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM)cString);
+  DWORD dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString));
   if (hb_parnl(3))
   {
-    SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, (LPARAM)hILst);
+    SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, reinterpret_cast<LPARAM>(hILst));
   }
 }
 
@@ -2383,7 +2383,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
         if (PtInRect(&rect, pt))
         {
-          PostMessage(hEdit, WM_COMMAND, MAKEWPARAM(pbtn->ItemType, BN_CLICKED), (LPARAM)hItem);
+          PostMessage(hEdit, WM_COMMAND, MAKEWPARAM(pbtn->ItemType, BN_CLICKED), reinterpret_cast<LPARAM>(hItem));
           SetFocus(hEdit);
         }
 
@@ -2495,7 +2495,7 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
   {
     if (FontType == TRUETYPE_FONTTYPE)
     { // DEVICE_FONTTYPE | RASTER_FONTTYPE
-      SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0, (LPARAM)(LPSTR)lpelfe->elfFullName);
+      SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPSTR)lpelfe->elfFullName));
     }
   }
 
@@ -2509,7 +2509,7 @@ static void enumFonts(HWND hWndEdit) // , BYTE lfCharSet)
   lf.lfCharSet = ANSI_CHARSET;
   lf.lfPitchAndFamily = 0;
   strcpy(lf.lfFaceName, "\0");
-  EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC)enumFontFamilyProc, (LPARAM)hWndEdit, 0);
+  EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC)enumFontFamilyProc, reinterpret_cast<LPARAM>(hWndEdit), 0);
   ReleaseDC(nullptr, hDC);
 }
 

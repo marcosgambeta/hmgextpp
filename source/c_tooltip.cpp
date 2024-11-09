@@ -81,7 +81,7 @@ typedef struct _tagEDITBALLOONTIP
 
 #define EM_SHOWBALLOONTIP (ECM_FIRST + 3) // Show a balloon tip associated to the edit control
 #define Edit_ShowBalloonTip(hwnd, peditballoontip)                                                                     \
-  static_cast<BOOL>(SNDMSG((hwnd), EM_SHOWBALLOONTIP, 0, (LPARAM)(peditballoontip)))
+  static_cast<BOOL>(SNDMSG((hwnd), EM_SHOWBALLOONTIP, 0, static_cast<LPARAM>(peditballoontip)))
 #define EM_HIDEBALLOONTIP (ECM_FIRST + 4) // Hide any balloon tip associated with the edit control
 #define Edit_HideBalloonTip(hwnd) static_cast<BOOL>(SNDMSG((hwnd), EM_HIDEBALLOONTIP, 0, 0))
 #endif
@@ -653,7 +653,7 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, (LPARAM)hb_parnidef(2, g_iToolTipMaxWidth)));
+    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
   }
   else
   {

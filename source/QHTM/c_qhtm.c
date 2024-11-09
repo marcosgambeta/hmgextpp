@@ -217,7 +217,7 @@ HB_FUNC(QHTM_LOADFILE)
 {
   if (hQhtmDll)
   {
-    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, (LPARAM)hb_parc(2)));
+    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, static_cast<LPARAM>(hb_parc(2))));
   }
 }
 
@@ -230,7 +230,7 @@ HB_FUNC(QHTM_LOADRES)
 {
   if (hQhtmDll)
   {
-    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, static_cast<WPARAM>(GetModuleHandle(NULL)), (LPARAM)hb_parc(2)));
+    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, static_cast<WPARAM>(GetModuleHandle(NULL)), static_cast<LPARAM>(hb_parc(2))));
   }
 }
 
@@ -243,7 +243,7 @@ HB_FUNC(QHTM_ADDHTML)
 {
   if (hQhtmDll)
   {
-    SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, 0, (LPARAM)hb_parc(2));
+    SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, 0, static_cast<LPARAM>(hb_parc(2)));
   }
 }
 
@@ -256,7 +256,7 @@ HB_FUNC(QHTM_ADDHTML2)
 {
   if (hQhtmDll)
   {
-    SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, static_cast<WPARAM>(hb_parnl(3)), (LPARAM)hb_parc(2));
+    SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, static_cast<WPARAM>(hb_parnl(3)), static_cast<LPARAM>(hb_parc(2)));
   }
 }
 
@@ -270,7 +270,7 @@ HB_FUNC(QHTM_GETTITLE)
   if (hQhtmDll)
   {
     char szBuffer[256];
-    SendMessage(hmg_par_HWND(1), QHTM_GET_HTML_TITLE, 256, (LPARAM)szBuffer);
+    SendMessage(hmg_par_HWND(1), QHTM_GET_HTML_TITLE, 256, static_cast<LPARAM>(szBuffer));
     hb_retc(szBuffer);
   }
   else
@@ -290,7 +290,7 @@ HB_FUNC(QHTM_GETSIZE)
   {
     SIZE size;
 
-    if (SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, (LPARAM)&size))
+    if (SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, static_cast<LPARAM>(&size)))
     {
       auto aMetr = hb_itemArrayNew(2);
 
@@ -322,7 +322,7 @@ HB_FUNC(QHTM_FORMCALLBACK)
   if (hQhtmDll)
   {
     hb_retl(
-        SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, static_cast<WPARAM>(QHTM_OPT_SET_FORM_SUBMIT_CALLBACK), (LPARAM)FormCallback));
+        SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, static_cast<WPARAM>(QHTM_OPT_SET_FORM_SUBMIT_CALLBACK), static_cast<LPARAM>(FormCallback)));
   }
   else
   {
