@@ -11,3 +11,5 @@ source\MiniPrint\c_miniprint.cpp
 source\MiniPrint\h_miniprint.prg
 
 -inc
+
+-cflag=-D_CRT_SECURE_NO_WARNINGS
