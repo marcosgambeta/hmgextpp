@@ -106,7 +106,7 @@ HB_FUNC(HMG_INITSPINNER)
   auto hupdown = CreateWindowEx(WS_EX_CLIENTEDGE, UPDOWN_CLASS, TEXT(""), style2, hb_parni(3) + hb_parni(5),
                                 hb_parni(4), 15, hb_parni(10), hwnd, nullptr, GetInstance(), nullptr);
 
-  SendMessage(hupdown, UDM_SETBUDDY, (WPARAM)hedit, reinterpret_cast<LPARAM>(nullptr));
+  SendMessage(hupdown, UDM_SETBUDDY, reinterpret_cast<WPARAM>(hedit), reinterpret_cast<LPARAM>(nullptr));
   SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
 
   // 2006.08.13 JD

@@ -864,7 +864,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
             }
 
             ppgrd->hItemEdit = hItem;
-            SendMessage(hPropEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+            SendMessage(hPropEdit, WM_SETFONT, static_cast<WPARAM>(hFont), TRUE);
             ppgrd->hPropEdit = hPropEdit;
           }
         }
@@ -1811,7 +1811,7 @@ HB_FUNC(INITPROPGRIDIMAGELIST)
   auto himl = hmg_par_HIMAGELIST(2);
   if (himl != nullptr)
   {
-    SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, (WPARAM)TVSIL_NORMAL, (LPARAM)himl);
+    SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), (LPARAM)himl);
     cx = ImageList_GetImageCount(himl);
   }
   hb_retni(cx);
@@ -1828,9 +1828,9 @@ HB_FUNC(RESETPROPGRIDIMAGELIST)
   TItem.mask = TVIF_HANDLE | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
   TItem.hItem = hItemPG;
   TreeView_GetItem(hWndPG, &TItem);
-  HIMAGELIST himl = (HIMAGELIST)SendMessage(hWndPG, TVM_GETIMAGELIST, (WPARAM)TVSIL_NORMAL, 0);
+  HIMAGELIST himl = (HIMAGELIST)SendMessage(hWndPG, TVM_GETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), 0);
   ImageList_Replace(himl, TItem.iImage - 1, hmg_par_HBITMAP(3), 0);
-  SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM)TVSIL_NORMAL, (LPARAM)himl);
+  SendMessage(hWndPG, TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), (LPARAM)himl);
   hb_retni(ImageList_GetImageCount(himl));
 }
 
@@ -2176,12 +2176,12 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   case PG_ENUM:
   case PG_LIST:
   case PG_SYSCOLOR: {
-    SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM)-1, (LPARAM)rc.bottom - rc.top - 6);
+    SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
     break;
   }
 
   case PG_ARRAY:
-    SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM)-1, (LPARAM)rc.bottom - rc.top - 6);
+    SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
   }
 
   InsertBtnPG(hEdit, hItem, nBtn, ItemType, ppgrd);

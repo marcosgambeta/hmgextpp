@@ -297,7 +297,7 @@ HB_FUNC(HMG_RICHEDITBOX_RTFLOADRESOURCEFILE)
 #else
         ST.codepage = CP_ACP;
 #endif
-        SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, (WPARAM)&ST, reinterpret_cast<LPARAM>(lpGlobalResource));
+        SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, reinterpret_cast<WPARAM>(&ST), reinterpret_cast<LPARAM>(lpGlobalResource));
       }
       FreeResource(hGlobalResource);
     }
@@ -358,7 +358,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETZOOM) // ZoomRatio = nNumerator / nDenominator
 HB_FUNC(HMG_RICHEDITBOX_GETZOOM)
 {
   int nNumerator, nDenominator;
-  SendMessage(hmg_par_HWND(1), EM_GETZOOM, (WPARAM)&nNumerator, reinterpret_cast<LPARAM>(&nDenominator));
+  SendMessage(hmg_par_HWND(1), EM_GETZOOM, reinterpret_cast<WPARAM>(&nNumerator), reinterpret_cast<LPARAM>(&nDenominator));
   if (HB_ISBYREF(2))
   {
     hb_storni(nNumerator, 2);
@@ -617,7 +617,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETTEXT)
 #else
   ST.codepage = CP_ACP;
 #endif
-  SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, (WPARAM)&ST, reinterpret_cast<LPARAM>(cBuffer));
+  SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, reinterpret_cast<WPARAM>(&ST), reinterpret_cast<LPARAM>(cBuffer));
   hb_strfree(str);
 }
 
@@ -635,7 +635,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETTEXT)
 #endif
   GT.lpDefaultChar = nullptr;
   GT.lpUsedDefChar = nullptr;
-  SendMessage(hmg_par_HWND(1), EM_GETTEXTEX, (WPARAM)&GT, reinterpret_cast<LPARAM>(&cBuffer));
+  SendMessage(hmg_par_HWND(1), EM_GETTEXTEX, reinterpret_cast<WPARAM>(&GT), reinterpret_cast<LPARAM>(&cBuffer));
   HB_RETSTR(cBuffer);
 }
 
@@ -649,7 +649,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETTEXTLENGTH)
 #else
   GTL.codepage = CP_ACP;
 #endif
-  LONG nLength = SendMessage(hmg_par_HWND(1), EM_GETTEXTLENGTHEX, (WPARAM)&GTL, 0);
+  LONG nLength = SendMessage(hmg_par_HWND(1), EM_GETTEXTLENGTHEX, reinterpret_cast<WPARAM>(&GTL), 0);
   hb_retnl(nLength);
 }
 
@@ -1098,11 +1098,11 @@ HB_FUNC(HMG_RICHEDITBOX_PASTESPECIAL) // Paste a specific clipboard format in a 
   if (HB_ISCHAR(2))
   {
     CHAR *ClipboardFormat = const_cast<CHAR *>(hb_parc(2));
-    SendMessage(hWndControl, EM_PASTESPECIAL, (WPARAM)ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
+    SendMessage(hWndControl, EM_PASTESPECIAL, reinterpret_cast<WPARAM>(ClipboardFormat), reinterpret_cast<LPARAM>(nullptr));
   }
   else
   {
-    WPARAM ClipboardFormat = (WPARAM)hb_parnl(2);
+    WPARAM ClipboardFormat = static_cast<WPARAM>(hb_parnl(2));
     SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
   }
 }
@@ -1147,7 +1147,7 @@ HB_FUNC(HMG_RICHEDITBOX_POSFROMCHAR)
   POINTL PointL;
   auto nPosChar = hmg_par_LONG(2);
 
-  SendMessage(hWndControl, EM_POSFROMCHAR, (WPARAM)&PointL,
+  SendMessage(hWndControl, EM_POSFROMCHAR, reinterpret_cast<WPARAM>(&PointL),
               nPosChar); // Retrieves the client area coordinates of
                          // a specified character in an edit control
   POINT Point;
