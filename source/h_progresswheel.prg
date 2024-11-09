@@ -937,7 +937,6 @@ STATIC PROCEDURE DrawTextInBitmap(hDC, row, col, cText, cFontName, nFontSize, aC
 
 RETURN
 
-
 #pragma BEGINDUMP
 
 #define WINVER 0x0501  // minimum requirements: Windows XP
@@ -952,18 +951,10 @@ HB_FUNC( HMG_SETBRUSHORG )
     SetBrushOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETBRUSHORG, HMG_SETBRUSHORG )
-#endif
-
 HB_FUNC( HMG_SETSTRETCHBLTMODE )
 {
     hb_retni(SetStretchBltMode(hmg_par_HDC(1),  hb_parni(2)));
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETSTRETCHBLTMODE, HMG_SETSTRETCHBLTMODE )
-#endif
 
 //**********************************************************************************************************************************************
 //* BT_DRAW_HDC_ARCX_EX(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc, ColorLine, nWidthLine, ColorFill, nArcType, hBrushBitmap)
@@ -1024,10 +1015,6 @@ HB_FUNC( HMG_BT_DRAW_HDC_ARCX_EX )
    DeleteObject(hPen);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( BT_DRAW_HDC_ARCX_EX, HMG_BT_DRAW_HDC_ARCX_EX )
-#endif
-
 HB_FUNC( HMG_CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
    auto hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
@@ -1038,6 +1025,9 @@ HB_FUNC( HMG_CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE( SETBRUSHORG, HMG_SETBRUSHORG )
+HB_FUNC_TRANSLATE( SETSTRETCHBLTMODE, HMG_SETSTRETCHBLTMODE )
+HB_FUNC_TRANSLATE( BT_DRAW_HDC_ARCX_EX, HMG_BT_DRAW_HDC_ARCX_EX )
 HB_FUNC_TRANSLATE( CREATEPATTERNHBRUSH, HMG_CREATEPATTERNHBRUSH )
 #endif
 

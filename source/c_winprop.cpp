@@ -206,10 +206,6 @@ HB_FUNC(HMG_SETPROP)
 #endif
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(SETPROP, HMG_SETPROP)
-#endif
-
 // usage: GetProp(hWnd, cPropName, [lHandle]) -> Value | NIL
 // [lHandle] : .T. =  return the value directly
 HB_FUNC(HMG_GETPROP)
@@ -282,10 +278,6 @@ HB_FUNC(HMG_GETPROP)
   GlobalUnlock(hMem);
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(GETPROP, HMG_GETPROP)
-#endif
-
 // Usage: RemoveProp(hWnd, cPropName, [lNoFree]) -> hMem | NIL
 HB_FUNC(HMG_REMOVEPROP)
 {
@@ -322,10 +314,6 @@ HB_FUNC(HMG_REMOVEPROP)
   }
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(REMOVEPROP, HMG_REMOVEPROP)
-#endif
-
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
 /* Usage: aProps := EnumProps(nHandle) */
@@ -342,10 +330,6 @@ HB_FUNC(HMG_ENUMPROPS)
     hb_itemReturnRelease(pArray);
   }
 }
-
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(ENUMPROPS, HMG_ENUMPROPS)
-#endif
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
@@ -420,10 +404,6 @@ HB_FUNC(HMG_ENUMPROPSEX)
   }
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE(ENUMPROPSEX, HMG_ENUMPROPSEX)
-#endif
-
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
   auto pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
@@ -452,3 +432,11 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 
   return TRUE;
 }
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE(SETPROP, HMG_SETPROP)
+HB_FUNC_TRANSLATE(GETPROP, HMG_GETPROP)
+HB_FUNC_TRANSLATE(REMOVEPROP, HMG_REMOVEPROP)
+HB_FUNC_TRANSLATE(ENUMPROPS, HMG_ENUMPROPS)
+HB_FUNC_TRANSLATE(ENUMPROPSEX, HMG_ENUMPROPSEX)
+#endif

@@ -752,10 +752,6 @@ HB_FUNC( HMG_SETTBBTNMARGIN )
    SendMessage(hmg_par_HWND(1), EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 }
 
-#ifndef HMG_NO_DEPRECATED_FUNCTIONS
-HB_FUNC_TRANSLATE( SETTBBTNMARGIN, HMG_SETTBBTNMARGIN )
-#endif
-
 LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
@@ -789,5 +785,9 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
 
    return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
 }
+
+#ifndef HMG_NO_DEPRECATED_FUNCTIONS
+HB_FUNC_TRANSLATE( SETTBBTNMARGIN, HMG_SETTBBTNMARGIN )
+#endif
 
 #pragma ENDDUMP
