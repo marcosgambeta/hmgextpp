@@ -1,11 +1,10 @@
-/**********************************************************
- * Harbour-MiniGUI source code
- * Project      : Simple PDF Creator
- * Created      : 09/15/2016, 17:36
- * Author (c)   : Pete D.
- * Last Update  : 10:20 рм 15/2/2022   by :(Pete D.):
- **********************************************************
-*/
+//*********************************************************
+// Harbour-MiniGUI source code
+// Project      : Simple PDF Creator
+// Created      : 09/15/2016, 17:36
+// Author (c)   : Pete D.
+// Last Update  : 10:20 рм 15/2/2022   by :(Pete D.):
+//*********************************************************
 
 #include "hmg.ch"
 #include "harupdf.ch"

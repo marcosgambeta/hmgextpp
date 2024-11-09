@@ -1,8 +1,8 @@
-/*
- * MINIGUI - Harbour Win32 GUI library source code
- *
- * Copyright 2017-2022 Aleksandr Belov, Sergej Kiselev <bilance@bilance.lv>
- */
+//
+// MINIGUI - Harbour Win32 GUI library source code
+//
+// Copyright 2017-2022 Aleksandr Belov, Sergej Kiselev <bilance@bilance.lv>
+//
 
 #include "minigui.ch"
 
