@@ -284,7 +284,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
     hmg_vmPushHandle(hWndDlg);
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
-    hb_vmPushNumInt(lParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(4);
   }
 
@@ -337,7 +337,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     hmg_vmPushHandle(hWndDlg);
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
-    hb_vmPushNumInt(lParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(4);
   }
 

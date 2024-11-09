@@ -740,7 +740,7 @@ LRESULT APIENTRY ChkLabelFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
             hmg_vmPushHandle(hWnd);
             hmg_vmPushUINT(Msg);
             hmg_vmPushWPARAM(wParam);
-            hb_vmPushNumInt(lParam);
+            hmg_vmPushLPARAM(lParam);
             hb_vmDo(4);
          }
 
@@ -759,7 +759,7 @@ LRESULT APIENTRY ChkLabelFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
             hmg_vmPushHandle(hWnd);
             hmg_vmPushUINT(Msg);
             hmg_vmPushWPARAM(wParam);
-            hb_vmPushNumInt(lParam);
+            hmg_vmPushLPARAM(lParam);
             hb_vmDo(4);
          }
 

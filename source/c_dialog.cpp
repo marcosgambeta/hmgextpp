@@ -70,7 +70,7 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
     hmg_vmPushHandle(hWnd);
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
-    hb_vmPushNumInt(lParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(4);
   }
 
@@ -93,7 +93,7 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hmg_vmPushHandle(hWnd);
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
-    hb_vmPushNumInt(lParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(4);
   }
 

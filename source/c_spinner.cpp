@@ -152,7 +152,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hmg_vmPushHandle(hedit);
       hmg_vmPushUINT(Msg);
       hmg_vmPushWPARAM(wParam);
-      hb_vmPushNumInt(lParam);
+      hmg_vmPushLPARAM(lParam);
       hb_vmDo(4);
     }
     long int r = hb_parnl(-1); /* P.Ch. 10.16. */

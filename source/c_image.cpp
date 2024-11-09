@@ -277,7 +277,7 @@ LRESULT APIENTRY ImageSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
       hmg_vmPushHandle(hWnd);
       hmg_vmPushUINT(Msg);
       hmg_vmPushWPARAM(wParam);
-      hb_vmPushNumInt(lParam);
+      hmg_vmPushLPARAM(lParam);
       hb_vmDo(4);
 
       r = hb_parnl(-1);
