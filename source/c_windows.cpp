@@ -964,7 +964,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
         hb_vmPushNil();
         hmg_vmPushHandle(hWnd);
         hmg_vmPushUINT(message);
-        hb_vmPushNumInt(wParam);
+        hmg_vmPushWPARAM(wParam);
         hb_vmPushNumInt(lParam);
         hb_vmDo(4);
 
@@ -1063,7 +1063,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
       hmg_vmPushUINT(message);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
 

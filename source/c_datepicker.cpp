@@ -164,7 +164,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
       hb_vmPushNil();
       hmg_vmPushHandle(hButton);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }

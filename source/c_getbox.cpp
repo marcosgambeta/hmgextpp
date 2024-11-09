@@ -366,7 +366,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -387,7 +387,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -408,7 +408,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -429,7 +429,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -452,7 +452,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -475,7 +475,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -496,7 +496,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushNumInt(wParam);
+      hmg_vmPushWPARAM(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);
     }
@@ -519,7 +519,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
         hb_vmPushNil();
         hmg_vmPushHandle(hwnd);
         hmg_vmPushUINT(Msg);
-        hb_vmPushNumInt(wParam);
+        hmg_vmPushWPARAM(wParam);
         hb_vmPushNumInt(lParam);
         hb_vmDo(4);
       }
