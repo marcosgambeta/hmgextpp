@@ -487,7 +487,7 @@ HB_FUNC(_HMG_PRINTER_PRINTDIALOG)
     hb_reta(4);
     hmg_storvhandle(pd.hDC, -1, 1);
 #ifndef UNICODE
-    HB_STORC((const char *)pDevMode->dmDeviceName, -1, 2);
+    HB_STORC(reinterpret_cast<const char *>(pDevMode->dmDeviceName), -1, 2);
 #else
     pStr = WideToAnsi(pDevMode->dmDeviceName);
     HB_STORC(pStr, -1, 2);
@@ -587,7 +587,7 @@ HB_FUNC(APRINTERS)
       cBuffer = GlobalAlloc(GPTR, 256);
       lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
 #ifndef UNICODE
-      HB_STORC((const char *)cBuffer, -1, i + 1);
+      HB_STORC(static_cast<const char *>(cBuffer), -1, i + 1);
 #else
       pStr = WideToAnsi(cBuffer);
       HB_STORC(pStr, -1, i + 1);
@@ -603,7 +603,7 @@ HB_FUNC(APRINTERS)
       cBuffer = GlobalAlloc(GPTR, 256);
       lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName);
 #ifndef UNICODE
-      HB_STORC((const char *)cBuffer, -1, i + 1);
+      HB_STORC(static_cast<const char *>(cBuffer), -1, i + 1);
 #else
       pStr = WideToAnsi(cBuffer);
       HB_STORC(pStr, -1, i + 1);

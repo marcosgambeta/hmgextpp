@@ -198,8 +198,8 @@ static int callback(void *Cargo, int argc, char **argv, char **azColName)
 
     for (i = 0; i < argc; i++)
     {
-      hb_arraySetC(pArrayValue, i + 1, (const char *)(argv[i] ? argv[i] : "NULL"));
-      hb_arraySetC(pArrayColName, i + 1, (const char *)azColName[i]);
+      hb_arraySetC(pArrayValue, i + 1, static_cast<const char *>(argv[i] ? argv[i] : "NULL"));
+      hb_arraySetC(pArrayColName, i + 1, static_cast<const char *>(azColName[i]));
     }
 
     hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
@@ -273,7 +273,7 @@ static void SQL3ProfileLog(void *sFile, const char *sProfileMsg, sqlite3_uint64 
 {
   if (sProfileMsg)
   {
-    FILE *hFile = fopen(sFile ? (const char *)sFile : "profile.log", "a");
+    FILE *hFile = fopen(sFile ? static_cast<const char *>(sFile) : "profile.log", "a");
 
     if (hFile)
     {
@@ -287,7 +287,7 @@ static void SQL3TraceLog(void *sFile, const char *sTraceMsg)
 {
   if (sTraceMsg)
   {
-    FILE *hFile = fopen(sFile ? (const char *)sFile : "trace.log", "a");
+    FILE *hFile = fopen(sFile ? static_cast<const char *>(sFile) : "trace.log", "a");
 
     if (hFile)
     {
@@ -834,7 +834,7 @@ HB_FUNC(SQLITE3_COLUMN_BLOB)
   if (pStmt)
   {
     int index = hb_parni(2) - 1;
-    hb_retclen((const char *)sqlite3_column_blob(pStmt, index), sqlite3_column_bytes(pStmt, index));
+    hb_retclen(static_cast<const char *>(sqlite3_column_blob(pStmt, index)), sqlite3_column_bytes(pStmt, index));
   }
   else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
@@ -986,7 +986,7 @@ HB_FUNC(SQLITE3_COLUMN_TEXT)
   if (pStmt)
   {
     int index = hb_parni(2) - 1;
-    hb_retstrlen_utf8((const char *)sqlite3_column_text(pStmt, index), sqlite3_column_bytes(pStmt, index));
+    hb_retstrlen_utf8(static_cast<const char *>(sqlite3_column_text(pStmt, index)), sqlite3_column_bytes(pStmt, index));
   }
   else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
@@ -1145,7 +1145,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
         auto pArray = hb_itemArrayNew(iCol);
 
         for (j = 1; j <= iCol; j++, k++)
-          hb_arraySetStrUTF8(pArray, j, (const char *)pResult[k]);
+          hb_arraySetStrUTF8(pArray, j, static_cast<const char *>(pResult[k]));
 
         hb_arrayAddForward(pResultList, pArray);
         hb_itemRelease(pArray);

@@ -69,14 +69,14 @@ static void b64dec(unsigned char *in, int inlen, unsigned char *out)
 
 int b64encode_len(unsigned char *in)
 {
-  int l = strlen((const char *)in);
+  int l = strlen(static_cast<const char *>(in));
 
   return 4 * ((l + 2) / 3);
 }
 
 int b64decode_len(unsigned char *in)
 {
-  int l = strlen((const char *)in);
+  int l = strlen(static_cast<const char *>(in));
 
   return 3 * ((l + 3) / 4);
 }
@@ -97,7 +97,7 @@ unsigned char *b64encode_alloc(unsigned char *in)
 
 void b64encode(unsigned char *in, unsigned char *out)
 {
-  int inlen = strlen((const char *)in);
+  int inlen = strlen(static_cast<const char *>(in));
 
   while (inlen > 0)
   {
@@ -147,7 +147,7 @@ unsigned char *b64decode_alloc(unsigned char *in)
 
 void b64decode(unsigned char *in, unsigned char *out)
 {
-  int inlen = strlen((const char *)in);
+  int inlen = strlen(static_cast<const char *>(in));
 
   while (inlen > 0)
   {

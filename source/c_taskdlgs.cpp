@@ -615,7 +615,7 @@ HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uiNotification, WPARAM wParam, LPAR
     }
 
     // Get TimedOut property
-    hb_objSendMsg(pObject, (const char *)"TIMEDOUT", 0);
+    hb_objSendMsg(pObject, static_cast<const char *>("TIMEDOUT"), 0);
 
     if (!hmg_par_BOOL(-1))
     { // if FALSE - it's not the time yet
@@ -623,21 +623,21 @@ HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uiNotification, WPARAM wParam, LPAR
       {
         DWORD nMilliSec;
         // Get timeoutMS property
-        hb_objSendMsg(pObject, (const char *)"TIMEOUTMS", 0);
+        hb_objSendMsg(pObject, static_cast<const char *>("TIMEOUTMS"), 0);
         nMilliSec = hb_parni(-1);
         // Remember what wParam is the time in milliseconds since dialog created or timer reset
         if ((0 != nMilliSec) && (nMilliSec < wParam))
         { // If the condition is met - the time out!
           auto itmTimeOut = hb_itemPutL(nullptr, true);
           // Set TimedOut property to TRUE
-          hb_objSendMsg(pObject, (const char *)"TIMEDOUT", 1, itmTimeOut);
+          hb_objSendMsg(pObject, static_cast<const char *>("TIMEDOUT"), 1, itmTimeOut);
           hb_itemRelease(itmTimeOut);
           // And cancel a Dialog
           SendMessage(hWnd, TDM_CLICK_BUTTON, IDCANCEL, 0);
         }
         else
         {
-          TD_objSendMsg(pObject, (const char *)"ONTIMER", nullptr, hWnd, uiNotification, wParam, lParam);
+          TD_objSendMsg(pObject, static_cast<const char *>("ONTIMER"), nullptr, hWnd, uiNotification, wParam, lParam);
         }
 
         return S_OK; // Not reset timer
@@ -728,7 +728,7 @@ static const char *TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
     return sMsgName;
   }
 
-  return (const char *)"LISTENER";
+  return static_cast<const char *>("LISTENER");
 }
 
 static BOOL TD_objSendMsg(PHB_ITEM pObject, const char *sMsgName, HRESULT *hRes, HWND hWnd, UINT uiNotification,

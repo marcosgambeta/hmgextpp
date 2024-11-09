@@ -699,7 +699,7 @@ HB_FUNC(DLLCALL)
       // try forced ANSI flavour ?
       strcpy((char *)cFuncName, hb_parc(3));
       strcat((char *)cFuncName, "A");
-      lpFunction = (LPVOID)GetProcAddress((HMODULE)hInst, (const char *)cFuncName);
+      lpFunction = (LPVOID)GetProcAddress((HMODULE)hInst, static_cast<const char *>(cFuncName));
     }
   }
 

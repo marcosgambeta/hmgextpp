@@ -87,7 +87,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName)
     iLen = GetClassNameA(hwndTip, lpClassName, 256);
   }
 
-  if ((iLen > 0) && (strncmp((const char *)lpClassName, ClassName, iLen) == 0))
+  if ((iLen > 0) && (strncmp(static_cast<const char *>(lpClassName), ClassName, iLen) == 0))
   {
     return TRUE;
   }
@@ -118,7 +118,7 @@ HB_FUNC(HMG_GETCLASSNAME)
 
     if (iLen > 0)
     {
-      hb_retclen((const char *)ClassName, iLen);
+      hb_retclen(static_cast<const char *>(ClassName), iLen);
     }
     else
     {

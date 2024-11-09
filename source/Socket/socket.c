@@ -445,13 +445,13 @@ HB_FUNC(SOCKETHMAC_MD5)
       digasc[2 * i + 1] = hextab[digest[i] & 0xf];
     }
 
-    decoded = hb_xgrab(strlen(username) + strlen((const char *)digasc) + 2);
+    decoded = hb_xgrab(strlen(username) + strlen(static_cast<const char *>(digasc)) + 2);
 
     strcpy((char *)decoded, (char *)username);
     strcat((char *)decoded, " ");
     strcat((char *)decoded, (char *)digasc);
 
-    hb_retc((const char *)decoded);
+    hb_retc(static_cast<const char *>(decoded));
 
     hb_xfree(decoded);
   }

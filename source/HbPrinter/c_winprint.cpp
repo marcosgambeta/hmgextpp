@@ -570,7 +570,7 @@ HB_FUNC(RR_GETPRINTERS)
   }
 
 #ifndef UNICODE
-  hb_retc((const char *)cBuffer);
+  hb_retc(static_cast<const char *>(cBuffer));
 #else
   pStr = WideToAnsi(reinterpret_cast<LPWSTR>(cBuffer));
   hb_retc(pStr);

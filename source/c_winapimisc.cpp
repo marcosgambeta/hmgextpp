@@ -106,7 +106,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
 #else
   LPWSTR lpCommandLine = AnsiToWide(const_cast<char *>(hb_parc(1)));
 #endif
-  const char *szFile = (const char *)hb_parc(3);
+  const char *szFile = static_cast<const char *>(hb_parc(3));
   HB_FHANDLE nHandle;
 
   SECURITY_ATTRIBUTES sa{};
