@@ -149,7 +149,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
     {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hmg_vmPushHandle(hedit);
+      hmg_vmPushHWND(hedit);
       hmg_vmPushUINT(Msg);
       hmg_vmPushWPARAM(wParam);
       hmg_vmPushLPARAM(lParam);

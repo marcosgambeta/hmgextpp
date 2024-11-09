@@ -1080,7 +1080,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hmg_vmPushHandle(hButton);
+            hmg_vmPushHWND(hButton);
             hmg_vmPushUINT(Msg);
             hmg_vmPushWPARAM(wParam);
             hmg_vmPushLPARAM(lParam);
@@ -1100,7 +1100,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hmg_vmPushHandle(hButton);
+            hmg_vmPushHWND(hButton);
             hmg_vmPushUINT(Msg);
             hmg_vmPushWPARAM(wParam);
             hmg_vmPushLPARAM(lParam);

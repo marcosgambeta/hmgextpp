@@ -771,7 +771,7 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
             if( pSymbol ) {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hmg_vmPushHandle(hwnd);
+               hmg_vmPushHWND(hwnd);
                hmg_vmPushLPARAM(lParam);
                hmg_vmPushUINT(Msg);
                hb_vmDo(3);

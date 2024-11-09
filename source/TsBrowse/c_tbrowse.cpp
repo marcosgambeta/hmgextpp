@@ -36,7 +36,7 @@ LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
   {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
-    hmg_vmPushHandle(hWnd);
+    hmg_vmPushHWND(hWnd);
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
     hmg_vmPushLPARAM(lParam);
