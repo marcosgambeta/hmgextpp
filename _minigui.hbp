@@ -178,3 +178,5 @@ source\BosTaurus\c_BosTaurus.cpp
 source\BosTaurus\h_BosTaurus.prg
 
 -inc
+
+-cflag=-D_CRT_SECURE_NO_WARNINGS
