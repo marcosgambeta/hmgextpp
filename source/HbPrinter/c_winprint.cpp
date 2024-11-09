@@ -1,8 +1,8 @@
-/*
- * HBPRINTER - Harbour Win32 Printing library source code
- *
- * Copyright 2002-2005 Richard Rylko <rrylko@poczta.onet.pl>
- */
+//
+// HBPRINTER - Harbour Win32 Printing library source code
+//
+// Copyright 2002-2005 Richard Rylko <rrylko@poczta.onet.pl>
+//
 
 #define NO_LEAN_AND_MEAN
 

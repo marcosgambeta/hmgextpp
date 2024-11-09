@@ -1,9 +1,9 @@
-/*
- * QHTM wrappers for Harbour
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// QHTM wrappers for Harbour
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define _WIN32_WINNT 0x0400
 

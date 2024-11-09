@@ -1,9 +1,9 @@
-/*----------------------------------------------------------------------------
- MINIPRINT - HARBOUR MINIGUI PRINT LIBRARY 
-
- Copyright 2004-2007 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
----------------------------------------------------------------------------*/
+//----------------------------------------------------------------------------
+// MINIPRINT - HARBOUR MINIGUI PRINT LIBRARY
+//
+// Copyright 2004-2007 Roberto Lopez <harbourminigui@gmail.com>
+// http://harbourminigui.googlepages.com/
+//----------------------------------------------------------------------------
 
 /*
   With these defines, we have freedom to choose the images without modifying the original source
