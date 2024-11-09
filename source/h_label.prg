@@ -461,7 +461,7 @@ LRESULT APIENTRY LabelSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
          hb_vmPushSymbol(pSymbol);
          hb_vmPushNil();
          hmg_vmPushHandle(hWnd);
-         hb_vmPushLong(Msg);
+         hmg_vmPushUINT(Msg);
          hb_vmPushNumInt(wParam);
          hb_vmPushNumInt(lParam);
          hb_vmDo(4);

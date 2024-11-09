@@ -202,7 +202,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     hb_vmPushNil();
     hmg_vmPushHandle(hWndParent);
     hmg_vmPushHandle(hWndDlg);
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushLong(wParam);
     hb_vmPushLong(lParam);
     hb_vmDo(5);
@@ -241,7 +241,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHandle(hwndPropSheet);
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushLong(lParam);
     hb_vmDo(3);
   }

@@ -165,7 +165,7 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHandle(hWnd);
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushNumInt(wParam);
     hb_vmPushNumInt(lParam);
     hb_vmDo(4);
@@ -197,7 +197,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHandle(hWnd);
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushNumInt(wParam);
     hb_vmPushNumInt(lParam);
     hb_vmDo(4);

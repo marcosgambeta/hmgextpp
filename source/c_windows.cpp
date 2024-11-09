@@ -963,7 +963,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
         hb_vmPushSymbol(pListenerSymb);
         hb_vmPushNil();
         hmg_vmPushHandle(hWnd);
-        hb_vmPushLong(message);
+        hmg_vmPushUINT(message);
         hb_vmPushNumInt(wParam);
         hb_vmPushNumInt(lParam);
         hb_vmDo(4);
@@ -1062,7 +1062,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       hb_vmPushSymbol(g_ListenerSymb);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
-      hb_vmPushLong(message);
+      hmg_vmPushUINT(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);

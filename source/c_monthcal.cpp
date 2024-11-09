@@ -335,7 +335,7 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hwnd);
-      hb_vmPushLong(Msg);
+      hmg_vmPushUINT(Msg);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
       hb_vmDo(4);

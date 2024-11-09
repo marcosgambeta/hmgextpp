@@ -1207,7 +1207,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
-      hb_vmPushLong(Msg);
+      hmg_vmPushUINT(Msg);
       hb_vmPushLong(wParam);
       hb_vmPushLong(lParam);
       hmg_vmPushHandle(ppgrd->hItemActive);
@@ -2421,7 +2421,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hEdit);
-      hb_vmPushLong(Msg);
+      hmg_vmPushUINT(Msg);
       hb_vmPushLong(wParam);
       hb_vmPushLong(lParam);
       hmg_vmPushHandle(hWndParent);
@@ -2458,7 +2458,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hEdit);
-      hb_vmPushLong(Msg);
+      hmg_vmPushUINT(Msg);
       hb_vmPushLong(wParam);
       hb_vmPushLong(lParam);
       hmg_vmPushHandle(hWndParent);

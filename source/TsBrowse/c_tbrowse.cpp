@@ -37,7 +37,7 @@ LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHandle(hWnd);
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushNumInt(wParam);
     hb_vmPushNumInt(lParam);
     hb_vmDo(4);
@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProcMDI(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
-    hb_vmPushLong(message);
+    hmg_vmPushUINT(message);
     hb_vmPushNumInt(wParam);
     hb_vmPushNumInt(lParam);
     hb_vmDo(4);
