@@ -11,3 +11,6 @@ source\PropGrid\h_PGLang.prg
 source\PropGrid\h_PropGrid.prg
 
 -inc
+
+
+-cflag=-D_CRT_SECURE_NO_WARNINGS
