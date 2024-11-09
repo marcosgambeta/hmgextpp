@@ -1,7 +1,7 @@
-/*
-   Parts of this code is contributed and used here under permission of his
-   author: Copyright 2007-2017 (C) P.Chornyj <myorg63@mail.ru>
- */
+//
+// Parts of this code is contributed and used here under permission of his
+// author: Copyright 2007-2017 (C) P.Chornyj <myorg63@mail.ru>
+//
 
 #include "mgdefs.hpp"
 
