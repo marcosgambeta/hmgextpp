@@ -207,6 +207,7 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #define hmg_ret_BOOL(x)     hb_retl(x)
 #define hmg_ret_COLORREF(x) hb_retnl(x)
 #define hmg_ret_int(x)      hb_retni(x)
+#define hmg_ret_LRESULT(x)  hb_retnl(static_cast<long>(x))
 
 #ifdef HMG_USE_POINTERS
    #define hmg_ret_HACCEL(x)     hb_retptr(x)
