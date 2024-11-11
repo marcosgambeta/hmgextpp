@@ -424,7 +424,7 @@ HB_FUNC(HMG_TTM_GETDELAYTIME)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0));
   }
   else
   {
@@ -465,7 +465,7 @@ HB_FUNC(HMG_TTM_GETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0));
   }
   else
   {
@@ -487,7 +487,7 @@ HB_FUNC(HMG_TTM_GETTIPBKCOLOR)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0));
   }
   else
   {
@@ -504,7 +504,7 @@ HB_FUNC(HMG_TTM_GETTIPTEXTCOLOR)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0));
   }
   else
   {
@@ -527,7 +527,7 @@ HB_FUNC(HMG_TTM_GETTOOLCOUNT)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0));
   }
   else
   {
@@ -653,7 +653,7 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hb_retni(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
+    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
   }
   else
   {

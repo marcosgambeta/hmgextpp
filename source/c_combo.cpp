@@ -158,7 +158,7 @@ HMG_COMBOEDITSETSEL(HWND, np2, np3) --> numeric
 */
 HB_FUNC(HMG_COMBOEDITSETSEL)
 {
-  hb_retni(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
 }
 
 /*
@@ -178,7 +178,7 @@ HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
 HB_FUNC(HMG_COMBOSELECTSTRING)
 {
-  hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
 /* Added by P.Ch. 16.10. */

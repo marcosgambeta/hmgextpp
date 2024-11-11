@@ -292,7 +292,7 @@ HMG_GETDATEPICKHOUR(HWND) --> nHour
 HB_FUNC(HMG_GETDATEPICKHOUR)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour
                                                                                                           : -1);
 }
 
@@ -302,7 +302,7 @@ HMG_GETDATEPICKMINUTE(HWND) --> nMinute
 HB_FUNC(HMG_GETDATEPICKMINUTE)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute
                                                                                                           : -1);
 }
 
@@ -312,7 +312,7 @@ HMG_GETDATEPICKSECOND(HWND) --> nSeconds
 HB_FUNC(HMG_GETDATEPICKSECOND)
 {
   SYSTEMTIME st{};
-  hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond
                                                                                                           : -1);
 }
 
