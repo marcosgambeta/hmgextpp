@@ -880,7 +880,7 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
    IConnectionPoint *          m_pIConnectionPoint = nullptr;
    IEnumConnectionPoints *     m_pIEnumConnectionPoints;
    HRESULT hr;
-   IID     rriid; // = {0};
+   IID     rriid{}; // = {0};
    DWORD dwCookie = 0;
 
    auto pdevice_interface = reinterpret_cast<device_interface*>(HB_PARNL(1));
