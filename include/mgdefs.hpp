@@ -1,64 +1,63 @@
-/*
- * Harbour MiniGUI Project source code:
- * The definitions for minigui C-level code.
- *
- * Copyright 2015-2022 Grigory Filatov <gfilatov@gmail.com>
- * www - http://www.hmgextended.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307 USA (or visit the web site http://www.gnu.org/).
- *
- */
+//
+// Harbour MiniGUI Project source code:
+// The definitions for minigui C-level code.
+//
+// Copyright 2015-2022 Grigory Filatov <gfilatov@gmail.com>
+// www - http://www.hmgextended.com
+//
+
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this software; see the file COPYING.  If not, write to
+// the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+// Boston, MA 02111-1307 USA (or visit the web site http://www.gnu.org/).
 
 #ifndef MG_SETUP_H_
 #define MG_SETUP_H_
 
 #ifndef WINVER
   #if defined(__WIN98__)
-    #define WINVER   0x0400      /* version 4.0 */
+    #define WINVER   0x0400      // version 4.0
   #else
-    #define WINVER   0x0501      /* version 5.0 */
+    #define WINVER   0x0501      // version 5.0
   #endif
-#endif /* !WINVER */
+#endif // !WINVER
 
 #ifndef _WIN32_WINNT
-  #define _WIN32_WINNT   WINVER  /* XP = 0x0501 , Vista = 0x0600 */
-#endif /* !_WIN32_WINNT */
+  #define _WIN32_WINNT   WINVER  // XP = 0x0501 , Vista = 0x0600
+#endif // !_WIN32_WINNT
 
 #ifndef _WIN32_IE
   #define _WIN32_IE 0x0501
-#endif /* !_WIN32_IE */
+#endif // !_WIN32_IE
 
 #include "SET_COMPILE_HMG_UNICODE.ch"
 
 #if defined(UNICODE) && !defined(_UNICODE)
   #define _UNICODE
-#endif /* UNICODE && !_UNICODE */
+#endif // UNICODE && !_UNICODE
 
 #include <hbapi.hpp>
 
 #ifndef NO_LEAN_AND_MEAN
   #define WIN32_LEAN_AND_MEAN
-#endif /* !NO_LEAN_AND_MEAN */
+#endif // !NO_LEAN_AND_MEAN
 
 #include <windows.h>
 #include <tchar.h>
 
 #ifndef NO_LEAN_AND_MEAN
   #undef  WIN32_LEAN_AND_MEAN
-#endif /* !NO_LEAN_AND_MEAN */
+#endif // !NO_LEAN_AND_MEAN
 
 #ifndef HMG_LEGACY_ON
 //#define HMG_LEGACY_OFF
@@ -90,23 +89,23 @@
   #define HB_STORVNL       hb_storvnl
   #define HB_STORL         hb_storvl
   #define HB_STORDL        hb_storvdl
-#endif /* _WIN64 */
+#endif // _WIN64
 
 #if defined(UNICODE)
   #define _isValidCtrlClass  _isValidCtrlClassW
 #else
   #define _isValidCtrlClass  _isValidCtrlClassA
-#endif /* UNICODE */
+#endif // UNICODE
 
 #if defined(__BORLANDC__) && ! defined(HB_ARCH_64BIT)
   #undef MAKELONG
   #define MAKELONG(a, b)  ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | \
                                          ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )
-#endif /* __BORLANDC__ && !HB_ARCH_64BIT */
+#endif // __BORLANDC__ && !HB_ARCH_64BIT
 
-/*****************************************************************************************
- *  MACRO DEFINITION FOR CALL DLL FUNCTION
- *****************************************************************************************/
+//****************************************************************************************
+//  MACRO DEFINITION FOR CALL DLL FUNCTION
+//****************************************************************************************
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hmodule, LPCSTR lpProcName);
 
 #define HMG_DEFINE_DLL_FUNC( \
@@ -135,7 +134,7 @@ extern HB_PTRUINT wapi_GetProcAddress(HMODULE hmodule, LPCSTR lpProcName);
          return pfunc _DLL_FUNC_CALLPARAM; \
    }
 
-#endif /* MG_SETUP_H_ */
+#endif // MG_SETUP_H_
 
 // declarations
 
