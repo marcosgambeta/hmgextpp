@@ -142,7 +142,7 @@ HMG_COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
 */
 HB_FUNC(HMG_COMBOSETITEMHEIGHT)
 {
-  SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, -1, hb_parni(2));
+  SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), hb_parni(2));
 }
 
 /*
@@ -178,7 +178,7 @@ HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
 HB_FUNC(HMG_COMBOSELECTSTRING)
 {
-  hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, -1, reinterpret_cast<LPARAM>(hb_parc(2))));
+  hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
 /* Added by P.Ch. 16.10. */
@@ -189,7 +189,7 @@ HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRING)
 {
   void *Text;
-  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
 
@@ -200,7 +200,7 @@ HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
   void *Text;
   hb_retnl(
-      SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+      SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
 
