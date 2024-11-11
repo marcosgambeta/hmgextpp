@@ -302,8 +302,8 @@ HB_FUNC(CREATEPROPERTYSHEET)
   auto idHeader = hb_arrayGetNI(pArray, 17);
   auto strPropSheet = const_cast<char *>(hb_arrayGetCPtr(pArray, 10)); // Caption Property Sheet
 
-  HICON hicon;
-  int idIcon;
+  HICON hicon = nullptr;
+  int idIcon = 0;
 
   if (Style & PSP_USEHICON)
   {
