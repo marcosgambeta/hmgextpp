@@ -641,7 +641,7 @@ HB_FUNC(HMG_ISBUTTONBARCHECKED)
 {
   TBBUTTON lpBtn;
   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&lpBtn));
-  hb_retl(SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0)));
 }
 
 /*
@@ -661,7 +661,7 @@ HB_FUNC(HMG_ISBUTTONENABLED)
 {
   TBBUTTON lpBtn;
   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&lpBtn));
-  hb_retl(SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0)));
 }
 
 /*
@@ -811,7 +811,7 @@ HB_FUNC(HMG_SETCHEVRONSTYLESPLITBOXITEM)
   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand));
   rbBand.fStyle = rbBand.fStyle | RBBS_USECHEVRON;
   rbBand.cxIdeal = hb_parni(3) + 50;
-  hb_retl(SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand)));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand))));
 }
 
 /*

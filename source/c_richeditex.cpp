@@ -317,7 +317,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETRTFTEXTMODE)
 //        RichEditBox_IsRTFTextMode(hWndControl) --> return lRTF
 HB_FUNC(HMG_RICHEDITBOX_ISRTFTEXTMODE)
 {
-  hb_retl(SendMessage(hmg_par_HWND(1), EM_GETTEXTMODE, 0, 0) & TM_RICHTEXT);
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), EM_GETTEXTMODE, 0, 0) & TM_RICHTEXT));
 }
 
 //        RichEditBox_SetAutoURLDetect(hWndControl, lLink)
@@ -329,7 +329,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETAUTOURLDETECT)
 //        RichEditBox_GetAutoURLDetect(hWndControl) --> return lLink
 HB_FUNC(HMG_RICHEDITBOX_GETAUTOURLDETECT)
 {
-  hb_retl(SendMessage(hmg_par_HWND(1), EM_GETAUTOURLDETECT, 0, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), EM_GETAUTOURLDETECT, 0, 0)));
 }
 
 //        RichEditBox_SetBkgndColor(hWndControl, [aBkgndColor])
@@ -1054,17 +1054,17 @@ HB_FUNC(HMG_RICHEDITBOX_CLEARUNDOBUFFER)
 
 HB_FUNC(HMG_RICHEDITBOX_CANPASTE)
 {
-  hb_retl(SendMessage(hmg_par_HWND(1), EM_CANPASTE, 0, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), EM_CANPASTE, 0, 0)));
 }
 
 HB_FUNC(HMG_RICHEDITBOX_CANUNDO)
 {
-  hb_retl(SendMessage(hmg_par_HWND(1), EM_CANUNDO, 0, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), EM_CANUNDO, 0, 0)));
 }
 
 HB_FUNC(HMG_RICHEDITBOX_CANREDO)
 {
-  hb_retl(SendMessage(hmg_par_HWND(1), EM_CANREDO, 0, 0));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), EM_CANREDO, 0, 0)));
 }
 
 //        RichEditBox_GetRect(hWndControl) --> { nLeft, nTop, nRight, nBottom }

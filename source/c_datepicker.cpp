@@ -440,7 +440,7 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
       wLimit |= GDTR_MAX;
     }
 
-    hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, reinterpret_cast<LPARAM>(&sysTime)));
+    hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, reinterpret_cast<LPARAM>(&sysTime))));
   }
 }
 
@@ -450,7 +450,7 @@ HMG_SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
 HB_FUNC(HMG_SETDATEPICKERDATEFORMAT)
 {
   void *str;
-  hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr))));
+  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr)))));
   hb_strfree(str);
 }
 
