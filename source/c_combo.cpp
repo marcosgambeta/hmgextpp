@@ -167,7 +167,7 @@ HMG_COMBOGETEDITSEL(HWND) --> array
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
   DWORD pos =
-      SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr));
+      static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr)));
   hb_reta(2);
   HB_STORNI(LOWORD(pos), -1, 1);
   HB_STORNI(HIWORD(pos), -1, 2);
@@ -211,7 +211,7 @@ HMG_COMBOGETSTRING(HWND, np2) --> cString
 */
 HB_FUNC(HMG_COMBOGETSTRING)
 {
-  int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
+  int strlen = static_cast<int>(SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
 
   if (strlen > 0)
   {
@@ -260,7 +260,7 @@ HB_FUNC(HMG_COMBOADDSTRINGEX)
   cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
   cbei.iItem = -1;
   cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
-  cbei.cchTextMax = hb_parclen(2);
+  cbei.cchTextMax = static_cast<int>(hb_parclen(2));
   cbei.iImage = (nImage - 1) * 3;
   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
   cbei.iOverlay = (nImage - 1) * 3 + 2;
@@ -280,7 +280,7 @@ HB_FUNC(HMG_COMBOINSERTSTRINGEX)
   cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
   cbei.iItem = hb_parni(4) - 1;
   cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
-  cbei.cchTextMax = hb_parclen(2);
+  cbei.cchTextMax = static_cast<int>(hb_parclen(2));
   cbei.iImage = (nImage - 1) * 3;
   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
   cbei.iOverlay = (nImage - 1) * 3 + 2;
@@ -299,7 +299,7 @@ HB_FUNC(HMG_COMBOADDDATASTRINGEX)
   cbei.mask = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
   cbei.iItem = -1;
   cbei.pszText = const_cast<TCHAR *>(HB_PARSTR(2, &Text, nullptr));
-  cbei.cchTextMax = hb_parclen(2);
+  cbei.cchTextMax = static_cast<int>(hb_parclen(2));
   cbei.iImage = 0;
   cbei.iSelectedImage = 1;
   cbei.iOverlay = 2;
