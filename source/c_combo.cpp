@@ -189,7 +189,7 @@ HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRING)
 {
   void *Text;
-  hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
 
@@ -199,7 +199,7 @@ HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
   void *Text;
-  hb_retnl(
+  hmg_ret_LRESULT(
       SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
   hb_strfree(Text);
 }
