@@ -288,7 +288,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
   }
 
   PHB_ITEM iArray;
-  int nItem = hb_arrayLen(cArray);
+  int nItem = static_cast<int>(hb_arrayLen(cArray));
 
   for (auto s = 0; s < nItem; s++)
   {
@@ -303,7 +303,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
   return lTemplateSize;
 }
 
-PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
+PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 {
   LONG baseUnit = GetDialogBaseUnits();
   int baseunitX = LOWORD(baseUnit);
@@ -328,7 +328,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   auto y = hb_arrayGetNI(dArray, 7);  // y
   auto w = hb_arrayGetNI(dArray, 8);  // w
   auto h = hb_arrayGetNI(dArray, 9);  // h
-  int nItem = hb_arrayLen(cArray);
+  int nItem = static_cast<int>(hb_arrayLen(cArray));
 
   *pw++ = 1;      // DlgVer
   *pw++ = 0xFFFF; // Signature

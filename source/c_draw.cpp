@@ -326,7 +326,7 @@ HB_FUNC(HMG_REDRAWWINDOW)
   {
     UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
 
-    if (hb_parl(2) == true)
+    if (static_cast<bool>(hb_parl(2)) == true)
     {
       uiFlags |= RDW_INTERNALPAINT;
     }

@@ -76,7 +76,7 @@ HB_FUNC(HMG_CHOOSEFONT)
   lf.lfItalic = hb_parl(4) ? TRUE : FALSE;
   lf.lfUnderline = hb_parl(6) ? TRUE : FALSE;
   lf.lfStrikeOut = hb_parl(7) ? TRUE : FALSE;
-  lf.lfCharSet = HB_ISNIL(8) ? DEFAULT_CHARSET : hb_parni(8);
+  lf.lfCharSet = static_cast<BYTE>(HB_ISNIL(8) ? DEFAULT_CHARSET : hb_parni(8));
 
   CHOOSEFONT cf{};
   cf.lStructSize = sizeof(CHOOSEFONT);

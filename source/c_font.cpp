@@ -211,7 +211,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
   if (HB_ISBYREF(7))
   {
     auto aFontName = hb_param(7, Harbour::Item::ANY);
-    int nLen = hb_arrayLen(pArray);
+    auto nLen = static_cast<int>(hb_arrayLen(pArray));
 
     hb_arrayNew(aFontName, nLen);
 

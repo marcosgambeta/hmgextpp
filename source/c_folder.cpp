@@ -459,7 +459,7 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
   BOOL modal;
   LRESULT lResult;
   long lTemplateSize;
-  int nPages, style;
+  int style;
 
   auto nIdFld = hmg_par_int(1);
   auto hWndDlg = hmg_par_HWND(2);
@@ -475,7 +475,7 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
   //  hottrack , vertical , bottom, multiline}
   modal = hb_arrayGetL(pArray, 3);
 
-  nPages = hb_arrayLen(sArray);
+  auto nPages = static_cast<int>(hb_arrayLen(sArray));
   auto x = hb_arrayGetNI(pArray, 6);  // x
   auto y = hb_arrayGetNI(pArray, 7);  // y
   auto cx = hb_arrayGetNI(pArray, 8); // w
@@ -563,9 +563,7 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
  *****************************************************************************/
 HB_FUNC(HMG_FOLDERHWNDTOINDEX)
 {
-  int iPageIndex;
-
-  iPageIndex = FLD_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
+  auto iPageIndex = static_cast<int>(FLD_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2)));
 
   hb_retni(iPageIndex);
 }

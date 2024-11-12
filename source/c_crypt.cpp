@@ -56,12 +56,12 @@
 
 HB_FUNC(HMG_CHARXOR)
 {
-  unsigned int len1, nl1, len2, nl2;
+  unsigned int nl1, nl2;
 
   auto Str1 = const_cast<char *>(hb_parc(1));
-  len1 = hb_parclen(1);
+  auto len1 = static_cast<unsigned int>(hb_parclen(1));
   auto Str2 = const_cast<char *>(hb_parc(2));
-  len2 = hb_parclen(2);
+  auto len2 = static_cast<unsigned int>(hb_parclen(2));
   if (!len1)
   {
     hb_retclen("", 0);
