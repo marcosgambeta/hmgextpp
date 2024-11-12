@@ -113,7 +113,7 @@ HB_FUNC(HMG_GDIPLUSSHUTDOWN)
     fn_GdiplusShutdown(g_GpToken);
   }
 
-  if (hb_parldef(1, true) == true && (g_GpModule != nullptr))
+  if (static_cast<bool>(hb_parldef(1, true)) == true && (g_GpModule != nullptr))
   {
     FreeLibrary(g_GpModule);
   }
