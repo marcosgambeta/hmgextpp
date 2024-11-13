@@ -87,7 +87,7 @@ HMG_LOADICON(HINSTANCE, nIcon|cIcon) --> HICON
 HB_FUNC(HMG_LOADICON)
 {
   HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
-  void *str;
+  void *str = nullptr;
   auto hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? HB_PARSTR(2, &str, nullptr) : MAKEINTRESOURCE(hb_parni(2)));
   hb_strfree(str);
   RegisterResource(hIcon, "ICON");

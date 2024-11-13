@@ -129,7 +129,7 @@ HB_FUNC(HMG_ARRAY2ACCELERATORTABLE)
   int nLen;
   HACCEL hAccel = nullptr;
 
-  if (pArray != nullptr && ((nLen = hb_arrayLen(pArray)) > 0))
+  if (pArray != nullptr && ((nLen = static_cast<int>(hb_arrayLen(pArray))) > 0))
   {
     auto lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
     if (lpAccel != nullptr)
@@ -381,7 +381,7 @@ HB_FUNC(HMG_APPENDMENUSTRING)
 
   if (s_bCustomDraw)
   {
-    UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+    UINT cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
     auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
     ZeroMemory(lpMenuItem, sizeof(MENUITEM));
@@ -438,7 +438,7 @@ HB_FUNC(HMG_APPENDMENUPOPUP)
 
   if (s_bCustomDraw)
   {
-    UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+    UINT cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
     auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
     lpMenuItem->cbSize = hb_parni(2);
@@ -907,7 +907,7 @@ HB_FUNC(HMG__ONDRAWMENUITEM)
   }
 
   // draw menu item text
-  int iLen = HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
+  int iLen = static_cast<int>(HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
   if (lpMenuItem->uiItemType == 1)
   {

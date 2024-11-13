@@ -1096,7 +1096,7 @@ static UINT WriteIconHeader(HANDLE hFile, int nImages)
   ICONHEADER iconheader;
   iconheader.idReserved = 0;    // Must be 0
   iconheader.idType = 1;        // Type 1 = ICON  (type 2 = CURSOR)
-  iconheader.idCount = nImages; // number of ICONDIRs
+  iconheader.idCount = static_cast<WORD>(nImages); // number of ICONDIRs
 
   // Write the header to disk
   UINT nWritten;
@@ -1195,9 +1195,9 @@ static UINT WriteIconDirectoryEntry(HANDLE hFile, HICON hIcon, UINT nImageOffset
 
   // Create the ICONDIR structure
   ICONDIR iconDir;
-  iconDir.bWidth = bmpColor.bmWidth;
-  iconDir.bHeight = bmpColor.bmHeight;
-  iconDir.bColorCount = nColorCount;
+  iconDir.bWidth = static_cast<BYTE>(bmpColor.bmWidth);
+  iconDir.bHeight = static_cast<BYTE>(bmpColor.bmHeight);
+  iconDir.bColorCount = static_cast<BYTE>(nColorCount);
   iconDir.bReserved = 0;
   iconDir.wPlanes = bmpColor.bmPlanes;
   iconDir.wBitCount = bmpColor.bmBitsPixel;
@@ -1337,7 +1337,7 @@ HB_FUNC(HMG_C_SAVEHICONTOFILE)
   auto pArray = hb_param(2, Harbour::Item::ARRAY);
   int nLen;
 
-  if (pArray && ((nLen = hb_arrayLen(pArray)) > 0))
+  if (pArray && ((nLen = static_cast<int>(hb_arrayLen(pArray))) > 0))
   {
     for (auto i = 0; i < nLen; i++)
     {

@@ -104,10 +104,10 @@ HB_FUNC(HMG_REGQUERYVALUEEX)
   if (lError == ERROR_SUCCESS)
   {
     auto lpData = static_cast<BYTE *>(hb_xgrab(lpcbData + 1));
-    void *str;
-    lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType,
+    void *str2;
+    lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str2, nullptr), nullptr, &lpType,
                              static_cast<BYTE *>(lpData), &lpcbData);
-    hb_strfree(str);
+    hb_strfree(str2);
 
     if (lError != ERROR_SUCCESS)
     {

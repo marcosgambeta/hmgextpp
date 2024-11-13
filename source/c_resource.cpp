@@ -190,7 +190,7 @@ HB_FUNC(HMG_RCDATATOFILE)
     FreeResource(hResData);
   }
 
-  hb_retnl(dwResult);
+  hb_retnl(static_cast<long>(dwResult));
 
 #ifdef UNICODE
   hb_xfree((TCHAR *)lpName);

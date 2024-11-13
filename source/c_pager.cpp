@@ -158,7 +158,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
     rbBand.cx = nWidth;
   }
 
-  SendMessage(hRebar, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
+  SendMessage(hRebar, RB_INSERTBAND, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(&rbBand));
   SetWindowLongPtr(hPager, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(hRebar));
   hmg_ret_HWND(hPager);
   hb_strfree(str);
