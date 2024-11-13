@@ -108,7 +108,7 @@ HB_FUNC(HMG_INITITEMBAR)
 
   if (hb_parnl(5))
   {
-    nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+    nrOfParts = static_cast<int>(SendMessage(hWndSB, SB_GETPARTS, 40, 0));
     SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
   }
 
@@ -215,7 +215,7 @@ HB_FUNC(HMG_REFRESHITEMBAR)
 
   auto hWndSB = hmg_par_HWND(1);
   auto size = hb_parni(2);
-  nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+  nrOfParts = static_cast<int>(SendMessage(hWndSB, SB_GETPARTS, 40, 0));
   SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
 
   auto hDC = GetDC(hWndSB);

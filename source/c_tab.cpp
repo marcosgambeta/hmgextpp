@@ -102,7 +102,7 @@ HB_FUNC(HMG_INITTABCONTROL)
   auto hbutton = CreateWindowEx(0, WC_TABCONTROL, nullptr, style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
                                 hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  int l = hb_parinfa(7, 0) - 1;
+  int l = static_cast<int>(hb_parinfa(7, 0) - 1);
   auto hArray = hb_param(7, Harbour::Item::ARRAY);
 
   TC_ITEM tie{};
@@ -161,7 +161,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
 {
   auto hbutton = hmg_par_HWND(1);
   HIMAGELIST himl = nullptr;
-  int nCount = hb_parinfa(2, 0);
+  int nCount = static_cast<int>(hb_parinfa(2, 0));
 
   if (nCount > 0)
   {

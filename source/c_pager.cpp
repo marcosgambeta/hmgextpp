@@ -136,7 +136,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
 
   auto hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
 
-  void *str;
+  void *str = nullptr;
 
   if (hb_parclen(6) > 0)
   {

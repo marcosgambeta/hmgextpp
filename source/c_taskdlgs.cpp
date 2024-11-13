@@ -679,7 +679,7 @@ HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uiNotification, WPARAM wParam, LPAR
 
       hb_vmSend(4);
 
-      hRes = ((hb_parl(-1) == true) ? S_OK : S_FALSE);
+      hRes = ((static_cast<bool>(hb_parl(-1)) == true) ? S_OK : S_FALSE);
 
       hb_itemRelease(itmStr);
       hb_vmRequestRestore();
@@ -755,7 +755,7 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char *sMsgName, HRESULT *hRes,
 
     if (hRes != nullptr)
     {
-      (*hRes) = (hb_itemGetL(itmResult) == true ? S_OK : S_FALSE);
+      (*hRes) = (static_cast<bool>(hb_itemGetL(itmResult)) == true ? S_OK : S_FALSE);
     }
 
     hb_itemRelease(itmResult);

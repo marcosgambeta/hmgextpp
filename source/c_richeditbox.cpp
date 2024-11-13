@@ -345,9 +345,7 @@ HB_FUNC(HMG_SETBKGNDCOLOR) // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
 
   auto bkgcolor = static_cast<COLORREF>(RGB(hb_parni(3), hb_parni(4), hb_parni(5)));
 
-  LRESULT lResult = SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor);
-
-  hb_retnl(lResult);
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor));
 }
 
 HB_FUNC(HMG_GETFONTRTF)

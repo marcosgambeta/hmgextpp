@@ -580,8 +580,8 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
 HB_FUNC(HMG_RICHEDITBOX_SETSELRANGE)
 {
   CHARRANGE CharRange;
-  CharRange.cpMin = HB_PARVNL(2, 1);
-  CharRange.cpMax = HB_PARVNL(2, 2);
+  CharRange.cpMin = static_cast<LONG>(HB_PARVNL(2, 1));
+  CharRange.cpMax = static_cast<LONG>(HB_PARVNL(2, 2));
   SendMessage(hmg_par_HWND(1), EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 }
 
@@ -649,8 +649,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETTEXTLENGTH)
 #else
   GTL.codepage = CP_ACP;
 #endif
-  LONG nLength = SendMessage(hmg_par_HWND(1), EM_GETTEXTLENGTHEX, reinterpret_cast<WPARAM>(&GTL), 0);
-  hb_retnl(nLength);
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), EM_GETTEXTLENGTHEX, reinterpret_cast<WPARAM>(&GTL), 0));
 }
 
 //        RichEditBox_GetTextRange(hWndControl,  {nMin, nMax})
@@ -739,10 +738,10 @@ HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
 //        nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent)
 HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
 {
-  WORD Alignment = (HB_ISNIL(2) ? 0 : hb_parni(2));
-  WORD Numbering = (HB_ISNIL(3) ? 0 : hb_parni(3));
-  WORD NumberingStyle = (HB_ISNIL(4) ? 0 : hb_parni(4));
-  WORD NumberingStart = (HB_ISNIL(5) ? 0 : hb_parni(5));
+  WORD Alignment = static_cast<WORD>(HB_ISNIL(2) ? 0 : hb_parni(2));
+  WORD Numbering = static_cast<WORD>(HB_ISNIL(3) ? 0 : hb_parni(3));
+  WORD NumberingStyle = static_cast<WORD>(HB_ISNIL(4) ? 0 : hb_parni(4));
+  WORD NumberingStart = static_cast<WORD>(HB_ISNIL(5) ? 0 : hb_parni(5));
   double Offset = HB_ISNIL(6) ? 0.0 : hb_parnd(6);
   double LineSpacing = HB_ISNIL(7) ? 0.0 : hb_parnd(7);
   double StartIndent = HB_ISNIL(8) ? 0.0 : hb_parnd(8);
@@ -1134,9 +1133,9 @@ HB_FUNC(HMG_RICHEDITBOX_FORMATRANGE)
   FormatRange.chrg.cpMax = HB_PARNL3(7, 2);
 
   auto hWndControl = hmg_par_HWND(1);
-  LONG cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, reinterpret_cast<LPARAM>(&FormatRange));
+  LRESULT cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, reinterpret_cast<LPARAM>(&FormatRange));
   SendMessage(hWndControl, EM_FORMATRANGE, FALSE, reinterpret_cast<LPARAM>(nullptr));
-  hb_retnl(cpMin);
+  hmg_ret_LRESULT(cpMin);
 }
 
 //        RichEditBox_PosFromChar(hWndControl, nPosChar)   return --> { nRowScreen, nColScreen } or
