@@ -406,7 +406,7 @@ HMG_DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
 */
 HB_FUNC(HMG_DEFMDICHILDPROC)
 {
-  hb_retnl(DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)));
+  hmg_ret_LRESULT(DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)));
 }
 
 /*
@@ -414,7 +414,7 @@ HMG_DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
 */
 HB_FUNC(HMG_DEFFRAMEPROC)
 {
-  hb_retnl(DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
+  hmg_ret_LRESULT(DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
 }
 
 /*

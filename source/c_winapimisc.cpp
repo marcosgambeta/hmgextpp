@@ -201,7 +201,7 @@ HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText i
 {
   UINT cf;
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-  int nLen = strlen(cStr);
+  int nLen = static_cast<int>(strlen(cStr));
 
   if ((nLen == 0) || !OpenClipboard(GetActiveWindow()))
   {
@@ -232,7 +232,7 @@ HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText i
 HB_FUNC(HMG_COPYTOCLIPBOARD) // CopyToClipboard(cText) store cText in Windows clipboard
 {
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-  int nLen = strlen(cStr);
+  int nLen = static_cast<int>(strlen(cStr));
 
   if ((nLen == 0) || !OpenClipboard(GetActiveWindow()))
   {
@@ -907,7 +907,7 @@ HB_FUNC(HMG_WAITRUNTERM)
 
   if (bTerm)
   {
-    dwExitCode = -1;
+    dwExitCode = static_cast<DWORD>(-1);
   }
   else
   {
@@ -1829,7 +1829,7 @@ HB_FUNC(HMG_DRAGACCEPTFILES)
 HB_FUNC(HMG_DRAGQUERYFILES)
 {
   HDROP hDrop = (HDROP)HB_PARNL(1);
-  int iFiles = DragQueryFile(hDrop, -1, 0, 0);
+  int iFiles = DragQueryFile(hDrop, static_cast<UINT>(-1), 0, 0);
   TCHAR bBuffer[250];
 
 #ifdef UNICODE

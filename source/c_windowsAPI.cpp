@@ -787,7 +787,7 @@ HB_FUNC(HMG_ADDSPLITBOXITEM)
     }
   }
 
-  SendMessage(hmg_par_HWND(2), RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
+  SendMessage(hmg_par_HWND(2), RB_INSERTBAND, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(&rbBand));
 
 #ifdef UNICODE
   hb_xfree(lpText);

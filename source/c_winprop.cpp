@@ -101,7 +101,7 @@ HB_FUNC(HMG_SETPROP)
   if (HB_ISCHAR(3))
   {
     chType = 'C'; // character
-    nLen = hb_parclen(3);
+    nLen = static_cast<int>(hb_parclen(3));
   }
   else if (HB_ISLOG(3))
   {

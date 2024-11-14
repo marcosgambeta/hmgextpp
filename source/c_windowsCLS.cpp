@@ -152,7 +152,7 @@ HB_FUNC(HMG_GETCLASSNAMEBYREF)
 
     if (pBuffer)
     {
-      int nResult = GetClassNameA(hwnd, pBuffer, nLen);
+      int nResult = GetClassNameA(hwnd, pBuffer, static_cast<int>(nLen));
 
       if (nResult > 0)
       {

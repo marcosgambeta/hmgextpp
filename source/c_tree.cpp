@@ -86,7 +86,7 @@ HMG_INITTREEVIEWBITMAP(HWND, p2, p3) --> numeric
 */
 HB_FUNC(HMG_INITTREEVIEWBITMAP) // Tree+
 {
-  int nCount = hb_parinfa(2, 0);
+  int nCount = static_cast<int>(hb_parinfa(2, 0));
   char *FileName;
   HIMAGELIST himl = nullptr;
   auto ic = 0;
@@ -264,7 +264,7 @@ HMG_TREEVIEW_DELETEALLITEMS(HWND, p2) -->
 */
 HB_FUNC(HMG_TREEVIEW_DELETEALLITEMS)
 {
-  int nCount = hb_parinfa(2, 0);
+  int nCount = static_cast<int>(hb_parinfa(2, 0));
   TV_ITEM TreeItem;
   auto TreeHandle = hmg_par_HWND(1);
   HMG_StructTreeItemLPARAM *TreeItemLPARAM;

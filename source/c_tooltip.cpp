@@ -240,7 +240,7 @@ HB_FUNC(HMG_SHOWBALLOONTIP)
     if (HB_ISCHAR(2))
     {
       ZeroMemory(Text, sizeof(Text));
-      int k = hb_parclen(2);
+      int k = static_cast<int>(hb_parclen(2));
       auto s = hb_parc(2);
       for (auto i = 0; i < k; i++)
       {
@@ -252,7 +252,7 @@ HB_FUNC(HMG_SHOWBALLOONTIP)
     if (HB_ISCHAR(3))
     {
       ZeroMemory(Title, sizeof(Title));
-      int k = hb_parclen(3);
+      int k = static_cast<int>(hb_parclen(3));
       auto s = hb_parc(3);
       for (auto i = 0; i < k; i++)
       {
