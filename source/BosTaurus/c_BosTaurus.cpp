@@ -840,10 +840,10 @@ HB_FUNC(BT_DC_DELETE)
   // PAINTSTRUCT
   BT.PaintStruct.hdc = reinterpret_cast<HDC>(HB_PARVNL(1, 4));     // HDC  hdc;
   BT.PaintStruct.fErase = static_cast<BOOL>(hb_parvni(1, 5));      // BOOL fErase;
-  BT.PaintStruct.rcPaint.left = HB_PARVNL(1, 6);                   // RECT rcPaint.left;
-  BT.PaintStruct.rcPaint.top = HB_PARVNL(1, 7);                    // RECT rcPaint.top;
-  BT.PaintStruct.rcPaint.right = HB_PARVNL(1, 8);                  // RECT rcPaint.right;
-  BT.PaintStruct.rcPaint.bottom = HB_PARVNL(1, 9);                 // RECT rcPaint.bottom;
+  BT.PaintStruct.rcPaint.left = static_cast<LONG>(HB_PARVNL(1, 6));                   // RECT rcPaint.left;
+  BT.PaintStruct.rcPaint.top = static_cast<LONG>(HB_PARVNL(1, 7));                    // RECT rcPaint.top;
+  BT.PaintStruct.rcPaint.right = static_cast<LONG>(HB_PARVNL(1, 8));                  // RECT rcPaint.right;
+  BT.PaintStruct.rcPaint.bottom = static_cast<LONG>(HB_PARVNL(1, 9));                 // RECT rcPaint.bottom;
   BT.PaintStruct.fRestore = static_cast<BOOL>(hb_parvni(1, 10));   // BOOL fRestore;
   BT.PaintStruct.fIncUpdate = static_cast<BOOL>(hb_parvni(1, 11)); // BOOL fIncUpdate;
   for (auto i = 0; i < 32; i++)
@@ -2803,9 +2803,9 @@ HB_FUNC(BT_BMP_PROCESS)
         break;
 
       case BT_BMP_PROCESS_MODIFYCOLOR:
-        RGBcolor->R = (RGBcolor->R + RLevel < 0) ? 0 : ((RGBcolor->R + RLevel > 255) ? 255 : (RGBcolor->R + RLevel));
-        RGBcolor->G = (RGBcolor->G + GLevel < 0) ? 0 : ((RGBcolor->G + GLevel > 255) ? 255 : (RGBcolor->G + GLevel));
-        RGBcolor->B = (RGBcolor->B + BLevel < 0) ? 0 : ((RGBcolor->B + BLevel > 255) ? 255 : (RGBcolor->B + BLevel));
+        RGBcolor->R = static_cast<BYTE>((RGBcolor->R + RLevel < 0) ? 0 : ((RGBcolor->R + RLevel > 255) ? 255 : (RGBcolor->R + RLevel)));
+        RGBcolor->G = static_cast<BYTE>((RGBcolor->G + GLevel < 0) ? 0 : ((RGBcolor->G + GLevel > 255) ? 255 : (RGBcolor->G + GLevel)));
+        RGBcolor->B = static_cast<BYTE>((RGBcolor->B + BLevel < 0) ? 0 : ((RGBcolor->B + BLevel > 255) ? 255 : (RGBcolor->B + BLevel)));
         break;
 
       case BT_BMP_PROCESS_GAMMACORRECT:
@@ -3126,9 +3126,9 @@ HB_FUNC(BT_BMP_TRANSFORM)
       xform2.eDx = static_cast<FLOAT>(-x3);
       xform2.eDy = static_cast<FLOAT>(0.0);
 
-      Width = dABS((x3 - x1));
+      Width = static_cast<INT>(dABS((x3 - x1)));
 
-      Height = dABS(y2);
+      Height = static_cast<INT>(dABS(y2));
     }
 
     if ((Angle > 90.0) && (Angle <= 180.0))
@@ -3136,9 +3136,9 @@ HB_FUNC(BT_BMP_TRANSFORM)
       xform2.eDx = static_cast<FLOAT>(-x2);
       xform2.eDy = static_cast<FLOAT>(-y3);
 
-      Width = dABS(x2);
+      Width = static_cast<INT>(dABS(x2));
 
-      Height = dABS((y3 - y1));
+      Height = static_cast<INT>(dABS((y3 - y1)));
     }
 
     if ((Angle > 180.0) && (Angle <= 270.0))
@@ -3146,9 +3146,9 @@ HB_FUNC(BT_BMP_TRANSFORM)
       xform2.eDx = static_cast<FLOAT>(-x1);
       xform2.eDy = static_cast<FLOAT>(-y2);
 
-      Width = dABS((x3 - x1));
+      Width = static_cast<INT>(dABS((x3 - x1)));
 
-      Height = dABS(y2);
+      Height = static_cast<INT>(dABS(y2));
     }
 
     if ((Angle > 270.0) && (Angle <= 360.0))
@@ -3156,9 +3156,9 @@ HB_FUNC(BT_BMP_TRANSFORM)
       xform2.eDx = static_cast<FLOAT>(0.0);
       xform2.eDy = static_cast<FLOAT>(-y1);
 
-      Width = dABS(x2);
+      Width = static_cast<INT>(dABS(x2));
 
-      Height = dABS((y3 - y1));
+      Height = static_cast<INT>(dABS((y3 - y1)));
     }
 
     Width++;
