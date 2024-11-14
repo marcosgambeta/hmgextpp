@@ -337,7 +337,7 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
   int x, y, h;
   int cyMargin = GetSystemMetrics(SM_CYFRAME);
   int cxMargin = GetSystemMetrics(SM_CYDLGFRAME);
-  int buttonWidth;
+  int buttonWidth = 0;
   auto buttonHeight = 0;
   auto ppgrd = reinterpret_cast<PROPGRD *>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
 
@@ -646,7 +646,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
     TV_DISPINFO tvdi;
     LPARAMDATA *pItemData = nullptr;
     HWND hPropEdit;
-    LONG hFont;
+    HFONT hFont;
     RECT rcText, rcItem, rcProp, rcEdit, rcCheck, rcIndent;
     TCHAR szText[255];
     TCHAR PropText[1024];
@@ -680,7 +680,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
         SelectObject(hDC, hOldPen);
         DeleteObject(hLinPen);
         pResult = CDRF_SKIPDEFAULT;
-        hb_retnl(pResult);
+        hmg_ret_LRESULT(pResult);
       }
 
       if (tvdi.item.lParam)
@@ -855,7 +855,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
               rcEdit.left = ppgrd->cxMiddleEdge;
             }
 
-            hFont = SendMessage(hWnd, WM_GETFONT, 0, 0);
+            hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
             hPropEdit = EditPG(hWnd, rcEdit, hItem, pItemData->ItemType, *ppgrd, pItemData->ItemEdit);
             rcEdit = rcProp;
             if (ppgrd->hItemEdit)
@@ -864,7 +864,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
             }
 
             ppgrd->hItemEdit = hItem;
-            SendMessage(hPropEdit, WM_SETFONT, static_cast<WPARAM>(hFont), TRUE);
+            SendMessage(hPropEdit, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
             ppgrd->hPropEdit = hPropEdit;
           }
         }
@@ -889,9 +889,9 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
 
       if (pItemData->ItemChanged)
       {
-        auto hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
+        auto hFont2 = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
         LOGFONT lf{};
-        GetObject(hFont, sizeof(LOGFONT), &lf);
+        GetObject(hFont2, sizeof(LOGFONT), &lf);
         lf.lfWeight |= FW_BOLD;
 
         auto hFontBold = CreateFontIndirect(&lf);
@@ -1208,10 +1208,10 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
       hb_vmPushNil();
       hmg_vmPushHWND(hWnd);
       hmg_vmPushUINT(Msg);
-      hb_vmPushLong(wParam);
-      hb_vmPushLong(lParam);
-      hmg_vmPushHandle(ppgrd->hItemActive);
-      hmg_vmPushHandle(ppgrd->hPropEdit);
+      hmg_vmPushWPARAM(wParam);
+      hmg_vmPushLPARAM(lParam);
+      hmg_vmPushHWND(ppgrd->hItemActive);
+      hmg_vmPushHWND(ppgrd->hPropEdit);
       hb_vmDo(6);
     }
 
@@ -1264,8 +1264,8 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
         {
           hb_vmPushSymbol(pSymbol);
           hb_vmPushNil();
-          hmg_vmPushHandle(ppgrd->hPropGrid);
-          hb_vmPushLong(lParam);
+          hmg_vmPushHWND(ppgrd->hPropGrid);
+          hmg_vmPushLPARAM(lParam);
           hb_vmDo(2);
         }
 
@@ -1322,7 +1322,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
         {
           hb_vmPushSymbol(pSymbol);
           hb_vmPushNil();
-          hmg_vmPushHandle(ppgrd->hPropGrid);
+          hmg_vmPushHWND(ppgrd->hPropGrid);
           hb_vmPushLong(0);
           hb_vmDo(2);
         }
@@ -1353,7 +1353,7 @@ PROPGRIDONCUSTOMDRAW() -->
 */
 HB_FUNC(PROPGRIDONCUSTOMDRAW)
 {
-  hb_retnl(PropGridOnCustomDraw(hmg_par_HWND(1), static_cast<LPARAM>(hb_parnl(2))));
+  hmg_ret_LRESULT(PropGridOnCustomDraw(hmg_par_HWND(1), static_cast<LPARAM>(hb_parnl(2))));
 }
 
 void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent)
@@ -1778,7 +1778,7 @@ ADDTREEITEMS(HWND, ap2, p3) --> numeric
 HB_FUNC(ADDTREEITEMS)
 {
   auto h = hmg_par_HWND(1);
-  int l = hb_parinfa(2, 0) - 1;
+  int l = static_cast<int>(hb_parinfa(2, 0) - 1);
   auto hArray = hb_param(2, Harbour::Item::ARRAY);
   int c = ListView_GetItemCount(h);
   auto caption = const_cast<char *>(hb_arrayGetCPtr(hArray, 1));
@@ -1872,7 +1872,7 @@ GETNOTIFYTREEITEM(p1) --> numeric
 */
 HB_FUNC(GETNOTIFYTREEITEM)
 {
-  hb_retnl((LONG_PTR)((NMTREEVIEW FAR *)HB_PARNL(1))->itemNew.hItem);
+  hb_retnl(static_cast<long>((LONG_PTR)((NMTREEVIEW FAR *)HB_PARNL(1))->itemNew.hItem));
 }
 
 /*
@@ -1882,7 +1882,7 @@ HB_FUNC(PGCOMBOADDSTRING)
 {
   auto hILst = hmg_par_HIMAGELIST(3);
   auto cString = const_cast<char *>(hb_parc(2));
-  DWORD dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString));
+  DWORD dwIndex = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString)));
   if (hb_parnl(3))
   {
     SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, reinterpret_cast<LPARAM>(hILst));
@@ -2049,7 +2049,7 @@ HB_FUNC(IL_ADDMASKEDINDIRECT) // IL_AddMaskedIndirect(hwnd , himage , color , ix
     DeleteObject(himage);
   }
 
-  hb_retni(lResult);
+  hmg_ret_LRESULT(lResult);
 }
 
 /*
@@ -2164,7 +2164,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   switch (ItemType)
   {
   case PG_LOGIC:
-    SendMessage(hEdit, CB_SETITEMHEIGHT, -1, (LPARAM)rc.bottom - rc.top - 6);
+    SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
     SendMessage(hEdit, CB_SETITEMHEIGHT, 0, (LPARAM)rc.bottom - rc.top);
     break;
 
@@ -2195,9 +2195,9 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
-    hmg_vmPushHandle(hWnd);
-    hmg_vmPushHandle(hEdit);
-    hmg_vmPushHandle(hItem);
+    hmg_vmPushHWND(hWnd);
+    hmg_vmPushHWND(hEdit);
+    hmg_vmPushHWND(hItem);
     hb_vmPushLong(ItemType);
     hb_vmDo(4);
   }
@@ -2422,10 +2422,10 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHWND(hEdit);
       hmg_vmPushUINT(Msg);
-      hb_vmPushLong(wParam);
-      hb_vmPushLong(lParam);
-      hmg_vmPushHandle(hWndParent);
-      hmg_vmPushHandle(hItem);
+      hmg_vmPushWPARAM(wParam);
+      hmg_vmPushLPARAM(lParam);
+      hmg_vmPushHWND(hWndParent);
+      hmg_vmPushHWND(hItem);
       hb_vmDo(6);
     }
 
@@ -2459,10 +2459,10 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hb_vmPushNil();
       hmg_vmPushHWND(hEdit);
       hmg_vmPushUINT(Msg);
-      hb_vmPushLong(wParam);
-      hb_vmPushLong(lParam);
-      hmg_vmPushHandle(hWndParent);
-      hmg_vmPushHandle(hItem);
+      hmg_vmPushWPARAM(wParam);
+      hmg_vmPushLPARAM(lParam);
+      hmg_vmPushHWND(hWndParent);
+      hmg_vmPushHWND(hItem);
       hb_vmDo(6);
     }
 
@@ -2490,6 +2490,8 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 {
 #if defined(__MINGW32__)
   UNREFERENCED_PARAMETER(lpntme);
+#else
+  HB_SYMBOL_UNUSED(lpntme);
 #endif
   if (lpelfe && lParam)
   {
