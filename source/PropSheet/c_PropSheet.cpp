@@ -91,8 +91,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       hb_vmPushSymbol(pSymbol2);
       hb_vmPushNil();
       hmg_vmPushHWND(hWndDlg);
-      hb_vmPushLong(ps->lParam);
-      hmg_vmPushHandle(hWndParent);
+      hmg_vmPushWPARAM(ps->lParam);
+      hmg_vmPushHWND(hWndParent);
       hb_vmDo(3);
     }
     return TRUE;
@@ -106,7 +106,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     auto psn = reinterpret_cast<PSHNOTIFY *>(lParam);
 
     int nPage = PropSheet_HwndToIndex(hWndParent, hWndDlg);
-    int nId = PropSheet_IndexToId(hWndParent, nPage);
+    int nId = static_cast<int>(PropSheet_IndexToId(hWndParent, nPage));
 
     if (!pSymbol3)
     {
@@ -200,11 +200,11 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
   {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
-    hmg_vmPushHandle(hWndParent);
+    hmg_vmPushHWND(hWndParent);
     hmg_vmPushHWND(hWndDlg);
     hmg_vmPushUINT(message);
-    hb_vmPushLong(wParam);
-    hb_vmPushLong(lParam);
+    hmg_vmPushWPARAM(wParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(5);
   }
 
@@ -242,7 +242,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
     hb_vmPushNil();
     hmg_vmPushHWND(hwndPropSheet);
     hmg_vmPushUINT(message);
-    hb_vmPushLong(lParam);
+    hmg_vmPushLPARAM(lParam);
     hb_vmDo(3);
   }
 
@@ -290,7 +290,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   auto sArray = hb_param(2, Harbour::Item::ARRAY);
   auto pArray = hb_param(3, Harbour::Item::ARRAY);
 
-  int nPages = hb_arrayLen(sArray);
+  int nPages = static_cast<int>(hb_arrayLen(sArray));
   auto hpsp = static_cast<HPROPSHEETPAGE *>(malloc(sizeof(HPROPSHEETPAGE) * nPages));
   for (auto s = 0; s < nPages; s = s + 1)
   {
@@ -343,7 +343,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
 
   if (hb_parl(4))
   {
-    hb_retnl(PropertySheet(&psh));
+    hb_retnl(static_cast<long>(PropertySheet(&psh)));
   }
   else
   {
@@ -438,7 +438,7 @@ HB_FUNC(DESTROYPROPSHEET)
 
 HB_FUNC(SENDDLGITEMMESSAGE)
 {
-  hb_retnl(SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4), hmg_par_LPARAM(5)));
+  hmg_ret_LRESULT(SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4), hmg_par_LPARAM(5)));
 }
 
 /****************************************************************************
