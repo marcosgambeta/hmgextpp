@@ -161,6 +161,7 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #define hmg_par_LONG(n)     static_cast<LONG>(hb_parnl(n))
 #define hmg_par_LPARAM(n)   static_cast<LPARAM>(hb_parnl(n))
 #define hmg_par_UINT(n)     static_cast<UINT>(hb_parni(n))
+#define hmg_par_UINT_PTR(n) static_cast<UINT_PTR>(hb_parni(n))
 #define hmg_par_WORD(n)     static_cast<WORD>(hb_parni(n))
 #define hmg_par_WPARAM(n)   static_cast<WPARAM>(hb_parni(n))
 
