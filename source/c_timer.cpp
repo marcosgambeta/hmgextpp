@@ -48,7 +48,7 @@
 
 HB_FUNC(HMG_INITTIMER)
 {
-  hb_retl(SetTimer(hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), (TIMERPROC) nullptr));
+  hb_retl(static_cast<HB_BOOL>(SetTimer(hmg_par_HWND(1), hmg_par_UINT_PTR(2), hmg_par_UINT(3), nullptr)));
 }
 
 HB_FUNC(HMG_KILLTIMER)
