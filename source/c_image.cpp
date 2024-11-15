@@ -1000,7 +1000,7 @@ BOOL SaveHBitmapToFile(void *HBitmap, const char *FileName, unsigned int Width, 
     return FALSE;
   }
 
-  MultiByteToWideChar(CP_ACP, 0, FileName, -1, WFileName, (strlen(FileName) * sizeof(WCHAR)) - 1);
+  MultiByteToWideChar(CP_ACP, 0, FileName, -1, WFileName, static_cast<int>(strlen(FileName) * sizeof(WCHAR)) - 1);
 
   GpBitmap *GBitmapThumbnail;
 
@@ -1341,7 +1341,7 @@ HB_FUNC(HMG_C_SAVEHICONTOFILE)
   {
     for (auto i = 0; i < nLen; i++)
     {
-      hIcon[i] = reinterpret_cast<HICON>(hb_arrayGetNL(pArray, i + 1));
+      hIcon[i] = reinterpret_cast<HICON>(static_cast<LONG_PTR>(hb_arrayGetNL(pArray, i + 1)));
     }
     if (SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)))
     {
