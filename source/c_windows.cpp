@@ -1337,7 +1337,7 @@ HB_FUNC(HMG_REGISTERWINDOW)
   }
   else if (HB_ISCHAR(3) || HB_ISNUM(3))
   {
-    void *str;
+    void *str = nullptr;
     LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr)
                                        : (HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr);
     auto hImage = static_cast<HBITMAP>(
