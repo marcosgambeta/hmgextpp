@@ -653,7 +653,8 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS))
   {
-    hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
+    hmg_ret_LRESULT(
+        SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
   }
   else
   {

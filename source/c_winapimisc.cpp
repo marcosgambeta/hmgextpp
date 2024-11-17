@@ -312,7 +312,6 @@ HB_FUNC( HMG_GETRED ) // TODO: deprecated (using waGetRValue from WinApi library
 }
 #endif
 
-
 #if 0
 HB_FUNC( HMG_GETGREEN ) // TODO: deprecated (using waGetGValue from WinApi library)
 {

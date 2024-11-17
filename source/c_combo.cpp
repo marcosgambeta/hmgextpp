@@ -166,8 +166,8 @@ HMG_COMBOGETEDITSEL(HWND) --> array
 */
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
-  DWORD pos =
-      static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr)));
+  DWORD pos = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
+                                             reinterpret_cast<LPARAM>(nullptr)));
   hb_reta(2);
   HB_STORNI(LOWORD(pos), -1, 1);
   HB_STORNI(HIWORD(pos), -1, 2);
@@ -178,7 +178,8 @@ HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
 HB_FUNC(HMG_COMBOSELECTSTRING)
 {
-  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
+  hmg_ret_LRESULT(
+      SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
 /* Added by P.Ch. 16.10. */
@@ -189,7 +190,9 @@ HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRING)
 {
   void *Text;
-  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, static_cast<WPARAM>(-1),
+                              reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
+                  1);
   hb_strfree(Text);
 }
 
@@ -199,8 +202,9 @@ HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
   void *Text;
-  hmg_ret_LRESULT(
-      SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1),
+                              reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) +
+                  1);
   hb_strfree(Text);
 }
 

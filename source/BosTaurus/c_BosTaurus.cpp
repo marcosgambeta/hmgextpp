@@ -838,14 +838,14 @@ HB_FUNC(BT_DC_DELETE)
   BT.hWnd = reinterpret_cast<HWND>(HB_PARVNL(1, 2));
   BT.hDC = reinterpret_cast<HDC>(HB_PARVNL(1, 3));
   // PAINTSTRUCT
-  BT.PaintStruct.hdc = reinterpret_cast<HDC>(HB_PARVNL(1, 4));     // HDC  hdc;
-  BT.PaintStruct.fErase = static_cast<BOOL>(hb_parvni(1, 5));      // BOOL fErase;
-  BT.PaintStruct.rcPaint.left = static_cast<LONG>(HB_PARVNL(1, 6));                   // RECT rcPaint.left;
-  BT.PaintStruct.rcPaint.top = static_cast<LONG>(HB_PARVNL(1, 7));                    // RECT rcPaint.top;
-  BT.PaintStruct.rcPaint.right = static_cast<LONG>(HB_PARVNL(1, 8));                  // RECT rcPaint.right;
-  BT.PaintStruct.rcPaint.bottom = static_cast<LONG>(HB_PARVNL(1, 9));                 // RECT rcPaint.bottom;
-  BT.PaintStruct.fRestore = static_cast<BOOL>(hb_parvni(1, 10));   // BOOL fRestore;
-  BT.PaintStruct.fIncUpdate = static_cast<BOOL>(hb_parvni(1, 11)); // BOOL fIncUpdate;
+  BT.PaintStruct.hdc = reinterpret_cast<HDC>(HB_PARVNL(1, 4));        // HDC  hdc;
+  BT.PaintStruct.fErase = static_cast<BOOL>(hb_parvni(1, 5));         // BOOL fErase;
+  BT.PaintStruct.rcPaint.left = static_cast<LONG>(HB_PARVNL(1, 6));   // RECT rcPaint.left;
+  BT.PaintStruct.rcPaint.top = static_cast<LONG>(HB_PARVNL(1, 7));    // RECT rcPaint.top;
+  BT.PaintStruct.rcPaint.right = static_cast<LONG>(HB_PARVNL(1, 8));  // RECT rcPaint.right;
+  BT.PaintStruct.rcPaint.bottom = static_cast<LONG>(HB_PARVNL(1, 9)); // RECT rcPaint.bottom;
+  BT.PaintStruct.fRestore = static_cast<BOOL>(hb_parvni(1, 10));      // BOOL fRestore;
+  BT.PaintStruct.fIncUpdate = static_cast<BOOL>(hb_parvni(1, 11));    // BOOL fIncUpdate;
   for (auto i = 0; i < 32; i++)
   {
     BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i)); // BYTE rgbReserved[32];
@@ -2072,7 +2072,7 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR *FileName, INT nTypePic
             DIB_RGB_COLORS);
 
   auto hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                            FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+                          FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   BOOL ret = FALSE;
 
@@ -2803,9 +2803,12 @@ HB_FUNC(BT_BMP_PROCESS)
         break;
 
       case BT_BMP_PROCESS_MODIFYCOLOR:
-        RGBcolor->R = static_cast<BYTE>((RGBcolor->R + RLevel < 0) ? 0 : ((RGBcolor->R + RLevel > 255) ? 255 : (RGBcolor->R + RLevel)));
-        RGBcolor->G = static_cast<BYTE>((RGBcolor->G + GLevel < 0) ? 0 : ((RGBcolor->G + GLevel > 255) ? 255 : (RGBcolor->G + GLevel)));
-        RGBcolor->B = static_cast<BYTE>((RGBcolor->B + BLevel < 0) ? 0 : ((RGBcolor->B + BLevel > 255) ? 255 : (RGBcolor->B + BLevel)));
+        RGBcolor->R = static_cast<BYTE>(
+            (RGBcolor->R + RLevel < 0) ? 0 : ((RGBcolor->R + RLevel > 255) ? 255 : (RGBcolor->R + RLevel)));
+        RGBcolor->G = static_cast<BYTE>(
+            (RGBcolor->G + GLevel < 0) ? 0 : ((RGBcolor->G + GLevel > 255) ? 255 : (RGBcolor->G + GLevel)));
+        RGBcolor->B = static_cast<BYTE>(
+            (RGBcolor->B + BLevel < 0) ? 0 : ((RGBcolor->B + BLevel > 255) ? 255 : (RGBcolor->B + BLevel)));
         break;
 
       case BT_BMP_PROCESS_GAMMACORRECT:

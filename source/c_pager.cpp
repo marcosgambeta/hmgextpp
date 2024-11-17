@@ -194,7 +194,6 @@ HB_FUNC(HMG_PAGERGETPOS)
   hb_retni(Pager_GetPos(hmg_par_HWND(1)));
 }
 
-
 HB_FUNC(HMG_PAGERSETPOS)
 {
   hb_retni(Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)));

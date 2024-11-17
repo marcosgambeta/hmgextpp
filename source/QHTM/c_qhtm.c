@@ -217,7 +217,8 @@ HB_FUNC(QHTM_LOADFILE)
 {
   if (hQhtmDll)
   {
-    hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, static_cast<LPARAM>(hb_parc(2)))));
+    hb_retl(
+        static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, static_cast<LPARAM>(hb_parc(2)))));
   }
 }
 
@@ -230,7 +231,9 @@ HB_FUNC(QHTM_LOADRES)
 {
   if (hQhtmDll)
   {
-    hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, static_cast<WPARAM>(GetModuleHandle(NULL)), static_cast<LPARAM>(hb_parc(2)))));
+    hb_retl(
+        static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE,
+                                         static_cast<WPARAM>(GetModuleHandle(NULL)), static_cast<LPARAM>(hb_parc(2)))));
   }
 }
 
@@ -321,8 +324,8 @@ HB_FUNC(QHTM_FORMCALLBACK)
 {
   if (hQhtmDll)
   {
-    hb_retl(
-        SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, static_cast<WPARAM>(QHTM_OPT_SET_FORM_SUBMIT_CALLBACK), static_cast<LPARAM>(FormCallback)));
+    hb_retl(SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, static_cast<WPARAM>(QHTM_OPT_SET_FORM_SUBMIT_CALLBACK),
+                        static_cast<LPARAM>(FormCallback)));
   }
   else
   {

@@ -97,7 +97,7 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
   auto filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+                               FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
   if (lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER))
@@ -135,7 +135,6 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
   ReleaseDC(hWnd, hDC);
 }
 
-
 /*
 HMG_WNDCOPY(HWND, lp2, ) --> NIL
 */
@@ -165,7 +164,7 @@ HB_FUNC(HMG_WNDCOPY)
   HANDLE hDIB = DibFromBitmap(hBitmap, hPal);
 
   auto filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+                               FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   auto lpBI = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB));
   if (lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER))

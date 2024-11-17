@@ -1094,8 +1094,8 @@ static UINT WriteIconHeader(HANDLE hFile, int nImages)
 {
   // Setup the icon header
   ICONHEADER iconheader;
-  iconheader.idReserved = 0;    // Must be 0
-  iconheader.idType = 1;        // Type 1 = ICON  (type 2 = CURSOR)
+  iconheader.idReserved = 0;                       // Must be 0
+  iconheader.idType = 1;                           // Type 1 = ICON  (type 2 = CURSOR)
   iconheader.idCount = static_cast<WORD>(nImages); // number of ICONDIRs
 
   // Write the header to disk
@@ -1408,7 +1408,7 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR *FileName)
             DIB_RGB_COLORS);
 
   auto hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-                            FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+                          FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
   BOOL ret;
 

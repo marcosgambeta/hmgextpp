@@ -811,7 +811,8 @@ HB_FUNC(HMG_SETCHEVRONSTYLESPLITBOXITEM)
   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand));
   rbBand.fStyle = rbBand.fStyle | RBBS_USECHEVRON;
   rbBand.cxIdeal = hb_parni(3) + 50;
-  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand))));
+  hb_retl(static_cast<HB_BOOL>(
+      SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand))));
 }
 
 /*

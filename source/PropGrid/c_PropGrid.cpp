@@ -1455,7 +1455,8 @@ static void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData
       {
         pData->ItemValue = hb_strndup(cValue, 1024);
         pData->ItemChanged = true;
-        PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE), reinterpret_cast<LPARAM>(TreeItemHandle));
+        PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE),
+                    reinterpret_cast<LPARAM>(TreeItemHandle));
       }
 
       if (!(strcmp(pData->ItemData, cData) == 0) && lData)
@@ -2497,7 +2498,8 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
   {
     if (FontType == TRUETYPE_FONTTYPE)
     { // DEVICE_FONTTYPE | RASTER_FONTTYPE
-      SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPSTR)lpelfe->elfFullName));
+      SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0,
+                  reinterpret_cast<LPARAM>((LPSTR)lpelfe->elfFullName));
     }
   }
 

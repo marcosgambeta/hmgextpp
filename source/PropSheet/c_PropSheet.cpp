@@ -438,7 +438,8 @@ HB_FUNC(DESTROYPROPSHEET)
 
 HB_FUNC(SENDDLGITEMMESSAGE)
 {
-  hmg_ret_LRESULT(SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4), hmg_par_LPARAM(5)));
+  hmg_ret_LRESULT(
+      SendDlgItemMessage(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3), hmg_par_WPARAM(4), hmg_par_LPARAM(5)));
 }
 
 /****************************************************************************

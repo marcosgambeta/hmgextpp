@@ -231,7 +231,8 @@ HB_FUNC(HMG_GETMONTHRANGE)
 {
   SYSTEMTIME sysTime[2];
   memset(&sysTime, 0, sizeof(sysTime));
-  int iCount = static_cast<int>(SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, reinterpret_cast<LPARAM>(&sysTime)));
+  int iCount = static_cast<int>(
+      SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, reinterpret_cast<LPARAM>(&sysTime)));
 
   hb_reta(3);
   HB_STORNI(iCount, -1, 1);

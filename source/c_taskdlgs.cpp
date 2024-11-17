@@ -987,7 +987,8 @@ HB_FUNC(HMG__UPDATEMAINICON)
 {
   if (HB_ISNUM(2))
   {
-    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, reinterpret_cast<LPARAM>(MAKEINTRESOURCE(hb_parni(2))));
+    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN,
+                reinterpret_cast<LPARAM>(MAKEINTRESOURCE(hb_parni(2))));
   }
   else if (HB_ISCHAR(2))
   {
@@ -1012,7 +1013,8 @@ HB_FUNC(HMG__UPDATEFOOTERICON)
 {
   if (HB_ISNUM(2))
   {
-    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, reinterpret_cast<LPARAM>(MAKEINTRESOURCE(hb_parni(2))));
+    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER,
+                reinterpret_cast<LPARAM>(MAKEINTRESOURCE(hb_parni(2))));
   }
   else if (HB_ISCHAR(2))
   {

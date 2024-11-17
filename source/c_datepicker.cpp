@@ -255,7 +255,6 @@ HB_FUNC(HMG_GETDATEPICKDATE)
   hb_retd(st.wYear, st.wMonth, st.wDay);
 }
 
-
 /*
 HMG_GETDATEPICKYEAR(HWND) --> nYear
 */
@@ -292,8 +291,8 @@ HMG_GETDATEPICKHOUR(HWND) --> nHour
 HB_FUNC(HMG_GETDATEPICKHOUR)
 {
   SYSTEMTIME st{};
-  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour
-                                                                                                          : -1);
+  hmg_ret_LRESULT(
+      SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour : -1);
 }
 
 /*
@@ -302,8 +301,8 @@ HMG_GETDATEPICKMINUTE(HWND) --> nMinute
 HB_FUNC(HMG_GETDATEPICKMINUTE)
 {
   SYSTEMTIME st{};
-  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute
-                                                                                                          : -1);
+  hmg_ret_LRESULT(
+      SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute : -1);
 }
 
 /*
@@ -312,8 +311,8 @@ HMG_GETDATEPICKSECOND(HWND) --> nSeconds
 HB_FUNC(HMG_GETDATEPICKSECOND)
 {
   SYSTEMTIME st{};
-  hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond
-                                                                                                          : -1);
+  hmg_ret_LRESULT(
+      SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond : -1);
 }
 
 /*
@@ -440,7 +439,8 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
       wLimit |= GDTR_MAX;
     }
 
-    hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, reinterpret_cast<LPARAM>(&sysTime))));
+    hb_retl(
+        static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, reinterpret_cast<LPARAM>(&sysTime))));
   }
 }
 
@@ -450,7 +450,8 @@ HMG_SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
 HB_FUNC(HMG_SETDATEPICKERDATEFORMAT)
 {
   void *str;
-  hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr)))));
+  hb_retl(static_cast<HB_BOOL>(
+      SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr)))));
   hb_strfree(str);
 }
 

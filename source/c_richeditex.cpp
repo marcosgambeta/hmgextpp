@@ -190,7 +190,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMIN)
 
   void *str;
   auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
-                            FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+                          FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
   hb_strfree(str);
 
   if (hFile == INVALID_HANDLE_VALUE)
@@ -255,7 +255,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMOUT)
 
   void *str;
   auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
-                            FILE_ATTRIBUTE_NORMAL, nullptr);
+                          FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
 
   if (hFile == INVALID_HANDLE_VALUE)
@@ -297,7 +297,8 @@ HB_FUNC(HMG_RICHEDITBOX_RTFLOADRESOURCEFILE)
 #else
         ST.codepage = CP_ACP;
 #endif
-        SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, reinterpret_cast<WPARAM>(&ST), reinterpret_cast<LPARAM>(lpGlobalResource));
+        SendMessage(hmg_par_HWND(1), EM_SETTEXTEX, reinterpret_cast<WPARAM>(&ST),
+                    reinterpret_cast<LPARAM>(lpGlobalResource));
       }
       FreeResource(hGlobalResource);
     }
@@ -358,7 +359,8 @@ HB_FUNC(HMG_RICHEDITBOX_SETZOOM) // ZoomRatio = nNumerator / nDenominator
 HB_FUNC(HMG_RICHEDITBOX_GETZOOM)
 {
   int nNumerator, nDenominator;
-  SendMessage(hmg_par_HWND(1), EM_GETZOOM, reinterpret_cast<WPARAM>(&nNumerator), reinterpret_cast<LPARAM>(&nDenominator));
+  SendMessage(hmg_par_HWND(1), EM_GETZOOM, reinterpret_cast<WPARAM>(&nNumerator),
+              reinterpret_cast<LPARAM>(&nDenominator));
   if (HB_ISBYREF(2))
   {
     hb_storni(nNumerator, 2);
@@ -1097,7 +1099,8 @@ HB_FUNC(HMG_RICHEDITBOX_PASTESPECIAL) // Paste a specific clipboard format in a 
   if (HB_ISCHAR(2))
   {
     CHAR *ClipboardFormat = const_cast<CHAR *>(hb_parc(2));
-    SendMessage(hWndControl, EM_PASTESPECIAL, reinterpret_cast<WPARAM>(ClipboardFormat), reinterpret_cast<LPARAM>(nullptr));
+    SendMessage(hWndControl, EM_PASTESPECIAL, reinterpret_cast<WPARAM>(ClipboardFormat),
+                reinterpret_cast<LPARAM>(nullptr));
   }
   else
   {
