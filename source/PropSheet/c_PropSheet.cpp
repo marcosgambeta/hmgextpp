@@ -294,7 +294,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   auto hpsp = static_cast<HPROPSHEETPAGE *>(malloc(sizeof(HPROPSHEETPAGE) * nPages));
   for (auto s = 0; s < nPages; s = s + 1)
   {
-    hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(hb_arrayGetNL(sArray, s + 1)));
+    hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(static_cast<LONG_PTR>(hb_arrayGetNL(sArray, s + 1))));
   }
 
   auto Style = hb_arrayGetNI(pArray, 4);
