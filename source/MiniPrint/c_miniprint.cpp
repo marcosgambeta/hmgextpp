@@ -220,7 +220,7 @@ HB_FUNC(_HMG_PRINTER_C_PRINT)
 #ifndef UNICODE
     TextOut(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
             (y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY), hb_parc(9),
-            strlen(hb_parc(9)));
+            static_cast<int>(strlen(hb_parc(9))));
 #else
     pText = AnsiToWide(hb_parc(9));
     TextOut(hdcPrint, (x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
@@ -407,7 +407,7 @@ HB_FUNC(_HMG_PRINTER_C_MULTILINE_PRINT)
     rect.bottom = (toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
 
 #ifndef UNICODE
-    DrawText(hdcPrint, hb_parc(9), strlen(hb_parc(9)), &rect, uFormat);
+    DrawText(hdcPrint, hb_parc(9), static_cast<int>(strlen(hb_parc(9))), &rect, uFormat);
 #else
     pText = AnsiToWide(hb_parc(9));
     DrawText(hdcPrint, pText, lstrlen(pText), &rect, uFormat);
