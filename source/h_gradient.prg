@@ -188,28 +188,33 @@ HB_FUNC( HMG__INITGRADIENTFUNC )
 {
    s_hDLL = LoadLibrary(TEXT("gdi32.dll"));
 
-   if( s_hDLL != nullptr ) {
+   if( s_hDLL != nullptr )
+   {
       f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress(s_hDLL, "GdiAlphaBlend");
       f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress(s_hDLL, "GdiTransparentBlt");
       f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress(s_hDLL, "GdiGradientFill");
 
       if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
-          ( f_GradientFill == nullptr ) ) {
+          ( f_GradientFill == nullptr ) )
+      {
          FreeLibrary(s_hDLL);
          s_hDLL = nullptr;
       }
    }
 
-   if( s_hDLL == nullptr ) {
+   if( s_hDLL == nullptr )
+   {
       s_hDLL = LoadLibrary(TEXT("msimg32.dll"));
 
-      if( s_hDLL != nullptr ) {
+      if( s_hDLL != nullptr )
+      {
          f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress(s_hDLL, "AlphaBlend");
          f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress(s_hDLL, "TransparentBlt");
          f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress(s_hDLL, "GradientFill");
 
          if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
-             ( f_GradientFill == nullptr ) ) {
+             ( f_GradientFill == nullptr ) )
+         {
             FreeLibrary(s_hDLL);
             s_hDLL = nullptr;
          }
@@ -221,7 +226,8 @@ HB_FUNC( HMG__INITGRADIENTFUNC )
 
 HB_FUNC( HMG__EXITGRADIENTFUNC )
 {
-   if( s_hDLL != nullptr ) {
+   if( s_hDLL != nullptr )
+   {
       FreeLibrary(s_hDLL);
       s_hDLL = nullptr;
    }
@@ -233,8 +239,10 @@ HB_FUNC( HMG_ALPHABLEND )
    auto hdc1 = hmg_par_HDC(1);
    auto hdc2 = hmg_par_HDC(6);
 
-   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) ) {
-      if( ( s_hDLL != nullptr ) && ( f_AlphaBlend != nullptr ) ) {
+   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) )
+   {
+      if( ( s_hDLL != nullptr ) && ( f_AlphaBlend != nullptr ) )
+      {
          BLENDFUNCTION bf;
 
          bf.BlendOp    = AC_SRC_OVER;
@@ -259,19 +267,23 @@ HB_FUNC( HMG_TRANSPARENTBLT )
    auto hdc1 = hmg_par_HDC(1);
    auto hdc2 = hmg_par_HDC(6);
 
-   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) ) {
-      if( ( s_hDLL != nullptr ) && ( f_TransparentBlt != nullptr ) ) {
+   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) )
+   {
+      if( ( s_hDLL != nullptr ) && ( f_TransparentBlt != nullptr ) )
+      {
          int   iStretchMode = hb_parnidef( 12, COLORONCOLOR );
          BOOL  bHiRes       = ( iStretchMode == HALFTONE );
          POINT pt = { 0, 0 };
 
-         if( bHiRes ) {
+         if( bHiRes )
+         {
             GetBrushOrgEx(hdc1, &pt);
          }
 
          SetStretchBltMode(hdc1, iStretchMode);
 
-         if( bHiRes ) {
+         if( bHiRes )
+         {
             SetBrushOrgEx(hdc1, pt.x, pt.y, nullptr);
          }
 
@@ -291,7 +303,8 @@ HB_FUNC( HMG_FILLGRADIENT )
    BOOL bRes = FALSE;
    auto hdc = hmg_par_HDC(1);
 
-   if( GetObjectType(hdc) & ( OBJ_DC | OBJ_MEMDC ) ) {
+   if( GetObjectType(hdc) & ( OBJ_DC | OBJ_MEMDC ) )
+   {
       RECT rect;
 
       rect.top    = hb_parni(2);
@@ -309,7 +322,8 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
 {
    BOOL bRes = FALSE;
 
-   if( ( s_hDLL != nullptr ) && ( f_GradientFill != nullptr ) ) {
+   if( ( s_hDLL != nullptr ) && ( f_GradientFill != nullptr ) )
+   {
       TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
@@ -340,7 +354,8 @@ HB_FUNC( HMG_CREATEGRADIENTBRUSH )
 {
    auto hwnd = hmg_par_HWND(1);
 
-   if( !IsWindow(hwnd) ) {
+   if( !IsWindow(hwnd) )
+   {
       hwnd = GetDesktopWindow();
    }
 
@@ -357,7 +372,8 @@ HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF 
    auto memDC  = CreateCompatibleDC(pDC);
    auto memBmp = CreateCompatibleBitmap(pDC, cx, cy);
 
-   if( memDC && memBmp ) {
+   if( memDC && memBmp )
+   {
       TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
@@ -380,8 +396,10 @@ HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF 
 
       SelectObject(memDC, memBmp);
 
-      if( s_hDLL != nullptr ) {
-         if( f_GradientFill != nullptr ) {
+      if( s_hDLL != nullptr )
+      {
+         if( f_GradientFill != nullptr )
+         {
             f_GradientFill(memDC, rcVertex, 2, &gRect, 1, bVert ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H);
          }
       }

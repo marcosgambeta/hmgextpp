@@ -479,7 +479,8 @@ LPAtlAxGetControl AtlAxGetControl;
 
 static void _Ax_Init(void)
 {
-   if( !hAtl ) {
+   if( !hAtl )
+   {
       hAtl            = LoadLibrary("Atl.Dll");
       AtlAxWinInit    = reinterpret_cast<LPAtlAxWinInit>(wapi_GetProcAddress(hAtl, "AtlAxWinInit"));
       AtlAxGetControl = reinterpret_cast<LPAtlAxGetControl>(wapi_GetProcAddress(hAtl, "AtlAxGetControl"));
@@ -494,7 +495,8 @@ HB_FUNC( HMG_ATLAXWININIT )
 
 HB_FUNC( HMG_ATLAXWINEND )
 {
-   if( hAtl ) {
+   if( hAtl )
+   {
       FreeLibrary(hAtl);
       hAtl = nullptr;
    }
@@ -609,20 +611,23 @@ static HRESULT STDMETHODCALLTYPE QueryInterface(IEventHandler * self, REFIID vTa
    // IDispatch GUID, then we'll return the IExample3, since it can masquerade
    // as an IDispatch too
 
-   if( IsEqualIID(vTableGuid, IID_IUnknown) ) {
+   if( IsEqualIID(vTableGuid, IID_IUnknown) )
+   {
       *ppv = reinterpret_cast<IUnknown*>(self);
       // Increment the count of callers who have an outstanding pointer to self object
       self->lpVtbl->AddRef(self);
       return S_OK;
    }
 
-   if( IsEqualIID(vTableGuid, IID_IDispatch) ) {
+   if( IsEqualIID(vTableGuid, IID_IDispatch) )
+   {
       *ppv = reinterpret_cast<IDispatch*>(self);
       self->lpVtbl->AddRef(self);
       return S_OK;
    }
 
-   if( IsEqualIID(vTableGuid, ((reinterpret_cast<MyRealIEventHandler*>(self))->device_event_interface_iid)) ) {
+   if( IsEqualIID(vTableGuid, ((reinterpret_cast<MyRealIEventHandler*>(self))->device_event_interface_iid)) )
+   {
       *ppv = reinterpret_cast<IDispatch*>(self);
       self->lpVtbl->AddRef(self);
       return S_OK;
@@ -650,7 +655,8 @@ static ULONG STDMETHODCALLTYPE AddRef(IEventHandler * self)
 // IEventHandler's Release()
 static ULONG STDMETHODCALLTYPE Release(IEventHandler * self)
 {
-   if( --(reinterpret_cast<MyRealIEventHandler*>(self))->count == 0 ) {
+   if( --(reinterpret_cast<MyRealIEventHandler*>(self))->count == 0 )
+   {
       GlobalFree(self);
       return 0;
    }
@@ -708,7 +714,8 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
    auto Key = hb_itemNew(nullptr);
 
    // We implement only a "default" interface
-   if( !IsEqualIID(riid, IID_NULL) ) {
+   if( !IsEqualIID(riid, IID_NULL) )
+   {
       return static_cast<ULONG>(DISP_E_UNKNOWNINTERFACE);
    }
 
@@ -723,24 +730,29 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
 
 #ifdef __USEHASHEVENTS
 
-   if( hb_hashScan((reinterpret_cast<MyRealIEventHandler*>(self))->pEvents, hb_itemPutNL(Key, dispid), &ulPos) ) {
+   if( hb_hashScan((reinterpret_cast<MyRealIEventHandler*>(self))->pEvents, hb_itemPutNL(Key, dispid), &ulPos) )
+   {
       PHB_ITEM pArray = hb_hashGetValueAt((reinterpret_cast<MyRealIEventHandler*>(self))->pEvents, ulPos);
 
 #else
 
    ulPos = hb_arrayScan((reinterpret_cast<MyRealIEventHandler*>(self))->pEvents, hb_itemPutNL(Key, dispid), nullptr, nullptr, 0);
 
-   if( ulPos ) {
+   if( ulPos )
+   {
       PHB_ITEM pArray = hb_arrayGetItemPtr((reinterpret_cast<MyRealIEventHandler*>(self))->pEventsExec, ulPos);
 
 #endif
       PHB_ITEM pExec = hb_arrayGetItemPtr(pArray, 1);
 
-      if( pExec ) {
+      if( pExec )
+      {
 
-         if( hb_vmRequestReenter() ) {
+         if( hb_vmRequestReenter() )
+         {
 
-            switch( hb_itemType(pExec) ) {
+            switch( hb_itemType(pExec) )
+            {
 
                case Harbour::Item::BLOCK:
                {
@@ -754,9 +766,12 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
                   PHB_ITEM pObject = hb_arrayGetItemPtr(pArray, 2);
                   hb_vmPushSymbol(hb_dynsymSymbol(hb_dynsymFindName(hb_itemGetCPtr(pExec))));
 
-                  if( HB_IS_OBJECT(pObject) ) {
+                  if( HB_IS_OBJECT(pObject) )
+                  {
                      hb_vmPush(pObject);
-                  } else {
+                  }
+                  else
+                  {
                      hb_vmPushNil();
                   }
                   break;
@@ -771,7 +786,8 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
             }
 
             iArg = params->cArgs;
-            for( i = 1; i <= iArg; i++ ) {
+            for( i = 1; i <= iArg; i++ )
+            {
                pItem = hb_itemNew(nullptr);
                hb_oleVariantToItem(pItem, &(params->rgvarg[iArg - i]));
                pItemArray[i - 1] = pItem;
@@ -779,10 +795,13 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
                //ulRefMask |= (1L << (i - 1));
             }
 
-            if( iArg ) {
+            if( iArg )
+            {
                pItems = pItemArray;
-               if( iArg ) {
-                  for( i = 0; i < iArg; i++ ) {
+               if( iArg )
+               {
+                  for( i = 0; i < iArg; i++ )
+                  {
                      hb_vmPush((pItems)[i]);
                   }
                }
@@ -792,10 +811,13 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
             hb_vmDo(static_cast<USHORT>(iArg));
 
             // En caso de que los parametros sean pasados por referencia
-            for( i = iArg; i > 0; i-- ) {
-               if( ((&(params->rgvarg[iArg - i]))->n1.n2.vt & VT_BYREF) == VT_BYREF ) {
+            for( i = iArg; i > 0; i-- )
+            {
+               if( ((&(params->rgvarg[iArg - i]))->n1.n2.vt & VT_BYREF) == VT_BYREF )
+               {
 
-                  switch( (&(params->rgvarg[iArg - i]))->n1.n2.vt ) {
+                  switch( (&(params->rgvarg[iArg - i]))->n1.n2.vt )
+                  {
 
                      //case VT_UI1|VT_BYREF:
                      //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbVal) = va_arg(argList,unsigned char*);  //pItemArray[i-1]
@@ -891,9 +913,12 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
 
    auto selfobj = static_cast<IEventHandler*>(GlobalAlloc(GMEM_FIXED, sizeof(MyRealIEventHandler)));
 
-   if( !selfobj ) {
+   if( !selfobj )
+   {
       hr = E_OUTOFMEMORY;
-   } else {
+   }
+   else
+   {
       // Store IEventHandler's VTable in the object
       selfobj->lpVtbl = const_cast<IEventHandlerVtbl*>(&IEventHandler_Vtbl);
 
@@ -907,19 +932,24 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
       // Query self object itself for its IUnknown pointer which will be used
       // later to connect to the Connection Point of the device_interface object.
       hr = selfobj->lpVtbl->QueryInterface(selfobj, IID_IUnknown, static_cast<void**>(static_cast<void*>(&pIUnknown)));
-      if( hr == S_OK && pIUnknown ) {
+      if( hr == S_OK && pIUnknown )
+      {
 
          // Query the pdevice_interface for its connection point.
          hr = pdevice_interface->lpVtbl->QueryInterface(pdevice_interface, IID_IConnectionPointContainer, static_cast<void**>(static_cast<void*>(&pIConnectionPointContainerTemp)));
 
-         if( hr == S_OK && pIConnectionPointContainerTemp ) {
+         if( hr == S_OK && pIConnectionPointContainerTemp )
+         {
             hr = pIConnectionPointContainerTemp->lpVtbl->EnumConnectionPoints(pIConnectionPointContainerTemp, &m_pIEnumConnectionPoints);
 
-            if( hr == S_OK && m_pIEnumConnectionPoints ) {
+            if( hr == S_OK && m_pIEnumConnectionPoints )
+            {
                do {
                   hr = m_pIEnumConnectionPoints->lpVtbl->Next(m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, nullptr);
-                  if( hr == S_OK ) {
-                     if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface(m_pIConnectionPoint, &rriid) == S_OK ) {
+                  if( hr == S_OK )
+                  {
+                     if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface(m_pIConnectionPoint, &rriid) == S_OK )
+                     {
                         break;
                      }
                   }
@@ -932,9 +962,11 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
             pIConnectionPointContainerTemp = nullptr;
          }
 
-         if( hr == S_OK && m_pIConnectionPoint ) {
+         if( hr == S_OK && m_pIConnectionPoint )
+         {
 
-            if( hr == S_OK ) {
+            if( hr == S_OK )
+            {
                (reinterpret_cast<MyRealIEventHandler*>(selfobj))->device_event_interface_iid = rriid;
             }
 
@@ -950,7 +982,8 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
       }
    }
 
-   if( selfobj ) {
+   if( selfobj )
+   {
       pThis = reinterpret_cast<MyRealIEventHandler*>(selfobj);
 
 #ifndef __USEHASHEVENTS
@@ -969,7 +1002,8 @@ HB_FUNC( HMG_SHUTDOWNCONNECTIONPOINT )
 {
    auto self = reinterpret_cast<MyRealIEventHandler*>(HB_PARNL(1));
 
-   if( self->pIConnectionPoint ) {
+   if( self->pIConnectionPoint )
+   {
       self->pIConnectionPoint->lpVtbl->Unadvise(self->pIConnectionPoint, self->dwEventCookie);
       self->dwEventCookie = 0;
       self->pIConnectionPoint->lpVtbl->Release(self->pIConnectionPoint);

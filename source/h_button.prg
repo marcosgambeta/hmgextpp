@@ -464,19 +464,23 @@ HB_FUNC_STATIC( HMG_INITBUTTON )
 
    DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON); // JK
 
-   if( hb_parl(10) ) {
+   if( hb_parl(10) )
+   {
       style |= BS_FLAT;
    }
 
-   if( !hb_parl(11) ) {
+   if( !hb_parl(11) )
+   {
       style |= WS_TABSTOP;
    }
 
-   if( !hb_parl(12) ) {
+   if( !hb_parl(12) )
+   {
       style |= WS_VISIBLE;
    }
 
-   if( hb_parl(13) ) {
+   if( hb_parl(13) )
+   {
       style |= BS_MULTILINE;
    }
 
@@ -515,15 +519,18 @@ HB_FUNC_STATIC( HMG_INITIMAGEBUTTON )
 
    DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON) | (hb_parc(14) == nullptr ? BS_BITMAP : BS_ICON); // JK
 
-   if( hb_parl(9) ) {
+   if( hb_parl(9) )
+   {
       style |= BS_FLAT;
    }
 
-   if( !hb_parl(11) ) {
+   if( !hb_parl(11) )
+   {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) ) {
+   if( !hb_parl(12) )
+   {
       style |= WS_TABSTOP;
    }
 
@@ -540,36 +547,48 @@ HB_FUNC_STATIC( HMG_INITIMAGEBUTTON )
                                  GetInstance(),
                                  nullptr);
 
-   if( HB_ISNIL(14) ) {
-      if( !hb_parl(17) ) {
+   if( HB_ISNIL(14) )
+   {
+      if( !hb_parl(17) )
+      {
          auto himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
          hb_reta(2);
          hmg_storvhandle(hbutton, -1, 1);
          hmg_storvhandle(himage, -1, 2);
-      } else {
+      }
+      else
+      {
          himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
          hb_reta(2);
          hmg_storvhandle(hbutton, -1, 1);
          hmg_storvhandle(himl, -1, 2);
       }
-   } else {
-      if( !hb_parl(15) ) {
+   }
+   else
+   {
+      if( !hb_parl(15) )
+      {
          hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
-         if( hIcon == nullptr ) {
+         if( hIcon == nullptr )
+         {
             hIcon = static_cast<HICON>(LoadImage(0, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
          }
-      } else {
+      }
+      else
+      {
          hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), lpIconName, hb_parni(16)));
 
-         if( hIcon == nullptr ) {
+         if( hIcon == nullptr )
+         {
             hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), TEXT("user.exe"), 0));
          }
       }
 
-      if( hb_parl(17) ) {
+      if( hb_parl(17) )
+      {
          ICONINFO sIconInfo;
          GetIconInfo(hIcon, &sIconInfo);
          BITMAP bm;
@@ -595,7 +614,9 @@ HB_FUNC_STATIC( HMG_INITIMAGEBUTTON )
          hb_reta(2);
          hmg_storvhandle(hbutton, -1, 1);
          hmg_storvhandle(himl, -1, 2);
-      } else {
+      }
+      else
+      {
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
 
          hb_reta(2);

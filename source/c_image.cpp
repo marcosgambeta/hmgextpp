@@ -598,7 +598,8 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
 #if 0
 HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlphaConstant)
 {
-   if( pszImageName == nullptr ) {
+   if( pszImageName == nullptr )
+   {
       return nullptr;
    }
 
@@ -606,23 +607,28 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
    UINT fuLoad = (Transparent == 0) ? LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS : LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT;
 
-   if( bAlphaFormat == false ) { // Firstly find BMP image in resourses (.EXE file)
+   if( bAlphaFormat == false )
+   { // Firstly find BMP image in resourses (.EXE file)
       hBitmap_new = static_cast<HBITMAP>(LoadImage(GetResources(), pszImageName, IMAGE_BITMAP, 0, 0, fuLoad));
       // If fail: find BMP in disk
-      if( hBitmap_new == nullptr ) {
+      if( hBitmap_new == nullptr )
+      {
          hBitmap_new = static_cast<HBITMAP>(LoadImage(nullptr, pszImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | fuLoad));
       }
    }
    // Secondly find BMP (bitmap), ICO (icon), JPEG, GIF, WMF (metafile) file on disk or URL
-   if( hBitmap_new == nullptr && hb_strnicmp("http", pszImageName, 4) == 0 ) {
+   if( hBitmap_new == nullptr && hb_strnicmp("http", pszImageName, 4) == 0 )
+   {
       hBitmap_new = HMG_OleLoadPicturePath(pszImageName);
    }
    // If fail: find JPG, GIF, WMF, TIF and PNG images using GDI+
-   if( hBitmap_new == nullptr ) {
+   if( hBitmap_new == nullptr )
+   {
       hBitmap_new = HMG_LoadImage(pszImageName, nullptr);
    }
    // If fail: return
-   if( hBitmap_new == nullptr ) {
+   if( hBitmap_new == nullptr )
+   {
       return nullptr;
    }
 
@@ -631,19 +637,24 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    LONG bmWidth  = bm.bmWidth;
    LONG bmHeight = bm.bmHeight;
 
-   if( width < 0 ) { // load image with original Width
+   if( width < 0 )
+   { // load image with original Width
       width = bmWidth;
    }
 
-   if( height < 0 ) { // load image with original Height
+   if( height < 0 )
+   { // load image with original Height
       height = bmHeight;
    }
 
    RECT rect;
 
-   if( width == 0 || height == 0 ) {
+   if( width == 0 || height == 0 )
+   {
       GetClientRect(hWnd, &rect);
-   } else {
+   }
+   else
+   {
       SetRect(&rect, 0, 0, width, height);
    }
 
@@ -654,17 +665,24 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    auto memDC1 = CreateCompatibleDC(hDC);
    auto memDC2 = CreateCompatibleDC(hDC);
 
-   if( ScaleStretch == 0 ) {
-      if( static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right ) {
+   if( ScaleStretch == 0 )
+   {
+      if( static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right )
+      {
          rect.right = static_cast<int>(bmWidth) * rect.bottom / bmHeight;
-      } else {
+      }
+      else
+      {
          rect.bottom = static_cast<int>(bmHeight) * rect.right / bmWidth;
       }
 
-      if( AdjustImage == 1 ) {
+      if( AdjustImage == 1 )
+      {
          width  = rect.right;
          height = rect.bottom;
-      } else { // Center Image
+      }
+      else
+      { // Center Image
          rect.left = static_cast<int>( width - rect.right ) / 2;
          rect.top  = static_cast<int>( height - rect.bottom ) / 2;
       }
@@ -674,32 +692,42 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    auto new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
    auto old_hBitmap = static_cast<HBITMAP>(SelectObject(memDC2, new_hBitmap));
 
-   if( BackgroundColor == -1 ) {
+   if( BackgroundColor == -1 )
+   {
       FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
-   } else {
+   }
+   else
+   {
       auto hBrush = CreateSolidBrush(BackgroundColor);
 
       FillRect(memDC2, &rect2, hBrush);
       DeleteObject(hBrush);
    }
 
-   if( ScaleStretch == 1 ) {
+   if( ScaleStretch == 1 )
+   {
       SetStretchBltMode(memDC2, COLORONCOLOR);
-   } else {
+   }
+   else
+   {
       POINT Point;
       GetBrushOrgEx(memDC2, &Point);
       SetStretchBltMode(memDC2, HALFTONE);
       SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
    }
 
-   if( Transparent == 1 && bAlphaFormat == false ) {
+   if( Transparent == 1 && bAlphaFormat == false )
+   {
       TransparentBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, GetPixel(memDC1, 0, 0));
-   } else if( Transparent == 1 || bAlphaFormat == true ) {
+   }
+   else if( Transparent == 1 || bAlphaFormat == true )
+   {
       // TransparentBlt is supported for source bitmaps of 4 bits per pixel and 8 bits per pixel.
       // Use AlphaBlend to specify 32 bits-per-pixel bitmaps with transparency.
       BLENDFUNCTION ftn;
 
-      if( bAlphaFormat ) {
+      if( bAlphaFormat )
+      {
          ftn.AlphaFormat = AC_SRC_ALPHA;
       }
 
@@ -708,7 +736,9 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
       ftn.SourceConstantAlpha = static_cast<BYTE>(iAlphaConstant);
 
       AlphaBlend(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, ftn);
-   } else {
+   }
+   else
+   {
       StretchBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, SRCCOPY);
    }
 

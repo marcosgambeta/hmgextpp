@@ -572,9 +572,12 @@ HB_FUNC( GETTIMEZONEBIAS )
    TIME_ZONE_INFORMATION tzInfo;
    DWORD retval = GetTimeZoneInformation(&tzInfo);
 
-   if( retval == TIME_ZONE_ID_INVALID ) {
+   if( retval == TIME_ZONE_ID_INVALID )
+   {
       hb_retnl(0);
-   } else {
+   }
+   else
+   {
       hb_retnl(tzInfo.Bias + (retval == TIME_ZONE_ID_STANDARD ? tzInfo.StandardBias : tzInfo.DaylightBias));
    }
 }
@@ -583,28 +586,37 @@ HB_FUNC_STATIC( MEMOREAD )
 {
    auto pFileName = hb_param(1, Harbour::Item::STRING);
 
-   if( pFileName ) {
+   if( pFileName )
+   {
       FHANDLE fhnd = hb_fsOpen(hb_itemGetCPtr(pFileName), FO_READ | FO_SHARED | FO_PRIVATE);
 
-      if( fhnd != FS_ERROR ) {
+      if( fhnd != FS_ERROR )
+      {
          ULONG ulSize = hb_fsSeek(fhnd, 0, FS_END);
 
-         if( ulSize != 0 ) {
+         if( ulSize != 0 )
+         {
             auto pbyBuffer = static_cast<BYTE*>(hb_xgrab(ulSize + sizeof(char)));
 
             hb_fsSeek(fhnd, 0, FS_SET);
             hb_fsReadLarge(fhnd, pbyBuffer, ulSize);
 
             hb_retclen_buffer((char *) pbyBuffer, ulSize);
-         } else {
+         }
+         else
+         {
             hb_retc(nullptr);
          }
 
          hb_fsClose(fhnd);
-      } else {
+      }
+      else
+      {
          hb_retc(nullptr);
       }
-   } else {
+   }
+   else
+   {
       hb_retc(nullptr);
    }
 }

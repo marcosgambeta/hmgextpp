@@ -533,7 +533,8 @@ static BOOL InsertItem(HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width) //
   }
 
   /* to do
-  if( hBitmap ) {
+  if( hBitmap )
+  {
      hdi.mask |= HDI_BITMAP; // The .hbm member is valid.
      hdi.cxy = 32;           // The initial width.
      hdi.hbm = hBitmap;      // The handle to the bitmap.

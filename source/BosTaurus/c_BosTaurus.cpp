@@ -119,9 +119,12 @@ BOOL bt_bmp_is_24bpp(HBITMAP hBitmap)
 {
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), (LPBYTE)&bm);
-   if( bm.bmBitsPixel == 24 ) {
+   if( bm.bmBitsPixel == 24 )
+   {
       return TRUE;
-   } else {
+   }
+   else
+   {
       return FALSE;
    }
 }
@@ -184,7 +187,8 @@ static HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_h
    DeleteDC(memDC1);
    DeleteDC(memDC2);
 
-   if( IsDelete_hBitmap_Original ) {
+   if( IsDelete_hBitmap_Original )
+   {
       DeleteObject(hBitmap_Original);
    }
 

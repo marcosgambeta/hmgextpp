@@ -467,7 +467,8 @@ HB_FUNC( HMG_INITCLBUTTON )
 
    style = BS_COMMANDLINK;
 
-   if( hb_parl( 5 ) ) {
+   if( hb_parl( 5 ) )
+   {
       style = BS_DEFCOMMANDLINK;
    }
 
@@ -493,7 +494,8 @@ HB_FUNC( HMG_INITCLBUTTON )
 
 HB_FUNC( HMG_CLBUTTON_SETNOTE )
 {
-   if( HB_ISCHAR(2) ) {
+   if( HB_ISCHAR(2) )
+   {
       LPSTR  szText        = const_cast<LPSTR>(hb_parc(2));
       int    nConvertedLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0);
       auto lpwText = static_cast<LPWSTR>(hb_xgrab(nConvertedLen * 2 + 1));
@@ -540,7 +542,8 @@ HB_FUNC( HMG_CLBUTTON_SETIMAGE )
       LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT
           );
 
-   if( himl == nullptr ) {
+   if( himl == nullptr )
+   {
       himl = ImageList_LoadImage
              (
          GetModuleHandle(nullptr),
