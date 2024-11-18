@@ -167,7 +167,7 @@ HMG_COMBOGETEDITSEL(HWND) --> array
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
   auto pos = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
-                                             reinterpret_cast<LPARAM>(nullptr)));
+                                            reinterpret_cast<LPARAM>(nullptr)));
   hb_reta(2);
   HB_STORNI(LOWORD(pos), -1, 1);
   HB_STORNI(HIWORD(pos), -1, 2);
