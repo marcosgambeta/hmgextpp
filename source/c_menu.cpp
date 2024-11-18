@@ -381,7 +381,7 @@ HB_FUNC(HMG_APPENDMENUSTRING)
 
   if (s_bCustomDraw)
   {
-    UINT cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
+    auto cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
     auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
     ZeroMemory(lpMenuItem, sizeof(MENUITEM));
@@ -438,7 +438,7 @@ HB_FUNC(HMG_APPENDMENUPOPUP)
 
   if (s_bCustomDraw)
   {
-    UINT cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
+    auto cch = static_cast<UINT>(HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
     auto lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
     lpMenuItem->cbSize = hb_parni(2);
@@ -907,7 +907,7 @@ HB_FUNC(HMG__ONDRAWMENUITEM)
   }
 
   // draw menu item text
-  int iLen = static_cast<int>(HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR)));
+  auto iLen = static_cast<int>(HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR)));
 
   if (lpMenuItem->uiItemType == 1)
   {

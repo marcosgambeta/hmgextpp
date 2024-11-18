@@ -23,7 +23,7 @@ UINT TimedMessageBox(HWND hwndParent, LPCTSTR ptszMessage, LPCTSTR ptszTitle, UI
   /*
    *  Set a timer to dismiss the Message box.
    */
-  UINT idTimer = static_cast<UINT>(SetTimer(nullptr, 0, dwTimeout, reinterpret_cast<TIMERPROC>(MessageBoxTimer)));
+  auto idTimer = static_cast<UINT>(SetTimer(nullptr, 0, dwTimeout, reinterpret_cast<TIMERPROC>(MessageBoxTimer)));
 
   UINT uiResult = MessageBox(hwndParent, ptszMessage ? ptszMessage : "", ptszTitle ? ptszTitle : "", flags);
 

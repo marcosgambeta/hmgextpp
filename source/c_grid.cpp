@@ -347,7 +347,7 @@ HB_FUNC(HMG_INITLISTVIEWCOLUMNS)
 #else
   LPWSTR lpText;
 #endif
-  int iLen = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto iLen = static_cast<int>(hb_parinfa(2, 0)) - 1;
   auto hArray = hb_param(2, Harbour::Item::ARRAY);
   auto wArray = hb_param(3, Harbour::Item::ARRAY);
   auto jArray = hb_param(4, Harbour::Item::ARRAY);
@@ -403,7 +403,7 @@ HB_FUNC(HMG_ADDLISTVIEWITEMS)
 #endif
 
   auto h = hmg_par_HWND(1);
-  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
   auto hArray = hb_param(2, Harbour::Item::ARRAY);
   int c = ListView_GetItemCount(h);
 
@@ -502,7 +502,7 @@ HB_FUNC(HMG_LISTVIEWSETMULTISEL)
   // SET NEW SELECTIONS
 
   auto wArray = hb_param(2, Harbour::Item::ARRAY);
-  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
   for (i = 0; i <= l; i++)
   {
     ListView_SetItemState(hwnd, hb_arrayGetNI(wArray, i + 1) - 1, LVIS_FOCUSED | LVIS_SELECTED,
@@ -520,7 +520,7 @@ HB_FUNC(HMG_LISTVIEWSETITEM)
 #else
   LPWSTR lpText;
 #endif
-  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
   auto hArray = hb_param(2, Harbour::Item::ARRAY);
   char *caption;
   auto h = hmg_par_HWND(1);

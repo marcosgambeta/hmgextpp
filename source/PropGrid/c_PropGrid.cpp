@@ -1779,7 +1779,7 @@ ADDTREEITEMS(HWND, ap2, p3) --> numeric
 HB_FUNC(ADDTREEITEMS)
 {
   auto h = hmg_par_HWND(1);
-  int l = static_cast<int>(hb_parinfa(2, 0) - 1);
+  auto l = static_cast<int>(hb_parinfa(2, 0) - 1);
   auto hArray = hb_param(2, Harbour::Item::ARRAY);
   int c = ListView_GetItemCount(h);
   auto caption = const_cast<char *>(hb_arrayGetCPtr(hArray, 1));
@@ -1883,7 +1883,7 @@ HB_FUNC(PGCOMBOADDSTRING)
 {
   auto hILst = hmg_par_HIMAGELIST(3);
   auto cString = const_cast<char *>(hb_parc(2));
-  DWORD dwIndex = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString)));
+  auto dwIndex = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString)));
   if (hb_parnl(3))
   {
     SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, reinterpret_cast<LPARAM>(hILst));

@@ -106,7 +106,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     auto psn = reinterpret_cast<PSHNOTIFY *>(lParam);
 
     int nPage = PropSheet_HwndToIndex(hWndParent, hWndDlg);
-    int nId = static_cast<int>(PropSheet_IndexToId(hWndParent, nPage));
+    auto nId = static_cast<int>(PropSheet_IndexToId(hWndParent, nPage));
 
     if (!pSymbol3)
     {
@@ -290,7 +290,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   auto sArray = hb_param(2, Harbour::Item::ARRAY);
   auto pArray = hb_param(3, Harbour::Item::ARRAY);
 
-  int nPages = static_cast<int>(hb_arrayLen(sArray));
+  auto nPages = static_cast<int>(hb_arrayLen(sArray));
   auto hpsp = static_cast<HPROPSHEETPAGE *>(malloc(sizeof(HPROPSHEETPAGE) * nPages));
   for (auto s = 0; s < nPages; s = s + 1)
   {

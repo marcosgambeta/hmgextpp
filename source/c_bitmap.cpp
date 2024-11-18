@@ -295,7 +295,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
     return nullptr;
   }
 
-  BITMAPINFOHEADER FAR *lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
+  auto lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
 
   memcpy(reinterpret_cast<char *>(lpbi), reinterpret_cast<char *>(&bi), sizeof(bi));
 

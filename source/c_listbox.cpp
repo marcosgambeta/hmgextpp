@@ -126,7 +126,7 @@ HB_FUNC(HMG_LISTBOXGETSTRING)
 #ifdef UNICODE
   LPSTR lpString;
 #endif
-  int iLen = static_cast<int>(SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
+  auto iLen = static_cast<int>(SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
   TCHAR *cString;
 
   if (iLen > 0 && (cString = static_cast<TCHAR *>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr)
@@ -190,7 +190,7 @@ HB_FUNC(HMG_INITMULTILISTBOX)
 HB_FUNC(HMG_LISTBOXGETMULTISEL)
 {
   auto hwnd = hmg_par_HWND(1);
-  INT n = static_cast<INT>(SendMessage(hwnd, LB_GETSELCOUNT, 0, 0));
+  auto n = static_cast<INT>(SendMessage(hwnd, LB_GETSELCOUNT, 0, 0));
   int buffer[32768];
 
   SendMessage(hwnd, LB_GETSELITEMS, n, reinterpret_cast<LPARAM>(buffer));
@@ -206,7 +206,7 @@ HB_FUNC(HMG_LISTBOXGETMULTISEL)
 HB_FUNC(HMG_LISTBOXSETMULTISEL)
 {
   auto hwnd = hmg_par_HWND(1);
-  int n = static_cast<int>(SendMessage(hwnd, LB_GETCOUNT, 0, 0));
+  auto n = static_cast<int>(SendMessage(hwnd, LB_GETCOUNT, 0, 0));
 
   // CLEAR CURRENT SELECTIONS
   for (auto i = 0; i < n; i++)
@@ -215,7 +215,7 @@ HB_FUNC(HMG_LISTBOXSETMULTISEL)
   }
 
   auto wArray = hb_param(2, Harbour::Item::ARRAY);
-  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
 
   // SET NEW SELECTIONS
   for (auto i = 0; i <= l; i++)
@@ -226,7 +226,7 @@ HB_FUNC(HMG_LISTBOXSETMULTISEL)
 
 HB_FUNC(HMG_LISTBOXSETMULTITAB)
 {
-  int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+  auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
   int nTabStops[TOTAL_TABS];
   auto wArray = hb_param(2, Harbour::Item::ARRAY);
   DWORD dwDlgBase = GetDialogBaseUnits();
@@ -267,7 +267,7 @@ HB_FUNC(HMG_DRAG_LIST_DRAWINSERT)
   auto nItem = hb_parni(3);
   auto lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
-  int nItemCount = static_cast<int>(SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0));
+  auto nItemCount = static_cast<int>(SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0));
 
   if (nItem < nItemCount)
   {

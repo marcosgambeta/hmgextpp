@@ -166,7 +166,7 @@ HMG_COMBOGETEDITSEL(HWND) --> array
 */
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
-  DWORD pos = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
+  auto pos = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
                                              reinterpret_cast<LPARAM>(nullptr)));
   hb_reta(2);
   HB_STORNI(LOWORD(pos), -1, 1);
@@ -215,7 +215,7 @@ HMG_COMBOGETSTRING(HWND, np2) --> cString
 */
 HB_FUNC(HMG_COMBOGETSTRING)
 {
-  int strlen = static_cast<int>(SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
+  auto strlen = static_cast<int>(SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
 
   if (strlen > 0)
   {

@@ -670,10 +670,10 @@ HB_FUNC(HMG_RICHEDITBOX_GETTEXTRANGE)
 HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
 {
   auto hWndControl = hmg_par_HWND(1);
-  BOOL Down = static_cast<BOOL>(HB_ISNIL(3) ? TRUE : hb_parl(3));
-  BOOL MatchCase = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
-  BOOL WholeWord = static_cast<BOOL>(HB_ISNIL(5) ? FALSE : hb_parl(5));
-  BOOL SelectFindText = static_cast<BOOL>(HB_ISNIL(6) ? TRUE : hb_parl(6));
+  auto Down = static_cast<BOOL>(HB_ISNIL(3) ? TRUE : hb_parl(3));
+  auto MatchCase = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
+  auto WholeWord = static_cast<BOOL>(HB_ISNIL(5) ? FALSE : hb_parl(5));
+  auto SelectFindText = static_cast<BOOL>(HB_ISNIL(6) ? TRUE : hb_parl(6));
 
   auto Options = 0;
 
@@ -740,10 +740,10 @@ HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
 //        nNumberingStart, ndOffset, ndLineSpacing, ndStartIndent)
 HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
 {
-  WORD Alignment = static_cast<WORD>(HB_ISNIL(2) ? 0 : hb_parni(2));
-  WORD Numbering = static_cast<WORD>(HB_ISNIL(3) ? 0 : hb_parni(3));
-  WORD NumberingStyle = static_cast<WORD>(HB_ISNIL(4) ? 0 : hb_parni(4));
-  WORD NumberingStart = static_cast<WORD>(HB_ISNIL(5) ? 0 : hb_parni(5));
+  auto Alignment = static_cast<WORD>(HB_ISNIL(2) ? 0 : hb_parni(2));
+  auto Numbering = static_cast<WORD>(HB_ISNIL(3) ? 0 : hb_parni(3));
+  auto NumberingStyle = static_cast<WORD>(HB_ISNIL(4) ? 0 : hb_parni(4));
+  auto NumberingStart = static_cast<WORD>(HB_ISNIL(5) ? 0 : hb_parni(5));
   double Offset = HB_ISNIL(6) ? 0.0 : hb_parnd(6);
   double LineSpacing = HB_ISNIL(7) ? 0.0 : hb_parnd(7);
   double StartIndent = HB_ISNIL(8) ? 0.0 : hb_parnd(8);
@@ -1104,7 +1104,7 @@ HB_FUNC(HMG_RICHEDITBOX_PASTESPECIAL) // Paste a specific clipboard format in a 
   }
   else
   {
-    WPARAM ClipboardFormat = static_cast<WPARAM>(hb_parnl(2));
+    auto ClipboardFormat = static_cast<WPARAM>(hb_parnl(2));
     SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
   }
 }
@@ -1192,12 +1192,12 @@ HB_FUNC(HMG_REGISTERFINDMSGSTRING)
 HB_FUNC(HMG_FINDREPLACEDLG)
 {
   HWND hWnd = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
-  BOOL NoUpDown = static_cast<BOOL>(HB_ISNIL(2) ? FALSE : hb_parl(2));
-  BOOL NoMatchCase = static_cast<BOOL>(HB_ISNIL(3) ? FALSE : hb_parl(3));
-  BOOL NoWholeWord = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
-  BOOL CheckDown = static_cast<BOOL>(HB_ISNIL(5) ? TRUE : hb_parl(5));
-  BOOL CheckMatchCase = static_cast<BOOL>(HB_ISNIL(6) ? FALSE : hb_parl(6));
-  BOOL CheckWholeWord = static_cast<BOOL>(HB_ISNIL(7) ? FALSE : hb_parl(7));
+  auto NoUpDown = static_cast<BOOL>(HB_ISNIL(2) ? FALSE : hb_parl(2));
+  auto NoMatchCase = static_cast<BOOL>(HB_ISNIL(3) ? FALSE : hb_parl(3));
+  auto NoWholeWord = static_cast<BOOL>(HB_ISNIL(4) ? FALSE : hb_parl(4));
+  auto CheckDown = static_cast<BOOL>(HB_ISNIL(5) ? TRUE : hb_parl(5));
+  auto CheckMatchCase = static_cast<BOOL>(HB_ISNIL(6) ? FALSE : hb_parl(6));
+  auto CheckWholeWord = static_cast<BOOL>(HB_ISNIL(7) ? FALSE : hb_parl(7));
   auto lReplace = hmg_par_BOOL(10);
 
   void *str1;

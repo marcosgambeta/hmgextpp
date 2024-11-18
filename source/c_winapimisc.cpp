@@ -106,7 +106,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
 #else
   LPWSTR lpCommandLine = AnsiToWide(const_cast<char *>(hb_parc(1)));
 #endif
-  const char *szFile = static_cast<const char *>(hb_parc(3));
+  auto szFile = static_cast<const char *>(hb_parc(3));
   HB_FHANDLE nHandle;
 
   SECURITY_ATTRIBUTES sa{};
@@ -201,7 +201,7 @@ HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText i
 {
   UINT cf;
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-  int nLen = static_cast<int>(strlen(cStr));
+  auto nLen = static_cast<int>(strlen(cStr));
 
   if ((nLen == 0) || !OpenClipboard(GetActiveWindow()))
   {
@@ -232,7 +232,7 @@ HB_FUNC(HMG_COPYRTFTOCLIPBOARD) // CopyRtfToClipboard(cRtfText) store cRTFText i
 HB_FUNC(HMG_COPYTOCLIPBOARD) // CopyToClipboard(cText) store cText in Windows clipboard
 {
   const char *cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-  int nLen = static_cast<int>(strlen(cStr));
+  auto nLen = static_cast<int>(strlen(cStr));
 
   if ((nLen == 0) || !OpenClipboard(GetActiveWindow()))
   {

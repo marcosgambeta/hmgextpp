@@ -288,7 +288,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
   }
 
   PHB_ITEM iArray;
-  int nItem = static_cast<int>(hb_arrayLen(cArray));
+  auto nItem = static_cast<int>(hb_arrayLen(cArray));
 
   for (auto s = 0; s < nItem; s++)
   {
@@ -318,7 +318,7 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   ULONG Id;
   int nchar;
 
-  PWORD pdlgtemplate = static_cast<WORD *>(LocalAlloc(LPTR, lTemplateSize));
+  auto pdlgtemplate = static_cast<PWORD>(LocalAlloc(LPTR, lTemplateSize));
 
   PWORD pw = pdlgtemplate;
 
@@ -328,7 +328,7 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   auto y = hb_arrayGetNI(dArray, 7);  // y
   auto w = hb_arrayGetNI(dArray, 8);  // w
   auto h = hb_arrayGetNI(dArray, 9);  // h
-  int nItem = static_cast<int>(hb_arrayLen(cArray));
+  auto nItem = static_cast<int>(hb_arrayLen(cArray));
 
   *pw++ = 1;      // DlgVer
   *pw++ = 0xFFFF; // Signature
