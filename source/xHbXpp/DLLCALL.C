@@ -503,7 +503,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
   /*SetLastError(0);*/
   rc = DynaCall(iFlags, lpFunction, iArgCnt, Parm, NULL, 0);
 
-  /*if( GetLastError() )
+  /*if (GetLastError())
   {
      LPVOID lpMsgBuf;
 

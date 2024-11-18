@@ -533,7 +533,7 @@ static BOOL InsertItem(HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width) //
   }
 
   /* to do
-  if( hBitmap )
+  if (hBitmap)
   {
      hdi.mask |= HDI_BITMAP; // The .hbm member is valid.
      hdi.cxy = 32;           // The initial width.
@@ -780,7 +780,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
           style = DFCS_BUTTONCHECK;
         }
         else
-        { // if( iCheck == 2 )
+        { // if (iCheck == 2)
           style = DFCS_BUTTONCHECK | DFCS_CHECKED;
         }
 

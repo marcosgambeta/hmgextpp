@@ -457,44 +457,44 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
 
    DWORD style = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN; // TEXTBOX window base style
 
-   if( hb_parl(12) )
+   if (hb_parl(12))
    { // if <lNumeric> is TRUE, then ES_NUMBER style is added.
       style |= ES_NUMBER;
    }
    else
    {
-      if( hb_parl(10) )
+      if (hb_parl(10))
       { // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
          style |= ES_UPPERCASE;
       }
 
-      if( hb_parl(11) )
+      if (hb_parl(11))
       { // if <lLower> is TRUE, then ES_LOWERCASE style is added.
          style |= ES_LOWERCASE;
       }
    }
 
-   if( hb_parl(13) )
+   if (hb_parl(13))
    { // if <lPassword> is TRUE, then ES_PASSWORD style is added.
       style |= ES_PASSWORD;
    }
 
-   if( hb_parl(14) )
+   if (hb_parl(14))
    {
       style |= ES_RIGHT;
    }
 
-   if( !hb_parl(15) )
+   if (!hb_parl(15))
    {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(16) )
+   if (!hb_parl(16))
    {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(21) )
+   if (hb_parl(21))
    {
       style |= ES_READONLY;
    }
@@ -518,27 +518,27 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
 
    SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
-   if( hb_parc(17) != nullptr )
+   if (hb_parc(17) != nullptr)
    {
       void * ImageName;
       LPCTSTR lpImageName = HB_PARSTR(17, &ImageName, nullptr);
 
       himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-      if( himage == nullptr )
+      if (himage == nullptr)
       {
          himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
-      if( himage != nullptr )
+      if (himage != nullptr)
       {
          BITMAP bm;
          GetObject(himage, sizeof(BITMAP), &bm);
-         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5 )
+         if (bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5)
          {
             DeleteObject(himage);
             himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(6) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-            if( himage == nullptr )
+            if (himage == nullptr)
             {
                himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(6) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
             }
@@ -552,28 +552,28 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
       himage = nullptr;
    }
 
-   if( hb_parc(19) != nullptr )
+   if (hb_parc(19) != nullptr)
    {
       void * ImageName2;
       LPCTSTR lpImageName2 = HB_PARSTR(19, &ImageName2, nullptr);
 
       himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-      if( himage2 == nullptr )
+      if (himage2 == nullptr)
       {
          himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
-      if( himage2 != nullptr )
+      if (himage2 != nullptr)
       {
          BITMAP bm;
          GetObject(himage2, sizeof(BITMAP), &bm);
-         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5 )
+         if (bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5)
          {
             DeleteObject(himage2);
             himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(6) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-            if( himage2 == nullptr )
+            if (himage2 == nullptr)
             {
                himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(6) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
             }
@@ -589,14 +589,14 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
 
    DWORD ibtnStyle1 = BS_NOTIFY | WS_CHILD | WS_VISIBLE | (hb_parl(22) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
 
-   if( himage != nullptr )
+   if (himage != nullptr)
    {
       ibtnStyle1 |= BS_BITMAP;
    }
 
    DWORD ibtnStyle2 = BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE; // BUTTON window base style.
 
-   if( himage2 != nullptr )
+   if (himage2 != nullptr)
    {
       ibtnStyle2 |= BS_BITMAP;
    }
@@ -627,12 +627,12 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
                                        GetInstance(),
                                        nullptr) : nullptr;
 
-   if( himage != nullptr )
+   if (himage != nullptr)
    {
       SendMessage(hBtn1, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
    }
 
-   if( himage2 != nullptr )
+   if (himage2 != nullptr)
    {
       SendMessage(hBtn2, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage2));
    }
@@ -664,27 +664,27 @@ HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
    SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
 
-   if( hb_parc(2) != nullptr )
+   if (hb_parc(2) != nullptr)
    {
       void * ImageName;
       LPCTSTR lpImageName = HB_PARSTR(2, &ImageName, nullptr);
 
       himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-      if( himage == nullptr )
+      if (himage == nullptr)
       {
          himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
-      if( himage != nullptr )
+      if (himage != nullptr)
       {
          BITMAP bm;
          GetObject(himage, sizeof(BITMAP), &bm);
-         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > height - 5 )
+         if (bm.bmWidth > BtnWidth - 4 || bm.bmHeight > height - 5)
          {
             DeleteObject(himage);
             himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-            if( himage == nullptr )
+            if (himage == nullptr)
             {
                himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
             }
@@ -698,28 +698,28 @@ HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
       himage = nullptr;
    }
 
-   if( hb_parc(4) != nullptr )
+   if (hb_parc(4) != nullptr)
    {
       void * ImageName2;
       LPCTSTR lpImageName2 = HB_PARSTR(4, &ImageName2, nullptr);
 
       himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-      if( himage2 == nullptr )
+      if (himage2 == nullptr)
       {
          himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
-      if( himage2 != nullptr )
+      if (himage2 != nullptr)
       {
          BITMAP bm;
          GetObject(himage2, sizeof(BITMAP), &bm);
-         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > height - 5 )
+         if (bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > height - 5)
          {
             DeleteObject(himage2);
             himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-            if( himage2 == nullptr )
+            if (himage2 == nullptr)
             {
                himage2 = static_cast<HWND>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
             }
@@ -759,12 +759,12 @@ HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
                                        GetInstance(),
                                        nullptr) : nullptr;
 
-   if( himage != nullptr )
+   if (himage != nullptr)
    {
       SendMessage(hBtn1, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
    }
 
-   if( himage2 != nullptr )
+   if (himage2 != nullptr)
    {
       SendMessage(hBtn2, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage2));
    }
@@ -808,14 +808,14 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
       case WM_CONTEXTMENU:
       case WM_COMMAND:
 
-         if( lParam != 0 && (HIWORD(wParam) == BN_CLICKED || Msg == WM_CONTEXTMENU) )
+         if (lParam != 0 && (HIWORD(wParam) == BN_CLICKED || Msg == WM_CONTEXTMENU))
          {
-            if( !pSymbol )
+            if (!pSymbol)
             {
                pSymbol = hb_dynsymSymbol(hb_dynsymGet("TBBTNEVENTS"));
             }
 
-            if( pSymbol )
+            if (pSymbol)
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();

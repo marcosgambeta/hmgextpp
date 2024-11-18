@@ -989,7 +989,7 @@ HB_FUNC( HMG_BT_DRAW_HDC_ARCX_EX )
    auto hPen = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    auto OldPen = static_cast<HPEN>(SelectObject(hDC, hPen));
 
-   if( hb_parnl(14) )
+   if (hb_parnl(14))
    {
       hBrush   = hmg_par_HBRUSH(14);
    }
