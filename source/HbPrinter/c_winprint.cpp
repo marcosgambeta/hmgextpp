@@ -37,34 +37,34 @@
 #define ltoa(__value, __string, __radix) _ltoa(__value, __string, __radix)
 #endif
 
-static HDC hDC = nullptr;
-static HDC hDCRef = nullptr;
-static HDC hDCtemp;
-static DEVMODE *pDevMode = nullptr;
-static DEVMODE *pDevMode2 = nullptr;
-static DEVNAMES *pDevNames = nullptr;
-static HANDLE hPrinter = nullptr;
-static PRINTER_INFO_2 *pi2 = nullptr;
-static PRINTER_INFO_2 *pi22 = nullptr; // to restore printer dev mode after print.
-static PRINTER_DEFAULTS pd;
-static PRINTDLG pdlg;
-static DOCINFO di;
-static int nFromPage = 0;
-static int nToPage = 0;
-static TCHAR PrinterName[128];
-static TCHAR PrinterDefault[128];
-static DWORD charset = DEFAULT_CHARSET;
-static HFONT hfont;
-static HPEN hpen;
-static HBRUSH hbrush;
-static int textjust = 0;
-static int devcaps[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0};
-static int preview = 0;
-static int polyfillmode = 1;
-static HRGN hrgn = nullptr;
-static HBITMAP himgbmp;
-static HBITMAP hbmp[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static OSVERSIONINFO osvi;
+static HDC s_hDC = nullptr;
+static HDC s_hDCRef = nullptr;
+static HDC s_hDCtemp;
+static DEVMODE *s_pDevMode = nullptr;
+static DEVMODE *s_pDevMode2 = nullptr;
+static DEVNAMES *s_pDevNames = nullptr;
+static HANDLE s_hPrinter = nullptr;
+static PRINTER_INFO_2 *s_pi2 = nullptr;
+static PRINTER_INFO_2 *s_pi22 = nullptr; // to restore printer dev mode after print.
+static PRINTER_DEFAULTS s_pd;
+static PRINTDLG s_pdlg;
+static DOCINFO s_di;
+static int s_nFromPage = 0;
+static int s_nToPage = 0;
+static TCHAR s_PrinterName[128];
+static TCHAR s_PrinterDefault[128];
+static DWORD s_charset = DEFAULT_CHARSET;
+static HFONT s_hfont;
+static HPEN s_hpen;
+static HBRUSH s_hbrush;
+static int s_textjust = 0;
+static int s_devcaps[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0};
+static int s_preview = 0;
+static int s_polyfillmode = 1;
+static HRGN s_hrgn = nullptr;
+static HBITMAP s_himgbmp;
+static HBITMAP s_hbmp[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static OSVERSIONINFO s_osvi;
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -74,36 +74,36 @@ void rr_getdevmode(void);
 
 HB_FUNC(RR_FINISH)
 {
-  pDevMode = nullptr;
-  pDevMode2 = nullptr;
-  pDevNames = nullptr;
-  ClosePrinter(hPrinter);
-  hPrinter = nullptr;
-  pi2 = nullptr;
-  memset(&pd, 0, sizeof(pd));
-  memset(&pdlg, 0, sizeof(pdlg));
-  memset(&di, 0, sizeof(di));
-  nFromPage = 0;
-  nToPage = 0;
-  hfont = nullptr;
-  hpen = nullptr;
-  hbrush = nullptr;
-  textjust = 0;
-  memset(&devcaps, 0, sizeof(devcaps));
-  devcaps[15] = 1;
-  preview = 0;
-  polyfillmode = 1;
-  hrgn = nullptr;
-  himgbmp = nullptr;
-  memset(&hbmp, 0, sizeof(hbmp));
+  s_pDevMode = nullptr;
+  s_pDevMode2 = nullptr;
+  s_pDevNames = nullptr;
+  ClosePrinter(s_hPrinter);
+  s_hPrinter = nullptr;
+  s_pi2 = nullptr;
+  memset(&s_pd, 0, sizeof(s_pd));
+  memset(&s_pdlg, 0, sizeof(s_pdlg));
+  memset(&s_di, 0, sizeof(s_di));
+  s_nFromPage = 0;
+  s_nToPage = 0;
+  s_hfont = nullptr;
+  s_hpen = nullptr;
+  s_hbrush = nullptr;
+  s_textjust = 0;
+  memset(&s_devcaps, 0, sizeof(s_devcaps));
+  s_devcaps[15] = 1;
+  s_preview = 0;
+  s_polyfillmode = 1;
+  s_hrgn = nullptr;
+  s_himgbmp = nullptr;
+  memset(&s_hbmp, 0, sizeof(s_hbmp));
 }
 
 HB_FUNC(RR_PRINTERNAME)
 {
 #ifndef UNICODE
-  hb_retc(PrinterName);
+  hb_retc(s_PrinterName);
 #else
-  LPSTR pStr = WideToAnsi(PrinterName);
+  LPSTR pStr = WideToAnsi(s_PrinterName);
   hb_retc(pStr);
   hb_xfree(pStr);
 #endif
@@ -113,31 +113,31 @@ HB_FUNC(RR_PRINTDIALOG)
 {
   TCHAR *pDevice;
 
-  memset(&pdlg, 0, sizeof(pdlg));
-  pdlg.lStructSize = sizeof(pdlg);
-  pdlg.hDevMode = nullptr;
-  pdlg.hDevNames = nullptr;
-  pdlg.Flags = PD_RETURNDC | PD_ALLPAGES;
-  pdlg.hwndOwner = GetActiveWindow(); // Identifies the window that owns the dialog box.
-  pdlg.hDC = nullptr;
-  pdlg.nCopies = 1;
-  pdlg.nFromPage = 1;
-  pdlg.nToPage = (unsigned short int)-1;
-  pdlg.nMinPage = 1;
-  pdlg.nMaxPage = 0xFFFF;
+  memset(&s_pdlg, 0, sizeof(s_pdlg));
+  s_pdlg.lStructSize = sizeof(s_pdlg);
+  s_pdlg.hDevMode = nullptr;
+  s_pdlg.hDevNames = nullptr;
+  s_pdlg.Flags = PD_RETURNDC | PD_ALLPAGES;
+  s_pdlg.hwndOwner = GetActiveWindow(); // Identifies the window that owns the dialog box.
+  s_pdlg.hDC = nullptr;
+  s_pdlg.nCopies = 1;
+  s_pdlg.nFromPage = 1;
+  s_pdlg.nToPage = (unsigned short int)-1;
+  s_pdlg.nMinPage = 1;
+  s_pdlg.nMaxPage = 0xFFFF;
 
-  if (PrintDlg(&pdlg))
+  if (PrintDlg(&s_pdlg))
   {
-    hDC = pdlg.hDC;
+    s_hDC = s_pdlg.hDC;
 
-    if (hDC == nullptr)
+    if (s_hDC == nullptr)
     {
-      lstrcpy(PrinterName, TEXT(""));
+      lstrcpy(s_PrinterName, TEXT(""));
     }
     else
     {
-      pDevMode = (LPDEVMODE)GlobalLock(pdlg.hDevMode);
-      pDevNames = (LPDEVNAMES)GlobalLock(pdlg.hDevNames);
+      s_pDevMode = (LPDEVMODE)GlobalLock(s_pdlg.hDevMode);
+      s_pDevNames = (LPDEVNAMES)GlobalLock(s_pdlg.hDevNames);
 
       // Note: pDevMode->dmDeviceName is limited to 32 characters.
       // if the printer name is greater than 32, like network printers,
@@ -145,17 +145,17 @@ HB_FUNC(RR_PRINTDIALOG)
       // pDevNames instead pDevMode. (E.F.)
       // strcpy(PrinterName,pDevMode->dmDeviceName);
 
-      pDevice = (TCHAR *)pDevNames + pDevNames->wDeviceOffset;
-      lstrcpy(PrinterName, (TCHAR *)pDevice);
+      pDevice = (TCHAR *)s_pDevNames + s_pDevNames->wDeviceOffset;
+      lstrcpy(s_PrinterName, (TCHAR *)pDevice);
 
-      HB_STORNI(pdlg.nFromPage, 1, 1);
-      HB_STORNI(pdlg.nToPage, 1, 2);
-      HB_STORNI(pDevMode->dmCopies > 1 ? pDevMode->dmCopies : pdlg.nCopies, 1, 3);
-      if ((pdlg.Flags & PD_PAGENUMS) == PD_PAGENUMS)
+      HB_STORNI(s_pdlg.nFromPage, 1, 1);
+      HB_STORNI(s_pdlg.nToPage, 1, 2);
+      HB_STORNI(s_pDevMode->dmCopies > 1 ? s_pDevMode->dmCopies : s_pdlg.nCopies, 1, 3);
+      if ((s_pdlg.Flags & PD_PAGENUMS) == PD_PAGENUMS)
       {
         HB_STORNI(2, 1, 4);
       }
-      else if ((pdlg.Flags & PD_SELECTION) == PD_SELECTION)
+      else if ((s_pdlg.Flags & PD_SELECTION) == PD_SELECTION)
       {
         HB_STORNI(1, 1, 4);
       }
@@ -166,18 +166,18 @@ HB_FUNC(RR_PRINTDIALOG)
 
       rr_getdevmode();
 
-      GlobalUnlock(pdlg.hDevMode);
-      GlobalUnlock(pdlg.hDevNames);
+      GlobalUnlock(s_pdlg.hDevMode);
+      GlobalUnlock(s_pdlg.hDevNames);
     }
   }
   else
   {
-    hDC = 0;
+    s_hDC = 0;
   }
 
-  hDCRef = hDC;
+  s_hDCRef = s_hDC;
 
-  hmg_ret_HDC(hDC);
+  hmg_ret_HDC(s_hDC);
 }
 
 HB_FUNC(RR_GETDC)
@@ -185,23 +185,23 @@ HB_FUNC(RR_GETDC)
   void *str;
   LPCTSTR pwszDevice = HB_PARSTR(1, &str, nullptr);
 
-  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+  if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
-    hDC = CreateDC(TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr);
+    s_hDC = CreateDC(TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr);
   }
   else
   {
-    hDC = CreateDC(nullptr, pwszDevice, nullptr, nullptr);
+    s_hDC = CreateDC(nullptr, pwszDevice, nullptr, nullptr);
   }
 
-  if (hDC)
+  if (s_hDC)
   {
-    lstrcpy(PrinterName, pwszDevice);
+    lstrcpy(s_PrinterName, pwszDevice);
     rr_getdevmode();
   }
 
-  hDCRef = hDC;
-  hmg_ret_HDC(hDC);
+  s_hDCRef = s_hDC;
+  hmg_ret_HDC(s_hDC);
 
   hb_strfree(str);
 }
@@ -210,62 +210,62 @@ void rr_getdevmode(void)
 {
   DWORD dwNeeded = 0;
 
-  memset(&pd, 0, sizeof(pd));
-  pd.DesiredAccess = PRINTER_ALL_ACCESS;
-  OpenPrinter(PrinterName, &hPrinter, nullptr);
-  GetPrinter(hPrinter, 2, 0, 0, &dwNeeded);
-  pi2 = (PRINTER_INFO_2 *)GlobalAlloc(GPTR, dwNeeded);
-  GetPrinter(hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), dwNeeded, &dwNeeded);
-  pi22 = (PRINTER_INFO_2 *)GlobalAlloc(GPTR, dwNeeded);
-  GetPrinter(hPrinter, 2, reinterpret_cast<LPBYTE>(pi22), dwNeeded, &dwNeeded);
-  if (pDevMode)
+  memset(&s_pd, 0, sizeof(s_pd));
+  s_pd.DesiredAccess = PRINTER_ALL_ACCESS;
+  OpenPrinter(s_PrinterName, &s_hPrinter, nullptr);
+  GetPrinter(s_hPrinter, 2, 0, 0, &dwNeeded);
+  s_pi2 = (PRINTER_INFO_2 *)GlobalAlloc(GPTR, dwNeeded);
+  GetPrinter(s_hPrinter, 2, reinterpret_cast<LPBYTE>(s_pi2), dwNeeded, &dwNeeded);
+  s_pi22 = (PRINTER_INFO_2 *)GlobalAlloc(GPTR, dwNeeded);
+  GetPrinter(s_hPrinter, 2, reinterpret_cast<LPBYTE>(s_pi22), dwNeeded, &dwNeeded);
+  if (s_pDevMode)
   {
-    pi2->pDevMode = pDevMode;
+    s_pi2->pDevMode = s_pDevMode;
   }
-  else if (pi2->pDevMode == nullptr)
+  else if (s_pi2->pDevMode == nullptr)
   {
-    dwNeeded = DocumentProperties(nullptr, hPrinter, PrinterName, nullptr, nullptr, 0);
-    pDevMode2 = (DEVMODE *)GlobalAlloc(GPTR, dwNeeded);
-    DocumentProperties(nullptr, hPrinter, PrinterName, pDevMode2, nullptr, DM_OUT_BUFFER);
-    pi2->pDevMode = pDevMode2;
+    dwNeeded = DocumentProperties(nullptr, s_hPrinter, s_PrinterName, nullptr, nullptr, 0);
+    s_pDevMode2 = (DEVMODE *)GlobalAlloc(GPTR, dwNeeded);
+    DocumentProperties(nullptr, s_hPrinter, s_PrinterName, s_pDevMode2, nullptr, DM_OUT_BUFFER);
+    s_pi2->pDevMode = s_pDevMode2;
   }
 
-  hfont = static_cast<HFONT>(GetCurrentObject(hDC, OBJ_FONT));
-  hbrush = static_cast<HBRUSH>(GetCurrentObject(hDC, OBJ_BRUSH));
-  hpen = static_cast<HPEN>(GetCurrentObject(hDC, OBJ_PEN));
+  s_hfont = static_cast<HFONT>(GetCurrentObject(s_hDC, OBJ_FONT));
+  s_hbrush = static_cast<HBRUSH>(GetCurrentObject(s_hDC, OBJ_BRUSH));
+  s_hpen = static_cast<HPEN>(GetCurrentObject(s_hDC, OBJ_PEN));
 }
 
 HB_FUNC(EF_RESETPRINTER)
 {
-  if (pi22)
+  if (s_pi22)
   {
-    SetPrinter(hPrinter, 2, reinterpret_cast<LPBYTE>(pi22), 0);
+    SetPrinter(s_hPrinter, 2, reinterpret_cast<LPBYTE>(s_pi22), 0);
   }
 
-  GlobalFree(pi22);
-  pi22 = nullptr;
+  GlobalFree(s_pi22);
+  s_pi22 = nullptr;
 }
 
 HB_FUNC(RR_DELETEDC)
 {
-  if (pDevMode)
+  if (s_pDevMode)
   {
-    GlobalFree(pDevMode);
+    GlobalFree(s_pDevMode);
   }
 
-  if (pDevMode2)
+  if (s_pDevMode2)
   {
-    GlobalFree(pDevMode2);
+    GlobalFree(s_pDevMode2);
   }
 
-  if (pDevNames)
+  if (s_pDevNames)
   {
-    GlobalFree(pDevNames);
+    GlobalFree(s_pDevNames);
   }
 
-  if (pi2)
+  if (s_pi2)
   {
-    GlobalFree(pi2);
+    GlobalFree(s_pi2);
   }
 
   DeleteDC(hmg_par_HDC(1));
@@ -278,36 +278,36 @@ HB_FUNC(RR_GETDEVICECAPS)
 
   if (xfont != 0)
   {
-    SelectObject(hDCRef, xfont);
+    SelectObject(s_hDCRef, xfont);
   }
 
-  GetTextMetrics(hDCRef, &tm);
-  devcaps[1] = GetDeviceCaps(hDCRef, VERTSIZE);
-  devcaps[2] = GetDeviceCaps(hDCRef, HORZSIZE);
-  devcaps[3] = GetDeviceCaps(hDCRef, VERTRES);
-  devcaps[4] = GetDeviceCaps(hDCRef, HORZRES);
-  devcaps[5] = GetDeviceCaps(hDCRef, LOGPIXELSY);
-  devcaps[6] = GetDeviceCaps(hDCRef, LOGPIXELSX);
-  devcaps[7] = GetDeviceCaps(hDCRef, PHYSICALHEIGHT);
-  devcaps[8] = GetDeviceCaps(hDCRef, PHYSICALWIDTH);
-  devcaps[9] = GetDeviceCaps(hDCRef, PHYSICALOFFSETY);
-  devcaps[10] = GetDeviceCaps(hDCRef, PHYSICALOFFSETX);
+  GetTextMetrics(s_hDCRef, &tm);
+  s_devcaps[1] = GetDeviceCaps(s_hDCRef, VERTSIZE);
+  s_devcaps[2] = GetDeviceCaps(s_hDCRef, HORZSIZE);
+  s_devcaps[3] = GetDeviceCaps(s_hDCRef, VERTRES);
+  s_devcaps[4] = GetDeviceCaps(s_hDCRef, HORZRES);
+  s_devcaps[5] = GetDeviceCaps(s_hDCRef, LOGPIXELSY);
+  s_devcaps[6] = GetDeviceCaps(s_hDCRef, LOGPIXELSX);
+  s_devcaps[7] = GetDeviceCaps(s_hDCRef, PHYSICALHEIGHT);
+  s_devcaps[8] = GetDeviceCaps(s_hDCRef, PHYSICALWIDTH);
+  s_devcaps[9] = GetDeviceCaps(s_hDCRef, PHYSICALOFFSETY);
+  s_devcaps[10] = GetDeviceCaps(s_hDCRef, PHYSICALOFFSETX);
 
-  devcaps[11] = tm.tmHeight;
-  devcaps[12] = tm.tmAveCharWidth;
-  devcaps[13] = ((devcaps[3] - tm.tmAscent) / tm.tmHeight);
-  devcaps[14] = (devcaps[4] / tm.tmAveCharWidth);
-  devcaps[15] = pi2->pDevMode->dmOrientation;
-  devcaps[16] = tm.tmAscent;
-  devcaps[17] = pi2->pDevMode->dmPaperSize;
+  s_devcaps[11] = tm.tmHeight;
+  s_devcaps[12] = tm.tmAveCharWidth;
+  s_devcaps[13] = ((s_devcaps[3] - tm.tmAscent) / tm.tmHeight);
+  s_devcaps[14] = (s_devcaps[4] / tm.tmAveCharWidth);
+  s_devcaps[15] = s_pi2->pDevMode->dmOrientation;
+  s_devcaps[16] = tm.tmAscent;
+  s_devcaps[17] = s_pi2->pDevMode->dmPaperSize;
   for (UINT i = 1; i <= hb_parinfa(1, 0); i++)
   {
-    HB_STORNI(devcaps[i], 1, i);
+    HB_STORNI(s_devcaps[i], 1, i);
   }
 
   if (xfont != 0)
   {
-    SelectObject(hDCRef, hfont);
+    SelectObject(s_hDCRef, s_hfont);
   }
 }
 
@@ -315,73 +315,73 @@ HB_FUNC(RR_SETDEVMODE)
 {
   DWORD what = hb_parnl(1);
 
-  if (what == (pi2->pDevMode->dmFields & what))
+  if (what == (s_pi2->pDevMode->dmFields & what))
   {
-    pi2->pDevMode->dmFields = pi2->pDevMode->dmFields | what;
+    s_pi2->pDevMode->dmFields = s_pi2->pDevMode->dmFields | what;
 
     if (what == DM_ORIENTATION)
     {
-      pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_PAPERSIZE)
     {
-      pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_SCALE)
     {
-      pi2->pDevMode->dmScale = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmScale = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_COPIES)
     {
-      pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_DEFAULTSOURCE)
     {
-      pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_PRINTQUALITY)
     {
-      pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_COLOR)
     {
-      pi2->pDevMode->dmColor = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmColor = static_cast<short>(hb_parni(2));
     }
 
     if (what == DM_DUPLEX)
     {
-      pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(2));
     }
   }
 
-  DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
-  SetPrinter(hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), 0);
-  ResetDC(hDCRef, pi2->pDevMode);
-  hmg_ret_HDC(hDCRef);
+  DocumentProperties(nullptr, s_hPrinter, s_PrinterName, s_pi2->pDevMode, s_pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+  SetPrinter(s_hPrinter, 2, reinterpret_cast<LPBYTE>(s_pi2), 0);
+  ResetDC(s_hDCRef, s_pi2->pDevMode);
+  hmg_ret_HDC(s_hDCRef);
 }
 
 HB_FUNC(RR_SETUSERMODE)
 {
   DWORD what = hb_parnl(1);
 
-  if (what == (pi2->pDevMode->dmFields & what))
+  if (what == (s_pi2->pDevMode->dmFields & what))
   {
-    pi2->pDevMode->dmFields = pi2->pDevMode->dmFields | DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
-    pi2->pDevMode->dmPaperSize = DMPAPER_USER;
-    pi2->pDevMode->dmPaperWidth = static_cast<short>(hb_parnl(2));
-    pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parnl(3));
+    s_pi2->pDevMode->dmFields = s_pi2->pDevMode->dmFields | DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
+    s_pi2->pDevMode->dmPaperSize = DMPAPER_USER;
+    s_pi2->pDevMode->dmPaperWidth = static_cast<short>(hb_parnl(2));
+    s_pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parnl(3));
   }
 
-  DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
-  SetPrinter(hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), 0);
-  ResetDC(hDCRef, pi2->pDevMode);
-  hmg_ret_HDC(hDCRef);
+  DocumentProperties(nullptr, s_hPrinter, s_PrinterName, s_pi2->pDevMode, s_pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+  SetPrinter(s_hPrinter, 2, reinterpret_cast<LPBYTE>(s_pi2), 0);
+  ResetDC(s_hDCRef, s_pi2->pDevMode);
+  hmg_ret_HDC(s_hDCRef);
 }
 
 #ifdef UNICODE
@@ -402,17 +402,17 @@ HB_FUNC(RR_GETDEFAULTPRINTER)
   LPSTR pStr;
 #endif
 
-  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
+  if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
   { /* Windows 95 or 98 */
     EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
     PrinterInfo = (LPPRINTER_INFO_5)LocalAlloc(LPTR, Needed);
     EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, reinterpret_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
-    lstrcpy(PrinterDefault, PrinterInfo->pPrinterName);
+    lstrcpy(s_PrinterDefault, PrinterInfo->pPrinterName);
     LocalFree(PrinterInfo);
   }
-  else if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+  else if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
-    if (osvi.dwMajorVersion == 5)
+    if (s_osvi.dwMajorVersion == 5)
     { /* Windows 2000 or XP */
       BOOL bFlag;
       TCHAR lpPrinterName[MAX_BUFFER_SIZE];
@@ -433,7 +433,7 @@ HB_FUNC(RR_GETDEFAULTPRINTER)
       }
 
       bFlag = (*fnGetDefaultPrinter)(lpPrinterName, &BuffSize);
-      lstrcpy(PrinterDefault, lpPrinterName);
+      lstrcpy(s_PrinterDefault, lpPrinterName);
       FreeLibrary(hWinSpool);
       if (!bFlag)
       {
@@ -443,15 +443,15 @@ HB_FUNC(RR_GETDEFAULTPRINTER)
     }
     else
     { /* Windows NT 4.0 or earlier */
-      GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize);
-      _tcstok(PrinterDefault, TEXT(","));
+      GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), s_PrinterDefault, BuffSize);
+      _tcstok(s_PrinterDefault, TEXT(","));
     }
   }
 
 #ifndef UNICODE
-  hb_retc(PrinterDefault);
+  hb_retc(s_PrinterDefault);
 #else
-  pStr = WideToAnsi(PrinterDefault);
+  pStr = WideToAnsi(s_PrinterDefault);
   hb_retc(pStr);
   hb_xfree(pStr);
 #endif
@@ -474,9 +474,9 @@ HB_FUNC(RR_GETPRINTERS)
   LPSTR pStr;
 #endif
 
-  osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-  GetVersionEx(&osvi);
-  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+  s_osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  GetVersionEx(&s_osvi);
+  if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
     level = 4;
     flags = PRINTER_ENUM_CONNECTIONS | PRINTER_ENUM_LOCAL;
@@ -507,7 +507,7 @@ HB_FUNC(RR_GETPRINTERS)
 
   cBuffer = static_cast<char *>(GlobalAlloc(GPTR, dwPrinters * 256));
 
-  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+  if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
   {
     pInfo4 = (PRINTER_INFO_4 *)pBuffer;
   }
@@ -518,7 +518,7 @@ HB_FUNC(RR_GETPRINTERS)
 
   for (DWORD i = 0; i < dwPrinters; i++)
   {
-    if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+    if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
     {
 #ifdef UNICODE
       lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo4->pPrinterName);
@@ -584,33 +584,33 @@ HB_FUNC(RR_STARTDOC)
 {
   void *str;
   LPCTSTR lpText = HB_PARSTR(1, &str, nullptr);
-  memset(&di, 0, sizeof(di));
-  di.cbSize = sizeof(di);
-  di.lpszDocName = lpText;
-  StartDoc(hDC, &di);
+  memset(&s_di, 0, sizeof(s_di));
+  s_di.cbSize = sizeof(s_di);
+  s_di.lpszDocName = lpText;
+  StartDoc(s_hDC, &s_di);
   hb_strfree(str);
 }
 
 HB_FUNC(RR_STARTPAGE)
 {
-  StartPage(hDC);
-  SetTextAlign(hDC, TA_BASELINE);
+  StartPage(s_hDC);
+  SetTextAlign(s_hDC, TA_BASELINE);
 }
 
 HB_FUNC(RR_ENDPAGE)
 {
-  EndPage(hDC);
+  EndPage(s_hDC);
 }
 
 HB_FUNC(RR_ENDDOC)
 {
-  EndDoc(hDC);
+  EndDoc(s_hDC);
 }
 
 HB_FUNC(RR_ABORTDOC)
 {
-  AbortDoc(hDC);
-  DeleteDC(hDC);
+  AbortDoc(s_hDC);
+  DeleteDC(s_hDC);
 }
 
 HB_FUNC(RR_DEVICECAPABILITIES)
@@ -625,10 +625,10 @@ HB_FUNC(RR_DEVICECAPABILITIES)
 #endif
 
 #ifdef UNICODE
-  numpapers = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                                 AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERNAMES, nullptr, nullptr);
+  numpapers = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                                 AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_PAPERNAMES, nullptr, nullptr);
 #else
-  numpapers = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, nullptr, nullptr);
+  numpapers = DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_PAPERNAMES, nullptr, nullptr);
 #endif
   if (numpapers > 0)
   {
@@ -641,16 +641,16 @@ HB_FUNC(RR_DEVICECAPABILITIES)
     sBuffer = (TCHAR *)sGBuffer;
     cBuffer = (TCHAR *)cGBuffer;
 #ifdef UNICODE
-    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                       AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERNAMES, pBuffer, pi2->pDevMode);
-    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                       AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERS, nBuffer, pi2->pDevMode);
-    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                       AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERSIZE, sBuffer, pi2->pDevMode);
+    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                       AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_PAPERNAMES, pBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                       AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_PAPERS, nBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                       AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_PAPERSIZE, sBuffer, s_pi2->pDevMode);
 #else
-    DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, pBuffer, pi2->pDevMode);
-    DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERS, nBuffer, pi2->pDevMode);
-    DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERSIZE, sBuffer, pi2->pDevMode);
+    DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_PAPERNAMES, pBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_PAPERS, nBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_PAPERSIZE, sBuffer, s_pi2->pDevMode);
 #endif
     cBuffer[0] = 0;
     for (DWORD i = 0; i < numpapers; i++)
@@ -692,10 +692,10 @@ HB_FUNC(RR_DEVICECAPABILITIES)
   }
 
 #ifdef UNICODE
-  numbins = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                               AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINNAMES, nullptr, nullptr);
+  numbins = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                               AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_BINNAMES, nullptr, nullptr);
 #else
-  numbins = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, nullptr, nullptr);
+  numbins = DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_BINNAMES, nullptr, nullptr);
 #endif
   if (numbins > 0)
   {
@@ -706,13 +706,13 @@ HB_FUNC(RR_DEVICECAPABILITIES)
     bwBuffer = (TCHAR *)bwGBuffer;
     bcBuffer = (TCHAR *)bcGBuffer;
 #ifdef UNICODE
-    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                       AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINNAMES, bnBuffer, pi2->pDevMode);
-    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)),
-                       AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINS, bwBuffer, pi2->pDevMode);
+    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                       AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_BINNAMES, bnBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(s_pi2->pPrinterName)),
+                       AnsiToWide(static_cast<LPSTR>(s_pi2->pPortName)), DC_BINS, bwBuffer, s_pi2->pDevMode);
 #else
-    DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, bnBuffer, pi2->pDevMode);
-    DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode);
+    DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_BINNAMES, bnBuffer, s_pi2->pDevMode);
+    DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_BINS, bwBuffer, s_pi2->pDevMode);
 #endif
     bcBuffer[0] = 0;
     for (DWORD i = 0; i < numbins; i++)
@@ -749,37 +749,37 @@ HB_FUNC(RR_DEVICECAPABILITIES)
 
 HB_FUNC(RR_SETPOLYFILLMODE)
 {
-  if (SetPolyFillMode(hDC, hmg_par_COLORREF(1)) != 0)
+  if (SetPolyFillMode(s_hDC, hmg_par_COLORREF(1)) != 0)
   {
     hb_retnl(hb_parnl(1));
   }
   else
   {
-    hb_retnl(GetPolyFillMode(hDC));
+    hb_retnl(GetPolyFillMode(s_hDC));
   }
 }
 
 HB_FUNC(RR_SETTEXTCOLOR)
 {
-  if (SetTextColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID)
+  if (SetTextColor(s_hDC, hmg_par_COLORREF(1)) != CLR_INVALID)
   {
     hb_retnl(hb_parnl(1));
   }
   else
   {
-    hb_retnl(GetTextColor(hDC));
+    hb_retnl(GetTextColor(s_hDC));
   }
 }
 
 HB_FUNC(RR_SETBKCOLOR)
 {
-  if (SetBkColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID)
+  if (SetBkColor(s_hDC, hmg_par_COLORREF(1)) != CLR_INVALID)
   {
     hb_retnl(hb_parnl(1));
   }
   else
   {
-    hb_retnl(GetBkColor(hDC));
+    hb_retnl(GetBkColor(s_hDC));
   }
 }
 
@@ -787,11 +787,11 @@ HB_FUNC(RR_SETBKMODE)
 {
   if (hb_parni(1) == 1)
   {
-    SetBkMode(hDC, TRANSPARENT);
+    SetBkMode(s_hDC, TRANSPARENT);
   }
   else
   {
-    SetBkMode(hDC, OPAQUE);
+    SetBkMode(s_hDC, OPAQUE);
   }
 }
 
@@ -825,15 +825,15 @@ HB_FUNC(RR_GETCURRENTOBJECT)
 
   if (what == 1)
   {
-    hand = GetCurrentObject(hDC, OBJ_FONT);
+    hand = GetCurrentObject(s_hDC, OBJ_FONT);
   }
   else if (what == 2)
   {
-    hand = GetCurrentObject(hDC, OBJ_BRUSH);
+    hand = GetCurrentObject(s_hDC, OBJ_BRUSH);
   }
   else
   {
-    hand = GetCurrentObject(hDC, OBJ_PEN);
+    hand = GetCurrentObject(s_hDC, OBJ_PEN);
   }
 
   hmg_ret_HGDIOBJ(hand);
@@ -892,8 +892,8 @@ HB_FUNC(RR_MODIFYPEN)
 
 HB_FUNC(RR_SELECTPEN)
 {
-  SelectObject(hDC, hmg_par_HPEN(1));
-  hpen = hmg_par_HPEN(1);
+  SelectObject(s_hDC, hmg_par_HPEN(1));
+  s_hpen = hmg_par_HPEN(1);
 }
 
 HB_FUNC(RR_CREATEBRUSH)
@@ -949,8 +949,8 @@ HB_FUNC(RR_MODIFYBRUSH)
 
 HB_FUNC(RR_SELECTBRUSH)
 {
-  SelectObject(hDC, hmg_par_HBRUSH(1));
-  hbrush = hmg_par_HBRUSH(1);
+  SelectObject(s_hDC, hmg_par_HBRUSH(1));
+  s_hbrush = hmg_par_HBRUSH(1);
 }
 
 HB_FUNC(RR_CREATEFONT)
@@ -1024,17 +1024,17 @@ HB_FUNC(RR_CREATEFONT)
     bStrikeOut = 1;
   }
 
-  FontHeight = -MulDiv(FontSize, GetDeviceCaps(hDCRef, LOGPIXELSY), 72);
-  auto hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, charset,
+  FontHeight = -MulDiv(FontSize, GetDeviceCaps(s_hDCRef, LOGPIXELSY), 72);
+  auto hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, s_charset,
                            OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
   if (FontWidth < 0)
   {
-    oldfont = static_cast<HFONT>(SelectObject(hDC, hxfont));
-    GetTextMetrics(hDC, &tm);
-    SelectObject(hDC, oldfont);
+    oldfont = static_cast<HFONT>(SelectObject(s_hDC, hxfont));
+    GetTextMetrics(s_hDC, &tm);
+    SelectObject(s_hDC, oldfont);
     DeleteObject(hxfont);
     newWidth = static_cast<int>(static_cast<float>(-(tm.tmAveCharWidth + tm.tmOverhang)) * FontWidth / 100);
-    hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, charset,
+    hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, s_charset,
                         OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
   }
 
@@ -1060,7 +1060,7 @@ HB_FUNC(RR_MODIFYFONT)
 
     if (hb_parni(3) > 0)
     {
-      nHeight = -MulDiv(hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72);
+      nHeight = -MulDiv(hb_parni(3), GetDeviceCaps(s_hDC, LOGPIXELSY), 72);
       ppn.lfHeight = nHeight;
     }
 
@@ -1121,13 +1121,13 @@ HB_FUNC(RR_MODIFYFONT)
 
 HB_FUNC(RR_SELECTFONT)
 {
-  SelectObject(hDC, hmg_par_HFONT(1));
-  hfont = hmg_par_HFONT(1);
+  SelectObject(s_hDC, hmg_par_HFONT(1));
+  s_hfont = hmg_par_HFONT(1);
 }
 
 HB_FUNC(RR_SETCHARSET)
 {
-  charset = hmg_par_DWORD(1);
+  s_charset = hmg_par_DWORD(1);
 }
 
 HB_FUNC(RR_TEXTOUT)
@@ -1144,30 +1144,30 @@ HB_FUNC(RR_TEXTOUT)
 
   if (xfont != 0)
   {
-    prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
+    prevfont = static_cast<HFONT>(SelectObject(s_hDC, xfont));
   }
 
-  if (textjust > 0)
+  if (s_textjust > 0)
   {
-    GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric);
-    if (szMetric.cx < textjust)
+    GetTextExtentPoint32(s_hDC, lpText, lstrlen(lpText), &szMetric);
+    if (szMetric.cx < s_textjust)
     { // or can be for better look (szMetric.cx>(int) textjust*2/3)
       if (lspace > 0)
       {
-        SetTextJustification(hDC, textjust - szMetric.cx, lspace);
+        SetTextJustification(s_hDC, s_textjust - szMetric.cx, lspace);
       }
     }
   }
 
-  hb_retl(TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, lstrlen(lpText)));
+  hb_retl(TextOut(s_hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + s_devcaps[16], lpText, lstrlen(lpText)));
   if (xfont != 0)
   {
-    SelectObject(hDC, prevfont);
+    SelectObject(s_hDC, prevfont);
   }
 
-  if (textjust > 0)
+  if (s_textjust > 0)
   {
-    SetTextJustification(hDC, 0, 0);
+    SetTextJustification(s_hDC, 0, 0);
   }
 
 #ifdef UNICODE
@@ -1196,10 +1196,10 @@ HB_FUNC(RR_DRAWTEXT)
 
   if (xfont != 0)
   {
-    prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
+    prevfont = static_cast<HFONT>(SelectObject(s_hDC, xfont));
   }
 
-  GetTextExtentPoint32(hDC, pszData, iLen, &sSize);
+  GetTextExtentPoint32(s_hDC, pszData, iLen, &sSize);
   w = sSize.cx; // text width
   h = sSize.cy; // text height
 
@@ -1228,10 +1228,10 @@ HB_FUNC(RR_DRAWTEXT)
     uFormat = uFormat | DT_CENTER;
   }
 
-  hb_retni(DrawText(hDC, pszData, -1, &rect, uFormat));
+  hb_retni(DrawText(s_hDC, pszData, -1, &rect, uFormat));
   if (xfont != 0)
   {
-    SelectObject(hDC, prevfont);
+    SelectObject(s_hDC, prevfont);
   }
 
 #ifdef UNICODE
@@ -1246,53 +1246,53 @@ HB_FUNC(RR_RECTANGLE)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
-  hb_retni(Rectangle(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)));
+  hb_retni(Rectangle(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)));
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, hbrush);
+    SelectObject(s_hDC, s_hbrush);
   }
 }
 
 HB_FUNC(RR_CLOSEMFILE)
 {
-  DeleteEnhMetaFile(CloseEnhMetaFile(hDC));
+  DeleteEnhMetaFile(CloseEnhMetaFile(s_hDC));
 }
 
 HB_FUNC(RR_CREATEMFILE)
 {
   RECT emfrect;
-  SetRect(&emfrect, 0, 0, GetDeviceCaps(hDCRef, HORZSIZE) * 100, GetDeviceCaps(hDCRef, VERTSIZE) * 100);
+  SetRect(&emfrect, 0, 0, GetDeviceCaps(s_hDCRef, HORZSIZE) * 100, GetDeviceCaps(s_hDCRef, VERTSIZE) * 100);
   void *str;
-  hDC = CreateEnhMetaFile(hDCRef, HB_PARSTR(1, &str, nullptr), &emfrect, TEXT("hbprinter\0emf file\0\0"));
+  s_hDC = CreateEnhMetaFile(s_hDCRef, HB_PARSTR(1, &str, nullptr), &emfrect, TEXT("hbprinter\0emf file\0\0"));
   hb_strfree(str);
-  SetTextAlign(hDC, TA_BASELINE);
-  preview = 1;
-  hmg_ret_HDC(hDC);
+  SetTextAlign(s_hDC, TA_BASELINE);
+  s_preview = 1;
+  hmg_ret_HDC(s_hDC);
 }
 
 HB_FUNC(RR_DELETECLIPRGN)
 {
-  SelectClipRgn(hDC, nullptr);
+  SelectClipRgn(s_hDC, nullptr);
 }
 
 HB_FUNC(RR_CREATERGN)
 {
   POINT lpp;
 
-  GetViewportOrgEx(hDC, &lpp);
+  GetViewportOrgEx(s_hDC, &lpp);
   if (hb_parni(3) == 2)
   {
     hmg_ret_HRGN(CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x,
@@ -1334,20 +1334,20 @@ HB_FUNC(RR_COMBINERGN)
 
 HB_FUNC(RR_SELECTCLIPRGN)
 {
-  SelectClipRgn(hDC, hmg_par_HRGN(1));
-  hrgn = hmg_par_HRGN(1);
+  SelectClipRgn(s_hDC, hmg_par_HRGN(1));
+  s_hrgn = hmg_par_HRGN(1);
 }
 
 HB_FUNC(RR_SETVIEWPORTORG)
 {
-  hb_retl(SetViewportOrgEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr));
+  hb_retl(SetViewportOrgEx(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr));
 }
 
 HB_FUNC(RR_GETVIEWPORTORG)
 {
   POINT lpp;
 
-  hb_retl(GetViewportOrgEx(hDC, &lpp));
+  hb_retl(GetViewportOrgEx(s_hDC, &lpp));
   HB_STORVNL(lpp.x, 1, 2);
   HB_STORVNL(lpp.y, 1, 1);
 }
@@ -1359,32 +1359,32 @@ HB_FUNC(RR_SETRGB)
 
 HB_FUNC(RR_SETTEXTCHAREXTRA)
 {
-  hb_retni(SetTextCharacterExtra(hDC, hb_parni(1)));
+  hb_retni(SetTextCharacterExtra(s_hDC, hb_parni(1)));
 }
 
 HB_FUNC(RR_GETTEXTCHAREXTRA)
 {
-  hb_retni(GetTextCharacterExtra(hDC));
+  hb_retni(GetTextCharacterExtra(s_hDC));
 }
 
 HB_FUNC(RR_SETTEXTJUSTIFICATION)
 {
-  textjust = hb_parni(1);
+  s_textjust = hb_parni(1);
 }
 
 HB_FUNC(RR_GETTEXTJUSTIFICATION)
 {
-  hb_retni(textjust);
+  hb_retni(s_textjust);
 }
 
 HB_FUNC(RR_GETTEXTALIGN)
 {
-  hb_retni(GetTextAlign(hDC));
+  hb_retni(GetTextAlign(s_hDC));
 }
 
 HB_FUNC(RR_SETTEXTALIGN)
 {
-  hb_retni(SetTextAlign(hDC, TA_BASELINE | hb_parni(1)));
+  hb_retni(SetTextAlign(s_hDC, TA_BASELINE | hb_parni(1)));
 }
 
 HB_FUNC(RR_PICTURE)
@@ -1454,22 +1454,22 @@ HB_FUNC(RR_PICTURE)
   y = r;
   xe = c + toc - 1;
   ye = r + tor - 1;
-  GetViewportOrgEx(hDC, &lpp);
+  GetViewportOrgEx(s_hDC, &lpp);
   auto hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
-  if (hrgn == nullptr)
+  if (s_hrgn == nullptr)
   {
-    SelectClipRgn(hDC, hrgn1);
+    SelectClipRgn(s_hDC, hrgn1);
   }
   else
   {
-    ExtSelectClipRgn(hDC, hrgn1, RGN_AND);
+    ExtSelectClipRgn(s_hDC, hrgn1, RGN_AND);
   }
 
   while (x < xe)
   {
     while (y < ye)
     {
-      iPicture->lpVtbl->Render(iPicture, hDC, x, y, dc, dr, 0, lHeight, lWidth, -lHeight, nullptr);
+      iPicture->lpVtbl->Render(iPicture, s_hDC, x, y, dc, dr, 0, lHeight, lWidth, -lHeight, nullptr);
       y += dr;
     }
 
@@ -1478,7 +1478,7 @@ HB_FUNC(RR_PICTURE)
   }
 
   iPicture->lpVtbl->Release(iPicture);
-  SelectClipRgn(hDC, hrgn);
+  SelectClipRgn(s_hDC, s_hrgn);
   DeleteObject(hrgn1);
   hb_retni(0);
 }
@@ -1647,8 +1647,8 @@ HB_FUNC(RR_DRAWPICTURE)
     return;
   }
 
-  lw = MulDiv(lwidth, devcaps[6], 2540);
-  lh = MulDiv(lheight, devcaps[5], 2540);
+  lw = MulDiv(lwidth, s_devcaps[6], 2540);
+  lh = MulDiv(lheight, s_devcaps[5], 2540);
   if (dc == 0)
   {
     dc = static_cast<int>(static_cast<float>(dr) * lw / lh);
@@ -1673,15 +1673,15 @@ HB_FUNC(RR_DRAWPICTURE)
   y = r;
   xe = c + toc - 1;
   ye = r + tor - 1;
-  GetViewportOrgEx(hDC, &lpp);
+  GetViewportOrgEx(s_hDC, &lpp);
   auto hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
-  if (hrgn == nullptr)
+  if (s_hrgn == nullptr)
   {
-    SelectClipRgn(hDC, hrgn1);
+    SelectClipRgn(s_hDC, hrgn1);
   }
   else
   {
-    ExtSelectClipRgn(hDC, hrgn1, RGN_AND);
+    ExtSelectClipRgn(s_hDC, hrgn1, RGN_AND);
   }
 
   while (x < xe)
@@ -1689,7 +1689,7 @@ HB_FUNC(RR_DRAWPICTURE)
     while (y < ye)
     {
       SetRect(&lrect, x, y, dc + x, dr + y);
-      ipic->lpVtbl->Render(ipic, hDC, x, y, dc, dr, 0, lheight, lwidth, -lheight, &lrect);
+      ipic->lpVtbl->Render(ipic, s_hDC, x, y, dc, dr, 0, lheight, lwidth, -lheight, &lrect);
       y += dr;
     }
 
@@ -1698,7 +1698,7 @@ HB_FUNC(RR_DRAWPICTURE)
   }
 
   ipic->lpVtbl->Release(ipic);
-  SelectClipRgn(hDC, hrgn);
+  SelectClipRgn(s_hDC, s_hrgn);
   DeleteObject(hrgn1);
   hb_retni(0);
 
@@ -1776,7 +1776,7 @@ HB_FUNC(RR_DRAWIMAGELIST)
   }
 
   hb_retl(
-      StretchBlt(hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY));
+      StretchBlt(s_hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY));
   DeleteDC(tempdc);
   DeleteObject(hbmpx);
 }
@@ -1784,7 +1784,7 @@ HB_FUNC(RR_DRAWIMAGELIST)
 HB_FUNC(RR_POLYGON)
 {
   auto number = static_cast<int>(hb_parinfa(1, 0));
-  int styl = GetPolyFillMode(hDC);
+  int styl = GetPolyFillMode(s_hDC);
   POINT apoints[1024];
   LONG_PTR xpen = HB_PARNL(3);
   LONG_PTR xbrush = HB_PARNL(4);
@@ -1797,29 +1797,29 @@ HB_FUNC(RR_POLYGON)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
-  SetPolyFillMode(hDC, hb_parni(5));
+  SetPolyFillMode(s_hDC, hb_parni(5));
 
-  hb_retnl(Polygon(hDC, apoints, number));
+  hb_retnl(Polygon(s_hDC, apoints, number));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, hbrush);
+    SelectObject(s_hDC, s_hbrush);
   }
 
-  SetPolyFillMode(hDC, styl);
+  SetPolyFillMode(s_hDC, styl);
 }
 
 HB_FUNC(RR_POLYBEZIER)
@@ -1836,14 +1836,14 @@ HB_FUNC(RR_POLYBEZIER)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  hb_retnl(PolyBezier(hDC, apoints, number));
+  hb_retnl(PolyBezier(s_hDC, apoints, number));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -1861,14 +1861,14 @@ HB_FUNC(RR_POLYBEZIERTO)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  hb_retnl(PolyBezierTo(hDC, apoints, number));
+  hb_retnl(PolyBezierTo(s_hDC, apoints, number));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -1884,15 +1884,15 @@ HB_FUNC(RR_GETTEXTEXTENT)
 
   if (xfont != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xfont));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xfont));
   }
 
-  hb_retni(GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric));
+  hb_retni(GetTextExtentPoint32(s_hDC, lpText, lstrlen(lpText), &szMetric));
   HB_STORNI(szMetric.cy, 2, 1);
   HB_STORNI(szMetric.cx, 2, 2);
   if (xfont != 0)
   {
-    SelectObject(hDC, hfont);
+    SelectObject(s_hDC, s_hfont);
   }
 
 #ifdef UNICODE
@@ -1907,25 +1907,25 @@ HB_FUNC(RR_ROUNDRECT)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
   hb_retni(
-      RoundRect(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1)));
+      RoundRect(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1)));
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, static_cast<HBRUSH>(hbrush));
+    SelectObject(s_hDC, static_cast<HBRUSH>(s_hbrush));
   }
 
   if (xpen != 0)
   {
-    SelectObject(hDC, static_cast<HPEN>(hpen));
+    SelectObject(s_hDC, static_cast<HPEN>(s_hpen));
   }
 }
 
@@ -1936,24 +1936,24 @@ HB_FUNC(RR_ELLIPSE)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
-  hb_retni(Ellipse(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)));
+  hb_retni(Ellipse(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, hbrush);
+    SelectObject(s_hDC, s_hbrush);
   }
 }
 
@@ -1964,25 +1964,25 @@ HB_FUNC(RR_CHORD)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
-  hb_retni(Chord(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
+  hb_retni(Chord(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
                  HB_PARNI(4, 2), HB_PARNI(4, 1)));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, hbrush);
+    SelectObject(s_hDC, s_hbrush);
   }
 }
 
@@ -1992,15 +1992,15 @@ HB_FUNC(RR_ARCTO)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  hb_retni(ArcTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
+  hb_retni(ArcTo(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
                  HB_PARNI(4, 2), HB_PARNI(4, 1)));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -2010,15 +2010,15 @@ HB_FUNC(RR_ARC)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  hb_retni(Arc(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
+  hb_retni(Arc(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
                HB_PARNI(4, 2), HB_PARNI(4, 1)));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -2029,25 +2029,25 @@ HB_FUNC(RR_PIE)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
+    SelectObject(s_hDC, reinterpret_cast<HBRUSH>(xbrush));
   }
 
-  hb_retni(Pie(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
+  hb_retni(Pie(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1),
                HB_PARNI(4, 2), HB_PARNI(4, 1)));
 
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 
   if (xbrush != 0)
   {
-    SelectObject(hDC, hbrush);
+    SelectObject(s_hDC, s_hbrush);
   }
 }
 
@@ -2059,7 +2059,7 @@ HB_FUNC(RR_FILLRECT)
   rect.top = HB_PARNI(1, 1);
   rect.right = HB_PARNI(2, 2);
   rect.bottom = HB_PARNI(2, 1);
-  hb_retni(FillRect(hDC, &rect, hmg_par_HBRUSH(3)));
+  hb_retni(FillRect(s_hDC, &rect, hmg_par_HBRUSH(3)));
 }
 
 HB_FUNC(RR_FRAMERECT)
@@ -2070,7 +2070,7 @@ HB_FUNC(RR_FRAMERECT)
   rect.top = HB_PARNI(1, 1);
   rect.right = HB_PARNI(2, 2);
   rect.bottom = HB_PARNI(2, 1);
-  hb_retni(FrameRect(hDC, &rect, hmg_par_HBRUSH(3)));
+  hb_retni(FrameRect(s_hDC, &rect, hmg_par_HBRUSH(3)));
 }
 
 HB_FUNC(RR_LINE)
@@ -2079,14 +2079,14 @@ HB_FUNC(RR_LINE)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  MoveToEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr);
-  hb_retni(LineTo(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1)));
+  MoveToEx(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr);
+  hb_retni(LineTo(s_hDC, HB_PARNI(2, 2), HB_PARNI(2, 1)));
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -2096,13 +2096,13 @@ HB_FUNC(RR_LINETO)
 
   if (xpen != 0)
   {
-    SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
+    SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
   }
 
-  hb_retni(LineTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1)));
+  hb_retni(LineTo(s_hDC, HB_PARNI(1, 2), HB_PARNI(1, 1)));
   if (xpen != 0)
   {
-    SelectObject(hDC, hpen);
+    SelectObject(s_hDC, s_hpen);
   }
 }
 
@@ -2114,7 +2114,7 @@ HB_FUNC(RR_INVERTRECT)
   rect.top = HB_PARNI(1, 1);
   rect.right = HB_PARNI(2, 2);
   rect.bottom = HB_PARNI(2, 1);
-  hb_retni(InvertRect(hDC, &rect));
+  hb_retni(InvertRect(s_hDC, &rect));
 }
 
 HB_FUNC(RR_GETDESKTOPAREA)
@@ -2169,21 +2169,21 @@ HB_FUNC(RR_PREVIEWPLAY)
     hb_retl(false);
   }
 
-  if (himgbmp != 0)
+  if (s_himgbmp != 0)
   {
-    DeleteObject(himgbmp);
+    DeleteObject(s_himgbmp);
   }
 
   SetRect(&rect, 0, 0, HB_PARNI(3, 4), HB_PARNI(3, 3));
-  himgbmp = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
-  DeleteObject(SelectObject(tmpDC, static_cast<HBITMAP>(himgbmp)));
+  s_himgbmp = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
+  DeleteObject(SelectObject(tmpDC, static_cast<HBITMAP>(s_himgbmp)));
   FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
   PlayEnhMetaFile(tmpDC, hh, &rect);
   DeleteEnhMetaFile(hh);
-  SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(himgbmp));
+  SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(s_himgbmp));
   ReleaseDC(hmg_par_HWND(1), imgDC);
   DeleteDC(tmpDC);
-  if (himgbmp == 0)
+  if (s_himgbmp == 0)
   {
     hb_retl(false);
   }
@@ -2210,13 +2210,13 @@ HB_FUNC(RR_PLAYTHUMB)
   i = hb_parni(4) - 1;
   auto tmpDC = CreateCompatibleDC(imgDC);
   SetRect(&rect, 0, 0, HB_PARNI(1, 4), HB_PARNI(1, 3));
-  hbmp[i] = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
-  DeleteObject(SelectObject(tmpDC, hbmp[i]));
+  s_hbmp[i] = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
+  DeleteObject(SelectObject(tmpDC, s_hbmp[i]));
   FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
   PlayEnhMetaFile(tmpDC, hh, &rect);
   DeleteEnhMetaFile(hh);
   TextOut(tmpDC, rect.right / 2 - 5, rect.bottom / 2 - 5, lpText, lstrlen(lpText));
-  SendMessage(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hbmp[i]));
+  SendMessage(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(s_hbmp[i]));
   ReleaseDC(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), imgDC);
   DeleteDC(tmpDC);
 
@@ -2249,11 +2249,11 @@ HB_FUNC(RR_LALABYE)
 {
   if (hb_parni(1) == 1)
   {
-    hDCtemp = hDC;
-    hDC = hDCRef;
+    s_hDCtemp = s_hDC;
+    s_hDC = s_hDCRef;
   }
   else
   {
-    hDC = hDCtemp;
+    s_hDC = s_hDCtemp;
   }
 }
