@@ -567,7 +567,7 @@ Return IIf(n > 0 .AND. n < Len(cPathMask), ;
 #define FHANDLE HB_FHANDLE
 #endif
 
-HB_FUNC( GETTIMEZONEBIAS )
+HB_FUNC(GETTIMEZONEBIAS)
 {
    TIME_ZONE_INFORMATION tzInfo;
    DWORD retval = GetTimeZoneInformation(&tzInfo);
@@ -582,7 +582,7 @@ HB_FUNC( GETTIMEZONEBIAS )
    }
 }
 
-HB_FUNC_STATIC( MEMOREAD )
+HB_FUNC_STATIC(MEMOREAD)
 {
    auto pFileName = hb_param(1, Harbour::Item::STRING);
 

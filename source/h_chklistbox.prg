@@ -346,7 +346,7 @@ RETURN NIL
 
 static int m_nHeightItem = 16;
 
-HB_FUNC_STATIC( HMG_INITCHKLISTBOX )
+HB_FUNC_STATIC(HMG_INITCHKLISTBOX)
 {
    int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
@@ -388,7 +388,7 @@ HB_FUNC_STATIC( HMG_INITCHKLISTBOX )
    hmg_ret_HWND(hbutton);
 }
 
-HB_FUNC_STATIC( HMG_INITMULTICHKLISTBOX )
+HB_FUNC_STATIC(HMG_INITMULTICHKLISTBOX)
 {
    int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
@@ -430,7 +430,7 @@ HB_FUNC_STATIC( HMG_INITMULTICHKLISTBOX )
    hmg_ret_HWND(hbutton);
 }
 
-HB_FUNC( HMG_CHKLISTBOXINSERTITEM )
+HB_FUNC(HMG_CHKLISTBOXINSERTITEM)
 {
    auto hwnd = hmg_par_HWND(1);
    void * String;
@@ -444,7 +444,7 @@ HB_FUNC( HMG_CHKLISTBOXINSERTITEM )
    hb_strfree(String);
 }
 
-HB_FUNC( HMG_CHKLISTBOXADDITEM )
+HB_FUNC(HMG_CHKLISTBOXADDITEM)
 {
    auto hwnd = hmg_par_HWND(1);
    void * String;
@@ -458,7 +458,7 @@ HB_FUNC( HMG_CHKLISTBOXADDITEM )
    hb_strfree(String);
 }
 
-HB_FUNC( HMG_SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
+HB_FUNC(HMG_SETCHKLBITEMHEIGHT) // set the height of a string in pixels
 {
    TCHAR achBuffer[BUFFER];
    auto hwnd = hmg_par_HWND(1);
@@ -496,7 +496,7 @@ HB_FUNC( HMG_SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    ReleaseDC(hwnd, hdc);
 }
 
-HB_FUNC( HMG_CHKLIST_SETCHECKBOX )
+HB_FUNC(HMG_CHKLIST_SETCHECKBOX)
 {
    auto hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2) - 1;
@@ -509,7 +509,7 @@ HB_FUNC( HMG_CHKLIST_SETCHECKBOX )
    SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(lbItem), static_cast<LPARAM>(bChecked));
 }
 
-HB_FUNC( HMG_CHKLIST_GETCHECKBOX )
+HB_FUNC(HMG_CHKLIST_GETCHECKBOX)
 {
    auto hwnd = hmg_par_HWND(1);
    auto lbItem = hb_parni(2);
@@ -518,7 +518,7 @@ HB_FUNC( HMG_CHKLIST_GETCHECKBOX )
    hb_retl(iCheck - 1);
 }
 
-HB_FUNC( HMG__ONMEASURELISTBOXITEM )
+HB_FUNC(HMG__ONMEASURELISTBOXITEM)
 {
    auto lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
@@ -526,7 +526,7 @@ HB_FUNC( HMG__ONMEASURELISTBOXITEM )
    lpmis->itemHeight = m_nHeightItem;
 }
 
-HB_FUNC( HMG__ONDRAWLISTBOXITEM )
+HB_FUNC(HMG__ONDRAWLISTBOXITEM)
 {
    TCHAR achBuffer[BUFFER];
    int cch;
@@ -614,7 +614,7 @@ HB_FUNC( HMG__ONDRAWLISTBOXITEM )
 /*
    Function GETMISCTLTYPE return value of CtlType MEASUREITEMSTRUCT member
  */
-HB_FUNC( HMG_GETMISCTLTYPE )
+HB_FUNC(HMG_GETMISCTLTYPE)
 {
    auto pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 

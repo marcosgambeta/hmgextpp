@@ -445,7 +445,7 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lP
 /*
 HMG_INITBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20) --> array
 */
-HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
+HB_FUNC_STATIC(HMG_INITBTNTEXTBOX)
 {
    HWND himage, himage2;
    BOOL fBtn2 = hb_parl(20);
@@ -648,7 +648,7 @@ HB_FUNC_STATIC( HMG_INITBTNTEXTBOX )
 /*
 HMG_REDEFBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7) --> array
 */
-HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
+HB_FUNC_STATIC(HMG_REDEFBTNTEXTBOX)
 {
    HWND himage, himage2;
    int  BtnWidth2;
@@ -782,7 +782,7 @@ HB_FUNC_STATIC( HMG_REDEFBTNTEXTBOX )
 /*
 HMG_SETTBBTNMARGIN(hedit, nBtnWidth, lBtns, lBtn2) --> NIL
 */
-HB_FUNC( HMG_SETTBBTNMARGIN )
+HB_FUNC(HMG_SETTBBTNMARGIN)
 {
    auto BtnWidth = hb_parni(2);
    BOOL fBtns    = hb_parl(3);

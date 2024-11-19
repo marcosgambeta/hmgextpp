@@ -458,7 +458,7 @@ using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 /*
 HMG_INITBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> HWND
 */
-HB_FUNC_STATIC( HMG_INITBUTTON )
+HB_FUNC_STATIC(HMG_INITBUTTON)
 {
    void * WindowName;
 
@@ -503,7 +503,7 @@ HB_FUNC_STATIC( HMG_INITBUTTON )
 /*
 HMG_INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
 */
-HB_FUNC_STATIC( HMG_INITIMAGEBUTTON )
+HB_FUNC_STATIC(HMG_INITIMAGEBUTTON)
 {
    HICON hIcon;
    int Transparent = hb_parl(10) ? 0 : 1;

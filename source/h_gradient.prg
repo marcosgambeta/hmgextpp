@@ -179,12 +179,12 @@ BOOL EnabledGradient(void)
    return s_hDLL != nullptr ? TRUE : FALSE;
 }
 
-HB_FUNC( HMG_ISENABLEDGRADIENT )
+HB_FUNC(HMG_ISENABLEDGRADIENT)
 {
    hb_retl(EnabledGradient());
 }
 
-HB_FUNC( HMG__INITGRADIENTFUNC )
+HB_FUNC(HMG__INITGRADIENTFUNC)
 {
    s_hDLL = LoadLibrary(TEXT("gdi32.dll"));
 
@@ -224,7 +224,7 @@ HB_FUNC( HMG__INITGRADIENTFUNC )
    hb_retl(EnabledGradient() ? true : false);
 }
 
-HB_FUNC( HMG__EXITGRADIENTFUNC )
+HB_FUNC(HMG__EXITGRADIENTFUNC)
 {
    if (s_hDLL != nullptr)
    {
@@ -233,7 +233,7 @@ HB_FUNC( HMG__EXITGRADIENTFUNC )
    }
 }
 
-HB_FUNC( HMG_ALPHABLEND )
+HB_FUNC(HMG_ALPHABLEND)
 {
    BOOL bRes = FALSE;
    auto hdc1 = hmg_par_HDC(1);
@@ -261,7 +261,7 @@ HB_FUNC( HMG_ALPHABLEND )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( HMG_TRANSPARENTBLT )
+HB_FUNC(HMG_TRANSPARENTBLT)
 {
    BOOL bRes = FALSE;
    auto hdc1 = hmg_par_HDC(1);
@@ -298,7 +298,7 @@ HB_FUNC( HMG_TRANSPARENTBLT )
    hb_retl(bRes ? true : false);
 }
 
-HB_FUNC( HMG_FILLGRADIENT )
+HB_FUNC(HMG_FILLGRADIENT)
 {
    BOOL bRes = FALSE;
    auto hdc = hmg_par_HDC(1);
@@ -350,7 +350,7 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
    return bRes;
 }
 
-HB_FUNC( HMG_CREATEGRADIENTBRUSH )
+HB_FUNC(HMG_CREATEGRADIENTBRUSH)
 {
    auto hwnd = hmg_par_HWND(1);
 

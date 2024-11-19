@@ -584,7 +584,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
    ReleaseDC(hWnd, hdc);
 }
 
-HB_FUNC_STATIC( HMG_INITCHKLABEL )
+HB_FUNC_STATIC(HMG_INITCHKLABEL)
 {
    HBITMAP himage;
    HBITMAP himage2;
@@ -680,7 +680,7 @@ HB_FUNC_STATIC( HMG_INITCHKLABEL )
    hb_strfree(WindowName);
 }
 
-HB_FUNC( HMG_SETCHKLABEL )
+HB_FUNC(HMG_SETCHKLABEL)
 {
    auto hWnd = hmg_par_HWND(1);
    auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
@@ -698,7 +698,7 @@ HB_FUNC( HMG_SETCHKLABEL )
    ShowWindow(hWnd, SW_SHOW);
 }
 
-HB_FUNC( HMG_GETCHKLABEL )
+HB_FUNC(HMG_GETCHKLABEL)
 {
    auto hWnd = hmg_par_HWND(1);
    auto pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));

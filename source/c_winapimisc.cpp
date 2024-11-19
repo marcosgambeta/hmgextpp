@@ -306,21 +306,21 @@ HB_FUNC(HMG_CLEARCLIPBOARD)
 }
 
 #if 0
-HB_FUNC( HMG_GETRED ) // TODO: deprecated (using waGetRValue from WinApi library)
+HB_FUNC(HMG_GETRED) // TODO: deprecated (using waGetRValue from WinApi library)
 {
    hb_retnl( GetRValue(hb_parnl(1)) );
 }
 #endif
 
 #if 0
-HB_FUNC( HMG_GETGREEN ) // TODO: deprecated (using waGetGValue from WinApi library)
+HB_FUNC(HMG_GETGREEN) // TODO: deprecated (using waGetGValue from WinApi library)
 {
    hb_retnl( GetGValue(hb_parnl(1)) );
 }
 #endif
 
 #if 0
-HB_FUNC( HMG_GETBLUE ) // TODO: deprecated (using waGetBValue from WinApi library)
+HB_FUNC(HMG_GETBLUE) // TODO: deprecated (using waGetBValue from WinApi library)
 {
    hb_retnl( GetBValue(hb_parnl(1)) );
 }

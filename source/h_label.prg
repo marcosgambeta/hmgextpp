@@ -337,7 +337,7 @@ RETURN 0
 LRESULT APIENTRY LabelSubClassFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 static WNDPROC LabelOldWndProc;
 
-HB_FUNC_STATIC( HMG_INITLABEL )
+HB_FUNC_STATIC(HMG_INITLABEL)
 {
    int style = WS_CHILD;
    auto ExStyle = 0;

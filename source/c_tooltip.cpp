@@ -806,7 +806,7 @@ HB_FUNC(HMG_TTM_UPDATE)
 /*
    TTM_UPDATETIPTEXT - sets the tooltip text for a tool
  */
-HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC( UPDATETOOLTIPTEXT )
+HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC(UPDATETOOLTIPTEXT)
 {
   auto hwndToolTip = hmg_par_HWND(1);
   auto hwndTool = hmg_par_HWND(2);

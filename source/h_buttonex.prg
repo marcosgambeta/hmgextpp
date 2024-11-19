@@ -977,7 +977,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lPa
 /*
 HMG_INITOWNERBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
 */
-HB_FUNC_STATIC( HMG_INITOWNERBUTTON )
+HB_FUNC_STATIC(HMG_INITOWNERBUTTON)
 {
    HWND  himage;
    HICON hIcon;

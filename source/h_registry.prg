@@ -328,7 +328,7 @@ extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 // http://msdn.microsoft.com/en-us/library/ms684139(VS.85).aspx
 using LPFN_ISWOW64PROCESS = BOOL (WINAPI *)(HANDLE, PBOOL);
 
-HB_FUNC_STATIC( HMG_ISWOW64 )
+HB_FUNC_STATIC(HMG_ISWOW64)
 {
    BOOL bIsWow64 = FALSE;
 

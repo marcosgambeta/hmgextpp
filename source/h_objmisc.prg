@@ -287,7 +287,7 @@ RETURN NIL
 #include <hbapiitm.hpp>
 #include <commctrl.h>
 
-HB_FUNC( HMG_SETWINDOWOBJECT )
+HB_FUNC(HMG_SETWINDOWOBJECT)
 {
    PHB_ITEM pObject;
    auto hWnd = hmg_par_HWND(1);
@@ -317,7 +317,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
    }
 }
 
-HB_FUNC( HMG_DELWINDOWOBJECT )
+HB_FUNC(HMG_DELWINDOWOBJECT)
 {
    PHB_ITEM pObject;
    auto hWnd = hmg_par_HWND(1);
@@ -336,7 +336,7 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
    }
 }
 
-HB_FUNC( HMG_GETWINDOWOBJECT )
+HB_FUNC(HMG_GETWINDOWOBJECT)
 {
    auto hWnd = hmg_par_HWND(1);
 
@@ -350,7 +350,7 @@ HB_FUNC( HMG_GETWINDOWOBJECT )
    }
 }
 
-HB_FUNC( HMG_ISWINDOWOBJECT )
+HB_FUNC(HMG_ISWINDOWOBJECT)
 {
    PHB_ITEM pObject;
 

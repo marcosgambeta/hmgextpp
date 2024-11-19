@@ -488,12 +488,12 @@ static void _Ax_Init(void)
    }
 }
 
-HB_FUNC( HMG_ATLAXWININIT )
+HB_FUNC(HMG_ATLAXWININIT)
 {
    _Ax_Init();
 }
 
-HB_FUNC( HMG_ATLAXWINEND )
+HB_FUNC(HMG_ATLAXWINEND)
 {
    if (hAtl)
    {
@@ -502,7 +502,7 @@ HB_FUNC( HMG_ATLAXWINEND )
    }
 }
 
-HB_FUNC( HMG_ATLAXGETDISP ) // hWnd -> pDisp
+HB_FUNC(HMG_ATLAXGETDISP) // hWnd -> pDisp
 {
    IUnknown *  pUnk;
    IDispatch * pDisp;
@@ -518,7 +518,7 @@ HB_FUNC( HMG_ATLAXGETDISP ) // hWnd -> pDisp
    hmg_ret_HANDLE(pDisp);
 }
 
-HB_FUNC_STATIC( HMG_CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
+HB_FUNC_STATIC(HMG_CREATEWINDOWEX) // ( hWnd, cProgId ) -> hActiveXWnd
 {
    auto hControl = CreateWindowEx(0, "AtlAxWin",
 #ifndef UNICODE
@@ -895,7 +895,7 @@ using device_interface = IEventHandler;
 // Hash  // hmg_SetupConnectionPoint(oOle:hObj, @hSink, hEvents)             -> nError
 // Array // hmg_SetupConnectionPoint(oOle:hObj, @hSink, aEvents, aExecEvent) -> nError
 
-HB_FUNC( HMG_SETUPCONNECTIONPOINT )
+HB_FUNC(HMG_SETUPCONNECTIONPOINT)
 {
    IConnectionPointContainer * pIConnectionPointContainerTemp = nullptr;
    IUnknown *                  pIUnknown = nullptr;
@@ -998,7 +998,7 @@ HB_FUNC( HMG_SETUPCONNECTIONPOINT )
    hb_retnl(hr);
 }
 
-HB_FUNC( HMG_SHUTDOWNCONNECTIONPOINT )
+HB_FUNC(HMG_SHUTDOWNCONNECTIONPOINT)
 {
    auto self = reinterpret_cast<MyRealIEventHandler*>(HB_PARNL(1));
 
@@ -1011,7 +1011,7 @@ HB_FUNC( HMG_SHUTDOWNCONNECTIONPOINT )
    }
 }
 
-HB_FUNC( HMG_RELEASEDISPATCH )
+HB_FUNC(HMG_RELEASEDISPATCH)
 {
    auto pObj = reinterpret_cast<IDispatch*>(HB_PARNL(1));
    pObj->lpVtbl->Release(pObj);

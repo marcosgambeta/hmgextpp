@@ -944,14 +944,14 @@ RETURN
 
 #include <commctrl.h>
 
-HB_FUNC( HMG_SETBRUSHORG )
+HB_FUNC(HMG_SETBRUSHORG)
 {
     auto hDC = hmg_par_HDC(1);
 
     SetBrushOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
 }
 
-HB_FUNC( HMG_SETSTRETCHBLTMODE )
+HB_FUNC(HMG_SETSTRETCHBLTMODE)
 {
     hb_retni(SetStretchBltMode(hmg_par_HDC(1),  hb_parni(2)));
 }
@@ -965,7 +965,7 @@ HB_FUNC( HMG_SETSTRETCHBLTMODE )
 #define BT_DRAW_CHORD  1
 #define BT_DRAW_PIE    2
 
-HB_FUNC( HMG_BT_DRAW_HDC_ARCX_EX )
+HB_FUNC(HMG_BT_DRAW_HDC_ARCX_EX)
 {
    HBRUSH   hBrush;
 
@@ -1018,7 +1018,7 @@ HB_FUNC( HMG_BT_DRAW_HDC_ARCX_EX )
    DeleteObject(hPen);
 }
 
-HB_FUNC( HMG_CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
+HB_FUNC(HMG_CREATEPATTERNHBRUSH) // ( hBitmap ) --> hBrush
 {
    auto hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
 

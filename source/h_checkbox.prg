@@ -662,7 +662,7 @@ using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 /*
 HMG_INITCHECKBOX(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
 */
-HB_FUNC_STATIC( HMG_INITCHECKBOX )
+HB_FUNC_STATIC(HMG_INITCHECKBOX)
 {
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
@@ -717,7 +717,7 @@ HB_FUNC_STATIC( HMG_INITCHECKBOX )
 /*
 HMG_INITCHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11) --> HWND
 */
-HB_FUNC_STATIC( HMG_INITCHECKBUTTON )
+HB_FUNC_STATIC(HMG_INITCHECKBUTTON)
 {
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
@@ -753,7 +753,7 @@ HB_FUNC_STATIC( HMG_INITCHECKBUTTON )
 /*
 HMG_INITIMAGECHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13) --> HWND
 */
-HB_FUNC_STATIC( HMG_INITIMAGECHECKBUTTON )
+HB_FUNC_STATIC(HMG_INITIMAGECHECKBUTTON)
 {
    HWND       himage;
    HIMAGELIST himl;
