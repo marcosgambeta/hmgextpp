@@ -76,7 +76,7 @@ HMG_SETACCELERATORTABLE(HWND, HACCEL) --> NIL
 HB_FUNC(HMG_SETACCELERATORTABLE)
 {
   auto hWndMain = hmg_par_HWND(1);
-  HACCEL hAccel = hmg_par_HACCEL(2);
+  auto hAccel = hmg_par_HACCEL(2);
 
   if (hWndMain != nullptr && hAccel != nullptr)
   {
@@ -89,7 +89,7 @@ HMG_ACCELERATORTABLE2ARRAY(HACCEL) --> array
 */
 HB_FUNC(HMG_ACCELERATORTABLE2ARRAY)
 {
-  HACCEL hAccel = hmg_par_HACCEL(1);
+  auto hAccel = hmg_par_HACCEL(1);
   auto aAccels = hb_itemArrayNew(0);
 
   if (hAccel != nullptr)
@@ -159,7 +159,7 @@ HB_FUNC(HMG_ARRAY2ACCELERATORTABLE)
 
 HB_FUNC(HMG_COPYACCELERATORTABLE)
 {
-  HACCEL hAccelSrc = hmg_par_HACCEL(1);
+  auto hAccelSrc = hmg_par_HACCEL(1);
 
   hb_retni(0);
 
