@@ -125,9 +125,8 @@ HB_FUNC(HMG_CHANGEPASSWORD)
   hb_retl(true);
 }
 
-/*
-   Moved from c_controlmisc.c
- */
+// Moved from c_controlmisc.c
+
 HB_FUNC(HMG_SETCURSORPOS)
 {
   SetCursorPos(hb_parni(1), hb_parni(2));

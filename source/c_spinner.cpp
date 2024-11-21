@@ -66,7 +66,7 @@ HB_FUNC(HMG_INITSPINNER)
   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
   i.dwICC = ICC_STANDARD_CLASSES;
   InitCommonControlsEx(&i);
-  i.dwICC = ICC_UPDOWN_CLASS; /* P.Ch. 10.16. */
+  i.dwICC = ICC_UPDOWN_CLASS; // P.Ch. 10.16.
   InitCommonControlsEx(&i);
 
   DWORD style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
@@ -95,7 +95,7 @@ HB_FUNC(HMG_INITSPINNER)
 
   if (hb_parl(15))
   {
-    style2 |= UDS_HORZ | UDS_ALIGNRIGHT; /* P.Ch. 10.16. */
+    style2 |= UDS_HORZ | UDS_ALIGNRIGHT; // P.Ch. 10.16.
   }
 
   auto hwnd = hmg_par_HWND(1);
@@ -155,7 +155,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
       hmg_vmPushLPARAM(lParam);
       hb_vmDo(4);
     }
-    long int r = hb_parnl(-1); /* P.Ch. 10.16. */
+    long int r = hb_parnl(-1); // P.Ch. 10.16.
     return (r != 0) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
   }
 

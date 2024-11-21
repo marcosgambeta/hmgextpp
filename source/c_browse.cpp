@@ -57,9 +57,7 @@
 LRESULT APIENTRY SubClassFunc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static WNDPROC lpfnOldWndProc;
 
-/*
-HMG_INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND
-*/
+// HMG_INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND
 HB_FUNC(HMG_INITBROWSE)
 {
   INITCOMMONCONTROLSEX i;
@@ -106,9 +104,7 @@ LRESULT APIENTRY SubClassFunc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
   }
 }
 
-/*
-HMG_INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
-*/
+// HMG_INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 HB_FUNC(HMG_INITVSCROLLBAR)
 {
   auto hscrollbar =
@@ -120,9 +116,7 @@ HB_FUNC(HMG_INITVSCROLLBAR)
   hmg_ret_HWND(hscrollbar);
 }
 
-/*
-HMG_GETSCROLLRANGEMAX(HWND, nBar) --> numeric
-*/
+// HMG_GETSCROLLRANGEMAX(HWND, nBar) --> numeric
 HB_FUNC(HMG_GETSCROLLRANGEMAX)
 {
   int MinPos, MaxPos;
@@ -130,18 +124,14 @@ HB_FUNC(HMG_GETSCROLLRANGEMAX)
   hb_retni(MaxPos);
 }
 
-/*
-HMG_INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
-*/
+// HMG_INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 HB_FUNC(HMG_INITVSCROLLBARBUTTON)
 {
   hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD | WS_VISIBLE | SS_SUNKEN, hmg_par_int(2), hmg_par_int(3),
                               hmg_par_int(4), hmg_par_int(5), hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
 
-/*
-HMG_SETSCROLLINFO(HWND, nMax, nPos, nPage) --> numeric
-*/
+// HMG_SETSCROLLINFO(HWND, nMax, nPos, nPage) --> numeric
 HB_FUNC(HMG_SETSCROLLINFO)
 {
   SCROLLINFO lpsi;

@@ -58,10 +58,7 @@
 LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-/*
-HMG_CHOOSEFONT(cFaceName, nHeight, nWeight, lItalic, nRGB, lUnderline, lStrikeOut, nCharSet, nFlags)
---> array[8]
-*/
+// HMG_CHOOSEFONT(cFaceName, nHeight, nWeight, lItalic, nRGB, lUnderline, lStrikeOut, nCharSet, nFlags) --> array[8]
 HB_FUNC(HMG_CHOOSEFONT)
 {
   auto hwnd = GetActiveWindow();
@@ -124,9 +121,7 @@ HB_FUNC(HMG_CHOOSEFONT)
   ReleaseDC(hwnd, hdc);
 }
 
-/*
-HMG_C_GETFILE(cFilter, cTitle, cInitialDir, lp4, lp5, np6) --> string
-*/
+// HMG_C_GETFILE(cFilter, cTitle, cInitialDir, lp4, lp5, np6) --> string
 HB_FUNC(HMG_C_GETFILE)
 {
   TCHAR buffer[32768];
@@ -251,9 +246,7 @@ HB_FUNC(HMG_C_GETFILE)
 #endif
 }
 
-/*
-HMG_C_PUTFILE() -->
-*/
+// HMG_C_PUTFILE() -->
 HB_FUNC(HMG_C_PUTFILE) // JK JP
 {
   TCHAR buffer[512];
@@ -395,9 +388,7 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
   return 0;
 }
 
-/*
-HMG_C_BROWSEFORFOLDER(HWND, cTitle, nFlags, np4, cp5) --> string
-*/
+// HMG_C_BROWSEFORFOLDER(HWND, cTitle, nFlags, np4, cp5) --> string
 HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
                                // C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[<nFlags>],[<nFolderType>],[<cInitPath>])
 {
@@ -443,9 +434,7 @@ HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
   hb_strfree(str2);
 }
 
-/*
-HMG_CHOOSECOLOR(HWND, nColor, ap3, np4) --> nColor|-1
-*/
+// HMG_CHOOSECOLOR(HWND, nColor, ap3, np4) --> nColor|-1
 HB_FUNC(HMG_CHOOSECOLOR)
 {
   COLORREF crCustClr[16];
@@ -471,17 +460,13 @@ HB_FUNC(HMG_CHOOSECOLOR)
   }
 }
 
-/*
-HMG_UNITSTOPIXELSX(nUnitsX) --> cx
-*/
+// HMG_UNITSTOPIXELSX(nUnitsX) --> cx
 HB_FUNC(HMG_UNITSTOPIXELSX)
 {
   hb_retni(MulDiv(hb_parni(1), LOWORD(GetDialogBaseUnits()), 4));
 }
 
-/*
-HMG_UNITSTOPIXELSY(nUnitsY) --> cy
-*/
+// HMG_UNITSTOPIXELSY(nUnitsY) --> cy
 HB_FUNC(HMG_UNITSTOPIXELSY)
 {
   hb_retni(MulDiv(hb_parni(1), HIWORD(GetDialogBaseUnits()), 8));

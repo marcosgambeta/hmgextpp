@@ -53,7 +53,7 @@ LPWSTR AnsiToWide(LPCSTR);
 LPSTR WideToAnsi(LPWSTR);
 #endif
 
-/* Grigory Filatov <gfilatov@gmail.com> HMG 18.05 */
+// Grigory Filatov <gfilatov@gmail.com> HMG 18.05
 
 HB_FUNC(HMG_GETNONCLIENT)
 {

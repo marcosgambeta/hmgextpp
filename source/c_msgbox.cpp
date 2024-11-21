@@ -46,7 +46,7 @@
 
 #include "mgdefs.hpp"
 
-/* undocumented Windows API */
+// undocumented Windows API
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId,
                              DWORD dwMilliseconds);
 
@@ -77,7 +77,7 @@ HB_FUNC(HMG_MESSAGEBOXINDIRECT)
 #endif
   mbp.dwStyle = static_cast<DWORD>(hb_parni(4));
   mbp.dwContextHelpId = HB_ISNUM(7) ? static_cast<DWORD>(hb_parni(7)) : 0;
-  mbp.lpfnMsgBoxCallback = nullptr; /* Modified by P.Ch. 16.10. */
+  mbp.lpfnMsgBoxCallback = nullptr; // Modified by P.Ch. 16.10.
   mbp.dwLanguageId = HB_ISNUM(9) ? static_cast<DWORD>(hb_parni(9)) : MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL);
 
   hb_retni(MessageBoxIndirect(&mbp));

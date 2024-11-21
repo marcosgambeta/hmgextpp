@@ -60,9 +60,7 @@ bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT *rc);
 PHB_ITEM hmg_RectToArray(RECT *rc);
 
-/*
-HMG_BEGINPAINT(HWND, cp2) --> HANDLE
-*/
+// HMG_BEGINPAINT(HWND, cp2) --> HANDLE
 HB_FUNC(HMG_BEGINPAINT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -79,9 +77,7 @@ HB_FUNC(HMG_BEGINPAINT)
   }
 }
 
-/*
-HMG_ENDPAINT(HWND, cp2) --> .T.|.F.
-*/
+// HMG_ENDPAINT(HWND, cp2) --> .T.|.F.
 HB_FUNC(HMG_ENDPAINT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -97,9 +93,7 @@ HB_FUNC(HMG_ENDPAINT)
   }
 }
 
-/*
-HMG_DRAWFOCUSRECT(p1) --> NIL
-*/
+// HMG_DRAWFOCUSRECT(p1) --> NIL
 HB_FUNC(HMG_DRAWFOCUSRECT)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -112,9 +106,7 @@ HB_FUNC(HMG_DRAWFOCUSRECT)
   }
 }
 
-/*
-HMG_DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
-*/
+// HMG_DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
 HB_FUNC(HMG_DRAWSTATE)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -181,9 +173,7 @@ HB_FUNC(HMG_DRAWSTATE)
   }
 }
 
-/*
-HMG_GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
-*/
+// HMG_GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
 HB_FUNC(HMG_GETUPDATERECT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -207,17 +197,13 @@ HB_FUNC(HMG_GETUPDATERECT)
   }
 }
 
-/*
-HMG_GDIFLUSH() --> .T.|.F.
-*/
+// HMG_GDIFLUSH() --> .T.|.F.
 HB_FUNC(HMG_GDIFLUSH)
 {
   hb_retl(GdiFlush() ? true : false);
 }
 
-/*
-HMG_GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
-*/
+// HMG_GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
 HB_FUNC(HMG_GRAYSTRING)
 {
   auto nCount = hb_parni(5);
@@ -280,9 +266,7 @@ HB_FUNC(HMG_GRAYSTRING)
   }
 }
 
-/*
-HMG_INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
-*/
+// HMG_INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
 HB_FUNC(HMG_INVALIDATERECT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -315,9 +299,7 @@ HB_FUNC(HMG_INVALIDATERECT)
   }
 }
 
-/*
-HMG_REDRAWWINDOW(HWND, p2) --> .T.|.F.
-*/
+// HMG_REDRAWWINDOW(HWND, p2) --> .T.|.F.
 HB_FUNC(HMG_REDRAWWINDOW)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -339,9 +321,7 @@ HB_FUNC(HMG_REDRAWWINDOW)
   }
 }
 
-/*
-HMG_C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
-*/
+// HMG_C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
 HB_FUNC(HMG_C_SETBACKCOLOR)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -380,9 +360,7 @@ HB_FUNC(HMG_C_SETBACKCOLOR)
   }
 }
 
-/*
-HMG_SETBKMODE(HWND|HDC, p2) --> numeric
-*/
+// HMG_SETBKMODE(HWND|HDC, p2) --> numeric
 HB_FUNC(HMG_SETBKMODE)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -414,9 +392,7 @@ HB_FUNC(HMG_SETBKMODE)
   }
 }
 
-/*
-HMG_UPDATEWINDOW(HWND) --> .T.|.F.
-*/
+// HMG_UPDATEWINDOW(HWND) --> .T.|.F.
 HB_FUNC(HMG_UPDATEWINDOW)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -431,9 +407,7 @@ HB_FUNC(HMG_UPDATEWINDOW)
   }
 }
 
-/*
-HMG_VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
-*/
+// HMG_VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
 HB_FUNC(HMG_VALIDATERECT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -466,9 +440,7 @@ HB_FUNC(HMG_VALIDATERECT)
   }
 }
 
-/*
-HMG_WINDOWFROMDC(HDC) --> numeric
-*/
+// HMG_WINDOWFROMDC(HDC) --> numeric
 HB_FUNC(HMG_WINDOWFROMDC)
 {
   HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));

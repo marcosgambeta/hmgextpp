@@ -56,7 +56,7 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable : 4201) /* warning C4201: nonstandard extension used: nameless struct/union */
+#pragma warning(disable : 4201) // warning C4201: nonstandard extension used: nameless struct/union
 #endif
 #include <olectl.h>
 #if defined(_MSC_VER)
@@ -376,9 +376,7 @@ HB_FUNC(HMG_C_GETRESPICTURE)
   hmg_ret_HBITMAP(hBitmap);
 }
 
-//****************************************************************************************************************
 // HMG_LoadImage(const char *FileName) -> hBitmap (Load: JPG, GIF, ICO, TIF, PNG, WMF)
-//****************************************************************************************************************
 HBITMAP HMG_LoadImage(const char *pszImageName, const char *pszTypeOfRes)
 {
   HB_SYMBOL_UNUSED(pszTypeOfRes);
@@ -425,9 +423,7 @@ HBITMAP HMG_LoadImage(const char *pszImageName, const char *pszTypeOfRes)
   return hBitmap;
 }
 
-//****************************************************************************************************************
 // HMG_LoadPicture(Name, width, height, ...) -> hBitmap (Load: BMP, GIF, JPG, TIF, WMF, EMF, PNG)
-//****************************************************************************************************************
 HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent,
                         long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlphaConstant)
 {
@@ -755,10 +751,8 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 }
 #endif
 
-//*************************************************************************************************
 // HMG_OleLoadPicturePath(pszURLorPath) -> hBitmap
 // (stream must be in BMP (bitmap), JPEG, WMF (metafile), ICO (icon), or GIF format)
-//*************************************************************************************************
 HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char *pszURLorPath)
 {
   HRESULT hres = E_FAIL;
@@ -811,9 +805,8 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char *pszURLorPath)
   return hBitmap;
 }
 
-/*
- * Get encoders
- */
+// Get encoders
+
 HB_FUNC(HMG_GPLUSGETENCODERSNUM)
 {
   UINT num = 0;  // number of image encoders
@@ -1074,17 +1067,15 @@ HB_FUNC(HMG_C_SAVEHBITMAPTOFILE)
   hb_strfree(str2);
 }
 
-//*************************************************************************************************
-//        ICONS (.ICO type 1) are structured like this:
+// ICONS (.ICO type 1) are structured like this:
 //
-//        ICONHEADER                                        (just 1)
-//        ICONDIR                                                [1...n]  (an array, 1 for each
-//        image) [BITMAPINFOHEADER+COLOR_BITS+MASK_BITS]                [1...n]         (1 after the
-//        other, for each image)
+// ICONHEADER                                        (just 1)
+// ICONDIR                                                [1...n]  (an array, 1 for each
+// image) [BITMAPINFOHEADER+COLOR_BITS+MASK_BITS]                [1...n]         (1 after the
+// other, for each image)
 //
-//        CURSORS (.ICO type 2) are identical in structure, but use
-//        two monochrome bitmaps (real XOR and AND masks, this time).
-//*************************************************************************************************
+// CURSORS (.ICO type 2) are identical in structure, but use
+// two monochrome bitmaps (real XOR and AND masks, this time).
 struct ICONHEADER
 {
   WORD idReserved; // must be 0
@@ -1092,9 +1083,7 @@ struct ICONHEADER
   WORD idCount;    // number of images (and ICONDIRs)
 };
 
-//*************************************************************************************************
-//        An array of ICONDIRs immediately follow the ICONHEADER
-//*************************************************************************************************
+// An array of ICONDIRs immediately follow the ICONHEADER
 struct ICONDIR
 {
   BYTE bWidth;
@@ -1107,19 +1096,15 @@ struct ICONDIR
   DWORD dwImageOffset; // file-offset to the start of ICONIMAGE
 };
 
-//*************************************************************************************************
-//        After the ICONDIRs follow the ICONIMAGE structures -
-//        consisting of a BITMAPINFOHEADER, (optional) RGBQUAD array, then
-//        the color and mask bitmap bits (all packed together).
-//*************************************************************************************************
+// After the ICONDIRs follow the ICONIMAGE structures -
+// consisting of a BITMAPINFOHEADER, (optional) RGBQUAD array, then
+// the color and mask bitmap bits (all packed together).
 struct ICONIMAGE
 {
   BITMAPINFOHEADER biHeader; // header for color bitmap (no mask header)
 };
 
-//*************************************************************************************************
-//        Write the ICO header to disk
-//*************************************************************************************************
+// Write the ICO header to disk
 static UINT WriteIconHeader(HANDLE hFile, int nImages)
 {
   // Setup the icon header
@@ -1136,9 +1121,7 @@ static UINT WriteIconHeader(HANDLE hFile, int nImages)
   return nWritten;
 }
 
-//*************************************************************************************************
-//        Return the number of BYTES the bitmap will take ON DISK
-//*************************************************************************************************
+// Return the number of BYTES the bitmap will take ON DISK
 static UINT NumBitmapBytes(BITMAP *pBitmap)
 {
   int nWidthBytes = pBitmap->bmWidthBytes;
@@ -1153,9 +1136,7 @@ static UINT NumBitmapBytes(BITMAP *pBitmap)
   return nWidthBytes * pBitmap->bmHeight;
 }
 
-//*************************************************************************************************
-//        Return number of bytes written
-//*************************************************************************************************
+// Return number of bytes written
 static UINT WriteIconImageHeader(HANDLE hFile, BITMAP *pbmpColor, BITMAP *pbmpMask)
 {
   // calculate how much space the COLOR and MASK bitmaps take
@@ -1179,9 +1160,7 @@ static UINT WriteIconImageHeader(HANDLE hFile, BITMAP *pbmpColor, BITMAP *pbmpMa
   return nWritten;
 }
 
-//*************************************************************************************************
-//        Wrapper around GetIconInfo and GetObject(BITMAP)
-//*************************************************************************************************
+// Wrapper around GetIconInfo and GetObject(BITMAP)
 static bool GetIconBitmapInfo(HICON hIcon, ICONINFO *pIconInfo, BITMAP *pbmpColor, BITMAP *pbmpMask)
 {
   if (!GetIconInfo(hIcon, pIconInfo))
@@ -1202,9 +1181,7 @@ static bool GetIconBitmapInfo(HICON hIcon, ICONINFO *pIconInfo, BITMAP *pbmpColo
   return true;
 }
 
-//*************************************************************************************************
-//        Write one icon directory entry - specify the index of the image
-//*************************************************************************************************
+// Write one icon directory entry - specify the index of the image
 static UINT WriteIconDirectoryEntry(HANDLE hFile, HICON hIcon, UINT nImageOffset)
 {
   ICONINFO iconInfo;
@@ -1280,9 +1257,7 @@ static UINT WriteIconData(HANDLE hFile, HBITMAP hBitmap)
   return nBitmapBytes;
 }
 
-//*************************************************************************************************
-//        Create a .ICO file, using the specified array of HICON images
-//*************************************************************************************************
+// Create a .ICO file, using the specified array of HICON images
 BOOL SaveIconToFile(TCHAR *szIconFile, HICON hIcon[], int nNumIcons)
 {
   if (hIcon == 0 || nNumIcons < 1)
@@ -1352,13 +1327,9 @@ BOOL SaveIconToFile(TCHAR *szIconFile, HICON hIcon[], int nNumIcons)
   return TRUE;
 }
 
-//*************************************************************************************************
-//        Save the icon resources to disk
-//*************************************************************************************************
+// Save the icon resources to disk
 
-/*
-HMG_C_SAVEHICONTOFILE(cIconFile, ap2, np3) --> .T.|.F.
-*/
+// HMG_C_SAVEHICONTOFILE(cIconFile, ap2, np3) --> .T.|.F.
 HB_FUNC(HMG_C_SAVEHICONTOFILE)
 {
   void *str;

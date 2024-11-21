@@ -60,7 +60,7 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable : 4201) /* warning C4201: nonstandard extension used: nameless struct/union */
+#pragma warning(disable : 4201) // warning C4201: nonstandard extension used: nameless struct/union
 #endif
 #include <richedit.h>
 #if defined(_MSC_VER)
@@ -1173,9 +1173,7 @@ HB_FUNC(HMG_RICHEDITBOX_POSFROMCHAR)
   HB_STORNI(Point.x, -1, 2);
 }
 
-//********************************************************************
 // by Dr. Claudio Soto ( January 2014 )
-//********************************************************************
 
 static TCHAR cFindWhat[1024];
 static TCHAR cReplaceWith[1024];

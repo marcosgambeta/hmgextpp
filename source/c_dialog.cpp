@@ -100,51 +100,39 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
   return hb_parnl(-1);
 }
 
-/*
-HMG_INITMODALDIALOG(HWND, np2) --> LRESULT
-*/
+// HMG_INITMODALDIALOG(HWND, np2) --> LRESULT
 HB_FUNC(HMG_INITMODALDIALOG)
 {
   HB_RETNL(static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
                                            reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
 }
 
-/*
-HMG_INITDIALOG(HWND, np2) --> HANDLE
-*/
+// HMG_INITDIALOG(HWND, np2) --> HANDLE
 HB_FUNC(HMG_INITDIALOG)
 {
   hmg_ret_HWND(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
                             reinterpret_cast<DLGPROC>(HMG_DlgProc)));
 }
 
-/*
-HMG_GETDIALOGITEMHANDLE(HWND, nID) --> HANDLE
-*/
+// HMG_GETDIALOGITEMHANDLE(HWND, nID) --> HANDLE
 HB_FUNC(HMG_GETDIALOGITEMHANDLE)
 {
   hmg_ret_HWND(GetDlgItem(hmg_par_HWND(1), hmg_par_int(2)));
 }
 
-/*
-HMG_CHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
-*/
+// HMG_CHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
 HB_FUNC(HMG_CHECKDLGBUTTON)
 {
   CheckDlgButton(hmg_par_HWND(2), hmg_par_int(1), BST_CHECKED);
 }
 
-/*
-HMG_UNCHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
-*/
+// HMG_UNCHECKDLGBUTTON(nIDButton, HWND) --> NIL // TODO: return .T. or .F.
 HB_FUNC(HMG_UNCHECKDLGBUTTON)
 {
   CheckDlgButton(hmg_par_HWND(2), hmg_par_int(1), BST_UNCHECKED);
 }
 
-/*
-HMG_SETDIALOGITEMTEXT(HWND, nId, cText) --> .T.|.F.
-*/
+// HMG_SETDIALOGITEMTEXT(HWND, nId, cText) --> .T.|.F.
 HB_FUNC(HMG_SETDIALOGITEMTEXT)
 {
   void *str;
@@ -152,17 +140,13 @@ HB_FUNC(HMG_SETDIALOGITEMTEXT)
   hb_strfree(str);
 }
 
-/*
-HMG_ENDDIALOG(HWND, nResult) --> NIL
-*/
+// HMG_ENDDIALOG(HWND, nResult) --> NIL
 HB_FUNC(HMG_ENDDIALOG)
 {
   EndDialog(hmg_par_HWND(1), hb_parni(2));
 }
 
-/*
-HMG_ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
-*/
+// HMG_ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
 HB_FUNC(HMG_ADDDIALOGPAGES)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -183,26 +167,20 @@ HB_FUNC(HMG_ADDDIALOGPAGES)
   TabCtrl_SetCurFocus(hwnd, hb_parni(3) - 1);
 }
 
-/*
-HMG_GETDLGCTRLID(HWND) --> numeric
-*/
+// HMG_GETDLGCTRLID(HWND) --> numeric
 HB_FUNC(HMG_GETDLGCTRLID)
 {
   hb_retni(GetDlgCtrlID(hmg_par_HWND(1)));
 }
 
-/*
-HMG_SETDLGITEMINT(HWND, nId, nValue, lSigned) --> NIL // TODO: return .T. or .F.
-*/
+// HMG_SETDLGITEMINT(HWND, nId, nValue, lSigned) --> NIL // TODO: return .T. or .F.
 HB_FUNC(HMG_SETDLGITEMINT)
 {
   SetDlgItemInt(hmg_par_HWND(1), hmg_par_int(2), hmg_par_UINT(3),
                 (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? false : true);
 }
 
-/*
-HMG_GETDLGITEMTEXT(HWND, nId, np3) --> cText
-*/
+// HMG_GETDLGITEMTEXT(HWND, nId, np3) --> cText
 HB_FUNC(HMG_GETDLGITEMTEXT)
 {
   auto strlen = hb_parni(3);
@@ -212,9 +190,7 @@ HB_FUNC(HMG_GETDLGITEMTEXT)
   delete[] str;
 }
 
-/*
-HMG_GETEDITTEXT(HWND, nId) --> cText
-*/
+// HMG_GETEDITTEXT(HWND, nId) --> cText
 HB_FUNC(HMG_GETEDITTEXT)
 {
   auto hDlg = hmg_par_HWND(1);
@@ -226,18 +202,13 @@ HB_FUNC(HMG_GETEDITTEXT)
   delete[] str;
 }
 
-/*
-HMG_CHECKRADIOBUTTON(HWND, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL // TODO: return
-.T. or .F.
-*/
+// HMG_CHECKRADIOBUTTON(HWND, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL // TODO: return .T. or .F.
 HB_FUNC(HMG_CHECKRADIOBUTTON)
 {
   CheckRadioButton(hmg_par_HWND(1), hmg_par_int(2), hmg_par_int(3), hmg_par_int(4));
 }
 
-/*
-HMG_ISDLGBUTTONCHECKED(HWND, nIDButton) --> .T.|.F.
-*/
+// HMG_ISDLGBUTTONCHECKED(HWND, nIDButton) --> .T.|.F.
 HB_FUNC(HMG_ISDLGBUTTONCHECKED)
 {
   hb_retl(IsDlgButtonChecked(hmg_par_HWND(1), hmg_par_int(2)) == BST_CHECKED ? true : false);
@@ -397,9 +368,7 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   return pdlgtemplate;
 }
 
-/*
-HMG_CREATEDLGTEMPLATE(HWND, ap2, ap3) --> LRESULT|HANDLE
-*/
+// HMG_CREATEDLGTEMPLATE(HWND, ap2, ap3) --> LRESULT|HANDLE
 HB_FUNC(HMG_CREATEDLGTEMPLATE)
 {
   auto dArray = hb_param(2, Harbour::Item::ARRAY);
@@ -424,9 +393,7 @@ HB_FUNC(HMG_CREATEDLGTEMPLATE)
   }
 }
 
-/*
-HMG_INITEXCOMMONCONTROLS(np) --> NIL
-*/
+// HMG_INITEXCOMMONCONTROLS(np) --> NIL
 HB_FUNC(HMG_INITEXCOMMONCONTROLS)
 {
   INITCOMMONCONTROLSEX i{};

@@ -136,15 +136,11 @@ HB_FUNC(HMG_SETTOOLTIPMAXWIDTH)
   hb_retni(g_iOldToolTipMaxWidth);
 }
 
-/*
-   nToolTip := InitToolTip(nFormHandle, hmg_SetToolTipBalloon())
+// nToolTip := InitToolTip(nFormHandle, hmg_SetToolTipBalloon())
+//
+// for ModalWindow : nToolTip := InitToolTip(, hmg_SetToolTipBalloon())
 
-   for ModalWindow : nToolTip := InitToolTip(, hmg_SetToolTipBalloon())
- */
-
-/*
-HMG_INITTOOLTIP(HWND, lBalloon) --> hTooltip
-*/
+// HMG_INITTOOLTIP(HWND, lBalloon) --> hTooltip
 HB_FUNC(HMG_INITTOOLTIP)
 {
   HWND hwndParent = HB_ISNIL(1) ? nullptr : hmg_par_HWND(1);
@@ -168,7 +164,7 @@ HB_FUNC(HMG_INITTOOLTIP)
       dwStyle |= TTS_BALLOON;
     }
 
-    /* Create a tooltip */
+    // Create a tooltip
     auto hwndToolTip = CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
                                       CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
@@ -180,9 +176,7 @@ HB_FUNC(HMG_INITTOOLTIP)
   }
 }
 
-/*
-HMG_SETTOOLTIP(hwndTool, cText, hwndToolTip) -->
-*/
+// HMG_SETTOOLTIP(hwndTool, cText, hwndToolTip) -->
 HB_FUNC(HMG_SETTOOLTIP)
 {
   auto hwndTool = hmg_par_HWND(1);
@@ -217,9 +211,7 @@ HB_FUNC(HMG_SETTOOLTIP)
   }
 }
 
-/*
-   hmg_ShowBalloonTip(hWnd, cText [, cTitle] [, nTypeIcon])
- */
+// hmg_ShowBalloonTip(hWnd, cText [, cTitle] [, nTypeIcon])
 HB_FUNC(HMG_SHOWBALLOONTIP)
 {
   WCHAR Text[512];
@@ -275,10 +267,7 @@ HB_FUNC(HMG_HIDEBALLOONTIP)
   }
 }
 
-/*
-   nToolTip := hmg_InitToolTipEx(nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle
-   ][, nFlags ])
- */
+// nToolTip := hmg_InitToolTipEx(nFormHandle [, aRect ][, cToolTip ][, cTitle ][, nIcon ][, nStyle ][, nFlags ])
 HB_FUNC(HMG_INITTOOLTIPEX)
 {
   auto hwndParent = hmg_par_HWND(1);
@@ -322,13 +311,13 @@ HB_FUNC(HMG_INITTOOLTIPEX)
     INITCOMMONCONTROLSEX icex = {sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES};
     InitCommonControlsEx(&icex);
 
-    /* Create a tooltip */
+    // Create a tooltip
     auto hwndToolTip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, nullptr, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT,
                                       CW_USEDEFAULT, CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
     SetWindowPos(hwndToolTip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 
-    /* Set up "tool" information. In this case, the "tool" is the entire parent window. */
+    // Set up "tool" information. In this case, the "tool" is the entire parent window.
     TOOLINFO ti{};
     ti.cbSize = sizeof(ti);
     ti.uFlags = uFlags;
@@ -366,15 +355,12 @@ HB_FUNC(HMG_INITTOOLTIPEX)
   }
 }
 
-/*
-   ToolTip messages - TTM_messages
- */
+// ToolTip messages - TTM_messages
 
-/*
-   TM_ACTIVATE - activates or deactivates a tooltip control,
+// TM_ACTIVATE - activates or deactivates a tooltip control,
 
-   has no effect if g_bIsToolTipActive == FALSE ( after hmg_SetToolTipActivate(.F.) )
- */
+// has no effect if g_bIsToolTipActive == FALSE ( after hmg_SetToolTipActivate(.F.) )
+
 HB_FUNC(HMG_TTM_ACTIVATE)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -392,32 +378,30 @@ HB_FUNC(HMG_TTM_ACTIVATE)
   }
 }
 
-/* TODO
-   TTM_ADDTOOL - registers a tool with a tooltip control
+// TODO
+// TTM_ADDTOOL - registers a tool with a tooltip control
+//
+// TTM_ADJUSTRECT -
+// calculates   a   tooltip  control's  text  display  rectangle  from  its
+// window  rectangle,    or   the   tooltip   window  rectangle  needed  to
+// display a specified text display rectangle.
+//
+// TTM_DELTOOL - removes a tool from a tooltip control
+//
+// TTM_ENUMTOOLS -
+// retrieves  the  information  that  a tooltip control maintains about the
+// current  tool—that  is,  the  tool  for  which  the tooltip is currently
+// displaying text.
+//
+// TTM_GETBUBBLESIZE - returns the width and height of a tooltip control
+//
+// TTM_GETCURRENTTOOL -
+// retrieves the information for the current tool in a tooltip control
 
-   TTM_ADJUSTRECT -
-   calculates   a   tooltip  control's  text  display  rectangle  from  its
-   window  rectangle,    or   the   tooltip   window  rectangle  needed  to
-   display a specified text display rectangle.
+// TTM_GETDELAYTIME -
+// retrieves  the initial, pop-up, and reshow durations currently set for a
+// tooltip control
 
-   TTM_DELTOOL - removes a tool from a tooltip control
-
-   TTM_ENUMTOOLS -
-   retrieves  the  information  that  a tooltip control maintains about the
-   current  tool—that  is,  the  tool  for  which  the tooltip is currently
-   displaying text.
-
-   TTM_GETBUBBLESIZE - returns the width and height of a tooltip control
-
-   TTM_GETCURRENTTOOL -
-   retrieves the information for the current tool in a tooltip control
- */
-
-/*
-   TTM_GETDELAYTIME -
-   retrieves  the initial, pop-up, and reshow durations currently set for a
-   tooltip control
- */
 HB_FUNC(HMG_TTM_GETDELAYTIME)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -432,12 +416,11 @@ HB_FUNC(HMG_TTM_GETDELAYTIME)
   }
 }
 
-/*
-   TTM_GETMARGIN -
-   retrieves  the  top,  left,  bottom, and right margins set for a tooltip
-   window.  A margin is the distance, in pixels, between the tooltip window
-   border and the text contained within the tooltip window
- */
+// TTM_GETMARGIN -
+// retrieves  the  top,  left,  bottom, and right margins set for a tooltip
+// window.  A margin is the distance, in pixels, between the tooltip window
+// border and the text contained within the tooltip window
+
 HB_FUNC(HMG_TTM_GETMARGIN)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -456,9 +439,7 @@ HB_FUNC(HMG_TTM_GETMARGIN)
   }
 }
 
-/*
-   TTM_GETMAXTIPWIDTH - retrieves the maximum width for a tooltip window
- */
+// TTM_GETMAXTIPWIDTH - retrieves the maximum width for a tooltip window
 HB_FUNC(HMG_TTM_GETMAXTIPWIDTH)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -473,14 +454,12 @@ HB_FUNC(HMG_TTM_GETMAXTIPWIDTH)
   }
 }
 
-/* TODO
-   TTM_GETTEXT -
-   retrieves the information a tooltip control maintains about a tool
- */
+// TODO
+// TTM_GETTEXT -
+// retrieves the information a tooltip control maintains about a tool
 
-/*
-   TTM_GETTIPBKCOLOR - retrieves the background color in a tooltip window
- */
+// TTM_GETTIPBKCOLOR - retrieves the background color in a tooltip window
+
 HB_FUNC(HMG_TTM_GETTIPBKCOLOR)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -495,9 +474,8 @@ HB_FUNC(HMG_TTM_GETTIPBKCOLOR)
   }
 }
 
-/*
-   TTM_GETTIPTEXTCOLOR  - retrieves the text color in a tooltip window
- */
+// TTM_GETTIPTEXTCOLOR  - retrieves the text color in a tooltip window
+
 HB_FUNC(HMG_TTM_GETTIPTEXTCOLOR)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -512,15 +490,13 @@ HB_FUNC(HMG_TTM_GETTIPTEXTCOLOR)
   }
 }
 
-/* TODO
-   TTM_GETTITLE -
-   retrieve information concerning the title of a tooltip control
- */
+// TODO
+// TTM_GETTITLE -
+// retrieve information concerning the title of a tooltip control
 
-/*
-   TTM_GETTOOLCOUNT -
-   retrieves a count of the tools maintained by a tooltip control
- */
+// TTM_GETTOOLCOUNT -
+// retrieves a count of the tools maintained by a tooltip control
+
 HB_FUNC(HMG_TTM_GETTOOLCOUNT)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -535,21 +511,19 @@ HB_FUNC(HMG_TTM_GETTOOLCOUNT)
   }
 }
 
-/* TODO
-   TTM_GETTOOLINFO -
-   retrieves the information that a tooltip control maintains about a tool
+// TODO
+// TTM_GETTOOLINFO -
+// retrieves the information that a tooltip control maintains about a tool
+//
+// TTM_HITTEST -
+// tests  a  point to determine whether it is within the bounding rectangle
+// of  the  specified  tool  and, if it is, retrieves information about the
+// tool
+//
+// TTM_NEWTOOLRECT - sets a new bounding rectangle for a tool
 
-   TTM_HITTEST -
-   tests  a  point to determine whether it is within the bounding rectangle
-   of  the  specified  tool  and, if it is, retrieves information about the
-   tool
+// TTM_POP - removes a displayed tooltip window from view
 
-   TTM_NEWTOOLRECT - sets a new bounding rectangle for a tool
- */
-
-/*
-   TTM_POP - removes a displayed tooltip window from view
- */
 HB_FUNC(HMG_TTM_POP)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -564,10 +538,9 @@ HB_FUNC(HMG_TTM_POP)
   }
 }
 
-/*
-   TTM_POPUP -
-   causes the tooltip to display at the coordinates of the last mouse message
- */
+// TTM_POPUP -
+// causes the tooltip to display at the coordinates of the last mouse message
+
 HB_FUNC(HMG_TTM_POPUP)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -582,15 +555,13 @@ HB_FUNC(HMG_TTM_POPUP)
   }
 }
 
-/* TODO
-   TTM_RELAYEVENT -
-   passes a mouse message to a tooltip control for processing
- */
+// TODO
+// TTM_RELAYEVENT -
+// passes a mouse message to a tooltip control for processing
 
-/*
-   TTM_SETDELAYTIME
-   sets the initial, pop-up, and reshow durations for a tooltip control
- */
+// TTM_SETDELAYTIME
+// sets the initial, pop-up, and reshow durations for a tooltip control
+
 HB_FUNC(HMG_TTM_SETDELAYTIME)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -615,12 +586,11 @@ HB_FUNC(HMG_TTM_SETDELAYTIME)
   }
 }
 
-/*
-   TTM_SETMARGIN  -
-   sets  the  top,  left, bottom, and right margins for a tooltip window. A
-   margin is the distance, in pixels, between the tooltip window border and
-   the text contained within the tooltip window.
- */
+// TTM_SETMARGIN  -
+// sets  the  top,  left, bottom, and right margins for a tooltip window. A
+// margin is the distance, in pixels, between the tooltip window border and
+// the text contained within the tooltip window.
+
 HB_FUNC(HMG_TTM_SETMARGIN)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -644,9 +614,8 @@ HB_FUNC(HMG_TTM_SETMARGIN)
   }
 }
 
-/*
-   TTM_SETMAXTIPWIDTH - sets the maximum width for a tooltip window
- */
+// TTM_SETMAXTIPWIDTH - sets the maximum width for a tooltip window
+
 HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -662,9 +631,8 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
   }
 }
 
-/*
-   TTM_SETTIPBKCOLOR - sets the background color in a tooltip window
- */
+// TTM_SETTIPBKCOLOR - sets the background color in a tooltip window
+
 HB_FUNC(HMG_TTM_SETTIPBKCOLOR)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -693,9 +661,8 @@ HB_FUNC(HMG_TTM_SETTIPBKCOLOR)
   }
 }
 
-/*
-   TTM_SETTIPTEXTCOLOR - sets the text color in a tooltip window
- */
+// TTM_SETTIPTEXTCOLOR - sets the text color in a tooltip window
+
 HB_FUNC(HMG_TTM_SETTIPTEXTCOLOR)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -724,18 +691,16 @@ HB_FUNC(HMG_TTM_SETTIPTEXTCOLOR)
   }
 }
 
-/* TODO
-   TTM_SETTITLE - adds a standard icon and title string to a tooltip
+// TODO
+// TTM_SETTITLE - adds a standard icon and title string to a tooltip
+//
+// TTM_SETTOOLINFO -
+// sets the information that a tooltip control maintains for a tool
+//
+// TTM_SETWINDOWTHEME - sets the visual style of a tooltip control
 
-   TTM_SETTOOLINFO -
-   sets the information that a tooltip control maintains for a tool
+// TTM_TRACKACTIVATE - activates or deactivates a tracking tooltip
 
-   TTM_SETWINDOWTHEME - sets the visual style of a tooltip control
- */
-
-/*
-   TTM_TRACKACTIVATE - activates or deactivates a tracking tooltip
- */
 HB_FUNC(HMG_TTM_TRACKACTIVATE)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -757,9 +722,8 @@ HB_FUNC(HMG_TTM_TRACKACTIVATE)
   }
 }
 
-/*
-   TTM_TRACKPOSITION - sets the position of a tracking tooltip
- */
+// TTM_TRACKPOSITION - sets the position of a tracking tooltip
+
 HB_FUNC(HMG_TTM_TRACKPOSITION)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -786,9 +750,8 @@ HB_FUNC(HMG_TTM_TRACKPOSITION)
   }
 }
 
-/*
-   TTM_UPDATE - forces the current tooltip to be redrawn
- */
+// TTM_UPDATE - forces the current tooltip to be redrawn
+
 HB_FUNC(HMG_TTM_UPDATE)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -803,9 +766,8 @@ HB_FUNC(HMG_TTM_UPDATE)
   }
 }
 
-/*
-   TTM_UPDATETIPTEXT - sets the tooltip text for a tool
- */
+// TTM_UPDATETIPTEXT - sets the tooltip text for a tool
+
 HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC(UPDATETOOLTIPTEXT)
 {
   auto hwndToolTip = hmg_par_HWND(1);
@@ -832,11 +794,10 @@ HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC(UPDATETOOLTIPTEXT)
   }
 }
 
-/*
-   TTM_WINDOWFROMPOINT -
-   allows  a  subclass  procedure  to cause a tooltip to display text for a
-   window other than the one beneath the mouse cursor
- */
+// TTM_WINDOWFROMPOINT -
+// allows  a  subclass  procedure  to cause a tooltip to display text for a
+// window other than the one beneath the mouse cursor
+
 HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
 {
   auto hwndToolTip = hmg_par_HWND(1);

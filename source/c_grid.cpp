@@ -191,9 +191,7 @@ typedef struct tagLVGROUP
 
 #endif
 
-/*
-HMG_INITLISTVIEW() -->
-*/
+// HMG_INITLISTVIEW() -->
 HB_FUNC(HMG_INITLISTVIEW)
 {
   INITCOMMONCONTROLSEX i;
@@ -238,17 +236,13 @@ HB_FUNC(HMG_INITLISTVIEW)
   hmg_ret_HWND(hbutton);
 }
 
-/*
-HMG_LISTVIEW_SETITEMCOUNT() -->
-*/
+// HMG_LISTVIEW_SETITEMCOUNT() -->
 HB_FUNC(HMG_LISTVIEW_SETITEMCOUNT)
 {
   ListView_SetItemCount(hmg_par_HWND(1), hb_parni(2));
 }
 
-/*
-HMG_ADDLISTVIEWBITMAP() -->
-*/
+// HMG_ADDLISTVIEWBITMAP() -->
 HB_FUNC(HMG_ADDLISTVIEWBITMAP) // Grid+
 {
   auto cx = 0;
@@ -281,9 +275,7 @@ HB_FUNC(HMG_ADDLISTVIEWBITMAP) // Grid+
   hb_retni(cx);
 }
 
-/*
-HMG_ADDLISTVIEWBITMAPHEADER() -->
-*/
+// HMG_ADDLISTVIEWBITMAPHEADER() -->
 HB_FUNC(HMG_ADDLISTVIEWBITMAPHEADER) // Grid+
 {
   HWND hheader = ListView_GetHeader(hmg_par_HWND(1));
@@ -319,27 +311,21 @@ HB_FUNC(HMG_ADDLISTVIEWBITMAPHEADER) // Grid+
   hmg_ret_HIMAGELIST(himl);
 }
 
-/*
-HMG_LISTVIEW_GETFOCUSEDITEM() -->
-*/
+// HMG_LISTVIEW_GETFOCUSEDITEM() -->
 HB_FUNC(HMG_LISTVIEW_GETFOCUSEDITEM)
 {
   hb_retni(ListView_GetNextItem(hmg_par_HWND(1), -1, LVNI_ALL | LVNI_FOCUSED) + 1);
 }
 
-/*
-HMG_LISTVIEW_GETFIRSTITEM() -->
-*/
+// HMG_LISTVIEW_GETFIRSTITEM() -->
 HB_FUNC(HMG_LISTVIEW_GETFIRSTITEM)
 {
   hb_retni(ListView_GetNextItem(hmg_par_HWND(1), -1, LVNI_ALL | LVNI_SELECTED) + 1);
 }
 
-/* code INITLISTVIEWCOLUMNS function was borrowed from ooHG */
+// code INITLISTVIEWCOLUMNS function was borrowed from ooHG
 
-/*
-HMG_INITLISTVIEWCOLUMNS() -->
-*/
+// HMG_INITLISTVIEWCOLUMNS() -->
 HB_FUNC(HMG_INITLISTVIEWCOLUMNS)
 {
 #ifndef UNICODE
@@ -391,9 +377,7 @@ HB_FUNC(HMG_INITLISTVIEWCOLUMNS)
   }
 }
 
-/*
-HMG_ADDLISTVIEWITEMS() -->
-*/
+// HMG_ADDLISTVIEWITEMS() -->
 HB_FUNC(HMG_ADDLISTVIEWITEMS)
 {
 #ifndef UNICODE
@@ -440,18 +424,14 @@ HB_FUNC(HMG_ADDLISTVIEWITEMS)
 #endif
 }
 
-/*
-HMG_LISTVIEW_SETCURSEL() -->
-*/
+// HMG_LISTVIEW_SETCURSEL() -->
 HB_FUNC(HMG_LISTVIEW_SETCURSEL)
 {
   ListView_SetItemState(hmg_par_HWND(1), hmg_par_WPARAM(2) - 1, LVIS_FOCUSED | LVIS_SELECTED,
                         LVIS_FOCUSED | LVIS_SELECTED);
 }
 
-/*
-HMG_LISTVIEWGETMULTISEL() -->
-*/
+// HMG_LISTVIEWGETMULTISEL() -->
 HB_FUNC(HMG_LISTVIEWGETMULTISEL)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -476,9 +456,7 @@ HB_FUNC(HMG_LISTVIEWGETMULTISEL)
   }
 }
 
-/*
-HMG_LISTVIEWSETMULTISEL() -->
-*/
+// HMG_LISTVIEWSETMULTISEL() -->
 HB_FUNC(HMG_LISTVIEWSETMULTISEL)
 {
   // CLEAR CURRENT SELECTIONS
@@ -510,9 +488,7 @@ HB_FUNC(HMG_LISTVIEWSETMULTISEL)
   }
 }
 
-/*
-HMG_LISTVIEWSETITEM() -->
-*/
+// HMG_LISTVIEWSETITEM() -->
 HB_FUNC(HMG_LISTVIEWSETITEM)
 {
 #ifndef UNICODE
@@ -569,9 +545,7 @@ static TCHAR *GetLVItemText(HWND hListView, int i, int iSubItem_)
   return static_cast<TCHAR *>(lpText);
 }
 
-/*
-HMG_LISTVIEWGETITEM() -->
-*/
+// HMG_LISTVIEWGETITEM() -->
 HB_FUNC(HMG_LISTVIEWGETITEM)
 {
 #ifdef UNICODE
@@ -598,9 +572,7 @@ HB_FUNC(HMG_LISTVIEWGETITEM)
   }
 }
 
-/*
-HMG_LISTVIEWGETITEMROW() -->
-*/
+// HMG_LISTVIEWGETITEMROW() -->
 HB_FUNC(HMG_LISTVIEWGETITEMROW)
 {
   POINT point;
@@ -608,17 +580,13 @@ HB_FUNC(HMG_LISTVIEWGETITEMROW)
   hb_retnl(point.y);
 }
 
-/*
-HMG_LISTVIEWGETITEMCOUNT() -->
-*/
+// HMG_LISTVIEWGETITEMCOUNT() -->
 HB_FUNC(HMG_LISTVIEWGETITEMCOUNT)
 {
   hb_retnl(ListView_GetItemCount(hmg_par_HWND(1)));
 }
 
-/*
-HMG_SETGRIDCOLUMNJUSTIFY() -->
-*/
+// HMG_SETGRIDCOLUMNJUSTIFY() -->
 HB_FUNC(HMG_SETGRIDCOLUMNJUSTIFY)
 {
   LV_COLUMN COL;
@@ -627,9 +595,7 @@ HB_FUNC(HMG_SETGRIDCOLUMNJUSTIFY)
   ListView_SetColumn(hmg_par_HWND(1), hb_parni(2) - 1, &COL);
 }
 
-/*
-HMG_SETGRIDCOLUMNHEADER() -->
-*/
+// HMG_SETGRIDCOLUMNHEADER() -->
 HB_FUNC(HMG_SETGRIDCOLUMNHEADER)
 {
 #ifndef UNICODE
@@ -649,9 +615,7 @@ HB_FUNC(HMG_SETGRIDCOLUMNHEADER)
 #endif
 }
 
-/*
-HMG_SETGRIDCOLUMNHEADERIMAGE() -->
-*/
+// HMG_SETGRIDCOLUMNHEADERIMAGE() -->
 HB_FUNC(HMG_SETGRIDCOLUMNHEADERIMAGE)
 {
   int fmt = LVCFMT_IMAGE | LVCFMT_COL_HAS_IMAGES;
@@ -673,25 +637,19 @@ HB_FUNC(HMG_SETGRIDCOLUMNHEADERIMAGE)
   ListView_SetColumn(hmg_par_HWND(1), hb_parni(2) - 1, &COL);
 }
 
-/*
-HMG_LISTVIEWGETCOUNTPERPAGE() -->
-*/
+// HMG_LISTVIEWGETCOUNTPERPAGE() -->
 HB_FUNC(HMG_LISTVIEWGETCOUNTPERPAGE)
 {
   hb_retnl(ListView_GetCountPerPage(hmg_par_HWND(1)));
 }
 
-/*
-HMG_LISTVIEW_ENSUREVISIBLE() -->
-*/
+// HMG_LISTVIEW_ENSUREVISIBLE() -->
 HB_FUNC(HMG_LISTVIEW_ENSUREVISIBLE)
 {
   ListView_EnsureVisible(hmg_par_HWND(1), hb_parni(2) - 1, 1);
 }
 
-/*
-HMG_SETIMAGELISTVIEWITEMS() -->
-*/
+// HMG_SETIMAGELISTVIEWITEMS() -->
 HB_FUNC(HMG_SETIMAGELISTVIEWITEMS)
 {
   LV_ITEM LI{};
@@ -704,9 +662,7 @@ HB_FUNC(HMG_SETIMAGELISTVIEWITEMS)
   ListView_SetItem(hmg_par_HWND(1), &LI);
 }
 
-/*
-HMG_GETIMAGELISTVIEWITEMS() -->
-*/
+// HMG_GETIMAGELISTVIEWITEMS() -->
 HB_FUNC(HMG_GETIMAGELISTVIEWITEMS)
 {
   LV_ITEM LI{};
@@ -719,25 +675,19 @@ HB_FUNC(HMG_GETIMAGELISTVIEWITEMS)
   hb_retni(LI.iImage);
 }
 
-/*
-HMG_LISTVIEW_GETTOPINDEX() -->
-*/
+// HMG_LISTVIEW_GETTOPINDEX() -->
 HB_FUNC(HMG_LISTVIEW_GETTOPINDEX)
 {
   hb_retnl(ListView_GetTopIndex(hmg_par_HWND(1)));
 }
 
-/*
-HMG_LISTVIEW_REDRAWITEMS() -->
-*/
+// HMG_LISTVIEW_REDRAWITEMS() -->
 HB_FUNC(HMG_LISTVIEW_REDRAWITEMS)
 {
   hb_retnl(ListView_RedrawItems(hmg_par_HWND(1), hb_parni(2), hb_parni(3)));
 }
 
-/*
-HMG_LISTVIEW_HITTEST() -->
-*/
+// HMG_LISTVIEW_HITTEST() -->
 HB_FUNC(HMG_LISTVIEW_HITTEST)
 {
   POINT point;
@@ -777,9 +727,7 @@ HB_FUNC(HMG_LISTVIEW_HITTEST)
   }
 }
 
-/*
-HMG_LISTVIEW_GETSUBITEMRECT() -->
-*/
+// HMG_LISTVIEW_GETSUBITEMRECT() -->
 HB_FUNC(HMG_LISTVIEW_GETSUBITEMRECT)
 {
   auto pRect = static_cast<RECT *>(hb_xgrab(sizeof(RECT)));
@@ -795,9 +743,7 @@ HB_FUNC(HMG_LISTVIEW_GETSUBITEMRECT)
   hb_xfree(static_cast<void *>(pRect));
 }
 
-/*
-HMG_LISTVIEW_GETITEMRECT() -->
-*/
+// HMG_LISTVIEW_GETITEMRECT() -->
 HB_FUNC(HMG_LISTVIEW_GETITEMRECT)
 {
   auto pRect = static_cast<RECT *>(hb_xgrab(sizeof(RECT)));
@@ -813,65 +759,49 @@ HB_FUNC(HMG_LISTVIEW_GETITEMRECT)
   hb_xfree(static_cast<void *>(pRect));
 }
 
-/*
-HMG_LISTVIEW_UPDATE() -->
-*/
+// HMG_LISTVIEW_UPDATE() -->
 HB_FUNC(HMG_LISTVIEW_UPDATE)
 {
   ListView_Update(hmg_par_HWND(1), hb_parni(2) - 1);
 }
 
-/*
-HMG_LISTVIEW_SCROLL() -->
-*/
+// HMG_LISTVIEW_SCROLL() -->
 HB_FUNC(HMG_LISTVIEW_SCROLL)
 {
   ListView_Scroll(hmg_par_HWND(1), hb_parni(2), hb_parni(3));
 }
 
-/*
-HMG_LISTVIEW_SETBKCOLOR() -->
-*/
+// HMG_LISTVIEW_SETBKCOLOR() -->
 HB_FUNC(HMG_LISTVIEW_SETBKCOLOR)
 {
   ListView_SetBkColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
-/*
-HMG_LISTVIEW_SETTEXTBKCOLOR() -->
-*/
+// HMG_LISTVIEW_SETTEXTBKCOLOR() -->
 HB_FUNC(HMG_LISTVIEW_SETTEXTBKCOLOR)
 {
   ListView_SetTextBkColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
-/*
-HMG_LISTVIEW_SETTEXTCOLOR() -->
-*/
+// HMG_LISTVIEW_SETTEXTCOLOR() -->
 HB_FUNC(HMG_LISTVIEW_SETTEXTCOLOR)
 {
   ListView_SetTextColor(hmg_par_HWND(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
 }
 
-/*
-HMG_LISTVIEW_GETTEXTCOLOR() -->
-*/
+// HMG_LISTVIEW_GETTEXTCOLOR() -->
 HB_FUNC(HMG_LISTVIEW_GETTEXTCOLOR)
 {
   hb_retnl(ListView_GetTextColor(hmg_par_HWND(1)));
 }
 
-/*
-HMG_LISTVIEW_GETBKCOLOR() -->
-*/
+// HMG_LISTVIEW_GETBKCOLOR() -->
 HB_FUNC(HMG_LISTVIEW_GETBKCOLOR)
 {
   hb_retnl(ListView_GetBkColor(hmg_par_HWND(1)));
 }
 
-/*
-HMG_LISTVIEW_GETHEADER() -->
-*/
+// HMG_LISTVIEW_GETHEADER() -->
 HB_FUNC(HMG_LISTVIEW_GETHEADER)
 {
   auto hGrid = hmg_par_HWND(1);
@@ -879,9 +809,7 @@ HB_FUNC(HMG_LISTVIEW_GETHEADER)
   hmg_ret_HANDLE(ListView_GetHeader(hGrid));
 }
 
-/*
-HMG_GETHEADERLISTVIEWITEM() -->
-*/
+// HMG_GETHEADERLISTVIEWITEM() -->
 HB_FUNC(HMG_GETHEADERLISTVIEWITEM)
 {
   auto lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
@@ -889,9 +817,7 @@ HB_FUNC(HMG_GETHEADERLISTVIEWITEM)
   hb_retni(lpnmheader->iItem);
 }
 
-/*
-HMG_GETHEADERLISTVIEWITEMCX() -->
-*/
+// HMG_GETHEADERLISTVIEWITEMCX() -->
 HB_FUNC(HMG_GETHEADERLISTVIEWITEMCX)
 {
   auto lpnmheader = reinterpret_cast<LPNMHEADER>(HB_PARNL(1));
@@ -906,9 +832,7 @@ HB_FUNC(HMG_GETHEADERLISTVIEWITEMCX)
   }
 }
 
-/*
-HMG_LISTVIEW_ADDCOLUMN() -->
-*/
+// HMG_LISTVIEW_ADDCOLUMN() -->
 HB_FUNC(HMG_LISTVIEW_ADDCOLUMN)
 {
 #ifndef UNICODE
@@ -951,9 +875,7 @@ HB_FUNC(HMG_LISTVIEW_ADDCOLUMN)
   RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
-/*
-HMG_LISTVIEW_DELETECOLUMN() -->
-*/
+// HMG_LISTVIEW_DELETECOLUMN() -->
 HB_FUNC(HMG_LISTVIEW_DELETECOLUMN)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -962,25 +884,19 @@ HB_FUNC(HMG_LISTVIEW_DELETECOLUMN)
   RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
-/*
-HMG_LISTVIEW_GETCOLUMNWIDTH() -->
-*/
+// HMG_LISTVIEW_GETCOLUMNWIDTH() -->
 HB_FUNC(HMG_LISTVIEW_GETCOLUMNWIDTH)
 {
   hb_retni(ListView_GetColumnWidth(hmg_par_HWND(1), hb_parni(2)));
 }
 
-/*
-HMG_LISTVIEW_SETCOLUMNWIDTH() -->
-*/
+// HMG_LISTVIEW_SETCOLUMNWIDTH() -->
 HB_FUNC(HMG_LISTVIEW_SETCOLUMNWIDTH) // (JK) HMG Experimental Build 6
 {
   hb_retl(ListView_SetColumnWidth(hmg_par_HWND(1), hb_parni(2), hb_parni(3)));
 }
 
-/*
-HMG_LISTVIEW_GETCHECKSTATE() -->
-*/
+// HMG_LISTVIEW_GETCHECKSTATE() -->
 HB_FUNC(HMG_LISTVIEW_GETCHECKSTATE)
 {
   auto hwndLV = hmg_par_HWND(1);
@@ -995,9 +911,7 @@ HB_FUNC(HMG_LISTVIEW_GETCHECKSTATE)
   }
 }
 
-/*
-HMG_LISTVIEW_SETCHECKSTATE() -->
-*/
+// HMG_LISTVIEW_SETCHECKSTATE() -->
 HB_FUNC(HMG_LISTVIEW_SETCHECKSTATE)
 {
   auto hwndLV = hmg_par_HWND(1);
@@ -1013,9 +927,7 @@ HB_FUNC(HMG_LISTVIEW_SETCHECKSTATE)
   }
 }
 
-/*
-HMG_LISTVIEW_GETCOLUMNCOUNT() -->
-*/
+// HMG_LISTVIEW_GETCOLUMNCOUNT() -->
 HB_FUNC(HMG_LISTVIEW_GETCOLUMNCOUNT) // Dr. Claudio Soto 2016/APR/07
 {
   auto hwndLV = hmg_par_HWND(1);
@@ -1030,9 +942,7 @@ HB_FUNC(HMG_LISTVIEW_GETCOLUMNCOUNT) // Dr. Claudio Soto 2016/APR/07
   }
 }
 
-/*
-HMG_LISTVIEW_GETCOLUMNORDERARRAY() -->
-*/
+// HMG_LISTVIEW_GETCOLUMNORDERARRAY() -->
 HB_FUNC(HMG_LISTVIEW_GETCOLUMNORDERARRAY)
 {
   auto iCols = hb_parni(2);
@@ -1059,9 +969,7 @@ HB_FUNC(HMG_LISTVIEW_GETCOLUMNORDERARRAY)
   }
 }
 
-/*
-HMG_LISTVIEW_SETCOLUMNORDERARRAY() -->
-*/
+// HMG_LISTVIEW_SETCOLUMNORDERARRAY() -->
 HB_FUNC(HMG_LISTVIEW_SETCOLUMNORDERARRAY)
 {
   auto pOrder = hb_param(3, Harbour::Item::ARRAY);
@@ -1088,9 +996,7 @@ HB_FUNC(HMG_LISTVIEW_SETCOLUMNORDERARRAY)
 
 //       ListView_ChangeExtendedStyle(hWnd, [nAddStyle], [nRemoveStyle])
 
-/*
-HMG_LISTVIEW_CHANGEEXTENDEDSTYLE() -->
-*/
+// HMG_LISTVIEW_CHANGEEXTENDEDSTYLE() -->
 HB_FUNC(HMG_LISTVIEW_CHANGEEXTENDEDSTYLE) // Dr. Claudio Soto
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1106,9 +1012,7 @@ HB_FUNC(HMG_LISTVIEW_CHANGEEXTENDEDSTYLE) // Dr. Claudio Soto
 
 //       ListView_GetExtendedStyle(hWnd, [nExStyle])
 
-/*
-HMG_LISTVIEW_GETEXTENDEDSTYLE() -->
-*/
+// HMG_LISTVIEW_GETEXTENDEDSTYLE() -->
 HB_FUNC(HMG_LISTVIEW_GETEXTENDEDSTYLE) // Dr. Claudio Soto
 {
   auto ExStyle = hmg_par_DWORD(2);
@@ -1133,9 +1037,7 @@ HB_FUNC(HMG_LISTVIEW_GETEXTENDEDSTYLE) // Dr. Claudio Soto
 //                               /*0==none, positive==UP arrow or negative==DOWN arrow*/]) -> nType
 //                               (previous setting)
 
-/*
-HMG_LISTVIEW_SETSORTHEADER() -->
-*/
+// HMG_LISTVIEW_SETSORTHEADER() -->
 HB_FUNC(HMG_LISTVIEW_SETSORTHEADER)
 {
   auto hWndHD = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0));
@@ -1227,9 +1129,7 @@ HB_FUNC(HMG_LISTVIEW_SETSORTHEADER)
 
 //        ListView_GroupItemSetID(hWnd, nRow, nGroupID)
 
-/*
-HMG_LISTVIEW_GROUPITEMSETID() -->
-*/
+// HMG_LISTVIEW_GROUPITEMSETID() -->
 HB_FUNC(HMG_LISTVIEW_GROUPITEMSETID)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1251,9 +1151,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPITEMSETID)
 
 //        ListView_GroupItemGetID(hWnd, nRow)
 
-/*
-HMG_LISTVIEW_GROUPITEMGETID() -->
-*/
+// HMG_LISTVIEW_GROUPITEMGETID() -->
 HB_FUNC(HMG_LISTVIEW_GROUPITEMGETID)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1274,9 +1172,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPITEMGETID)
 
 //        ListView_IsGroupViewEnabled(hWnd)
 
-/*
-HMG_LISTVIEW_ISGROUPVIEWENABLED() -->
-*/
+// HMG_LISTVIEW_ISGROUPVIEWENABLED() -->
 HB_FUNC(HMG_LISTVIEW_ISGROUPVIEWENABLED)
 {
   hb_retl(static_cast<BOOL>(ListView_IsGroupViewEnabled(hmg_par_HWND(1))));
@@ -1284,9 +1180,7 @@ HB_FUNC(HMG_LISTVIEW_ISGROUPVIEWENABLED)
 
 //        ListView_EnableGroupView(hWnd, lEnable)
 
-/*
-HMG_LISTVIEW_ENABLEGROUPVIEW() -->
-*/
+// HMG_LISTVIEW_ENABLEGROUPVIEW() -->
 HB_FUNC(HMG_LISTVIEW_ENABLEGROUPVIEW)
 {
   ListView_EnableGroupView(hmg_par_HWND(1), hmg_par_BOOL(2));
@@ -1294,9 +1188,7 @@ HB_FUNC(HMG_LISTVIEW_ENABLEGROUPVIEW)
 
 //        ListView_GroupDeleteAll(hWnd)
 
-/*
-HMG_LISTVIEW_GROUPDELETEALL() -->
-*/
+// HMG_LISTVIEW_GROUPDELETEALL() -->
 HB_FUNC(HMG_LISTVIEW_GROUPDELETEALL)
 {
   ListView_RemoveAllGroups(hmg_par_HWND(1));
@@ -1304,9 +1196,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPDELETEALL)
 
 //        ListView_GroupDelete(hWnd, nGroupID)
 
-/*
-HMG_LISTVIEW_GROUPDELETE() -->
-*/
+// HMG_LISTVIEW_GROUPDELETE() -->
 HB_FUNC(HMG_LISTVIEW_GROUPDELETE)
 {
   hb_retni(static_cast<int>(ListView_RemoveGroup(hmg_par_HWND(1), hmg_par_INT(2))));
@@ -1314,9 +1204,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPDELETE)
 
 //        ListView_GroupAdd(hWnd, nGroupID, [nIndex])
 
-/*
-HMG_LISTVIEW_GROUPADD() -->
-*/
+// HMG_LISTVIEW_GROUPADD() -->
 HB_FUNC(HMG_LISTVIEW_GROUPADD)
 {
   LVGROUP LVG;
@@ -1334,9 +1222,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPADD)
 //        ListView_GroupSetInfo(hWnd, nGroupID, cHeader, nAlignHeader, cFooter, nAlingFooter,
 //        nState)
 
-/*
-HMG_LISTVIEW_GROUPSETINFO() -->
-*/
+// HMG_LISTVIEW_GROUPSETINFO() -->
 HB_FUNC(HMG_LISTVIEW_GROUPSETINFO)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1380,9 +1266,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPSETINFO)
 //        ListView_GroupGetInfo(hWnd, nGroupID, @cHeader, @nAlignHeader, @cFooter, @nAlingFooter,
 //        @nState)
 
-/*
-HMG_LISTVIEW_GROUPGETINFO() -->
-*/
+// HMG_LISTVIEW_GROUPGETINFO() -->
 HB_FUNC(HMG_LISTVIEW_GROUPGETINFO)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1415,9 +1299,7 @@ HB_FUNC(HMG_LISTVIEW_GROUPGETINFO)
 
 //        ListView_HasGroup(hWnd, nGroupID)
 
-/*
-HMG_LISTVIEW_HASGROUP() -->
-*/
+// HMG_LISTVIEW_HASGROUP() -->
 HB_FUNC(HMG_LISTVIEW_HASGROUP)
 {
   hb_retl(static_cast<BOOL>(ListView_HasGroup(hmg_par_HWND(1), hmg_par_INT(2))));

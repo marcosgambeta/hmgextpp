@@ -167,7 +167,7 @@ static bool win_has_search_system32(void)
 
   if (hKernel32)
   {
-    return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr; /* Detect KB2533623 */
+    return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr; // Detect KB2533623
   }
 
   return false;

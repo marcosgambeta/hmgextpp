@@ -57,10 +57,7 @@
 HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transparent, int *nWidth, int *nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, const char *FileName, int Transparent);
 
-/*
-HMG_INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) -->
-HWND
-*/
+// HMG_INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND
 HB_FUNC(HMG_INITCOMBOBOXEX)
 {
   INITCOMMONCONTROLSEX icex;
@@ -137,33 +134,25 @@ HB_FUNC(HMG_INITCOMBOBOXEX)
   hmg_ret_HWND(hCombo);
 }
 
-/*
-HMG_COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
-*/
+// HMG_COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
 HB_FUNC(HMG_COMBOSETITEMHEIGHT)
 {
   SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), hb_parni(2));
 }
 
-/*
-HMG_COMBOSHOWDROPDOWN(HWND) --> NIL
-*/
+// HMG_COMBOSHOWDROPDOWN(HWND) --> NIL
 HB_FUNC(HMG_COMBOSHOWDROPDOWN)
 {
   SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, 1, 0);
 }
 
-/*
-HMG_COMBOEDITSETSEL(HWND, np2, np3) --> numeric
-*/
+// HMG_COMBOEDITSETSEL(HWND, np2, np3) --> numeric
 HB_FUNC(HMG_COMBOEDITSETSEL)
 {
   hmg_ret_LRESULT(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
 }
 
-/*
-HMG_COMBOGETEDITSEL(HWND) --> array
-*/
+// HMG_COMBOGETEDITSEL(HWND) --> array
 HB_FUNC(HMG_COMBOGETEDITSEL)
 {
   auto pos = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr),
@@ -173,20 +162,16 @@ HB_FUNC(HMG_COMBOGETEDITSEL)
   HB_STORNI(HIWORD(pos), -1, 2);
 }
 
-/*
-HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
-*/
+// HMG_COMBOSELECTSTRING(HWND, cp2) --> numeric
 HB_FUNC(HMG_COMBOSELECTSTRING)
 {
   hmg_ret_LRESULT(
       SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
-/* Added by P.Ch. 16.10. */
+// Added by P.Ch. 16.10.
 
-/*
-HMG_COMBOFINDSTRING(HWND, cString) --> numeric
-*/
+// HMG_COMBOFINDSTRING(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRING)
 {
   void *Text;
@@ -196,9 +181,7 @@ HB_FUNC(HMG_COMBOFINDSTRING)
   hb_strfree(Text);
 }
 
-/*
-HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
-*/
+// HMG_COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
 HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 {
   void *Text;
@@ -210,9 +193,7 @@ HB_FUNC(HMG_COMBOFINDSTRINGEXACT)
 
 // Modified by P.Ch. 16.10.
 
-/*
-HMG_COMBOGETSTRING(HWND, np2) --> cString
-*/
+// HMG_COMBOGETSTRING(HWND, np2) --> cString
 HB_FUNC(HMG_COMBOGETSTRING)
 {
   auto strlen = static_cast<int>(SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0));
@@ -230,9 +211,7 @@ HB_FUNC(HMG_COMBOGETSTRING)
   }
 }
 
-/*
-HMG_COMBOADDSTRING(HWND, cString) --> NIL
-*/
+// HMG_COMBOADDSTRING(HWND, cString) --> NIL
 HB_FUNC(HMG_COMBOADDSTRING)
 {
   void *String;
@@ -240,9 +219,7 @@ HB_FUNC(HMG_COMBOADDSTRING)
   hb_strfree(String);
 }
 
-/*
-HMG_COMBOINSERTSTRING(HWND, cString, np3) --> NIL
-*/
+// HMG_COMBOINSERTSTRING(HWND, cString, np3) --> NIL
 HB_FUNC(HMG_COMBOINSERTSTRING)
 {
   void *String;
@@ -253,9 +230,7 @@ HB_FUNC(HMG_COMBOINSERTSTRING)
 
 // extend combo functions  (JK)  HMG 1.0 Exp. Build 8
 
-/*
-HMG_COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
-*/
+// HMG_COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
 HB_FUNC(HMG_COMBOADDSTRINGEX)
 {
   void *Text;
@@ -273,9 +248,7 @@ HB_FUNC(HMG_COMBOADDSTRINGEX)
   hb_strfree(Text);
 }
 
-/*
-HMG_COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
-*/
+// HMG_COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
 HB_FUNC(HMG_COMBOINSERTSTRINGEX)
 {
   void *Text;
@@ -293,9 +266,7 @@ HB_FUNC(HMG_COMBOINSERTSTRINGEX)
   hb_strfree(Text);
 }
 
-/*
-HMG_COMBOADDDATASTRINGEX(HWND, cString) --> NIL
-*/
+// HMG_COMBOADDDATASTRINGEX(HWND, cString) --> NIL
 HB_FUNC(HMG_COMBOADDDATASTRINGEX)
 {
   void *Text;

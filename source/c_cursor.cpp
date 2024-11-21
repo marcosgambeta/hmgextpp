@@ -53,9 +53,7 @@
 #include "mgdefs.hpp"
 #include <hbwinuni.hpp>
 
-/*
-HMG_LOADCURSOR(HINSTANCE, cCursor|nCursor) --> HANDLE|NIL
-*/
+// HMG_LOADCURSOR(HINSTANCE, cCursor|nCursor) --> HANDLE|NIL
 HB_FUNC(HMG_LOADCURSOR)
 {
   HINSTANCE hInstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
@@ -73,9 +71,7 @@ HB_FUNC(HMG_LOADCURSOR)
   }
 }
 
-/*
-HMG_LOADCURSORFROMFILE(cFileName) --> HANDLE
-*/
+// HMG_LOADCURSORFROMFILE(cFileName) --> HANDLE
 HB_FUNC(HMG_LOADCURSORFROMFILE)
 {
   void *str;
@@ -83,17 +79,13 @@ HB_FUNC(HMG_LOADCURSORFROMFILE)
   hb_strfree(str);
 }
 
-/*
-HMG_SETRESCURSOR(HCURSOR) --> HANDLE
-*/
+// HMG_SETRESCURSOR(HCURSOR) --> HANDLE
 HB_FUNC(HMG_SETRESCURSOR)
 {
   hmg_ret_HCURSOR(SetCursor(reinterpret_cast<HCURSOR>(HB_PARNL(1))));
 }
 
-/*
-HMG_FILECURSOR(cFileName) --> HANDLE
-*/
+// HMG_FILECURSOR(cFileName) --> HANDLE
 HB_FUNC(HMG_FILECURSOR)
 {
   void *str;
@@ -101,17 +93,13 @@ HB_FUNC(HMG_FILECURSOR)
   hb_strfree(str);
 }
 
-/*
-HMG_CURSORHAND() --> HANDLE
-*/
+// HMG_CURSORHAND() --> HANDLE
 HB_FUNC(HMG_CURSORHAND)
 {
   hmg_ret_HCURSOR(SetCursor(LoadCursor(nullptr, IDC_HAND)));
 }
 
-/*
-HMG_SETWINDOWCURSOR(HWND, cp2|np2) --> NIL
-*/
+// HMG_SETWINDOWCURSOR(HWND, cp2|np2) --> NIL
 HB_FUNC(HMG_SETWINDOWCURSOR)
 {
   if (HB_ISCHAR(2))
@@ -143,9 +131,7 @@ HB_FUNC(HMG_SETWINDOWCURSOR)
   }
 }
 
-/*
-HMG_SETHANDCURSOR(HWND) --> NIL
-*/
+// HMG_SETHANDCURSOR(HWND) --> NIL
 HB_FUNC(HMG_SETHANDCURSOR)
 {
   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));

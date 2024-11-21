@@ -102,9 +102,7 @@ HB_FUNC(HMG_SYSTEMPARAMETERSINFO)
                                 hmg_par_UINT(4)));
 }
 
-/*
-GETTEXTWIDTH(HDC, cString, HFONT) --> numeric
-*/
+// GETTEXTWIDTH(HDC, cString, HFONT) --> numeric
 HB_FUNC(HMG_GETTEXTWIDTH) // returns the width of a string in pixels
 {
   auto hDC = hmg_par_HDC(1);

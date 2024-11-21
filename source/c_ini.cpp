@@ -51,9 +51,7 @@
 LPSTR WideToAnsi(LPWSTR);
 #endif
 
-/*
-HMG_GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFileName) --> string
-*/
+// HMG_GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFileName) --> string
 HB_FUNC(HMG_GETPRIVATEPROFILESTRING)
 {
   void *str1 = nullptr;
@@ -102,9 +100,7 @@ HB_FUNC(HMG_GETPRIVATEPROFILESTRING)
   hb_strfree(str4);
 }
 
-/*
-HMG_WRITEPRIVATEPROFILESTRING(cSection, cEntry|NIL, cData|NIL, cFileName) --> .T.|.F.
-*/
+// HMG_WRITEPRIVATEPROFILESTRING(cSection, cEntry|NIL, cData|NIL, cFileName) --> .T.|.F.
 HB_FUNC(HMG_WRITEPRIVATEPROFILESTRING)
 {
   void *str1;
@@ -120,9 +116,7 @@ HB_FUNC(HMG_WRITEPRIVATEPROFILESTRING)
   hb_strfree(str4);
 }
 
-/*
-HMG_DELINIENTRY(cSection, cEntry, cFileName) --> .T.|.F.
-*/
+// HMG_DELINIENTRY(cSection, cEntry, cFileName) --> .T.|.F.
 HB_FUNC(HMG_DELINIENTRY)
 {
   void *str1;
@@ -135,9 +129,7 @@ HB_FUNC(HMG_DELINIENTRY)
   hb_strfree(str3);
 }
 
-/*
-HMG_DELINISECTION(cSection, cFileName) --> .T.|.F.
-*/
+// HMG_DELINISECTION(cSection, cFileName) --> .T.|.F.
 HB_FUNC(HMG_DELINISECTION)
 {
   void *str1;
@@ -190,9 +182,7 @@ static INT FindLenSubString(TCHAR *Strings)
 
 // (JK) HMG 1.0 Experimental build 6
 
-/*
-HMG__GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
-*/
+// HMG__GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
 HB_FUNC(HMG__GETPRIVATEPROFILESECTIONNAMES)
 {
   TCHAR bBuffer[32767];
@@ -233,9 +223,7 @@ HB_FUNC(HMG__GETPRIVATEPROFILESECTIONNAMES)
 
 // Used to retrieve all key/value pairs of a given section.
 
-/*
-HMG__GETPRIVATEPROFILESECTION(cSectionName, cFileName) --> array
-*/
+// HMG__GETPRIVATEPROFILESECTION(cSectionName, cFileName) --> array
 HB_FUNC(HMG__GETPRIVATEPROFILESECTION)
 {
 #ifdef UNICODE

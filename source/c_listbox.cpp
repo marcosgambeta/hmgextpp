@@ -120,7 +120,7 @@ HB_FUNC(HMG_LISTBOXINSERTSTRING)
   hb_strfree(str);
 }
 
-/* Modified by P.Ch. 16.10. */
+// Modified by P.Ch. 16.10.
 HB_FUNC(HMG_LISTBOXGETSTRING)
 {
 #ifdef UNICODE

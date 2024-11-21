@@ -52,10 +52,7 @@ bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr);
 extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline,
                          DWORD StrikeOut, DWORD Angle, DWORD charset);
 
-/*
-HMG_TEXTDRAW(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16) -->
-.T.|.F.
-*/
+// HMG_TEXTDRAW(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16) --> .T.|.F.
 HB_FUNC(HMG_TEXTDRAW)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -150,9 +147,7 @@ HB_FUNC(HMG_TEXTDRAW)
   }
 }
 
-/*
-HMG_LINEDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
-*/
+// HMG_LINEDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
 HB_FUNC(HMG_LINEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -167,9 +162,7 @@ HB_FUNC(HMG_LINEDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_RECTDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9) --> NIL
-*/
+// HMG_RECTDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9) --> NIL
 HB_FUNC(HMG_RECTDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -203,9 +196,7 @@ HB_FUNC(HMG_RECTDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_ROUNDRECTDRAW() --> NIL
-*/
+// HMG_ROUNDRECTDRAW() --> NIL
 HB_FUNC(HMG_ROUNDRECTDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -238,9 +229,7 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_ELLIPSEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8) --> NIL
-*/
+// HMG_ELLIPSEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8) --> NIL
 HB_FUNC(HMG_ELLIPSEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -273,9 +262,7 @@ HB_FUNC(HMG_ELLIPSEDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_ARCDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> NIL
-*/
+// HMG_ARCDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> NIL
 HB_FUNC(HMG_ARCDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -290,9 +277,7 @@ HB_FUNC(HMG_ARCDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_PIEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12) --> NIL
-*/
+// HMG_PIEDRAW(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12) --> NIL
 HB_FUNC(HMG_PIEDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -326,9 +311,7 @@ HB_FUNC(HMG_PIEDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_POLYGONDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
-*/
+// HMG_POLYGONDRAW(HWND, p2, p3, p4, p5, p6, p7) --> NIL
 HB_FUNC(HMG_POLYGONDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -370,9 +353,7 @@ HB_FUNC(HMG_POLYGONDRAW)
   ReleaseDC(hWnd1, hdc1);
 }
 
-/*
-HMG_POLYBEZIERDRAW(HWND, p2, p3, p4) --> NIL
-*/
+// HMG_POLYBEZIERDRAW(HWND, p2, p3, p4) --> NIL
 HB_FUNC(HMG_POLYBEZIERDRAW)
 {
   auto hWnd1 = hmg_par_HWND(1);
@@ -438,9 +419,7 @@ void WindowRaised(HDC hDC, RECT *pRect)
   DeleteObject(hWhite);
 }
 
-/*
-HMG_WNDBOXIN(HDC, p2, p3, p4, p5) --> NIL
-*/
+// HMG_WNDBOXIN(HDC, p2, p3, p4, p5) --> NIL
 HB_FUNC(HMG_WNDBOXIN)
 {
   RECT rct;
@@ -453,9 +432,7 @@ HB_FUNC(HMG_WNDBOXIN)
   WindowBoxIn(hmg_par_HDC(1), &rct);
 }
 
-/*
-HMG_WNDBOXRAISED(HDC, p2, p3, p4, p5) --> NIL
-*/
+// HMG_WNDBOXRAISED(HDC, p2, p3, p4, p5) --> NIL
 HB_FUNC(HMG_WNDBOXRAISED)
 {
   RECT rct;

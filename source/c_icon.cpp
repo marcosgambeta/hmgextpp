@@ -51,9 +51,7 @@
 #include <shellapi.h>
 #include <hbwinuni.hpp>
 
-/*
-HMG_COPYICON(HICON) --> HICON
-*/
+// HMG_COPYICON(HICON) --> HICON
 HB_FUNC(HMG_COPYICON)
 {
   auto hIcon = CopyIcon(hmg_par_HICON(1));
@@ -61,9 +59,7 @@ HB_FUNC(HMG_COPYICON)
   hmg_ret_HICON(hIcon);
 }
 
-/*
-HMG_DESTROYICON(HICON) --> .T.|.F.
-*/
+// HMG_DESTROYICON(HICON) --> .T.|.F.
 HB_FUNC(HMG_DESTROYICON)
 {
   auto hIcon = hmg_par_HICON(1);
@@ -71,9 +67,7 @@ HB_FUNC(HMG_DESTROYICON)
   hb_retl(DestroyIcon(hIcon));
 }
 
-/*
-HMG_DUPLICATEICON(HICON) --> HICON
-*/
+// HMG_DUPLICATEICON(HICON) --> HICON
 HB_FUNC(HMG_DUPLICATEICON)
 {
   auto hIcon = DuplicateIcon(nullptr, hmg_par_HICON(1));
@@ -81,9 +75,7 @@ HB_FUNC(HMG_DUPLICATEICON)
   hmg_ret_HICON(hIcon);
 }
 
-/*
-HMG_LOADICON(HINSTANCE, nIcon|cIcon) --> HICON
-*/
+// HMG_LOADICON(HINSTANCE, nIcon|cIcon) --> HICON
 HB_FUNC(HMG_LOADICON)
 {
   HINSTANCE hinstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
@@ -94,9 +86,7 @@ HB_FUNC(HMG_LOADICON)
   hmg_ret_HICON(hIcon);
 }
 
-/*
-HMG_EXTRACTICON(cExeFileName, nIconIndex) --> HICON
-*/
+// HMG_EXTRACTICON(cExeFileName, nIconIndex) --> HICON
 HB_FUNC(HMG_EXTRACTICON)
 {
   void *str;
@@ -106,9 +96,7 @@ HB_FUNC(HMG_EXTRACTICON)
   hmg_ret_HICON(hIcon);
 }
 
-/*
-HMG_EXTRACTICONEX(cFileName, nIconIndex) --> {HIconLarge, HIconSmall}
-*/
+// HMG_EXTRACTICONEX(cFileName, nIconIndex) --> {HIconLarge, HIconSmall}
 HB_FUNC(HMG_EXTRACTICONEX)
 {
   void *str;
@@ -131,9 +119,7 @@ HB_FUNC(HMG_EXTRACTICONEX)
   hb_strfree(str);
 }
 
-/*
-HMG_LOADICONBYNAME(cResource|cFile, cxDesired, cyDesired, HINSTANCE) --> HICON
-*/
+// HMG_LOADICONBYNAME(cResource|cFile, cxDesired, cyDesired, HINSTANCE) --> HICON
 HB_FUNC(HMG_LOADICONBYNAME)
 {
   HICON hIcon = nullptr;
@@ -161,9 +147,7 @@ HB_FUNC(HMG_LOADICONBYNAME)
   hmg_ret_HICON(hIcon);
 }
 
-/*
-HMG_DRAWICONEX(HWND, np2, np3, HICON, np5, np6, np7, lp8) --> .T.|.F.|NIL
-*/
+// HMG_DRAWICONEX(HWND, np2, np3, HICON, np5, np6, np7, lp8) --> .T.|.F.|NIL
 HB_FUNC(HMG_DRAWICONEX)
 {
   auto hwnd = hmg_par_HWND(1);

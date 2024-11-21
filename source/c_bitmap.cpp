@@ -62,9 +62,7 @@
 HANDLE DibFromBitmap(HBITMAP, HPALETTE);
 WORD GetDIBColors(LPSTR);
 
-/*
-HMG_SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
-*/
+// HMG_SAVEWINDOWBYHANDLE(HWND, fileName, top, left, bottom, right) --> NIL
 HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -135,9 +133,7 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
   ReleaseDC(hWnd, hDC);
 }
 
-/*
-HMG_WNDCOPY(HWND, lp2, ) --> NIL
-*/
+// HMG_WNDCOPY(HWND, lp2, ) --> NIL
 HB_FUNC(HMG_WNDCOPY)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -357,9 +353,7 @@ WORD GetDIBColors(LPSTR lpDIB)
   return reinterpret_cast<LPBITMAPCOREHEADER>(lpDIB)->bcBitCount;
 }
 
-/*
-HMG_C_HASALPHA(HBITMAP) --> .T.|.F.
-*/
+// HMG_C_HASALPHA(HBITMAP) --> .T.|.F.
 HB_FUNC(HMG_C_HASALPHA) // hBitmap --> lYesNo
 {
   auto hDC = GetDC(GetDesktopWindow());
@@ -450,9 +444,7 @@ HBITMAP IconMask2Bmp(HICON hIcon)
 // DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL
 // disabled, BOOL stretched) (c) Andy Wos <andywos@unwired.com.au>
 
-/*
-HMG_DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> NIL
-*/
+// HMG_DRAWGLYPH(HDC, x, y, dx, dy, HBITMAP, rgbTransparent, disabled, stretched) --> NIL
 HB_FUNC(HMG_DRAWGLYPH)
 {
   auto hDC = hmg_par_HDC(1);
@@ -612,9 +604,7 @@ HB_FUNC(HMG_DRAWGLYPH)
 // Function DRAWGLYPHMASK create and draw bimap mask - first pixel is treated as transparent color
 // Based upon function DrawGlyph by Andy Wos <andywos@unwired.com.au>
 
-/*
-HMG_DRAWGLYPHMASK(HDC, 2, 3, dx, dy, HBITMAP, 7, 8, 9, HWND) --> NIL
-*/
+// HMG_DRAWGLYPHMASK(HDC, 2, 3, dx, dy, HBITMAP, 7, 8, 9, HWND) --> NIL
 HB_FUNC(HMG_DRAWGLYPHMASK)
 {
   auto hBmp = hmg_par_HBITMAP(6);
@@ -672,9 +662,7 @@ HB_FUNC(HMG_DRAWGLYPHMASK)
 //   the return value is the handle to the specified bitmap.
 //   If the function fails, the return value is 0.
 
-/*
-HMG_LOADBITMAP(fileName) --> HBITMAP
-*/
+// HMG_LOADBITMAP(fileName) --> HBITMAP
 HB_FUNC(HMG_LOADBITMAP)
 {
   void *ImageName;
@@ -941,9 +929,7 @@ BOOL GetImageSize(const char *fn, int *x, int *y)
 // Parameter: cPicFile = graphic file (JPG, GIF, PNG)
 // Return: 2 dim array -> array[1] = width, array[2] = height
 
-/*
-HMG_HB_GETIMAGESIZE(file) --> array
-*/
+// HMG_HB_GETIMAGESIZE(file) --> array
 HB_FUNC(HMG_HB_GETIMAGESIZE)
 {
   auto x = 0;
@@ -988,9 +974,7 @@ static void _arraySet(PHB_ITEM pArray, int Width, int Height, int BitsPixel)
   HB_arraySetNL(pArray, 3, BitsPixel);
 }
 
-/*
-HMG_GETBITMAPSIZE(image) --> array
-*/
+// HMG_GETBITMAPSIZE(image) --> array
 HB_FUNC(HMG_GETBITMAPSIZE)
 {
   auto pResult = hb_itemArrayNew(3);
@@ -1038,9 +1022,7 @@ HB_FUNC(HMG_GETBITMAPSIZE)
   hb_itemReturnRelease(pResult);
 }
 
-/*
-HMG_GETICONSIZE(HICON) --> array
-*/
+// HMG_GETICONSIZE(HICON) --> array
 HB_FUNC(HMG_GETICONSIZE)
 {
   auto pResult = hb_itemArrayNew(3);
@@ -1069,9 +1051,7 @@ HB_FUNC(HMG_GETICONSIZE)
   hb_itemReturnRelease(pResult);
 }
 
-/*
-HMG_GETPIXELCOLOR(HDC, x, y) --> .T.|.F.
-*/
+// HMG_GETPIXELCOLOR(HDC, x, y) --> .T.|.F.
 HB_FUNC(HMG_GETPIXELCOLOR)
 {
   COLORREF pixel = GetPixel(hmg_par_HDC(1), hb_parni(2), hb_parni(3));

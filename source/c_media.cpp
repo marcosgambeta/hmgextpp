@@ -51,7 +51,7 @@
 
 #if 0
 #if defined(__BORLANDC__)
-#pragma warn - use /* unused var */
+#pragma warn - use // unused var
 #if defined(_WIN64)
 #ifndef UNICODE
 HWND MCIWndCreateA(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCSTR szFile)
@@ -63,9 +63,9 @@ HWND MCIWndCreateW(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCWSTR 
 {
    return 0;
 }
-#endif /* UNICODE */
-#endif /* _WIN64 */
-#endif /* __BORLANDC__ */
+#endif // UNICODE
+#endif // _WIN64
+#endif // __BORLANDC__
 #endif
 
 #include <vfw.h>

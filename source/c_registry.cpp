@@ -53,17 +53,13 @@
 #define PtrToLong(p) (static_cast<LONG>(p))
 #endif
 
-/*
-HMG_REGCLOSEKEY(HKEY) --> numeric
-*/
+// HMG_REGCLOSEKEY(HKEY) --> numeric
 HB_FUNC(HMG_REGCLOSEKEY)
 {
   hb_retnl((RegCloseKey(hmg_par_HKEY(1)) == ERROR_SUCCESS) ? ERROR_SUCCESS : -1);
 }
 
-/*
-HMG_REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
-*/
+// HMG_REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
 HB_FUNC(HMG_REGOPENKEYEX)
 {
   HKEY phwHandle;
@@ -89,9 +85,7 @@ HB_FUNC(REGOPENKEYEXA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGOPENKEYEX);
 }
 
-/*
-HMG_REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
-*/
+// HMG_REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
 HB_FUNC(HMG_REGQUERYVALUEEX)
 {
   DWORD lpType = hb_parnl(4);
@@ -135,9 +129,7 @@ HB_FUNC(REGQUERYVALUEEXA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGQUERYVALUEEX);
 }
 
-/*
-HMG_REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
-*/
+// HMG_REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
 HB_FUNC(HMG_REGENUMKEYEX)
 {
   TCHAR Buffer[255];
@@ -167,9 +159,7 @@ HB_FUNC(REGENUMKEYEXA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGENUMKEYEX);
 }
 
-/*
-HMG_REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
-*/
+// HMG_REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
 HB_FUNC(HMG_REGSETVALUEEX)
 {
   DWORD nType = hb_parnl(4);
@@ -201,9 +191,7 @@ HB_FUNC(REGSETVALUEEXA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGSETVALUEEX);
 }
 
-/*
-HMG_REGCREATEKEY(HKEY, cKey, np3) --> numeric
-*/
+// HMG_REGCREATEKEY(HKEY, cKey, np3) --> numeric
 HB_FUNC(HMG_REGCREATEKEY)
 {
   void *str;
@@ -222,9 +210,7 @@ HB_FUNC(HMG_REGCREATEKEY)
   hb_strfree(str);
 }
 
-/*
-HMG_REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
-*/
+// HMG_REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
 HB_FUNC(HMG_REGENUMVALUE)
 {
   DWORD lpType = 1;
@@ -253,9 +239,7 @@ HB_FUNC(REGENUMVALUEA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGENUMVALUE);
 }
 
-/*
-HMG_REGDELETEKEY(HKEY, cKey) --> numeric
-*/
+// HMG_REGDELETEKEY(HKEY, cKey) --> numeric
 HB_FUNC(HMG_REGDELETEKEY)
 {
   void *str;
@@ -263,9 +247,7 @@ HB_FUNC(HMG_REGDELETEKEY)
   hb_strfree(str);
 }
 
-/*
-HMG_REGDELETEVALUE(HKEY, cKey) --> numeric
-*/
+// HMG_REGDELETEVALUE(HKEY, cKey) --> numeric
 HB_FUNC(HMG_REGDELETEVALUE)
 {
   void *str;
@@ -278,9 +260,7 @@ HB_FUNC(REGDELETEVALUEA) // INFO: deprecated
   HB_FUNC_EXEC(HMG_REGDELETEVALUE);
 }
 
-/*
-HMG_REGCONNECTREGISTRY(cp1, HKEY) --> numeric
-*/
+// HMG_REGCONNECTREGISTRY(cp1, HKEY) --> numeric
 HB_FUNC(HMG_REGCONNECTREGISTRY)
 {
   void *str;

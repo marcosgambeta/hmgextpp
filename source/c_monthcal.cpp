@@ -60,10 +60,7 @@ extern HFONT PrepareFont(const TCHAR *FontName, int FontSize, int Weight, DWORD 
                          DWORD StrikeOut, DWORD Angle, DWORD charset);
 LRESULT CALLBACK OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
-/*
-HMG_INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) -->
-HANDLE
-*/
+// HMG_INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
 HB_FUNC(HMG_INITMONTHCAL)
 {
   int bold = FW_NORMAL;
@@ -146,9 +143,7 @@ HB_FUNC(HMG_INITMONTHCAL)
   hmg_storvhandle(hfont, -1, 2);
 }
 
-/*
-HMG_SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
-*/
+// HMG_SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
 HB_FUNC(HMG_SETMONTHCALVALUE)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -166,9 +161,7 @@ HB_FUNC(HMG_SETMONTHCALVALUE)
   MonthCal_SetCurSel(hwnd, &sysTime);
 }
 
-/*
-HMG_GETMONTHCALVALUE(HWND, np2) --> numeric
-*/
+// HMG_GETMONTHCALVALUE(HWND, np2) --> numeric
 HB_FUNC(HMG_GETMONTHCALVALUE)
 {
   SYSTEMTIME st;
@@ -188,9 +181,7 @@ HB_FUNC(HMG_GETMONTHCALVALUE)
   }
 }
 
-/*
-HMG_GETMONTHCALDATE(HWND) --> data
-*/
+// HMG_GETMONTHCALDATE(HWND) --> data
 HB_FUNC(HMG_GETMONTHCALDATE)
 {
   SYSTEMTIME st;
@@ -199,9 +190,7 @@ HB_FUNC(HMG_GETMONTHCALDATE)
   hb_retdl(lJulian);
 }
 
-/*
-HMG_SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
-*/
+// HMG_SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
 HB_FUNC(HMG_SETPOSMONTHCAL)
 {
   auto hWndMonthCal = hmg_par_HWND(1);
@@ -224,9 +213,7 @@ HB_FUNC(HMG_SETPOSMONTHCAL)
   SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
 
-/*
-HMG_GETMONTHRANGE(HWND) --> array
-*/
+// HMG_GETMONTHRANGE(HWND) --> array
 HB_FUNC(HMG_GETMONTHRANGE)
 {
   SYSTEMTIME sysTime[2];
@@ -246,9 +233,7 @@ HB_FUNC(HMG_GETMONTHRANGE)
   (ds) |= (0x00000001 << (iDay - 1))
 #endif
 
-/*
-HMG_C_SETDAYSTATE(HWND, np2, ap3) --> NIL
-*/
+// HMG_C_SETDAYSTATE(HWND, np2, ap3) --> NIL
 HB_FUNC(HMG_C_SETDAYSTATE)
 {
   auto iCount = hb_parni(2);
@@ -272,9 +257,7 @@ HB_FUNC(HMG_C_SETDAYSTATE)
   hb_xfree(rgMonths);
 }
 
-/*
-HMG_C_RETDAYSTATE(p1, p2, p3) --> NIL
-*/
+// HMG_C_RETDAYSTATE(p1, p2, p3) --> NIL
 HB_FUNC(HMG_C_RETDAYSTATE)
 {
   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE *>(HB_PARNL(1));
@@ -299,9 +282,7 @@ HB_FUNC(HMG_C_RETDAYSTATE)
   hb_xfree(rgMonths);
 }
 
-/*
-HMG_GETDAYSTATEDATA(p1) --> array
-*/
+// HMG_GETDAYSTATEDATA(p1) --> array
 HB_FUNC(HMG_GETDAYSTATEDATA)
 {
   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE *>(HB_PARNL(1));

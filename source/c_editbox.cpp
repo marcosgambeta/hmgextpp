@@ -53,10 +53,7 @@
 
 extern LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-/*
-HMG_INITEDITBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, p9, lReadOnly, lInvisible, lNoTabStop,
-lNoVScroll, lNoHScroll) --> HWND
-*/
+// HMG_INITEDITBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, p9, lReadOnly, lInvisible, lNoTabStop, lNoVScroll, lNoHScroll) --> HWND
 HB_FUNC(HMG_INITEDITBOX)
 {
   DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;

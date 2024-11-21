@@ -71,10 +71,7 @@ static int nResetCount;
 static int buttonCount;
 static int isInSizeMsg = 0;
 
-/*
-HMG_INITTOOLBAR(HWND, p2, HMENU, p4, p5, np6, np7, p8, p9, lp10, lp11, lp12, lp13, lp14, lp15, lp16)
---> HWND
-*/
+// HMG_INITTOOLBAR(HWND, p2, HMENU, p4, p5, np6, np7, p8, p9, lp10, lp11, lp12, lp13, lp14, lp15, lp16) --> HWND
 HB_FUNC(HMG_INITTOOLBAR)
 {
   DWORD style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
@@ -130,10 +127,7 @@ HB_FUNC(HMG_INITTOOLBAR)
   hmg_ret_HWND(hwndTB);
 }
 
-/*
-HMG_INITTOOLBUTTON(HWND, cText, np3, p4, p5, np6, np7, cp8, p9, lp10, lp11, lp12, lp13, lp14, lp15,
-lp16) --> HWND
-*/
+// HMG_INITTOOLBUTTON(HWND, cText, np3, p4, p5, np6, np7, cp8, p9, lp10, lp11, lp12, lp13, lp14, lp15, lp16) --> HWND
 HB_FUNC(HMG_INITTOOLBUTTON)
 {
   auto hwndTB = hmg_par_HWND(1);
@@ -256,10 +250,7 @@ LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
   return MAKELONG(sz.cx, sz.cy);
 }
 
-/*
-HMG_INITTOOLBAREX(HWND, p2, HMENU, p4, p5, np6, np7, p8, p9, lp10, lp11, lp12, lp13, lp14, lp15,
-lp16, lp17) --> HWND
-*/
+// HMG_INITTOOLBAREX(HWND, p2, HMENU, p4, p5, np6, np7, p8, p9, lp10, lp11, lp12, lp13, lp14, lp15, lp16, lp17) --> HWND
 HB_FUNC(HMG_INITTOOLBAREX)
 {
   INITCOMMONCONTROLSEX icex{};
@@ -331,10 +322,7 @@ HB_FUNC(HMG_INITTOOLBAREX)
   hmg_ret_HWND(hwndTB);
 }
 
-/*
-HMG_INITTOOLBUTTONEX(HWND, cText, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16,
-p17, p18) --> HWND
-*/
+// HMG_INITTOOLBUTTONEX(HWND, cText, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) --> HWND
 HB_FUNC(HMG_INITTOOLBUTTONEX)
 {
   TBBUTTON lpBtn;
@@ -550,9 +538,7 @@ HB_FUNC(HMG_INITTOOLBUTTONEX)
   hmg_ret_HWND(himage);
 }
 
-/*
-HMG_GETSIZETOOLBAR(HWND) --> numeric
-*/
+// HMG_GETSIZETOOLBAR(HWND) --> numeric
 HB_FUNC(HMG_GETSIZETOOLBAR)
 {
   auto hwndTB = hmg_par_HWND(1);
@@ -584,9 +570,7 @@ HB_FUNC(HMG_GETSIZETOOLBAR)
   hb_retnl(MAKELONG(lpSize.cy, lpSize.cx));
 }
 
-/*
-HMG_MAXTEXTBTNTOOLBAR() -->
-*/
+// HMG_MAXTEXTBTNTOOLBAR() -->
 HB_FUNC(HMG_MAXTEXTBTNTOOLBAR)
 {
   TCHAR cString[255] = {0};
@@ -634,9 +618,7 @@ HB_FUNC(HMG_MAXTEXTBTNTOOLBAR)
   SendMessage(hwndTB, TB_AUTOSIZE, 0, 0); // JP62
 }
 
-/*
-HMG_ISBUTTONBARCHECKED(HWND, WPARAM) --> .T.|.F.
-*/
+// HMG_ISBUTTONBARCHECKED(HWND, WPARAM) --> .T.|.F.
 HB_FUNC(HMG_ISBUTTONBARCHECKED)
 {
   TBBUTTON lpBtn;
@@ -644,9 +626,7 @@ HB_FUNC(HMG_ISBUTTONBARCHECKED)
   hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0)));
 }
 
-/*
-HMG_CHECKBUTTONBAR(HWND, WPARAM, lp3) --> NIL
-*/
+// HMG_CHECKBUTTONBAR(HWND, WPARAM, lp3) --> NIL
 HB_FUNC(HMG_CHECKBUTTONBAR)
 {
   TBBUTTON lpBtn;
@@ -654,9 +634,7 @@ HB_FUNC(HMG_CHECKBUTTONBAR)
   SendMessage(hmg_par_HWND(1), TB_CHECKBUTTON, lpBtn.idCommand, hb_parl(3));
 }
 
-/*
-HMG_ISBUTTONENABLED(HWND, WPARAM) --> .T.|.F.
-*/
+// HMG_ISBUTTONENABLED(HWND, WPARAM) --> .T.|.F.
 HB_FUNC(HMG_ISBUTTONENABLED)
 {
   TBBUTTON lpBtn;
@@ -664,9 +642,7 @@ HB_FUNC(HMG_ISBUTTONENABLED)
   hb_retl(static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0)));
 }
 
-/*
-HMG_GETBUTTONBARRECT(HWND, WPARAM) --> numeric
-*/
+// HMG_GETBUTTONBARRECT(HWND, WPARAM) --> numeric
 HB_FUNC(HMG_GETBUTTONBARRECT)
 {
   RECT rc;
@@ -674,17 +650,13 @@ HB_FUNC(HMG_GETBUTTONBARRECT)
   hb_retnl(MAKELONG(rc.left, rc.bottom));
 }
 
-/*
-HMG_GETBUTTONPOS(p1) --> numeric
-*/
+// HMG_GETBUTTONPOS(p1) --> numeric
 HB_FUNC(HMG_GETBUTTONPOS)
 {
   hb_retnl(((reinterpret_cast<NMTOOLBAR FAR *>(HB_PARNL(1)))->iItem));
 }
 
-/*
-HMG_SETBUTTONTIP(p1, cText) --> NIL
-*/
+// HMG_SETBUTTONTIP(p1, cText) --> NIL
 HB_FUNC(HMG_SETBUTTONTIP)
 {
   // void * str;
@@ -694,9 +666,7 @@ HB_FUNC(HMG_SETBUTTONTIP)
   // hb_strfree(str);
 }
 
-/*
-HMG_SETTOOLBUTTONCAPTION(HWND, WPARAM, cText) --> NIL
-*/
+// HMG_SETTOOLBUTTONCAPTION(HWND, WPARAM, cText) --> NIL
 HB_FUNC(HMG_SETTOOLBUTTONCAPTION)
 {
   void *str;
@@ -708,9 +678,7 @@ HB_FUNC(HMG_SETTOOLBUTTONCAPTION)
   hb_strfree(str);
 }
 
-/*
-HMG_SETTOOLBUTTONIMAGE(HWND, WPARAM, np3) --> NIL
-*/
+// HMG_SETTOOLBUTTONIMAGE(HWND, WPARAM, np3) --> NIL
 HB_FUNC(HMG_SETTOOLBUTTONIMAGE)
 {
   TBBUTTONINFO tbinfo;
@@ -721,9 +689,7 @@ HB_FUNC(HMG_SETTOOLBUTTONIMAGE)
   SendMessage(hmg_par_HWND(1), TB_SETBUTTONINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&tbinfo));
 }
 
-/*
-HMG_REPLACETOOLBUTTONIMAGE(HWND, hBITMAP, cp3, lp4, np5) --> HBITMAP
-*/
+// HMG_REPLACETOOLBUTTONIMAGE(HWND, hBITMAP, cp3, lp4, np5) --> HBITMAP
 HB_FUNC(HMG_REPLACETOOLBUTTONIMAGE)
 {
   auto hwndTB = hmg_par_HWND(1);
@@ -771,9 +737,7 @@ HB_FUNC(HMG_REPLACETOOLBUTTONIMAGE)
   hmg_ret_HBITMAP(hBitmapNew);
 }
 
-/*
-HMG_SETROWSBUTTON(HWND, np2, lp3) --> array
-*/
+// HMG_SETROWSBUTTON(HWND, np2, lp3) --> array
 HB_FUNC(HMG_SETROWSBUTTON)
 {
   RECT rc;
@@ -783,9 +747,7 @@ HB_FUNC(HMG_SETROWSBUTTON)
   HB_STORVNL(rc.bottom - rc.top, -1, 2);
 }
 
-/*
-HMG_RESIZESPLITBOXITEM(HWND, WPARAM, np3, np4, np5) --> NIL
-*/
+// HMG_RESIZESPLITBOXITEM(HWND, WPARAM, np3, np4, np5) --> NIL
 HB_FUNC(HMG_RESIZESPLITBOXITEM)
 {
   REBARBANDINFO rbBand;
@@ -800,9 +762,7 @@ HB_FUNC(HMG_RESIZESPLITBOXITEM)
   SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand));
 }
 
-/*
-HMG_SETCHEVRONSTYLESPLITBOXITEM(HWND, WPARAM, np3) --> .T.|.F.
-*/
+// HMG_SETCHEVRONSTYLESPLITBOXITEM(HWND, WPARAM, np3) --> .T.|.F.
 HB_FUNC(HMG_SETCHEVRONSTYLESPLITBOXITEM)
 {
   REBARBANDINFO rbBand;
@@ -815,9 +775,7 @@ HB_FUNC(HMG_SETCHEVRONSTYLESPLITBOXITEM)
       SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), reinterpret_cast<LPARAM>(&rbBand))));
 }
 
-/*
-HMG_SETCAPTIONSPLITBOXITEM(HWND, WPARAM, cText) --> NIL
-*/
+// HMG_SETCAPTIONSPLITBOXITEM(HWND, WPARAM, cText) --> NIL
 HB_FUNC(HMG_SETCAPTIONSPLITBOXITEM)
 {
   void *str;
@@ -853,9 +811,7 @@ int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
   return nBtnV;
 }
 
-/*
-HMG_CREATEPOPUPCHEVRON(HWND, np2) --> array
-*/
+// HMG_CREATEPOPUPCHEVRON(HWND, np2) --> array
 HB_FUNC(HMG_CREATEPOPUPCHEVRON)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -895,9 +851,7 @@ HB_FUNC(HMG_CREATEPOPUPCHEVRON)
   HB_STORNI(nBtn, -1, 7);
 }
 
-/*
-HMG_GETBUTTONBAR(HWND, WPARAM) --> array
-*/
+// HMG_GETBUTTONBAR(HWND, WPARAM) --> array
 HB_FUNC(HMG_GETBUTTONBAR)
 {
   TBBUTTON lpBtn;
@@ -913,9 +867,7 @@ HB_FUNC(HMG_GETBUTTONBAR)
   HB_STORL(lEnable, -1, 4);
 }
 
-/*
-HMG_GETIMAGELIST(HWND, np2) --> HBITMAP
-*/
+// HMG_GETIMAGELIST(HWND, np2) --> HBITMAP
 HB_FUNC(HMG_GETIMAGELIST)
 {
   auto himl = reinterpret_cast<HIMAGELIST>(SendMessage(hmg_par_HWND(1), TB_GETIMAGELIST, 0, 0));
@@ -925,25 +877,19 @@ HB_FUNC(HMG_GETIMAGELIST)
   hmg_ret_HBITMAP(himage);
 }
 
-/*
-HMG_SETCHEVRONIMAGE(HMENU, np2, HBITMAP) --> NIL
-*/
+// HMG_SETCHEVRONIMAGE(HMENU, np2, HBITMAP) --> NIL
 HB_FUNC(HMG_SETCHEVRONIMAGE)
 {
   SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3));
 }
 
-/*
-HMG_DESTROYMENU(HMENU) --> NIL
-*/
+// HMG_DESTROYMENU(HMENU) --> NIL
 HB_FUNC(HMG_DESTROYMENU)
 {
   DestroyMenu(hmg_par_HMENU(1));
 }
 
-/*
-HMG_ADJUSTFLOATTOOLBAR() -->
-*/
+// HMG_ADJUSTFLOATTOOLBAR() -->
 HB_FUNC(HMG_ADJUSTFLOATTOOLBAR)
 {
   auto hwndTB = hmg_par_HWND(3);
@@ -1027,9 +973,7 @@ int ResizeToolbar(HWND hwndTB, int widthTb) // TODO: revisar (porque passar parâ
   return 1;
 }
 
-/*
-HMG_RESIZEFLOATTOOLBAR(HWND, nWidth) --> .T.|.F.
-*/
+// HMG_RESIZEFLOATTOOLBAR(HWND, nWidth) --> .T.|.F.
 HB_FUNC(HMG_RESIZEFLOATTOOLBAR)
 {
   if (isInSizeMsg)
@@ -1052,9 +996,7 @@ HB_FUNC(HMG_RESIZEFLOATTOOLBAR)
   hb_retl(true);
 }
 
-/*
-HMG_TOOLBAREXCUSTFUNC(p1, p2, p3, p4) --> .T.|.F.
-*/
+// HMG_TOOLBAREXCUSTFUNC(p1, p2, p3, p4) --> .T.|.F.
 HB_FUNC(HMG_TOOLBAREXCUSTFUNC)
 {
   LPARAM lParam = HB_PARNL(4);

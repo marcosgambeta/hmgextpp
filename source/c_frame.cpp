@@ -52,11 +52,9 @@
 #define WC_BUTTON TEXT("Button")
 #endif
 
-/* Modified by P.Ch. 16.12. */
+// Modified by P.Ch. 16.12.
 
-/*
-HMG_INITFRAME(HWND, HMENU, nX, nY, nWidth, nHeight, cp7, p8, p9, lp10) --> HANDLE
-*/
+// HMG_INITFRAME(HWND, HMENU, nX, nY, nWidth, nHeight, cp7, p8, p9, lp10) --> HANDLE
 HB_FUNC(HMG_INITFRAME)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -65,7 +63,7 @@ HB_FUNC(HMG_INITFRAME)
   if (IsWindow(hwnd))
   {
     auto hmenu = hmg_par_HMENU(2);
-    DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; /* opaque | transparent */
+    DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; // opaque | transparent
     void *str;
 
     hbutton =

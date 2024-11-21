@@ -72,7 +72,7 @@ LPSTR WideToAnsi(LPWSTR);
 // [lHandle] is optional and indicates that no memory management is required
 //           if lHandle = .T., xValue must be numerical (integer)
 
-/* Revised by P.Chornyj 16.11 */
+// Revised by P.Chornyj 16.11
 HB_FUNC(HMG_SETPROP)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -316,7 +316,7 @@ HB_FUNC(HMG_REMOVEPROP)
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
-/* Usage: aProps := EnumProps(nHandle) */
+// Usage: aProps := EnumProps(nHandle)
 HB_FUNC(HMG_ENUMPROPS)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -357,36 +357,35 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
   return TRUE;
 }
 
-/*
-   aProps := {}
-        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
-                                           AAdd(aProps, cPropName),;
-                                           HB_SYMBOL_UNUSED(hHandle),;
-                                           .T. }
+// aProps := {}
+//      bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
+//                                         AAdd(aProps, cPropName),;
+//                                         HB_SYMBOL_UNUSED(hHandle),;
+//                                         .T. }
+//
+//      nRetVal := EnumPropsEx(nHandle, bCodeBlock)
+//      IF nRetVal == -2
+//              ? "Wrong/Missing parameters."
+//      ELSEIF nRetVal == -1
+//              ? "Not find a property."
+//      ELSE
+//              ? "Last value returned by CB is", If( nRetVal == 0, .F., .T. )
+//              AEVal(aProps, {|c| QOut(c) })
+//      ENDIF
+//      ..
+//
+//      CB return TRUE to continue the property list enumeration
+//      or return FALSE to stop the property list enumeration.
+//
+//      bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
+//                                         HB_SYMBOL_UNUSED(hHandle),;
+//                                         ( !( cPropName == "MY_PROP" ) ) }
+//
+//      nRetVal := EnumPropsEx(nHandle, bCodeBlock)
+//      IF nRetVal == 0
+//              ? "MY_PROP found"
+//      ..
 
-        nRetVal := EnumPropsEx(nHandle, bCodeBlock)
-        IF nRetVal == -2
-                ? "Wrong/Missing parameters."
-        ELSEIF nRetVal == -1
-                ? "Not find a property."
-        ELSE
-                ? "Last value returned by CB is", If( nRetVal == 0, .F., .T. )
-                AEVal(aProps, {|c| QOut(c) })
-        ENDIF
-        ..
-
-        CB return TRUE to continue the property list enumeration
-        or return FALSE to stop the property list enumeration.
-
-        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
-                                           HB_SYMBOL_UNUSED(hHandle),;
-                                           ( !( cPropName == "MY_PROP" ) ) }
-
-        nRetVal := EnumPropsEx(nHandle, bCodeBlock)
-        IF nRetVal == 0
-                ? "MY_PROP found"
-        ..
- */
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
 HB_FUNC(HMG_ENUMPROPSEX)

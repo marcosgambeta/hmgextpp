@@ -59,10 +59,7 @@ LRESULT CALLBACK OwnPickProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lPara
 extern HB_EXPORT double hb_timeStampPack(int iYear, int iMonth, int iDay, int iHour, int iMinutes, int iSeconds,
                                          int iMSec);
 
-/*
-HMG_INITDATEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lUpDown, lRightAlign,
-lVisible, lTabStop) --> handle
-*/
+// HMG_INITDATEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lUpDown, lRightAlign, lVisible, lTabStop) --> handle
 HB_FUNC(HMG_INITDATEPICK)
 {
   INITCOMMONCONTROLSEX i;
@@ -107,10 +104,7 @@ HB_FUNC(HMG_INITDATEPICK)
   hmg_ret_HWND(hbutton);
 }
 
-/*
-HMG_INITTIMEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lVisible, lTabStop) -->
-handle
-*/
+// HMG_INITTIMEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lVisible, lTabStop) --> handle
 HB_FUNC(HMG_INITTIMEPICK)
 {
   INITCOMMONCONTROLSEX i;
@@ -183,10 +177,8 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
 }
 
-/*
-HMG_SETDATEPICK(HWND, dDate) --> .T.|.F.
-HMG_SETDATEPICK(HWND, nYear, nMonth, nDay) --> .T.|.F.
-*/
+// HMG_SETDATEPICK(HWND, dDate) --> .T.|.F.
+// HMG_SETDATEPICK(HWND, nYear, nMonth, nDay) --> .T.|.F.
 HB_FUNC(HMG_SETDATEPICK)
 {
   SYSTEMTIME sysTime{};
@@ -224,9 +216,7 @@ HB_FUNC(HMG_SETDATEPICK)
               : false);
 }
 
-/*
-HMG_SETTIMEPICK(HWND, nHour, nMinute, nSecond) --> .T.|.F.
-*/
+// HMG_SETTIMEPICK(HWND, nHour, nMinute, nSecond) --> .T.|.F.
 HB_FUNC(HMG_SETTIMEPICK)
 {
   SYSTEMTIME sysTime{};
@@ -245,9 +235,7 @@ HB_FUNC(HMG_SETTIMEPICK)
               : false);
 }
 
-/*
-HMG_GETDATEPICKDATE(HWND) --> date
-*/
+// HMG_GETDATEPICKDATE(HWND) --> date
 HB_FUNC(HMG_GETDATEPICKDATE)
 {
   SYSTEMTIME st{};
@@ -255,9 +243,7 @@ HB_FUNC(HMG_GETDATEPICKDATE)
   hb_retd(st.wYear, st.wMonth, st.wDay);
 }
 
-/*
-HMG_GETDATEPICKYEAR(HWND) --> nYear
-*/
+// HMG_GETDATEPICKYEAR(HWND) --> nYear
 HB_FUNC(HMG_GETDATEPICKYEAR)
 {
   SYSTEMTIME st{};
@@ -265,9 +251,7 @@ HB_FUNC(HMG_GETDATEPICKYEAR)
   hb_retni(st.wYear);
 }
 
-/*
-HMG_GETDATEPICKMONTH(HWND) --> nMonth
-*/
+// HMG_GETDATEPICKMONTH(HWND) --> nMonth
 HB_FUNC(HMG_GETDATEPICKMONTH)
 {
   SYSTEMTIME st{};
@@ -275,9 +259,7 @@ HB_FUNC(HMG_GETDATEPICKMONTH)
   hb_retni(st.wMonth);
 }
 
-/*
-HMG_GETDATEPICKDAY(HWND) --> nDay
-*/
+// HMG_GETDATEPICKDAY(HWND) --> nDay
 HB_FUNC(HMG_GETDATEPICKDAY)
 {
   SYSTEMTIME st{};
@@ -285,9 +267,7 @@ HB_FUNC(HMG_GETDATEPICKDAY)
   hb_retni(st.wDay);
 }
 
-/*
-HMG_GETDATEPICKHOUR(HWND) --> nHour
-*/
+// HMG_GETDATEPICKHOUR(HWND) --> nHour
 HB_FUNC(HMG_GETDATEPICKHOUR)
 {
   SYSTEMTIME st{};
@@ -295,9 +275,7 @@ HB_FUNC(HMG_GETDATEPICKHOUR)
       SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour : -1);
 }
 
-/*
-HMG_GETDATEPICKMINUTE(HWND) --> nMinute
-*/
+// HMG_GETDATEPICKMINUTE(HWND) --> nMinute
 HB_FUNC(HMG_GETDATEPICKMINUTE)
 {
   SYSTEMTIME st{};
@@ -305,9 +283,7 @@ HB_FUNC(HMG_GETDATEPICKMINUTE)
       SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute : -1);
 }
 
-/*
-HMG_GETDATEPICKSECOND(HWND) --> nSeconds
-*/
+// HMG_GETDATEPICKSECOND(HWND) --> nSeconds
 HB_FUNC(HMG_GETDATEPICKSECOND)
 {
   SYSTEMTIME st{};
@@ -315,11 +291,9 @@ HB_FUNC(HMG_GETDATEPICKSECOND)
       SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond : -1);
 }
 
-/*
-HMG_DTP_SETDATETIME(HWND, datetime) --> .T.|.F.
-HMG_DTP_SETDATETIME(HWND, date) --> .T.|.F.
-HMG_DTP_SETDATETIME(HWND, nYear, nMonth, nDay, nHour, nMinute, nSeconds, nMilliseconds) --> .T.|.F.
-*/
+// HMG_DTP_SETDATETIME(HWND, datetime) --> .T.|.F.
+// HMG_DTP_SETDATETIME(HWND, date) --> .T.|.F.
+// HMG_DTP_SETDATETIME(HWND, nYear, nMonth, nDay, nHour, nMinute, nSeconds, nMilliseconds) --> .T.|.F.
 HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
 {
   SYSTEMTIME sysTime{};
@@ -382,9 +356,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
               : false);
 }
 
-/*
-HMG_DTP_GETDATETIME(HWND) --> datetime
-*/
+// HMG_DTP_GETDATETIME(HWND) --> datetime
 HB_FUNC(HMG_DTP_GETDATETIME)
 {
   SYSTEMTIME st{};
@@ -392,17 +364,13 @@ HB_FUNC(HMG_DTP_GETDATETIME)
   hb_rettd(hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds));
 }
 
-/*
-HMG_SETDATEPICKNULL(HWND) --> NIL
-*/
+// HMG_SETDATEPICKNULL(HWND) --> NIL
 HB_FUNC(HMG_SETDATEPICKNULL)
 {
   SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE, 0);
 }
 
-/*
-HMG_SETDATEPICKRANGE(HWND, date1, date2) --> .T.|.F.|NIL
-*/
+// HMG_SETDATEPICKRANGE(HWND, date1, date2) --> .T.|.F.|NIL
 HB_FUNC(HMG_SETDATEPICKRANGE)
 {
   SYSTEMTIME sysTime[2];
@@ -444,9 +412,7 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
   }
 }
 
-/*
-HMG_SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
-*/
+// HMG_SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
 HB_FUNC(HMG_SETDATEPICKERDATEFORMAT)
 {
   void *str;
@@ -455,9 +421,7 @@ HB_FUNC(HMG_SETDATEPICKERDATEFORMAT)
   hb_strfree(str);
 }
 
-/*
-HMG_DTP_ISCHECKED(HWND) --> .T.|.F.
-*/
+// HMG_DTP_ISCHECKED(HWND) --> .T.|.F.
 HB_FUNC(HMG_DTP_ISCHECKED)
 {
   SYSTEMTIME st{};

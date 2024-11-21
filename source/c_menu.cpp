@@ -70,9 +70,7 @@ HINSTANCE GetResources(void);
 extern HBITMAP Icon2Bmp(HICON hIcon);
 extern BOOL SetAcceleratorTable(HWND, HACCEL);
 
-/*
-HMG_SETACCELERATORTABLE(HWND, HACCEL) --> NIL
-*/
+// HMG_SETACCELERATORTABLE(HWND, HACCEL) --> NIL
 HB_FUNC(HMG_SETACCELERATORTABLE)
 {
   auto hWndMain = hmg_par_HWND(1);
@@ -84,9 +82,7 @@ HB_FUNC(HMG_SETACCELERATORTABLE)
   }
 }
 
-/*
-HMG_ACCELERATORTABLE2ARRAY(HACCEL) --> array
-*/
+// HMG_ACCELERATORTABLE2ARRAY(HACCEL) --> array
 HB_FUNC(HMG_ACCELERATORTABLE2ARRAY)
 {
   auto hAccel = hmg_par_HACCEL(1);
@@ -120,9 +116,7 @@ HB_FUNC(HMG_ACCELERATORTABLE2ARRAY)
   hb_itemReturnRelease(aAccels);
 }
 
-/*
-HMG_ARRAY2ACCELERATORTABLE(array) --> HACCEL
-*/
+// HMG_ARRAY2ACCELERATORTABLE(array) --> HACCEL
 HB_FUNC(HMG_ARRAY2ACCELERATORTABLE)
 {
   auto pArray = hb_param(1, Harbour::Item::ARRAY);
@@ -202,9 +196,7 @@ HB_FUNC(HMG_DESTROYACCELERATORTABLE)
 
 // HACCEL WINAPI LoadAccelerators(HINSTANCE hInstance, LPCTSTR lpTableName)
 
-/*
-HMG_LOADACCELERATORS(HINSTANCE, cTableName|np2) --> HACCEL
-*/
+// HMG_LOADACCELERATORS(HINSTANCE, cTableName|np2) --> HACCEL
 HB_FUNC(HMG_LOADACCELERATORS)
 {
   HACCEL hAccel = nullptr;
@@ -229,9 +221,7 @@ HB_FUNC(HMG_LOADACCELERATORS)
 
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
 
-/*
-HMG_LOADMENU(HINSTANCE, cMenuName|np2) --> HMENU
-*/
+// HMG_LOADMENU(HINSTANCE, cMenuName|np2) --> HMENU
 HB_FUNC(HMG_LOADMENU)
 {
   HMENU hMenu = nullptr;
@@ -254,9 +244,7 @@ HB_FUNC(HMG_LOADMENU)
   hmg_ret_HMENU(hMenu);
 }
 
-/*
-HMG__NEWMENUSTYLE(lp1) --> .T.|.F.
-*/
+// HMG__NEWMENUSTYLE(lp1) --> .T.|.F.
 HB_FUNC(HMG__NEWMENUSTYLE)
 {
   if (HB_ISLOG(1))
@@ -267,17 +255,13 @@ HB_FUNC(HMG__NEWMENUSTYLE)
   hb_retl(s_bCustomDraw);
 }
 
-/*
-HMG__CLOSEMENU() --> .T.|.F.
-*/
+// HMG__CLOSEMENU() --> .T.|.F.
 HB_FUNC(HMG__CLOSEMENU)
 {
   hb_retl(EndMenu());
 }
 
-/*
-HMG_TRACKPOPUPMENU(HMENU, np2, np3, HWND, lp5) --> NIL
-*/
+// HMG_TRACKPOPUPMENU(HMENU, np2, np3, HWND, lp5) --> NIL
 HB_FUNC(HMG_TRACKPOPUPMENU)
 {
   auto hwnd = hmg_par_HWND(4);
@@ -289,65 +273,49 @@ HB_FUNC(HMG_TRACKPOPUPMENU)
   }
 }
 
-/*
-HMG_SETMENU(HWND, HMENU) --> NIL
-*/
+// HMG_SETMENU(HWND, HMENU) --> NIL
 HB_FUNC(HMG_SETMENU)
 {
   SetMenu(hmg_par_HWND(1), hmg_par_HMENU(2));
 }
 
-/*
-HMG_SETMENUDEFAULTITEM(HMENU, np2) --> NIL
-*/
+// HMG_SETMENUDEFAULTITEM(HMENU, np2) --> NIL
 HB_FUNC(HMG_SETMENUDEFAULTITEM)
 {
   SetMenuDefaultItem(hmg_par_HMENU(1), hb_parni(2), FALSE);
 }
 
-/*
-HMG_XCHECKMENUITEM(HMENU, np2) --> NIL
-*/
+// HMG_XCHECKMENUITEM(HMENU, np2) --> NIL
 HB_FUNC(HMG_XCHECKMENUITEM)
 {
   CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_CHECKED);
 }
 
-/*
-HMG_XUNCHECKMENUITEM(HMENU, np2) --> NIL
-*/
+// HMG_XUNCHECKMENUITEM(HMENU, np2) --> NIL
 HB_FUNC(HMG_XUNCHECKMENUITEM)
 {
   CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_UNCHECKED);
 }
 
-/*
-HMG_XENABLEMENUITEM(HMENU, np2) --> NIL
-*/
+// HMG_XENABLEMENUITEM(HMENU, np2) --> NIL
 HB_FUNC(HMG_XENABLEMENUITEM)
 {
   EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_ENABLED);
 }
 
-/*
-HMG_XDISABLEMENUITEM(HMENU, np2) --> NIL
-*/
+// HMG_XDISABLEMENUITEM(HMENU, np2) --> NIL
 HB_FUNC(HMG_XDISABLEMENUITEM)
 {
   EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_GRAYED);
 }
 
-/*
-HMG_XDISABLECLOSEBUTTON(HWND, lp2) --> NIL
-*/
+// HMG_XDISABLECLOSEBUTTON(HWND, lp2) --> NIL
 HB_FUNC(HMG_XDISABLECLOSEBUTTON)
 {
   EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE, MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
 }
 
-/*
-HMG_CREATEMENU() --> HMENU
-*/
+// HMG_CREATEMENU() --> HMENU
 HB_FUNC(HMG_CREATEMENU)
 {
   HMENU hMenu = CreateMenu();
@@ -362,17 +330,13 @@ HB_FUNC(HMG_CREATEMENU)
   hmg_ret_HMENU(hMenu);
 }
 
-/*
-HMG_CREATEPOPUPMENU() --> HMENU
-*/
+// HMG_CREATEPOPUPMENU() --> HMENU
 HB_FUNC(HMG_CREATEPOPUPMENU)
 {
   hmg_ret_HMENU(CreatePopupMenu());
 }
 
-/*
-HMG_APPENDMENUSTRING(HMENU, p2, p3, p4) -->  .T.|.F.
-*/
+// HMG_APPENDMENUSTRING(HMENU, p2, p3, p4) -->  .T.|.F.
 HB_FUNC(HMG_APPENDMENUSTRING)
 {
   void *strNewItem;
@@ -428,9 +392,7 @@ HB_FUNC(HMG_APPENDMENUSTRING)
   hb_strfree(strNewItem);
 }
 
-/*
-HMG_APPENDMENUPOPUP(HMENU, p2, p3, p4, HFONT) --> .T.|.F.
-*/
+// HMG_APPENDMENUPOPUP(HMENU, p2, p3, p4, HFONT) --> .T.|.F.
 HB_FUNC(HMG_APPENDMENUPOPUP)
 {
   void *strNewItem;
@@ -459,9 +421,7 @@ HB_FUNC(HMG_APPENDMENUPOPUP)
   hb_strfree(strNewItem);
 }
 
-/*
-HMG_APPENDMENUSEPARATOR(HMENU) --> .T.|.F.
-*/
+// HMG_APPENDMENUSEPARATOR(HMENU) --> .T.|.F.
 HB_FUNC(HMG_APPENDMENUSEPARATOR)
 {
   if (s_bCustomDraw)
@@ -476,9 +436,7 @@ HB_FUNC(HMG_APPENDMENUSEPARATOR)
   }
 }
 
-/*
-HMG_MODIFYMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
-*/
+// HMG_MODIFYMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
 HB_FUNC(HMG_MODIFYMENUITEM)
 {
   void *strNewItem;
@@ -487,9 +445,7 @@ HB_FUNC(HMG_MODIFYMENUITEM)
   hb_strfree(strNewItem);
 }
 
-/*
-HMG_INSERTMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
-*/
+// HMG_INSERTMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
 HB_FUNC(HMG_INSERTMENUITEM)
 {
   void *strNewItem;
@@ -498,17 +454,13 @@ HB_FUNC(HMG_INSERTMENUITEM)
   hb_strfree(strNewItem);
 }
 
-/*
-HMG_REMOVEMENUITEM(HMENU, p2) --> .T.|.F.
-*/
+// HMG_REMOVEMENUITEM(HMENU, p2) --> .T.|.F.
 HB_FUNC(HMG_REMOVEMENUITEM)
 {
   hb_retl(RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND));
 }
 
-/*
-HMG_MENUITEM_SETBITMAPS(HMENU, p2, p3) --> HBITMAP
-*/
+// HMG_MENUITEM_SETBITMAPS(HMENU, p2, p3) --> HBITMAP
 HB_FUNC(HMG_MENUITEM_SETBITMAPS)
 {
   int Transparent = s_bCustomDraw ? 0 : 1;
@@ -575,9 +527,7 @@ HB_FUNC(HMG_MENUITEM_SETCHECKMARKS)
   }
 }
 
-/*
-HMG_MENUITEM_SETICON(HMENU, np2, cIconName) --> HBITMAP
-*/
+// HMG_MENUITEM_SETICON(HMENU, np2, cIconName) --> HBITMAP
 HB_FUNC(HMG_MENUITEM_SETICON)
 {
   void *str;

@@ -47,9 +47,7 @@
 #include "mgdefs.hpp"
 #include <hbwinuni.hpp>
 
-/*
-HMG_WINHELP(HWND, cp2, np3, np4) --> .T.|.F.
-*/
+// HMG_WINHELP(HWND, cp2, np3, np4) --> .T.|.F.
 HB_FUNC(HMG_WINHELP)
 {
   UINT style;

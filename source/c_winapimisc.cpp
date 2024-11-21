@@ -58,7 +58,7 @@
 #include <hbapierr.hpp>
 #include <hbapiitm.hpp>
 
-/* this has to be declared before hbapifs.h is included */
+// this has to be declared before hbapifs.h is included
 #define _HB_FILE_INTERNAL_
 
 #include <hbapifs.hpp>
@@ -91,11 +91,9 @@ HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
   return (HB_PTRUINT)pProc;
 }
 
-/*
-   WaitRun function for Minigui With Pipe redirection
-   Author: Luiz Rafael Culik Guimaraes <culikr@uol.com.br>
-   Parameters WaitRunPipe(cCommand,nShowWindow,cFile)
- */
+// WaitRun function for Minigui With Pipe redirection
+// Author: Luiz Rafael Culik Guimaraes <culikr@uol.com.br>
+// Parameters WaitRunPipe(cCommand,nShowWindow,cFile)
 HB_FUNC(HMG_WAITRUNPIPE)
 {
   HANDLE ReadPipeHandle;
@@ -455,10 +453,8 @@ HB_FUNC(HMG_C_GETSPECIALFOLDER) // Contributed By Ryszard Ryüko
 
 // #define __WIN98__
 #ifdef __WIN98__
-/*
-   Based Upon Code Contributed By Jacek Kubica <kubica@wssl.wroc.pl>
-   Updated by Vailton Renato <vailtom@gmail.com>
- */
+// Based Upon Code Contributed By Jacek Kubica <kubica@wssl.wroc.pl>
+// Updated by Vailton Renato <vailtom@gmail.com>
 HB_FUNC(HMG_C_GETDLLSPECIALFOLDER)
 {
   TCHAR szPath[MAX_PATH];
@@ -483,7 +479,7 @@ HB_FUNC(HMG_C_GETDLLSPECIALFOLDER)
   }
 }
 
-#endif /* __WIN98__ */
+#endif // __WIN98__
 
 // Memory Management Functions
 using GetPhysicallyInstalledSystemMemory_ptr = BOOL(WINAPI *)(ULONGLONG *);
@@ -588,9 +584,7 @@ HB_FUNC(HMG_MEMORYSTATUS)
   }
 }
 
-/*
-HMG_C_SHELLABOUT(HWND, cp2, cp3) --> NIL
-*/
+// HMG_C_SHELLABOUT(HWND, cp2, cp3) --> NIL
 HB_FUNC(HMG_C_SHELLABOUT)
 {
   void *str1;
@@ -600,9 +594,7 @@ HB_FUNC(HMG_C_SHELLABOUT)
   hb_strfree(str2);
 }
 
-/*
-HMG_PAINTBKGND(HWND, p2) --> HANDLE
-*/
+// HMG_PAINTBKGND(HWND, p2) --> HANDLE
 HB_FUNC(HMG_PAINTBKGND)
 {
   HBRUSH hBrush;
@@ -630,7 +622,7 @@ HB_FUNC(HMG_PAINTBKGND)
   hmg_ret_HBRUSH(hBrush);
 }
 
-/* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
+// Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br)
 HB_FUNC(HMG_GETWINDOWSDIR)
 {
   TCHAR szBuffer[MAX_PATH + 1] = {0};
@@ -688,33 +680,25 @@ HB_FUNC(HMG_GETTEMPDIR)
 #endif
 }
 
-/*
-HMG_POSTMESSAGE(HWND, p2, p3, p4) --> numeric
-*/
+// HMG_POSTMESSAGE(HWND, p2, p3, p4) --> numeric
 HB_FUNC(HMG_POSTMESSAGE)
 {
   hb_retnl(PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
 }
 
-/*
-HMG_DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
-*/
+// HMG_DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 HB_FUNC(HMG_DEFWINDOWPROC)
 {
   HB_RETNL(static_cast<LONG_PTR>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
 }
 
-/*
-HMG_GETSTOCKOBJECT(np) --> HANDLE
-*/
+// HMG_GETSTOCKOBJECT(np) --> HANDLE
 HB_FUNC(HMG_GETSTOCKOBJECT)
 {
   hmg_ret_HGDIOBJ(GetStockObject(hb_parni(1)));
 }
 
-/*
-HMG_GETNEXTDLGTABITEM(HWND1, HWND2, lp3) --> HANDLE
-*/
+// HMG_GETNEXTDLGTABITEM(HWND1, HWND2, lp3) --> HANDLE
 HB_FUNC(HMG_GETNEXTDLGTABITEM)
 {
   hmg_ret_HWND(GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)));
@@ -723,9 +707,7 @@ HB_FUNC(HMG_GETNEXTDLGTABITEM)
 using LPFN_WOW64DISABLEWOW64FSREDIRECTION = BOOL(WINAPI *)(PVOID *);
 using LPFN_WOW64REVERTWOW64FSREDIRECTION = BOOL(WINAPI *)(PVOID);
 
-/*
-HMG_SHELLEXECUTE(HWND, p2, p3, p4, p5) --> numeric
-*/
+// HMG_SHELLEXECUTE(HWND, p2, p3, p4, p5) --> numeric
 HB_FUNC(HMG_SHELLEXECUTE)
 {
   void *str1 = nullptr;
@@ -777,9 +759,7 @@ HB_FUNC(HMG_SHELLEXECUTE)
   hb_strfree(str4);
 }
 
-/*
-HMG_SHELLEXECUTEEX(HWND, cOperation, cFile, cParameters, cDirectory, np6) --> HANDLE
-*/
+// HMG_SHELLEXECUTEEX(HWND, cOperation, cFile, cParameters, cDirectory, np6) --> HANDLE
 HB_FUNC(HMG_SHELLEXECUTEEX)
 {
   void *str1 = nullptr;
@@ -805,9 +785,7 @@ HB_FUNC(HMG_SHELLEXECUTEEX)
   hb_strfree(str4);
 }
 
-/*
-HMG_WAITRUN(cp1, np2) --> numeric
-*/
+// HMG_WAITRUN(cp1, np2) --> numeric
 HB_FUNC(HMG_WAITRUN)
 {
   DWORD dwExitCode;
@@ -836,11 +814,9 @@ HB_FUNC(HMG_WAITRUN)
   hb_retnl(dwExitCode);
 }
 
-/* WaitRunTerm contributed by Kevin Carmody (i@kevincarmody.com) 2007.11.16 */
+// WaitRunTerm contributed by Kevin Carmody (i@kevincarmody.com) 2007.11.16
 
-/*
-HMG_WAITRUNTERM(cCommandLine, cCurrentDirectory, nShowWindow, bWaitProc, nWaitMsec) --> numeric
-*/
+// HMG_WAITRUNTERM(cCommandLine, cCurrentDirectory, nShowWindow, bWaitProc, nWaitMsec) --> numeric
 HB_FUNC(HMG_WAITRUNTERM)
 {
   auto pWaitProc = hb_param(4, Harbour::Item::BLOCK);
@@ -918,9 +894,7 @@ HB_FUNC(HMG_WAITRUNTERM)
   hb_retnl(dwExitCode);
 }
 
-/*
-HMG_ISEXERUNNING(cp1) --> .T.|.F.
-*/
+// HMG_ISEXERUNNING(cp1) --> .T.|.F.
 HB_FUNC(HMG_ISEXERUNNING) // ( cExeNameCaseSensitive ) --> lResult
 {
   void *str;
@@ -935,25 +909,19 @@ HB_FUNC(HMG_ISEXERUNNING) // ( cExeNameCaseSensitive ) --> lResult
   hb_strfree(str);
 }
 
-/*
-HMG_SETSCROLLPOS(HWND, np2, np3, lp4) --> numeric
-*/
+// HMG_SETSCROLLPOS(HWND, np2, np3, lp4) --> numeric
 HB_FUNC(HMG_SETSCROLLPOS)
 {
   hb_retni(SetScrollPos(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parl(4)));
 }
 
-/*
-HMG_GETLASTERROR() --> numeric
-*/
+// HMG_GETLASTERROR() --> numeric
 HB_FUNC(HMG_GETLASTERROR)
 {
   hb_retnl(GetLastError());
 }
 
-/*
-HMG_CREATEFOLDER(cPathName) --> .T.|.F.
-*/
+// HMG_CREATEFOLDER(cPathName) --> .T.|.F.
 HB_FUNC(HMG_CREATEFOLDER)
 {
   void *str;
@@ -961,9 +929,7 @@ HB_FUNC(HMG_CREATEFOLDER)
   hb_strfree(str);
 }
 
-/*
-HMG_SETCURRENTFOLDER(cPathName) --> .T.|.F.
-*/
+// HMG_SETCURRENTFOLDER(cPathName) --> .T.|.F.
 HB_FUNC(HMG_SETCURRENTFOLDER)
 {
   void *str;
@@ -971,9 +937,7 @@ HB_FUNC(HMG_SETCURRENTFOLDER)
   hb_strfree(str);
 }
 
-/*
-HMG_REMOVEFOLDER(cPathName) --> .T.|.F.
-*/
+// HMG_REMOVEFOLDER(cPathName) --> .T.|.F.
 HB_FUNC(HMG_REMOVEFOLDER)
 {
   void *str;
@@ -998,9 +962,7 @@ HB_FUNC(HMG_GETCURRENTFOLDER)
 #endif
 }
 
-/*
-HMG_CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
-*/
+// HMG_CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
 HB_FUNC(HMG_CREATESOLIDBRUSH)
 {
   auto hBrush = CreateSolidBrush(static_cast<COLORREF>(RGB(hb_parni(1), hb_parni(2), hb_parni(3))));
@@ -1008,46 +970,34 @@ HB_FUNC(HMG_CREATESOLIDBRUSH)
   hmg_ret_HBRUSH(hBrush);
 }
 
-/*
-HMG_SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
-*/
+// HMG_SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 HB_FUNC(HMG_SETTEXTCOLOR)
 {
   hb_retnl(static_cast<ULONG>(
       SetTextColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
-/*
-HMG_SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
-*/
+// HMG_SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 HB_FUNC(HMG_SETBKCOLOR)
 {
   hb_retnl(static_cast<ULONG>(
       SetBkColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
-/*
-HMG_GETSYSCOLOR(np1) --> numeric
-*/
+// HMG_GETSYSCOLOR(np1) --> numeric
 HB_FUNC(HMG_GETSYSCOLOR) // TODO: deprecated (using waGetSysColor from WinApi library)
 {
   hb_retnl(GetSysColor(hb_parni(1)));
 }
 
-/**************************************************************************************/
-/*                                                                                    */
-/*  This function returns the Windows Version on which the app calling the function   */
-/*  is running.                                                                       */
-/*                                                                                    */
-/*  The return value is an 4-th dimensinal array containing the OS in the first,      */
-/*  the servicepack or the system release number in the second, the build number      */
-/*  in the third and extended OS information in the fourth array element.             */
-/*                                                                                    */
-/**************************************************************************************/
+// This function returns the Windows Version on which the app calling the function
+// is running.
+//
+// The return value is an 4-th dimensinal array containing the OS in the first,
+// the servicepack or the system release number in the second, the build number
+// in the third and extended OS information in the fourth array element.
 
-/*
-HMG_WINVERSION() --> array
-*/
+// HMG_WINVERSION() --> array
 HB_FUNC(HMG_WINVERSION)
 {
 #if defined(__BORLANDC__)
@@ -1379,9 +1329,7 @@ HB_FUNC(HMG_WINVERSION)
   HB_ARRAYSETSTR(hb_stackReturnItem(), 4, szVersionEx.c_str());
 }
 
-/*
-HMG_GETDLLVERSION() --> array
-*/
+// HMG_GETDLLVERSION() --> array
 HB_FUNC(HMG_GETDLLVERSION)
 {
   DWORD dwMajorVersion = 0;
@@ -1426,18 +1374,14 @@ HB_FUNC(HMG_GETDLLVERSION)
 
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.0 Experimental Build 9a
 
-/*
-HMG_SELECTOBJECT(HDC, HGDIOBJ) --> HANDLE
-*/
+// HMG_SELECTOBJECT(HDC, HGDIOBJ) --> HANDLE
 HB_FUNC(HMG_SELECTOBJECT)
 {
   hmg_ret_HGDIOBJ(SelectObject(hmg_par_HDC(1), hmg_par_HGDIOBJ(2)));
 }
 
-/*
-HMG_FILLRECT(HWND|HDC, aRect, HBRUSH) --> numeric
-HMG_FILLRECT(HWND|HDC, nLeft, nTop, nRight, nBottom, HBRUSH) --> numeric
-*/
+// HMG_FILLRECT(HWND|HDC, aRect, HBRUSH) --> numeric
+// HMG_FILLRECT(HWND|HDC, nLeft, nTop, nRight, nBottom, HBRUSH) --> numeric
 HB_FUNC(HMG_FILLRECT)
 {
   auto hWnd = hmg_par_HWND(1);
@@ -1487,7 +1431,7 @@ HB_FUNC(HMG_FILLRECT)
 #if defined(__MINGW32__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
-#endif /* __MINGW32__ */
+#endif // __MINGW32__
 
 BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 {
@@ -1543,7 +1487,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 
 #if defined(__MINGW32__)
 #pragma GCC diagnostic pop
-#endif /* __MINGW32__ */
+#endif // __MINGW32__
 
 HB_FUNC(HMG_ISAPPHUNG)
 {
@@ -1669,9 +1613,7 @@ HB_FUNC(HMG_GETSHORTPATHNAME)
 #endif
 }
 
-/*
-HMG_DRAWTEXT(HDC, cText, nLeft, nTop, nRight, nBottom, nStyle) --> NIL
-*/
+// HMG_DRAWTEXT(HDC, cText, nLeft, nTop, nRight, nBottom, nStyle) --> NIL
 HB_FUNC(HMG_DRAWTEXT)
 {
 #ifndef UNICODE
@@ -1779,47 +1721,43 @@ HB_FUNC(HMG_ISOEMTEXT)
   hb_retl(bOem);
 }
 
-/*
-   Harbour MiniGUI 1.3 Extended (Build 33)
-   added by P.Chornyj
-
-   Function GetObjectType()
-   ------------------------
-   The GetObjectType identifies the type of the specified object.
-
-   Syntax
-     GetObjectType(nObject) --> nType
-
-   Arguments
-     nObject is identifies the object
-
-   Returns
-     If the function succeeds, the return value identifies the object.
-   This value can be one of the following:
-     OBJ_PEN         1
-     OBJ_BRUSH       2
-     OBJ_DC          3
-     OBJ_METADC      4
-     OBJ_PAL         5
-     OBJ_FONT        6
-     OBJ_BITMAP      7
-     OBJ_REGION      8
-     OBJ_METAFILE    9
-     OBJ_MEMDC       10
-     OBJ_EXTPEN      11
-     OBJ_ENHMETADC   12
-     OBJ_ENHMETAFILE 13
-     OBJ_COLORSPACE  14
- */
+// Harbour MiniGUI 1.3 Extended (Build 33)
+// added by P.Chornyj
+//
+// Function GetObjectType()
+// ------------------------
+// The GetObjectType identifies the type of the specified object.
+//
+// Syntax
+//   GetObjectType(nObject) --> nType
+//
+// Arguments
+//   nObject is identifies the object
+//
+// Returns
+//   If the function succeeds, the return value identifies the object.
+// This value can be one of the following:
+//   OBJ_PEN         1
+//   OBJ_BRUSH       2
+//   OBJ_DC          3
+//   OBJ_METADC      4
+//   OBJ_PAL         5
+//   OBJ_FONT        6
+//   OBJ_BITMAP      7
+//   OBJ_REGION      8
+//   OBJ_METAFILE    9
+//   OBJ_MEMDC       10
+//   OBJ_EXTPEN      11
+//   OBJ_ENHMETADC   12
+//   OBJ_ENHMETAFILE 13
+//   OBJ_COLORSPACE  14
 HB_FUNC(HMG_GETOBJECTTYPE)
 {
   HB_RETNL(static_cast<LONG_PTR>(GetObjectType(hmg_par_HGDIOBJ(1))));
 }
 
-/*
-   Harbour MiniGUI 1.4 Extended (Build 47)
-   added by Grigory Filatov
- */
+// Harbour MiniGUI 1.4 Extended (Build 47)
+// added by Grigory Filatov
 HB_FUNC(HMG_DRAGACCEPTFILES)
 {
   DragAcceptFiles(hmg_par_HWND(1), hb_parl(2));
@@ -1855,9 +1793,7 @@ HB_FUNC(HMG_DRAGFINISH)
   DragFinish((HDROP)HB_PARNL(1));
 }
 
-/*
-HMG_CHARSETNAME() --> "UNICODE"|"ANSI"
-*/
+// HMG_CHARSETNAME() --> "UNICODE"|"ANSI"
 HB_FUNC(HMG_CHARSETNAME)
 {
 #ifdef UNICODE
@@ -1867,9 +1803,7 @@ HB_FUNC(HMG_CHARSETNAME)
 #endif
 }
 
-/*
-HMG_GETLOCALEINFO(npar) --> string
-*/
+// HMG_GETLOCALEINFO(npar) --> string
 HB_FUNC(HMG_GETLOCALEINFO)
 {
   auto LCType = hb_parni(1);
@@ -1895,43 +1829,39 @@ HB_FUNC(HMG_GETLOCALEINFO)
   hb_xfree(cText);
 }
 
-/*
-   --------------------------------------------------------------------------------
-   Description:
-   Creates the actual 'lnk' file (assumes COM has been initialized).
-
-   Parameters:
-   pszTargetfile    - File name of the link's target, must be a non-empty
-                     string.
-
-   pszTargetargs    - Command line arguments passed to link's target, may
-                     be an empty string.
-
-   pszLinkfile      - File name of the actual link file, must be a non-empty
-                     string.
-
-   pszDescription   - Description of the linked item. If this is an empty
-                     string the description is not set.
-
-   iShowmode        - ShowWindow() constant for the link's target. Use one of:
-                       1 (SW_SHOWNORMAL) = Normal window.
-                       3 (SW_SHOWMAXIMIZED) = Maximized.
-                       7 (SW_SHOWMINNOACTIVE) = Minimized.
-                     If this is zero the showmode is not set.
-
-   pszCurdir        - Working directory of the active link. If this is
-                     an empty string the directory is not set.
-
-   pszIconfile      - File name of the icon file used for the link.
-                     If this is an empty string the icon is not set.
-
-   iIconindex       - Index of the icon in the icon file. If this is
-                     < 0 the icon is not set.
-
-   Returns:
-   HRESULT value >= 0 for success, < 0 for failure.
-   --------------------------------------------------------------------------------
- */
+// Description:
+// Creates the actual 'lnk' file (assumes COM has been initialized).
+//
+// Parameters:
+// pszTargetfile    - File name of the link's target, must be a non-empty
+//                   string.
+//
+// pszTargetargs    - Command line arguments passed to link's target, may
+//                   be an empty string.
+//
+// pszLinkfile      - File name of the actual link file, must be a non-empty
+//                   string.
+//
+// pszDescription   - Description of the linked item. If this is an empty
+//                   string the description is not set.
+//
+// iShowmode        - ShowWindow() constant for the link's target. Use one of:
+//                     1 (SW_SHOWNORMAL) = Normal window.
+//                     3 (SW_SHOWMAXIMIZED) = Maximized.
+//                     7 (SW_SHOWMINNOACTIVE) = Minimized.
+//                   If this is zero the showmode is not set.
+//
+// pszCurdir        - Working directory of the active link. If this is
+//                   an empty string the directory is not set.
+//
+// pszIconfile      - File name of the icon file used for the link.
+//                   If this is an empty string the icon is not set.
+//
+// iIconindex       - Index of the icon in the icon file. If this is
+//                   < 0 the icon is not set.
+//
+// Returns:
+// HRESULT value >= 0 for success, < 0 for failure.
 #ifndef UNICODE
 static HRESULT CreateShortCut(LPSTR pszTargetfile, LPSTR pszTargetargs, LPSTR pszLinkfile, LPSTR pszDescription,
                               int iShowmode, LPSTR pszCurdir, LPSTR pszIconfile, int iIconindex)
@@ -1940,24 +1870,24 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR
                               int iShowmode, LPWSTR pszCurdir, LPWSTR pszIconfile, int iIconindex)
 #endif
 {
-  HRESULT hRes;               /* Returned COM result code */
-  IShellLink *pShellLink;     /* IShellLink object pointer */
-  IPersistFile *pPersistFile; /* IPersistFile object pointer */
-  WORD wszLinkfile[MAX_PATH]; /* pszLinkfile as Unicode string */
+  HRESULT hRes;               // Returned COM result code
+  IShellLink *pShellLink;     // IShellLink object pointer
+  IPersistFile *pPersistFile; // IPersistFile object pointer
+  WORD wszLinkfile[MAX_PATH]; // pszLinkfile as Unicode string
 
   hRes = E_INVALIDARG;
   if ((pszTargetfile != nullptr) && (lstrlen(pszTargetfile) > 0) && (pszTargetargs != nullptr) &&
       (pszLinkfile != nullptr) && (lstrlen(pszLinkfile) > 0) && (pszDescription != nullptr) && (iShowmode >= 0) &&
       (pszCurdir != nullptr) && (pszIconfile != nullptr) && (iIconindex >= 0))
   {
-    hRes = CoCreateInstance(CLSID_ShellLink,        /* pre-defined CLSID of the IShellLink object */
-                            nullptr,                /* pointer to parent interface if part of aggregate */
-                            CLSCTX_INPROC_SERVER,   /* caller and called code are in same process */
-                            IID_IShellLink,         /* pre-defined interface of the IShellLink object */
-                            (LPVOID *)&pShellLink); /* Returns a pointer to the IShellLink object */
+    hRes = CoCreateInstance(CLSID_ShellLink,        // pre-defined CLSID of the IShellLink object
+                            nullptr,                // pointer to parent interface if part of aggregate
+                            CLSCTX_INPROC_SERVER,   // caller and called code are in same process
+                            IID_IShellLink,         // pre-defined interface of the IShellLink object
+                            (LPVOID *)&pShellLink); // Returns a pointer to the IShellLink object
     if (SUCCEEDED(hRes))
     {
-      /* Set the fields in the IShellLink object */
+      // Set the fields in the IShellLink object
       pShellLink->lpVtbl->SetPath(pShellLink, pszTargetfile);
       pShellLink->lpVtbl->SetArguments(pShellLink, pszTargetargs);
       if (lstrlen(pszDescription) > 0)
@@ -1977,11 +1907,11 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR
         pShellLink->lpVtbl->SetIconLocation(pShellLink, pszIconfile, iIconindex);
       }
 
-      /* Use the IPersistFile object to save the shell link */
+      // Use the IPersistFile object to save the shell link
       hRes = pShellLink->lpVtbl->QueryInterface(
-          pShellLink,               /* existing IShellLink object */
-          IID_IPersistFile,         /* pre-defined interface of the IPersistFile object */
-          (LPVOID *)&pPersistFile); /* returns a pointer to the IPersistFile object */
+          pShellLink,               // existing IShellLink object
+          IID_IPersistFile,         // pre-defined interface of the IPersistFile object
+          (LPVOID *)&pPersistFile); // returns a pointer to the IPersistFile object
       if (SUCCEEDED(hRes))
       {
 #ifndef UNICODE
@@ -1998,21 +1928,21 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs, LPWSTR
   return hRes;
 }
 
-/***************************************************************************/
+//*************************************************************************
 
 HB_FUNC(HMG_CREATELINK)
 {
-  int iShowmode;  /* <Showmode> (optional) */
-  int iIconindex; /* <Iconindex> (optional) */
-  HRESULT hRes;   /* result of calling COM functions */
+  int iShowmode;  // <Showmode> (optional)
+  int iIconindex; // <Iconindex> (optional)
+  HRESULT hRes;   // result of calling COM functions
 
 #ifndef UNICODE
-  LPSTR szTargetfile;  /* <Targetfile> */
-  LPSTR szTargetargs;  /* <Targetargs> */
-  LPSTR szLinkfile;    /* <Linkfile> */
-  LPSTR szDescription; /* <Description> */
-  LPSTR szCurdir;      /* <Curdir> (optional) */
-  LPSTR szIconfile;    /* <Iconfile> (optional) */
+  LPSTR szTargetfile;  // <Targetfile>
+  LPSTR szTargetargs;  // <Targetargs>
+  LPSTR szLinkfile;    // <Linkfile>
+  LPSTR szDescription; // <Description>
+  LPSTR szCurdir;      // <Curdir> (optional)
+  LPSTR szIconfile;    // <Iconfile> (optional)
   szTargetfile = const_cast<char *>(hb_parc(1));
   szTargetargs = HB_ISCHAR(2) ? const_cast<char *>(hb_parc(2)) : const_cast<char *>("");
   szLinkfile = const_cast<char *>(hb_parc(3));
@@ -2020,12 +1950,12 @@ HB_FUNC(HMG_CREATELINK)
   szCurdir = HB_ISCHAR(6) ? const_cast<char *>(hb_parc(6)) : const_cast<char *>("");
   szIconfile = HB_ISCHAR(7) ? const_cast<char *>(hb_parc(7)) : const_cast<char *>("");
 #else
-  LPWSTR szTargetfile;  /* <Targetfile> */
-  LPWSTR szTargetargs;  /* <Targetargs> */
-  LPWSTR szLinkfile;    /* <Linkfile> */
-  LPWSTR szDescription; /* <Description> */
-  LPWSTR szCurdir;      /* <Curdir> (optional) */
-  LPWSTR szIconfile;    /* <Iconfile> (optional) */
+  LPWSTR szTargetfile;  // <Targetfile>
+  LPWSTR szTargetargs;  // <Targetargs>
+  LPWSTR szLinkfile;    // <Linkfile>
+  LPWSTR szDescription; // <Description>
+  LPWSTR szCurdir;      // <Curdir> (optional)
+  LPWSTR szIconfile;    // <Iconfile> (optional)
   szTargetfile = AnsiToWide(const_cast<char *>(hb_parc(1)));
   szTargetargs = HB_ISCHAR(2) ? AnsiToWide(const_cast<char *>(hb_parc(2))) : (TCHAR *)"";
   szLinkfile = AnsiToWide(const_cast<char *>(hb_parc(3)));
@@ -2036,18 +1966,18 @@ HB_FUNC(HMG_CREATELINK)
   iShowmode = hb_parnidef(5, 0);
   iIconindex = hb_parnidef(8, 0);
 
-  /* Call CoInitialize() and create the link if OK. */
+  // Call CoInitialize() and create the link if OK.
   hRes = CoInitialize(nullptr);
   if (SUCCEEDED(hRes))
   {
-    hRes = CreateShortCut(szTargetfile,  /* Targetfile */
-                          szTargetargs,  /* Target arguments */
-                          szLinkfile,    /* Short-cut filename */
-                          szDescription, /* Short-cut description */
-                          iShowmode,     /* Showmode constant */
-                          szCurdir,      /* Working directory for linked file */
-                          szIconfile,    /* Icon file shown for the link */
-                          iIconindex);   /* Index of icon in the file */
+    hRes = CreateShortCut(szTargetfile,  // Targetfile
+                          szTargetargs,  // Target arguments
+                          szLinkfile,    // Short-cut filename
+                          szDescription, // Short-cut description
+                          iShowmode,     // Showmode constant
+                          szCurdir,      // Working directory for linked file
+                          szIconfile,    // Icon file shown for the link
+                          iIconindex);   // Index of icon in the file
     if (SUCCEEDED(hRes))
     {
       hb_retnl(hRes);
@@ -2058,7 +1988,7 @@ HB_FUNC(HMG_CREATELINK)
     hb_retnl(hRes);
   }
 
-  /* call CoUninitialize() and exit the program. */
+  // call CoUninitialize() and exit the program.
   CoUninitialize();
 }
 

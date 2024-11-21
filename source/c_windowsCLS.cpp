@@ -75,7 +75,7 @@ BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName)
   }
 }
 #else
-BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName); /* P.Ch. 16.10. */
+BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName); // P.Ch. 16.10.
 
 BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName)
 {
@@ -99,12 +99,10 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName)
 
 #endif
 
-/*
-   cClassName := GetClassName(nHwnd)
-   IF !Empty(cClassName)
-      ..
-   ..
- */
+// cClassName := GetClassName(nHwnd)
+// IF !Empty(cClassName)
+//    ..
+// ..
 HB_FUNC(HMG_GETCLASSNAME)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -131,14 +129,12 @@ HB_FUNC(HMG_GETCLASSNAME)
   }
 }
 
-/*
-   cClassName := Space(32)
-   ..
-   nLen := GetClassNameByRef(nHwnd, @cClassName)
-   IF nLen > 0
-      ..
-   ..
- */
+// cClassName := Space(32)
+// ..
+// nLen := GetClassNameByRef(nHwnd, @cClassName)
+// IF nLen > 0
+//    ..
+// ..
 HB_FUNC(HMG_GETCLASSNAMEBYREF)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -194,15 +190,13 @@ HB_FUNC(HMG_SETWINDOWLONG)
   }
 }
 
-/*
-   nCtlStyle := GetWindowStyle(Form_1.Button_1.Handle)
-
-   IF hb_bitAnd(nCtlStyle, WS_TABSTOP) != 0
-      SetWindowStyle(nButtonHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
-   ELSE
-      SetWindowStyle(nButtonHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
-   ENDIF
- */
+// nCtlStyle := GetWindowStyle(Form_1.Button_1.Handle)
+//
+// IF hb_bitAnd(nCtlStyle, WS_TABSTOP) != 0
+//    SetWindowStyle(nButtonHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
+// ELSE
+//    SetWindowStyle(nButtonHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
+// ENDIF
 HB_FUNC(HMG_GETWINDOWSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -217,13 +211,11 @@ HB_FUNC(HMG_GETWINDOWSTYLE)
   }
 }
 
-/*
-   nOldStyle := SetWindowStyle(Form_1.Button_1.Handle, WS_TABSTOP, .T.)
-
-   IF nOldStyle == 0
-      MsgExclamation("Cannot add WS_TABSTOP style to Button_1", "Warning!")
-   ENDIF
- */
+// nOldStyle := SetWindowStyle(Form_1.Button_1.Handle, WS_TABSTOP, .T.)
+//
+// IF nOldStyle == 0
+//    MsgExclamation("Cannot add WS_TABSTOP style to Button_1", "Warning!")
+// ENDIF
 HB_FUNC(HMG_SETWINDOWSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -241,13 +233,11 @@ HB_FUNC(HMG_SETWINDOWSTYLE)
   }
 }
 
-/*
-   IF GetClassName(nCtlHandle) == "Button" .AND. IsWindowHasStyle(nCtlHandle, WS_TABSTOP)
-      SetWindowStyle(nCtlHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
-   ELSE
-      SetWindowStyle(nCtlHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
-   ENDIF
- */
+// IF GetClassName(nCtlHandle) == "Button" .AND. IsWindowHasStyle(nCtlHandle, WS_TABSTOP)
+//    SetWindowStyle(nCtlHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
+// ELSE
+//    SetWindowStyle(nCtlHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
+// ENDIF
 HB_FUNC(HMG_ISWINDOWHASSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);

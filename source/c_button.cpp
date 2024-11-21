@@ -74,9 +74,7 @@ struct BUTTON_IMAGELIST
 using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 #endif
 
-/*
-HMG__SETBTNPICTURE(p1, p2, p3, p4) --> HWND
-*/
+// HMG__SETBTNPICTURE(p1, p2, p3, p4) --> HWND
 HB_FUNC(HMG__SETBTNPICTURE)
 {
   void *ImageName;
@@ -106,17 +104,13 @@ HB_FUNC(HMG__SETBTNPICTURE)
   hb_strfree(ImageName);
 }
 
-/*
-HMG__GETBTNPICTUREHANDLE(HWND) --> HWND
-*/
+// HMG__GETBTNPICTUREHANDLE(HWND) --> HWND
 HB_FUNC(HMG__GETBTNPICTUREHANDLE)
 {
   hmg_ret_HWND(reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), BM_GETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), 0)));
 }
 
-/*
-HMG__SETMIXEDBTNPICTURE(p1, p2, p3) --> HANDLE
-*/
+// HMG__SETMIXEDBTNPICTURE(p1, p2, p3) --> HANDLE
 HB_FUNC(HMG__SETMIXEDBTNPICTURE)
 {
   int Transparent = hb_parl(3) ? 0 : 1;
@@ -127,9 +121,7 @@ HB_FUNC(HMG__SETMIXEDBTNPICTURE)
 
 // HMG 1.0 Experimental Build 8e
 
-/*
-HMG__SETBTNICON(p1, p2) --> HANDLE
-*/
+// HMG__SETBTNICON(p1, p2) --> HANDLE
 HB_FUNC(HMG__SETBTNICON)
 {
   void *IconName;
@@ -148,9 +140,7 @@ HB_FUNC(HMG__SETBTNICON)
   hb_strfree(IconName);
 }
 
-/*
-HMG__SETMIXEDBTNICON(p1, p2) --> HANDLE
-*/
+// HMG__SETMIXEDBTNICON(p1, p2) --> HANDLE
 HB_FUNC(HMG__SETMIXEDBTNICON)
 {
   void *IconName;
@@ -191,9 +181,7 @@ HB_FUNC(HMG__SETMIXEDBTNICON)
   hb_strfree(IconName);
 }
 
-/*
-HMG_DRAWBUTTON(p1, p2, p3, p4, p5, p6) --> NIL
-*/
+// HMG_DRAWBUTTON(p1, p2, p3, p4, p5, p6) --> NIL
 HB_FUNC(HMG_DRAWBUTTON)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(4));
@@ -225,9 +213,7 @@ HB_FUNC(HMG_DRAWBUTTON)
 
 // Function GETOWNBTNHANDLE return value of hwndItem DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNHANDLE(p1) --> HANDLE
-*/
+// HMG_GETOWNBTNHANDLE(p1) --> HANDLE
 HB_FUNC(HMG_GETOWNBTNHANDLE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -240,9 +226,7 @@ HB_FUNC(HMG_GETOWNBTNHANDLE)
 
 // Function GETOWNBTNSTATE return value of itemState DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNSTATE(p1) --> numeric
-*/
+// HMG_GETOWNBTNSTATE(p1) --> numeric
 HB_FUNC(HMG_GETOWNBTNSTATE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -255,9 +239,7 @@ HB_FUNC(HMG_GETOWNBTNSTATE)
 
 // Function GETOWNBTNDC return value of hDC DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNDC(p1) --> HANDLE
-*/
+// HMG_GETOWNBTNDC(p1) --> HANDLE
 HB_FUNC(HMG_GETOWNBTNDC)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -270,9 +252,7 @@ HB_FUNC(HMG_GETOWNBTNDC)
 
 // Function GETOWNBTNITEMACTION return value of itemID DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNITEMID(p1) --> numeric
-*/
+// HMG_GETOWNBTNITEMID(p1) --> numeric
 HB_FUNC(HMG_GETOWNBTNITEMID)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -285,9 +265,7 @@ HB_FUNC(HMG_GETOWNBTNITEMID)
 
 // Function GETOWNBTNITEMACTION return value of itemAction DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNITEMACTION(p1) --> numeric
-*/
+// HMG_GETOWNBTNITEMACTION(p1) --> numeric
 HB_FUNC(HMG_GETOWNBTNITEMACTION)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -300,9 +278,7 @@ HB_FUNC(HMG_GETOWNBTNITEMACTION)
 
 // Function GETOWNBTNCTLTYPE return value of CtlType DRAWITEMSTRUCT member
 
-/*
-HMG_GETOWNBTNCTLTYPE(p1) --> numeric
-*/
+// HMG_GETOWNBTNCTLTYPE(p1) --> numeric
 HB_FUNC(HMG_GETOWNBTNCTLTYPE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -315,9 +291,7 @@ HB_FUNC(HMG_GETOWNBTNCTLTYPE)
 
 // Function GETOWNBTNRECT return array with button rectangle coords
 
-/*
-HMG_GETOWNBTNRECT(p1) --> array
-*/
+// HMG_GETOWNBTNRECT(p1) --> array
 HB_FUNC(HMG_GETOWNBTNRECT)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
@@ -332,9 +306,7 @@ HB_FUNC(HMG_GETOWNBTNRECT)
 
 // Added in Build 16.12
 
-/*
-HMG_CREATEBUTTONBRUSH(p1, p2, p3, p4, p5) --> HANDLE
-*/
+// HMG_CREATEBUTTONBRUSH(p1, p2, p3, p4, p5) --> HANDLE
 HB_FUNC(HMG_CREATEBUTTONBRUSH)
 {
   hmg_ret_HBRUSH(

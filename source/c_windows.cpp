@@ -51,7 +51,7 @@
 
 #if defined(__MINGW32__)
 #define _WIN32_WINNT 0x0500
-#endif /* MINGW | XCC */
+#endif // MINGW | XCC
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
@@ -98,7 +98,7 @@ typedef struct tagMyUserData
 } MYUSERDATA, *PMYUSERDATA;
 #else
 } MYUSERDATA, UNALIGNED *PMYUSERDATA;
-#endif /* _WIN64 */
+#endif // _WIN64
 
 typedef struct tagWinEvent
 {
@@ -1024,14 +1024,14 @@ HB_FUNC(HMG_INITMESSAGEONLYWINDOW)
   hmg_ret_HWND(hwnd);
 }
 
-/* Modified by P.Ch. 17.06. */
+// Modified by P.Ch. 17.06.
 HB_FUNC(HMG_INITDUMMY)
 {
   hmg_ret_HWND(
       CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
 }
 
-/* Modified by P.Ch. 17.06. */
+// Modified by P.Ch. 17.06.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   LRESULT r = 0;
@@ -1285,7 +1285,7 @@ HB_FUNC(HMG_INITSPLITBOX)
   hmg_ret_HWND(hwndRB);
 }
 
-/* Modified by P.Ch. 16.10.-16.12.,17.06. */
+// Modified by P.Ch. 16.10.-16.12.,17.06.
 HB_FUNC(HMG_REGISTERWINDOW)
 {
   void *str1 = nullptr;
@@ -1374,7 +1374,7 @@ HB_FUNC(HMG_REGISTERWINDOW)
   hmg_ret_HBRUSH(hBrush);
 }
 
-/* Modified by P.Ch. 17.06. */
+// Modified by P.Ch. 17.06.
 HB_FUNC(HMG_REGISTERSPLITCHILDWINDOW)
 {
   void *str1 = nullptr;
@@ -1428,7 +1428,7 @@ HB_FUNC(HMG_REGISTERSPLITCHILDWINDOW)
   hmg_ret_HBRUSH(hbrush);
 }
 
-/* Modified by P.Ch. 17.06. */
+// Modified by P.Ch. 17.06.
 HB_FUNC(HMG_UNREGISTERWINDOW)
 {
   void *str;
@@ -1461,8 +1461,8 @@ HB_FUNC(HMG_BORLANDC)
   auto pszCompiler = static_cast<char *>(hb_xgrab(COMPILER_BUF_SIZE));
   szSub[0] = '\0';
 
-#if (__BORLANDC__ >= 0x0590) /* Version 5.9 */
-#if (__BORLANDC__ >= 0x0620) /* Version 6.2 */
+#if (__BORLANDC__ >= 0x0590) // Version 5.9
+#if (__BORLANDC__ >= 0x0620) // Version 6.2
   pszName = "Embarcadero C++";
 #else
   pszName = "CodeGear C++";
@@ -1471,11 +1471,11 @@ HB_FUNC(HMG_BORLANDC)
   pszName = "Borland C++";
 #endif
 
-#if (__BORLANDC__ >= 0x0500) /* Version 5.x */
+#if (__BORLANDC__ >= 0x0500) // Version 5.x
   iVerMajor = __BORLANDC__ >> 8;
   iVerMinor = (__BORLANDC__ & 0xFF) >> 4;
   iVerPatch = __BORLANDC__ & 0xF;
-#else /* Version 4.x */
+#else // Version 4.x
   iVerMajor = __BORLANDC__ >> 8;
   iVerMinor = (__BORLANDC__ - 1 & 0xFF) >> 4;
   iVerPatch = 0;
@@ -1510,7 +1510,7 @@ HB_FUNC(HMG_BORLANDC)
 #else
   auto pszCompiler = static_cast<char *>(hb_xgrab(COMPILER_BUF_SIZE));
   strcpy(pszCompiler, "");
-#endif /* __BORLANDC__ */
+#endif // __BORLANDC__
 
   hb_retc_buffer(pszCompiler);
 }
@@ -1630,7 +1630,7 @@ HB_FUNC_TRANSLATE(HMG_UPPER, UPPER)
 HB_FUNC_TRANSLATE(HMG_ISLOWER, ISLOWER)
 HB_FUNC_TRANSLATE(HMG_ISUPPER, ISUPPER)
 
-#endif /* UNICODE */
+#endif // UNICODE
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS
 HB_FUNC_TRANSLATE(GETGLOBALLISTENER, HMG_GETGLOBALLISTENER)

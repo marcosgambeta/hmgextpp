@@ -119,7 +119,7 @@ HB_FUNC(HMG_RCDATATOFILE)
 {
   HMODULE hModule = (HMODULE)(0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources());
 
-  /* lpType is RT_RCDATA by default */
+  // lpType is RT_RCDATA by default
 #ifndef UNICODE
   LPCSTR lpName = hb_parc(1);
   LPCSTR lpType = (hb_parclen(3) > 0) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));

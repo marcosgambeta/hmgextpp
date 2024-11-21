@@ -55,15 +55,12 @@
 
 #if 0
 #if defined(__BORLANDC__)
-#pragma warn - use /* unused var */
-#pragma warn - eff /* no effect */
+#pragma warn - use // unused var
+#pragma warn - eff // no effect
 #endif
 #endif
 
-/*
-HMG_CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent, nID) -->
-handle
-*/
+// HMG_CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent, nID) --> handle
 HB_FUNC(HMG_CAP_CREATECAPTUREWINDOW)
 {
   void *str;
@@ -72,25 +69,19 @@ HB_FUNC(HMG_CAP_CREATECAPTUREWINDOW)
   hb_strfree(str);
 }
 
-/*
-HMG_CAP_DRIVERCONNECT(nWnd, nIndex) --> .T.|.F.
-*/
+// HMG_CAP_DRIVERCONNECT(nWnd, nIndex) --> .T.|.F.
 HB_FUNC(HMG_CAP_DRIVERCONNECT)
 {
   hb_retl(capDriverConnect(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
-/*
-HMG_CAP_DRIVERDISCONNECT(nWnd) --> .T.|.F.
-*/
+// HMG_CAP_DRIVERDISCONNECT(nWnd) --> .T.|.F.
 HB_FUNC(HMG_CAP_DRIVERDISCONNECT)
 {
   hb_retl(capDriverDisconnect(hmg_par_HWND(1)));
 }
 
-/*
-HMG_CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
-*/
+// HMG_CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
 HB_FUNC(HMG_CAP_SETVIDEOFORMAT)
 {
   auto hCapWnd = hmg_par_HWND(1);
@@ -107,33 +98,25 @@ HB_FUNC(HMG_CAP_SETVIDEOFORMAT)
   hb_retl(capSetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO)));
 }
 
-/*
-HMG_CAP_PREVIEWRATE(nWnd, nRate) --> .T.|.F.
-*/
+// HMG_CAP_PREVIEWRATE(nWnd, nRate) --> .T.|.F.
 HB_FUNC(HMG_CAP_PREVIEWRATE)
 {
   hb_retl(capPreviewRate(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
-/*
-HMG_CAP_PREVIEWSCALE(nWnd, lPreviewScale) --> .T.|.F.
-*/
+// HMG_CAP_PREVIEWSCALE(nWnd, lPreviewScale) --> .T.|.F.
 HB_FUNC(HMG_CAP_PREVIEWSCALE)
 {
   hb_retl(capPreviewScale(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
-/*
-HMG_CAP_PREVIEW(nWnd, lPreviewMode) --> .T.|.F.
-*/
+// HMG_CAP_PREVIEW(nWnd, lPreviewMode) --> .T.|.F.
 HB_FUNC(HMG_CAP_PREVIEW)
 {
   hb_retl(capPreview(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
-/*
-HMG_CAP_EDITCOPY(nWnd) --> .T.|.F.
-*/
+// HMG_CAP_EDITCOPY(nWnd) --> .T.|.F.
 HB_FUNC(HMG_CAP_EDITCOPY)
 {
   hb_retl(capEditCopy(hmg_par_HWND(1)));

@@ -51,9 +51,7 @@
 #define WC_BUTTON TEXT("Button")
 #endif
 
-/*
-HMG_INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
-*/
+// HMG_INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
 HB_FUNC(HMG_INITRADIOGROUP)
 {
   void *str;
@@ -83,9 +81,7 @@ HB_FUNC(HMG_INITRADIOGROUP)
   hb_strfree(str);
 }
 
-/*
-HMG_INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
-*/
+// HMG_INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
 HB_FUNC(HMG_INITRADIOBUTTON)
 {
   void *str;

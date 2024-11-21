@@ -54,10 +54,7 @@
 
 LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-/*
-HMG_INITMASKEDTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight,
-lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
-*/
+// HMG_INITMASKEDTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
 HB_FUNC(HMG_INITMASKEDTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
@@ -100,10 +97,7 @@ HB_FUNC(HMG_INITMASKEDTEXTBOX)
   hmg_ret_HWND(hbutton);
 }
 
-/*
-HMG_INITTEXTBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, np9, lUpperCase, lLowerCase, lNumber,
-lPassword, lRight, lReadOnly, lVisible, lTabStop, lp18) --> HWND
-*/
+// HMG_INITTEXTBOX(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, np9, lUpperCase, lLowerCase, lNumber, lPassword, lRight, lReadOnly, lVisible, lTabStop, lp18) --> HWND
 HB_FUNC(HMG_INITTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT; // TEXTBOX window base style.
@@ -164,10 +158,7 @@ HB_FUNC(HMG_INITTEXTBOX)
   hmg_ret_HWND(hedit);
 }
 
-/*
-HMG_INITCHARMASKTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight,
-lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
-*/
+// HMG_INITCHARMASKTEXTBOX(HWND, HMENU, nX, nY, nWidth, p6, p7, p8, lUpperCase, lLowerCase, nHeight, lRight, lReadOnly, lVisible, lTabStop, lp16) --> HWND
 HB_FUNC(HMG_INITCHARMASKTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL;

@@ -57,9 +57,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 static HWND hwndMDIClient;
 
-/*
-HMG_REGISTERMDIWINDOW() -->
-*/
+// HMG_REGISTERMDIWINDOW() -->
 HB_FUNC(HMG_REGISTERMDIWINDOW)
 {
   void *str1 = nullptr;
@@ -287,9 +285,7 @@ HB_FUNC(HMG_INITMDIWINDOW)
   hmg_ret_HWND(hwnd);
 }
 
-/*
-HMG_INITMDICLIENTWINDOW() -->
-*/
+// HMG_INITMDICLIENTWINDOW() -->
 HB_FUNC(HMG_INITMDICLIENTWINDOW)
 {
   auto hwndparent = hmg_par_HWND(1);
@@ -311,9 +307,7 @@ HB_FUNC(HMG_INITMDICLIENTWINDOW)
   hmg_ret_HWND(hwndMDIClient);
 }
 
-/*
-HMG_INITMDICHILDWINDOW() -->
-*/
+// HMG_INITMDICHILDWINDOW() -->
 HB_FUNC(HMG_INITMDICHILDWINDOW)
 {
   TCHAR rgch[150];
@@ -393,33 +387,25 @@ HB_FUNC(HMG_INITMDICHILDWINDOW)
   hmg_ret_HWND(hwndChild);
 }
 
-/*
-HMG_ARRANGEICONICWINDOWS(HWND) --> numeric
-*/
+// HMG_ARRANGEICONICWINDOWS(HWND) --> numeric
 HB_FUNC(HMG_ARRANGEICONICWINDOWS)
 {
   hb_retni(ArrangeIconicWindows(hmg_par_HWND(1)));
 }
 
-/*
-HMG_DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
-*/
+// HMG_DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
 HB_FUNC(HMG_DEFMDICHILDPROC)
 {
   hmg_ret_LRESULT(DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)));
 }
 
-/*
-HMG_DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
-*/
+// HMG_DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
 HB_FUNC(HMG_DEFFRAMEPROC)
 {
   hmg_ret_LRESULT(DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
 }
 
-/*
-HMG_SIZECLIENTWINDOW(HWND, HWND, HWND, np4) --> NIL
-*/
+// HMG_SIZECLIENTWINDOW(HWND, HWND, HWND, np4) --> NIL
 HB_FUNC(HMG_SIZECLIENTWINDOW)
 {
   RECT rcClient;

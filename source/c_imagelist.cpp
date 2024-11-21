@@ -55,9 +55,7 @@
 WINCOMMCTRLAPI void WINAPI ImageList_EndDrag(void);
 #endif
 
-/*
-HMG_INITIMAGELIST(cx, cy, flags, initial) --> HIMAGELIST
-*/
+// HMG_INITIMAGELIST(cx, cy, flags, initial) --> HIMAGELIST
 HB_FUNC(HMG_INITIMAGELIST) // InitImageList(cx, cy, mask, nCount)
 {
   UINT style = ILC_COLOR32;
@@ -72,9 +70,7 @@ HB_FUNC(HMG_INITIMAGELIST) // InitImageList(cx, cy, mask, nCount)
   hmg_ret_HIMAGELIST(himlIcons);
 }
 
-/*
-HMG_IL_ADD(p1, p2, p3, p4, p5, p6) --> numeric
-*/
+// HMG_IL_ADD(p1, p2, p3, p4, p5, p6) --> numeric
 HB_FUNC(HMG_IL_ADD) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
 {
   auto ic = 1;
@@ -137,9 +133,7 @@ HB_FUNC(HMG_IL_ADD) // IL_Add(himl, image, maskimage, ix, iy, imagecount)
   hb_retni(lResult);
 }
 
-/*
-HMG_IL_ADDMASKED(p1, p2, p3, p4, p5, p6) --> numeric
-*/
+// HMG_IL_ADDMASKED(p1, p2, p3, p4, p5, p6) --> numeric
 HB_FUNC(HMG_IL_ADDMASKED) // IL_AddMasked(himl, image, color, ix, iy, imagecount)
 {
   COLORREF clrBk = CLR_NONE;
@@ -185,9 +179,7 @@ HB_FUNC(HMG_IL_ADDMASKED) // IL_AddMasked(himl, image, color, ix, iy, imagecount
   hb_retni(lResult);
 }
 
-/*
-HMG_IL_DRAW(HWND, HIMAGELIST, imageIndex, x, y) --> .T.|.F.
-*/
+// HMG_IL_DRAW(HWND, HIMAGELIST, imageIndex, x, y) --> .T.|.F.
 HB_FUNC(HMG_IL_DRAW) // BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex, cx, cy)
 {
   auto hwnd = hmg_par_HWND(1);
@@ -208,17 +200,13 @@ HB_FUNC(HMG_IL_DRAW) // BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex,
   hb_retl(true);
 }
 
-/*
-HMG_IL_REMOVE(HIMAGELIST, index) --> .T.|.F.
-*/
+// HMG_IL_REMOVE(HIMAGELIST, index) --> .T.|.F.
 HB_FUNC(HMG_IL_REMOVE) // IL_Remove(hwnd, imageindex)
 {
   hmg_ret_BOOL(ImageList_Remove(hmg_par_HIMAGELIST(1), hmg_par_int(2)));
 }
 
-/*
-HMG_IL_SETBKCOLOR(HIMAGELIST, bkColor) --> COLORREF
-*/
+// HMG_IL_SETBKCOLOR(HIMAGELIST, bkColor) --> COLORREF
 HB_FUNC(HMG_IL_SETBKCOLOR) // IL_SetBkColor(hwnd, color)
 {
   COLORREF clrBk = CLR_NONE;
@@ -230,9 +218,7 @@ HB_FUNC(HMG_IL_SETBKCOLOR) // IL_SetBkColor(hwnd, color)
   hmg_ret_COLORREF(ImageList_SetBkColor(hmg_par_HIMAGELIST(1), clrBk));
 }
 
-/*
-HMG_IL_ERASEIMAGE(HWND, p2, p3, p4, p5) --> NIL
-*/
+// HMG_IL_ERASEIMAGE(HWND, p2, p3, p4, p5) --> NIL
 HB_FUNC(HMG_IL_ERASEIMAGE) // IL_EraseImage(hwnd, ix, iy, dx, dy)
 {
   RECT rcImage;
@@ -241,9 +227,7 @@ HB_FUNC(HMG_IL_ERASEIMAGE) // IL_EraseImage(hwnd, ix, iy, dx, dy)
   UpdateWindow(hmg_par_HWND(1));
 }
 
-/*
-HMG_IL_BEGINDRAG(HWND, HIMAGELIST, p3, p4, p5) --> .T.|.F.
-*/
+// HMG_IL_BEGINDRAG(HWND, HIMAGELIST, p3, p4, p5) --> .T.|.F.
 HB_FUNC(HMG_IL_BEGINDRAG) // IL_BeginDrag(hwnd, himl, ImageInx, ix, iy)
 {
   int cx;
@@ -260,34 +244,26 @@ HB_FUNC(HMG_IL_BEGINDRAG) // IL_BeginDrag(hwnd, himl, ImageInx, ix, iy)
   hmg_ret_BOOL(ImageList_BeginDrag(hmg_par_HIMAGELIST(2), hmg_par_int(3), 0, 0));
 }
 
-/*
-HMG_IL_DRAGMOVE(x, y) --> .T.|.F.
-*/
+// HMG_IL_DRAGMOVE(x, y) --> .T.|.F.
 HB_FUNC(HMG_IL_DRAGMOVE) // IL_DragMove(ix, iy)
 {
   hmg_ret_BOOL(ImageList_DragMove(hmg_par_int(1), hmg_par_int(2)));
 }
 
-/*
-HMG_IL_DRAGENTER(HWND, x, y) --> .T.|.F.
-*/
+// HMG_IL_DRAGENTER(HWND, x, y) --> .T.|.F.
 HB_FUNC(HMG_IL_DRAGENTER) // IL_DragEnter(hwnd, ix, iy)
 {
   hmg_ret_BOOL(ImageList_DragEnter(hmg_par_HWND(1), hmg_par_int(2), hmg_par_int(3)));
 }
 
-/*
-HMG_IL_ENDDRAG(HWND) --> NIL
-*/
+// HMG_IL_ENDDRAG(HWND) --> NIL
 HB_FUNC(HMG_IL_ENDDRAG) // IL_EndDrag(hwnd)
 {
   ImageList_EndDrag();
   ImageList_DragLeave(hmg_par_HWND(1));
 }
 
-/*
-HMG_IL_GETIMAGECOUNT(HIMAGELIST) --> numeric
-*/
+// HMG_IL_GETIMAGECOUNT(HIMAGELIST) --> numeric
 HB_FUNC(HMG_IL_GETIMAGECOUNT) // IL_GetImageCount(himl)
 {
   hmg_ret_int(ImageList_GetImageCount(hmg_par_HIMAGELIST(1)));

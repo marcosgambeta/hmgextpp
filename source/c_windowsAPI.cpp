@@ -120,12 +120,10 @@ HB_FUNC(HMG_DOMESSAGELOOP)
   }
 }
 
-/*
- * DoEvents is a statement that yields execution of the current
- * thread so that the operating system can process other events.
- * This function cleans out the message loop and executes any other pending
- * business.
- */
+// DoEvents is a statement that yields execution of the current
+// thread so that the operating system can process other events.
+// This function cleans out the message loop and executes any other pending
+// business.
 HB_FUNC(HMG_DOEVENTS)
 {
   MSG Msg;
@@ -1119,7 +1117,7 @@ HB_FUNC(HMG_CREATEHATCHBRUSH)
   hmg_ret_HBRUSH(CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)));
 }
 
-/* Modified by P.Ch. 16.10. */
+// Modified by P.Ch. 16.10.
 HB_FUNC(HMG_CREATEPATTERNBRUSH)
 {
   void *str = nullptr;
@@ -1140,21 +1138,20 @@ HB_FUNC(HMG_CREATEPATTERNBRUSH)
   hb_strfree(str);
 }
 
-/*
-   BitmapToRegion: Create a region from the "non-transparent" pixels of a bitmap
-   Author        : Jean-Edouard Lachand-Robert
-   (http://www.geocities.com/Paris/LeftBank/1160/resume.htm), June 1998.
+// BitmapToRegion: Create a region from the "non-transparent" pixels of a bitmap
+// Author        : Jean-Edouard Lachand-Robert
+// (http://www.geocities.com/Paris/LeftBank/1160/resume.htm), June 1998.
+//
+// hBmp :              Source bitmap
+// cTransparentColor : Color base for the "transparent" pixels
+//                     (default is black)
+// cTolerance :        Color tolerance for the "transparent" pixels.
+//
+// A pixel is assumed to be transparent if the value of each of its 3
+// components (blue, green and red) is
+// greater or equal to the corresponding value in cTransparentColor and is
+// lower or equal to the corresponding value in cTransparentColor + cTolerance.
 
-   hBmp :              Source bitmap
-   cTransparentColor : Color base for the "transparent" pixels
-                       (default is black)
-   cTolerance :        Color tolerance for the "transparent" pixels.
-
-   A pixel is assumed to be transparent if the value of each of its 3
-   components (blue, green and red) is
-   greater or equal to the corresponding value in cTransparentColor and is
-   lower or equal to the corresponding value in cTransparentColor + cTolerance.
- */
 #define ALLOC_UNIT 100
 
 HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cTolerance)

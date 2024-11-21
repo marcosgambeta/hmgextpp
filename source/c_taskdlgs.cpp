@@ -21,8 +21,8 @@
 #define MAKEINTRESOURCE MAKEINTRESOURCEW
 #else
 #define MAKEINTRESOURCE MAKEINTRESOURCEA
-#endif /* UNICODE */
-#endif /* __MINGW32__ */
+#endif // UNICODE
+#endif // __MINGW32__
 
 #include <hbwinuni.h>
 
@@ -52,7 +52,7 @@ HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, 
     {
       hResult = pfn(hwndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon,
                     pnButton);
-      /* HB_TRACE(HB_TR_DEBUG, ("TaskDialog() returns %08lX", hResult)); */
+      // HB_TRACE(HB_TR_DEBUG, ("TaskDialog() returns %08lX", hResult));
     }
     FreeLibrary(hCommCtl);
     return hResult;
@@ -79,7 +79,7 @@ HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG *pTaskConfig, int *pnButton, i
   }
   return -1;
 }
-#endif /* defined(__BORLANDC__) && __BORLANDC__ <= 1410 */
+#endif // defined(__BORLANDC__) && __BORLANDC__ <= 1410
 
 HB_FUNC(HMG_WIN_TASKDIALOG0)
 {
@@ -94,7 +94,7 @@ HB_FUNC(HMG_WIN_TASKDIALOG0)
 
   HRESULT hResult;
 
-  /*TODO*/
+  // TODO
   auto hText = static_cast<void **>(hb_xgrab(sizeof(void *) * 3));
   auto iText = 0;
 
@@ -149,7 +149,7 @@ HB_FUNC(HMG_WIN_TASKDIALOG0)
 
   hResult = TaskDialog(hWndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon,
                        &nButton);
-  /* HB_TRACE(HB_TR_DEBUG, ("win_TaskDialog0() returns %08lX", hResult)); */
+  // HB_TRACE(HB_TR_DEBUG, ("win_TaskDialog0() returns %08lX", hResult));
 
   if (S_OK == hResult)
   {
@@ -207,7 +207,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
     // 1 UINT cbSize
     config.cbSize = sizeof(config);
 
-    /*TODO ( HWND )( HB_PTRUINT ) hb_parnint/hb_arrayGetNInt () */
+    // TODO ( HWND )( HB_PTRUINT ) hb_parnint/hb_arrayGetNInt ()
     // 2 HWND hwndParent
     if (hb_arrayGetType(pConfig, TDC_HWND) & Harbour::Item::NUMERIC)
     {
@@ -218,7 +218,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
       config.hwndParent = nullptr;
     }
 
-    /*TODO*/
+    // TODO
     // 3 HINSTANCE hInstance
     if (hb_arrayGetType(pConfig, TDC_HINSTANCE) & Harbour::Item::NUMERIC)
     {
@@ -256,7 +256,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
       config.pszWindowTitle = nullptr;
     }
 
-    /*TODO*/
+    // TODO
     // 7 union { HICON  hMainIcon; PCWSTR pszMainIcon; };
     iType = hb_arrayGetType(pConfig, TDC_MAINICON);
     if (iType & Harbour::Item::NUMERIC)
@@ -435,7 +435,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
       config.pszCollapsedControlText = MAKEINTRESOURCE(hb_arrayGetNI(pConfig, TDC_COLLAPSEDCONTROLTEXT));
     }
 
-    /*TODO*/
+    // TODO
     // 20 union { HICON  hFooterIcon; PCWSTR pszFooterIcon; }
     iType = hb_arrayGetType(pConfig, TDC_FOOTERICON);
     if (iType & Harbour::Item::NUMERIC)
@@ -503,7 +503,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
     ////////////////////////////////////////////////////////////////////////////////////////////
     hResult = TaskDialogIndirect(&config, &nButton, &nRadioButton, &fVerificationFlagChecked);
     ////////////////////////////////////////////////////////////////////////////////////////////
-    /* HB_TRACE(HB_TR_DEBUG, ("win_TaskDialogIndirect0() returns %08lX", hResult));*/
+    // HB_TRACE(HB_TR_DEBUG, ("win_TaskDialogIndirect0() returns %08lX", hResult));
 
     while (--iText >= 0)
     {
@@ -788,7 +788,7 @@ HB_FUNC(HMG__SETWINDOWTITLE)
   }
 }
 
-/* Task Dialog Messages  */
+// Task Dialog Messages
 
 // TDM_CLICK_BUTTON - Simulates the action of a button click in a task dialog
 HB_FUNC(HMG__CLICKBUTTON)
@@ -982,7 +982,7 @@ HB_FUNC(HMG__UPDATEEXPANDEDINFORMATION)
   }
 }
 
-/* TODO */
+// TODO
 HB_FUNC(HMG__UPDATEMAINICON)
 {
   if (HB_ISNUM(2))
@@ -1008,7 +1008,7 @@ HB_FUNC(HMG__UPDATEMAINICON)
   }
 }
 
-/* TODO */
+// TODO
 HB_FUNC(HMG__UPDATEFOOTERICON)
 {
   if (HB_ISNUM(2))
