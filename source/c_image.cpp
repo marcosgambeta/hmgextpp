@@ -72,8 +72,7 @@
 #endif
 
 #define HB_GPLUS_MSG_ERROR(text)                                                                                       \
-  do                                                                                                                   \
-  {                                                                                                                    \
+  do {                                                                                                                 \
     MessageBox(nullptr, text, TEXT("GPlus error"), MB_OK | MB_ICONERROR);                                              \
   } while (0)
 

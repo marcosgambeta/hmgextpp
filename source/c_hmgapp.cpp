@@ -213,14 +213,12 @@ TCHAR *hmg_tstrncat(TCHAR *pDest, const TCHAR *pSource, HB_SIZE nLen)
 
   pDest[nLen] = '\0';
 
-  while (nLen && *pDest)
-  {
+  while (nLen && *pDest) {
     pDest++;
     nLen--;
   }
 
-  while (nLen && (*pDest++ = *pSource++) != '\0')
-  {
+  while (nLen && (*pDest++ = *pSource++) != '\0') {
     nLen--;
   }
 
@@ -231,8 +229,7 @@ HB_SIZE hmg_tstrlen(const TCHAR *pText)
 {
   HB_SIZE nLen = 0;
 
-  while (pText[nLen] != '\0')
-  {
+  while (pText[nLen] != '\0') {
     ++nLen;
   }
 

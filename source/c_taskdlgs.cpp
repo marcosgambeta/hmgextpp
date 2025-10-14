@@ -142,8 +142,7 @@ HB_FUNC(HMG_WIN_TASKDIALOG0)
 
   hb_retnint(hResult);
 
-  while (--iText >= 0)
-  {
+  while (--iText >= 0) {
     hb_strfree(hText[iText]);
   }
 
@@ -416,15 +415,13 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
     ////////////////////////////////////////////////////////////////////////////////////////////
     // HB_TRACE(HB_TR_DEBUG, ("win_TaskDialogIndirect0() returns %08lX", hResult));
 
-    while (--iText >= 0)
-    {
+    while (--iText >= 0) {
       hb_strfree(hText[iText]);
     }
 
     hb_xfree(hText);
 
-    while (--iButton >= 0)
-    {
+    while (--iButton >= 0) {
       hb_strfree(hButton[iButton]);
     }
 
@@ -432,8 +429,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
       hb_xfree(hButton);
     }
 
-    while (--iRadioButton >= 0)
-    {
+    while (--iRadioButton >= 0) {
       hb_strfree(hRadioButton[iRadioButton]);
     }
 

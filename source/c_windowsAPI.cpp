@@ -96,8 +96,7 @@ HB_FUNC(HMG_DOMESSAGELOOP)
   MSG Msg;
   int status;
 
-  while ((status = GetMessage(&Msg, nullptr, 0, 0)) != 0)
-  {
+  while ((status = GetMessage(&Msg, nullptr, 0, 0)) != 0) {
     if (status == -1) {
       // Exception
       // handle the error and possibly exit
@@ -124,8 +123,7 @@ HB_FUNC(HMG_DOEVENTS)
 {
   MSG Msg;
 
-  while (PeekMessage(static_cast<LPMSG>(&Msg), 0, 0, 0, PM_REMOVE))
-  {
+  while (PeekMessage(static_cast<LPMSG>(&Msg), 0, 0, 0, PM_REMOVE)) {
     hDlgModeless = GetActiveWindow();
 
     if (hDlgModeless == nullptr || !IsDialogMessage(hDlgModeless, &Msg)) {
@@ -1126,8 +1124,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
           BITMAP bm32;
           GetObject(hbm32, sizeof(bm32), &bm32);
-          while (bm32.bmWidthBytes % 4)
-          {
+          while (bm32.bmWidthBytes % 4) {
             bm32.bmWidthBytes++;
           }
 
@@ -1162,8 +1159,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
               // Search for a continuous range of "non transparent pixels"
               int x0 = x;
               auto p = reinterpret_cast<LONG *>(p32) + x;
-              while (x < bm.bmWidth)
-              {
+              while (x < bm.bmWidth) {
                 BYTE b = GetRValue(*p);
                 if (b >= lr && b <= hr) {
                   b = GetGValue(*p);

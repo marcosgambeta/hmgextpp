@@ -303,16 +303,18 @@ HB_FUNC(HMG_KEYBOARDCLEARBUFFER)
 {
   MSG Msg;
 
-  while (PeekMessage(&Msg, nullptr, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE))
+  while (PeekMessage(&Msg, nullptr, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE)) {
     ;
+  }  
 }
 
 HB_FUNC(HMG_MOUSECLEARBUFFER)
 {
   MSG Msg;
 
-  while (PeekMessage(&Msg, nullptr, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE))
+  while (PeekMessage(&Msg, nullptr, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE)) {
     ;
+  }  
 }
 
 #ifndef USER_TIMER_MINIMUM
@@ -336,8 +338,7 @@ HB_FUNC(HMG_INKEYGUI)
 
   uTimer = SetTimer(nullptr, 0, uElapse, nullptr);
 
-  while ((bRet = GetMessage(&Msg, nullptr, 0, 0)) != 0)
-  {
+  while ((bRet = GetMessage(&Msg, nullptr, 0, 0)) != 0) {
     if (bRet == -1) {
       // handle the error and possibly exit
       hmg_ErrorExit(TEXT("INKEYGUI"), 0, TRUE);
@@ -788,8 +789,7 @@ HB_FUNC(HMG_WAITRUNTERM)
     ULONG ulWaitMsec = (HB_ISNIL(5) ? 2000 : hb_parnl(5));
     BOOL bWait;
 
-    do
-    {
+    do {
       ulNoSignal = WaitForSingleObject(prInfo.hProcess, ulWaitMsec);
 
       if (ulNoSignal) {
@@ -1512,8 +1512,7 @@ HB_FUNC(HMG_ISOEMTEXT)
   auto wLen = static_cast<WORD>(hb_parclen(1));
   BOOL bOem = FALSE;
 
-  while (w < wLen && !bOem)
-  {
+  while (w < wLen && !bOem) {
     bOem = pString[w] >= 128 && pString[w] <= 168;
     w++;
   }

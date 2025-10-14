@@ -417,8 +417,7 @@ HB_FUNC(HMG_LISTVIEWGETMULTISEL)
   auto i = -1;
   auto j = 0;
 
-  while (true)
-  {
+  while (true) {
     i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
     if (i == -1) {
       break;
@@ -437,8 +436,7 @@ HB_FUNC(HMG_LISTVIEWSETMULTISEL)
   auto i = -1;
   auto hwnd = hmg_par_HWND(1);
 
-  while (true)
-  {
+  while (true) {
     i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
     if (i == -1) {
       break;
@@ -501,8 +499,7 @@ static TCHAR *GetLVItemText(HWND hListView, int i, int iSubItem_)
   auto nLen = 64;
   int nRes;
 
-  do
-  {
+  do {
     nLen *= 2;
     lpText = static_cast<TCHAR *>(hb_xrealloc(lpText, sizeof(TCHAR) * nLen));
     lvi.cchTextMax = nLen;

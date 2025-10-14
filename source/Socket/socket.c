@@ -286,8 +286,9 @@ HB_FUNC(SOCKETLOCALADDRESS)
     struct hostent *phe = gethostbyname(ac);
     if (phe != 0) {
       int i = 0;
-      while (phe->h_addr_list[i] != 0)
+      while (phe->h_addr_list[i] != 0) {
         i++;
+      }  
 
       hb_reta(i);
 

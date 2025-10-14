@@ -3263,8 +3263,9 @@ HB_FUNC(BT_DELAY_EXECUTION)
   clock_t inicio = clock();
   clock_t ciclos = (clock_t)hb_parnl(1);
 
-  while (clock() - inicio <= ciclos)
+  while (clock() - inicio <= ciclos) {
     ;
+  }  
 }
 
 //*********************************************************
@@ -3280,8 +3281,7 @@ HB_FUNC(BT_DELAY_EXECUTION_WITH_DOEVENTS)
   clock_t inicio = clock();
   clock_t ciclos = (clock_t)hb_parnl(1);
 
-  while (clock() - inicio <= ciclos)
-  {
+  while (clock() - inicio <= ciclos) {
     if (PeekMessage((LPMSG)&Msg, 0, 0, 0, PM_REMOVE)) {
       TranslateMessage(&Msg);
       DispatchMessage(&Msg);

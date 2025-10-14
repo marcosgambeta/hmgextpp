@@ -89,8 +89,9 @@ unsigned char *b64encode_alloc(unsigned char *in)
   if (n != NULL)
   {
     n[l--] = 0;
-    while (l >= 0)
+    while (l >= 0) {
       n[l--] = '=';
+    }  
   }
   return n;
 }
@@ -99,8 +100,7 @@ void b64encode(unsigned char *in, unsigned char *out)
 {
   int inlen = strlen(static_cast<const char *>(in));
 
-  while (inlen > 0)
-  {
+  while (inlen > 0) {
     b64enc(in, inlen, out);
     inlen -= 3;
     in += 3;
@@ -113,8 +113,7 @@ void b64encodelen(unsigned char *in, unsigned char *out, int nLen, int nSubLen)
   int inlen = nLen;
   int nPos = 0;
 
-  while (inlen > 0)
-  {
+  while (inlen > 0) {
     b64enc(in, inlen, out);
     inlen -= 3;
     in += 3;
@@ -139,8 +138,9 @@ unsigned char *b64decode_alloc(unsigned char *in)
   unsigned char *n = malloc(l + 1);
 
   if (n != NULL)
-    while (l >= 0)
+    while (l >= 0) {
       n[l--] = 0;
+    }  
 
   return n;
 }
@@ -149,8 +149,7 @@ void b64decode(unsigned char *in, unsigned char *out)
 {
   int inlen = strlen(static_cast<const char *>(in));
 
-  while (inlen > 0)
-  {
+  while (inlen > 0) {
     b64dec(in, inlen, out);
     inlen -= 4;
     in += 4;

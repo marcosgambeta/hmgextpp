@@ -1291,10 +1291,8 @@ HB_FUNC(RR_PICTURE)
     ExtSelectClipRgn(s_hDC, hrgn1, RGN_AND);
   }
 
-  while (x < xe)
-  {
-    while (y < ye)
-    {
+  while (x < xe) {
+    while (y < ye) {
       iPicture->lpVtbl->Render(iPicture, s_hDC, x, y, dc, dr, 0, lHeight, lWidth, -lHeight, nullptr);
       y += dr;
     }
@@ -1487,10 +1485,8 @@ HB_FUNC(RR_DRAWPICTURE)
     ExtSelectClipRgn(s_hDC, hrgn1, RGN_AND);
   }
 
-  while (x < xe)
-  {
-    while (y < ye)
-    {
+  while (x < xe) {
+    while (y < ye) {
       SetRect(&lrect, x, y, dc + x, dr + y);
       ipic->lpVtbl->Render(ipic, s_hDC, x, y, dc, dr, 0, lheight, lwidth, -lheight, &lrect);
       y += dr;

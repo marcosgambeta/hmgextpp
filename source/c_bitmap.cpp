@@ -809,8 +809,7 @@ BOOL GetImageSize(const char *fn, int *x, int *y)
   if (buf[0] == 0xFF && buf[1] == 0xD8 && buf[2] == 0xFF && buf[3] == 0xE0 && buf[6] == 'J' && buf[7] == 'F' &&
       buf[8] == 'I' && buf[9] == 'F') {
     long pos = 2;
-    while (buf[2] == 0xFF)
-    {
+    while (buf[2] == 0xFF) {
       if (buf[3] == 0xC0 || buf[3] == 0xC1 || buf[3] == 0xC2 || buf[3] == 0xC3 || buf[3] == 0xC9 || buf[3] == 0xCA ||
           buf[3] == 0xCB) {
         break;

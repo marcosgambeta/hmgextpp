@@ -71,8 +71,7 @@ HB_FUNC(HMG_GETPRIVATEPROFILESTRING)
   TCHAR *bBuffer;
   DWORD dwLen;
 
-  do
-  {
+  do {
     nSize *= 2;
     bBuffer = static_cast<TCHAR *>(hb_xgrab(sizeof(TCHAR) * nSize));
     dwLen = GetPrivateProfileString(lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName);

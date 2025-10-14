@@ -1495,8 +1495,7 @@ HTREEITEM GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem)
   }
 
   if (hTreeItem == nullptr) {
-    while (hTreeItem == nullptr && hTreeItemBack != nullptr)
-    {
+    while (hTreeItem == nullptr && hTreeItemBack != nullptr) {
       hTreeItemBack = TreeView_GetParent(TreeHandle, hTreeItemBack);
       hTreeItem = TreeView_GetNextSibling(TreeHandle, hTreeItemBack);
     }
@@ -1540,8 +1539,7 @@ HB_FUNC(PG_ISVISIBLE)
   auto ItemHandle = hmg_par_HTREEITEM(2);
   HTREEITEM ItemHdl = TreeView_GetFirstVisible(TreeHandle);
 
-  while (ItemHdl != nullptr)
-  {
+  while (ItemHdl != nullptr) {
     if (ItemHdl == ItemHandle) {
       lVisible = true;
       break;
@@ -1564,8 +1562,7 @@ HB_FUNC(PG_SEARCHID) // PG_SearchID(hWndPG, nID)
 
   HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
 
-  while (TreeItemHandle != nullptr)
-  {
+  while (TreeItemHandle != nullptr) {
     TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
     TreeItem.hItem = TreeItemHandle;
     TreeView_GetItem(TreeHandle, &TreeItem);
@@ -1591,8 +1588,7 @@ HB_FUNC(PG_SEARCHCATEGORY) // PG_SearchCategory(hWndPG, cCategory)
   auto TreeHandle = hmg_par_HWND(1);
   LPTSTR cName = hb_strndup(hb_parc(2), 255); // temporary buffer
   HTREEITEM TreeItemHandle = TreeView_GetRoot(TreeHandle);
-  while (TreeItemHandle != nullptr)
-  {
+  while (TreeItemHandle != nullptr) {
     TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
     TreeItem.hItem = TreeItemHandle;
     TreeView_GetItem(TreeHandle, &TreeItem);

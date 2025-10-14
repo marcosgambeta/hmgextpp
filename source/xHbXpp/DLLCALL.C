@@ -756,8 +756,7 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
     nSize = (Parm[nInd].nWidth + 3) / 4 * 4;
     pArg = (BYTE *)Parm[nInd].pArg + nSize - 4;
     dwStSize += (DWORD)nSize; // Count no of bytes on stack
-    while (nSize > 0)
-    {
+    while (nSize > 0) {
       // Copy argument to the stack
       if (Parm[nInd].dwFlags & DC_FLAG_ARGPTR) {
         // Arg has a ptr to a variable that has the arg

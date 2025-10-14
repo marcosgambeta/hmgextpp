@@ -142,8 +142,7 @@ HB_FUNC(HMG_C_GETFILE)
   TCHAR Filter[4096];
   memset(static_cast<void *>(&Filter), 0, sizeof(Filter));
 
-  while (*p != '\0')
-  {
+  while (*p != '\0') {
     cont += strlen(p) + 1;
     if (cont < 4096) {
       lstrcpy(&Filter[j], AnsiToWide(p));
@@ -191,8 +190,7 @@ HB_FUNC(HMG_C_GETFILE)
       wsprintf(cCurDir, "%s", &buffer[iPosition]);
       iPosition = iPosition + lstrlen(cCurDir) + 1;
 
-      do
-      {
+      do {
         iNumSelected++;
         wsprintf(cFileName, "%s", &buffer[iPosition]);
         iPosition = iPosition + lstrlen(cFileName) + 1;
@@ -245,8 +243,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
   TCHAR Filter[4096];
   memset(static_cast<void *>(&Filter), 0, sizeof(Filter));
 
-  while (*p != '\0')
-  {
+  while (*p != '\0') {
     cont += strlen(p) + 1;
     if (cont < 4096) {
       lstrcpy(&Filter[j], AnsiToWide(p));

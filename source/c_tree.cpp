@@ -213,8 +213,7 @@ void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
 
   HTREEITEM ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
   HTREEITEM NextItem;
-  while (ChildItem != nullptr)
-  {
+  while (ChildItem != nullptr) {
     TreeView_FreeMemoryLPARAMRecursive(hWndTV, ChildItem);
     NextItem = TreeView_GetNextSibling(hWndTV, ChildItem);
     ChildItem = NextItem;
@@ -358,8 +357,7 @@ void TreeView_ExpandChildrenRecursive(HWND hWndTV, HTREEITEM ItemHandle, UINT nE
     TreeView_Expand(hWndTV, ItemHandle, nExpand);
     HTREEITEM ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
     HTREEITEM NextItem;
-    while (ChildItem != nullptr)
-    {
+    while (ChildItem != nullptr) {
       TreeView_ExpandChildrenRecursive(hWndTV, ChildItem, nExpand);
       NextItem = TreeView_GetNextSibling(hWndTV, ChildItem);
       ChildItem = NextItem;
@@ -480,8 +478,7 @@ void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
     TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
     HTREEITEM ChildItem = TreeView_GetChild(hWndTV, TVSortCB.hParent);
     HTREEITEM NextItem;
-    while (ChildItem != nullptr)
-    {
+    while (ChildItem != nullptr) {
       TVSortCB.hParent = ChildItem;
       TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);
       NextItem = TreeView_GetNextSibling(hWndTV, ChildItem);
