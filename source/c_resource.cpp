@@ -93,12 +93,10 @@ HB_FUNC(HMG_GETRESOURCES)
 
 HB_FUNC(HMG_SETRESOURCES)
 {
-  if (HB_ISCHAR(1))
-  {
+  if (HB_ISCHAR(1)) {
     hResources = HMG_LoadDll(const_cast<char *>(hb_parc(1)));
   }
-  else if (HB_ISNUM(1))
-  {
+  else if (HB_ISNUM(1)) {
     hResources = hmg_par_HINSTANCE(1);
   }
 
@@ -109,8 +107,7 @@ HB_FUNC(HMG_FREERESOURCES)
 {
   HMG_UnloadDll();
 
-  if (hResources)
-  {
+  if (hResources) {
     hResources = 0;
   }
 }
@@ -132,8 +129,7 @@ HB_FUNC(HMG_RCDATATOFILE)
   HGLOBAL hResData = nullptr;
   HB_SIZE dwResult = 0;
 
-  if (HB_ISCHAR(1))
-  {
+  if (HB_ISCHAR(1)) {
     hResInfo = FindResource(hModule, lpName, lpType);
   }
   else
@@ -141,12 +137,10 @@ HB_FUNC(HMG_RCDATATOFILE)
     hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
   }
 
-  if (hResInfo != nullptr)
-  {
+  if (hResInfo != nullptr) {
     hResData = LoadResource(hModule, hResInfo);
 
-    if (hResData == nullptr)
-    {
+    if (hResData == nullptr) {
       dwResult = (HB_SIZE)-2; // can't load
     }
   }
@@ -155,23 +149,19 @@ HB_FUNC(HMG_RCDATATOFILE)
     dwResult = (HB_SIZE)-1; // can't find
   }
 
-  if (0 == dwResult)
-  {
+  if (0 == dwResult) {
     LPVOID lpData = LockResource(hResData);
 
-    if (lpData != nullptr)
-    {
+    if (lpData != nullptr) {
       DWORD dwSize = SizeofResource(hModule, hResInfo);
       PHB_FILE pFile;
 
       pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, nullptr, nullptr);
 
-      if (pFile != nullptr)
-      {
+      if (pFile != nullptr) {
         dwResult = hb_fileWrite(pFile, (const void *)lpData, (HB_SIZE)dwSize, -1);
 
-        if (dwResult != dwSize)
-        {
+        if (dwResult != dwSize) {
           dwResult = (HB_SIZE)-5; // can't write
         }
 
@@ -194,8 +184,7 @@ HB_FUNC(HMG_RCDATATOFILE)
 
 #ifdef UNICODE
   hb_xfree((TCHAR *)lpName);
-  if (HB_ISCHAR(3))
-  {
+  if (HB_ISCHAR(3)) {
     hb_xfree((TCHAR *)lpType);
   }
 #endif

@@ -130,8 +130,7 @@ unsigned int inputLen;                                     /* length of input bl
 
   /* Transform as many times as possible.
    */
-  if (inputLen >= partLen)
-  {
+  if (inputLen >= partLen) {
     MD5_memcpy((POINTER)&context->buffer[index], (POINTER)input, partLen);
     MD5Transform(context->state, context->buffer);
 

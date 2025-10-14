@@ -82,12 +82,10 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 
   case WM_INITDIALOG: {
     ps = reinterpret_cast<PROPSHEETPAGE *>(lParam);
-    if (!pSymbol2)
-    {
+    if (!pSymbol2) {
       pSymbol2 = hb_dynsymSymbol(hb_dynsymGet("INITPAGEDLGPROC"));
     }
-    if (pSymbol2)
-    {
+    if (pSymbol2) {
       hb_vmPushSymbol(pSymbol2);
       hb_vmPushNil();
       hmg_vmPushHWND(hWndDlg);
@@ -108,12 +106,10 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     int nPage = PropSheet_HwndToIndex(hWndParent, hWndDlg);
     auto nId = static_cast<int>(PropSheet_IndexToId(hWndParent, nPage));
 
-    if (!pSymbol3)
-    {
+    if (!pSymbol3) {
       pSymbol3 = hb_dynsymSymbol(hb_dynsymGet("BUTTONPAGEDLGPROC"));
     }
-    if (pSymbol3)
-    {
+    if (pSymbol3) {
       hb_vmPushSymbol(pSymbol3);
       hb_vmPushNil();
       hmg_vmPushHWND(hWndDlg);
@@ -129,10 +125,9 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     {
     case PSN_APPLY: // sent when OK or Apply button pressed
     {
-      if (psn->lParam == FALSE)
-      { // Apply pressed
-        if (r)
-        {
+      if (psn->lParam == FALSE) {
+        // Apply pressed
+        if (r) {
           SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_NOERROR);
         }
         else
@@ -144,8 +139,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     }
     case PSN_RESET: // sent when Cancel button pressed
     {
-      if (r)
-      { // Not finished yet.
+      if (r) {
+        // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
       }
       else
@@ -156,8 +151,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     }
     case PSN_QUERYCANCEL: // sent when Quit button pressed
     {
-      if (r)
-      { // Not finished yet.
+      if (r) {
+        // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
       }
       else
@@ -168,8 +163,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       break;
     }
     case PSN_KILLACTIVE: {
-      if (r)
-      {
+      if (r) {
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
       }
       else
@@ -191,13 +185,11 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     break;
   }
 
-  if (!pSymbol)
-  {
+  if (!pSymbol) {
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("PAGEDLGPROC"));
   }
 
-  if (pSymbol)
-  {
+  if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hWndParent);
@@ -225,19 +217,16 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
   case PSCB_PRECREATE: {
     auto lpTemplate = reinterpret_cast<LPDLGTEMPLATE>(lParam);
 
-    if (!(lpTemplate->style & WS_SYSMENU))
-    {
+    if (!(lpTemplate->style & WS_SYSMENU)) {
       lpTemplate->style |= WS_SYSMENU;
     }
   }
   }
-  if (!pSymbol)
-  {
+  if (!pSymbol) {
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("PROPSHEETPROC"));
   }
 
-  if (pSymbol)
-  {
+  if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hwndPropSheet);
@@ -305,12 +294,10 @@ HB_FUNC(CREATEPROPERTYSHEET)
   HICON hicon = nullptr;
   int idIcon = 0;
 
-  if (Style & PSP_USEHICON)
-  {
+  if (Style & PSP_USEHICON) {
     hicon = static_cast<HICON>(
         LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
-    if (hicon == nullptr)
-    {
+    if (hicon == nullptr) {
       hicon = static_cast<HICON>(LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0,
                                            LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
@@ -326,8 +313,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   psh.dwFlags = Style;
   psh.hwndParent = hwnd;
   psh.hInstance = GetModuleHandle(nullptr);
-  if (Style & PSP_USEHICON)
-  {
+  if (Style & PSP_USEHICON) {
     psh.hIcon = hicon;
   }
   else
@@ -341,14 +327,12 @@ HB_FUNC(CREATEPROPERTYSHEET)
   psh.nPages = nPages;
   psh.pfnCallback = reinterpret_cast<PFNPROPSHEETCALLBACK>(reinterpret_cast<void *>(HMG_PropSheetProc));
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     hb_retnl(static_cast<long>(PropertySheet(&psh)));
   }
   else
   {
-    if (PropertySheet(&psh) < 0)
-    {
+    if (PropertySheet(&psh) < 0) {
       MessageBox(nullptr, "Property Sheet could not be created", "Error",
                  MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND);
       hb_retni(-1);
@@ -422,8 +406,7 @@ HB_FUNC(PROPSHEET_UNCHANGED)
 
 HB_FUNC(DESTROYPROPSHEET)
 {
-  if (SendMessage(hmg_par_HWND(2), PSM_GETCURRENTPAGEHWND, 0, 0) == 0)
-  {
+  if (SendMessage(hmg_par_HWND(2), PSM_GETCURRENTPAGEHWND, 0, 0) == 0) {
     DestroyWindow(hmg_par_HWND(1));
     hb_retl(true);
   }
@@ -455,8 +438,7 @@ HB_FUNC(PROPSHEET_SETRESULT)
 *****************************************************************************/
 HB_FUNC(PROPSHEET_GETRESULT)
 {
-  if (PropSheet_GetResult(hmg_par_HWND(1)) > 0)
-  {
+  if (PropSheet_GetResult(hmg_par_HWND(1)) > 0) {
     hb_retl(true);
   }
   else

@@ -72,29 +72,24 @@ HB_FUNC(HMG_INITSPINNER)
   DWORD style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
   DWORD style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
 
-  if (!hb_parl(11))
-  {
+  if (!hb_parl(11)) {
     style1 |= WS_VISIBLE;
     style2 |= WS_VISIBLE;
   }
 
-  if (!hb_parl(12))
-  {
+  if (!hb_parl(12)) {
     style1 |= WS_TABSTOP;
   }
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     style2 |= UDS_WRAP;
   }
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     style1 |= ES_READONLY;
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     style2 |= UDS_HORZ | UDS_ALIGNRIGHT; // P.Ch. 10.16.
   }
 
@@ -141,12 +136,10 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
     break;
   case WM_CONTEXTMENU:
   case WM_GETDLGCODE:
-    if (!pSymbol)
-    {
+    if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
     }
-    if (pSymbol)
-    {
+    if (pSymbol) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hedit);

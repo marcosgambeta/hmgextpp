@@ -59,33 +59,27 @@ HB_FUNC(HMG_INITMASKEDTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= ES_UPPERCASE;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= ES_LOWERCASE;
   }
 
-  if (hb_parl(12))
-  {
+  if (hb_parl(12)) {
     style |= ES_RIGHT;
   }
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     style |= ES_READONLY;
   }
 
-  if (!hb_parl(14))
-  {
+  if (!hb_parl(14)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(15))
-  {
+  if (!hb_parl(15)) {
     style |= WS_TABSTOP;
   }
 
@@ -102,44 +96,40 @@ HB_FUNC(HMG_INITTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT; // TEXTBOX window base style.
 
-  if (hb_parl(12))
-  {                     // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+  if (hb_parl(12)) {
+                        // if <lNumeric> is TRUE, then ES_NUMBER style is added.
     style |= ES_NUMBER; // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
   }
   else
   {
-    if (hb_parl(10))
-    { // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+    if (hb_parl(10)) {
+      // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
       style |= ES_UPPERCASE;
     }
-    if (hb_parl(11))
-    { // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+    if (hb_parl(11)) {
+      // if <lLower> is TRUE, then ES_LOWERCASE style is added.
       style |= ES_LOWERCASE;
     }
   }
 
-  if (hb_parl(13))
-  { // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+  if (hb_parl(13)) {
+    // if <lPassword> is TRUE, then ES_PASSWORD style is added.
     style |= ES_PASSWORD;
   }
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     style |= ES_RIGHT;
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     style |= ES_READONLY;
   }
 
-  if (!hb_parl(16))
-  {
+  if (!hb_parl(16)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(17))
-  {
+  if (!hb_parl(17)) {
     style |= WS_TABSTOP;
   }
 
@@ -163,33 +153,27 @@ HB_FUNC(HMG_INITCHARMASKTEXTBOX)
 {
   DWORD style = WS_CHILD | ES_AUTOHSCROLL;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= ES_UPPERCASE;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= ES_LOWERCASE;
   }
 
-  if (hb_parl(12))
-  {
+  if (hb_parl(12)) {
     style |= ES_RIGHT;
   }
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     style |= ES_READONLY;
   }
 
-  if (!hb_parl(14))
-  {
+  if (!hb_parl(14)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(15))
-  {
+  if (!hb_parl(15)) {
     style |= WS_TABSTOP;
   }
 
@@ -217,13 +201,11 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
   case WM_CONTEXTMENU:
   case WM_CHAR:
-    if (!pSymbol)
-    {
+    if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
     }
 
-    if (pSymbol)
-    {
+    if (pSymbol) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hButton);
@@ -235,8 +217,7 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
     r = hb_parnl(-1);
 
-    if (r != 0)
-    {
+    if (r != 0) {
       return r;
     }
     else

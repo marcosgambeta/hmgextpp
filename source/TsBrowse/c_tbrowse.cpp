@@ -32,8 +32,7 @@ LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
   if (!pSymbol)
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
-  if (pSymbol)
-  {
+  if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hWnd);
@@ -59,8 +58,7 @@ LRESULT CALLBACK WndProcMDI(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
   if (!pSymbol)
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
-  if (pSymbol)
-  {
+  if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
@@ -106,8 +104,7 @@ HB_FUNC(REGISTER_CLASS)
   WndClass.lpszMenuName = nullptr;
   WndClass.lpszClassName = lpClassName;
 
-  if (!RegisterClass(&WndClass))
-  {
+  if (!RegisterClass(&WndClass)) {
     MessageBox(0, "Window Registration Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     ExitProcess(0);
   }
@@ -232,8 +229,7 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
   BITMAP bm;
   COLORREF rgbBack;
 
-  if (GetPixel(hDcBmp, 0, 0) != GetSysColor(15))
-  {
+  if (GetPixel(hDcBmp, 0, 0) != GetSysColor(15)) {
     GetObject(hbm, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
     hDcMask = CreateCompatibleDC(hDC);
     hBmpMask = CreateCompatibleBitmap(hDcMask, bm.bmWidth, bm.bmHeight);
@@ -324,8 +320,7 @@ HB_FUNC(TSDRAWCELL)
   if (GetTextExtentPoint32(hDC, cData, nLen, &size))
     iTxtW = size.cx;
 
-  if (!hDC)
-  {
+  if (!hDC) {
     bDestroyDC = TRUE;
     hDC = GetDC(hWnd);
   }
@@ -337,8 +332,7 @@ HB_FUNC(TSDRAWCELL)
 
   SetTextColor(hDC, clrFore);
   SetBkColor(hDC, clrBack);
-  if (nRow == 0)
-  {
+  if (nRow == 0) {
     if (bSpecHd)
       rct.top = (nHeightHead + nHeightSuper - (nHeightSuper ? 1 : 0));
     else
@@ -356,8 +350,7 @@ HB_FUNC(TSDRAWCELL)
 
   BITMAP bm{};
 
-  if (nColumn - (rct.right - rct.left) <= 0)
-  {
+  if (nColumn - (rct.right - rct.left) <= 0) {
     rct.left = nColumn;
 
     /* if nWidth == -1 or -2, it indicates the last column so go to limit,
@@ -366,8 +359,7 @@ HB_FUNC(TSDRAWCELL)
     if ((nWidth >= 0) && ((rct.left + nWidth - rct.right) <= 0)) // negative values have different meanings
       rct.right = rct.left + nWidth;
 
-    if (!bDegrad)
-    {
+    if (!bDegrad) {
       rct.bottom += (bHeader ? 0 : 1);
       rct.right += 1;
 
@@ -382,10 +374,8 @@ HB_FUNC(TSDRAWCELL)
     else
       DegradColor(hDC, &rct, clrBack, clrTo);
 
-    if (hBitMap)
-    {
-      if (!bAdjBmp)
-      {
+    if (hBitMap) {
+      if (!bAdjBmp) {
         GetObject(hBitMap, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
         nTop = rct.top + ((rct.bottom - rct.top + 1) / 2) - (bm.bmHeight / 2);
 
@@ -422,10 +412,8 @@ HB_FUNC(TSDRAWCELL)
         nLeft = rct.left;
       }
 
-      if (b3DLook)
-      {
-        if (bAdjBmp)
-        {
+      if (b3DLook) {
+        if (bAdjBmp) {
           nTop = rct.top + 1;
           DrawBitmap(hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1, rct.bottom - rct.top - 1,
                      bSelec ? 0 : nBitmapMask);
@@ -441,8 +429,7 @@ HB_FUNC(TSDRAWCELL)
       }
       else
       {
-        if (bAdjBmp)
-        {
+        if (bAdjBmp) {
           DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1,
                      bSelec ? 0 : nBitmapMask);
           hBitMap = 0;
@@ -457,16 +444,14 @@ HB_FUNC(TSDRAWCELL)
       }
     }
 
-    if (nLen)
-    {
+    if (nLen) {
       if (iAlign == DT_LEFT)
         rct.left += (2 + (hBitMap && ixLayOut == 0 ? bm.bmWidth + 1 : 0));
 
       if (iAlign == DT_RIGHT)
         rct.right -= (2 + (hBitMap && ixLayOut == 2 ? bm.bmWidth + 1 : 0));
 
-      if (nVertText == 1)
-      {
+      if (nVertText == 1) {
         rct.right += (4 * nLen);
         rct.bottom += 10;
       }
@@ -479,8 +464,7 @@ HB_FUNC(TSDRAWCELL)
       {
         nBkOld = SetBkMode(hDC, TRANSPARENT);
 
-        if (b3D)
-        {
+        if (b3D) {
           rct.top -= 1;
           rct.left -= 1;
           rct.bottom -= 1;
@@ -515,15 +499,13 @@ HB_FUNC(TSDRAWCELL)
       if (iAlign == DT_RIGHT)
         rct.right += (2 + (hBitMap && ixLayOut == 2 ? bm.bmWidth + 1 : 0));
 
-      if (nVertText == 1)
-      {
+      if (nVertText == 1) {
         rct.right -= (4 * nLen);
         rct.bottom -= 10;
       }
     }
 
-    if (b3DLook)
-    {
+    if (b3DLook) {
       bHeader = (bSuper ? bSuper : bHeader);
 
       if ((nWidth != -2) && bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
@@ -719,8 +701,7 @@ HB_FUNC(SBGETHEIGHT) // ( hWnd, hFont, nTotal )
   HFONT hOldFont = nullptr;
   LONG lTotHeight, lReturn;
 
-  if (iTotal < 2)
-  {
+  if (iTotal < 2) {
     if (hFont)
       hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
@@ -865,8 +846,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
   lrct.right -= 2;
   lrct.bottom -= 1;
 
-  if (bChecked)
-  {
+  if (bChecked) {
     GoToPoint(hDC, lrct.right, lrct.top);
 
     SelectObject(hDC, hBlackPen);
@@ -971,8 +951,7 @@ static void DegradColor(HDC hDC, RECT *rori, COLORREF cFrom, signed long cTo)
     SelectObject(hDC, hBrush);
     FillRect(hDC, &rct, hBrush);
 
-    if (!bHoriz)
-    {
+    if (!bHoriz) {
       rct.top++;
       rct.bottom++;
     }
@@ -993,8 +972,7 @@ void cDrawCursor(HWND hWnd, RECT *rctc, long lCursor, COLORREF nClr)
   COLORREF lclr = (lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor));
   RECT rct;
 
-  if (lCursor != 3)
-  {
+  if (lCursor != 3) {
     auto hBr = CreateSolidBrush(lclr);
     auto hReg = CreateRectRgn(rctc->left, rctc->top, rctc->right - 1, rctc->bottom);
 

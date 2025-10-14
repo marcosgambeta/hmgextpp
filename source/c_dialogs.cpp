@@ -89,8 +89,7 @@ HB_FUNC(HMG_CHOOSEFONT)
   cf.nSizeMin = 0;
   cf.nSizeMax = 0;
 
-  if (!ChooseFont(&cf))
-  {
+  if (!ChooseFont(&cf)) {
     hb_reta(8);
     HB_STORC("", -1, 1);
     HB_STORVNL(0, -1, 2);
@@ -146,8 +145,7 @@ HB_FUNC(HMG_C_GETFILE)
   while (*p != '\0')
   {
     cont += strlen(p) + 1;
-    if (cont < 4096)
-    {
+    if (cont < 4096) {
       lstrcpy(&Filter[j], AnsiToWide(p));
       j += lstrlen(AnsiToWide(p)) + 1;
       p += strlen(p) + 1;
@@ -161,18 +159,15 @@ HB_FUNC(HMG_C_GETFILE)
 
   buffer[0] = 0;
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     flags = flags | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
   }
 
-  if (hb_parl(5))
-  {
+  if (hb_parl(5)) {
     flags = flags | OFN_NOCHANGEDIR;
   }
 
-  if (hb_parni(6))
-  {
+  if (hb_parni(6)) {
     iFilterIndex = hb_parni(6);
   }
 
@@ -191,10 +186,8 @@ HB_FUNC(HMG_C_GETFILE)
   ofn.nMaxFileTitle = 512;
   ofn.Flags = flags;
 
-  if (GetOpenFileName(&ofn))
-  {
-    if (ofn.nFileExtension != 0)
-    {
+  if (GetOpenFileName(&ofn)) {
+    if (ofn.nFileExtension != 0) {
       HB_RETSTR(ofn.lpstrFile);
     }
     else
@@ -210,8 +203,7 @@ HB_FUNC(HMG_C_GETFILE)
         wsprintf(cFullName[iNumSelected], "%s\\%s", cCurDir, cFileName);
       } while ((lstrlen(cFileName) != 0) && (iNumSelected <= 255));
 
-      if (iNumSelected > 1)
-      {
+      if (iNumSelected > 1) {
         hb_reta(iNumSelected - 1);
 
         for (auto n = 1; n < iNumSelected; n++)
@@ -265,8 +257,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
   while (*p != '\0')
   {
     cont += strlen(p) + 1;
-    if (cont < 4096)
-    {
+    if (cont < 4096) {
       lstrcpy(&Filter[j], AnsiToWide(p));
       j += lstrlen(AnsiToWide(p)) + 1;
       p += strlen(p) + 1;
@@ -280,19 +271,17 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
 
   DWORD flags = OFN_FILEMUSTEXIST | OFN_EXPLORER;
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     flags |= OFN_NOCHANGEDIR;
   }
 
-  if (hb_parl(7))
-  { // p.d. 12/05/2016
+  if (hb_parl(7)) {
+    // p.d. 12/05/2016
     flags |= OFN_OVERWRITEPROMPT;
   }
 
 #ifndef UNICODE
-  if (hb_parclen(5) > 0)
-  {
+  if (hb_parclen(5) > 0) {
     strcpy(buffer, hb_parc(5));
   }
   else
@@ -307,8 +296,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
 
   lstrcpy(cExt, "");
 
-  if (hb_parni(6))
-  {
+  if (hb_parni(6)) {
     iFilterIndex = hb_parni(6);
   }
 
@@ -327,15 +315,12 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
   ofn.Flags = flags;
   ofn.lpstrDefExt = cExt;
 
-  if (GetSaveFileName(&ofn))
-  {
-    if (ofn.nFileExtension == 0)
-    {
+  if (GetSaveFileName(&ofn)) {
+    if (ofn.nFileExtension == 0) {
       ofn.lpstrFile = lstrcat(ofn.lpstrFile, ".");
       ofn.lpstrFile = lstrcat(ofn.lpstrFile, ofn.lpstrDefExt);
     }
-    if (HB_ISBYREF(6))
-    {
+    if (HB_ISBYREF(6)) {
       hb_storni(ofn.nFilterIndex, 6);
     }
 
@@ -368,8 +353,7 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
   switch (uMsg)
   {
   case BFFM_INITIALIZED:
-    if (lpData)
-    {
+    if (lpData) {
       SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lpData);
       SetWindowText(hWnd, static_cast<LPCTSTR>(s_szWinName));
     }
@@ -378,8 +362,7 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
     MessageBeep(MB_ICONHAND);
     return 1;
   case BFFM_SELCHANGED:
-    if (lpData)
-    {
+    if (lpData) {
       SHGetPathFromIDList(reinterpret_cast<LPITEMIDLIST>(lParam), szPath);
       SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, reinterpret_cast<LPARAM>(szPath));
     }
@@ -394,8 +377,7 @@ HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
 {
   HWND hWnd = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
 
-  if (HB_ISCHAR(5))
-  {
+  if (HB_ISCHAR(5)) {
     GetWindowText(hWnd, static_cast<LPTSTR>(s_szWinName), MAX_PATH);
   }
 
@@ -418,8 +400,7 @@ HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
 
   pidlBrowse = SHBrowseForFolder(&BrowseInfo);
 
-  if (pidlBrowse)
-  {
+  if (pidlBrowse) {
     SHGetPathFromIDList(pidlBrowse, lpBuffer);
     HB_RETSTR(lpBuffer);
   }
@@ -450,8 +431,7 @@ HB_FUNC(HMG_CHOOSECOLOR)
   cc.lpCustColors = crCustClr;
   cc.Flags = static_cast<WORD>(HB_ISNIL(4) ? CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT : hb_parnl(4));
 
-  if (!ChooseColor(&cc))
-  {
+  if (!ChooseColor(&cc)) {
     hb_retnl(-1);
   }
   else

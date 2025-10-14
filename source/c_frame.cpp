@@ -60,8 +60,7 @@ HB_FUNC(HMG_INITFRAME)
   auto hwnd = hmg_par_HWND(1);
   HWND hbutton = nullptr;
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     auto hmenu = hmg_par_HMENU(2);
     DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; // opaque | transparent
     void *str;

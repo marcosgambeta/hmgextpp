@@ -58,18 +58,15 @@ HB_FUNC(HMG_INITRADIOGROUP)
 
   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
-  if (!hb_parl(9))
-  {
+  if (!hb_parl(9)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(10))
-  {
+  if (!hb_parl(10)) {
     style |= WS_TABSTOP;
   }
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     style |= BS_LEFTTEXT;
   }
 
@@ -88,13 +85,11 @@ HB_FUNC(HMG_INITRADIOBUTTON)
 
   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
-  if (!hb_parl(9))
-  {
+  if (!hb_parl(9)) {
     style |= WS_VISIBLE;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= BS_LEFTTEXT;
   }
 

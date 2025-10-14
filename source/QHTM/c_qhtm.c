@@ -43,19 +43,15 @@ HB_FUNC(QHTM_INIT)
   char *cLibname = (hb_pcount() < 1) ? NULL : const_cast<char *>(hb_parc(1));
   BOOL bSuccess = FALSE;
 
-  if (!hQhtmDll)
-  {
-    if (!cLibname)
-    {
+  if (!hQhtmDll) {
+    if (!cLibname) {
       cLibname = "qhtm.dll"; // qhtm.dll - default name (possible qhtmu.dll - Unicode)
     }
 
     hQhtmDll = LoadLibrary((LPCTSTR)cLibname);
-    if (hQhtmDll)
-    {
+    if (hQhtmDll) {
       QHTM_INITIALIZE pFunc = (QHTM_INITIALIZE)GetProcAddress(hQhtmDll, "QHTM_Initialize");
-      if (pFunc)
-      {
+      if (pFunc) {
         bSuccess = pFunc(GetModuleHandle(NULL));
       }
     }
@@ -71,8 +67,7 @@ HB_FUNC(QHTM_INIT)
 */
 HB_FUNC(QHTM_END)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     FreeLibrary(hQhtmDll);
     hQhtmDll = NULL;
   }
@@ -85,8 +80,7 @@ HB_FUNC(QHTM_END)
 */
 HB_FUNC(CREATEQHTM)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     HWND handle = CreateWindow("QHTM_Window_Class_001",             /* predefined class */
                                NULL,                                /* no window title  */
                                WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style */
@@ -111,8 +105,7 @@ HB_FUNC(CREATEQHTM)
 */
 HB_FUNC(QHTM_GETNOTIFY)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     LPNMQHTM pnm = (LPNMQHTM)hb_parnl(1);
     hb_retc(const_cast<char *>(pnm->pcszLinkText));
   }
@@ -159,15 +152,13 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
 
   // Method Submit of HTML-form in application have required
   // procedure QHTMFormProc() (!!! with a such name !!!)
-  if ((pSymTest = hb_dynsymFind("QHTMFORMPROC")) != NULL)
-  {
+  if ((pSymTest = hb_dynsymFind("QHTMFORMPROC")) != NULL) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
     hb_vmPushNil();
     hmg_vmPushHandle(hWndQHTM);
     hb_vmPushString(static_cast<char *>(pFormSubmit->pcszMethod), strlen(pFormSubmit->pcszMethod));
     hb_vmPushString(static_cast<char *>(pFormSubmit->pcszAction), strlen(pFormSubmit->pcszAction));
-    if (pFormSubmit->pcszName)
-    {
+    if (pFormSubmit->pcszName) {
       hb_vmPushString(static_cast<char *>(pFormSubmit->pcszName), strlen(pFormSubmit->pcszName));
     }
     else
@@ -191,14 +182,12 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
 */
 HB_FUNC(QHTM_MESSAGEBOX)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     const char *cTitle = (hb_pcount() < 2) ? "" : hb_parc(2);
     UINT uType = (hb_pcount() < 3) ? MB_OK : hmg_par_UINT(3);
     QHTM_MESSAGEBOX pFunc = (QHTM_MESSAGEBOX)GetProcAddress(hQhtmDll, "QHTM_MessageBox");
 
-    if (pFunc)
-    {
+    if (pFunc) {
       hb_retnl(pFunc(GetActiveWindow(), hb_parc(1), cTitle, uType));
     }
   }
@@ -215,8 +204,7 @@ HB_FUNC(QHTM_MESSAGEBOX)
 */
 HB_FUNC(QHTM_LOADFILE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     hb_retl(
         static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, static_cast<LPARAM>(hb_parc(2)))));
   }
@@ -229,8 +217,7 @@ HB_FUNC(QHTM_LOADFILE)
 */
 HB_FUNC(QHTM_LOADRES)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     hb_retl(
         static_cast<HB_BOOL>(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE,
                                          static_cast<WPARAM>(GetModuleHandle(NULL)), static_cast<LPARAM>(hb_parc(2)))));
@@ -244,8 +231,7 @@ HB_FUNC(QHTM_LOADRES)
 */
 HB_FUNC(QHTM_ADDHTML)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, 0, static_cast<LPARAM>(hb_parc(2)));
   }
 }
@@ -257,8 +243,7 @@ HB_FUNC(QHTM_ADDHTML)
 */
 HB_FUNC(QHTM_ADDHTML2)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, static_cast<WPARAM>(hb_parnl(3)), static_cast<LPARAM>(hb_parc(2)));
   }
 }
@@ -270,8 +255,7 @@ HB_FUNC(QHTM_ADDHTML2)
 */
 HB_FUNC(QHTM_GETTITLE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     char szBuffer[256];
     SendMessage(hmg_par_HWND(1), QHTM_GET_HTML_TITLE, 256, static_cast<LPARAM>(szBuffer));
     hb_retc(szBuffer);
@@ -289,12 +273,10 @@ HB_FUNC(QHTM_GETTITLE)
 */
 HB_FUNC(QHTM_GETSIZE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     SIZE size;
 
-    if (SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, static_cast<LPARAM>(&size)))
-    {
+    if (SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, static_cast<LPARAM>(&size))) {
       auto aMetr = hb_itemArrayNew(2);
 
       auto temp = hb_itemPutNL(NULL, size.cx);
@@ -322,8 +304,7 @@ HB_FUNC(QHTM_GETSIZE)
 */
 HB_FUNC(QHTM_FORMCALLBACK)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     hb_retl(SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, static_cast<WPARAM>(QHTM_OPT_SET_FORM_SUBMIT_CALLBACK),
                         static_cast<LPARAM>(FormCallback)));
   }
@@ -340,11 +321,9 @@ HB_FUNC(QHTM_FORMCALLBACK)
 */
 HB_FUNC(QHTM_ENABLECOOLTIPS)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_ENABLECOOLTIPS pFunc = (QHTM_ENABLECOOLTIPS)GetProcAddress(hQhtmDll, "QHTM_EnableCooltips");
-    if (pFunc)
-    {
+    if (pFunc) {
       hb_retl(pFunc());
     }
     else
@@ -365,11 +344,9 @@ HB_FUNC(QHTM_ENABLECOOLTIPS)
 */
 HB_FUNC(QHTM_SETHTMLBUTTON)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_SETHTMLBUTTON pFunc = (QHTM_SETHTMLBUTTON)GetProcAddress(hQhtmDll, "QHTM_SetHTMLButton");
-    if (pFunc)
-    {
+    if (pFunc) {
       hb_retl(pFunc(hmg_par_HWND(1)));
     }
     else
@@ -390,8 +367,7 @@ HB_FUNC(QHTM_SETHTMLBUTTON)
 */
 HB_FUNC(QHTM_PRINTCREATECONTEXT)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_PRINTCREATECONTEXT pFunc = (QHTM_PRINTCREATECONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintCreateContext");
     hb_retnl((LONG)pFunc((hb_pcount() == 0) ? 1 : (UINT)hb_parni(1)));
   }
@@ -408,8 +384,7 @@ HB_FUNC(QHTM_PRINTCREATECONTEXT)
 */
 HB_FUNC(QHTM_PRINTSETTEXT)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_PRINTSETTEXT pFunc = (QHTM_PRINTSETTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintSetText");
     hb_retl(pFunc((QHTMCONTEXT)hb_parnl(1), hb_parc(2)));
   }
@@ -426,8 +401,7 @@ HB_FUNC(QHTM_PRINTSETTEXT)
 */
 HB_FUNC(QHTM_PRINTSETTEXTFILE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_PRINTSETTEXTFILE pFunc = (QHTM_PRINTSETTEXTFILE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextFile");
     hb_retl(pFunc((QHTMCONTEXT)hb_parnl(1), hb_parc(2)));
   }
@@ -444,8 +418,7 @@ HB_FUNC(QHTM_PRINTSETTEXTFILE)
 */
 HB_FUNC(QHTM_PRINTSETTEXTRESOURCE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_PRINTSETTEXTRESOURCE pFunc = (QHTM_PRINTSETTEXTRESOURCE)GetProcAddress(hQhtmDll, "QHTM_PrintSetTextResource");
     hb_retl(pFunc((QHTMCONTEXT)hb_parnl(1), GetModuleHandle(NULL), hb_parc(2)));
   }
@@ -462,8 +435,7 @@ HB_FUNC(QHTM_PRINTSETTEXTRESOURCE)
 */
 HB_FUNC(QHTM_PRINTLAYOUT)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     auto hDC = hmg_par_HDC(1);
     QHTMCONTEXT qhtmCtx = (QHTMCONTEXT)hb_parnl(2);
     RECT rcPage;
@@ -490,8 +462,7 @@ HB_FUNC(QHTM_PRINTLAYOUT)
 */
 HB_FUNC(QHTM_PRINTPAGE)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     auto hDC = hmg_par_HDC(1);
     QHTMCONTEXT qhtmCtx = (QHTMCONTEXT)hb_parnl(2);
     RECT rcPage;
@@ -516,8 +487,7 @@ HB_FUNC(QHTM_PRINTPAGE)
 */
 HB_FUNC(QHTM_PRINTDESTROYCONTEXT)
 {
-  if (hQhtmDll)
-  {
+  if (hQhtmDll) {
     QHTM_PRINTDESTROYCONTEXT pFunc = (QHTM_PRINTDESTROYCONTEXT)GetProcAddress(hQhtmDll, "QHTM_PrintDestroyContext");
     pFunc((QHTMCONTEXT)hb_parnl(1));
   }

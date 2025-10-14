@@ -80,8 +80,7 @@ HB_FUNC(HMG_C_PLAYWAVE)
   int style = SND_ASYNC;
   HMODULE hmod = nullptr;
 
-  if (hb_parl(2))
-  {
+  if (hb_parl(2)) {
     style |= SND_RESOURCE;
     hmod = GetResources();
   }
@@ -90,23 +89,19 @@ HB_FUNC(HMG_C_PLAYWAVE)
     style |= SND_FILENAME;
   }
 
-  if (hb_parl(3))
-  {
+  if (hb_parl(3)) {
     style |= SND_SYNC;
   }
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     style |= SND_NOSTOP;
   }
 
-  if (hb_parl(5))
-  {
+  if (hb_parl(5)) {
     style |= SND_LOOP;
   }
 
-  if (hb_parl(6))
-  {
+  if (hb_parl(6)) {
     style |= SND_NODEFAULT;
   }
 
@@ -124,53 +119,43 @@ HB_FUNC(HMG_INITPLAYER)
 {
   DWORD style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
-  if (hb_parl(7))
-  {
+  if (hb_parl(7)) {
     style |= MCIWNDF_NOAUTOSIZEWINDOW;
   }
 
-  if (hb_parl(8))
-  {
+  if (hb_parl(8)) {
     style |= MCIWNDF_NOAUTOSIZEMOVIE;
   }
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= MCIWNDF_NOERRORDLG;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= MCIWNDF_NOMENU;
   }
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     style |= MCIWNDF_NOOPEN;
   }
 
-  if (hb_parl(12))
-  {
+  if (hb_parl(12)) {
     style |= MCIWNDF_NOPLAYBAR;
   }
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     style |= MCIWNDF_SHOWALL;
   }
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     style |= MCIWNDF_SHOWMODE;
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     style |= MCIWNDF_SHOWNAME;
   }
 
-  if (hb_parl(16))
-  {
+  if (hb_parl(16)) {
     style |= MCIWNDF_SHOWPOS;
   }
 
@@ -178,8 +163,7 @@ HB_FUNC(HMG_INITPLAYER)
   HWND hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, style, HB_PARSTR(2, &str, nullptr));
   hb_strfree(str);
 
-  if (hwnd == nullptr)
-  {
+  if (hwnd == nullptr) {
     MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     return;
   }
@@ -267,35 +251,29 @@ HB_FUNC(HMG_INITANIMATE)
 {
   DWORD style = WS_CHILD;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= WS_BORDER;
   }
 
-  if (!hb_parl(10))
-  {
+  if (!hb_parl(10)) {
     style |= WS_VISIBLE;
   }
 
-  if (hb_parl(6))
-  {
+  if (hb_parl(6)) {
     style |= ACS_AUTOPLAY;
   }
 
-  if (hb_parl(7))
-  {
+  if (hb_parl(7)) {
     style |= ACS_CENTER;
   }
 
-  if (hb_parl(8))
-  {
+  if (hb_parl(8)) {
     style |= ACS_TRANSPARENT;
   }
 
   HWND hwnd = Animate_Create(hmg_par_HWND(1), nullptr, style, GetResources());
 
-  if (hwnd == nullptr)
-  {
+  if (hwnd == nullptr) {
     MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
     return;
   }

@@ -39,8 +39,7 @@ UINT TimedMessageBox(HWND hwndParent, LPCTSTR ptszMessage, LPCTSTR ptszTitle, UI
    */
   MSG msg;
 
-  if (PeekMessage(&msg, nullptr, WM_QUIT, WM_QUIT, PM_REMOVE))
-  {
+  if (PeekMessage(&msg, nullptr, WM_QUIT, WM_QUIT, PM_REMOVE)) {
     /*
      *  If you timed out, then return zero.
      */

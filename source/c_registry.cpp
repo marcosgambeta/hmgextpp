@@ -69,8 +69,7 @@ HB_FUNC(HMG_REGOPENKEYEX)
       RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
   hb_strfree(str);
 
-  if (lError != ERROR_SUCCESS)
-  {
+  if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
   }
   else
@@ -95,16 +94,14 @@ HB_FUNC(HMG_REGQUERYVALUEEX)
   long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, nullptr, &lpcbData);
   hb_strfree(str);
 
-  if (lError == ERROR_SUCCESS)
-  {
+  if (lError == ERROR_SUCCESS) {
     auto lpData = static_cast<BYTE *>(hb_xgrab(lpcbData + 1));
     void *str2;
     lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str2, nullptr), nullptr, &lpType,
                              static_cast<BYTE *>(lpData), &lpcbData);
     hb_strfree(str2);
 
-    if (lError != ERROR_SUCCESS)
-    {
+    if (lError != ERROR_SUCCESS) {
       hb_retnl(-1);
     }
     else
@@ -140,8 +137,7 @@ HB_FUNC(HMG_REGENUMKEYEX)
 
   long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
-  if (bErr != ERROR_SUCCESS)
-  {
+  if (bErr != ERROR_SUCCESS) {
     hb_retnl(-1);
   }
   else
@@ -164,8 +160,7 @@ HB_FUNC(HMG_REGSETVALUEEX)
 {
   DWORD nType = hb_parnl(4);
 
-  if (nType != REG_DWORD)
-  {
+  if (nType != REG_DWORD) {
     void *str;
     hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4),
                             reinterpret_cast<BYTE *>(const_cast<char *>(hb_parc(5))),
@@ -197,8 +192,7 @@ HB_FUNC(HMG_REGCREATEKEY)
   void *str;
   HKEY hKey;
 
-  if (RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS)
-  {
+  if (RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS) {
     HB_STORNL(PtrToLong(hKey), 3);
     hb_retnl(0);
   }
@@ -220,8 +214,7 @@ HB_FUNC(HMG_REGENUMVALUE)
 
   long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
 
-  if (lError != ERROR_SUCCESS)
-  {
+  if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
   }
   else
@@ -268,8 +261,7 @@ HB_FUNC(HMG_REGCONNECTREGISTRY)
 
   long lError = RegConnectRegistry(HB_PARSTR(1, &str, nullptr), hmg_par_HKEY(2), &phwHandle);
 
-  if (lError != ERROR_SUCCESS)
-  {
+  if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
   }
   else

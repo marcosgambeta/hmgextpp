@@ -62,8 +62,7 @@ HB_FUNC(HMG_CHARXOR)
   auto len1 = static_cast<unsigned int>(hb_parclen(1));
   auto Str2 = const_cast<char *>(hb_parc(2));
   auto len2 = static_cast<unsigned int>(hb_parclen(2));
-  if (!len1)
-  {
+  if (!len1) {
     hb_retclen("", 0);
   }
   else
@@ -72,8 +71,7 @@ HB_FUNC(HMG_CHARXOR)
     for (nl1 = nl2 = 0; nl1 < len1; nl1++)
     {
       Res[nl1] = Str1[nl1] ^ Str2[nl2];
-      if ((++nl2) >= len2)
-      {
+      if ((++nl2) >= len2) {
         nl2 = 0;
       }
     }

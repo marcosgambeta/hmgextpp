@@ -114,8 +114,7 @@ static int busy_handler(void *Cargo, int iNumberOfTimes)
 {
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
     hb_vmPushNil();
     hb_vmPushInteger(iNumberOfTimes);
@@ -135,8 +134,7 @@ static int progress_handler(void *Cargo)
 {
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
     hb_vmPushNil();
     hb_vmFunction(0);
@@ -155,8 +153,7 @@ static int hook_commit(void *Cargo)
 {
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
     hb_vmPushNil();
     hb_vmFunction(0);
@@ -175,8 +172,7 @@ static void hook_rollback(void *Cargo)
 {
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     hb_vmPushSymbol(hb_dynsymGetSymbol(hb_dynsymName(pCallback)));
     hb_vmPushNil();
     hb_vmFunction(0);
@@ -189,8 +185,7 @@ static int callback(void *Cargo, int argc, char **argv, char **azColName)
 {
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     auto pArrayValue = hb_itemArrayNew(argc);
     auto pArrayColName = hb_itemArrayNew(argc);
     int i;
@@ -230,8 +225,7 @@ static int authorizer(void *Cargo, int iAction, const char *sName1, const char *
 
   PHB_DYNS pCallback = (PHB_DYNS)Cargo;
 
-  if (pCallback && hb_vmRequestReenter())
-  {
+  if (pCallback && hb_vmRequestReenter()) {
     auto pItem1 = hb_itemPutStrUTF8(NULL, sName1);
     auto pItem2 = hb_itemPutStrUTF8(NULL, sName2);
     auto pItem3 = hb_itemPutStrUTF8(NULL, sName3);
@@ -271,12 +265,10 @@ static int authorizer(void *Cargo, int iAction, const char *sName1, const char *
 
 static void SQL3ProfileLog(void *sFile, const char *sProfileMsg, sqlite3_uint64 int64)
 {
-  if (sProfileMsg)
-  {
+  if (sProfileMsg) {
     FILE *hFile = fopen(sFile ? static_cast<const char *>(sFile) : "profile.log", "a");
 
-    if (hFile)
-    {
+    if (hFile) {
       fprintf(hFile, "%s - %" PFLL "d\n", sProfileMsg, int64);
       fclose(hFile);
     }
@@ -285,12 +277,10 @@ static void SQL3ProfileLog(void *sFile, const char *sProfileMsg, sqlite3_uint64 
 
 static void SQL3TraceLog(void *sFile, const char *sTraceMsg)
 {
-  if (sTraceMsg)
-  {
+  if (sTraceMsg) {
     FILE *hFile = fopen(sFile ? static_cast<const char *>(sFile) : "trace.log", "a");
 
-    if (hFile)
-    {
+    if (hFile) {
       fprintf(hFile, "%s \n", sTraceMsg);
       fclose(hFile);
     }
@@ -301,40 +291,33 @@ static HB_GARBAGE_FUNC(hb_sqlite3_destructor)
 {
   PHB_SQLITE3_HOLDER pStructHolder = (PHB_SQLITE3_HOLDER)Cargo;
 
-  if (pStructHolder && pStructHolder->hbsqlite3)
-  {
-    if (pStructHolder->hbsqlite3->db)
-    {
+  if (pStructHolder && pStructHolder->hbsqlite3) {
+    if (pStructHolder->hbsqlite3->db) {
       sqlite3_close(pStructHolder->hbsqlite3->db);
       pStructHolder->hbsqlite3->db = NULL;
     }
 
-    if (pStructHolder->hbsqlite3->cbAuthorizer)
-    {
+    if (pStructHolder->hbsqlite3->cbAuthorizer) {
       hb_itemRelease(pStructHolder->hbsqlite3->cbAuthorizer);
       pStructHolder->hbsqlite3->cbAuthorizer = NULL;
     }
 
-    if (pStructHolder->hbsqlite3->cbHookCommit)
-    {
+    if (pStructHolder->hbsqlite3->cbHookCommit) {
       hb_itemRelease(pStructHolder->hbsqlite3->cbHookCommit);
       pStructHolder->hbsqlite3->cbHookCommit = NULL;
     }
 
-    if (pStructHolder->hbsqlite3->cbHookRollback)
-    {
+    if (pStructHolder->hbsqlite3->cbHookRollback) {
       hb_itemRelease(pStructHolder->hbsqlite3->cbHookRollback);
       pStructHolder->hbsqlite3->cbHookRollback = NULL;
     }
 
-    if (pStructHolder->hbsqlite3->cbBusyHandler)
-    {
+    if (pStructHolder->hbsqlite3->cbBusyHandler) {
       hb_itemRelease(pStructHolder->hbsqlite3->cbBusyHandler);
       pStructHolder->hbsqlite3->cbBusyHandler = NULL;
     }
 
-    if (pStructHolder->hbsqlite3->cbProgressHandler)
-    {
+    if (pStructHolder->hbsqlite3->cbProgressHandler) {
       hb_itemRelease(pStructHolder->hbsqlite3->cbProgressHandler);
       pStructHolder->hbsqlite3->cbProgressHandler = NULL;
     }
@@ -348,8 +331,7 @@ static PHB_ITEM hb_sqlite3_itemPut(PHB_ITEM pItem, void *pMemAddr, int iType)
 {
   PHB_SQLITE3_HOLDER pStructHolder;
 
-  if (pItem)
-  {
+  if (pItem) {
     if (HB_IS_COMPLEX(pItem))
       hb_itemClear(pItem);
   }
@@ -402,16 +384,13 @@ HB_FUNC(SQLITE3_SET_AUTHORIZER)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
-    if (pHbSqlite3->cbAuthorizer)
-    {
+  if (pHbSqlite3 && pHbSqlite3->db) {
+    if (pHbSqlite3->cbAuthorizer) {
       hb_itemRelease(pHbSqlite3->cbAuthorizer);
       pHbSqlite3->cbAuthorizer = NULL;
     }
 
-    if (ISPOINTER(2))
-    {
+    if (ISPOINTER(2)) {
       pHbSqlite3->cbAuthorizer = hb_itemNew(hb_param(2, Harbour::Item::POINTER));
 
       hb_gcUnlock(pHbSqlite3->cbAuthorizer);
@@ -431,8 +410,7 @@ HB_FUNC(SQLITE3_BACKUP_INIT)
   HB_SQLITE3 *pHbSqlite3Source = (HB_SQLITE3 *)hb_sqlite3_param(3, HB_SQLITE3_DB, TRUE);
   sqlite3_backup *pBackup;
 
-  if (pHbSqlite3Dest && pHbSqlite3Dest->db && pHbSqlite3Source && pHbSqlite3Source->db && ISCHAR(2) && ISCHAR(4))
-  {
+  if (pHbSqlite3Dest && pHbSqlite3Dest->db && pHbSqlite3Source && pHbSqlite3Source->db && ISCHAR(2) && ISCHAR(4)) {
     pBackup = sqlite3_backup_init(pHbSqlite3Dest->db, hb_parcx(2), pHbSqlite3Source->db, hb_parcx(4));
 
     if (pBackup)
@@ -549,8 +527,7 @@ HB_FUNC(SQLITE3_BIND_PARAMETER_INDEX)
 {
   psqlite3_stmt pStmt = (psqlite3_stmt)hb_parptr(1);
 
-  if (pStmt)
-  {
+  if (pStmt) {
     void *hParameterName;
 
     hb_retni(sqlite3_bind_parameter_index(pStmt, hb_parstr_utf8(2, &hParameterName, NULL)));
@@ -575,8 +552,7 @@ HB_FUNC(SQLITE3_BIND_TEXT)
 {
   psqlite3_stmt pStmt = (psqlite3_stmt)hb_parptr(1);
 
-  if (pStmt)
-  {
+  if (pStmt) {
     void *hSQLText;
     ULONG nSQLText;
 
@@ -624,8 +600,7 @@ HB_FUNC(SQLITE3_BLOB_OPEN)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     sqlite3_blob *ppBlob = NULL;
 
     void *hDbName;
@@ -634,8 +609,7 @@ HB_FUNC(SQLITE3_BLOB_OPEN)
 
     if (sqlite3_blob_open(pHbSqlite3->db, hb_parstr_utf8(2, &hDbName, NULL), hb_parstr_utf8(3, &hTableName, NULL),
                           hb_parstr_utf8(4, &hColumnName, NULL), (sqlite3_int64)hb_parnint(5) /* iRow */,
-                          hb_parni(6) /* flags */, &ppBlob) == SQLITE_OK)
-    {
+                          hb_parni(6) /* flags */, &ppBlob) == SQLITE_OK) {
       hb_retptr(ppBlob);
     }
     else
@@ -653,8 +627,7 @@ HB_FUNC(SQLITE3_BLOB_READ)
 {
   sqlite3_blob *pBlob = (sqlite3_blob *)hb_parptr(1);
 
-  if (pBlob)
-  {
+  if (pBlob) {
     auto iLen = hb_parni(2);
 
     if (iLen == 0)
@@ -662,8 +635,7 @@ HB_FUNC(SQLITE3_BLOB_READ)
 
     auto buffer = static_cast<char *>(hb_xgrab(iLen + 1));
 
-    if (SQLITE_OK == sqlite3_blob_read(pBlob, static_cast<void *>(buffer), iLen, hb_parni(3)))
-    {
+    if (SQLITE_OK == sqlite3_blob_read(pBlob, static_cast<void *>(buffer), iLen, hb_parni(3))) {
       buffer[iLen] = '\0';
       hb_retclen_buffer(buffer, iLen);
     }
@@ -688,8 +660,7 @@ HB_FUNC(SQLITE3_BLOB_WRITE)
 {
   sqlite3_blob *pBlob = (sqlite3_blob *)hb_parptr(1);
 
-  if (pBlob)
-  {
+  if (pBlob) {
     auto iLen = hb_parni(3);
 
     if (iLen == 0)
@@ -705,16 +676,13 @@ HB_FUNC(SQLITE3_BUSY_HANDLER)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
-    if (pHbSqlite3->cbBusyHandler)
-    {
+  if (pHbSqlite3 && pHbSqlite3->db) {
+    if (pHbSqlite3->cbBusyHandler) {
       hb_itemRelease(pHbSqlite3->cbBusyHandler);
       pHbSqlite3->cbBusyHandler = NULL;
     }
 
-    if (ISPOINTER(2))
-    {
+    if (ISPOINTER(2)) {
       pHbSqlite3->cbBusyHandler = hb_itemNew(hb_param(2, Harbour::Item::POINTER));
       hb_gcUnlock(pHbSqlite3->cbBusyHandler);
 
@@ -759,8 +727,7 @@ HB_FUNC(SQLITE3_CLOSE)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     hb_retni(sqlite3_close(pHbSqlite3->db));
   }
   else
@@ -773,16 +740,13 @@ HB_FUNC(SQLITE3_COMMIT_HOOK)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
-    if (pHbSqlite3->cbHookCommit)
-    {
+  if (pHbSqlite3 && pHbSqlite3->db) {
+    if (pHbSqlite3->cbHookCommit) {
       hb_itemRelease(pHbSqlite3->cbHookCommit);
       pHbSqlite3->cbHookCommit = NULL;
     }
 
-    if (ISPOINTER(2))
-    {
+    if (ISPOINTER(2)) {
       pHbSqlite3->cbHookCommit = hb_itemNew(hb_param(2, Harbour::Item::POINTER));
       hb_gcUnlock(pHbSqlite3->cbHookCommit);
 
@@ -797,16 +761,13 @@ HB_FUNC(SQLITE3_ROLLBACK_HOOK)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
-    if (pHbSqlite3->cbHookRollback)
-    {
+  if (pHbSqlite3 && pHbSqlite3->db) {
+    if (pHbSqlite3->cbHookRollback) {
       hb_itemRelease(pHbSqlite3->cbHookRollback);
       pHbSqlite3->cbHookRollback = NULL;
     }
 
-    if (ISPOINTER(2))
-    {
+    if (ISPOINTER(2)) {
       pHbSqlite3->cbHookRollback = hb_itemNew(hb_param(2, Harbour::Item::POINTER));
       hb_gcUnlock(pHbSqlite3->cbHookRollback);
 
@@ -831,8 +792,7 @@ HB_FUNC(SQLITE3_COLUMN_BLOB)
 {
   psqlite3_stmt pStmt = (psqlite3_stmt)hb_parptr(1);
 
-  if (pStmt)
-  {
+  if (pStmt) {
     int index = hb_parni(2) - 1;
     hb_retclen(static_cast<const char *>(sqlite3_column_blob(pStmt, index)), sqlite3_column_bytes(pStmt, index));
   }
@@ -924,8 +884,7 @@ HB_FUNC(SQLITE3_TABLE_COLUMN_METADATA)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     char const *pzDataType = NULL;
     char const *pzCollSeq = NULL;
     auto iNotNull = 0;
@@ -938,8 +897,7 @@ HB_FUNC(SQLITE3_TABLE_COLUMN_METADATA)
 
     if (sqlite3_table_column_metadata(pHbSqlite3->db, hb_parstr_utf8(2, &hDbName, NULL),
                                       hb_parstr_utf8(3, &hTableName, NULL), hb_parstr_utf8(4, &hColumnName, NULL),
-                                      &pzDataType, &pzCollSeq, &iNotNull, &iPrimaryKey, &iAutoinc) == SQLITE_OK)
-    {
+                                      &pzDataType, &pzCollSeq, &iNotNull, &iPrimaryKey, &iAutoinc) == SQLITE_OK) {
       auto pArray = hb_itemArrayNew(5);
 
       hb_arraySetStrUTF8(pArray, 1, pzDataType);
@@ -983,8 +941,7 @@ HB_FUNC(SQLITE3_COLUMN_TEXT)
 {
   psqlite3_stmt pStmt = (psqlite3_stmt)hb_parptr(1);
 
-  if (pStmt)
-  {
+  if (pStmt) {
     int index = hb_parni(2) - 1;
     hb_retstrlen_utf8(static_cast<const char *>(sqlite3_column_text(pStmt, index)), sqlite3_column_bytes(pStmt, index));
   }
@@ -1015,8 +972,7 @@ HB_FUNC(SQLITE3_ENABLE_LOAD_EXTENSION)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     hb_retni(sqlite3_enable_load_extension(pHbSqlite3->db, hb_parl(2)));
   }
   else
@@ -1052,14 +1008,12 @@ HB_FUNC(SQLITE3_EXEC)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     void *hSQLText;
     char *pszErrMsg = NULL;
     int rc;
 
-    if (ISPOINTER(3))
-    {
+    if (ISPOINTER(3)) {
       rc = sqlite3_exec(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText, NULL), callback,
                         static_cast<void *>(hb_param(3, Harbour::Item::POINTER)), &pszErrMsg);
     }
@@ -1068,8 +1022,7 @@ HB_FUNC(SQLITE3_EXEC)
       rc = sqlite3_exec(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText, NULL), NULL, 0, &pszErrMsg);
     }
 
-    if (rc != SQLITE_OK)
-    {
+    if (rc != SQLITE_OK) {
       HB_TRACE(HB_TR_DEBUG, ("sqlite3_exec(): Returned error: %s", pszErrMsg));
       sqlite3_free(pszErrMsg);
     }
@@ -1126,8 +1079,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     void *hSQLText;
     auto pResultList = hb_itemArrayNew(0);
     int iRow, iCol;
@@ -1135,8 +1087,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
     char **pResult;
 
     if (sqlite3_get_table(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText, NULL), &pResult, &iRow, &iCol, &pszErrMsg) ==
-        SQLITE_OK)
-    {
+        SQLITE_OK) {
       int i, j;
       auto k = 0;
 
@@ -1226,10 +1177,8 @@ HB_FUNC(SQLITE3_OPEN)
   char *pszFree;
   const char *pszdbName = hb_fsNameConv(hb_parcx(1), &pszFree);
 
-  if (hb_fsFileExists(pszdbName) || hb_parl(2))
-  {
-    if (sqlite3_open(pszdbName, &db) == SQLITE_OK)
-    {
+  if (hb_fsFileExists(pszdbName) || hb_parl(2)) {
+    if (sqlite3_open(pszdbName, &db) == SQLITE_OK) {
       auto hbsqlite3 = static_cast<HB_SQLITE3 *>(hb_xgrab(sizeof(HB_SQLITE3)));
       hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
       hbsqlite3->db = db;
@@ -1259,8 +1208,7 @@ HB_FUNC(SQLITE3_OPEN_V2)
   char *pszFree;
   const char *pszdbName = hb_fsNameConv(hb_parcx(1), &pszFree);
 
-  if (sqlite3_open_v2(pszdbName, &db, hb_parni(2), NULL) == SQLITE_OK)
-  {
+  if (sqlite3_open_v2(pszdbName, &db, hb_parni(2), NULL) == SQLITE_OK) {
     auto hbsqlite3 = static_cast<HB_SQLITE3 *>(hb_xgrab(sizeof(HB_SQLITE3)));
     hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
     hbsqlite3->db = db;
@@ -1281,19 +1229,16 @@ HB_FUNC(SQLITE3_PREPARE)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     auto SQL = hb_param(2, Harbour::Item::STRING);
 
-    if (SQL)
-    {
+    if (SQL) {
       const char *pSQL = hb_itemGetCPtr(SQL);
       auto ulLen = static_cast<int>(hb_itemGetCLen(SQL));
       psqlite3_stmt pStmt;
       const char *pszTail;
 
-      if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK)
-      {
+      if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK) {
         hb_retptr(pStmt);
       }
       else
@@ -1314,19 +1259,16 @@ HB_FUNC(SQLITE3_PREPARE_V2)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
+  if (pHbSqlite3 && pHbSqlite3->db) {
     auto SQL = hb_param(2, Harbour::Item::STRING);
 
-    if (SQL)
-    {
+    if (SQL) {
       const char *pSQL = hb_itemGetCPtr(SQL);
       auto ulLen = static_cast<int>(hb_itemGetCLen(SQL));
       psqlite3_stmt pStmt;
       const char *pszTail;
 
-      if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK)
-      {
+      if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK) {
         hb_retptr(pStmt);
       }
       else
@@ -1358,16 +1300,13 @@ HB_FUNC(SQLITE3_PROGRESS_HANDLER)
 {
   HB_SQLITE3 *pHbSqlite3 = (HB_SQLITE3 *)hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
-  if (pHbSqlite3 && pHbSqlite3->db)
-  {
-    if (pHbSqlite3->cbProgressHandler)
-    {
+  if (pHbSqlite3 && pHbSqlite3->db) {
+    if (pHbSqlite3->cbProgressHandler) {
       hb_itemRelease(pHbSqlite3->cbProgressHandler);
       pHbSqlite3->cbProgressHandler = NULL;
     }
 
-    if (ISNUM(2) && ISPOINTER(3))
-    {
+    if (ISNUM(2) && ISPOINTER(3)) {
       pHbSqlite3->cbProgressHandler = hb_itemNew(hb_param(3, Harbour::Item::POINTER));
       hb_gcUnlock(pHbSqlite3->cbProgressHandler);
 
@@ -1427,8 +1366,7 @@ HB_FUNC(SQLITE3_STATUS)
 {
   int iCurrent, iHighwater;
 
-  if (hb_pcount() > 3 && (ISNUM(2) && ISBYREF(2)) && (ISNUM(3) && ISBYREF(3)))
-  {
+  if (hb_pcount() > 3 && (ISNUM(2) && ISBYREF(2)) && (ISNUM(3) && ISBYREF(3))) {
     hb_retni(sqlite3_status(hb_parni(1), &iCurrent, &iHighwater, static_cast<int>(hb_parl(4))));
 
     hb_storni(iCurrent, 2);
@@ -1476,16 +1414,13 @@ HB_FUNC(SQLITE3_TEMP_DIRECTORY)
     char *pszFree;
     const char *pszDirName = hb_fsNameConv(hb_parcx(1), &pszFree);
 
-    if (hb_fsIsDirectory(pszDirName))
-    {
+    if (hb_fsIsDirectory(pszDirName)) {
       bResult = TRUE;
     }
     else
     {
-      if (hb_parl(2)) /* create temp directory if not exist */
-      {
-        if (hb_fsMkDir(pszDirName))
-        {
+      if (hb_parl(2)) { /* create temp directory if not exist */
+        if (hb_fsMkDir(pszDirName)) {
           bResult = TRUE;
         }
         else
@@ -1538,8 +1473,7 @@ HB_FUNC(SQLITE3_FILE_TO_BUFF)
 {
   HB_FHANDLE handle = hb_fsOpen(hb_parcx(1), FO_READ);
 
-  if (handle != FS_ERROR)
-  {
+  if (handle != FS_ERROR) {
     int nSize;
 
     nSize = hb_fsSeek(handle, 0, FS_END);
@@ -1560,8 +1494,7 @@ HB_FUNC(SQLITE3_BUFF_TO_FILE)
   HB_FHANDLE handle = hb_fsCreate(hb_parcx(1), FC_NORMAL);
   unsigned int nSize = hb_parcsiz(2) - 1;
 
-  if (handle != FS_ERROR && nSize > 0)
-  {
+  if (handle != FS_ERROR && nSize > 0) {
     hb_retni(hb_fsWriteLarge(handle, hb_parcx(2), nSize) == nSize ? 0 : -1);
     hb_fsClose(handle);
   }

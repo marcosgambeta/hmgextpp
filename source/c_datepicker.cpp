@@ -69,28 +69,23 @@ HB_FUNC(HMG_INITDATEPICK)
 
   DWORD style = WS_CHILD;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= DTS_SHOWNONE;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= DTS_UPDOWN;
   }
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     style |= DTS_RIGHTALIGN;
   }
 
-  if (!hb_parl(12))
-  {
+  if (!hb_parl(12)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(13))
-  {
+  if (!hb_parl(13)) {
     style |= WS_TABSTOP;
   }
 
@@ -114,18 +109,15 @@ HB_FUNC(HMG_INITTIMEPICK)
 
   DWORD style = WS_CHILD | DTS_TIMEFORMAT;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= DTS_SHOWNONE;
   }
 
-  if (!hb_parl(10))
-  {
+  if (!hb_parl(10)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(11))
-  {
+  if (!hb_parl(11)) {
     style |= WS_TABSTOP;
   }
 
@@ -148,12 +140,10 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
   switch (Msg)
   {
   case WM_ERASEBKGND:
-    if (pSymbol == nullptr)
-    {
+    if (pSymbol == nullptr) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
     }
-    if (pSymbol != nullptr)
-    {
+    if (pSymbol != nullptr) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hButton);
@@ -163,8 +153,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
       hb_vmDo(4);
     }
     long int r = hb_parnl(-1);
-    if (r != 0)
-    {
+    if (r != 0) {
       return r;
     }
 #if 0
@@ -183,8 +172,7 @@ HB_FUNC(HMG_SETDATEPICK)
 {
   SYSTEMTIME sysTime{};
 
-  if (hb_pcount() == 2 && HB_ISDATE(2))
-  {
+  if (hb_pcount() == 2 && HB_ISDATE(2)) {
     int iYear, iMonth, iDay;
     long lJulian = hb_pardl(2);
     hb_dateDecode(lJulian, &iYear, &iMonth, &iDay);
@@ -192,8 +180,7 @@ HB_FUNC(HMG_SETDATEPICK)
     sysTime.wMonth = static_cast<WORD>(iMonth);
     sysTime.wDay = static_cast<WORD>(iDay);
   }
-  else if (hb_pcount() > 2)
-  {
+  else if (hb_pcount() > 2) {
     sysTime.wYear = hmg_par_WORD(2);
     sysTime.wMonth = hmg_par_WORD(3);
     sysTime.wDay = hmg_par_WORD(4);
@@ -300,8 +287,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
 
   auto bTimeToZero = false;
 
-  if (HB_ISDATETIME(2))
-  {
+  if (HB_ISDATETIME(2)) {
     int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
     hb_timeStampUnpack(hb_partd(2), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec);
     sysTime.wYear = static_cast<WORD>(iYear);
@@ -313,8 +299,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     sysTime.wSecond = static_cast<WORD>(iSecond);
     sysTime.wMilliseconds = static_cast<WORD>(iMSec);
   }
-  else if (HB_ISDATE(2))
-  {
+  else if (HB_ISDATE(2)) {
     int iYear, iMonth, iDay;
     long lJulian = hb_pardl(2);
     hb_dateDecode(lJulian, &iYear, &iMonth, &iDay);
@@ -330,8 +315,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     sysTime.wMonth = static_cast<WORD>(hb_parnidef(3, 1));
     sysTime.wDay = static_cast<WORD>(hb_parnidef(4, 1));
     sysTime.wDayOfWeek = 0;
-    if (hb_pcount() >= 7)
-    {
+    if (hb_pcount() >= 7) {
       sysTime.wHour = hmg_par_WORD(5);
       sysTime.wMinute = hmg_par_WORD(6);
       sysTime.wSecond = hmg_par_WORD(7);
@@ -343,8 +327,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     }
   }
 
-  if (bTimeToZero)
-  {
+  if (bTimeToZero) {
     sysTime.wHour = 0;
     sysTime.wMinute = 0;
     sysTime.wSecond = 0;
@@ -378,12 +361,10 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
   DWORD y, m, d;
   WPARAM wLimit = 0;
 
-  if (HB_ISDATE(2) && HB_ISDATE(3))
-  {
+  if (HB_ISDATE(2) && HB_ISDATE(3)) {
     memset(&sysTime, 0, sizeof(sysTime));
     cDate = const_cast<char *>(hb_pards(2));
-    if (!(cDate[0] == ' '))
-    {
+    if (!(cDate[0] == ' ')) {
       y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) +
           (cDate[3] - '0');
       sysTime[0].wYear = static_cast<WORD>(y);
@@ -395,8 +376,7 @@ HB_FUNC(HMG_SETDATEPICKRANGE)
     }
 
     cDate = const_cast<char *>(hb_pards(3));
-    if (!(cDate[0] == ' '))
-    {
+    if (!(cDate[0] == ' ')) {
       y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) +
           (cDate[3] - '0');
       sysTime[1].wYear = static_cast<WORD>(y);

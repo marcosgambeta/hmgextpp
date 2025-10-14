@@ -210,8 +210,7 @@ static bool InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROP
 {
   auto pbtn = reinterpret_cast<INSBTN *>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN)));
 
-  if (pbtn == nullptr)
-  {
+  if (pbtn == nullptr) {
     return false;
   }
 
@@ -241,14 +240,12 @@ static bool InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROP
 
 static void GetBtnPG(INSBTN *pbtn, RECT *rect)
 {
-  if (pbtn->nButton > 0)
-  {
+  if (pbtn->nButton > 0) {
     rect->right -= pbtn->cxRightEdge;
     rect->top += pbtn->cyTopEdge;
     rect->bottom -= pbtn->cyBottomEdge;
     rect->left = rect->right - pbtn->cxButton;
-    if (pbtn->cxRightEdge > pbtn->cxLeftEdge)
-    {
+    if (pbtn->cxRightEdge > pbtn->cxLeftEdge) {
       OffsetRect(rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0);
     }
   }
@@ -258,10 +255,8 @@ static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
 {
   HWND hBitmap = pbtn->himage;
   auto hdc = GetWindowDC(hWnd);
-  if (pbtn->nButton)
-  {
-    if (pbtn->fButtonDown == TRUE)
-    {
+  if (pbtn->nButton) {
+    if (pbtn->fButtonDown == TRUE) {
       DrawEdge(hdc, prect, EDGE_RAISED, BF_RECT | BF_FLAT | BF_ADJUST);
       FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
       OffsetRect(prect, 1, 1);
@@ -272,8 +267,7 @@ static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
       FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
     }
 
-    if (hBitmap == nullptr)
-    {
+    if (hBitmap == nullptr) {
       SetBkMode(hdc, TRANSPARENT);
       DrawText(hdc, "...", 3, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
@@ -290,8 +284,7 @@ static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
 
       SelectObject(hDCmem, hBitmap);
       GetObject(hBitmap, sizeof(BITMAP), (LPVOID)&bitmap);
-      if (wWidth && (wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight))
-      {
+      if (wWidth && (wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight)) {
         StretchBlt(hdc, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster);
       }
       else
@@ -341,8 +334,7 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
   auto buttonHeight = 0;
   auto ppgrd = reinterpret_cast<PROPGRD *>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
 
-  if (!ppgrd)
-  {
+  if (!ppgrd) {
     return FALSE;
   }
   TreeView_SetIndent(hWndPG, indent);
@@ -389,30 +381,24 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
   m_crBackCg = GetSysColor(COLOR_ACTIVEBORDER);
   m_crLine = m_crTextCg; // GetSysColor(COLOR_GRAYTEXT);
 
-  if (ppgrd->lOkBtn)
-  {
+  if (ppgrd->lOkBtn) {
     num_buttons++;
   }
 
-  if (ppgrd->lApplyBtn)
-  {
+  if (ppgrd->lApplyBtn) {
     num_buttons++;
   }
 
-  if (ppgrd->lCancelBtn)
-  {
+  if (ppgrd->lCancelBtn) {
     num_buttons++;
   }
 
-  if (ppgrd->lHelpBtn)
-  {
+  if (ppgrd->lHelpBtn) {
     num_buttons++;
   }
 
-  if (num_buttons > 0)
-  {
-    if (ppgrd->lOkBtn)
-    {
+  if (num_buttons > 0) {
+    if (ppgrd->lOkBtn) {
       // Move the first button "OK" below the tab control.
       hwndButton = ppgrd->hOkBtn;
       GetWindowRect(hwndButton, &rcButton);
@@ -424,12 +410,10 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
       num_buttons--;
     }
 
-    if (ppgrd->lCancelBtn)
-    {
+    if (ppgrd->lCancelBtn) {
       // Move the second button "Cancel" to the right of the first.
       hwndButton = ppgrd->hCancelBtn;
-      if (buttonHeight == 0)
-      {
+      if (buttonHeight == 0) {
         GetWindowRect(hwndButton, &rcButton);
         buttonWidth = rcButton.right - rcButton.left;
         buttonHeight = rcButton.bottom - rcButton.top;
@@ -442,12 +426,10 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
       num_buttons--;
     }
 
-    if (ppgrd->lApplyBtn)
-    {
+    if (ppgrd->lApplyBtn) {
       // Move the thrid button "Apply" to the right of the second.
       hwndButton = ppgrd->hApplyBtn;
-      if (buttonHeight == 0)
-      {
+      if (buttonHeight == 0) {
         GetWindowRect(hwndButton, &rcButton);
         buttonWidth = rcButton.right - rcButton.left;
         buttonHeight = rcButton.bottom - rcButton.top;
@@ -461,12 +443,10 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
       num_buttons--;
     }
 
-    if (ppgrd->lHelpBtn)
-    {
+    if (ppgrd->lHelpBtn) {
       // Move the thrid button "Help" to the right of the second.
       hwndButton = ppgrd->hHelpBtn;
-      if (buttonHeight == 0)
-      {
+      if (buttonHeight == 0) {
         GetWindowRect(hwndButton, &rcButton);
         buttonWidth = rcButton.right - rcButton.left;
         buttonHeight = rcButton.bottom - rcButton.top;
@@ -523,8 +503,7 @@ static BOOL InsertItem(HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width) //
 
   hdi.mask = HDI_FORMAT | HDI_WIDTH;
   hdi.fmt = HDF_LEFT; // Left-justify the item.
-  if (lpsz)
-  {
+  if (lpsz) {
     hdi.mask |= HDI_TEXT;                  // The .pszText member is valid.
     hdi.pszText = lpsz;                    // The text for the item.
     hdi.cxy = Width;                       // The initial width.
@@ -533,8 +512,7 @@ static BOOL InsertItem(HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width) //
   }
 
   /* to do
-  if (hBitmap)
-  {
+  if (hBitmap) {
      hdi.mask |= HDI_BITMAP; // The .hbm member is valid.
      hdi.cxy = 32;           // The initial width.
      hdi.hbm = hBitmap;      // The handle to the bitmap.
@@ -542,8 +520,7 @@ static BOOL InsertItem(HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width) //
   }
   */
 
-  if (Header_InsertItem(hwndHeader, CurrIndex, &hdi) == TRUE)
-  {
+  if (Header_InsertItem(hwndHeader, CurrIndex, &hdi) == TRUE) {
     return TRUE;
   }
 
@@ -557,8 +534,8 @@ static HWND CreateHeaderWindow(HWND hwndParent)
   HWND hwndHeader;
 
   if ((hwndHeader = CreateWindowEx(0, WC_HEADER, nullptr, WS_CHILD | WS_BORDER | HDS_BUTTONS | HDS_HORZ, 0, 0, 0, 0,
-                                   hwndParent, nullptr, GetModuleHandle(nullptr), nullptr)) == nullptr)
-  { // No application-defined data.
+                                   hwndParent, nullptr, GetModuleHandle(nullptr), nullptr)) == nullptr) {
+    // No application-defined data.
     return nullptr;
   }
 
@@ -571,8 +548,7 @@ static HWND CreateHeaderWindow(HWND hwndParent)
   hdl.prc = &rcParent;
   hdl.pwpos = &wp;
 
-  if (Header_Layout(hwndHeader, &hdl) == FALSE)
-  {
+  if (Header_Layout(hwndHeader, &hdl) == FALSE) {
     return nullptr;
   }
 
@@ -604,8 +580,7 @@ static void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
   SelectObject(hDC, hMrkPen);
 
   LineHorz(hDC, x + 2, x + 7, y + 4); // '-'
-  if (!bExpanded)
-  {
+  if (!bExpanded) {
     LineVert(hDC, x + 4, y + 2, y + 7); // '+'
   }
 
@@ -628,17 +603,14 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
   LRESULT pResult = CDRF_SKIPDEFAULT;
   DWORD dwDrawStage = pCD->nmcd.dwDrawStage;
 
-  if (dwDrawStage == CDDS_PREPAINT)
-  {
+  if (dwDrawStage == CDDS_PREPAINT) {
     m_hImgList = TreeView_GetImageList(hWnd, TVSIL_NORMAL);
     pResult = CDRF_NOTIFYITEMDRAW;
   }
-  else if (dwDrawStage == CDDS_ITEMPREPAINT)
-  {
+  else if (dwDrawStage == CDDS_ITEMPREPAINT) {
     pResult = CDRF_NOTIFYPOSTPAINT;
   }
-  else if (dwDrawStage == CDDS_ITEMPOSTPAINT)
-  {
+  else if (dwDrawStage == CDDS_ITEMPOSTPAINT) {
     HDC hDC = pCD->nmcd.hdc;
     HPEN hLinPen, hOldPen;
     HBRUSH hBackBrush, hOldBrush, hIndentBrush;
@@ -654,8 +626,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
     TCHAR PropInfo[1024];
     int iImage, cx, cy, iCheck, style;
 
-    if (rc.bottom >= SendMessage(hWnd, TVM_GETITEMHEIGHT, 0, 0))
-    {
+    if (rc.bottom >= SendMessage(hWnd, TVM_GETITEMHEIGHT, 0, 0)) {
       hLinPen = CreatePen(PS_SOLID, 1, m_crLine);
 
       hOldPen = static_cast<HPEN>(SelectObject(hDC, hLinPen));
@@ -675,8 +646,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
       tvdi.item.hItem = hItem;
       tvdi.item.pszText = szText;
       tvdi.item.cchTextMax = 255;
-      if (!TreeView_GetItem(hWnd, &tvdi.item))
-      {
+      if (!TreeView_GetItem(hWnd, &tvdi.item)) {
         SelectObject(hDC, hOldBrush);
         SelectObject(hDC, hOldPen);
         DeleteObject(hLinPen);
@@ -684,14 +654,11 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
         hmg_ret_LRESULT(pResult);
       }
 
-      if (tvdi.item.lParam)
-      {
+      if (tvdi.item.lParam) {
         pItemData = (LPARAMDATA *)tvdi.item.lParam;
-        if (pItemData)
-        {
+        if (pItemData) {
           strcpy(szText, pItemData->ItemName);
-          if (pItemData->ItemType == PG_PASSWORD)
-          {
+          if (pItemData->ItemType == PG_PASSWORD) {
             strcpy(PropText, "*****");
           }
           else
@@ -701,27 +668,23 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
         }
       }
 
-      if (pCD->nmcd.uItemState & CDIS_FOCUS)
-      {
+      if (pCD->nmcd.uItemState & CDIS_FOCUS) {
         ppgrd->hItemActive = hItem;
         ppgrd->fDisable = pItemData->ItemDisabled;
       }
 
-      if (hParent)
-      {
+      if (hParent) {
         SetIndentLine(hWnd, hParent, &rc, &rcIndent, nIndent);
       }
 
       // Clear the background
 
-      if (pCD->nmcd.uItemState & CDIS_FOCUS)
-      {
+      if (pCD->nmcd.uItemState & CDIS_FOCUS) {
         hBackBrush = CreateSolidBrush(GetSysColor(COLOR_HIGHLIGHT));
       }
       else
       {
-        if (tvdi.item.cChildren == 1)
-        {
+        if (tvdi.item.cChildren == 1) {
           hBackBrush = CreateSolidBrush(m_crBackCg);
         }
         else
@@ -747,14 +710,11 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
       // Paint the buttons, if any
       //
 
-      if (GetWindowLongPtr(hWnd, GWL_STYLE) & TVS_HASBUTTONS)
-      {
-        if (tvdi.item.cChildren == 1)
-        {
+      if (GetWindowLongPtr(hWnd, GWL_STYLE) & TVS_HASBUTTONS) {
+        if (tvdi.item.cChildren == 1) {
           PropGridPaintButton(hDC, rc, tvdi.item.state & TVIS_EXPANDED, nIndent);
         }
-        else if (tvdi.item.cChildren == I_CHILDRENCALLBACK)
-        {
+        else if (tvdi.item.cChildren == I_CHILDRENCALLBACK) {
           PropGridPaintButton(hDC, rc, FALSE, nIndent);
         }
 
@@ -767,16 +727,14 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
       // Check if we have any check button to draw
 
       iCheck = tvdi.item.state >> 12;
-      if (iCheck > 0)
-      {
+      if (iCheck > 0) {
         rcCheck = rcProp;
         rcCheck.left += 4;
         rcCheck.top += 1;
         rcCheck.right = rcCheck.left + nIndent;
         rcCheck.bottom -= 2;
 
-        if (iCheck == 1)
-        {
+        if (iCheck == 1) {
           style = DFCS_BUTTONCHECK;
         }
         else
@@ -784,8 +742,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
           style = DFCS_BUTTONCHECK | DFCS_CHECKED;
         }
 
-        if (pItemData->ItemDisabled)
-        {
+        if (pItemData->ItemDisabled) {
           style = style | DFCS_INACTIVE;
         }
 
@@ -796,10 +753,8 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
 
       // Check if we have any normal icons to draw
 
-      if (m_hImgList)
-      {
-        if (pCD->nmcd.uItemState & CDIS_SELECTED)
-        {
+      if (m_hImgList) {
+        if (pCD->nmcd.uItemState & CDIS_SELECTED) {
           iImage = tvdi.item.iSelectedImage;
         }
         else
@@ -807,8 +762,7 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
           iImage = tvdi.item.iImage;
         }
 
-        if (iImage > 0)
-        {
+        if (iImage > 0) {
           ImageList_GetIconSize(m_hImgList, &cx, &cy);
           ImageList_DrawEx(m_hImgList, iImage - 1, hDC, rcProp.left + 5, rcProp.top + 1, 0, 0, CLR_DEFAULT, CLR_DEFAULT,
                            ILD_NORMAL);
@@ -816,15 +770,13 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
         }
       }
 
-      if (pCD->nmcd.uItemState & CDIS_FOCUS)
-      {
+      if (pCD->nmcd.uItemState & CDIS_FOCUS) {
         SetTextColor(hDC, RGB(255, 255, 255));
         SetBkColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
       }
       else
       {
-        if (tvdi.item.cChildren == 1)
-        {
+        if (tvdi.item.cChildren == 1) {
           SetTextColor(hDC, m_crText);
           SetBkColor(hDC, m_crBackCg);
         }
@@ -835,12 +787,9 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
         }
       }
 
-      if (!(ppgrd->hItemEdit == hItem))
-      {
-        if (pCD->nmcd.uItemState & CDIS_FOCUS)
-        {
-          if (ppgrd->hItemEdit)
-          {
+      if (!(ppgrd->hItemEdit == hItem)) {
+        if (pCD->nmcd.uItemState & CDIS_FOCUS) {
+          if (ppgrd->hItemEdit) {
             PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = nullptr;
           }
@@ -848,19 +797,16 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
           SetWindowText(ppgrd->hInfoTitle, szText);
           SetWindowText(ppgrd->hInfoText, PropInfo);
 
-          if (!(pItemData->ItemDisabled) && (!(ppgrd->readonly)) && !(pItemData->ItemType == PG_CHECK))
-          {
+          if (!(pItemData->ItemDisabled) && (!(ppgrd->readonly)) && !(pItemData->ItemType == PG_CHECK)) {
             rcEdit = rcProp;
-            if (pItemData->ItemType == PG_SYSCOLOR)
-            {
+            if (pItemData->ItemType == PG_SYSCOLOR) {
               rcEdit.left = ppgrd->cxMiddleEdge;
             }
 
             hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
             hPropEdit = EditPG(hWnd, rcEdit, hItem, pItemData->ItemType, *ppgrd, pItemData->ItemEdit);
             rcEdit = rcProp;
-            if (ppgrd->hItemEdit)
-            {
+            if (ppgrd->hItemEdit) {
               PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             }
 
@@ -883,13 +829,11 @@ static LRESULT PropGridOnCustomDraw(HWND hWnd, LPARAM lParam)
 
       DrawText(hDC, szText, -1, &rcText, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
 
-      if (pItemData->ItemDisabled)
-      {
+      if (pItemData->ItemDisabled) {
         SetTextColor(hDC, m_crTextDis);
       }
 
-      if (pItemData->ItemChanged)
-      {
+      if (pItemData->ItemChanged) {
         auto hFont2 = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
         LOGFONT lf{};
         GetObject(hFont2, sizeof(LOGFONT), &lf);
@@ -947,8 +891,7 @@ HB_FUNC(INITPROPGRID)
 
   int style =
       WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASBUTTONS | TVS_FULLROWSELECT | TVS_NOHSCROLL | TVS_SHOWSELALWAYS;
-  if (hb_parl(12))
-  {
+  if (hb_parl(12)) {
     style = style | TVS_SINGLEEXPAND;
   }
 
@@ -964,8 +907,7 @@ HB_FUNC(INITPROPGRID)
 
   HWND hHeader;
 
-  if (hb_arrayLen(hArray) > 0)
-  {
+  if (hb_arrayLen(hArray) > 0) {
     hHeader = CreateHeaderWindow(hFramePG);
     InsertItem(hHeader, (char *)hb_arrayGetCPtr(hArray, 1), 1, w - hb_parni(7) + 3);
     InsertItem(hHeader, (char *)hb_arrayGetCPtr(hArray, 2), 2, w);
@@ -977,8 +919,7 @@ HB_FUNC(INITPROPGRID)
     m_nHeightHeader = 0;
   }
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     PGHeight = h - iHeight - m_nHeightHeader;
     InfoStyle = WS_CHILD | WS_VISIBLE;
   }
@@ -1008,29 +949,25 @@ HB_FUNC(INITPROPGRID)
   HWND hBtnCancel = nullptr;
   HWND hBtnHelp = nullptr;
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     hBtnOk =
         CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 4), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0,
                        0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
   }
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     hBtnApply =
         CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 1), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0,
                        0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     hBtnCancel =
         CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 3), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0,
                        0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
   }
 
-  if (hb_parl(16))
-  {
+  if (hb_parl(16)) {
     hBtnHelp =
         CreateWindowEx(0, "button", hb_arrayGetCPtr(MsgArray, 2), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 0,
                        0, 70, 20, hFramePG, nullptr, GetModuleHandle(nullptr), nullptr);
@@ -1071,8 +1008,8 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
   case WM_DRAWITEM: {
     LPDRAWITEMSTRUCT lpdis = (LPDRAWITEMSTRUCT)lParam;
-    if (lpdis->itemID == static_cast<UINT>(-1))
-    { // empty item
+    if (lpdis->itemID == static_cast<UINT>(-1)) {
+      // empty item
       break;
     }
 
@@ -1082,8 +1019,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     int iImage = lpdis->itemID;
     COLORREF clrBackground;
     COLORREF clrForeground;
-    if (lpdis->itemState & ODS_SELECTED)
-    {
+    if (lpdis->itemState & ODS_SELECTED) {
       clrForeground = SetTextColor(hDC, GetSysColor(COLOR_HIGHLIGHTTEXT));
       clrBackground = SetBkColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
     }
@@ -1095,8 +1031,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
     rc.left += 2;
 
-    if (himl)
-    {
+    if (himl) {
       ImageList_Draw(himl, iImage, hDC, rc.left, rc.top, ILD_NORMAL);
       int cx, cy;
       ImageList_GetIconSize(himl, &cx, &cy);
@@ -1106,8 +1041,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     char achTemp[256]; // temporary buffer
     SendMessage(lpdis->hwndItem, CB_GETLBTEXT, lpdis->itemID, reinterpret_cast<LPARAM>((LPCSTR)achTemp));
     rc.left += 6;
-    if (lpdis->itemState & ODS_COMBOBOXEDIT)
-    {
+    if (lpdis->itemState & ODS_COMBOBOXEDIT) {
       rc.right += 20;
       rc.bottom += 4;
       rc.top -= 4;
@@ -1165,8 +1099,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
     int iCheck = tvi.state >> 12;
 
-    if (iCheck > 0 && !ppgrd->fDisable)
-    {
+    if (iCheck > 0 && !ppgrd->fDisable) {
       iCheck = iCheck == 2 ? 1 : 2;
       tvi.state = INDEXTOSTATEIMAGEMASK(iCheck);
       TreeView_SetItem(hWnd, &tvi);
@@ -1178,8 +1111,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
   case WM_LBUTTONUP:
   case WM_LBUTTONDOWN:
   case WM_KILLFOCUS: {
-    if (!(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit))
-    {
+    if (!(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit)) {
       PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
       ppgrd->hItemEdit = nullptr;
     }
@@ -1187,8 +1119,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
   }
 
   case NM_SETFOCUS: {
-    if (!(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit))
-    {
+    if (!(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit)) {
       PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
       ppgrd->hItemEdit = nullptr;
     }
@@ -1198,13 +1129,11 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
   case WM_COMMAND:
   case WM_CHAR:
   case WM_NOTIFY: {
-    if (pSymbol == nullptr)
-    {
+    if (pSymbol == nullptr) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPROPGRIDEVENTS"));
     }
 
-    if (pSymbol != nullptr)
-    {
+    if (pSymbol != nullptr) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hWnd);
@@ -1252,17 +1181,13 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
   }
 
   case WM_COMMAND: {
-    if (lParam != 0 && HIWORD(wParam) == BN_CLICKED)
-    {
-      if (ppgrd)
-      {
-        if (pSymbol == nullptr)
-        {
+    if (lParam != 0 && HIWORD(wParam) == BN_CLICKED) {
+      if (ppgrd) {
+        if (pSymbol == nullptr) {
           pSymbol = hb_dynsymSymbol(hb_dynsymGet("PGBTNEVENTS"));
         }
 
-        if (pSymbol != nullptr)
-        {
+        if (pSymbol != nullptr) {
           hb_vmPushSymbol(pSymbol);
           hb_vmPushNil();
           hmg_vmPushHWND(ppgrd->hPropGrid);
@@ -1312,15 +1237,12 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
 
     case HDN_ITEMDBLCLICK: {
       LPNMHEADER nmh = (LPNMHEADER)lParam;
-      if (nmh->iItem == 0)
-      {
-        if (pSymbol == nullptr)
-        {
+      if (nmh->iItem == 0) {
+        if (pSymbol == nullptr) {
           pSymbol = hb_dynsymSymbol(hb_dynsymGet("EXPANDPG"));
         }
 
-        if (pSymbol != nullptr)
-        {
+        if (pSymbol != nullptr) {
           hb_vmPushSymbol(pSymbol);
           hb_vmPushNil();
           hmg_vmPushHWND(ppgrd->hPropGrid);
@@ -1336,8 +1258,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
     }
 
     case NM_CUSTOMDRAW: {
-      if (hWndHD == ppgrd->hPropGrid)
-      {
+      if (hWndHD == ppgrd->hPropGrid) {
         return PropGridOnCustomDraw(hWndHD, lParam);
       }
       break;
@@ -1364,8 +1285,7 @@ void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int n
   // Check if the parent has a parent itself and process it
 
   hGrand = TreeView_GetParent(hWnd, hParent);
-  if (hGrand)
-  {
+  if (hGrand) {
     SetIndentLine(hWnd, hGrand, rc, rcIndent, nIndent);
   }
 
@@ -1423,8 +1343,7 @@ HB_FUNC(ADDPGITEM)
 
   auto hPrev = hmg_par_HTREEITEM(2);
 
-  if (hPrev == 0)
-  {
+  if (hPrev == 0) {
     is.hInsertAfter = hPrev;
     is.hParent = nullptr;
   }
@@ -1447,21 +1366,17 @@ static void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData
   TreeItem.hItem = TreeItemHandle;
   TreeView_GetItem(TreeHandle, &TreeItem);
 
-  if (TreeItem.lParam)
-  {
+  if (TreeItem.lParam) {
     LPARAMDATA *pData = (LPARAMDATA *)TreeItem.lParam;
-    if (pData)
-    {
-      if (!(strcmp(pData->ItemValue, cValue) == 0))
-      {
+    if (pData) {
+      if (!(strcmp(pData->ItemValue, cValue) == 0)) {
         pData->ItemValue = hb_strndup(cValue, 1024);
         pData->ItemChanged = true;
         PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE),
                     reinterpret_cast<LPARAM>(TreeItemHandle));
       }
 
-      if (!(strcmp(pData->ItemData, cData) == 0) && lData)
-      {
+      if (!(strcmp(pData->ItemData, cData) == 0) && lData) {
         pData->ItemData = hb_strndup(cData, 1024);
       }
     }
@@ -1489,11 +1404,9 @@ HB_FUNC(PG_ENABLEITEM) //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEnable);
   TreeItem.hItem = TreeItemHandle;
   TreeView_GetItem(TreeHandle, &TreeItem);
 
-  if (TreeItem.lParam)
-  {
+  if (TreeItem.lParam) {
     LPARAMDATA *pData = (LPARAMDATA *)TreeItem.lParam;
-    if (pData)
-    {
+    if (pData) {
       pData->ItemDisabled = !hb_parl(3);
       PostMessage(TreeHandle, WM_SETREDRAW, TRUE, 0);
     }
@@ -1513,11 +1426,9 @@ HB_FUNC(PG_CHANGEITEM) //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lChange);
   TreeItem.hItem = TreeItemHandle;
   TreeView_GetItem(TreeHandle, &TreeItem);
 
-  if (TreeItem.lParam)
-  {
+  if (TreeItem.lParam) {
     LPARAMDATA *pData = (LPARAMDATA *)TreeItem.lParam;
-    if (pData)
-    {
+    if (pData) {
       pData->ItemChanged = hb_parl(3);
     }
   }
@@ -1617,13 +1528,11 @@ HTREEITEM GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem)
 
   hTreeItem = TreeView_GetChild(TreeHandle, hTreeItem);
 
-  if (hTreeItem == nullptr)
-  {
+  if (hTreeItem == nullptr) {
     hTreeItem = TreeView_GetNextSibling(TreeHandle, hTreeItemBack);
   }
 
-  if (hTreeItem == nullptr)
-  {
+  if (hTreeItem == nullptr) {
     while (hTreeItem == nullptr && hTreeItemBack != nullptr)
     {
       hTreeItemBack = TreeView_GetParent(TreeHandle, hTreeItemBack);
@@ -1671,8 +1580,7 @@ HB_FUNC(PG_ISVISIBLE)
 
   while (ItemHdl != nullptr)
   {
-    if (ItemHdl == ItemHandle)
-    {
+    if (ItemHdl == ItemHandle) {
       lVisible = true;
       break;
     }
@@ -1701,8 +1609,7 @@ HB_FUNC(PG_SEARCHID) // PG_SearchID(hWndPG, nID)
     TreeView_GetItem(TreeHandle, &TreeItem);
     pData = (LPARAMDATA *)TreeItem.lParam;
 
-    if (pData->ItemID == nID)
-    {
+    if (pData->ItemID == nID) {
       break;
     }
 
@@ -1728,8 +1635,7 @@ HB_FUNC(PG_SEARCHCATEGORY) // PG_SearchCategory(hWndPG, cCategory)
     TreeItem.hItem = TreeItemHandle;
     TreeView_GetItem(TreeHandle, &TreeItem);
     pData = (LPARAMDATA *)TreeItem.lParam;
-    if (strcmp(pData->ItemName, cName) == 0)
-    {
+    if (strcmp(pData->ItemName, cName) == 0) {
       break;
     }
 
@@ -1754,8 +1660,7 @@ void _ToggleInfo(HWND hWndPG)
 
   width = ppgrd->cxWidthPG;
 
-  if (ppgrd->lInfoShow)
-  {
+  if (ppgrd->lInfoShow) {
     ShowWindow(ppgrd->hInfoTitle, SW_HIDE);
     ShowWindow(ppgrd->hInfoText, SW_HIDE);
     ShowWindow(ppgrd->hInfoFrame, SW_HIDE);
@@ -1811,8 +1716,7 @@ HB_FUNC(INITPROPGRIDIMAGELIST)
 {
   auto cx = 0;
   auto himl = hmg_par_HIMAGELIST(2);
-  if (himl != nullptr)
-  {
+  if (himl != nullptr) {
     SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, static_cast<WPARAM>(TVSIL_NORMAL), reinterpret_cast<LPARAM>(himl));
     cx = ImageList_GetImageCount(himl);
   }
@@ -1885,8 +1789,7 @@ HB_FUNC(PGCOMBOADDSTRING)
   auto hILst = hmg_par_HIMAGELIST(3);
   auto cString = const_cast<char *>(hb_parc(2));
   auto dwIndex = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(cString)));
-  if (hb_parnl(3))
-  {
+  if (hb_parnl(3)) {
     SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, reinterpret_cast<LPARAM>(hILst));
   }
 }
@@ -1969,8 +1872,7 @@ HB_FUNC(CREATECOLORBMP) // CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
   auto imgDC = GetDC(handle);
   auto tmpDC = CreateCompatibleDC(imgDC);
 
-  if ((width == 0) & (height == 0))
-  {
+  if ((width == 0) & (height == 0)) {
     width = 20;
     height = 16;
   }
@@ -2031,20 +1933,16 @@ HB_FUNC(IL_ADDMASKEDINDIRECT) // IL_AddMaskedIndirect(hwnd , himage , color , ix
   LRESULT lResult = -1;
   auto ic = 1;
 
-  if (hb_parnl(3))
-  {
+  if (hb_parnl(3)) {
     clrBk = hmg_par_COLORREF(3);
   }
 
-  if (hb_parni(6))
-  {
+  if (hb_parni(6)) {
     ic = hb_parni(6);
   }
 
-  if (GetObject(himage, sizeof(BITMAP), &bm) != 0)
-  {
-    if ((hb_parni(4) * ic == bm.bmWidth) && (hb_parni(5) == bm.bmHeight))
-    {
+  if (GetObject(himage, sizeof(BITMAP), &bm) != 0) {
+    if ((hb_parni(4) * ic == bm.bmWidth) && (hb_parni(5) == bm.bmHeight)) {
       lResult = ImageList_AddMasked(hmg_par_HIMAGELIST(1), himage, clrBk);
     }
 
@@ -2096,12 +1994,10 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   case PG_SIZE:
   case PG_FLAG:
     Style = Style | WS_VISIBLE | ES_AUTOHSCROLL;
-    if (DisEdit)
-    {
+    if (DisEdit) {
       Style = Style | ES_READONLY;
     }
-    if (ItemType == PG_INTEGER)
-    {
+    if (ItemType == PG_INTEGER) {
       Style = Style | ES_NUMBER;
     }
     cClass = "EDIT";
@@ -2115,8 +2011,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   case PG_ARRAY:
   case PG_USERFUN:
     Style = Style | ES_AUTOHSCROLL;
-    if (DisEdit)
-    {
+    if (DisEdit) {
       Style = Style | ES_READONLY;
     }
     cClass = "EDIT";
@@ -2125,8 +2020,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
 
   case PG_PASSWORD:
     Style = Style | ES_AUTOHSCROLL | ES_PASSWORD;
-    if (DisEdit)
-    {
+    if (DisEdit) {
       Style = Style | ES_READONLY;
     }
     cClass = "EDIT";
@@ -2188,13 +2082,11 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
 
   InsertBtnPG(hEdit, hItem, nBtn, ItemType, ppgrd);
 
-  if (!pSymbol)
-  {
+  if (!pSymbol) {
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("_PGINITDATA"));
   }
 
-  if (pSymbol)
-  {
+  if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hWnd);
@@ -2244,8 +2136,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
     CallWindowProc(pbtn->oldproc, hEdit, Msg, wParam, lParam);
     SendMessage(hEdit, WM_SETREDRAW, 1, 0);
 
-    if (pbtn->nButton)
-    {
+    if (pbtn->nButton) {
       pbtn->cxLeftEdge = prect->left - oldrect.left;
       pbtn->cxRightEdge = oldrect.right - prect->right;
       pbtn->cyTopEdge = prect->top - oldrect.top;
@@ -2258,8 +2149,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   case WM_NCPAINT: {
     CallWindowProc(pbtn->oldproc, hEdit, Msg, wParam, lParam);
-    if (pbtn->nButton)
-    {
+    if (pbtn->nButton) {
       GetWindowRect(hEdit, &rect);
       OffsetRect(&rect, -rect.left, -rect.top);
 
@@ -2272,16 +2162,14 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
   }
 
   case WM_NCHITTEST:
-    if (pbtn->nButton)
-    {
+    if (pbtn->nButton) {
       pt.x = LOWORD(lParam);
       pt.y = HIWORD(lParam);
 
       GetWindowRect(hEdit, &rect);
       GetBtnPG(pbtn, &rect);
 
-      if (PtInRect(&rect, pt))
-      {
+      if (PtInRect(&rect, pt)) {
         return HTBORDER;
       }
     }
@@ -2289,8 +2177,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   case WM_NCLBUTTONDBLCLK:
   case WM_NCLBUTTONDOWN:
-    if (pbtn->nButton)
-    {
+    if (pbtn->nButton) {
       pt.x = LOWORD(lParam);
       pt.y = HIWORD(lParam);
 
@@ -2300,8 +2187,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       OffsetRect(&rect, -rect.left, -rect.top);
       GetBtnPG(pbtn, &rect);
 
-      if (PtInRect(&rect, pt))
-      {
+      if (PtInRect(&rect, pt)) {
         SetCapture(hEdit);
         pbtn->fButtonDown = TRUE;
         pbtn->fMouseDown = true;
@@ -2311,10 +2197,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_MOUSEMOVE:
-    if (pbtn->nButton)
-    {
-      if (pbtn->fMouseDown == true)
-      {
+    if (pbtn->nButton) {
+      if (pbtn->fMouseDown == true) {
         pt.x = LOWORD(lParam);
         pt.y = HIWORD(lParam);
         ClientToScreen(hEdit, &pt);
@@ -2329,8 +2213,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
         oldstate = pbtn->fButtonDown;
 
-        if (PtInRect(&rect, pt))
-        {
+        if (PtInRect(&rect, pt)) {
           pbtn->fButtonDown = 1;
         }
         else
@@ -2338,8 +2221,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
           pbtn->fButtonDown = 0;
         }
 
-        if (oldstate != pbtn->fButtonDown)
-        {
+        if (oldstate != pbtn->fButtonDown) {
           DrawInsBtnPG(hEdit, pbtn, &rect);
         }
       }
@@ -2347,8 +2229,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_KEYDOWN:
-    if (wParam == VK_DOWN)
-    {
+    if (wParam == VK_DOWN) {
       LPSTR cData[1024];
       GetWindowText(hEdit, (LPSTR)cData, 1024);
       Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR)cData, "", FALSE);
@@ -2356,8 +2237,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       SetFocus(GetParent(hEdit));
     }
 
-    if (wParam == VK_UP)
-    {
+    if (wParam == VK_UP) {
       LPSTR cData[1024];
       GetWindowText(hEdit, (LPSTR)cData, 1024);
       Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR)cData, "", FALSE);
@@ -2367,10 +2247,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_LBUTTONUP:
-    if (pbtn->nButton)
-    {
-      if (pbtn->fMouseDown == true)
-      {
+    if (pbtn->nButton) {
+      if (pbtn->fMouseDown == true) {
         pt.x = LOWORD(lParam);
         pt.y = HIWORD(lParam);
         ClientToScreen(hEdit, &pt);
@@ -2383,8 +2261,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
         GetBtnPG(pbtn, &rect);
 
-        if (PtInRect(&rect, pt))
-        {
+        if (PtInRect(&rect, pt)) {
           PostMessage(hEdit, WM_COMMAND, MAKEWPARAM(pbtn->ItemType, BN_CLICKED), reinterpret_cast<LPARAM>(hItem));
           SetFocus(hEdit);
         }
@@ -2399,8 +2276,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_CHAR:
-    if (wParam == 13)
-    {
+    if (wParam == 13) {
       LPSTR cData[1024];
       GetWindowText(hEdit, (LPSTR)cData, 1024);
       Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR)cData, "", FALSE);
@@ -2413,13 +2289,11 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
   case WM_NCCREATE:
   case WM_COMMAND:
   case WM_SETFOCUS: {
-    if (!pSymbol)
-    {
+    if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPGEDITEVENTS"));
     }
 
-    if (pSymbol)
-    {
+    if (pSymbol) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hEdit);
@@ -2433,8 +2307,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
     r = hb_parnl(-1);
 
-    if (r != 0)
-    {
+    if (r != 0) {
       return r;
     }
     else
@@ -2444,19 +2317,16 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
   }
 
   case WM_KILLFOCUS: {
-    if (pbtn->ppgrd.hItemEdit)
-    {
+    if (pbtn->ppgrd.hItemEdit) {
       PostMessage(pbtn->ppgrd.hPropEdit, WM_CLOSE, 0, 0);
       pbtn->ppgrd.hItemEdit = nullptr;
     }
 
-    if (!pSymbol)
-    {
+    if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPGEDITEVENTS"));
     }
 
-    if (pSymbol)
-    {
+    if (pSymbol) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hEdit);
@@ -2470,8 +2340,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
     r = hb_parnl(-1);
 
-    if (r != 0)
-    {
+    if (r != 0) {
       return r;
     }
     else
@@ -2495,10 +2364,9 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 #else
   HB_SYMBOL_UNUSED(lpntme);
 #endif
-  if (lpelfe && lParam)
-  {
-    if (FontType == TRUETYPE_FONTTYPE)
-    { // DEVICE_FONTTYPE | RASTER_FONTTYPE
+  if (lpelfe && lParam) {
+    if (FontType == TRUETYPE_FONTTYPE) {
+      // DEVICE_FONTTYPE | RASTER_FONTTYPE
       SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0,
                   reinterpret_cast<LPARAM>((LPSTR)lpelfe->elfFullName));
     }

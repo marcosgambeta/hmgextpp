@@ -76,28 +76,23 @@ HB_FUNC(HMG_INITMONTHCAL)
 
   DWORD style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style |= MCS_NOTODAY;
   }
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= MCS_NOTODAYCIRCLE;
   }
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     style |= MCS_WEEKNUMBERS;
   }
 
-  if (!hb_parl(12))
-  {
+  if (!hb_parl(12)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(13))
-  {
+  if (!hb_parl(13)) {
     style |= WS_TABSTOP;
   }
 
@@ -107,23 +102,19 @@ HB_FUNC(HMG_INITMONTHCAL)
   SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
   SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     bold = FW_BOLD;
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     italic = 1;
   }
 
-  if (hb_parl(16))
-  {
+  if (hb_parl(16)) {
     underline = 1;
   }
 
-  if (hb_parl(17))
-  {
+  if (hb_parl(17)) {
     strikeout = 1;
   }
 
@@ -200,13 +191,11 @@ HB_FUNC(HMG_SETPOSMONTHCAL)
 
   DWORD dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
 
-  if (dwWidth > static_cast<DWORD>(rc.right))
-  {
+  if (dwWidth > static_cast<DWORD>(rc.right)) {
     rc.right = dwWidth;
   }
 
-  if (hb_parldef(4, false))
-  {
+  if (hb_parldef(4, false)) {
     InflateRect(&rc, 6, 6);
   }
 
@@ -246,8 +235,7 @@ HB_FUNC(HMG_C_SETDAYSTATE)
   {
     for (auto j = 1; j <= 32; j++)
     {
-      if (hb_arrayGetNI(hArray, i * 32 + j) == 1)
-      {
+      if (hb_arrayGetNI(hArray, i * 32 + j) == 1) {
         BOLDDAY(rgMonths[i], j);
       }
     }
@@ -271,8 +259,7 @@ HB_FUNC(HMG_C_RETDAYSTATE)
   {
     for (auto j = 1; j <= 32; j++)
     {
-      if (hb_arrayGetNI(hArray, i * 32 + j) == 1)
-      {
+      if (hb_arrayGetNI(hArray, i * 32 + j) == 1) {
         BOLDDAY(rgMonths[i], j);
       }
     }
@@ -307,13 +294,11 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
   case WM_MOUSEACTIVATE:
   case WM_SETFOCUS:
   case WM_KILLFOCUS:
-    if (!pSymbol)
-    {
+    if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
     }
 
-    if (pSymbol)
-    {
+    if (pSymbol) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHWND(hwnd);
@@ -325,8 +310,7 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 
     long int r = hb_parnl(-1);
 
-    if (r != 0)
-    {
+    if (r != 0) {
       return r;
     }
   }

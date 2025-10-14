@@ -87,16 +87,14 @@ HB_FUNC(SOCKETCONNECT)
 {
   SOCKET m_hSocket = INVALID_SOCKET;
 
-  if (bInit && HB_ISCHAR(2) && HB_ISNUM(3))
-  {
+  if (bInit && HB_ISCHAR(2) && HB_ISNUM(3)) {
     SOCKADDR_IN sockDestinationAddr;
 
     auto lpszAsciiDestination = hb_parc(2);
     auto nPort = hb_parni(3);
 
     m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (m_hSocket != INVALID_SOCKET)
-    {
+    if (m_hSocket != INVALID_SOCKET) {
       /* Determine if the address is in dotted notation */
       ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
       sockDestinationAddr.sin_family = AF_INET;
@@ -104,8 +102,7 @@ HB_FUNC(SOCKETCONNECT)
       sockDestinationAddr.sin_addr.s_addr = inet_addr(lpszAsciiDestination);
 
       /* if the address is not dotted notation, then do a DNS lookup of it */
-      if (sockDestinationAddr.sin_addr.s_addr == INADDR_NONE)
-      {
+      if (sockDestinationAddr.sin_addr.s_addr == INADDR_NONE) {
         LPHOSTENT lphost;
         lphost = gethostbyname(lpszAsciiDestination);
         if (lphost != NULL)
@@ -133,16 +130,14 @@ HB_FUNC(SOCKETBIND)
 {
   SOCKET m_hSocket = INVALID_SOCKET;
 
-  if (bInit && HB_ISCHAR(2) && HB_ISNUM(3))
-  {
+  if (bInit && HB_ISCHAR(2) && HB_ISNUM(3)) {
     SOCKADDR_IN sockDestinationAddr;
 
     auto lpszAsciiDestination = hb_parc(2);
     auto nPort = hb_parni(3);
 
     m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (m_hSocket != INVALID_SOCKET)
-    {
+    if (m_hSocket != INVALID_SOCKET) {
       /* Determine if the address is in dotted notation */
       ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
       sockDestinationAddr.sin_family = AF_INET;
@@ -150,8 +145,7 @@ HB_FUNC(SOCKETBIND)
       sockDestinationAddr.sin_addr.s_addr = inet_addr(lpszAsciiDestination);
 
       /* if the address is not dotted notation, then do a DNS lookup of it */
-      if (sockDestinationAddr.sin_addr.s_addr == INADDR_NONE)
-      {
+      if (sockDestinationAddr.sin_addr.s_addr == INADDR_NONE) {
         LPHOSTENT lphost;
         lphost = gethostbyname(lpszAsciiDestination);
         if (lphost != NULL)
@@ -184,13 +178,10 @@ HB_FUNC(SOCKETLISTEN)
   /* Copy m_hSocket from caller method */
   strncpy((char *)&m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
-  if (bInit)
-  {
-    if (m_hSocket != INVALID_SOCKET)
-    {
+  if (bInit) {
+    if (m_hSocket != INVALID_SOCKET) {
       int nRet = listen(m_hSocket, hb_parni(2)); // Backlog 10
-      if (nRet != SOCKET_ERROR)
-      {
+      if (nRet != SOCKET_ERROR) {
         int iAddrLen = sizeof(remote_addr);
         sClient = accept(m_hSocket, (struct sockaddr *)&remote_addr, &iAddrLen);
 
@@ -220,14 +211,11 @@ HB_FUNC(SOCKETSEND)
   /* Copy m_hSocket from caller method */
   strncpy((char *)&m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
-  if (bInit && HB_ISCHAR(2))
-  {
-    if (m_hSocket != INVALID_SOCKET)
-    {
+  if (bInit && HB_ISCHAR(2)) {
+    if (m_hSocket != INVALID_SOCKET) {
       auto pszBuf = hb_parc(2);
       int nBuf = hb_parclen(2);
-      if (HB_ISNUM(3))
-      {
+      if (HB_ISNUM(3)) {
         auto sendtimeout = hb_parni(3);
         if (sendtimeout != -1)
           setsockopt(m_hSocket, SOL_SOCKET, SO_SNDTIMEO, (char *)&sendtimeout, sizeof(sendtimeout));
@@ -246,18 +234,14 @@ HB_FUNC(SOCKETRECEIVE)
 {
   SOCKET m_hSocket = INVALID_SOCKET;
 
-  if (bInit && hb_parclen(1) == sizeof(m_hSocket) && HB_ISCHAR(2) && HB_ISBYREF(2))
-  {
+  if (bInit && hb_parclen(1) == sizeof(m_hSocket) && HB_ISCHAR(2) && HB_ISBYREF(2)) {
     /* Copy m_hSocket from caller method */
     strncpy((char *)&m_hSocket, hb_parc(1), sizeof(m_hSocket));
-    if (m_hSocket != INVALID_SOCKET)
-    {
+    if (m_hSocket != INVALID_SOCKET) {
       int nLen = hb_parclen(2);
-      if (nLen > 0)
-      {
+      if (nLen > 0) {
         auto pRead = static_cast<char *>(hb_xgrab(nLen + 1));
-        if (HB_ISNUM(3))
-        {
+        if (HB_ISNUM(3)) {
           auto recvtimeout = hb_parni(3);
           if (recvtimeout != -1)
             setsockopt(m_hSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&recvtimeout, sizeof(recvtimeout));
@@ -312,11 +296,9 @@ HB_FUNC(SOCKETLOCALADDRESS)
 {
   char ac[80];
 
-  if (bInit && gethostname(ac, sizeof(ac)) != SOCKET_ERROR)
-  {
+  if (bInit && gethostname(ac, sizeof(ac)) != SOCKET_ERROR) {
     struct hostent *phe = gethostbyname(ac);
-    if (phe != 0)
-    {
+    if (phe != 0) {
       int i = 0;
       while (phe->h_addr_list[i] != 0)
         i++;
@@ -339,8 +321,7 @@ HB_FUNC(SOCKETLOCALADDRESS)
 
 HB_FUNC(SOCKETMD5)
 {
-  if (HB_ISCHAR(1))
-  {
+  if (HB_ISCHAR(1)) {
     unsigned char *string;
     MD5_CTX context;
     unsigned char digest[16];
@@ -366,8 +347,7 @@ HB_FUNC(SOCKETMD5)
 
 HB_FUNC(SOCKETENCODE64)
 {
-  if (HB_ISCHAR(1) && hb_parclen(1) > 0)
-  {
+  if (HB_ISCHAR(1) && hb_parclen(1) > 0) {
     char *string;
     int nEncodeLen;
     int nSubLen = 0;
@@ -379,8 +359,7 @@ HB_FUNC(SOCKETENCODE64)
     string = (char *)hb_parc(1);
 
     nEncodeLen = 4 * ((hb_parclen(1) + 2) / 3);
-    if (nSubLen > 0)
-    {
+    if (nSubLen > 0) {
       nAdd = hb_parclen(1) / nSubLen;
       nEncodeLen = nEncodeLen + ((nAdd + 1) * 2);
     }
@@ -401,8 +380,7 @@ HB_FUNC(SOCKETENCODE64)
 
 HB_FUNC(SOCKETDECODE64)
 {
-  if (HB_ISCHAR(1) && hb_parclen(1) > 0)
-  {
+  if (HB_ISCHAR(1) && hb_parclen(1) > 0) {
     char *string;
     int nEncodeLen;
 
@@ -423,8 +401,7 @@ HB_FUNC(SOCKETDECODE64)
 
 HB_FUNC(SOCKETHMAC_MD5)
 {
-  if (HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISCHAR(3))
-  {
+  if (HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISCHAR(3)) {
     unsigned char digasc[33];
     unsigned char digest[16];
     int i;

@@ -59,8 +59,7 @@ HB_FUNC(HMG_TEXTDRAW)
   HDC hDC;
   auto bDC = false;
 
-  if (IsWindow(hWnd))
-  {
+  if (IsWindow(hWnd)) {
     hDC = GetDC(hWnd);
     bDC = true;
   }
@@ -69,8 +68,7 @@ HB_FUNC(HMG_TEXTDRAW)
     hDC = hmg_par_HDC(1);
   }
 
-  if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC)
-  {
+  if (GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC) {
     void *str1;
     void *str2;
 
@@ -90,22 +88,19 @@ HB_FUNC(HMG_TEXTDRAW)
 
     auto hgdiobj = SelectObject(hDC, font);
 
-    if (hb_parl(15))
-    {
+    if (hb_parl(15)) {
       iBkMode = SetBkMode(hDC, TRANSPARENT);
     }
     else
     {
       iBkMode = SetBkMode(hDC, OPAQUE);
 
-      if (hmg_ArrayToColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor))
-      {
+      if (hmg_ArrayToColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor)) {
         crBkColor = SetBkColor(hDC, crBkColor);
       }
     }
 
-    if (hmg_ArrayToColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor))
-    {
+    if (hmg_ArrayToColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor)) {
       SetTextColor(hDC, crFgColor);
     }
 
@@ -116,25 +111,21 @@ HB_FUNC(HMG_TEXTDRAW)
 
     SelectObject(hDC, hgdiobj);
 
-    if (0 != iBkMode)
-    {
+    if (0 != iBkMode) {
       SetBkMode(hDC, iBkMode);
     }
 
-    if (CLR_INVALID != crBkColor)
-    {
+    if (CLR_INVALID != crBkColor) {
       SetBkColor(hDC, crBkColor);
     }
 
-    if (CLR_INVALID != crFgColor)
-    {
+    if (CLR_INVALID != crFgColor) {
       SetTextColor(hDC, crFgColor);
     }
 
     DeleteObject(font);
 
-    if (bDC)
-    {
+    if (bDC) {
       ReleaseDC(hWnd, hDC);
     }
 
@@ -176,8 +167,7 @@ HB_FUNC(HMG_RECTDRAW)
   HGDIOBJ hgdiobj2;
   LOGBRUSH br;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
@@ -209,8 +199,7 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
   HGDIOBJ hgdiobj2;
   LOGBRUSH br;
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
@@ -242,8 +231,7 @@ HB_FUNC(HMG_ELLIPSEDRAW)
   HGDIOBJ hgdiobj2;
   LOGBRUSH br;
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
@@ -290,8 +278,7 @@ HB_FUNC(HMG_PIEDRAW)
   HGDIOBJ hgdiobj2;
   LOGBRUSH br;
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(12, 1), HB_PARNI(12, 2), HB_PARNI(12, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }
@@ -324,8 +311,7 @@ HB_FUNC(HMG_POLYGONDRAW)
   HGDIOBJ hgdiobj2;
   LOGBRUSH br;
 
-  if (hb_parl(7))
-  {
+  if (hb_parl(7)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
   }

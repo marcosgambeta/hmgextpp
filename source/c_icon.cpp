@@ -101,16 +101,14 @@ HB_FUNC(HMG_EXTRACTICONEX)
 {
   void *str;
   auto nIconIndex = hb_parni(2);
-  if (nIconIndex == -1)
-  {
+  if (nIconIndex == -1) {
     hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
   }
   else
   {
     HICON hIconLarge, hIconSmall;
     UINT nIconCount = ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
-    if (nIconCount > 0)
-    {
+    if (nIconCount > 0) {
       hb_reta(2);
       hmg_storvhandle(hIconLarge, -1, 1);
       hmg_storvhandle(hIconSmall, -1, 2);
@@ -124,21 +122,18 @@ HB_FUNC(HMG_LOADICONBYNAME)
 {
   HICON hIcon = nullptr;
 
-  if (hb_parclen(1) > 0)
-  {
+  if (hb_parclen(1) > 0) {
     void *str;
     LPCTSTR pszResOrFile = HB_PARSTR(1, &str, nullptr);
     auto cxDesired = hb_parni(2);
     auto cyDesired = hb_parni(3);
     HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
     hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
-    if (hIcon == nullptr)
-    {
+    if (hIcon == nullptr) {
       hIcon = static_cast<HICON>(
           LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
     }
-    if (hIcon != nullptr)
-    {
+    if (hIcon != nullptr) {
       RegisterResource(hIcon, "ICON");
     }
     hb_strfree(str);
@@ -152,16 +147,14 @@ HB_FUNC(HMG_DRAWICONEX)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     auto hIcon = hmg_par_HICON(4);
     auto hdc = GetDC(hwnd);
     auto hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
     hb_retl(
         DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));
     DeleteObject(hbrFlickerFreeDraw);
-    if (hb_parldef(8, true))
-    {
+    if (hb_parldef(8, true)) {
       DelResource(hIcon);
       DestroyIcon(hIcon);
     }

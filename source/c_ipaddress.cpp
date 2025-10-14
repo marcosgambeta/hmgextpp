@@ -58,13 +58,11 @@ HB_FUNC(HMG_INITIPADDRESS)
 
   DWORD style = WS_CHILD;
 
-  if (!hb_parl(7))
-  {
+  if (!hb_parl(7)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(8))
-  {
+  if (!hb_parl(8)) {
     style |= WS_TABSTOP;
   }
 

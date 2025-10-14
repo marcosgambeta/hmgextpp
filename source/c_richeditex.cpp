@@ -88,35 +88,29 @@ HB_FUNC(HMG_INITRICHEDITBOXEX)
 
   int style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= ES_READONLY;
   }
 
-  if (!hb_parl(11))
-  {
+  if (!hb_parl(11)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(12))
-  {
+  if (!hb_parl(12)) {
     style |= WS_TABSTOP;
   }
 
-  if (!hb_parl(13))
-  {
+  if (!hb_parl(13)) {
     style |= WS_HSCROLL;
   }
 
   style |= !hb_parl(14) ? WS_VSCROLL : ES_AUTOVSCROLL;
 
-  if (!hRELib)
-  {
+  if (!hRELib) {
     hRELib = LoadLibrary(TEXT("RichEd20.dll"));
   }
 
-  if (hRELib)
-  {
+  if (hRELib) {
     hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, static_cast<LPCTSTR>(RICHEDIT_CLASS), TEXT(""), style, hb_parni(3),
                                  hb_parni(4), hb_parni(5), hb_parni(6), hWnd, hMenu, GetInstance(), nullptr);
 
@@ -136,8 +130,7 @@ HB_FUNC(HMG_INITRICHEDITBOXEX)
 
 HB_FUNC(HMG_UNLOADRICHEDITEXLIB)
 {
-  if (hRELib)
-  {
+  if (hRELib) {
     FreeLibrary(hRELib);
     hRELib = nullptr;
   }
@@ -147,8 +140,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 {
   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-  if (ReadFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr))
-  {
+  if (ReadFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return 0;
   }
   else
@@ -183,8 +175,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMIN)
     Format = SF_RTF;
   }
 
-  if (hmg_par_BOOL(3))
-  {
+  if (hmg_par_BOOL(3)) {
     Format |= SFF_SELECTION;
   }
 
@@ -193,8 +184,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMIN)
                           FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
   hb_strfree(str);
 
-  if (hFile == INVALID_HANDLE_VALUE)
-  {
+  if (hFile == INVALID_HANDLE_VALUE) {
     hb_retl(false);
     return;
   }
@@ -212,8 +202,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 {
   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-  if (WriteFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr))
-  {
+  if (WriteFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return 0;
   }
   else
@@ -248,8 +237,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMOUT)
     Format = SF_RTF;
   }
 
-  if (hmg_par_BOOL(3))
-  {
+  if (hmg_par_BOOL(3)) {
     Format = Format | SFF_SELECTION;
   }
 
@@ -258,8 +246,7 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMOUT)
                           FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
 
-  if (hFile == INVALID_HANDLE_VALUE)
-  {
+  if (hFile == INVALID_HANDLE_VALUE) {
     hb_retl(false);
     return;
   }
@@ -282,14 +269,11 @@ HB_FUNC(HMG_RICHEDITBOX_RTFLOADRESOURCEFILE)
 
   TCHAR *lpGlobalResource = nullptr;
 
-  if (hResourceData != nullptr)
-  {
+  if (hResourceData != nullptr) {
     HGLOBAL hGlobalResource = LoadResource(nullptr, hResourceData);
-    if (hGlobalResource != nullptr)
-    {
+    if (hGlobalResource != nullptr) {
       lpGlobalResource = reinterpret_cast<TCHAR *>(LockResource(hGlobalResource));
-      if (lpGlobalResource != nullptr)
-      {
+      if (lpGlobalResource != nullptr) {
         SETTEXTEX ST;
         ST.flags = hmg_par_BOOL(3) ? ST_SELECTION : ST_DEFAULT;
 #ifdef UNICODE
@@ -338,8 +322,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETBKGNDCOLOR)
 {
   auto hWndControl = hmg_par_HWND(1);
 
-  if (HB_ISARRAY(2))
-  {
+  if (HB_ISARRAY(2)) {
     SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
   }
   else
@@ -361,12 +344,10 @@ HB_FUNC(HMG_RICHEDITBOX_GETZOOM)
   int nNumerator, nDenominator;
   SendMessage(hmg_par_HWND(1), EM_GETZOOM, reinterpret_cast<WPARAM>(&nNumerator),
               reinterpret_cast<LPARAM>(&nDenominator));
-  if (HB_ISBYREF(2))
-  {
+  if (HB_ISBYREF(2)) {
     hb_storni(nNumerator, 2);
   }
-  if (HB_ISBYREF(3))
-  {
+  if (HB_ISBYREF(3)) {
     hb_storni(nDenominator, 3);
   }
 }
@@ -380,16 +361,14 @@ HB_FUNC(HMG_RICHEDITBOX_SETFONT)
 
   DWORD Mask = 0;
 
-  if (HB_ISCHAR(2))
-  {
+  if (HB_ISCHAR(2)) {
     Mask |= CFM_FACE;
     void *str;
     lstrcpy(CharFormat2.szFaceName, HB_PARSTR(2, &str, nullptr));
     hb_strfree(str);
   }
 
-  if (HB_ISNUM(3) && hb_parnl(3))
-  {
+  if (HB_ISNUM(3) && hb_parnl(3)) {
     Mask |= CFM_SIZE;
     CharFormat2.yHeight =
         hb_parnl(3) * 20 / 1; // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
@@ -397,82 +376,65 @@ HB_FUNC(HMG_RICHEDITBOX_SETFONT)
 
   DWORD Effects = 0;
 
-  if (HB_ISLOG(4))
-  {
+  if (HB_ISLOG(4)) {
     Mask |= CFM_BOLD;
-    if (hb_parl(4))
-    {
+    if (hb_parl(4)) {
       Effects |= CFE_BOLD;
     }
   }
 
-  if (HB_ISLOG(5))
-  {
+  if (HB_ISLOG(5)) {
     Mask |= CFM_ITALIC;
-    if (hb_parl(5))
-    {
+    if (hb_parl(5)) {
       Effects |= CFE_ITALIC;
     }
   }
 
-  if (HB_ISLOG(6))
-  {
+  if (HB_ISLOG(6)) {
     Mask |= CFM_UNDERLINE;
-    if (hb_parl(6))
-    {
+    if (hb_parl(6)) {
       Effects |= CFE_UNDERLINE;
     }
   }
 
-  if (HB_ISLOG(7))
-  {
+  if (HB_ISLOG(7)) {
     Mask |= CFM_STRIKEOUT;
-    if (hb_parl(7))
-    {
+    if (hb_parl(7)) {
       Effects |= CFE_STRIKEOUT;
     }
   }
 
-  if (HB_ISARRAY(8))
-  {
+  if (HB_ISARRAY(8)) {
     Mask |= CFM_COLOR;
     CharFormat2.crTextColor = RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3));
   }
-  else if (HB_ISNUM(8) && hb_parnl(8) == -1)
-  {
+  else if (HB_ISNUM(8) && hb_parnl(8) == -1) {
     Mask |= CFM_COLOR;
     Effects |= CFE_AUTOCOLOR; // equivalent to GetSysColor(COLOR_WINDOWTEXT)
   }
 
-  if (HB_ISARRAY(9))
-  {
+  if (HB_ISARRAY(9)) {
     Mask |= CFM_BACKCOLOR;
     CharFormat2.crBackColor = RGB(HB_PARNI(9, 1), HB_PARNI(9, 2), HB_PARNI(9, 3));
   }
-  else if (HB_ISNUM(9) && hb_parnl(9) == -1)
-  {
+  else if (HB_ISNUM(9) && hb_parnl(9) == -1) {
     Mask |= CFM_BACKCOLOR;
     Effects |= CFE_AUTOBACKCOLOR; // equivalent to GetSysColor(COLOR_WINDOW)
   }
 
-  if (HB_ISNUM(10))
-  {
+  if (HB_ISNUM(10)) {
     Mask |= CFM_SUBSCRIPT | CFM_SUPERSCRIPT; // The CFE_SUPERSCRIPT and CFE_SUBSCRIPT values are mutually exclusive
-    if (hb_parnl(10) == 1)
-    {
+    if (hb_parnl(10) == 1) {
       Effects |= CFE_SUBSCRIPT;
     }
-    if (hb_parnl(10) == 2)
-    {
+    if (hb_parnl(10) == 2) {
       Effects |= CFE_SUPERSCRIPT;
     }
   }
 
-  if (HB_ISLOG(11))
-  {
+  if (HB_ISLOG(11)) {
     Mask |= CFM_LINK;
-    if (hb_parl(11))
-    {
+    if (hb_parl(11)) {
       Effects |= CFE_LINK;
     }
   }
@@ -501,8 +463,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2));
   DWORD Effects = CharFormat2.dwEffects;
 
-  if (HB_ISBYREF(2))
-  {
+  if (HB_ISBYREF(2)) {
 #ifndef UNICODE
     hb_storc(CharFormat2.szFaceName, 2);
 #else
@@ -512,34 +473,28 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
 #endif
   }
 
-  if (HB_ISBYREF(3))
-  {
+  if (HB_ISBYREF(3)) {
     hb_stornl((CharFormat2.yHeight * 1 / 20),
               3); // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
   }
 
-  if (HB_ISBYREF(4))
-  {
+  if (HB_ISBYREF(4)) {
     hb_storl((Effects & CFE_BOLD), 4);
   }
 
-  if (HB_ISBYREF(5))
-  {
+  if (HB_ISBYREF(5)) {
     hb_storl((Effects & CFE_ITALIC), 5);
   }
 
-  if (HB_ISBYREF(6))
-  {
+  if (HB_ISBYREF(6)) {
     hb_storl((Effects & CFE_UNDERLINE), 6);
   }
 
-  if (HB_ISBYREF(7))
-  {
+  if (HB_ISBYREF(7)) {
     hb_storl((Effects & CFE_STRIKEOUT), 7);
   }
 
-  if (HB_ISBYREF(8))
-  {
+  if (HB_ISBYREF(8)) {
     auto pArray = hb_param(8, Harbour::Item::ANY);
     hb_arrayNew(pArray, 3);
     hb_arraySetNL(pArray, 1, GetRValue(CharFormat2.crTextColor));
@@ -547,8 +502,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
     hb_arraySetNL(pArray, 3, GetBValue(CharFormat2.crTextColor));
   }
 
-  if (HB_ISBYREF(9))
-  {
+  if (HB_ISBYREF(9)) {
     auto pArray = hb_param(9, Harbour::Item::ANY);
     hb_arrayNew(pArray, 3);
     hb_arraySetNL(pArray, 1, GetRValue(CharFormat2.crBackColor));
@@ -556,14 +510,11 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
     hb_arraySetNL(pArray, 3, GetBValue(CharFormat2.crBackColor));
   }
 
-  if (HB_ISBYREF(10))
-  {
-    if (Effects & CFE_SUPERSCRIPT)
-    {
+  if (HB_ISBYREF(10)) {
+    if (Effects & CFE_SUPERSCRIPT) {
       hb_stornl(2, 10);
     }
-    else if (Effects & CFE_SUBSCRIPT)
-    {
+    else if (Effects & CFE_SUBSCRIPT) {
       hb_stornl(1, 10);
     }
     else
@@ -572,8 +523,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
     }
   }
 
-  if (HB_ISBYREF(11))
-  {
+  if (HB_ISBYREF(11)) {
     hb_storl((Effects & CFE_LINK), 11);
   }
 }
@@ -677,26 +627,22 @@ HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
 
   auto Options = 0;
 
-  if (Down)
-  {
+  if (Down) {
     Options |= FR_DOWN;
   }
 
-  if (MatchCase)
-  {
+  if (MatchCase) {
     Options |= FR_MATCHCASE;
   }
 
-  if (WholeWord)
-  {
+  if (WholeWord) {
     Options |= FR_WHOLEWORD;
   }
 
   CHARRANGE CharRange;
   SendMessage(hWndControl, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 
-  if (Down)
-  {
+  if (Down) {
     CharRange.cpMin = CharRange.cpMax;
     CharRange.cpMax = -1;
   }
@@ -722,8 +668,7 @@ HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
   SendMessage(hWndControl, EM_FINDTEXTEX, Options, reinterpret_cast<LPARAM>(&FindText));
 #endif
 
-  if (SelectFindText == FALSE)
-  {
+  if (SelectFindText == FALSE) {
     FindText.chrgText.cpMin = FindText.chrgText.cpMax;
   }
 
@@ -753,8 +698,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
   PARAFORMAT2 ParaFormat2{};
   ParaFormat2.cbSize = sizeof(PARAFORMAT2);
 
-  if (Alignment > 0)
-  {
+  if (Alignment > 0) {
     Mask |= PFM_ALIGNMENT;
     switch (Alignment)
     {
@@ -777,8 +721,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
     }
   }
 
-  if (Numbering > 0)
-  {
+  if (Numbering > 0) {
     Mask |= PFM_NUMBERING;
     switch (Numbering)
     {
@@ -813,8 +756,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
     }
   }
 
-  if (NumberingStyle > 0)
-  {
+  if (NumberingStyle > 0) {
     Mask |= PFM_NUMBERINGSTYLE;
     switch (NumberingStyle)
     {
@@ -843,28 +785,24 @@ HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
     }
   }
 
-  if (HB_ISNUM(5))
-  {
+  if (HB_ISNUM(5)) {
     Mask |= PFM_NUMBERINGSTART;
     ParaFormat2.wNumberingStart = NumberingStart;
   }
 
-  if (HB_ISNUM(6))
-  {
+  if (HB_ISNUM(6)) {
     Mask |= PFM_OFFSET;
     ParaFormat2.dxOffset = static_cast<LONG>(
         static_cast<double>(Offset * 1440.0 / 25.4)); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
   }
 
-  if (LineSpacing > 0.0)
-  {
+  if (LineSpacing > 0.0) {
     Mask |= PFM_LINESPACING;
     ParaFormat2.bLineSpacingRule = 5; // Spacing from one line to the next, 20 twips = single-spaced text
     ParaFormat2.dyLineSpacing = static_cast<LONG>(static_cast<double>(LineSpacing * 20.0 / 1.0));
   }
 
-  if (HB_ISNUM(8))
-  {
+  if (HB_ISNUM(8)) {
     Mask |= PFM_STARTINDENT;
     ParaFormat2.dxStartIndent = static_cast<LONG>(static_cast<double>(
         StartIndent * 1440.0 / 25.4)); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
@@ -893,8 +831,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
 
   SendMessage(hmg_par_HWND(1), EM_GETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 
-  if (HB_ISBYREF(2))
-  {
+  if (HB_ISBYREF(2)) {
     switch (ParaFormat2.wAlignment)
     {
     case PFA_LEFT:
@@ -912,8 +849,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
     hb_stornl(Alignment, 2);
   }
 
-  if (HB_ISBYREF(3))
-  {
+  if (HB_ISBYREF(3)) {
     switch (ParaFormat2.wNumbering)
     {
     case 0:
@@ -943,8 +879,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
     hb_stornl(Numbering, 3);
   }
 
-  if (HB_ISBYREF(4))
-  {
+  if (HB_ISBYREF(4)) {
     switch (ParaFormat2.wNumberingStyle)
     {
     case PFNS_PAREN:
@@ -971,20 +906,17 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
     hb_stornl(NumberingStyle, 4);
   }
 
-  if (HB_ISBYREF(5))
-  {
+  if (HB_ISBYREF(5)) {
     NumberingStart = ParaFormat2.wNumberingStart;
     hb_stornl(NumberingStart, 5);
   }
 
-  if (HB_ISBYREF(6))
-  {
+  if (HB_ISBYREF(6)) {
     Offset = static_cast<double>(ParaFormat2.dxOffset);
     hb_stornd(static_cast<double>(Offset * 25.4 / 1440.0), 6);
   }
 
-  if (HB_ISBYREF(7))
-  {
+  if (HB_ISBYREF(7)) {
     switch (ParaFormat2.bLineSpacingRule)
     {
     case 0:
@@ -1008,8 +940,7 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
     hb_stornd(static_cast<double>(LineSpacing), 7);
   }
 
-  if (HB_ISBYREF(8))
-  {
+  if (HB_ISBYREF(8)) {
     StartIndent = static_cast<double>(ParaFormat2.dxStartIndent);
     hb_stornd(static_cast<double>(StartIndent * 25.4 / 1440.0), 8);
   }
@@ -1096,8 +1027,7 @@ HB_FUNC(HMG_RICHEDITBOX_PASTESPECIAL) // Paste a specific clipboard format in a 
 {
   auto hWndControl = hmg_par_HWND(1);
 
-  if (HB_ISCHAR(2))
-  {
+  if (HB_ISCHAR(2)) {
     CHAR *ClipboardFormat = const_cast<CHAR *>(hb_parc(2));
     SendMessage(hWndControl, EM_PASTESPECIAL, reinterpret_cast<WPARAM>(ClipboardFormat),
                 reinterpret_cast<LPARAM>(nullptr));
@@ -1156,8 +1086,7 @@ HB_FUNC(HMG_RICHEDITBOX_POSFROMCHAR)
 
   // A returned coordinate can be a negative value if the specified character is not displayed in
   // the edit control's client area
-  if (PointL.y < 0 || PointL.x < 0)
-  {
+  if (PointL.y < 0 || PointL.x < 0) {
     Point.y = -1;
     Point.x = -1;
   }
@@ -1205,8 +1134,7 @@ HB_FUNC(HMG_FINDREPLACEDLG)
   LPCTSTR ReplaceWith = HB_PARSTR(9, &str2, nullptr);
   LPCTSTR cTitle = HB_PARSTR(11, &str3, nullptr);
 
-  if (hDlgFindReplace == nullptr)
-  {
+  if (hDlgFindReplace == nullptr) {
     ZeroMemory(&FindReplace, sizeof(FindReplace));
 
     lstrcpy(cFindWhat, FindWhat);
@@ -1222,8 +1150,7 @@ HB_FUNC(HMG_FINDREPLACEDLG)
     FindReplace.lpstrReplaceWith = cReplaceWith;
     FindReplace.wReplaceWithLen = sizeof(cReplaceWith) / sizeof(TCHAR);
 
-    if (lReplace)
-    {
+    if (lReplace) {
       hDlgFindReplace = ReplaceText(&FindReplace);
     }
     else
@@ -1231,8 +1158,7 @@ HB_FUNC(HMG_FINDREPLACEDLG)
       hDlgFindReplace = FindText(&FindReplace);
     }
 
-    if (HB_ISCHAR(11))
-    {
+    if (HB_ISCHAR(11)) {
       SetWindowText(hDlgFindReplace, cTitle);
     }
 
@@ -1246,8 +1172,7 @@ HB_FUNC(HMG_FINDREPLACEDLG)
 
 HB_FUNC(HMG_FINDREPLACEDLGSETTITLE)
 {
-  if (hDlgFindReplace != nullptr)
-  {
+  if (hDlgFindReplace != nullptr) {
     void *str;
     SetWindowText(hDlgFindReplace, HB_PARSTR(1, &str, nullptr));
     hb_strfree(str);
@@ -1258,8 +1183,7 @@ HB_FUNC(HMG_FINDREPLACEDLGGETTITLE)
 {
   TCHAR cTitle[256];
 
-  if (hDlgFindReplace != nullptr)
-  {
+  if (hDlgFindReplace != nullptr) {
     GetWindowText(hDlgFindReplace, cTitle, sizeof(cTitle) / sizeof(TCHAR));
     HB_RETSTR(cTitle);
   }
@@ -1273,8 +1197,7 @@ HB_FUNC(HMG_FINDREPLACEDLGSHOW)
 {
   BOOL lShow = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-  if (hDlgFindReplace != nullptr)
-  {
+  if (hDlgFindReplace != nullptr) {
     ShowWindow(hDlgFindReplace, lShow ? SW_SHOW : SW_HIDE);
   }
 }
@@ -1293,8 +1216,7 @@ HB_FUNC(HMG_FINDREPLACEDLGRELEASE)
 {
   BOOL lDestroy = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-  if (hDlgFindReplace != nullptr && lDestroy)
-  {
+  if (hDlgFindReplace != nullptr && lDestroy) {
     DestroyWindow(hDlgFindReplace);
   }
   hDlgFindReplace = nullptr;
@@ -1306,23 +1228,19 @@ HB_FUNC(HMG_FINDREPLACEDLGGETOPTIONS)
   FINDREPLACE *FR = (FINDREPLACE *)lParam;
   LONG nRet = -1;
 
-  if (FR->Flags & FR_DIALOGTERM)
-  {
+  if (FR->Flags & FR_DIALOGTERM) {
     nRet = 0;
   }
 
-  if (FR->Flags & FR_FINDNEXT)
-  {
+  if (FR->Flags & FR_FINDNEXT) {
     nRet = 1;
   }
 
-  if (FR->Flags & FR_REPLACE)
-  {
+  if (FR->Flags & FR_REPLACE) {
     nRet = 2;
   }
 
-  if (FR->Flags & FR_REPLACEALL)
-  {
+  if (FR->Flags & FR_REPLACEALL) {
     nRet = 3;
   }
 

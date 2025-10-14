@@ -85,15 +85,13 @@ HB_FUNC(HMG__SETBTNPICTURE)
   auto himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
                                             HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-  if (himage == nullptr)
-  {
+  if (himage == nullptr) {
     himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0),
                                          HB_MAX(hb_parnidef(4, 0), 0),
                                          LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
   }
 
-  if (himage == nullptr)
-  {
+  if (himage == nullptr) {
     himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, false,
                                                     255)); // TODO: hb_parc(2) -> lpImageName
   }
@@ -129,8 +127,7 @@ HB_FUNC(HMG__SETBTNICON)
 
   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
-  if (hIcon == nullptr)
-  {
+  if (hIcon == nullptr) {
     hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
@@ -148,8 +145,7 @@ HB_FUNC(HMG__SETMIXEDBTNICON)
 
   auto hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
-  if (hIcon == nullptr)
-  {
+  if (hIcon == nullptr) {
     hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
   }
 
@@ -191,15 +187,13 @@ HB_FUNC(HMG_DRAWBUTTON)
   UINT iMouseOver = hb_parni(5);
   UINT iFlat = hb_parni(6);
 
-  if (iFocus == 1 || iMouseOver == 1)
-  {
+  if (iFocus == 1 || iMouseOver == 1) {
     InflateRect(&pps->rcItem, -1, -1);
   }
 
   DrawFrameControl(pps->hDC, &pps->rcItem, DFC_BUTTON, (!iFlat) ? iState : (iState | DFCS_FLAT));
 
-  if (iFocus == 1)
-  {
+  if (iFocus == 1) {
     auto OldPen = static_cast<HPEN>(SelectObject(pps->hDC, GetStockObject(BLACK_PEN)));
     auto OldBrush = static_cast<HBRUSH>(SelectObject(pps->hDC, GetStockObject(NULL_BRUSH)));
 
@@ -218,8 +212,7 @@ HB_FUNC(HMG_GETOWNBTNHANDLE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hmg_ret_HWND(pps->hwndItem);
   }
 }
@@ -231,8 +224,7 @@ HB_FUNC(HMG_GETOWNBTNSTATE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hb_retnl(pps->itemState);
   }
 }
@@ -244,8 +236,7 @@ HB_FUNC(HMG_GETOWNBTNDC)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hmg_ret_HDC(pps->hDC);
   }
 }
@@ -257,8 +248,7 @@ HB_FUNC(HMG_GETOWNBTNITEMID)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hb_retnl(pps->itemID);
   }
 }
@@ -270,8 +260,7 @@ HB_FUNC(HMG_GETOWNBTNITEMACTION)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hb_retnl(pps->itemAction);
   }
 }
@@ -283,8 +272,7 @@ HB_FUNC(HMG_GETOWNBTNCTLTYPE)
 {
   auto pps = reinterpret_cast<DRAWITEMSTRUCT *>(HB_PARNL(1));
 
-  if (pps)
-  {
+  if (pps) {
     hb_retni(pps->CtlType);
   }
 }
@@ -359,8 +347,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char *FileName, int Transparent, UINT uAlign)
 {
   auto hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
-  if (hBitmap == nullptr)
-  {
+  if (hBitmap == nullptr) {
     return nullptr;
   }
 
@@ -375,8 +362,7 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char *FileName, int Transp
 
   HIMAGELIST hImageList;
 
-  if (Transparent == 1)
-  {
+  if (Transparent == 1) {
     hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP,
                                      LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
   }

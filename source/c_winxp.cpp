@@ -241,8 +241,7 @@ static HINSTANCE hUxTheme;
 
 HINSTANCE InitUxTheme(void)
 {
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
@@ -251,8 +250,7 @@ HINSTANCE InitUxTheme(void)
 
 void EndUxTheme(void)
 {
-  if (hUxTheme != nullptr)
-  {
+  if (hUxTheme != nullptr) {
     FreeLibrary(hUxTheme);
     hUxTheme = nullptr;
   }
@@ -275,16 +273,13 @@ HB_FUNC(HMG_ISTHEMEACTIVE)
 {
   BOOL bRet = FALSE;
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnIsThemeActive pfn = reinterpret_cast<fnIsThemeActive>(wapi_GetProcAddress(hUxTheme, "IsThemeActive"));
-    if (pfn)
-    {
+    if (pfn) {
       bRet = static_cast<BOOL>(pfn());
     }
   }
@@ -297,16 +292,13 @@ HB_FUNC(HMG_ISAPPTHEMED)
 {
   BOOL bRet = FALSE;
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnIsAppThemed pfn = reinterpret_cast<fnIsAppThemed>(wapi_GetProcAddress(hUxTheme, "IsAppThemed"));
-    if (pfn)
-    {
+    if (pfn) {
       bRet = static_cast<BOOL>(pfn());
     }
   }
@@ -321,22 +313,18 @@ HB_FUNC(HMG_OPENTHEMEDATA)
   auto hWnd = hmg_par_HWND(1);
   void *str = nullptr;
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnOpenThemeData pfn = reinterpret_cast<fnOpenThemeData>(wapi_GetProcAddress(hUxTheme, "OpenThemeData"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet = static_cast<HTHEME>(pfn(hWnd, (LPCWSTR)HB_PARSTR(2, &str, nullptr)));
     }
   }
 
-  if (nRet != nullptr)
-  {
+  if (nRet != nullptr) {
     hmg_ret_HANDLE(nRet);
   }
 
@@ -350,22 +338,18 @@ HB_FUNC(HMG_CLOSETHEMEDATA)
 
   HTHEME hTheme = (HTHEME)HB_PARNL(1);
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnCloseThemeData pfn = reinterpret_cast<fnCloseThemeData>(wapi_GetProcAddress(hUxTheme, "CloseThemeData"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet = static_cast<HRESULT>(pfn(hTheme));
     }
   }
 
-  if (nRet != reinterpret_cast<LONG_PTR>(nullptr))
-  {
+  if (nRet != reinterpret_cast<LONG_PTR>(nullptr)) {
     HB_RETNL(static_cast<LONG_PTR>(nRet));
   }
 }
@@ -386,17 +370,14 @@ HB_FUNC(HMG_DRAWTHEMEBACKGROUND)
   hmg_ArrayToRect(hb_param(5, Harbour::Item::ARRAY), &pRect);
   hmg_ArrayToRect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnDrawThemeBackground pfn =
         reinterpret_cast<fnDrawThemeBackground>(wapi_GetProcAddress(hUxTheme, "DrawThemeBackground"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet = static_cast<HRESULT>(pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect));
     }
   }
@@ -413,22 +394,18 @@ HB_FUNC(HMG_DRAWTHEMEPARENTBACKGROUND)
   auto hDC = hmg_par_HDC(2);
   RECT pRect;
 
-  if (HB_ISARRAY(7))
-  {
+  if (HB_ISARRAY(7)) {
     hmg_ArrayToRect(hb_param(3, Harbour::Item::ARRAY), &pRect);
   }
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnDrawThemeParentBackground pfn =
         reinterpret_cast<fnDrawThemeParentBackground>(wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet = static_cast<HRESULT>(pfn(hWnd, hDC, &pRect));
     }
   }
@@ -445,16 +422,13 @@ HB_FUNC(HMG_SETWINDOWTHEME)
   void *str1 = nullptr;
   void *str2 = nullptr;
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnSetWindowTheme pfn = reinterpret_cast<fnSetWindowTheme>(wapi_GetProcAddress(hUxTheme, "SetWindowTheme"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet =
           static_cast<HRESULT>(pfn(hWnd, (LPCWSTR)HB_PARSTR(2, &str1, nullptr), (LPCWSTR)HB_PARSTR(3, &str2, nullptr)));
     }
@@ -474,17 +448,14 @@ HB_FUNC(HMG_ENABLETHEMEDIALOGTEXTURE)
   auto hWnd = hmg_par_HWND(1);
   DWORD flags = hb_parnl(2);
 
-  if (hUxTheme == nullptr)
-  {
+  if (hUxTheme == nullptr) {
     hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
   }
 
-  if (hUxTheme)
-  {
+  if (hUxTheme) {
     fnEnableThemeDialogTexture pfn =
         reinterpret_cast<fnEnableThemeDialogTexture>(wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture"));
-    if (pfn)
-    {
+    if (pfn) {
       nRet = static_cast<HRESULT>(pfn(hWnd, flags));
     }
   }
@@ -499,8 +470,7 @@ HB_FUNC(HMG_PTINRECT)
   RECT rect;
 
   if ((hmg_ArrayToPoint(hb_param(1, Harbour::Item::ANY), &point) &&
-       hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect)))
-  {
+       hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect))) {
     hb_retl(PtInRect(&rect, point) ? true : false);
   }
   else
@@ -511,8 +481,7 @@ HB_FUNC(HMG_PTINRECT)
 
 bool hmg_ArrayToRect(PHB_ITEM aRect, RECT *rc)
 {
-  if (HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4)
-  {
+  if (HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4) {
     rc->left = hb_arrayGetNI(aRect, 1);
     rc->top = hb_arrayGetNI(aRect, 2);
     rc->right = hb_arrayGetNI(aRect, 3);
@@ -525,8 +494,7 @@ bool hmg_ArrayToRect(PHB_ITEM aRect, RECT *rc)
 
 bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt)
 {
-  if (HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2)
-  {
+  if (HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2) {
     pt->x = hb_arrayGetNI(aPoint, 1);
     pt->y = hb_arrayGetNI(aPoint, 2);
     return true;
@@ -537,8 +505,7 @@ bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt)
 
 bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr)
 {
-  if (HB_IS_ARRAY(aCRef) && hb_arrayLen(aCRef) == 3)
-  {
+  if (HB_IS_ARRAY(aCRef) && hb_arrayLen(aCRef) == 3) {
     auto r = static_cast<USHORT>(HB_arrayGetNL(aCRef, 1));
     auto g = static_cast<USHORT>(HB_arrayGetNL(aCRef, 2));
     auto b = static_cast<USHORT>(HB_arrayGetNL(aCRef, 3));

@@ -58,13 +58,11 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  if (pSymbol == nullptr)
-  {
+  if (pSymbol == nullptr) {
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
   }
 
-  if (pSymbol != nullptr)
-  {
+  if (pSymbol != nullptr) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hWnd);
@@ -81,13 +79,11 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  if (pSymbol == nullptr)
-  {
+  if (pSymbol == nullptr) {
     pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
   }
 
-  if (pSymbol != nullptr)
-  {
+  if (pSymbol != nullptr) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
     hmg_vmPushHWND(hWnd);
@@ -228,8 +224,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
   int CodePage = GetACP();
   int nDstLen = MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, nullptr, 0);
 
-  if (nDstLen > 0)
-  {
+  if (nDstLen > 0) {
     auto pszDst = static_cast<LPWSTR>(hb_xgrab(nDstLen * 2));
 
     MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
@@ -251,8 +246,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
   HB_SIZE ln = hb_arrayGetCLen(dArray, 10); // caption
   lTemplateSize += ln * 2;
 
-  if (hb_arrayGetNI(dArray, 4) & DS_SETFONT)
-  {
+  if (hb_arrayGetNI(dArray, 4) & DS_SETFONT) {
     ln = hb_arrayGetCLen(dArray, 11); // fontname
     lTemplateSize += ln * 2;
     lTemplateSize += 3;
@@ -319,8 +313,7 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   auto strtemp = const_cast<char *>(hb_arrayGetCPtr(dArray, 10)); // caption
   nchar = nCopyAnsiToWideChar(pw, strtemp);
   pw += nchar;
-  if (hb_arrayGetNI(dArray, 4) & DS_SETFONT)
-  {
+  if (hb_arrayGetNI(dArray, 4) & DS_SETFONT) {
     iPointSize = static_cast<WORD>(hb_arrayGetNI(dArray, 12)); // fontsize
     *pw++ = iPointSize;
     *pw++ = static_cast<WORD>(hb_arrayGetL(dArray, 13) ? 700 : 400); // bold
@@ -377,8 +370,7 @@ HB_FUNC(HMG_CREATEDLGTEMPLATE)
   HB_SIZE lTemplateSize = GetSizeDlgTemp(dArray, cArray);
   PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
-  if (modal)
-  {
+  if (modal) {
     LRESULT lResult = DialogBoxIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
                                         reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
     LocalFree(pdlgtemplate);

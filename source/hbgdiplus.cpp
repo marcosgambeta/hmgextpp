@@ -33,73 +33,59 @@ GpStatus GdiplusInit(void)
   LPCTSTR lpFileName = TEXT("Gdiplus.dll");
   GDIPLUS_STARTUP_INPUT GdiplusStartupInput = {1, nullptr, FALSE, FALSE};
 
-  if (g_GpModule == nullptr)
-  {
+  if (g_GpModule == nullptr) {
     g_GpModule = LoadLibrary(lpFileName);
   }
 
-  if (g_GpModule == nullptr)
-  {
+  if (g_GpModule == nullptr) {
     return GdiplusNotInitialized;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdiplusStartup))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdiplusStartup)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdiplusShutdown))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdiplusShutdown)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromFile))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromFile)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromResource))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromResource)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromStream))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromStream)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipCreateHBITMAPFromBitmap))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipCreateHBITMAPFromBitmap)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipDisposeImage))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipDisposeImage)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipGetImageEncodersSize))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipGetImageEncodersSize)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipGetImageEncoders))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipGetImageEncoders)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromHBITMAP))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipCreateBitmapFromHBITMAP)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipSaveImageToFile))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipSaveImageToFile)) {
     return NotImplemented;
   }
 
-  if (_EMPTY_PTR(g_GpModule, GdipGetImageThumbnail))
-  {
+  if (_EMPTY_PTR(g_GpModule, GdipGetImageThumbnail)) {
     return NotImplemented;
   }
 
@@ -108,13 +94,11 @@ GpStatus GdiplusInit(void)
 
 HB_FUNC(HMG_GDIPLUSSHUTDOWN)
 {
-  if (fn_GdiplusShutdown != nullptr)
-  {
+  if (fn_GdiplusShutdown != nullptr) {
     fn_GdiplusShutdown(g_GpToken);
   }
 
-  if (static_cast<bool>(hb_parldef(1, true)) == true && (g_GpModule != nullptr))
-  {
+  if (static_cast<bool>(hb_parldef(1, true)) == true && (g_GpModule != nullptr)) {
     FreeLibrary(g_GpModule);
   }
 }
@@ -123,12 +107,10 @@ HB_FUNC(HMG_GDIPCREATEBITMAPFROMFILE)
 {
   GpBitmap *bitmap = nullptr;
 
-  if (fn_GdipCreateBitmapFromFile != nullptr)
-  {
+  if (fn_GdipCreateBitmapFromFile != nullptr) {
     HB_WCHAR *lpFName = (HB_WCHAR *)((hb_parclen(1) == 0) ? nullptr : hb_mbtowc(hb_parc(1)));
 
-    if (lpFName != nullptr)
-    {
+    if (lpFName != nullptr) {
       hb_retni(fn_GdipCreateBitmapFromFile(lpFName, &bitmap));
 
       hb_xfree(lpFName);
@@ -150,12 +132,10 @@ HB_FUNC(HMG_GDIPCREATEHBITMAPFROMBITMAP)
 {
   HBITMAP hbitmap = nullptr;
 
-  if (fn_GdipCreateHBITMAPFromBitmap != nullptr)
-  {
+  if (fn_GdipCreateHBITMAPFromBitmap != nullptr) {
     GpBitmap *bitmap = (GpBitmap *)hb_parptr(1);
 
-    if (bitmap != nullptr)
-    {
+    if (bitmap != nullptr) {
       ARGB argb = (ARGB)hb_parnl(3);
 
       hb_retni(fn_GdipCreateHBITMAPFromBitmap(bitmap, &hbitmap, argb));
@@ -175,8 +155,7 @@ HB_FUNC(HMG_GDIPCREATEHBITMAPFROMBITMAP)
 
 HB_FUNC(HMG_GDIPDISPOSEIMAGE)
 {
-  if (fn_GdipDisposeImage != nullptr)
-  {
+  if (fn_GdipDisposeImage != nullptr) {
     hb_retni(fn_GdipDisposeImage(reinterpret_cast<GpImage *>(hb_parptr(1))));
   }
   else

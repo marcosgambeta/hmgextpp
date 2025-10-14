@@ -86,8 +86,7 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
   LocalFree(lpMsgBuf);
   LocalFree(lpDisplayBuf);
 
-  if (bExit)
-  {
+  if (bExit) {
     ExitProcess(nError);
   }
 }

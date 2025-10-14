@@ -150,8 +150,7 @@ HB_FUNC(INVERTRECT)
 {
   RECT rc;
 
-  if (HB_ISARRAY(2))
-  {
+  if (HB_ISARRAY(2)) {
     hmg_ArrayToRect(hb_param(2, Harbour::Item::ARRAY), &rc);
     InvertRect(hmg_par_HDC(1), &rc);
   }
@@ -167,8 +166,7 @@ HB_FUNC(GETCLASSINFO)
 #endif
   WNDCLASS WndClass;
 
-  if (GetClassInfo(HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1), lpString, &WndClass))
-  {
+  if (GetClassInfo(HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1), lpString, &WndClass)) {
 #ifdef UNICODE
     hb_reta(1);
     pStr = WideToAnsi(static_cast<LPWSTR>(WndClass.lpszClassName));
@@ -224,8 +222,7 @@ HB_FUNC(GETACP)
 
 HB_FUNC(GETCURSORHAND)
 {
-  if (!hHand)
-  {
+  if (!hHand) {
     hHand = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, HandAnd, HandXor);
     RegisterResource(hHand, "CUR");
   }
@@ -235,8 +232,7 @@ HB_FUNC(GETCURSORHAND)
 
 HB_FUNC(GETCURSORDRAG)
 {
-  if (!hDrag)
-  {
+  if (!hDrag) {
     hDrag = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, DragAnd, DragXor);
     RegisterResource(hDrag, "CUR");
   }
@@ -246,8 +242,7 @@ HB_FUNC(GETCURSORDRAG)
 
 HB_FUNC(GETCURSORCATCH)
 {
-  if (!hCatch)
-  {
+  if (!hCatch) {
     hCatch = CreateCursor(GetModuleHandle(nullptr), 16, 16, 32, 32, CatchAnd, CatchXor);
     RegisterResource(hCatch, "CUR");
   }
@@ -257,8 +252,7 @@ HB_FUNC(GETCURSORCATCH)
 
 HB_FUNC(GETCURSORSTOP)
 {
-  if (!hStop)
-  {
+  if (!hStop) {
     hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
     RegisterResource(hStop, "CUR");
   }
@@ -268,8 +262,7 @@ HB_FUNC(GETCURSORSTOP)
 
 HB_FUNC(CURSORSTOP)
 {
-  if (!hStop)
-  {
+  if (!hStop) {
     hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
   }
 
@@ -280,20 +273,16 @@ HB_FUNC(DESTROYCURSOR)
 {
   auto hCur = hmg_par_HCURSOR(1);
 
-  if (hCur == hDrag)
-  {
+  if (hCur == hDrag) {
     hDrag = nullptr;
   }
-  else if (hCur == hCatch)
-  {
+  else if (hCur == hCatch) {
     hCatch = nullptr;
   }
-  else if (hCur == hStop)
-  {
+  else if (hCur == hStop) {
     hStop = nullptr;
   }
-  else if (hCur == hHand)
-  {
+  else if (hCur == hHand) {
     hHand = nullptr;
   }
 

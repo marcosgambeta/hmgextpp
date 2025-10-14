@@ -75,23 +75,19 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 {
   DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
-  if (hb_parl(10))
-  {
+  if (hb_parl(10)) {
     style |= ES_READONLY;
   }
 
-  if (!hb_parl(11))
-  {
+  if (!hb_parl(11)) {
     style |= WS_VISIBLE;
   }
 
-  if (!hb_parl(12))
-  {
+  if (!hb_parl(12)) {
     style |= WS_TABSTOP;
   }
 
-  if (!hb_parl(13))
-  {
+  if (!hb_parl(13)) {
     style |= WS_HSCROLL;
   }
 
@@ -99,10 +95,8 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 
   TCHAR *lpClassName;
 
-  if (IsWinxpSp1Min())
-  {
-    if (!hRELib)
-    {
+  if (IsWinxpSp1Min()) {
+    if (!hRELib) {
       hRELib = LoadLibrary(TEXT("Msftedit.dll"));
     }
 
@@ -111,8 +105,7 @@ HB_FUNC(HMG_INITRICHEDITBOX)
   }
   else
   {
-    if (!hRELib)
-    {
+    if (!hRELib) {
       hRELib = LoadLibrary(TEXT("RichEd20.dll"));
     }
 
@@ -122,8 +115,7 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 
   HWND hRE = nullptr;
 
-  if (hRELib)
-  {
+  if (hRELib) {
     hRE = CreateWindowEx(WS_EX_CLIENTEDGE, lpClassName, TEXT(""), style, hb_parni(3), hb_parni(4), hb_parni(5),
                          hb_parni(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
@@ -136,8 +128,7 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 
 HB_FUNC(HMG_UNLOADRICHEDITLIB)
 {
-  if (hRELib)
-  {
+  if (hRELib) {
     FreeLibrary(hRELib);
     hRELib = nullptr;
   }
@@ -147,8 +138,7 @@ DWORD CALLBACK EditStreamCallbackR(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 {
   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-  if (!ReadFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr))
-  {
+  if (!ReadFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return static_cast<DWORD>(-1);
   }
 
@@ -159,8 +149,7 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 {
   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-  if (!WriteFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr))
-  {
+  if (!WriteFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return static_cast<DWORD>(-1);
   }
 
@@ -207,8 +196,7 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
   auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
                           FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
-  if (hFile == INVALID_HANDLE_VALUE)
-  {
+  if (hFile == INVALID_HANDLE_VALUE) {
     hb_retl(false);
     return;
   }
@@ -225,8 +213,7 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
   CloseHandle(hFile);
 
-  if (es.dwError)
-  {
+  if (es.dwError) {
     hb_retl(false);
   }
   else
@@ -268,8 +255,7 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
   auto hFile = CreateFile(HB_PARSTR(2, &str, nullptr), GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS,
                           FILE_ATTRIBUTE_NORMAL, nullptr);
   hb_strfree(str);
-  if (hFile == INVALID_HANDLE_VALUE)
-  {
+  if (hFile == INVALID_HANDLE_VALUE) {
     hb_retl(false);
     return;
   }
@@ -284,8 +270,7 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 
   CloseHandle(hFile);
 
-  if (es.dwError)
-  {
+  if (es.dwError) {
     hb_retl(false);
   }
   else
@@ -298,8 +283,7 @@ HB_FUNC(HMG_GETAUTOFONTRTF) // GetAutoFont(HWND hwnd)
 {
   LRESULT lAuto = SendMessage(hmg_par_HWND(1), EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
-  if (lAuto)
-  {
+  if (lAuto) {
     hb_retl(true);
   }
   else
@@ -314,8 +298,7 @@ HB_FUNC(HMG_SETAUTOFONTRTF) // SetAutoFont(HWND hwnd, lAutoFont)
 
   LRESULT lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
-  if (hb_parl(2))
-  {
+  if (hb_parl(2)) {
     lOpt &= IMF_AUTOFONT;
   }
   else
@@ -325,8 +308,7 @@ HB_FUNC(HMG_SETAUTOFONTRTF) // SetAutoFont(HWND hwnd, lAutoFont)
 
   LRESULT lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
 
-  if (lResult)
-  {
+  if (lResult) {
     hb_retl(true);
   }
   else
@@ -338,8 +320,7 @@ HB_FUNC(HMG_SETAUTOFONTRTF) // SetAutoFont(HWND hwnd, lAutoFont)
 HB_FUNC(HMG_SETBKGNDCOLOR) // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nBlue)
 {
   auto syscol = 1;
-  if (hb_parl(2))
-  {
+  if (hb_parl(2)) {
     syscol = 0;
   }
 
@@ -364,8 +345,7 @@ HB_FUNC(HMG_GETFONTRTF)
   CHARFORMAT cF;
   cF.cbSize = sizeof(CHARFORMAT);
   cF.dwMask = CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_SIZE;
-  if (hb_parni(2) > 0)
-  {
+  if (hb_parni(2) > 0) {
     SelText = SCF_SELECTION;
   }
   else
@@ -416,59 +396,49 @@ HB_FUNC(HMG_SETFONTRTF)
   auto Mask =
       static_cast<DWORD>(SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
 
-  if (hb_parni(10) > 0)
-  {
+  if (hb_parni(10) > 0) {
     Mask = hb_parni(10);
   }
 
-  if (hb_parni(2) > 0)
-  {
+  if (hb_parni(2) > 0) {
     SelText = SCF_SELECTION | SCF_WORD;
   }
 
-  if (hb_parni(2) < 0)
-  {
+  if (hb_parni(2) < 0) {
     SelText = SCF_ALL;
   }
 
-  if (hb_parl(5))
-  {
+  if (hb_parl(5)) {
     Effects = Effects | CFE_BOLD;
   }
 
-  if (hb_parl(6))
-  {
+  if (hb_parl(6)) {
     Effects = Effects | CFE_ITALIC;
   }
 
-  if (hb_parl(8))
-  {
+  if (hb_parl(8)) {
     Effects = Effects | CFE_UNDERLINE;
   }
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     Effects = Effects | CFE_STRIKEOUT;
   }
 
   cF.dwMask = Mask;
   cF.dwEffects = Effects;
-  if (hb_parnl(4))
-  {
+  if (hb_parnl(4)) {
     cF.yHeight = hb_parnl(4) * 20;
   }
 
   cF.crTextColor = hb_parnl(7);
 
-  if (hb_parclen(3) > 0)
-  {
+  if (hb_parclen(3) > 0) {
     lstrcpy(cF.szFaceName, szFaceName);
   }
 
   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
-  if (lResult)
-  {
+  if (lResult) {
     hb_retl(true);
   }
   else
@@ -491,26 +461,21 @@ static BOOL IsWinxpSp1Min(void)
 
   osvi.dwOSVersionInfoSize = sizeof(osvi);
 
-  if (!GetVersionEx(&osvi))
-  {
+  if (!GetVersionEx(&osvi)) {
     return FALSE;
   }
 
-  if (osvi.dwMajorVersion >= 5)
-  {
-    if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0)
-    {
+  if (osvi.dwMajorVersion >= 5) {
+    if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
       return FALSE;
     }
-    else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1)
-    {
+    else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1) {
 #ifndef UNICODE
       pch = strstr(osvi.szCSDVersion, "Service Pack");
 #else
       pch = _tcsstr(osvi.szCSDVersion, TEXT("Service Pack"));
 #endif
-      if (lstrcmpi(pch, TEXT("Service Pack 1")) >= 0)
-      {
+      if (lstrcmpi(pch, TEXT("Service Pack 1")) >= 0) {
         return TRUE;
       }
       else

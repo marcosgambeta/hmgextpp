@@ -66,8 +66,7 @@ HB_FUNC(HMG_DELETEOBJECT)
 {
   HANDLE hRes = hmg_par_HANDLE(1);
 
-  if (hRes)
-  {
+  if (hRes) {
     DelResource(hRes);
     hb_retl(DeleteObject(static_cast<HGDIOBJ>(hRes)));
   }
@@ -114,27 +113,23 @@ HB_FUNC(HMG_GETTEXTWIDTH) // returns the width of a string in pixels
   void *String;
   LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
 
-  if (!hDC)
-  {
+  if (!hDC) {
     bDestroyDC = true;
     hWnd = GetActiveWindow();
     hDC = GetDC(hWnd);
   }
 
-  if (hFont)
-  {
+  if (hFont) {
     hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
   }
 
   GetTextExtentPoint32(hDC, lpString, lstrlen(lpString), &sz);
 
-  if (hFont)
-  {
+  if (hFont) {
     SelectObject(hDC, hOldFont);
   }
 
-  if (bDestroyDC)
-  {
+  if (bDestroyDC) {
     ReleaseDC(hWnd, hDC);
   }
 
@@ -225,11 +220,9 @@ HB_FUNC(HMG_MOVEBTNTEXTBOX) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWid
   BtnWidth2 = (fBtn2 ? BtnWidth : 0);
 
   SetWindowPos(hedit, nullptr, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
-  if (fBtns)
-  {
+  if (fBtns) {
     SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
-    if (fBtn2)
-    {
+    if (fBtn2) {
       SetWindowPos(hBtn2, nullptr, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2,
                    SWP_NOACTIVATE | SWP_NOZORDER);
     }

@@ -83,13 +83,11 @@ HB_FUNC(HMG_PAGERCALCSIZE) // PagerCalcSize(lParam , nWidth)
 {
   auto lpCalcSize = reinterpret_cast<LPNMPGCALCSIZE>(HB_PARNL(1));
 
-  if (lpCalcSize->dwFlag == PGF_CALCWIDTH)
-  {
+  if (lpCalcSize->dwFlag == PGF_CALCWIDTH) {
     lpCalcSize->iWidth = hmg_par_INT(2);
   }
 
-  if (lpCalcSize->dwFlag == PGF_CALCHEIGHT)
-  {
+  if (lpCalcSize->dwFlag == PGF_CALCHEIGHT) {
     lpCalcSize->iHeight = hmg_par_INT(2);
   }
 }
@@ -113,8 +111,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
 
   DWORD style = WS_CHILD | WS_VISIBLE;
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     style |= PGS_VERT;
   }
   else
@@ -122,8 +119,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
     style |= PGS_HORZ;
   }
 
-  if (hb_parl(5))
-  {
+  if (hb_parl(5)) {
     style |= PGS_AUTOSCROLL;
   }
 
@@ -138,15 +134,13 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
 
   void *str = nullptr;
 
-  if (hb_parclen(6) > 0)
-  {
+  if (hb_parclen(6) > 0) {
     rbBand.lpText = const_cast<TCHAR *>(HB_PARSTR(6, &str, nullptr));
   }
 
   rbBand.hwndChild = hPager;
 
-  if (hb_parl(4))
-  {
+  if (hb_parl(4)) {
     rbBand.cyMinChild = nWidth ? nWidth : 0;
     rbBand.cxMinChild = 0;
     rbBand.cx = nHeight;

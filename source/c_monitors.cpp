@@ -99,8 +99,7 @@ HB_FUNC(HMG_GETMONITORINFO)
   MONITORINFO mi;
   mi.cbSize = sizeof(MONITORINFO);
 
-  if (GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi))
-  {
+  if (GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi)) {
     auto pMonInfo = hb_itemArrayNew(3);
     PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
     PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
@@ -122,10 +121,8 @@ HB_FUNC(HMG_MONITORFROMPOINT)
 {
   POINT pt;
 
-  if (HB_ISARRAY(1))
-  {
-    if (!hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &pt))
-    {
+  if (HB_ISARRAY(1)) {
+    if (!hmg_ArrayToPoint(hb_param(1, Harbour::Item::ARRAY), &pt)) {
       hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
     }
     else
@@ -133,8 +130,7 @@ HB_FUNC(HMG_MONITORFROMPOINT)
       hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
     }
   }
-  else if (HB_ISNUM(1) && HB_ISNUM(2))
-  {
+  else if (HB_ISNUM(1) && HB_ISNUM(2)) {
     pt.x = hb_parnl(1);
     pt.y = hb_parnl(2);
     hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
@@ -150,8 +146,7 @@ HB_FUNC(HMG_MONITORFROMWINDOW)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     hmg_ret_HMONITOR(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
   }
   else
@@ -179,8 +174,7 @@ HB_FUNC(HMG_WINDOWTOMONITOR)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     HMONITOR hMonitor = HB_ISNUM(2) ? reinterpret_cast<HMONITOR>(HB_PARNL(2)) : nullptr;
     UINT flags = 0 | (static_cast<UINT>(hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA))));
     RECT rc;
@@ -200,8 +194,7 @@ static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
   int h = prc->bottom - prc->top;
 
   // get the nearest monitor to the passed rect.
-  if (hMonitor == nullptr)
-  {
+  if (hMonitor == nullptr) {
     hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
   }
 
@@ -213,8 +206,7 @@ static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
   RECT rc = (flags & MONITOR_WORKAREA) ? mi.rcWork : mi.rcMonitor;
 
   // center or clip the passed rect to the monitor rect
-  if (flags & MONITOR_CENTER)
-  {
+  if (flags & MONITOR_CENTER) {
     prc->left = rc.left + (rc.right - rc.left - w) / 2;
     prc->top = rc.top + (rc.bottom - rc.top - h) / 2;
     prc->right = prc->left + w;

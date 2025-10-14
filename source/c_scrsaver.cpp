@@ -71,21 +71,18 @@ HB_FUNC(HMG_VERIFYPASSWORD)
   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
   GetVersionEx(&osvi);
 
-  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
-  {
+  if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) {
     hb_retl(true);
   }
 
   hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
 
-  if (hpwdcpl == nullptr)
-  {
+  if (hpwdcpl == nullptr) {
     hb_retl(false);
   }
 
   VerifyScreenSavePwd = (VERIFYSCREENSAVEPWD)wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
-  if (VerifyScreenSavePwd == nullptr)
-  {
+  if (VerifyScreenSavePwd == nullptr) {
     FreeLibrary(hpwdcpl);
     hb_retl(false);
   }
@@ -105,15 +102,13 @@ HB_FUNC(HMG_CHANGEPASSWORD)
   HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
   PWDCHANGEPASSWORD PwdChangePassword;
 
-  if (hmpr == nullptr)
-  {
+  if (hmpr == nullptr) {
     hb_retl(false);
   }
 
   PwdChangePassword = (PWDCHANGEPASSWORD)wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
 
-  if (PwdChangePassword == nullptr)
-  {
+  if (PwdChangePassword == nullptr) {
     FreeLibrary(hmpr);
     hb_retl(false);
   }

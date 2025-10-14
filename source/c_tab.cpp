@@ -59,43 +59,35 @@ HB_FUNC(HMG_INITTABCONTROL)
 {
   DWORD style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
-  if (hb_parl(11))
-  {
+  if (hb_parl(11)) {
     style |= TCS_BUTTONS;
   }
 
-  if (hb_parl(12))
-  {
+  if (hb_parl(12)) {
     style |= TCS_FLATBUTTONS;
   }
 
-  if (hb_parl(13))
-  {
+  if (hb_parl(13)) {
     style |= TCS_HOTTRACK;
   }
 
-  if (hb_parl(14))
-  {
+  if (hb_parl(14)) {
     style |= TCS_VERTICAL;
   }
 
-  if (hb_parl(15))
-  {
+  if (hb_parl(15)) {
     style |= TCS_BOTTOM;
   }
 
-  if (hb_parl(16))
-  {
+  if (hb_parl(16)) {
     style |= TCS_MULTILINE;
   }
 
-  if (hb_parl(17))
-  {
+  if (hb_parl(17)) {
     style |= TCS_OWNERDRAWFIXED;
   }
 
-  if (!hb_parl(18))
-  {
+  if (!hb_parl(18)) {
     style |= WS_TABSTOP;
   }
 
@@ -163,8 +155,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
   HIMAGELIST himl = nullptr;
   auto nCount = static_cast<int>(hb_parinfa(2, 0));
 
-  if (nCount > 0)
-  {
+  if (nCount > 0) {
     int Transparent = hb_parl(3) ? 0 : 1;
     auto hArray = hb_param(2, Harbour::Item::ARRAY);
 
@@ -174,8 +165,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
     {
       FileName = const_cast<TCHAR *>(hb_arrayGetCPtr(hArray, i));
 
-      if (himl == nullptr)
-      {
+      if (himl == nullptr) {
         himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
       }
       else
@@ -184,8 +174,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
       }
     }
 
-    if (himl != nullptr)
-    {
+    if (himl != nullptr) {
       SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
     }
 

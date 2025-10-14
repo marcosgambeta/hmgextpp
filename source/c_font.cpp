@@ -82,8 +82,7 @@ HB_FUNC(HMG__SETFONT)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     int bold = hb_parl(4) ? FW_BOLD : FW_NORMAL;
     auto italic = static_cast<DWORD>(hb_parl(5));
     auto underline = static_cast<DWORD>(hb_parl(6));
@@ -109,10 +108,8 @@ HB_FUNC(HMG__SETFONTHANDLE)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
-    if (GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT)
-    {
+  if (IsWindow(hwnd)) {
+    if (GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT) {
       SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hmg_par_HFONT(2)), 1);
     }
     else
@@ -155,8 +152,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
   auto pArray = hb_itemArrayNew(0);
   auto bReleaseDC = false;
 
-  if (GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC)
-  {
+  if (GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC) {
     hdc = hmg_par_HDC(1);
   }
   else
@@ -167,8 +163,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
   LOGFONT lf{};
 
-  if (hb_parclen(2) > 0)
-  {
+  if (hb_parclen(2) > 0) {
     HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
   }
   else
@@ -184,18 +179,15 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
   EnumFontFamiliesEx(hdc, &lf, reinterpret_cast<FONTENUMPROC>(EnumFontFamExProc), reinterpret_cast<LPARAM>(pArray), 0);
 
-  if (bReleaseDC)
-  {
+  if (bReleaseDC) {
     ReleaseDC(nullptr, hdc);
   }
 
-  if (HB_ISBLOCK(6))
-  {
+  if (HB_ISBLOCK(6)) {
     hb_arraySort(pArray, nullptr, nullptr, hb_param(6, Harbour::Item::BLOCK));
   }
 
-  if (HB_ISBYREF(7))
-  {
+  if (HB_ISBYREF(7)) {
     auto aFontName = hb_param(7, Harbour::Item::ANY);
     auto nLen = static_cast<int>(hb_arrayLen(pArray));
 
@@ -214,8 +206,7 @@ int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, D
 {
   HB_SYMBOL_UNUSED(lpntme);
 
-  if (lpelfe->elfLogFont.lfFaceName[0] != '@')
-  {
+  if (lpelfe->elfLogFont.lfFaceName[0] != '@') {
     auto pSubArray = hb_itemArrayNew(4);
     HB_ARRAYSETSTR(pSubArray, 1, lpelfe->elfLogFont.lfFaceName);
     hb_arraySetNL(pSubArray, 2, lpelfe->elfLogFont.lfCharSet);

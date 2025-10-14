@@ -60,13 +60,11 @@ BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName)
   TCHAR lpClassName[256];
   auto iLen = 0;
 
-  if (IsWindow(hwndTip))
-  {
+  if (IsWindow(hwndTip)) {
     iLen = GetClassNameW(hwndTip, lpClassName, 256);
   }
 
-  if ((iLen > 0) && (hb_wstrncmp((TCHAR *)lpClassName, ClassName, iLen) == 0))
-  {
+  if ((iLen > 0) && (hb_wstrncmp((TCHAR *)lpClassName, ClassName, iLen) == 0)) {
     return TRUE;
   }
   else
@@ -82,13 +80,11 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char *ClassName)
   char lpClassName[256];
   auto iLen = 0;
 
-  if (IsWindow(hwndTip))
-  {
+  if (IsWindow(hwndTip)) {
     iLen = GetClassNameA(hwndTip, lpClassName, 256);
   }
 
-  if ((iLen > 0) && (strncmp(static_cast<const char *>(lpClassName), ClassName, iLen) == 0))
-  {
+  if ((iLen > 0) && (strncmp(static_cast<const char *>(lpClassName), ClassName, iLen) == 0)) {
     return TRUE;
   }
   else
@@ -107,15 +103,13 @@ HB_FUNC(HMG_GETCLASSNAME)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     char ClassName[256];
     int iLen;
 
     iLen = GetClassNameA(hwnd, ClassName, sizeof(ClassName) / sizeof(char));
 
-    if (iLen > 0)
-    {
+    if (iLen > 0) {
       hb_retclen(static_cast<const char *>(ClassName), iLen);
     }
     else
@@ -142,16 +136,13 @@ HB_FUNC(HMG_GETCLASSNAMEBYREF)
 
   hb_retni(0);
 
-  if (IsWindow(hwnd) && nLen > 1)
-  {
+  if (IsWindow(hwnd) && nLen > 1) {
     auto pBuffer = static_cast<char *>(hb_xgrab(nLen + 1));
 
-    if (pBuffer)
-    {
+    if (pBuffer) {
       int nResult = GetClassNameA(hwnd, pBuffer, static_cast<int>(nLen));
 
-      if (nResult > 0)
-      {
+      if (nResult > 0) {
         hb_retni(hb_storclen_buffer(pBuffer, (HB_SIZE)nResult, 2));
       }
       else
@@ -166,8 +157,7 @@ HB_FUNC(HMG_GETWINDOWLONG)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     HB_RETNL(GetWindowLongPtr(hwnd, hb_parni(2)));
   }
   else
@@ -180,8 +170,7 @@ HB_FUNC(HMG_SETWINDOWLONG)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     HB_RETNL(SetWindowLongPtr(hwnd, hb_parni(2), hb_parnl(3)));
   }
   else
@@ -201,8 +190,7 @@ HB_FUNC(HMG_GETWINDOWSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     HB_RETNL(GetWindowLongPtr(hwnd, GWL_STYLE));
   }
   else
@@ -220,8 +208,7 @@ HB_FUNC(HMG_SETWINDOWSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
     auto nNewStyle = static_cast<LONG_PTR>(HB_PARNL(2));
 
@@ -242,8 +229,7 @@ HB_FUNC(HMG_ISWINDOWHASSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
     hb_retl((style & static_cast<LONG_PTR>(HB_PARNL(2))) ? true : false);
@@ -258,8 +244,7 @@ HB_FUNC(HMG_ISWINDOWHASEXSTYLE)
 {
   auto hwnd = hmg_par_HWND(1);
 
-  if (IsWindow(hwnd))
-  {
+  if (IsWindow(hwnd)) {
     LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 
     hb_retl((nExStyle & static_cast<LONG_PTR>(HB_PARNL(2))) ? true : false);

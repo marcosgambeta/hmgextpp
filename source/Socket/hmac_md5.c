@@ -22,8 +22,7 @@ unsigned char *digest;                                                   /* call
   unsigned char tk[16];
   int i;
   /* if key is longer than 64 bytes reset it to key=MD5(key) */
-  if (key_len > 64)
-  {
+  if (key_len > 64) {
 
     MD5_CTX tctx;
 
