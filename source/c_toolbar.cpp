@@ -333,8 +333,7 @@ HB_FUNC(HMG_INITTOOLBUTTONEX)
     hb_strfree(str);
     tSize = WidestBtn(static_cast<LPCTSTR>(hb_parc(2)), hwndTB);
     tmax = HIWORD(tSize);
-    for (auto i = 0; i < xBtn; i++)
-    {
+    for (auto i = 0; i < xBtn; i++) {
       SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
       SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, reinterpret_cast<LPARAM>(cBuff));
       tSize = WidestBtn(cBuff, hwndTB);
@@ -490,8 +489,7 @@ HB_FUNC(HMG_GETSIZETOOLBAR)
 
   auto nBtn = static_cast<int>(SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0));
   TBBUTTON lpBtn;
-  for (auto i = 0; i < nBtn; i++)
-  {
+  for (auto i = 0; i < nBtn; i++) {
     SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
     if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4) {
       if (lpBtn.fsStyle & TBSTYLE_SEP) {
@@ -517,8 +515,7 @@ HB_FUNC(HMG_MAXTEXTBTNTOOLBAR)
   auto ty = 0;
   auto tmax = 0;
 
-  for (auto i = 0; i < nBtn; i++)
-  {
+  for (auto i = 0; i < nBtn; i++) {
     SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));
     SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, reinterpret_cast<LPARAM>(cString));
     tSize = WidestBtn(cString, hwndTB);
@@ -715,8 +712,7 @@ int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
   RECT rcDst, rcBt;
   auto nBtnV = 0;
 
-  for (auto i = 0; i < nBtn; i++)
-  {
+  for (auto i = 0; i < nBtn; i++) {
     SendMessage(tbHwnd, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&rcBt));
 
     rcBt.left += dv;
@@ -924,8 +920,7 @@ HB_FUNC(HMG_TOOLBAREXCUSTFUNC)
       nResetCount = static_cast<int>(SendMessage(lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0));
       buttonCount = nResetCount;
       lpSaveButtons = static_cast<LPTBBUTTON>(GlobalAlloc(GPTR, sizeof(TBBUTTON) * nResetCount));
-      for (auto i = 0; i < nResetCount; i++)
-      {
+      for (auto i = 0; i < nResetCount; i++) {
         SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(lpSaveButtons + i));
       }
       hb_retl(true);
@@ -945,8 +940,7 @@ HB_FUNC(HMG_TOOLBAREXCUSTFUNC)
     }
     case TBN_RESET: {
       auto nCount = static_cast<int>(SendMessage(lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0));
-      for (int i = nCount - 1; i >= 0; i--)
-      {
+      for (int i = nCount - 1; i >= 0; i--) {
         SendMessage(lpTB->hdr.hwndFrom, TB_DELETEBUTTON, i, 0);
       }
       SendMessage(lpTB->hdr.hwndFrom, TB_ADDBUTTONS, nResetCount, reinterpret_cast<LPARAM>(lpSaveButtons));

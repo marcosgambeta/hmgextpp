@@ -529,8 +529,7 @@ HB_FUNC(APRINTERS)
   HGLOBAL cBuffer;
 
   if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) {
-    for (i = 0; i < dwPrinters; i++, pInfo4++)
-    {
+    for (i = 0; i < dwPrinters; i++, pInfo4++) {
       cBuffer = GlobalAlloc(GPTR, 256);
       lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
 #ifndef UNICODE
@@ -543,8 +542,7 @@ HB_FUNC(APRINTERS)
       GlobalFree(cBuffer);
     }
   } else {
-    for (i = 0; i < dwPrinters; i++, pInfo++)
-    {
+    for (i = 0; i < dwPrinters; i++, pInfo++) {
       cBuffer = GlobalAlloc(GPTR, 256);
       lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName);
 #ifndef UNICODE

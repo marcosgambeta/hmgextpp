@@ -761,8 +761,7 @@ HB_FUNC(HMG_GPLUSGETENCODERSMIMETYPE)
 
   auto pItem = hb_itemNew(nullptr);
 
-  for (UINT i = 0; i < num; ++i)
-  {
+  for (UINT i = 0; i < num; ++i) {
     WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[i].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
     pItem = hb_itemPutC(nullptr, RecvMimeType);
     hb_arrayAdd(pResult, pItem);
@@ -815,8 +814,7 @@ static bool GetEnCodecClsid(const char *MimeType, CLSID *Clsid)
   UINT CodecIndex;
   auto bFounded = false;
 
-  for (CodecIndex = 0; CodecIndex < num; ++CodecIndex)
-  {
+  for (CodecIndex = 0; CodecIndex < num; ++CodecIndex) {
     WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[CodecIndex].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
     if (strcmp(MimeType, RecvMimeType) == 0) {
       bFounded = true;
@@ -1110,8 +1108,7 @@ static UINT WriteIconData(HANDLE hFile, HBITMAP hBitmap)
   // towards the top of the bitmap. Also, the bitmaps are stored in packed
   // in memory - scanlines are NOT 32bit aligned, just 1-after-the-other
   UINT nWritten;
-  for (int i = bmp.bmHeight - 1; i >= 0; i--)
-  {
+  for (int i = bmp.bmHeight - 1; i >= 0; i--) {
     // Write the bitmap scanline
     WriteFile(hFile,
               pIconData + (i * bmp.bmWidthBytes), // calculate offset to the line
@@ -1160,8 +1157,7 @@ BOOL SaveIconToFile(TCHAR *szIconFile, HICON hIcon[], int nNumIcons)
   //
   //        Now write the actual icon images
   //
-  for (auto i = 0; i < nNumIcons; i++)
-  {
+  for (auto i = 0; i < nNumIcons; i++) {
     ICONINFO iconInfo;
     BITMAP bmpColor;
     BITMAP bmpMask;
@@ -1186,8 +1182,7 @@ BOOL SaveIconToFile(TCHAR *szIconFile, HICON hIcon[], int nNumIcons)
   //
   SetFilePointer(hFile, sizeof(ICONHEADER), 0, FILE_BEGIN);
 
-  for (auto i = 0; i < nNumIcons; i++)
-  {
+  for (auto i = 0; i < nNumIcons; i++) {
     WriteIconDirectoryEntry(hFile, hIcon[i], pImageOffset[i]);
   }
 
@@ -1211,15 +1206,13 @@ HB_FUNC(HMG_C_SAVEHICONTOFILE)
   int nLen;
 
   if (pArray && ((nLen = static_cast<int>(hb_arrayLen(pArray))) > 0)) {
-    for (auto i = 0; i < nLen; i++)
-    {
+    for (auto i = 0; i < nLen; i++) {
       hIcon[i] = reinterpret_cast<HICON>(static_cast<LONG_PTR>(hb_arrayGetNL(pArray, i + 1)));
     }
     if (SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen))) {
       hb_retl(true);
       // clean up
-      for (auto i = 0; i < nLen; i++)
-      {
+      for (auto i = 0; i < nLen; i++) {
         DestroyIcon(hIcon[i]);
       }
     } else {

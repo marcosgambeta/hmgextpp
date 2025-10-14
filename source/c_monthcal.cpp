@@ -231,10 +231,8 @@ HB_FUNC(HMG_C_SETDAYSTATE)
   auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
   memset(rgMonths, 0, iSize);
 
-  for (auto i = 0; i < iCount; i++)
-  {
-    for (auto j = 1; j <= 32; j++)
-    {
+  for (auto i = 0; i < iCount; i++) {
+    for (auto j = 1; j <= 32; j++) {
       if (hb_arrayGetNI(hArray, i * 32 + j) == 1) {
         BOLDDAY(rgMonths[i], j);
       }
@@ -255,10 +253,8 @@ HB_FUNC(HMG_C_RETDAYSTATE)
   auto rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
   memset(rgMonths, 0, iSize);
 
-  for (auto i = 0; i < iCount; i++)
-  {
-    for (auto j = 1; j <= 32; j++)
-    {
+  for (auto i = 0; i < iCount; i++) {
+    for (auto j = 1; j <= 32; j++) {
       if (hb_arrayGetNI(hArray, i * 32 + j) == 1) {
         BOLDDAY(rgMonths[i], j);
       }

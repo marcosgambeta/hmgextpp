@@ -52,8 +52,7 @@ unsigned char *digest;                                                   /* call
   memcpy(k_opad, key, key_len);
 
   /* XOR key with ipad and opad values */
-  for (i = 0; i < 64; i++)
-  {
+  for (i = 0; i < 64; i++) {
     k_ipad[i] ^= 0x36;
     k_opad[i] ^= 0x5c;
   }

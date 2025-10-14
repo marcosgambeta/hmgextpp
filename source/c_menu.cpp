@@ -93,8 +93,7 @@ HB_FUNC(HMG_ACCELERATORTABLE2ARRAY)
       auto lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
       if (lpAccel != nullptr) {
         if (CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries)) {
-          for (auto i = 0; i < cAccelEntries; i++)
-          {
+          for (auto i = 0; i < cAccelEntries; i++) {
             auto aAccel = hb_itemArrayNew(3);
             hb_arraySetNI(aAccel, 1, lpAccel[i].fVirt);
             hb_arraySetNL(aAccel, 2, lpAccel[i].key);
@@ -121,8 +120,7 @@ HB_FUNC(HMG_ARRAY2ACCELERATORTABLE)
   if (pArray != nullptr && ((nLen = static_cast<int>(hb_arrayLen(pArray))) > 0)) {
     auto lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
     if (lpAccel != nullptr) {
-      for (auto i = 0; i < nLen; i++)
-      {
+      for (auto i = 0; i < nLen; i++) {
         if (hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY) {
           PHB_ITEM pAccel = hb_arrayGetItemPtr(pArray, i + 1);
           if (hb_arrayLen(pAccel) == 3) {
@@ -1179,8 +1177,8 @@ static BOOL _DestroyMenu(HMENU menu)
 {
   BOOL bResult = TRUE;
 
-  for (auto i = 0; i < GetMenuItemCount(menu); i++)
-  { // TODO: move declarations to outside of the loop
+  for (auto i = 0; i < GetMenuItemCount(menu); i++) {
+    // TODO: move declarations to outside of the loop
     HMENU pSubMenu;
 
     MENUITEMINFO MenuItemInfo;

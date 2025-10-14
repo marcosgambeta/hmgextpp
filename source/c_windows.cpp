@@ -185,8 +185,7 @@ static size_t AppEventScan(EVENTSHOLDER *events, UINT message)
 {
   size_t nPos = 0;
 
-  for (size_t i = 0; i < events->count; i++)
-  {
+  for (size_t i = 0; i < events->count; i++) {
     if (message == events->events[i].message) {
       nPos = (i + 1);
       break;
@@ -221,8 +220,8 @@ static bool AppEventRemove(HWND hWnd, const char *pszProp, UINT message)
           HB_ATOM_DEC(&events->used);
         }
       } else {
-        for (size_t i = 0; i < events->count; i++)
-        { // delete all not empty items with codeblocks
+        for (size_t i = 0; i < events->count; i++) {
+          // delete all not empty items with codeblocks
           if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
             hb_itemRelease(events->events[i].bAction);
           }
@@ -441,8 +440,7 @@ HB_FUNC(HMG_ENUMAPPEVENTS)
 #endif
 
     if (events != nullptr) {
-      for (size_t i = 0; i < events->count; i++)
-      {
+      for (size_t i = 0; i < events->count; i++) {
         auto aEvent = hb_itemArrayNew(3);
 
         hb_arraySetNInt(aEvent, 1, events->events[i].message);
@@ -503,8 +501,7 @@ static size_t WinEventScan(WINEVENTSHOLDER *events, UINT message)
 {
   size_t nPos = 0;
 
-  for (size_t i = 0; i < events->count; i++)
-  {
+  for (size_t i = 0; i < events->count; i++) {
     if (message == events->events[i].message) {
       nPos = (i + 1);
       break;
@@ -539,8 +536,8 @@ static bool WinEventRemove(HWND hWnd, const char *pszProp, UINT message)
           HB_ATOM_DEC(&events->used);
         }
       } else {
-        for (size_t i = 0; i < events->count; i++)
-        { // delete all not empty items with codeblocks
+        for (size_t i = 0; i < events->count; i++) {
+          // delete all not empty items with codeblocks
           if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
             hb_itemRelease(events->events[i].bAction);
           }
@@ -759,8 +756,7 @@ HB_FUNC(HMG_ENUMWINEVENTS)
 #endif
 
     if (events != nullptr) {
-      for (size_t i = 0; i < events->count; i++)
-      {
+      for (size_t i = 0; i < events->count; i++) {
         auto aEvent = hb_itemArrayNew(3);
 
         hb_arraySetNInt(aEvent, 1, events->events[i].message);

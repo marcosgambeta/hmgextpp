@@ -95,8 +95,7 @@ HB_FUNC(NOR)
   auto p = hb_pcount();
   auto ret = 0;
 
-  for (auto n = 1; n <= p; n++)
-  {
+  for (auto n = 1; n <= p; n++) {
     ret = ret | hb_parni(n);
   }
 

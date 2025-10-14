@@ -274,8 +274,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
 
   auto nPages = static_cast<int>(hb_arrayLen(sArray));
   auto hpsp = static_cast<HPROPSHEETPAGE *>(malloc(sizeof(HPROPSHEETPAGE) * nPages));
-  for (auto s = 0; s < nPages; s = s + 1)
-  {
+  for (auto s = 0; s < nPages; s = s + 1) {
     hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(static_cast<LONG_PTR>(hb_arrayGetNL(sArray, s + 1))));
   }
 

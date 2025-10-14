@@ -309,8 +309,7 @@ HB_FUNC(HMG_POLYGONDRAW)
   POINT apoints[1024];
   auto number = static_cast<int>(hb_parinfa(2, 0));
 
-  for (auto i = 0; i <= number - 1; i++)
-  {
+  for (auto i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(2, i + 1);
     apoints[i].y = HB_PARNI(3, i + 1);
   }
@@ -335,8 +334,7 @@ HB_FUNC(HMG_POLYBEZIERDRAW)
   POINT apoints[1024];
   auto number = static_cast<DWORD>(hb_parinfa(2, 0));
 
-  for (DWORD i = 0; i <= number - 1; i++)
-  {
+  for (DWORD i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(2, i + 1);
     apoints[i].y = HB_PARNI(3, i + 1);
   }

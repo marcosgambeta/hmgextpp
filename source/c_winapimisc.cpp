@@ -145,8 +145,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
   }
 
   auto Data = static_cast<char *>(hb_xgrab(1024));
-  for (;;)
-  {
+  for (;;) {
     DWORD BytesRead;
     DWORD TotalBytes;
     DWORD BytesLeft;
@@ -1576,8 +1575,7 @@ HB_FUNC(HMG_DRAGQUERYFILES)
 
   hb_reta(iFiles);
 
-  for (auto i = 0; i < iFiles; i++)
-  {
+  for (auto i = 0; i < iFiles; i++) {
     DragQueryFile(hDrop, i, (TCHAR *)bBuffer, 249);
 #ifndef UNICODE
     HB_STORC((TCHAR *)bBuffer, -1, i + 1);

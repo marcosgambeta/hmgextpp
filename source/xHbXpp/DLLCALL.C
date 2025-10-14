@@ -389,8 +389,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
   memset(DblParms, 0, sizeof(DblParms));
 
   if (iArgCnt > 0) {
-    for (i = iFirst; i <= iParams; i++)
-    {
+    for (i = iFirst; i <= iParams; i++) {
       switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
       {
       case Harbour::Item::NIL:
@@ -482,8 +481,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
   if (iArgCnt > 0) {
     iCnt = 0;
 
-    for (i = iFirst; i <= iParams; i++)
-    {
+    for (i = iFirst; i <= iParams; i++) {
       if (hb_parinfo(i) & Harbour::Item::BYREF) {
         switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
         {
@@ -752,8 +750,7 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
 
   // Push args onto the stack. Every argument is aligned on a
   // 4-byte boundary. We start at the rightmost argument.
-  for (i = 0; i < nArgs; i++)
-  {
+  for (i = 0; i < nArgs; i++) {
     nInd = (nArgs - 1) - i;
     // Start at the back of the arg ptr, aligned on a DWORD
     nSize = (Parm[nInd].nWidth + 3) / 4 * 4;

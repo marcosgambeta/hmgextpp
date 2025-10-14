@@ -66,8 +66,7 @@ HB_FUNC(HMG_CHARXOR)
     hb_retclen("", 0);
   } else {
     auto Res = static_cast<char *>(hb_xgrab(len1));
-    for (nl1 = nl2 = 0; nl1 < len1; nl1++)
-    {
+    for (nl1 = nl2 = 0; nl1 < len1; nl1++) {
       Res[nl1] = Str1[nl1] ^ Str2[nl2];
       if ((++nl2) >= len2) {
         nl2 = 0;

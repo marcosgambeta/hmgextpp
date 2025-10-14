@@ -71,8 +71,7 @@ HB_FUNC(DBINSERT)
     if (bOk && SELF_GOCOLD((AREAP)pArea) != HB_SUCCESS) {
       bOk = FALSE;
     } else {
-      for (ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++)
-      {
+      for (ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++) {
         if (bOk && SELF_APPEND((AREAP)pArea, TRUE) != HB_SUCCESS) {
           bOk = FALSE;
         }

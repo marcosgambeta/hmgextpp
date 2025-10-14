@@ -905,8 +905,7 @@ static void DegradColor(HDC hDC, RECT *rori, COLORREF cFrom, signed long cTo)
   auto hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
   FillRect(hDC, &rct, hBrush);
 
-  for (iEle = 1; iEle < iTot; iEle++)
-  {
+  for (iEle = 1; iEle < iTot; iEle++) {
     bDir = (clr2r >= clr1r ? TRUE : FALSE);
     if (bDir)
       clr1r += iRed;

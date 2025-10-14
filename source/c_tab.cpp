@@ -101,8 +101,7 @@ HB_FUNC(HMG_INITTABCONTROL)
   tie.mask = TCIF_TEXT;
   tie.iImage = -1;
 
-  for (int i = l; i >= 0; i = i - 1)
-  {
+  for (int i = l; i >= 0; i = i - 1) {
     void *str;
     tie.pszText = const_cast<TCHAR *>(HB_ARRAYGETSTR(hArray, i + 1, &str, nullptr));
     TabCtrl_InsertItem(hbutton, 0, &tie);
@@ -161,8 +160,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
 
     TCHAR *FileName;
 
-    for (auto i = 1; i <= nCount; i++)
-    {
+    for (auto i = 1; i <= nCount; i++) {
       FileName = const_cast<TCHAR *>(hb_arrayGetCPtr(hArray, i));
 
       if (himl == nullptr) {
@@ -178,8 +176,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
 
     TC_ITEM tie{};
 
-    for (auto i = 0; i < nCount; i++)
-    {
+    for (auto i = 0; i < nCount; i++) {
       tie.mask = TCIF_IMAGE;
       tie.iImage = i;
       TabCtrl_SetItem(hbutton, i, &tie);

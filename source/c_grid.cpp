@@ -246,8 +246,7 @@ HB_FUNC(HMG_ADDLISTVIEWBITMAP) // Grid+
     auto hArray = hb_param(2, Harbour::Item::ARRAY);
     HIMAGELIST himl = nullptr;
     char *FileName;
-    for (auto s = 1; s <= nCount; s++)
-    {
+    for (auto s = 1; s <= nCount; s++) {
       FileName = const_cast<char *>(hb_arrayGetCPtr(hArray, s));
       if (himl == nullptr) {
         himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, nullptr);
@@ -274,8 +273,7 @@ HB_FUNC(HMG_ADDLISTVIEWBITMAPHEADER) // Grid+
     if (nCount > 0) {
       auto hArray = hb_param(2, Harbour::Item::ARRAY);
       char *FileName;
-      for (auto s = 1; s <= nCount; s++)
-      {
+      for (auto s = 1; s <= nCount; s++) {
         FileName = const_cast<char *>(hb_arrayGetCPtr(hArray, s));
         if (himl == nullptr) {
           himl = HMG_ImageListLoadFirst(FileName, nCount, 1, nullptr, nullptr);
@@ -327,8 +325,7 @@ HB_FUNC(HMG_INITLISTVIEWCOLUMNS)
   auto iColumn = 0;
   auto hc = hmg_par_HWND(1);
 
-  for (s = 0; s <= iLen; s++)
-  {
+  for (s = 0; s <= iLen; s++) {
     COL.fmt = hb_arrayGetNI(jArray, s + 1);
     COL.cx = hb_arrayGetNI(wArray, s + 1);
 #ifndef UNICODE
@@ -388,8 +385,7 @@ HB_FUNC(HMG_ADDLISTVIEWITEMS)
   LI.pszText = lpText;
   ListView_InsertItem(h, &LI);
 
-  for (auto s = 1; s <= l; s = s + 1)
-  {
+  for (auto s = 1; s <= l; s = s + 1) {
     caption = const_cast<char *>(hb_arrayGetCPtr(hArray, s + 1));
 #ifndef UNICODE
     lpText = caption;
@@ -455,8 +451,7 @@ HB_FUNC(HMG_LISTVIEWSETMULTISEL)
 
   auto wArray = hb_param(2, Harbour::Item::ARRAY);
   auto l = static_cast<int>(hb_parinfa(2, 0)) - 1;
-  for (i = 0; i <= l; i++)
-  {
+  for (i = 0; i <= l; i++) {
     ListView_SetItemState(hwnd, hb_arrayGetNI(wArray, i + 1) - 1, LVIS_FOCUSED | LVIS_SELECTED,
                           LVIS_FOCUSED | LVIS_SELECTED);
   }
@@ -476,8 +471,7 @@ HB_FUNC(HMG_LISTVIEWSETITEM)
   auto h = hmg_par_HWND(1);
   int c = hb_parni(3) - 1;
 
-  for (auto s = 0; s <= l; s = s + 1)
-  {
+  for (auto s = 0; s <= l; s = s + 1) {
     caption = const_cast<char *>(hb_arrayGetCPtr(hArray, s + 1));
 #ifndef UNICODE
     lpText = caption;
@@ -532,8 +526,7 @@ HB_FUNC(HMG_LISTVIEWGETITEM)
   int c = hb_parni(2) - 1;
   TCHAR *pszRet;
 
-  for (auto s = 0; s <= l - 1; s++)
-  {
+  for (auto s = 0; s <= l - 1; s++) {
     pszRet = GetLVItemText(h, c, s);
 #ifndef UNICODE
     HB_STORC(pszRet, -1, s + 1);
@@ -904,8 +897,7 @@ HB_FUNC(HMG_LISTVIEW_GETCOLUMNORDERARRAY)
 
     ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, static_cast<int *>(iArray));
 
-    for (auto i = 0; i < iCols; i++)
-    {
+    for (auto i = 0; i < iCols; i++) {
       hb_arraySetNI(pArray, static_cast<HB_SIZE>(i) + 1, iArray[i] + 1);
     }
 
@@ -928,8 +920,7 @@ HB_FUNC(HMG_LISTVIEW_SETCOLUMNORDERARRAY)
     if (iColumn) {
       auto iArray = static_cast<int *>(hb_xgrab(iColumn * sizeof(int)));
 
-      for (auto i = 0; i < iColumn; i++)
-      {
+      for (auto i = 0; i < iColumn; i++) {
         iArray[i] = HB_PARNI(3, i + 1) - 1;
       }
 

@@ -191,8 +191,7 @@ static int callback(void *Cargo, int argc, char **argv, char **azColName)
     int i;
     const char *cFunc = hb_dynsymName(pCallback);
 
-    for (i = 0; i < argc; i++)
-    {
+    for (i = 0; i < argc; i++) {
       hb_arraySetC(pArrayValue, i + 1, static_cast<const char *>(argv[i] ? argv[i] : "NULL"));
       hb_arraySetC(pArrayColName, i + 1, static_cast<const char *>(azColName[i]));
     }
@@ -1066,12 +1065,12 @@ HB_FUNC(SQLITE3_GET_TABLE)
       int i, j;
       auto k = 0;
 
-      for (i = 0; i < iRow + 1; i++)
-      {
+      for (i = 0; i < iRow + 1; i++) {
         auto pArray = hb_itemArrayNew(iCol);
 
-        for (j = 1; j <= iCol; j++, k++)
+        for (j = 1; j <= iCol; j++, k++) {
           hb_arraySetStrUTF8(pArray, j, static_cast<const char *>(pResult[k]));
+        }  
 
         hb_arrayAddForward(pResultList, pArray);
         hb_itemRelease(pArray);

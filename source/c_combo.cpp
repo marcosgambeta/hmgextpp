@@ -95,8 +95,7 @@ HB_FUNC(HMG_INITCOMBOBOXEX)
     int Transparent = hb_parl(7) ? 0 : 1;
     hArray = hb_param(14, Harbour::Item::ARRAY);
 
-    for (auto s = 1; s <= nCount; s++)
-    {
+    for (auto s = 1; s <= nCount; s++) {
       const char *FileName = hb_arrayGetCPtr(hArray, s);
 
       if (himl == nullptr) {

@@ -183,8 +183,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
     hb_arrayNew(aFontName, nLen);
 
-    for (auto i = 1; i <= nLen; i++)
-    {
+    for (auto i = 1; i <= nLen; i++) {
       hb_arraySetC(aFontName, i, hb_arrayGetC(hb_arrayGetItemPtr(pArray, i), 1));
     }
   }

@@ -153,8 +153,7 @@ HB_FUNC(HMG_ADDDIALOGPAGES)
   tie.mask = TCIF_TEXT;
   tie.iImage = -1;
 
-  for (int i = l; i >= 0; i = i - 1)
-  {
+  for (int i = l; i >= 0; i = i - 1) {
     tie.pszText = const_cast<TCHAR *>(hb_arrayGetCPtr(hArray, i + 1));
     TabCtrl_InsertItem(hwnd, 0, &tie);
   }
@@ -229,8 +228,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
 
     MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
 
-    for (auto i = 0; i < nDstLen; i++)
-    {
+    for (auto i = 0; i < nDstLen; i++) {
       *(lpWCStr + i) = *(pszDst + i);
     }
 
@@ -255,8 +253,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
   PHB_ITEM iArray;
   auto nItem = static_cast<int>(hb_arrayLen(cArray));
 
-  for (auto s = 0; s < nItem; s++)
-  {
+  for (auto s = 0; s < nItem; s++) {
     iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
     lTemplateSize += 36;
     ln = hb_arrayGetCLen(iArray, 3); // class
@@ -323,8 +320,7 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
     pw += nchar;
   }
 
-  for (auto s = 0; s < nItem; s = s + 1)
-  {
+  for (auto s = 0; s < nItem; s = s + 1) {
     iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
     pw = lpwAlign(pw);
 

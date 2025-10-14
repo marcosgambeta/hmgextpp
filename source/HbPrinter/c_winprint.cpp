@@ -276,8 +276,7 @@ HB_FUNC(RR_GETDEVICECAPS)
   s_devcaps[15] = s_pi2->pDevMode->dmOrientation;
   s_devcaps[16] = tm.tmAscent;
   s_devcaps[17] = s_pi2->pDevMode->dmPaperSize;
-  for (UINT i = 1; i <= hb_parinfa(1, 0); i++)
-  {
+  for (UINT i = 1; i <= hb_parinfa(1, 0); i++) {
     HB_STORNI(s_devcaps[i], 1, i);
   }
 
@@ -467,8 +466,7 @@ HB_FUNC(RR_GETPRINTERS)
     pInfo5 = (PRINTER_INFO_5 *)pBuffer;
   }
 
-  for (DWORD i = 0; i < dwPrinters; i++)
-  {
+  for (DWORD i = 0; i < dwPrinters; i++) {
     if (s_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) {
 #ifdef UNICODE
       lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo4->pPrinterName);
@@ -593,8 +591,7 @@ HB_FUNC(RR_DEVICECAPABILITIES)
     DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_PAPERSIZE, sBuffer, s_pi2->pDevMode);
 #endif
     cBuffer[0] = 0;
-    for (DWORD i = 0; i < numpapers; i++)
-    {
+    for (DWORD i = 0; i < numpapers; i++) {
       lstrcat(cBuffer, pBuffer);
       lstrcat(cBuffer, TEXT(","));
       lstrcat(cBuffer, _itot(*nBuffer, buffer, 10));
@@ -651,8 +648,7 @@ HB_FUNC(RR_DEVICECAPABILITIES)
     DeviceCapabilities(s_pi2->pPrinterName, s_pi2->pPortName, DC_BINS, bwBuffer, s_pi2->pDevMode);
 #endif
     bcBuffer[0] = 0;
-    for (DWORD i = 0; i < numbins; i++)
-    {
+    for (DWORD i = 0; i < numbins; i++) {
       lstrcat(bcBuffer, bnBuffer);
       lstrcat(bcBuffer, TEXT(","));
       lstrcat(bcBuffer, _itot(*bwBuffer, buffer, 10));
@@ -718,16 +714,14 @@ HB_FUNC(RR_SETBKMODE)
 
 HB_FUNC(RR_DELETEOBJECTS)
 {
-  for (UINT i = 2; i <= hb_parinfa(1, 0); i++)
-  {
+  for (UINT i = 2; i <= hb_parinfa(1, 0); i++) {
     DeleteObject(reinterpret_cast<HGDIOBJ>(HB_PARVNL(1, i)));
   }
 }
 
 HB_FUNC(RR_DELETEIMAGELISTS)
 {
-  for (UINT i = 1; i <= hb_parinfa(1, 0); i++)
-  {
+  for (UINT i = 1; i <= hb_parinfa(1, 0); i++) {
     ImageList_Destroy((HIMAGELIST)HB_PARNL3(1, i, 1));
   }
 }
@@ -1157,8 +1151,7 @@ HB_FUNC(RR_CREATEPOLYGONRGN)
   auto number = static_cast<int>(hb_parinfa(1, 0));
   POINT apoints[1024];
 
-  for (auto i = 0; i <= number - 1; i++)
-  {
+  for (auto i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
     apoints[i].y = HB_PARNI(2, i + 1);
   }
@@ -1592,8 +1585,7 @@ HB_FUNC(RR_POLYGON)
   LONG_PTR xpen = HB_PARNL(3);
   LONG_PTR xbrush = HB_PARNL(4);
 
-  for (auto i = 0; i <= number - 1; i++)
-  {
+  for (auto i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
     apoints[i].y = HB_PARNI(2, i + 1);
   }
@@ -1627,8 +1619,7 @@ HB_FUNC(RR_POLYBEZIER)
   POINT apoints[1024];
   LONG_PTR xpen = HB_PARNL(3);
 
-  for (DWORD i = 0; i <= number - 1; i++)
-  {
+  for (DWORD i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
     apoints[i].y = HB_PARNI(2, i + 1);
   }
@@ -1650,8 +1641,7 @@ HB_FUNC(RR_POLYBEZIERTO)
   POINT apoints[1024];
   LONG_PTR xpen = HB_PARNL(3);
 
-  for (DWORD i = 0; i <= number - 1; i++)
-  {
+  for (DWORD i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
     apoints[i].y = HB_PARNI(2, i + 1);
   }

@@ -269,8 +269,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
         buttons = (TASKDIALOG_BUTTON *)hb_xgrabz(sizeof(TASKDIALOG_BUTTON) * arrsize);
         hButton = (void **)hb_xgrab(sizeof(void *) * (arrsize));
 
-        for (HB_SIZE i = 0; i < arrsize; ++i)
-        {
+        for (HB_SIZE i = 0; i < arrsize; ++i) {
           PHB_ITEM button = hb_arrayGetItemPtr(pButtons, i + 1);
 
           buttons[i].nButtonID = hb_arrayGetNI(button, 1);
@@ -304,8 +303,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
         radiobuttons = (TASKDIALOG_BUTTON *)hb_xgrabz(sizeof(TASKDIALOG_BUTTON) * arrsize);
         hRadioButton = (void **)hb_xgrab(sizeof(void *) * (arrsize));
 
-        for (HB_SIZE i = 0; i < arrsize; ++i)
-        {
+        for (HB_SIZE i = 0; i < arrsize; ++i) {
           PHB_ITEM button = hb_arrayGetItemPtr(pButtons, i + 1);
 
           radiobuttons[i].nButtonID = hb_arrayGetNI(button, 1);
@@ -477,8 +475,7 @@ static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
 {
   PHB_ITEM button;
 
-  for (HB_SIZE i = 1; i <= arraysize; ++i)
-  {
+  for (HB_SIZE i = 1; i <= arraysize; ++i) {
     button = hb_arrayGetItemPtr(arrayOfButtons, i);
     if (HB_IS_ARRAY(button) && hb_arrayLen(button) > 1) {
       if (!(((hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC) != 0) &&
@@ -597,8 +594,7 @@ static const char *TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
                                             {TDN_EXPANDO_BUTTON_CLICKED, "ONEXPANDOBUTTONCLICKED"}};
   const char *sMsgName = nullptr;
 
-  for (UINT uiPos = 0; uiPos < static_cast<UINT>(HB_SIZEOFARRAY(s_NOTIFY_MSG)); ++uiPos)
-  {
+  for (UINT uiPos = 0; uiPos < static_cast<UINT>(HB_SIZEOFARRAY(s_NOTIFY_MSG)); ++uiPos) {
     if (s_NOTIFY_MSG[uiPos].Notification == uiNotification) {
       sMsgName = s_NOTIFY_MSG[uiPos].MsgName;
       break;

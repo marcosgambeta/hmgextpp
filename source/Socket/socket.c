@@ -291,8 +291,7 @@ HB_FUNC(SOCKETLOCALADDRESS)
 
       hb_reta(i);
 
-      for (i = 0; phe->h_addr_list[i] != 0; ++i)
-      {
+      for (i = 0; phe->h_addr_list[i] != 0; ++i) {
         struct in_addr addr;
         memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
         HB_STORC(inet_ntoa(addr), -1, i + 1);
@@ -319,8 +318,9 @@ HB_FUNC(SOCKETMD5)
     MD5Final(digest, &context);
 
     auto pRet = static_cast<char *>(hb_xgrab(sizeof digest * 2 + 1));
-    for (j = 0; j < sizeof digest; j++)
+    for (j = 0; j < sizeof digest; j++) {
       sprintf(pRet + (j * 2), "%02x", digest[j]);
+    }  
 
     hb_retclen(pRet, sizeof digest * 2);
     hb_xfree(pRet);
@@ -397,8 +397,7 @@ HB_FUNC(SOCKETHMAC_MD5)
              (unsigned char *)digest);
 
     digasc[32] = 0;
-    for (i = 0; i < 16; i++)
-    {
+    for (i = 0; i < 16; i++) {
       digasc[2 * i] = hextab[digest[i] >> 4];
       digasc[2 * i + 1] = hextab[digest[i] & 0xf];
     }

@@ -130,8 +130,7 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
   PHB_ITEM atemp, temp;
   int i;
 
-  for (i = 0; i < static_cast<int>(pFormSubmit->uFieldCount); i++)
-  {
+  for (i = 0; i < static_cast<int>(pFormSubmit->uFieldCount); i++) {
     atemp = hb_itemArrayNew(2);
     temp = hb_itemPutC(NULL, static_cast<char *>((pFormSubmit->parrFields + i)->pcszName));
     hb_itemArrayPut(atemp, 1, temp);

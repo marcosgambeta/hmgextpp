@@ -355,8 +355,7 @@ HB_FUNC(HMG_C_HASALPHA) // hBitmap --> lYesNo
     unsigned char *uc =
         reinterpret_cast<LPBYTE>(lpbmi) + static_cast<WORD>(lpbmi->bmiHeader.biSize) + PaletteSize(lpbmi);
 
-    for (unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && !bAlphaChannel; ul += 4)
-    {
+    for (unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && !bAlphaChannel; ul += 4) {
       if (uc[ul + 3] != 0) {
         bAlphaChannel = true;
       }

@@ -615,8 +615,7 @@ static BOOL bt_GetEncoderCLSID(WCHAR *format, CLSID *pClsid)
 
   GdipGetImageEncoders(num, size, pImageCodecInfo);
 
-  for (UINT i = 0; i < num; ++i)
-  {
+  for (UINT i = 0; i < num; ++i) {
     if (wcscmp(pImageCodecInfo[i].MimeType, format) == 0) {
       *pClsid = pImageCodecInfo[i].Clsid;
       free(pImageCodecInfo);
@@ -782,8 +781,7 @@ HB_FUNC(BT_DC_CREATE)
   HB_STORVNL(BT.PaintStruct.rcPaint.bottom, -1, 9); // RECT rcPaint.bottom;
   HB_STORVNI(BT.PaintStruct.fRestore, -1, 10);      // BOOL fRestore;
   HB_STORVNI(BT.PaintStruct.fIncUpdate, -1, 11);    // BOOL fIncUpdate;
-  for (auto i = 0; i < 32; i++)
-  {
+  for (auto i = 0; i < 32; i++) {
     HB_STORVNI(BT.PaintStruct.rgbReserved[i], -1, 12 + i); // BYTE rgbReserved[32];
   }
 
@@ -813,8 +811,7 @@ HB_FUNC(BT_DC_DELETE)
   BT.PaintStruct.rcPaint.bottom = static_cast<LONG>(HB_PARVNL(1, 9)); // RECT rcPaint.bottom;
   BT.PaintStruct.fRestore = static_cast<BOOL>(hb_parvni(1, 10));      // BOOL fRestore;
   BT.PaintStruct.fIncUpdate = static_cast<BOOL>(hb_parvni(1, 11));    // BOOL fIncUpdate;
-  for (auto i = 0; i < 32; i++)
-  {
+  for (auto i = 0; i < 32; i++) {
     BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i)); // BYTE rgbReserved[32];
   }
 
@@ -1012,8 +1009,7 @@ HB_FUNC(BT_DRAW_HDC_POLY)
 #ifdef __MINGW_H
     POINT aPoint[nLen];
 #endif
-    for (auto i = 0; i < nLen; i++)
-    {
+    for (auto i = 0; i < nLen; i++) {
       aPoint[i].x = hb_parvni(2, i + 1);
       aPoint[i].y = hb_parvni(3, i + 1);
     }
@@ -2240,18 +2236,16 @@ static HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHe
   double d;
   double Color;
 
-  for (auto Row = 0; Row < Image2.Height; Row++)
-  {
-    for (auto Col = 0; Col < Image2.Width; Col++)
-    {
+  for (auto Row = 0; Row < Image2.Height; Row++) {
+    for (auto Col = 0; Col < Image2.Width; Col++) {
       x = static_cast<int>(x_ratio * Col);
       y = static_cast<int>(y_ratio * Row);
 
       x_diff = static_cast<double>((x_ratio * Col) - x);
       y_diff = static_cast<double>((y_ratio * Row) - y);
 
-      for (auto Channel = 0; Channel < 3; Channel++)
-      { // color channel C = R,G,B
+      for (auto Channel = 0; Channel < 3; Channel++) {
+        // color channel C = R,G,B
         a = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 0), Channel));
         b = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 1), (y + 0), Channel));
         c = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 1), Channel));
@@ -2614,8 +2608,7 @@ HB_FUNC(BT_BMP_PROCESS)
     RedGamma = static_cast<DOUBLE>(hb_parvnd(3, 1));
     GreenGamma = static_cast<DOUBLE>(hb_parvnd(3, 2));
     BlueGamma = static_cast<DOUBLE>(hb_parvnd(3, 3));
-    for (auto i = 0; i < 256; i++)
-    {
+    for (auto i = 0; i < 256; i++) {
       RedGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, RedGamma));
       GreenGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, GreenGamma));
       BlueGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, BlueGamma));
@@ -2657,12 +2650,10 @@ HB_FUNC(BT_BMP_PROCESS)
   auto memDC = CreateCompatibleDC(nullptr);
   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
 
-  for (auto y = 0; y < bm.bmHeight; y++)
-  {
+  for (auto y = 0; y < bm.bmHeight; y++) {
     RGBcolor = (bt_RGBCOLORBYTE *)(lp_Bits + static_cast<LONG>(y) * bm.bmWidthBytes);
 
-    for (auto x = 0; x < bm.bmWidth; x++)
-    {
+    for (auto x = 0; x < bm.bmWidth; x++) {
       switch (Action)
       {
       case BT_BMP_PROCESS_INVERT:
@@ -2822,8 +2813,7 @@ HB_FUNC(BT_BMP_FILTER3X3)
     hb_retl(false);
     return;
   }
-  for (auto i = 0; i < nMATFILTER; i++)
-  {
+  for (auto i = 0; i < nMATFILTER; i++) {
     MatKernel3x3Filter[i] = hb_parvni(2, i + 1);
   }
 
@@ -2866,13 +2856,11 @@ HB_FUNC(BT_BMP_FILTER3X3)
 
   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits_O), &BI, DIB_RGB_COLORS);
 
-  for (auto y = 0; y < bm.bmHeight; y++)
-  {
+  for (auto y = 0; y < bm.bmHeight; y++) {
     //     RGBcolor_O = (bt_RGBCOLORBYTE *) (lp_Bits_O + (LONG) (y) * bm.bmWidthBytes);
     RGBcolor_D = (bt_RGBCOLORBYTE *)(lp_Bits_D + static_cast<LONG>(y) * bm.bmWidthBytes);
 
-    for (auto x = 0; x < bm.bmWidth; x++)
-    {
+    for (auto x = 0; x < bm.bmWidth; x++) {
       if ((y >= HALF && y < (bm.bmHeight - HALF)) && (x >= HALF && x < (bm.bmWidth - HALF))) {
         RGBcolor_Yprevious_Xcurrent =
             (bt_RGBCOLORBYTE *)(lp_Bits_O + static_cast<LONG>(y - 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
