@@ -129,9 +129,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
         // Apply pressed
         if (r) {
           SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_NOERROR);
-        }
-        else
-        {
+        } else {
           SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
         }
       }
@@ -142,9 +140,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       if (r) {
         // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
-      }
-      else
-      {
+      } else {
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
       }
       break;
@@ -154,9 +150,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       if (r) {
         // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
-      }
-      else
-      {
+      } else {
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, TRUE);
         return (TRUE);
       }
@@ -165,9 +159,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     case PSN_KILLACTIVE: {
       if (r) {
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
-      }
-      else
-      { // Not valid.
+      } else {
+       // Not valid.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, TRUE);
       }
       break;
@@ -301,9 +294,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
       hicon = static_cast<HICON>(LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0,
                                            LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
     }
-  }
-  else
-  {
+  } else {
     idIcon = hb_arrayGetNI(pArray, 19);
   }
 
@@ -315,9 +306,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
   psh.hInstance = GetModuleHandle(nullptr);
   if (Style & PSP_USEHICON) {
     psh.hIcon = hicon;
-  }
-  else
-  {
+  } else {
     psh.pszIcon = MAKEINTRESOURCE(idIcon);
   }
   psh.phpage = hpsp;
@@ -329,9 +318,7 @@ HB_FUNC(CREATEPROPERTYSHEET)
 
   if (hb_parl(4)) {
     hb_retnl(static_cast<long>(PropertySheet(&psh)));
-  }
-  else
-  {
+  } else {
     if (PropertySheet(&psh) < 0) {
       MessageBox(nullptr, "Property Sheet could not be created", "Error",
                  MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND);
@@ -409,9 +396,7 @@ HB_FUNC(DESTROYPROPSHEET)
   if (SendMessage(hmg_par_HWND(2), PSM_GETCURRENTPAGEHWND, 0, 0) == 0) {
     DestroyWindow(hmg_par_HWND(1));
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     SetWindowLongPtr(hmg_par_HWND(1), DWLP_MSGRESULT, FALSE);
     hb_retl(false);
   }
@@ -440,9 +425,7 @@ HB_FUNC(PROPSHEET_GETRESULT)
 {
   if (PropSheet_GetResult(hmg_par_HWND(1)) > 0) {
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }

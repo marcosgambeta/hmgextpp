@@ -83,9 +83,7 @@ HB_FUNC(HMG_C_PLAYWAVE)
   if (hb_parl(2)) {
     style |= SND_RESOURCE;
     hmod = GetResources();
-  }
-  else
-  {
+  } else {
     style |= SND_FILENAME;
   }
 

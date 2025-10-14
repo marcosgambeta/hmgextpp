@@ -85,9 +85,7 @@ void InterpretHotKey(UINT setting, TCHAR *szKeyName)
   if (uCode & 0x00000008) {
     // extended key
     WorkKey = 0x03000000 | (WorkKey << 16);
-  }
-  else
-  {
+  } else {
     WorkKey = 0x02000000 | (WorkKey << 16);
   }
 

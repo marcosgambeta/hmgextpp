@@ -472,9 +472,7 @@ HB_FUNC(HMG_PTINRECT)
   if ((hmg_ArrayToPoint(hb_param(1, Harbour::Item::ANY), &point) &&
        hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect))) {
     hb_retl(PtInRect(&rect, point) ? true : false);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }

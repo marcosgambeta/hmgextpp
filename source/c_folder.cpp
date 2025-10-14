@@ -280,9 +280,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
   r = hb_parnl(-1);
   if (r) {
     return TRUE;
-  }
-  else
-  {
+  } else {
     return FALSE;
   }
 }
@@ -330,9 +328,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
   r = hb_parnl(-1);
   if (r) {
     return TRUE;
-  }
-  else
-  {
+  } else {
     return FALSE;
   }
 }
@@ -516,9 +512,7 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
                                      reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
     LocalFree(pdlgtemplate);
     HB_RETNL(static_cast<LONG_PTR>(lResult));
-  }
-  else
-  {
+  } else {
     hWndDlg = CreateDialogIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd,
                                         reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
     LocalFree(pdlgtemplate);
@@ -606,9 +600,7 @@ HB_FUNC(HMG_FOLDER_ISFINISH)
 
   if (!pFhi->isModal) {
     lFooderFinish = !pFhi->activeValid;
-  }
-  else
-  {
+  } else {
     lFooderFinish = pFhi->ended;
   }
 
@@ -623,9 +615,7 @@ HB_FUNC(HMG_FOLDER_GETIDFLD)
 
   if (!pFhi) {
     hb_retni(hmg_par_int(2));
-  }
-  else
-  {
+  } else {
     hb_retni(pFhi->nIdFld);
   }
 }
@@ -638,9 +628,7 @@ HB_FUNC(HMG_FOLDER_GETTABHANDLE)
 
   if (!pFhi) {
     hb_retnl(0); // TODO: 0 -> nullptr
-  }
-  else
-  {
+  } else {
     hmg_ret_HWND(pFhi->hwndTab);
   }
 }
@@ -868,9 +856,7 @@ DLGTEMPLATE *WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE *pTemplate, DWORD resSize)
     reinterpret_cast<MyDLGTEMPLATEEX *>(pTemplate)->exStyle |= WS_EX_CONTROLPARENT;
     //((MyDLGTEMPLATEEX*)pTemplate)->style &= ~WS_POPUP;
     reinterpret_cast<MyDLGTEMPLATEEX *>(pTemplate)->style &= ~WS_VISIBLE;
-  }
-  else
-  {
+  } else {
     pTemplate->style |= WS_CHILD | WS_TABSTOP | DS_CONTROL;
     pTemplate->style &= ~DS_MODALFRAME;
     pTemplate->style &= ~WS_CAPTION;
@@ -982,9 +968,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE *pTemplate, FLDHDRINFO *pFhi, int index, BO
     p += 2; // help ID
     p += 2; // ext style
     p += 2; // style
-  }
-  else
-  {
+  } else {
     // DLGTEMPLATE
     p += 2; // style
     p += 2; // ext style
@@ -1127,19 +1111,13 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
 
         if (!pFhi->isModal) {
           pFhi->activeValid = FALSE;
-        }
-        else
-        {
+        } else {
           pFhi->ended = TRUE;
         }
-      }
-      else
-      {
+      } else {
         EnableWindow(hwndApplyBtn, FALSE);
       }
-    }
-    else
-    {
+    } else {
       FLHNOTIFY fln;
       HFLDPAGEINFO *hfpi;
       HWND hwndPage;
@@ -1225,9 +1203,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
     fln.lParam = 0;
     if (lParam == FLBTN_OK) {
       fln.hdr.code = FLN_FINISH;
-    }
-    else
-    {
+    } else {
       fln.hdr.code = FLN_SETACTIVE;
     }
 
@@ -1283,9 +1259,7 @@ static void FLD_Cancel(HWND hWndDlg, LPARAM lParam)
 
   if (!pFhi->isModal) {
     pFhi->activeValid = FALSE;
-  }
-  else
-  {
+  } else {
     pFhi->ended = TRUE;
   }
 
@@ -1342,9 +1316,7 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO *pFhi)
         CreateDialogIndirectParam(GetResources(), static_cast<DLGTEMPLATE *>(fpi->apRes), hWndDlg,
                                   reinterpret_cast<DLGPROC>(HMG_PageFldProc), reinterpret_cast<LPARAM>(pFhi));
     fpi->hwndPage = pFhi->hwndDisplay;
-  }
-  else
-  {
+  } else {
     pFhi->hwndDisplay = fpi->hwndPage;
   }
 
@@ -1475,9 +1447,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
           if (hbmp != nullptr) {
             ImageList_AddMasked(himl, hbmp, CLR_DEFAULT);
             DeleteObject(hbmp);
-          }
-          else
-          {
+          } else {
             hDC = GetDC(pFhi->hwndTab);
             hbmp = CreateCompatibleBitmap(hDC, cx, cy);
             ImageList_AddMasked(himl, hbmp, CLR_DEFAULT);

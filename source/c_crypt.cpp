@@ -64,9 +64,7 @@ HB_FUNC(HMG_CHARXOR)
   auto len2 = static_cast<unsigned int>(hb_parclen(2));
   if (!len1) {
     hb_retclen("", 0);
-  }
-  else
-  {
+  } else {
     auto Res = static_cast<char *>(hb_xgrab(len1));
     for (nl1 = nl2 = 0; nl1 < len1; nl1++)
     {

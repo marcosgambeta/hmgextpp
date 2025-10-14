@@ -254,9 +254,7 @@ static int authorizer(void *Cargo, int iAction, const char *sName1, const char *
     hb_vmRequestRestore();
 
     return iRes;
-  }
-  else
-  {
+  } else {
     HB_TRACE(HB_TR_ALWAYS, ("hb_strnull(%s)", "Callback ERROR"));
   }
 
@@ -334,8 +332,7 @@ static PHB_ITEM hb_sqlite3_itemPut(PHB_ITEM pItem, void *pMemAddr, int iType)
   if (pItem) {
     if (HB_IS_COMPLEX(pItem))
       hb_itemClear(pItem);
-  }
-  else
+  } else
     pItem = hb_itemNew(pItem);
 
   pStructHolder = (PHB_SQLITE3_HOLDER)hb_gcAlloc(sizeof(HB_SQLITE3_HOLDER), hb_sqlite3_destructor);
@@ -396,9 +393,7 @@ HB_FUNC(SQLITE3_SET_AUTHORIZER)
       hb_gcUnlock(pHbSqlite3->cbAuthorizer);
 
       hb_retni(sqlite3_set_authorizer(pHbSqlite3->db, authorizer, static_cast<void *>(pHbSqlite3->cbAuthorizer)));
-    }
-    else
-    {
+    } else {
       hb_retni(sqlite3_set_authorizer(pHbSqlite3->db, NULL, NULL));
     }
   }
@@ -417,8 +412,7 @@ HB_FUNC(SQLITE3_BACKUP_INIT)
       hb_retptr(pBackup);
     else
       hb_retptr(NULL);
-  }
-  else
+  } else
     hb_retptr(NULL);
 }
 
@@ -533,8 +527,7 @@ HB_FUNC(SQLITE3_BIND_PARAMETER_INDEX)
     hb_retni(sqlite3_bind_parameter_index(pStmt, hb_parstr_utf8(2, &hParameterName, NULL)));
 
     hb_strfree(hParameterName);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -561,8 +554,7 @@ HB_FUNC(SQLITE3_BIND_TEXT)
     hb_retni(sqlite3_bind_text(pStmt, hb_parni(2), pszSQLText, static_cast<int>(nSQLText), SQLITE_TRANSIENT));
 
     hb_strfree(hSQLText);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -611,15 +603,13 @@ HB_FUNC(SQLITE3_BLOB_OPEN)
                           hb_parstr_utf8(4, &hColumnName, NULL), (sqlite3_int64)hb_parnint(5) /* iRow */,
                           hb_parni(6) /* flags */, &ppBlob) == SQLITE_OK) {
       hb_retptr(ppBlob);
-    }
-    else
+    } else
       hb_retptr(NULL);
 
     hb_strfree(hDbName);
     hb_strfree(hTableName);
     hb_strfree(hColumnName);
-  }
-  else
+  } else
     hb_retptr(NULL);
 }
 
@@ -638,11 +628,9 @@ HB_FUNC(SQLITE3_BLOB_READ)
     if (SQLITE_OK == sqlite3_blob_read(pBlob, static_cast<void *>(buffer), iLen, hb_parni(3))) {
       buffer[iLen] = '\0';
       hb_retclen_buffer(buffer, iLen);
-    }
-    else
+    } else
       hb_xfree(buffer);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -667,8 +655,7 @@ HB_FUNC(SQLITE3_BLOB_WRITE)
       iLen = static_cast<int>(hb_parcsiz(2)) - 1;
 
     hb_retni(sqlite3_blob_write(pBlob, hb_parcx(2), iLen, hb_parni(4)));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -687,8 +674,7 @@ HB_FUNC(SQLITE3_BUSY_HANDLER)
       hb_gcUnlock(pHbSqlite3->cbBusyHandler);
 
       sqlite3_busy_handler(pHbSqlite3->db, busy_handler, static_cast<void *>(pHbSqlite3->cbBusyHandler));
-    }
-    else
+    } else
       sqlite3_busy_handler(pHbSqlite3->db, NULL, NULL);
   }
 }
@@ -729,9 +715,7 @@ HB_FUNC(SQLITE3_CLOSE)
 
   if (pHbSqlite3 && pHbSqlite3->db) {
     hb_retni(sqlite3_close(pHbSqlite3->db));
-  }
-  else
-  {
+  } else {
     hb_retni(-1);
   }
 }
@@ -751,8 +735,7 @@ HB_FUNC(SQLITE3_COMMIT_HOOK)
       hb_gcUnlock(pHbSqlite3->cbHookCommit);
 
       sqlite3_commit_hook(pHbSqlite3->db, hook_commit, static_cast<void *>(pHbSqlite3->cbHookCommit));
-    }
-    else
+    } else
       sqlite3_commit_hook(pHbSqlite3->db, NULL, NULL);
   }
 }
@@ -772,8 +755,7 @@ HB_FUNC(SQLITE3_ROLLBACK_HOOK)
       hb_gcUnlock(pHbSqlite3->cbHookRollback);
 
       sqlite3_rollback_hook(pHbSqlite3->db, hook_rollback, static_cast<void *>(pHbSqlite3->cbHookRollback));
-    }
-    else
+    } else
       sqlite3_rollback_hook(pHbSqlite3->db, NULL, NULL);
   }
 }
@@ -795,8 +777,7 @@ HB_FUNC(SQLITE3_COLUMN_BLOB)
   if (pStmt) {
     int index = hb_parni(2) - 1;
     hb_retclen(static_cast<const char *>(sqlite3_column_blob(pStmt, index)), sqlite3_column_bytes(pStmt, index));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -912,8 +893,7 @@ HB_FUNC(SQLITE3_TABLE_COLUMN_METADATA)
     hb_strfree(hDbName);
     hb_strfree(hTableName);
     hb_strfree(hColumnName);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -944,8 +924,7 @@ HB_FUNC(SQLITE3_COLUMN_TEXT)
   if (pStmt) {
     int index = hb_parni(2) - 1;
     hb_retstrlen_utf8(static_cast<const char *>(sqlite3_column_text(pStmt, index)), sqlite3_column_bytes(pStmt, index));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -974,8 +953,7 @@ HB_FUNC(SQLITE3_ENABLE_LOAD_EXTENSION)
 
   if (pHbSqlite3 && pHbSqlite3->db) {
     hb_retni(sqlite3_enable_load_extension(pHbSqlite3->db, hb_parl(2)));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -1016,9 +994,7 @@ HB_FUNC(SQLITE3_EXEC)
     if (ISPOINTER(3)) {
       rc = sqlite3_exec(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText, NULL), callback,
                         static_cast<void *>(hb_param(3, Harbour::Item::POINTER)), &pszErrMsg);
-    }
-    else
-    {
+    } else {
       rc = sqlite3_exec(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText, NULL), NULL, 0, &pszErrMsg);
     }
 
@@ -1030,8 +1006,7 @@ HB_FUNC(SQLITE3_EXEC)
     hb_strfree(hSQLText);
 
     hb_retni(rc);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -1101,9 +1076,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
         hb_arrayAddForward(pResultList, pArray);
         hb_itemRelease(pArray);
       }
-    }
-    else
-    {
+    } else {
       HB_TRACE(HB_TR_DEBUG, ("sqlite3_get_table(): Returned error: %s", pszErrMsg));
       sqlite3_free(pszErrMsg);
     }
@@ -1113,8 +1086,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
     hb_strfree(hSQLText);
 
     hb_itemReturnRelease(pResultList);
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -1183,16 +1155,12 @@ HB_FUNC(SQLITE3_OPEN)
       hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
       hbsqlite3->db = db;
       hb_sqlite3_ret(hbsqlite3, HB_SQLITE3_DB);
-    }
-    else
-    {
+    } else {
       sqlite3_close(db);
 
       hb_retptr(NULL);
     }
-  }
-  else
-  {
+  } else {
     HB_TRACE(HB_TR_DEBUG, ("sqlite3_open(): Database doesn't exist %s", pszdbName));
 
     hb_retptr(NULL);
@@ -1213,9 +1181,7 @@ HB_FUNC(SQLITE3_OPEN_V2)
     hb_xmemset(hbsqlite3, 0, sizeof(HB_SQLITE3));
     hbsqlite3->db = db;
     hb_sqlite3_ret(hbsqlite3, HB_SQLITE3_DB);
-  }
-  else
-  {
+  } else {
     sqlite3_close(db);
 
     hb_retptr(NULL);
@@ -1240,18 +1206,14 @@ HB_FUNC(SQLITE3_PREPARE)
 
       if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK) {
         hb_retptr(pStmt);
-      }
-      else
-      {
+      } else {
         sqlite3_finalize(pStmt);
 
         hb_retptr(NULL);
       }
-    }
-    else
+    } else
       hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(2));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -1270,18 +1232,14 @@ HB_FUNC(SQLITE3_PREPARE_V2)
 
       if (sqlite3_prepare_v2(pHbSqlite3->db, pSQL, ulLen, &pStmt, &pszTail) == SQLITE_OK) {
         hb_retptr(pStmt);
-      }
-      else
-      {
+      } else {
         sqlite3_finalize(pStmt);
 
         hb_retptr(NULL);
       }
-    }
-    else
+    } else
       hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(2));
-  }
-  else
+  } else
     hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
 
@@ -1312,8 +1270,7 @@ HB_FUNC(SQLITE3_PROGRESS_HANDLER)
 
       sqlite3_progress_handler(pHbSqlite3->db, hb_parni(2), progress_handler,
                                static_cast<void *>(pHbSqlite3->cbProgressHandler));
-    }
-    else
+    } else
       sqlite3_progress_handler(pHbSqlite3->db, 0, NULL, NULL);
   }
 }
@@ -1371,8 +1328,7 @@ HB_FUNC(SQLITE3_STATUS)
 
     hb_storni(iCurrent, 2);
     hb_storni(iHighwater, 3);
-  }
-  else
+  } else
     hb_retni(-1);
 }
 
@@ -1416,20 +1372,14 @@ HB_FUNC(SQLITE3_TEMP_DIRECTORY)
 
     if (hb_fsIsDirectory(pszDirName)) {
       bResult = TRUE;
-    }
-    else
-    {
+    } else {
       if (hb_parl(2)) { /* create temp directory if not exist */
         if (hb_fsMkDir(pszDirName)) {
           bResult = TRUE;
-        }
-        else
-        {
+        } else {
           HB_TRACE(HB_TR_DEBUG, ("sqlite_temp_directory(): Can't create directory %s", pszDirName));
         }
-      }
-      else
-      {
+      } else {
         HB_TRACE(HB_TR_DEBUG, ("sqlite_temp_directory(): Directory doesn't exist %s", pszDirName));
       }
     }
@@ -1484,8 +1434,7 @@ HB_FUNC(SQLITE3_FILE_TO_BUFF)
     hb_fsClose(handle);
 
     hb_retclen_buffer(buffer, nSize);
-  }
-  else
+  } else
     hb_retc_null();
 }
 
@@ -1497,7 +1446,6 @@ HB_FUNC(SQLITE3_BUFF_TO_FILE)
   if (handle != FS_ERROR && nSize > 0) {
     hb_retni(hb_fsWriteLarge(handle, hb_parcx(2), nSize) == nSize ? 0 : -1);
     hb_fsClose(handle);
-  }
-  else
+  } else
     hb_retni(1);
 }

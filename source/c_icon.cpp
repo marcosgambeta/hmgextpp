@@ -103,9 +103,7 @@ HB_FUNC(HMG_EXTRACTICONEX)
   auto nIconIndex = hb_parni(2);
   if (nIconIndex == -1) {
     hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
-  }
-  else
-  {
+  } else {
     HICON hIconLarge, hIconSmall;
     UINT nIconCount = ExtractIconEx(HB_PARSTR(1, &str, nullptr), nIconIndex, &hIconLarge, &hIconSmall, 1);
     if (nIconCount > 0) {

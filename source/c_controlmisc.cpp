@@ -69,9 +69,7 @@ HB_FUNC(HMG_DELETEOBJECT)
   if (hRes) {
     DelResource(hRes);
     hb_retl(DeleteObject(static_cast<HGDIOBJ>(hRes)));
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }

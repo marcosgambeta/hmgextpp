@@ -88,15 +88,11 @@ LRESULT APIENTRY SubClassFunc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
     if (static_cast<short>(HIWORD(wParam)) > 0) {
       keybd_event(VK_UP, 0, 0, 0);
-    }
-    else
-    {
+    } else {
       keybd_event(VK_DOWN, 0, 0, 0);
     }
     return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
-  }
-  else
-  {
+  } else {
     return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
   }
 }

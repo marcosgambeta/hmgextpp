@@ -113,9 +113,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
 
   if (hb_parl(4)) {
     style |= PGS_VERT;
-  }
-  else
-  {
+  } else {
     style |= PGS_HORZ;
   }
 
@@ -144,9 +142,7 @@ HB_FUNC(HMG_INITPAGER) // InitPager(ParentForm, hRebar, nWidth, nHeight, vertica
     rbBand.cyMinChild = nWidth ? nWidth : 0;
     rbBand.cxMinChild = 0;
     rbBand.cx = nHeight;
-  }
-  else
-  {
+  } else {
     rbBand.cxMinChild = 0;
     rbBand.cyMinChild = nHeight ? nHeight : 0;
     rbBand.cx = nWidth;

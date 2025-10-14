@@ -99,9 +99,7 @@ HB_FUNC(HMG_INITTEXTBOX)
   if (hb_parl(12)) {
                         // if <lNumeric> is TRUE, then ES_NUMBER style is added.
     style |= ES_NUMBER; // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
-  }
-  else
-  {
+  } else {
     if (hb_parl(10)) {
       // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
       style |= ES_UPPERCASE;
@@ -219,9 +217,7 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
     if (r != 0) {
       return r;
-    }
-    else
-    {
+    } else {
       return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
     }
   }

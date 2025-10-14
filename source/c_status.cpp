@@ -117,9 +117,7 @@ HB_FUNC(HMG_INITITEMBAR)
 
   if (hb_parnl(5) == 0) {
     ptArray[nrOfParts - 1] = rect.right;
-  }
-  else
-  {
+  } else {
     for (auto n = 0; n < nrOfParts - 1; n++)
     {
       ptArray[n] -= hb_parni(4) - cSpaceInBetween;
@@ -131,9 +129,7 @@ HB_FUNC(HMG_INITITEMBAR)
       }
 
       ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
-    }
-    else
-    {
+    } else {
       ptArray[nrOfParts - 1] = rect.right;
     }
   }
@@ -217,9 +213,7 @@ HB_FUNC(HMG_REFRESHITEMBAR)
   if ((nrOfParts == 1) || (IsZoomed(GetParent(hWndSB))) ||
       (!(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX))) {
     nDev = rect.right - ptArray[nrOfParts - 1];
-  }
-  else
-  {
+  } else {
     nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
   }
 
@@ -231,17 +225,14 @@ HB_FUNC(HMG_REFRESHITEMBAR)
       if (n == 0) {
         if (size >= ptArray[n] && nDev < 0) {
           s = FALSE;
-        }
-        else
-        {
+        } else {
           if (ptArray[n] + nDev < size) {
             nDev = size - ptArray[n];
           }
 
           ptArray[n] += nDev;
         }
-      }
-      else if (s) {
+      } else if (s) {
         ptArray[n] += nDev;
       }
     }
@@ -262,9 +253,7 @@ HB_FUNC(HMG_KEYTOGGLE)
 
   if (pBuffer[wKey] & 0x01) {
     pBuffer[wKey] &= 0xFE;
-  }
-  else
-  {
+  } else {
     pBuffer[wKey] |= 0x01;
   }
 
@@ -371,9 +360,8 @@ HB_FUNC(HMG_CREATEPROGRESSBARITEM) // CreateProgressBarItem(HwndStatus, NrItem)
     SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 
     hmg_ret_HWND(hwndProgressBar);
-  }
-  else
-  { // No application-defined data.
+  } else {
+    // No application-defined data.
     hmg_ret_HWND(nullptr);
   }
 }

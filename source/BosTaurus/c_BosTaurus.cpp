@@ -94,9 +94,7 @@ static void bt_bmp_adjust_rect(int *Width1, int *Height1, int *Width2, int *Heig
   case BT_SCALE:
     if (static_cast<int>(*Width2 * *Height1 / *Height2) <= *Width1) {
       *Width1 = static_cast<int>(*Width2 * *Height1 / *Height2);
-    }
-    else
-    {
+    } else {
       *Height1 = static_cast<int>(*Height2 * *Width1 / *Width2);
     }
     break;
@@ -120,9 +118,7 @@ BOOL bt_bmp_is_24bpp(HBITMAP hBitmap)
    GetObject(hBitmap, sizeof(BITMAP), (LPBYTE)&bm);
    if (bm.bmBitsPixel == 24) {
       return TRUE;
-   }
-   else
-   {
+   } else {
       return FALSE;
    }
 }
@@ -275,9 +271,7 @@ static HBITMAP bt_LoadOLEPicture(const TCHAR *FileName, const TCHAR *TypePicture
 
   if (TypePictureResource != nullptr) {
     hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
-  }
-  else
-  {
+  } else {
     hGlobalAlloc = bt_LoadFileFromDisk(FileName);
   }
 
@@ -526,9 +520,7 @@ static HBITMAP bt_LoadGDIPlusPicture(const TCHAR *FileName, const TCHAR *TypePic
 
   if (TypePictureResource != nullptr) {
     hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
-  }
-  else
-  {
+  } else {
     hGlobalAlloc = bt_LoadFileFromDisk(FileName);
   }
 
@@ -956,9 +948,7 @@ HB_FUNC(BT_SCR_INVALIDATERECT)
     rect.bottom = hb_arrayGetNL(pArrayRect, 4);
     hb_retl(InvalidateRect(hmg_par_HWND(1), &rect,
                            hb_parl(3))); // Invalidate specific rectangle of client area
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -1052,9 +1042,7 @@ HB_FUNC(BT_DRAW_HDC_POLY)
     DeleteObject(hPen);
 
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -1378,9 +1366,7 @@ HB_FUNC(BT_DRAW_HDC_TEXTOUT)
 
   if ((Type & BT_TEXT_TRANSPARENT) == BT_TEXT_TRANSPARENT) {
     SetBkMode(hDC, TRANSPARENT);
-  }
-  else
-  {
+  } else {
     SetBkMode(hDC, OPAQUE);
     SetBkColor(hDC, Back_Color);
   }
@@ -1478,9 +1464,7 @@ HB_FUNC(BT_DRAW_HDC_DRAWTEXT)
 
   if ((Type & BT_TEXT_TRANSPARENT) == BT_TEXT_TRANSPARENT) {
     SetBkMode(hDC, TRANSPARENT);
-  }
-  else
-  {
+  } else {
     SetBkMode(hDC, OPAQUE);
     SetBkColor(hDC, Back_Color);
   }
@@ -2195,9 +2179,7 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE *Image, INT nAction)
 
   if (nAction == BT_BMP_GETBITS) {
     GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
-  }
-  else
-  {
+  } else {
     SetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
   }
 
@@ -2210,9 +2192,7 @@ static int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 {
   if (x >= 0 && x < Image.Width && y >= 0 && y < Image.Height) {
     return static_cast<int>(Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)]);
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
@@ -2221,9 +2201,7 @@ static int bt_BMP_SETBYTE(bt_BMPIMAGE Image, int x, int y, int channel, BYTE val
 {
   if (x >= 0 && x < Image.Width && y >= 0 && y < Image.Height) {
     return static_cast<int>(Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)] = value);
-  }
-  else
-  {
+  } else {
     return -1;
   }
 }
@@ -2331,9 +2309,7 @@ HB_FUNC(BT_BMP_COPYANDRESIZE)
 
     if (nAlgorithm == BT_RESIZE_COLORONCOLOR) {
       SetStretchBltMode(memDC2, COLORONCOLOR);
-    }
-    else
-    {
+    } else {
       POINT Point;
       GetBrushOrgEx(memDC2, &Point);
       SetStretchBltMode(memDC2, HALFTONE);
@@ -2674,9 +2650,7 @@ HB_FUNC(BT_BMP_PROCESS)
   if (hBits == nullptr) {
     hb_retl(false);
     return;
-  }
-  else
-  {
+  } else {
     lp_Bits = static_cast<LPBYTE>(GlobalLock(hBits));
   }
 
@@ -3361,9 +3335,7 @@ HB_FUNC(BT_STRETCH_RECT)
     hb_storni(Width2, 3);
     hb_storni(Height2, 4);
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }

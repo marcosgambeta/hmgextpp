@@ -100,32 +100,25 @@ HB_FUNC(HMG_SETPROP)
   if (HB_ISCHAR(3)) {
     chType = 'C'; // character
     nLen = static_cast<int>(hb_parclen(3));
-  }
-  else if (HB_ISLOG(3)) {
+  } else if (HB_ISLOG(3)) {
     chType = 'L'; // logical
     nLen = sizeof(BOOL);
-  }
-  else if (HB_ISDATE(3)) {
+  } else if (HB_ISDATE(3)) {
     chType = 'D'; // date
     nLen = 9;     // len of "yyyymmdd"
-  }
-  else if (HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY))) {
+  } else if (HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY))) {
     if (static_cast<BOOL>(hb_parldef(4, false))) {
       chType = 'X'; // if 'X' memory HANDLE passed
-    }
-    else
-    {
+    } else {
       chType = 'I'; // int
     }
 
     nLen = sizeof(INT);
-  }
-  else if (HB_ISNUM(3)) {
+  } else if (HB_ISNUM(3)) {
     chType = 'F'; // float
     nLen = sizeof(double);
-  }
-  else
-  { // unsupported type
+  } else {
+    // unsupported type
     return;
   }
 
@@ -146,9 +139,7 @@ HB_FUNC(HMG_SETPROP)
   // type conversion
   if ((hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == nullptr) {
     return;
-  }
-  else
-  {
+  } else {
     lpMem = static_cast<char *>(GlobalLock(hMem));
     if (lpMem == nullptr) {
       GlobalFree(hMem);
@@ -231,9 +222,7 @@ HB_FUNC(HMG_GETPROP)
 
   if (hMem == nullptr) {
     return;
-  }
-  else
-  {
+  } else {
     lpMem = static_cast<char *>(GlobalLock(hMem));
 
     if (lpMem == nullptr) {
@@ -376,9 +365,7 @@ HB_FUNC(HMG_ENUMPROPSEX)
 
   if (IsWindow(hWnd) && pCodeBlock) {
     hb_retni(EnumPropsEx(hWnd, (PROPENUMPROCEX)PropsEnumProcEx, reinterpret_cast<LPARAM>(pCodeBlock)));
-  }
-  else
-  {
+  } else {
     hb_retni(-2);
   }
 }

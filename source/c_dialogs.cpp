@@ -149,9 +149,7 @@ HB_FUNC(HMG_C_GETFILE)
       lstrcpy(&Filter[j], AnsiToWide(p));
       j += lstrlen(AnsiToWide(p)) + 1;
       p += strlen(p) + 1;
-    }
-    else
-    {
+    } else {
       break;
     }
   }
@@ -189,9 +187,7 @@ HB_FUNC(HMG_C_GETFILE)
   if (GetOpenFileName(&ofn)) {
     if (ofn.nFileExtension != 0) {
       HB_RETSTR(ofn.lpstrFile);
-    }
-    else
-    {
+    } else {
       wsprintf(cCurDir, "%s", &buffer[iPosition]);
       iPosition = iPosition + lstrlen(cCurDir) + 1;
 
@@ -216,15 +212,11 @@ HB_FUNC(HMG_C_GETFILE)
           hb_xfree(pStr);
 #endif
         }
-      }
-      else
-      {
+      } else {
         HB_RETSTR(&buffer[0]);
       }
     }
-  }
-  else
-  {
+  } else {
     HB_RETSTR("");
   }
 
@@ -261,9 +253,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
       lstrcpy(&Filter[j], AnsiToWide(p));
       j += lstrlen(AnsiToWide(p)) + 1;
       p += strlen(p) + 1;
-    }
-    else
-    {
+    } else {
       break;
     }
   }
@@ -283,9 +273,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
 #ifndef UNICODE
   if (hb_parclen(5) > 0) {
     strcpy(buffer, hb_parc(5));
-  }
-  else
-  {
+  } else {
     strcpy(buffer, "");
   }
 #else
@@ -325,9 +313,7 @@ HB_FUNC(HMG_C_PUTFILE) // JK JP
     }
 
     HB_RETSTR(ofn.lpstrFile);
-  }
-  else
-  {
+  } else {
     HB_RETSTR("");
   }
 
@@ -403,9 +389,7 @@ HB_FUNC(HMG_C_BROWSEFORFOLDER) // Syntax:
   if (pidlBrowse) {
     SHGetPathFromIDList(pidlBrowse, lpBuffer);
     HB_RETSTR(lpBuffer);
-  }
-  else
-  {
+  } else {
     hb_retc("");
   }
 
@@ -433,9 +417,7 @@ HB_FUNC(HMG_CHOOSECOLOR)
 
   if (!ChooseColor(&cc)) {
     hb_retnl(-1);
-  }
-  else
-  {
+  } else {
     hb_retnl(cc.rgbResult);
   }
 }

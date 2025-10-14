@@ -275,14 +275,11 @@ HB_FUNC(DESTROYCURSOR)
 
   if (hCur == hDrag) {
     hDrag = nullptr;
-  }
-  else if (hCur == hCatch) {
+  } else if (hCur == hCatch) {
     hCatch = nullptr;
-  }
-  else if (hCur == hStop) {
+  } else if (hCur == hStop) {
     hStop = nullptr;
-  }
-  else if (hCur == hHand) {
+  } else if (hCur == hHand) {
     hHand = nullptr;
   }
 

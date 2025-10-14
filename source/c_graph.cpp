@@ -62,9 +62,7 @@ HB_FUNC(HMG_TEXTDRAW)
   if (IsWindow(hWnd)) {
     hDC = GetDC(hWnd);
     bDC = true;
-  }
-  else
-  {
+  } else {
     hDC = hmg_par_HDC(1);
   }
 
@@ -90,9 +88,7 @@ HB_FUNC(HMG_TEXTDRAW)
 
     if (hb_parl(15)) {
       iBkMode = SetBkMode(hDC, TRANSPARENT);
-    }
-    else
-    {
+    } else {
       iBkMode = SetBkMode(hDC, OPAQUE);
 
       if (hmg_ArrayToColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor)) {
@@ -131,9 +127,7 @@ HB_FUNC(HMG_TEXTDRAW)
 
     hb_strfree(str1);
     hb_strfree(str2);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -170,9 +164,7 @@ HB_FUNC(HMG_RECTDRAW)
   if (hb_parl(9)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
-  }
-  else
-  {
+  } else {
     br.lbStyle = BS_HOLLOW;
     hbrush = CreateBrushIndirect(&br);
     hgdiobj2 = SelectObject(hdc1, hbrush);
@@ -202,9 +194,7 @@ HB_FUNC(HMG_ROUNDRECTDRAW)
   if (hb_parl(11)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(10, 1), HB_PARNI(10, 2), HB_PARNI(10, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
-  }
-  else
-  {
+  } else {
     br.lbStyle = BS_HOLLOW;
     hbrush = CreateBrushIndirect(&br);
     hgdiobj2 = SelectObject(hdc1, hbrush);
@@ -234,9 +224,7 @@ HB_FUNC(HMG_ELLIPSEDRAW)
   if (hb_parl(9)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
-  }
-  else
-  {
+  } else {
     br.lbStyle = BS_HOLLOW;
     hbrush = CreateBrushIndirect(&br);
     hgdiobj2 = SelectObject(hdc1, hbrush);
@@ -281,9 +269,7 @@ HB_FUNC(HMG_PIEDRAW)
   if (hb_parl(13)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(12, 1), HB_PARNI(12, 2), HB_PARNI(12, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
-  }
-  else
-  {
+  } else {
     br.lbStyle = BS_HOLLOW;
     hbrush = CreateBrushIndirect(&br);
     hgdiobj2 = SelectObject(hdc1, hbrush);
@@ -314,9 +300,7 @@ HB_FUNC(HMG_POLYGONDRAW)
   if (hb_parl(7)) {
     hbrush = CreateSolidBrush(static_cast<COLORREF>(RGB(HB_PARNI(6, 1), HB_PARNI(6, 2), HB_PARNI(6, 3))));
     hgdiobj2 = SelectObject(hdc1, hbrush);
-  }
-  else
-  {
+  } else {
     br.lbStyle = BS_HOLLOW;
     hbrush = CreateBrushIndirect(&br);
     hgdiobj2 = SelectObject(hdc1, hbrush);

@@ -95,8 +95,7 @@ HB_FUNC(HMG_SETRESOURCES)
 {
   if (HB_ISCHAR(1)) {
     hResources = HMG_LoadDll(const_cast<char *>(hb_parc(1)));
-  }
-  else if (HB_ISNUM(1)) {
+  } else if (HB_ISNUM(1)) {
     hResources = hmg_par_HINSTANCE(1);
   }
 
@@ -131,9 +130,7 @@ HB_FUNC(HMG_RCDATATOFILE)
 
   if (HB_ISCHAR(1)) {
     hResInfo = FindResource(hModule, lpName, lpType);
-  }
-  else
-  {
+  } else {
     hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
   }
 
@@ -143,9 +140,7 @@ HB_FUNC(HMG_RCDATATOFILE)
     if (hResData == nullptr) {
       dwResult = (HB_SIZE)-2; // can't load
     }
-  }
-  else
-  {
+  } else {
     dwResult = (HB_SIZE)-1; // can't find
   }
 
@@ -166,14 +161,10 @@ HB_FUNC(HMG_RCDATATOFILE)
         }
 
         hb_fileClose(pFile);
-      }
-      else
-      {
+      } else {
         dwResult = (HB_SIZE)-4; // can't open
       }
-    }
-    else
-    {
+    } else {
       dwResult = (HB_SIZE)-3; // can't lock
     }
 

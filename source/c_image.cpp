@@ -241,9 +241,7 @@ LRESULT APIENTRY ImageSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         tme.dwHoverTime = HOVER_DEFAULT;
         bMouseTracking = _TrackMouseEvent(&tme);
       }
-    }
-    else
-    {
+    } else {
       bMouseTracking = false;
     }
 
@@ -450,9 +448,7 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
 
   if (width == 0 || height == 0) {
     GetClientRect(hWnd, &rect);
-  }
-  else
-  {
+  } else {
     SetRect(&rect, 0, 0, width, height);
   }
 
@@ -467,18 +463,15 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
   if (ScaleStretch == 0) {
     if (static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right) {
       rect.right = static_cast<int>(bmWidth) * rect.bottom / bmHeight;
-    }
-    else
-    {
+    } else {
       rect.bottom = static_cast<int>(bmHeight) * rect.right / bmWidth;
     }
 
     if (AdjustImage == 1) {
       width = rect.right;
       height = rect.bottom;
-    }
-    else
-    { // Center Image
+    } else {
+      // Center Image
       rect.left = static_cast<int>(width - rect.right) / 2;
       rect.top = static_cast<int>(height - rect.bottom) / 2;
     }
@@ -490,9 +483,7 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
 
   if (BackgroundColor == -1) {
     FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
-  }
-  else
-  {
+  } else {
     auto hBrush = CreateSolidBrush(BackgroundColor);
     FillRect(memDC2, &rect2, hBrush);
     DeleteObject(hBrush);
@@ -500,9 +491,7 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
 
   if (ScaleStretch == 1) {
     SetStretchBltMode(memDC2, COLORONCOLOR);
-  }
-  else
-  {
+  } else {
     POINT Point;
     GetBrushOrgEx(memDC2, &Point);
     SetStretchBltMode(memDC2, HALFTONE);
@@ -512,8 +501,7 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
   if (Transparent == 1 && !bAlphaFormat) {
     TransparentBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight,
                    GetPixel(memDC1, 0, 0));
-  }
-  else if (Transparent == 1 || bAlphaFormat) {
+  } else if (Transparent == 1 || bAlphaFormat) {
     // TransparentBlt is supported for source bitmaps of 4 bits per pixel and 8 bits per pixel.
     // Use AlphaBlend to specify 32 bits-per-pixel bitmaps with transparency.
     BLENDFUNCTION ftn;
@@ -524,9 +512,7 @@ HBITMAP HMG_LoadPicture(const char *pszName, int width, int height, HWND hWnd, i
     ftn.BlendFlags = 0;
     ftn.SourceConstantAlpha = static_cast<BYTE>(iAlphaConstant);
     AlphaBlend(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, ftn);
-  }
-  else
-  {
+  } else {
     StretchBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, SRCCOPY);
   }
 
@@ -593,9 +579,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
    if (width == 0 || height == 0) {
       GetClientRect(hWnd, &rect);
-   }
-   else
-   {
+   } else {
       SetRect(&rect, 0, 0, width, height);
    }
 
@@ -609,18 +593,15 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    if (ScaleStretch == 0) {
       if (static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right) {
          rect.right = static_cast<int>(bmWidth) * rect.bottom / bmHeight;
-      }
-      else
-      {
+      } else {
          rect.bottom = static_cast<int>(bmHeight) * rect.right / bmWidth;
       }
 
       if (AdjustImage == 1) {
          width  = rect.right;
          height = rect.bottom;
-      }
-      else
-      { // Center Image
+      } else {
+        // Center Image
          rect.left = static_cast<int>( width - rect.right ) / 2;
          rect.top  = static_cast<int>( height - rect.bottom ) / 2;
       }
@@ -632,9 +613,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
    if (BackgroundColor == -1) {
       FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
-   }
-   else
-   {
+   } else {
       auto hBrush = CreateSolidBrush(BackgroundColor);
 
       FillRect(memDC2, &rect2, hBrush);
@@ -643,9 +622,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
    if (ScaleStretch == 1) {
       SetStretchBltMode(memDC2, COLORONCOLOR);
-   }
-   else
-   {
+   } else {
       POINT Point;
       GetBrushOrgEx(memDC2, &Point);
       SetStretchBltMode(memDC2, HALFTONE);
@@ -654,8 +631,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
    if (Transparent == 1 && bAlphaFormat == false) {
       TransparentBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, GetPixel(memDC1, 0, 0));
-   }
-   else if (Transparent == 1 || bAlphaFormat == true) {
+   } else if (Transparent == 1 || bAlphaFormat == true) {
       // TransparentBlt is supported for source bitmaps of 4 bits per pixel and 8 bits per pixel.
       // Use AlphaBlend to specify 32 bits-per-pixel bitmaps with transparency.
       BLENDFUNCTION ftn;
@@ -669,9 +645,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
       ftn.SourceConstantAlpha = static_cast<BYTE>(iAlphaConstant);
 
       AlphaBlend(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, ftn);
-   }
-   else
-   {
+   } else {
       StretchBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, SRCCOPY);
    }
 
@@ -730,9 +704,7 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char *pszURLorPath)
     iPicture->lpVtbl->Release(iPicture);
 
     DeleteDC(memDC);
-  }
-  else
-  {
+  } else {
     iPicture->lpVtbl->Release(iPicture);
   }
 
@@ -886,9 +858,7 @@ BOOL SaveHBitmapToFile(void *HBitmap, const char *FileName, unsigned int Width, 
     }
 
     strcpy(MimeTypeOld, MimeType);
-  }
-  else
-  {
+  } else {
     if (strcmp(static_cast<const char *>(MimeTypeOld), MimeType) != 0) {
       LocalFree(MimeTypeOld);
 
@@ -1101,9 +1071,7 @@ static UINT WriteIconDirectoryEntry(HANDLE hFile, HICON hIcon, UINT nImageOffset
   UINT nColorCount;
   if (bmpColor.bmBitsPixel >= 8) {
     nColorCount = 0;
-  }
-  else
-  {
+  } else {
     nColorCount = 1 << (bmpColor.bmBitsPixel * bmpColor.bmPlanes);
   }
 
@@ -1254,14 +1222,10 @@ HB_FUNC(HMG_C_SAVEHICONTOFILE)
       {
         DestroyIcon(hIcon[i]);
       }
-    }
-    else
-    {
+    } else {
       hb_retl(false);
     }
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 
@@ -1322,9 +1286,7 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR *FileName)
     WriteFile(hFile, static_cast<LPBYTE>(lp_hBits), nBytes_Bits, &nBytes_Written, nullptr);
     CloseHandle(hFile);
     ret = TRUE;
-  }
-  else
-  {
+  } else {
     ret = FALSE;
   }
 
@@ -1364,9 +1326,7 @@ HIMAGELIST HMG_ImageListLoadFirst(const char *FileName, int cGrow, int Transpare
   if (Transparent == 1) {
     hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, cGrow, CLR_DEFAULT, IMAGE_BITMAP,
                                      LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-  }
-  else
-  {
+  } else {
     hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, cGrow, CLR_NONE, IMAGE_BITMAP,
                                      LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS);
   }
@@ -1389,9 +1349,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, const char *FileName, int Transpare
 
   if (Transparent == 1) {
     ImageList_AddMasked(hImageList, hBitmap, CLR_DEFAULT);
-  }
-  else
-  {
+  } else {
     ImageList_AddMasked(hImageList, hBitmap, CLR_NONE);
   }
 
@@ -1412,9 +1370,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, char *FileName,
 
   if (Transparent == 1) {
     ImageList_AddMasked(hImageList, hBitmap, CLR_DEFAULT);
-  }
-  else
-  {
+  } else {
     ImageList_AddMasked(hImageList, hBitmap, CLR_NONE);
   }
 

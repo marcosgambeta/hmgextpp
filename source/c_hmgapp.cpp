@@ -194,9 +194,7 @@ static TCHAR *hmg_FileNameAtSystemDir(const TCHAR *pFileName)
     }
 
     return buffer;
-  }
-  else
-  {
+  } else {
     return hmg_tstrdup(pFileName);
   }
 }

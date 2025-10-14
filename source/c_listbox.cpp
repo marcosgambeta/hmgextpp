@@ -131,9 +131,7 @@ HB_FUNC(HMG_LISTBOXGETSTRING)
 #else
     hb_retclen_buffer(cString, iLen);
 #endif
-  }
-  else
-  {
+  } else {
     hb_retc_null();
   }
 }
@@ -257,9 +255,7 @@ HB_FUNC(HMG_DRAG_LIST_DRAWINSERT)
 
   if (nItem < nItemCount) {
     DrawInsert(hwnd, lpdli->hWnd, nItem);
-  }
-  else
-  {
+  } else {
     DrawInsert(hwnd, lpdli->hWnd, -1);
   }
 }

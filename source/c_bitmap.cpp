@@ -80,9 +80,7 @@ HB_FUNC(HMG_SAVEWINDOWBYHANDLE)
     rc.left = left;
     rc.bottom = bottom;
     rc.right = right;
-  }
-  else
-  {
+  } else {
     GetClientRect(hWnd, &rc);
   }
 
@@ -143,9 +141,7 @@ HB_FUNC(HMG_WNDCOPY)
   RECT rc;
   if (bRect) {
     GetWindowRect(hWnd, &rc);
-  }
-  else
-  {
+  } else {
     GetClientRect(hWnd, &rc);
   }
 
@@ -210,9 +206,7 @@ WORD DibNumColors(VOID FAR *pv)
       return static_cast<WORD>(lpbi->biClrUsed);
     }
     bits = lpbi->biBitCount;
-  }
-  else
-  {
+  } else {
     bits = lpbc->bcBitCount;
   }
 
@@ -306,9 +300,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
   HANDLE h = GlobalReAlloc(hdib, dwLen, 0);
   if (h) {
     hdib = h;
-  }
-  else
-  {
+  } else {
     GlobalFree(hdib);
     SelectPalette(hdc, hpal, FALSE);
     ReleaseDC(nullptr, hdc);
@@ -473,15 +465,11 @@ HB_FUNC(HMG_DRAWGLYPH)
       // (API is faster and the transparent colour is more accurate)
       DrawIconEx(hDC, x, y, reinterpret_cast<HICON>(hBmp), dx, dy, 0, nullptr, DI_NORMAL);
       return;
-    }
-    else
-    {
+    } else {
       if (!stretched) {
         // convert icon to bitmap mask.
         hBmp = IconMask2Bmp(reinterpret_cast<HICON>(hBmp));
-      }
-      else
-      {
+      } else {
         // convert icon to bitmap.
         hBmp = Icon2Bmp(reinterpret_cast<HICON>(hBmp));
       }
@@ -507,9 +495,7 @@ HB_FUNC(HMG_DRAWGLYPH)
     StretchBlt(hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
     SelectObject(hDCStretch, hBmpDefault);
     DeleteDC(hDCStretch);
-  }
-  else
-  {
+  } else {
     dx = (dx > 0 ? HB_MIN(dx, bitmap.bmWidth) : bitmap.bmWidth);
     dy = (dy > 0 ? HB_MIN(dy, bitmap.bmHeight) : bitmap.bmHeight);
     hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
@@ -547,9 +533,7 @@ HB_FUNC(HMG_DRAWGLYPH)
     BitBlt(hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
     SelectObject(hDCNoBlink, hOld);
     DeleteObject(hBr);
-  }
-  else
-  {
+  } else {
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND);
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
@@ -687,15 +671,11 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
     if (!disabled && !stretched) {
       DrawIconEx(hDC, x, y, reinterpret_cast<HICON>(hBmp), dx, dy, 0, nullptr, DI_NORMAL);
       return;
-    }
-    else
-    {
+    } else {
       if (!stretched) {
         // convert icon to bitmap mask.
         hBmp = IconMask2Bmp(reinterpret_cast<HICON>(hBmp));
-      }
-      else
-      {
+      } else {
         // convert icon to bitmap.
         hBmp = Icon2Bmp(reinterpret_cast<HICON>(hBmp));
       }
@@ -724,9 +704,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
     SelectObject(hDCStretch, hBmpDefault);
     DeleteDC(hDCStretch);
-  }
-  else
-  {
+  } else {
     dx = (dx > 0 ? HB_MIN(dx, bitmap.bmWidth) : bitmap.bmWidth);
     dy = (dy > 0 ? HB_MIN(dy, bitmap.bmHeight) : bitmap.bmHeight);
     hBmpDefault = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
@@ -765,9 +743,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
     BitBlt(hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
     SelectObject(hDCNoBlink, hOld);
     DeleteObject(hBr);
-  }
-  else
-  {
+  } else {
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND);
     BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
@@ -944,9 +920,7 @@ HB_FUNC(HMG_GETBITMAPSIZE)
           LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
     }
     hb_strfree(ImageName);
-  }
-  else
-  {
+  } else {
     if (GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_BITMAP) {
       hBitmap = hmg_par_HBITMAP(1);
       bDelete = false;

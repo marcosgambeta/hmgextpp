@@ -114,9 +114,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
 
   if (!hb_fsFile(szFile)) {
     nHandle = hb_fsCreate(szFile, 0);
-  }
-  else
-  {
+  } else {
     nHandle = hb_fsOpen(szFile, 2);
     hb_fsSeek(nHandle, 0, 2);
   }
@@ -140,9 +138,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
                      &StartupInfo, &ProcessInfo)) {
     hb_retnl(-1);
     return;
-  }
-  else
-  {
+  } else {
 #ifdef UNICODE
     hb_xfree((TCHAR *)lpCommandLine);
 #endif
@@ -170,9 +166,7 @@ HB_FUNC(HMG_WAITRUNPIPE)
 
       Data[BytesRead] = '\0';
       hb_fsWriteLarge(nHandle, Data, BytesRead);
-    }
-    else
-    {
+    } else {
       // Is the console app terminated?
       if (WaitForSingleObject(ProcessInfo.hProcess, 0) == WAIT_OBJECT_0) {
         break;
@@ -256,21 +250,15 @@ HB_FUNC(HMG_RETRIEVETEXTFROMCLIPBOARD)
       if (lpClip) {
         hb_retc(lpClip);
         GlobalUnlock(hClipMem);
-      }
-      else
-      {
+      } else {
         hb_retc("");
       }
-    }
-    else
-    {
+    } else {
       hb_retc(nullptr);
     }
 
     CloseClipboard();
-  }
-  else
-  {
+  } else {
     hb_retc(nullptr);
   }
 }
@@ -281,9 +269,7 @@ HB_FUNC(HMG_CLEARCLIPBOARD)
     EmptyClipboard();
     CloseClipboard();
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -356,9 +342,7 @@ HB_FUNC(HMG_INKEYGUI)
     if (bRet == -1) {
       // handle the error and possibly exit
       hmg_ErrorExit(TEXT("INKEYGUI"), 0, TRUE);
-    }
-    else
-    {
+    } else {
       switch (Msg.message)
       {
       case WM_KEYDOWN:
@@ -381,9 +365,7 @@ HB_FUNC(HMG_INKEYGUI)
     if (bBreak) {
       KillTimer(nullptr, uTimer);
       break;
-    }
-    else
-    {
+    } else {
       TranslateMessage(&Msg); // Translates virtual key codes
       DispatchMessage(&Msg);  // Dispatches message to window
     }
@@ -448,9 +430,7 @@ HB_FUNC(HMG_C_GETDLLSPECIALFOLDER)
     if (fnShGetFolderPath) {
       if (fnShGetFolderPath(nullptr, hb_parni(1), nullptr, 0, szPath) == S_OK) {
         hb_retc(szPath);
-      }
-      else
-      {
+      } else {
         hb_retc("");
       }
     }
@@ -524,9 +504,7 @@ HB_FUNC(HMG_MEMORYSTATUS)
           break;
         }
       }
-    }
-    else
-    {
+    } else {
       MEMORYSTATUS mst;
 
       mst.dwLength = sizeof(MEMORYSTATUS);
@@ -581,9 +559,7 @@ HB_FUNC(HMG_PAINTBKGND)
   if (hb_pcount() > 1 && !HB_ISNIL(2)) {
     hBrush = CreateSolidBrush(RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
     FillRect(hdc, &recClie, hBrush);
-  }
-  else
-  {
+  } else {
     hBrush = reinterpret_cast<HBRUSH>((COLOR_BTNFACE + 1));
     FillRect(hdc, &recClie, hBrush);
   }
@@ -823,29 +799,21 @@ HB_FUNC(HMG_WAITRUNTERM)
         if (!bWait) {
           if (TerminateProcess(prInfo.hProcess, 0) != 0) {
             bTerm = TRUE;
-          }
-          else
-          {
+          } else {
             bWait = TRUE;
           }
         }
-      }
-      else
-      {
+      } else {
         bWait = FALSE;
       }
     } while (bWait);
-  }
-  else
-  {
+  } else {
     WaitForSingleObject(prInfo.hProcess, INFINITE);
   }
 
   if (bTerm) {
     dwExitCode = static_cast<DWORD>(-1);
-  }
-  else
-  {
+  } else {
     GetExitCodeProcess(prInfo.hProcess, &dwExitCode);
   }
 
@@ -1011,91 +979,63 @@ HB_FUNC(HMG_WINVERSION)
         if (osvi.wProductType == VER_NT_WORKSTATION) {
           if (osvi.dwMajorVersion == 10 && osvi.dwBuildNumber == 22000) {
             szVersion = TEXT("Windows 11 ");
-          }
-          else if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0) {
+          } else if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0) {
             szVersion = TEXT("Windows 10 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
             szVersion = TEXT("Windows 8.1 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
             szVersion = TEXT("Windows 8 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1) {
             szVersion = TEXT("Windows 7 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0) {
             szVersion = TEXT("Windows Vista ");
           }
 
           if (osvi.dwMajorVersion == 4) {
             szVersionEx = TEXT("Workstation 4.0 ");
-          }
-          else if (osvi.wSuiteMask & VER_SUITE_PERSONAL) {
+          } else if (osvi.wSuiteMask & VER_SUITE_PERSONAL) {
             szVersionEx = TEXT("Home Edition ");
-          }
-          else
-          {
+          } else {
             szVersionEx = TEXT("Professional ");
           }
-        }
-        else if (osvi.wProductType == VER_NT_SERVER) {
+        } else if (osvi.wProductType == VER_NT_SERVER) {
           if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0) {
             szVersion = TEXT("Windows Server 2016 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
             szVersion = TEXT("Windows Server 2012 R2 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
             szVersion = TEXT("Windows Server 2012 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1) {
             szVersion = TEXT("Windows Server 2008 R2 ");
-          }
-          else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0) {
+          } else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0) {
             szVersion = TEXT("Windows Server 2008 ");
-          }
-          else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2) {
+          } else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2) {
             if (osvi.wSuiteMask & VER_SUITE_DATACENTER) {
               szVersionEx = TEXT("Datacenter Edition ");
-            }
-            else if (osvi.wSuiteMask & VER_SUITE_ENTERPRISE) {
+            } else if (osvi.wSuiteMask & VER_SUITE_ENTERPRISE) {
               szVersionEx = TEXT("Enterprise Edition ");
-            }
-            else if (osvi.wSuiteMask & VER_SUITE_BLADE) {
+            } else if (osvi.wSuiteMask & VER_SUITE_BLADE) {
               szVersionEx = TEXT("Web Edition ");
-            }
-            else
-            {
+            } else {
               szVersionEx = TEXT("Standard Edition ");
             }
-          }
-          else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
+          } else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
             if (osvi.wSuiteMask & VER_SUITE_DATACENTER) {
               szVersionEx = TEXT("Datacenter Server ");
-            }
-            else if (osvi.wSuiteMask & VER_SUITE_ENTERPRISE) {
+            } else if (osvi.wSuiteMask & VER_SUITE_ENTERPRISE) {
               szVersionEx = TEXT("Advanced Server ");
-            }
-            else
-            {
+            } else {
               szVersionEx = TEXT("Server ");
             }
-          }
-          else
-          {
+          } else {
             if (osvi.wSuiteMask & VER_SUITE_ENTERPRISE) {
               szVersionEx = TEXT("Server 4.0, Enterprise Edition ");
-            }
-            else
-            {
+            } else {
               szVersionEx = TEXT("Server 4.0 ");
             }
           }
         }
-      }
-      else
-      {
+      } else {
         HKEY hKey;
         TCHAR szProductType[80];
         DWORD dwBufLen = 80;
@@ -1105,9 +1045,7 @@ HB_FUNC(HMG_WINVERSION)
 
         if (lRetVal != ERROR_SUCCESS) {
           szVersion = TEXT("Unknown Operating System");
-        }
-        else
-        {
+        } else {
           lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), nullptr, nullptr,
                                     reinterpret_cast<LPBYTE>(szProductType), &dwBufLen);
           if ((lRetVal != ERROR_SUCCESS) || (dwBufLen > 80)) {
@@ -1156,9 +1094,7 @@ HB_FUNC(HMG_WINVERSION)
 #else
           szBuild = std::to_string(osvi.dwBuildNumber & 0xFFFF);
 #endif
-        }
-        else
-        {
+        } else {
           szServicePack = osvi.szCSDVersion;
 #ifdef UNICODE
           szBuild = std::to_wstring(osvi.dwBuildNumber & 0xFFFF);
@@ -1168,9 +1104,7 @@ HB_FUNC(HMG_WINVERSION)
         }
 
         RegCloseKey(hKey);
-      }
-      else
-      {
+      } else {
         szServicePack = osvi.szCSDVersion;
 #ifdef UNICODE
         szBuild = std::to_wstring(osvi.dwBuildNumber & 0xFFFF);
@@ -1185,15 +1119,11 @@ HB_FUNC(HMG_WINVERSION)
         if (osvi.szCSDVersion[1] == 'B') {
           szVersion = TEXT("Windows 95 B");
           szServicePack = TEXT("OSR2");
-        }
-        else
-        {
+        } else {
           if (osvi.szCSDVersion[1] == 'C') {
             szVersion = TEXT("Windows 95 C");
             szServicePack = TEXT("OSR2");
-          }
-          else
-          {
+          } else {
             szVersion = TEXT("Windows 95");
             szServicePack = TEXT("OSR1");
           }
@@ -1210,9 +1140,7 @@ HB_FUNC(HMG_WINVERSION)
         if (osvi.szCSDVersion[1] == 'A') {
           szVersion = TEXT("Windows 98 A");
           szServicePack = TEXT("Second Edition");
-        }
-        else
-        {
+        } else {
           szVersion = TEXT("Windows 98");
           szServicePack = TEXT("First Edition");
         }
@@ -1268,9 +1196,7 @@ HB_FUNC(HMG_GETDLLVERSION)
         dwMinorVersion = dvi.dwMinorVersion;
         dwBuildNumber = dvi.dwBuildNumber;
       }
-    }
-    else
-    {
+    } else {
       MessageBox(nullptr, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
     }
 
@@ -1302,9 +1228,7 @@ HB_FUNC(HMG_FILLRECT)
   if (IsWindow(hWnd)) {
     hDC = GetDC(hWnd);
     bDC = true;
-  }
-  else
-  {
+  } else {
     hDC = hmg_par_HDC(1);
   }
 
@@ -1314,9 +1238,7 @@ HB_FUNC(HMG_FILLRECT)
 
     if (hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rc)) {
       iParam = 3;
-    }
-    else
-    {
+    } else {
       rc.left = hb_parni(2);
       rc.top = hb_parni(3);
       rc.right = hb_parni(4);
@@ -1328,9 +1250,7 @@ HB_FUNC(HMG_FILLRECT)
     if (bDC) {
       ReleaseDC(hWnd, hDC);
     }
-  }
-  else
-  {
+  } else {
     hb_retni(0);
   }
 }
@@ -1368,9 +1288,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 
     // call the function IsHungAppWindow
     *pbHung = _IsHungAppWindow(hWnd);
-  }
-  else
-  {
+  } else {
     DWORD dwThreadId = GetWindowThreadProcessId(hWnd, nullptr);
 
     BOOL(WINAPI * _IsHungThread)(DWORD);
@@ -1398,9 +1316,7 @@ HB_FUNC(HMG_ISAPPHUNG)
 
   if (IsAppHung(hmg_par_HWND(1), &bIsHung)) {
     hb_retl(bIsHung);
-  }
-  else
-  {
+  } else {
     if (GetLastError() != ERROR_INVALID_PARAMETER) {
       MessageBox(nullptr, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING);
     }
@@ -1441,14 +1357,10 @@ HB_FUNC(HMG_EMPTYWORKINGSET)
       hb_retl(static_cast<BOOL>(pEmptyWorkingSet(hProcess)));
 
       CloseHandle(hProcess);
-    }
-    else
-    {
+    } else {
       hb_retl(false);
     }
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -1497,9 +1409,7 @@ HB_FUNC(HMG_GETSHORTPATHNAME)
     hb_retni(hb_storclen(pStr, (HB_SIZE)iRet, 2));
     hb_xfree(pStr);
 #endif
-  }
-  else
-  {
+  } else {
     hb_retni(hb_storc("", 2));
   }
 
@@ -1590,9 +1500,7 @@ HB_FUNC(HMG__GETCLIENTRECT)
     GetClientRect(hWnd, &rc);
 
     hb_itemReturnRelease(hmg_RectToArray(&rc));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -1866,9 +1774,7 @@ HB_FUNC(HMG_CREATELINK)
     if (SUCCEEDED(hRes)) {
       hb_retnl(hRes);
     }
-  }
-  else
-  {
+  } else {
     hb_retnl(hRes);
   }
 

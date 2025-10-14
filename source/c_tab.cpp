@@ -167,9 +167,7 @@ HB_FUNC(HMG_ADDTABBITMAP)
 
       if (himl == nullptr) {
         himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-      }
-      else
-      {
+      } else {
         HMG_ImageListAdd(himl, FileName, Transparent);
       }
     }

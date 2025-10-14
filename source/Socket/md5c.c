@@ -138,8 +138,7 @@ unsigned int inputLen;                                     /* length of input bl
       MD5Transform(context->state, &input[i]);
 
     index = 0;
-  }
-  else
+  } else
     i = 0;
 
   /* Buffer remaining input */

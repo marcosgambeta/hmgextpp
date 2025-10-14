@@ -100,12 +100,8 @@ HB_FUNC(HMG_INITGETBOX)
   if (hb_parl(12)) {
     // if <lNumeric> is TRUE, then ES_NUMBER style is added.
     style |= ES_NUMBER;
-  }
-
   // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
-
-  else
-  {
+  } else {
     if (hb_parl(10)) {
       // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
       style |= ES_UPPERCASE;
@@ -178,9 +174,7 @@ HB_FUNC(HMG_INITGETBOX)
 #ifdef UNICODE
     hb_xfree(lpImageName);
 #endif
-  }
-  else
-  {
+  } else {
     himage = nullptr;
   }
 
@@ -215,9 +209,7 @@ HB_FUNC(HMG_INITGETBOX)
 #ifdef UNICODE
     hb_xfree(lpImageName2);
 #endif
-  }
-  else
-  {
+  } else {
     himage2 = nullptr;
   }
 
@@ -236,18 +228,14 @@ HB_FUNC(HMG_INITGETBOX)
   if (fBtns) {
     hBtn1 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle1, hb_parni(5) - BtnWidth - 3, -1, BtnWidth,
                            hb_parni(6) - 2, hedit, reinterpret_cast<HMENU>(GBB1), GetInstance(), nullptr);
-  }
-  else
-  {
+  } else {
     hBtn1 = 0;
   }
 
   if (fBtn2) {
     hBtn2 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle2, hb_parni(5) - BtnWidth - BtnWidth2 - 3, -1, BtnWidth,
                            hb_parni(6) - 2, hedit, reinterpret_cast<HMENU>(GBB2), GetInstance(), nullptr);
-  }
-  else
-  {
+  } else {
     hBtn2 = 0;
   }
 

@@ -337,8 +337,7 @@ HB_FUNC(TSDRAWCELL)
       rct.top = (nHeightHead + nHeightSuper - (nHeightSuper ? 1 : 0));
     else
       rct.top = (bHeader ? nHeightSuper - (nHeightSuper ? 1 : 0) : 0);
-  }
-  else
+  } else
     rct.top =
         (bFooter ? rct.bottom - nHeightFoot + 1
                  : nHeightHead + nHeightSuper - (nHeightSuper ? 1 : 0) + nHeightSpec + (nHeightCell * (nRow - 1)));
@@ -370,8 +369,7 @@ HB_FUNC(TSDRAWCELL)
 
       rct.bottom -= (bHeader ? 0 : 1);
       rct.right -= 1;
-    }
-    else
+    } else
       DegradColor(hDC, &rct, clrBack, clrTo);
 
     if (hBitMap) {
@@ -405,9 +403,7 @@ HB_FUNC(TSDRAWCELL)
           nLeft = rct.left + ixLayOut;
           break;
         }
-      }
-      else
-      {
+      } else {
         nTop = rct.top;
         nLeft = rct.left;
       }
@@ -421,14 +417,11 @@ HB_FUNC(TSDRAWCELL)
 
           if (!bOpaque)
             MaskRegion(hDC, &rct, GetPixel(hDC, nLeft, nTop), GetBkColor(hDC));
-        }
-        else if (bOpaque)
+        } else if (bOpaque)
           DrawBitmap(hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask);
         else
           DrawMasked(hDC, hBitMap, nTop, nLeft);
-      }
-      else
-      {
+      } else {
         if (bAdjBmp) {
           DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1,
                      bSelec ? 0 : nBitmapMask);
@@ -436,8 +429,7 @@ HB_FUNC(TSDRAWCELL)
 
           if (!bOpaque)
             MaskRegion(hDC, &rct, GetPixel(hDC, nLeft, nTop), GetBkColor(hDC));
-        }
-        else if (bOpaque)
+        } else if (bOpaque)
           DrawBitmap(hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask);
         else
           DrawMasked(hDC, hBitMap, nTop, nLeft);
@@ -460,8 +452,7 @@ HB_FUNC(TSDRAWCELL)
 
       if ((nVertText == 3 || nVertText == 4))
         DrawCheck(hDC, &rct, hWhitePen, iAlign, bChecked);
-      else
-      {
+      else {
         nBkOld = SetBkMode(hDC, TRANSPARENT);
 
         if (b3D) {
@@ -513,9 +504,7 @@ HB_FUNC(TSDRAWCELL)
 
       if (lCursor)
         cDrawCursor(hWnd, &rct, lCursor, clrFore);
-    }
-    else
-    {
+    } else {
       bHeader = (bFooter ? bFooter : (bHeader || bSuper));
 
       if ((nWidth != -2) && bGrid) // -1 draw gridline in phantom column; -2 don't draw gridline in phantom column
@@ -679,8 +668,7 @@ HB_FUNC(ROWFROMPIX)
     iRow = -2;
   else if (iPixR >= (rct.bottom - iFoot))
     iRow = -1;
-  else
-  {
+  else {
     rct.top += (iHead + iSupH + iSpcH);
     iRow = ((iPixR - rct.top) / iCell) + 1;
   }
@@ -712,9 +700,7 @@ HB_FUNC(SBGETHEIGHT) // ( hWnd, hFont, nTotal )
     ReleaseDC(hWnd, hDC);
     lReturn = (iTotal == 1 ? tm.tmAveCharWidth : tm.tmHeight);
     hb_retnl(lReturn);
-  }
-  else
-  {
+  } else {
     GetWindowRect(hWnd, &rct);
     lTotHeight = rct.bottom - rct.top + 1;
     ReleaseDC(hWnd, hDC);
@@ -954,9 +940,7 @@ static void DegradColor(HDC hDC, RECT *rori, COLORREF cFrom, signed long cTo)
     if (!bHoriz) {
       rct.top++;
       rct.bottom++;
-    }
-    else
-    {
+    } else {
       rct.left++;
       rct.right++;
     }
@@ -980,9 +964,7 @@ void cDrawCursor(HWND hWnd, RECT *rctc, long lCursor, COLORREF nClr)
 
     DeleteObject(hReg);
     DeleteObject(hBr);
-  }
-  else
-  {
+  } else {
     rct.top = rctc->top + 1;
     rct.left = rctc->left + 1;
     rct.bottom = rctc->bottom - 1;

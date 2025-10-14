@@ -86,9 +86,7 @@ HB_FUNC(HMG_GETPRIVATEPROFILESTRING)
     hb_retc(pStr);
     hb_xfree(pStr);
 #endif
-  }
-  else
-  {
+  } else {
     HB_RETSTR(lpDefault);
   }
 

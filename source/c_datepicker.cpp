@@ -179,14 +179,11 @@ HB_FUNC(HMG_SETDATEPICK)
     sysTime.wYear = static_cast<WORD>(iYear);
     sysTime.wMonth = static_cast<WORD>(iMonth);
     sysTime.wDay = static_cast<WORD>(iDay);
-  }
-  else if (hb_pcount() > 2) {
+  } else if (hb_pcount() > 2) {
     sysTime.wYear = hmg_par_WORD(2);
     sysTime.wMonth = hmg_par_WORD(3);
     sysTime.wDay = hmg_par_WORD(4);
-  }
-  else
-  {
+  } else {
     sysTime.wYear = 2005; // date() ?
     sysTime.wMonth = 1;
     sysTime.wDay = 1;
@@ -298,8 +295,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     sysTime.wMinute = static_cast<WORD>(iMinute);
     sysTime.wSecond = static_cast<WORD>(iSecond);
     sysTime.wMilliseconds = static_cast<WORD>(iMSec);
-  }
-  else if (HB_ISDATE(2)) {
+  } else if (HB_ISDATE(2)) {
     int iYear, iMonth, iDay;
     long lJulian = hb_pardl(2);
     hb_dateDecode(lJulian, &iYear, &iMonth, &iDay);
@@ -308,9 +304,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
     sysTime.wDay = static_cast<WORD>(iDay);
     sysTime.wDayOfWeek = 0;
     bTimeToZero = true;
-  }
-  else
-  {
+  } else {
     sysTime.wYear = static_cast<WORD>(hb_parnidef(2, 2005));
     sysTime.wMonth = static_cast<WORD>(hb_parnidef(3, 1));
     sysTime.wDay = static_cast<WORD>(hb_parnidef(4, 1));
@@ -320,9 +314,7 @@ HB_FUNC(HMG_DTP_SETDATETIME) // TODO: deprecate bTimeToZero
       sysTime.wMinute = hmg_par_WORD(6);
       sysTime.wSecond = hmg_par_WORD(7);
       sysTime.wMilliseconds = hmg_par_WORD(8);
-    }
-    else
-    {
+    } else {
       bTimeToZero = true;
     }
   }

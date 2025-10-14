@@ -71,9 +71,7 @@ HB_FUNC(HMG_REGOPENKEYEX)
 
   if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
-  }
-  else
-  {
+  } else {
     HB_STORNL(PtrToLong(phwHandle), 5);
     hb_retnl(0);
   }
@@ -103,9 +101,7 @@ HB_FUNC(HMG_REGQUERYVALUEEX)
 
     if (lError != ERROR_SUCCESS) {
       hb_retnl(-1);
-    }
-    else
-    {
+    } else {
       HB_STORNL(lpType, 4);
       hb_storc(reinterpret_cast<char *>(lpData), 5);
       HB_STORNL(lpcbData, 6);
@@ -114,9 +110,7 @@ HB_FUNC(HMG_REGQUERYVALUEEX)
     }
 
     hb_xfree(lpData);
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
 }
@@ -139,9 +133,7 @@ HB_FUNC(HMG_REGENUMKEYEX)
 
   if (bErr != ERROR_SUCCESS) {
     hb_retnl(-1);
-  }
-  else
-  {
+  } else {
     hb_storc(static_cast<const char *>(Buffer), 3);
     HB_STORNL(dwBuffSize, 4);
     hb_storc(static_cast<const char *>(Class), 6);
@@ -168,9 +160,7 @@ HB_FUNC(HMG_REGSETVALUEEX)
                  ? 0
                  : -1);
     hb_strfree(str);
-  }
-  else
-  {
+  } else {
     void *str;
     DWORD nSpace = hb_parnl(5);
     hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4),
@@ -195,9 +185,7 @@ HB_FUNC(HMG_REGCREATEKEY)
   if (RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS) {
     HB_STORNL(PtrToLong(hKey), 3);
     hb_retnl(0);
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
 
@@ -216,9 +204,7 @@ HB_FUNC(HMG_REGENUMVALUE)
 
   if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
-  }
-  else
-  {
+  } else {
     hb_storc(static_cast<const char *>(Buffer), 3);
     HB_STORNL(dwBuffSize, 4);
     HB_STORNL(lpType, 6);
@@ -263,9 +249,7 @@ HB_FUNC(HMG_REGCONNECTREGISTRY)
 
   if (lError != ERROR_SUCCESS) {
     hb_retnl(-1);
-  }
-  else
-  {
+  } else {
     HB_STORNL(PtrToLong(phwHandle), 3);
     hb_retnl(lError);
   }

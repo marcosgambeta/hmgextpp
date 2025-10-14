@@ -177,16 +177,13 @@ HB_FUNC(DLLPREPARECALL)
   if (ISCHAR(1)) {
     xec->cDLL = hb_strdup(hb_parc(1));
     xec->hDLL = LoadLibrary(xec->cDLL);
-  }
-  else if (ISNUM(1)) {
+  } else if (ISNUM(1)) {
     xec->hDLL = (HINSTANCE)hb_parnl(1);
   }
 
   if (ISNUM(2)) {
     xec->dwFlags = hb_parnl(2);
-  }
-  else
-  {
+  } else {
     xec->dwFlags = DC_CALL_STD;
   }
 
@@ -195,18 +192,13 @@ HB_FUNC(DLLPREPARECALL)
       // Not a typo - reserving space for possible Ansi 'A' suffix!
       xec->cProc = (char *)hb_xgrab(hb_parclen(3) + 2);
       strncpy(xec->cProc, hb_parc(3), hb_parclen(3) + 1);
-    }
-    else if (ISNUM(3)) {
+    } else if (ISNUM(3)) {
       xec->dwOrdinal = hb_parnl(3);
     }
-  }
-  else
-  {
+  } else {
     if (xec->cDLL) {
       MessageBox(GetActiveWindow(), "DllPrepareCall:LoadLibrary() failed!", xec->cDLL, MB_OK | MB_ICONERROR);
-    }
-    else
-    {
+    } else {
       MessageBox(GetActiveWindow(), "DllPrepareCall() invalid handle argument!", "DllPrepareCall",
                  MB_OK | MB_ICONERROR);
     }
@@ -225,8 +217,7 @@ HB_FUNC(DLLPREPARECALL)
 
   if (xec->hDLL && xec->lpFunc) {
     hb_retptrGC(xec);
-  }
-  else if (xec->hDLL && xec->lpFunc == NULL) {
+  } else if (xec->hDLL && xec->lpFunc == NULL) {
     if (xec->cProc) {
       LPVOID lpMsgBuf;
 
@@ -236,9 +227,7 @@ HB_FUNC(DLLPREPARECALL)
       MessageBox(GetActiveWindow(), (LPCSTR)lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!", MB_OK | MB_ICONERROR);
 
       LocalFree(lpMsgBuf);
-    }
-    else
-    {
+    } else {
       MessageBox(GetActiveWindow(), "DllPrepareCall:GetProcAddress() invalid oridnal argument!", "DllPrepareCall",
                  MB_OK | MB_ICONERROR);
     }
@@ -441,9 +430,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
         if (hb_parinfo(i) & Harbour::Item::BYREF) {
           Parm[iCnt].pArg = malloc(hb_parclen(i));
           memcpy(Parm[iCnt].pArg, hb_parc(i), hb_parclen(i));
-        }
-        else
-        {
+        } else {
           Parm[iCnt].pArg = (void *)hb_parc(i);
         }
         Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
@@ -641,9 +628,7 @@ HB_FUNC(DLLCALL)
   if (ISCHAR(1)) {
     hInst = LoadLibrary(hb_parc(1));
     lUnload = TRUE;
-  }
-  else
-  {
+  } else {
     hInst = (HINSTANCE)hb_parnl(1);
   }
 
@@ -781,9 +766,7 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
         // Arg has a ptr to a variable that has the arg
         dwVal = (DWORD)pArg; // Get first four bytes
         pArg -= 4;           // Next part of argument
-      }
-      else
-      {
+      } else {
         // Arg has the real arg
         dwVal = Parm[nInd].dwArg;
       }
@@ -817,15 +800,12 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
 
   if (Flags & DC_RETVAL_MATH4) {
     asm volatile("\tfstps (%0)\n" : "=r"(Res));
-  }
-  else if (Flags & DC_RETVAL_MATH8) {
+  } else if (Flags & DC_RETVAL_MATH8) {
     asm volatile("\tfstpl (%0)\n" : "=r"(Res));
-  }
-  else if (pRet == NULL) {
+  } else if (pRet == NULL) {
     Res.Int = dwEAX;
     (&Res.Int)[1] = dwEDX;
-  }
-  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
+  } else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
     /* Microsoft optimized less than 8-bytes structure passing */
     ((int *)pRet)[0] = dwEAX;
     ((int *)pRet)[1] = dwEDX;
@@ -847,22 +827,19 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
     _EAX = dwEAX;
     _EDX = dwEDX;
     __emit__(0xd9, 0x1b); //     _asm fnstp float ptr [ebx]
-  }
-  else if (Flags & DC_RETVAL_MATH8) {
+  } else if (Flags & DC_RETVAL_MATH8) {
     _EBX = (DWORD)&Res;
     _EAX = dwEAX;
     _EDX = dwEDX;
     __emit__(0xdd, 0x1b); //     _asm fnstp qword ptr [ebx]
-  }
-  else if (pRet == NULL) {
+  } else if (pRet == NULL) {
     _EBX = (DWORD)&Res;
     _EAX = dwEAX;
     _EDX = dwEDX;
     //         _asm mov DWORD PTR [ebx], eax
     //         _asm mov DWORD PTR [ebx + 4], edx
     __emit__(0x89, 0x03, 0x89, 0x53, 0x04);
-  }
-  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
+  } else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
     _EBX = (DWORD)pRet;
     _EAX = dwEAX;
     _EDX = dwEDX;
@@ -891,14 +868,11 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs, DYNAPARM Parm[], LPVOID
 
   if (Flags & DC_RETVAL_MATH4) {
     _asm fstp dword ptr[Res]
-  }
-  else if (Flags & DC_RETVAL_MATH8) {
+  } else if (Flags & DC_RETVAL_MATH8) {
     _asm fstp qword ptr[Res]
-  }
-  else if (pRet == NULL) {
+  } else if (pRet == NULL) {
     _asm mov eax, [dwEAX] _asm mov DWORD PTR[Res], eax _asm mov edx, [dwEDX] _asm mov DWORD PTR[Res + 4], edx
-  }
-  else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
+  } else if (((Flags & DC_BORLAND) == 0) && (nRetSiz <= 8)) {
     // Microsoft optimized less than 8-bytes structure passing
     _asm mov ecx, DWORD PTR[pRet] _asm mov eax, [dwEAX] _asm mov DWORD PTR[ecx],
         eax _asm mov edx, [dwEDX] _asm mov DWORD PTR[ecx + 4], edx

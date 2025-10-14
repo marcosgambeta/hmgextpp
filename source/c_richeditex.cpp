@@ -142,9 +142,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 
   if (ReadFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return 0;
-  }
-  else
-  {
+  } else {
     return static_cast<DWORD>(-1);
   }
 }
@@ -204,9 +202,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 
   if (WriteFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr)) {
     return 0;
-  }
-  else
-  {
+  } else {
     return static_cast<DWORD>(-1);
   }
 }
@@ -324,9 +320,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETBKGNDCOLOR)
 
   if (HB_ISARRAY(2)) {
     SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
-  }
-  else
-  {
+  } else {
     SendMessage(hWndControl, EM_SETBKGNDCOLOR, 1, 0); // Set to the window background system color
   }
 }
@@ -407,8 +401,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETFONT)
   if (HB_ISARRAY(8)) {
     Mask |= CFM_COLOR;
     CharFormat2.crTextColor = RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3));
-  }
-  else if (HB_ISNUM(8) && hb_parnl(8) == -1) {
+  } else if (HB_ISNUM(8) && hb_parnl(8) == -1) {
     Mask |= CFM_COLOR;
     Effects |= CFE_AUTOCOLOR; // equivalent to GetSysColor(COLOR_WINDOWTEXT)
   }
@@ -416,8 +409,7 @@ HB_FUNC(HMG_RICHEDITBOX_SETFONT)
   if (HB_ISARRAY(9)) {
     Mask |= CFM_BACKCOLOR;
     CharFormat2.crBackColor = RGB(HB_PARNI(9, 1), HB_PARNI(9, 2), HB_PARNI(9, 3));
-  }
-  else if (HB_ISNUM(9) && hb_parnl(9) == -1) {
+  } else if (HB_ISNUM(9) && hb_parnl(9) == -1) {
     Mask |= CFM_BACKCOLOR;
     Effects |= CFE_AUTOBACKCOLOR; // equivalent to GetSysColor(COLOR_WINDOW)
   }
@@ -513,12 +505,9 @@ HB_FUNC(HMG_RICHEDITBOX_GETFONT)
   if (HB_ISBYREF(10)) {
     if (Effects & CFE_SUPERSCRIPT) {
       hb_stornl(2, 10);
-    }
-    else if (Effects & CFE_SUBSCRIPT) {
+    } else if (Effects & CFE_SUBSCRIPT) {
       hb_stornl(1, 10);
-    }
-    else
-    {
+    } else {
       hb_stornl(0, 10);
     }
   }
@@ -645,9 +634,7 @@ HB_FUNC(HMG_RICHEDITBOX_FINDTEXT)
   if (Down) {
     CharRange.cpMin = CharRange.cpMax;
     CharRange.cpMax = -1;
-  }
-  else
-  {
+  } else {
     CharRange.cpMin = CharRange.cpMin;
     CharRange.cpMax = 0;
   }
@@ -1031,9 +1018,7 @@ HB_FUNC(HMG_RICHEDITBOX_PASTESPECIAL) // Paste a specific clipboard format in a 
     CHAR *ClipboardFormat = const_cast<CHAR *>(hb_parc(2));
     SendMessage(hWndControl, EM_PASTESPECIAL, reinterpret_cast<WPARAM>(ClipboardFormat),
                 reinterpret_cast<LPARAM>(nullptr));
-  }
-  else
-  {
+  } else {
     auto ClipboardFormat = static_cast<WPARAM>(hb_parnl(2));
     SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
   }
@@ -1089,9 +1074,7 @@ HB_FUNC(HMG_RICHEDITBOX_POSFROMCHAR)
   if (PointL.y < 0 || PointL.x < 0) {
     Point.y = -1;
     Point.x = -1;
-  }
-  else
-  {
+  } else {
     Point.x = PointL.x;
     Point.y = PointL.y;
     ClientToScreen(hWndControl, &Point);
@@ -1152,9 +1135,7 @@ HB_FUNC(HMG_FINDREPLACEDLG)
 
     if (lReplace) {
       hDlgFindReplace = ReplaceText(&FindReplace);
-    }
-    else
-    {
+    } else {
       hDlgFindReplace = FindText(&FindReplace);
     }
 
@@ -1186,9 +1167,7 @@ HB_FUNC(HMG_FINDREPLACEDLGGETTITLE)
   if (hDlgFindReplace != nullptr) {
     GetWindowText(hDlgFindReplace, cTitle, sizeof(cTitle) / sizeof(TCHAR));
     HB_RETSTR(cTitle);
-  }
-  else
-  {
+  } else {
     hb_retc("");
   }
 }

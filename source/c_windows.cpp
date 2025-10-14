@@ -155,9 +155,7 @@ HB_FUNC(HMG_GETGLOBALLISTENER)
 {
   if (g_ListenerDyns != nullptr) {
     hb_retc(hb_dynsymName(g_ListenerDyns));
-  }
-  else
-  {
+  } else {
     hb_retc_null();
   }
 }
@@ -171,9 +169,7 @@ HB_FUNC(HMG_SETGLOBALLISTENER)
     g_ListenerDyns = hb_dynsymGet(pszNewName);
     hb_retl(true);
     HMG_LISTENER_UNLOCK;
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -224,9 +220,7 @@ static bool AppEventRemove(HWND hWnd, const char *pszProp, UINT message)
 
           HB_ATOM_DEC(&events->used);
         }
-      }
-      else
-      {
+      } else {
         for (size_t i = 0; i < events->count; i++)
         { // delete all not empty items with codeblocks
           if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
@@ -343,9 +337,7 @@ HB_FUNC(HMG_APPEVENTS)
 
     if (nPos > 0) {
       hb_itemRelease(events->events[nPos - 1].bAction);
-    }
-    else
-    {
+    } else {
       nPos = bInit ? 1 : AppEventScan(events, 0);
       if (nPos > 0) {
         HB_ATOM_INC(&events->used);
@@ -420,8 +412,7 @@ HB_FUNC(HMG_APPEVENTSUPDATE)
 
           bUpd = true;
         }
-      }
-      else if (message == 0) {
+      } else if (message == 0) {
         events->active = hb_parldef(4, events->active);
 
         bUpd = true;
@@ -459,9 +450,7 @@ HB_FUNC(HMG_ENUMAPPEVENTS)
 
         if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
           hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
-        }
-        else
-        {
+        } else {
           hb_arraySet(aEvent, 3, nullptr);
         }
 
@@ -503,9 +492,7 @@ HB_FUNC(HMG_GETAPPEVENTSINFO)
 #ifdef UNICODE
     hb_xfree(pW);
 #endif
-  }
-  else
-  {
+  } else {
     aInfo = hb_itemArrayNew(0);
   }
 
@@ -551,9 +538,7 @@ static bool WinEventRemove(HWND hWnd, const char *pszProp, UINT message)
 
           HB_ATOM_DEC(&events->used);
         }
-      }
-      else
-      {
+      } else {
         for (size_t i = 0; i < events->count; i++)
         { // delete all not empty items with codeblocks
           if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
@@ -670,9 +655,7 @@ HB_FUNC(HMG_WINEVENTS)
 
     if (nPos > 0) {
       hb_itemRelease(events->events[nPos - 1].bAction);
-    }
-    else
-    {
+    } else {
       nPos = bInit ? 1 : WinEventScan(events, 0);
       if (nPos > 0) {
         HB_ATOM_INC(&events->used);
@@ -747,8 +730,7 @@ HB_FUNC(HMG_WINEVENTSUPDATE)
 
           bUpd = true;
         }
-      }
-      else if (message == 0) {
+      } else if (message == 0) {
         events->active = hb_parldef(4, events->active);
 
         bUpd = true;
@@ -786,9 +768,7 @@ HB_FUNC(HMG_ENUMWINEVENTS)
 
         if (events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction)) {
           hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
-        }
-        else
-        {
+        } else {
           hb_arraySet(aEvent, 3, nullptr);
         }
 
@@ -830,9 +810,7 @@ HB_FUNC(HMG_GETWINEVENTSINFO)
 #ifdef UNICODE
     hb_xfree(pW);
 #endif
-  }
-  else
-  {
+  } else {
     aInfo = hb_itemArrayNew(0);
   }
 
@@ -854,9 +832,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 
       if (GetLastError() != 0) {
         return -1;
-      }
-      else
-      {
+      } else {
         SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
       }
     }
@@ -934,14 +910,10 @@ HB_FUNC(HMG_INITMESSAGEONLYWINDOW)
 
         hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(),
                               static_cast<LPVOID>(pUserData));
-      }
-      else
-      {
+      } else {
         hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), 0);
       }
-    }
-    else
-    {
+    } else {
       hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
     }
   }
@@ -976,8 +948,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
   if (message >= WM_APP && message <= (WM_APP + MAX_EVENTS)) {
     r = AppEventOn(hWnd, message, wParam, lParam);
-  }
-  else if (g_ListenerSymb) {
+  } else if (g_ListenerSymb) {
     if (hb_vmRequestReenter()) {
       hb_vmPushSymbol(g_ListenerSymb);
       hb_vmPushNil();
@@ -1002,9 +973,7 @@ HB_FUNC(HMG_INITWINDOW)
 
   if (hb_parl(16)) {
     ExStyle = WS_EX_CONTEXTHELP;
-  }
-  else
-  {
+  } else {
     ExStyle = 0;
     if (!hb_parl(6)) {
       style |= WS_MINIMIZEBOX;
@@ -1060,9 +1029,7 @@ HB_FUNC(HMG_INITWINDOW)
 
   if (hwnd != nullptr) {
     hmg_ret_HWND(hwnd);
-  }
-  else
-  {
+  } else {
     MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
@@ -1108,9 +1075,7 @@ HB_FUNC(HMG_INITMODALWINDOW)
 
   if (hwnd != nullptr) {
     hmg_ret_HWND(hwnd);
-  }
-  else
-  {
+  } else {
     MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
@@ -1143,9 +1108,7 @@ HB_FUNC(HMG_INITSPLITCHILDWINDOW)
 
   if (hwnd != nullptr) {
     hmg_ret_HWND(hwnd);
-  }
-  else
-  {
+  } else {
     MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
   }
 }
@@ -1222,13 +1185,10 @@ HB_FUNC(HMG_REGISTERWINDOW)
     // old behavior (before 16.10)
     if (HB_PARNI(3, 1) == -1) {
       hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1);
-    }
-    else
-    {
+    } else {
       hBrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
     }
-  }
-  else if (HB_ISCHAR(3) || HB_ISNUM(3)) {
+  } else if (HB_ISCHAR(3) || HB_ISNUM(3)) {
     void *str = nullptr;
     LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr)
                                        : (HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr);
@@ -1292,9 +1252,7 @@ HB_FUNC(HMG_REGISTERSPLITCHILDWINDOW)
 
   if (HB_PARNI(3, 1) == -1) {
     WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1);
-  }
-  else
-  {
+  } else {
     hbrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
     WndClass.hbrBackground = hbrush;
   }
@@ -1368,17 +1326,12 @@ HB_FUNC(HMG_BORLANDC)
   if (pszName) {
     if (iVerPatch != 0) {
       hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d.%d", pszName, szSub, iVerMajor, iVerMinor, iVerPatch);
-    }
-    else if (iVerMajor != 0 || iVerMinor != 0) {
+    } else if (iVerMajor != 0 || iVerMinor != 0) {
       hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d0", pszName, szSub, iVerMajor, iVerMinor);
-    }
-    else
-    {
+    } else {
       hb_snprintf(pszCompiler, COMPILER_BUF_SIZE, "%s%s", pszName, szSub);
     }
-  }
-  else
-  {
+  } else {
     hb_strncpy(pszCompiler, "(unknown)", COMPILER_BUF_SIZE - 1);
   }
 
@@ -1444,9 +1397,7 @@ HB_FUNC(HMG_LOWER)
     pStr = WideToAnsi(Buffer);
     hb_retc(pStr);
     hb_xfree(pStr);
-  }
-  else
-  {
+  } else {
     hb_retc(nullptr);
   }
 
@@ -1474,9 +1425,7 @@ HB_FUNC(HMG_UPPER)
     pStr = WideToAnsi(Buffer);
     hb_retc(pStr);
     hb_xfree(pStr);
-  }
-  else
-  {
+  } else {
     hb_retc(nullptr);
   }
 

@@ -101,9 +101,7 @@ HB_FUNC(HMG_INITCOMBOBOXEX)
 
       if (himl == nullptr) {
         himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-      }
-      else
-      {
+      } else {
         HMG_ImageListAdd(himl, FileName, Transparent);
       }
     }
@@ -117,9 +115,7 @@ HB_FUNC(HMG_INITCOMBOBOXEX)
 
   if (himl != nullptr) {
     SendMessage(hCombo, CBEM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
-  }
-  else
-  {
+  } else {
     // extend combo without images
     SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
   }
@@ -196,9 +192,7 @@ HB_FUNC(HMG_COMBOGETSTRING)
     SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(str));
     HB_RETSTR(str);
     delete[] str;
-  }
-  else
-  {
+  } else {
     hb_retc_null();
   }
 }

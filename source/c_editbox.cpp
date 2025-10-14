@@ -72,9 +72,7 @@ HB_FUNC(HMG_INITEDITBOX)
 
   if (!hb_parl(13)) {
     style |= WS_VSCROLL;
-  }
-  else
-  {
+  } else {
     style |= ES_AUTOVSCROLL;
   }
 

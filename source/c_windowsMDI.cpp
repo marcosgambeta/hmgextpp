@@ -85,9 +85,7 @@ HB_FUNC(HMG_REGISTERMDIWINDOW)
   HBRUSH hbrush = nullptr;
   if (HB_PARNI(3, 1) == -1) {
     WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-  }
-  else
-  {
+  } else {
     hbrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
     WndClass.hbrBackground = hbrush;
   }
@@ -122,9 +120,7 @@ HB_FUNC(HMG_REGISTERMDIWINDOW)
 
   if (HB_PARNI(3, 1) == -1) {
     WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-  }
-  else
-  {
+  } else {
     WndClass.hbrBackground = hbrush;
   }
 
@@ -163,9 +159,7 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
   if (r != 0) {
     return r;
-  }
-  else
-  {
+  } else {
     return DefFrameProc(hWnd, hwndMDIClient, message, wParam, lParam);
   }
 }
@@ -192,9 +186,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 
   if (r == 0) {
     return DefMDIChildProc(hWnd, message, wParam, lParam);
-  }
-  else
-  {
+  } else {
     return r;
   }
 }
@@ -211,9 +203,7 @@ HB_FUNC(HMG_INITMDIWINDOW)
 
   if (hb_parl(16)) {
     ExStyle = WS_EX_CONTEXTHELP;
-  }
-  else
-  {
+  } else {
     ExStyle = 0;
     if (!hb_parl(6)) {
       style |= WS_MINIMIZEBOX;
@@ -291,14 +281,10 @@ HB_FUNC(HMG_INITMDICHILDWINDOW)
 
   if (hb_parl(9)) {
     rgch[0] = 0;
-  }
-  else
-  {
+  } else {
     if (hb_parc(2) == nullptr) {
       wsprintf(rgch, TEXT("Untitled%d"), cUntitled++);
-    }
-    else
-    {
+    } else {
       void *str;
       LPCTSTR lpTitle = HB_PARSTR(2, &str, nullptr);
       HB_STRNCPY(rgch, lpTitle, 149);

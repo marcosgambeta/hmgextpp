@@ -104,9 +104,7 @@ HB_FUNC(HMG_DOMESSAGELOOP)
       if (hb_parldef(1, true)) {
         hmg_ErrorExit(TEXT("DOMESSAGELOOP"), 0, TRUE);
       }
-    }
-    else
-    {
+    } else {
       hDlgModeless = GetActiveWindow();
 
       if (hDlgModeless == nullptr ||
@@ -265,9 +263,7 @@ HB_FUNC(HMG_SETLAYEREDWINDOWATTRIBUTES)
         hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? true : false);
       }
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -317,9 +313,7 @@ HB_FUNC(HMG_C_CENTER)
 
   if (hb_parl(2)) {
     CenterIntoParent(hwnd);
-  }
-  else
-  {
+  } else {
     RECT rect;
     GetWindowRect(hwnd, &rect);
     int w = rect.right - rect.left;
@@ -357,9 +351,7 @@ HB_FUNC(HMG_SENDMESSAGE)
 
   if (IsWindow(hwnd)) {
     HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -454,8 +446,7 @@ HB_FUNC(HMG_GETWINDOWRECT)
     case 4:
       hb_retni(rect.bottom - rect.top);
     }
-  }
-  else if (HB_ISARRAY(2)) {
+  } else if (HB_ISARRAY(2)) {
     HB_STORVNL(rect.left, 2, 1);
     HB_STORVNL(rect.top, 2, 2);
     HB_STORVNL(rect.right, 2, 3);
@@ -524,9 +515,7 @@ HB_FUNC(HMG_GETCURSORPOS)
   if (hb_pcount() == 0) {
     HB_STORNI(pt.y, -1, 1);
     HB_STORNI(pt.x, -1, 2);
-  }
-  else
-  {
+  } else {
     HB_STORNI(pt.x, -1, 1);
     HB_STORNI(pt.y, -1, 2);
   }
@@ -725,32 +714,24 @@ HB_FUNC(HMG_ADDSPLITBOXITEM)
     if (hb_parni(9)) {
       rbBand.cxIdeal = hb_parni(6) ? hb_parni(6) : 0;
       rbBand.cxMinChild = hb_parni(9);
-    }
-    else
-    {
+    } else {
       rbBand.cxMinChild = hb_parni(6) ? hb_parni(6) : 0;
     }
-  }
-  else
-  {
+  } else {
     // Horizontal
     if (hb_parni(6) == 0 && hb_parni(7) == 0) {
       // Not ToolBar
       rbBand.cxMinChild = 0;
       rbBand.cyMinChild = rc.right - rc.left;
       rbBand.cx = rc.bottom - rc.top;
-    }
-    else
-    {
+    } else {
       // ToolBar
       rbBand.cyMinChild = hb_parni(6) ? hb_parni(6) : 0;
       rbBand.cx = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
       if (hb_parni(9)) {
         rbBand.cxIdeal = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
         rbBand.cxMinChild = hb_parni(9);
-      }
-      else
-      {
+      } else {
         rbBand.cxMinChild = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
       }
     }
@@ -770,9 +751,7 @@ HB_FUNC(HMG_C_SETWINDOWRGN)
 
   if (hb_parni(6) == 0) {
     SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
-  }
-  else
-  {
+  } else {
     switch (hb_parni(6))
     {
     case 1:
@@ -814,9 +793,7 @@ HB_FUNC(HMG_C_SETPOLYWINDOWRGN)
 
   if (hb_parni(4) == 1) {
     fnPolyFillMode = WINDING;
-  }
-  else
-  {
+  } else {
     fnPolyFillMode = ALTERNATE;
   }
 
@@ -926,20 +903,16 @@ HB_FUNC(HMG_GETDS)
 
   if (lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT) {
     hb_retni(CDRF_NOTIFYITEMDRAW);
-  }
-  else if (lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT) {
+  } else if (lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT) {
     if (hb_pcount() > 1) {
       if (ListView_GetNextItem(hmg_par_HWND(2), -1, LVNI_ALL | LVNI_SELECTED) == hb_parni(3)) {
         ListView_SetItemState(hmg_par_HWND(2), hb_parni(3), 0, LVIS_SELECTED);
       }
     }
     hb_retni(CDRF_NOTIFYSUBITEMDRAW);
-  }
-  else if (lplvcd->nmcd.dwDrawStage == (CDDS_SUBITEM | CDDS_ITEMPREPAINT)) {
+  } else if (lplvcd->nmcd.dwDrawStage == (CDDS_SUBITEM | CDDS_ITEMPREPAINT)) {
     hb_retni(-1);
-  }
-  else
-  {
+  } else {
     hb_retni(CDRF_DODEFAULT);
   }
 }
@@ -1008,9 +981,7 @@ HB_FUNC(HMG_INITMINMAXINFO) // (hWnd) --> aMinMaxInfo
   if (GetWindowLong(hmg_par_HWND(1), GWL_STYLE) & WS_SIZEBOX) {
     x = -GetSystemMetrics(SM_CXFRAME);
     y = -GetSystemMetrics(SM_CYFRAME);
-  }
-  else
-  {
+  } else {
     x = -GetSystemMetrics(SM_CXBORDER);
     y = -GetSystemMetrics(SM_CYBORDER);
   }
@@ -1247,9 +1218,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                   if (hRgn != nullptr) {
                     CombineRgn(hRgn, hRgn, h, RGN_OR);
                     DeleteObject(h);
-                  }
-                  else
-                  {
+                  } else {
                     hRgn = h;
                   }
 
@@ -1268,9 +1237,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
           if (hRgn != nullptr) {
             CombineRgn(hRgn, hRgn, h, RGN_OR);
             DeleteObject(h);
-          }
-          else
-          {
+          } else {
             hRgn = h;
           }
 

@@ -65,9 +65,7 @@ HB_FUNC(HMG_INITTREE)
   if (hb_parni(9) != 0) {
     // Tree+
     mask = 0x0000;
-  }
-  else
-  {
+  } else {
     mask = TVS_LINESATROOT;
   }
 
@@ -97,9 +95,7 @@ HB_FUNC(HMG_INITTREEVIEWBITMAP) // Tree+
 
       if (himl == nullptr) {
         himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-      }
-      else
-      {
+      } else {
         HMG_ImageListAdd(himl, FileName, Transparent);
       }
     }
@@ -174,9 +170,7 @@ HB_FUNC(HMG_ADDTREEITEM)
   if (hPrev == nullptr) {
     is.hInsertAfter = hPrev;
     is.hParent = nullptr;
-  }
-  else
-  {
+  } else {
     is.hInsertAfter = TVI_LAST;
     is.hParent = hPrev;
   }
@@ -387,9 +381,7 @@ HB_FUNC(HMG_TREEVIEW_EXPANDCHILDRENRECURSIVE)
 
   if (fRecurse == FALSE) {
     TreeView_Expand(hWndTV, ItemHandle, nExpand);
-  }
-  else
-  {
+  } else {
     EnableWindow(hWndParent, FALSE);
     TreeView_ExpandChildrenRecursive(hWndTV, ItemHandle, nExpand);
     if (lEnabled == TRUE) {
@@ -455,9 +447,7 @@ int CALLBACK TreeViewCompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 
   if (TreeViewCompareInfo->CaseSensitive == FALSE) {
     CmpValue = lstrcmpi(ItemText1, ItemText2);
-  }
-  else
-  {
+  } else {
     CmpValue = lstrcmp(ItemText1, ItemText2);
   }
 
@@ -528,9 +518,7 @@ HB_FUNC(HMG_TREEVIEW_SORTCHILDRENRECURSIVECB)
 
   if (fRecurse == FALSE) {
     TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
-  }
-  else
-  {
+  } else {
     EnableWindow(hWndParent, FALSE);
 
     TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);

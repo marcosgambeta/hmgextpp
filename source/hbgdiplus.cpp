@@ -114,14 +114,10 @@ HB_FUNC(HMG_GDIPCREATEBITMAPFROMFILE)
       hb_retni(fn_GdipCreateBitmapFromFile(lpFName, &bitmap));
 
       hb_xfree(lpFName);
-    }
-    else
-    {
+    } else {
       hb_retni(InvalidParameter);
     }
-  }
-  else
-  {
+  } else {
     hb_retni(NotImplemented);
   }
 
@@ -139,14 +135,10 @@ HB_FUNC(HMG_GDIPCREATEHBITMAPFROMBITMAP)
       ARGB argb = (ARGB)hb_parnl(3);
 
       hb_retni(fn_GdipCreateHBITMAPFromBitmap(bitmap, &hbitmap, argb));
-    }
-    else
-    {
+    } else {
       hb_retni(InvalidParameter);
     }
-  }
-  else
-  {
+  } else {
     hb_retni(NotImplemented);
   }
 
@@ -157,9 +149,7 @@ HB_FUNC(HMG_GDIPDISPOSEIMAGE)
 {
   if (fn_GdipDisposeImage != nullptr) {
     hb_retni(fn_GdipDisposeImage(reinterpret_cast<GpImage *>(hb_parptr(1))));
-  }
-  else
-  {
+  } else {
     hb_retni(NotImplemented);
   }
 }

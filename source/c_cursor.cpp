@@ -63,8 +63,7 @@ HB_FUNC(HMG_LOADCURSOR)
     LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
     hmg_ret_HCURSOR(LoadCursor(hInstance, lpCursorName));
     hb_strfree(str);
-  }
-  else if (HB_ISNUM(2)) {
+  } else if (HB_ISNUM(2)) {
     hmg_ret_HCURSOR(LoadCursor(hInstance, MAKEINTRESOURCE(hb_parni(2))));
   }
 }
@@ -114,8 +113,7 @@ HB_FUNC(HMG_SETWINDOWCURSOR)
     }
 
     hb_strfree(str);
-  }
-  else if (HB_ISNUM(2)) {
+  } else if (HB_ISNUM(2)) {
     auto ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
 
     if (ch != nullptr) {

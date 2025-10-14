@@ -96,9 +96,7 @@ HB_FUNC(HMG__SETFONT)
     SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 1);
     RegisterResource(hFont, "FONT");
     hmg_ret_HFONT(hFont);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -111,14 +109,10 @@ HB_FUNC(HMG__SETFONTHANDLE)
   if (IsWindow(hwnd)) {
     if (GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT) {
       SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hmg_par_HFONT(2)), 1);
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -154,9 +148,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
   if (GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC) {
     hdc = hmg_par_HDC(1);
-  }
-  else
-  {
+  } else {
     hdc = GetDC(nullptr);
     bReleaseDC = true;
   }
@@ -165,9 +157,7 @@ HB_FUNC(HMG_ENUMFONTSEX)
 
   if (hb_parclen(2) > 0) {
     HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
-  }
-  else
-  {
+  } else {
     lf.lfFaceName[0] = '\0';
   }
 

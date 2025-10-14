@@ -375,9 +375,7 @@ HB_FUNC(HMG_CREATEDLGTEMPLATE)
                                         reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
     LocalFree(pdlgtemplate);
     HB_RETNL(static_cast<LONG_PTR>(lResult));
-  }
-  else
-  {
+  } else {
     HWND hwndDlg = CreateDialogIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
                                         reinterpret_cast<DLGPROC>(HMG_DlgProc));
     LocalFree(pdlgtemplate);

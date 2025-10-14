@@ -107,19 +107,16 @@ HB_FUNC(SOCKETCONNECT)
         lphost = gethostbyname(lpszAsciiDestination);
         if (lphost != NULL)
           sockDestinationAddr.sin_addr.s_addr = ((LPIN_ADDR)lphost->h_addr)->s_addr;
-        else
-        {
+        else {
           hb_retl(false);
           return;
         }
       }
 
       hb_retl(connect(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) != SOCKET_ERROR);
-    }
-    else
+    } else
       hb_retl(false);
-  }
-  else
+  } else
     hb_retl(false);
 
   /* Copy m_hSocket to caller method */
@@ -150,19 +147,16 @@ HB_FUNC(SOCKETBIND)
         lphost = gethostbyname(lpszAsciiDestination);
         if (lphost != NULL)
           sockDestinationAddr.sin_addr.s_addr = ((LPIN_ADDR)lphost->h_addr)->s_addr;
-        else
-        {
+        else {
           hb_retl(false);
           return;
         }
       }
 
       hb_retl(bind(m_hSocket, (SOCKADDR *)&sockDestinationAddr, sizeof(sockDestinationAddr)) != SOCKET_ERROR);
-    }
-    else
+    } else
       hb_retl(false);
-  }
-  else
+  } else
     hb_retl(false);
 
   /* Copy m_hSocket to caller method */
@@ -190,14 +184,11 @@ HB_FUNC(SOCKETLISTEN)
           hb_retl(true);
         else
           hb_retl(false);
-      }
-      else
+      } else
         hb_retl(false);
-    }
-    else
+    } else
       hb_retl(false);
-  }
-  else
+  } else
     hb_retl(false);
 
   /* Copy m_hSocket to caller method */
@@ -222,11 +213,9 @@ HB_FUNC(SOCKETSEND)
       }
 
       hb_retl(send(m_hSocket, pszBuf, nBuf, 0) != SOCKET_ERROR);
-    }
-    else
+    } else
       hb_retl(false);
-  }
-  else
+  } else
     hb_retl(false);
 }
 
@@ -253,14 +242,11 @@ HB_FUNC(SOCKETRECEIVE)
         hb_storclen(pRead, nLen, 2);
         hb_xfree(pRead);
         hb_retni(nLen);
-      }
-      else
+      } else
         hb_retni(0);
-    }
-    else
+    } else
       hb_retni(0);
-  }
-  else
+  } else
     hb_retni(0);
 }
 
@@ -311,11 +297,9 @@ HB_FUNC(SOCKETLOCALADDRESS)
         memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
         HB_STORC(inet_ntoa(addr), -1, i + 1);
       }
-    }
-    else
+    } else
       hb_reta(0);
-  }
-  else
+  } else
     hb_reta(0);
 }
 
@@ -340,8 +324,7 @@ HB_FUNC(SOCKETMD5)
 
     hb_retclen(pRet, sizeof digest * 2);
     hb_xfree(pRet);
-  }
-  else
+  } else
     hb_retc("");
 }
 
@@ -373,8 +356,7 @@ HB_FUNC(SOCKETENCODE64)
 
     hb_retclen(pRet, nEncodeLen);
     hb_xfree(pRet);
-  }
-  else
+  } else
     hb_retc("");
 }
 
@@ -394,8 +376,7 @@ HB_FUNC(SOCKETDECODE64)
 
     hb_retclen(pRet, nEncodeLen);
     hb_xfree(pRet);
-  }
-  else
+  } else
     hb_retc("");
 }
 
@@ -431,7 +412,6 @@ HB_FUNC(SOCKETHMAC_MD5)
     hb_retc(static_cast<const char *>(decoded));
 
     hb_xfree(decoded);
-  }
-  else
+  } else
     hb_retc("");
 }

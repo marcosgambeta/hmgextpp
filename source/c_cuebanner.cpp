@@ -66,16 +66,12 @@ HB_FUNC(HMG_GETCUEBANNERTEXT)
 
     if (SendMessage(hwnd, EM_GETCUEBANNER, reinterpret_cast<WPARAM>(const_cast<LPWSTR>(lpWCStr)), 256)) {
       hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
-    }
-    else
-    {
+    } else {
       hb_retc_null();
     }
 
     hb_xfree(lpWCStr);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -92,9 +88,7 @@ HB_FUNC(HMG_SENDMESSAGESTRINGW)
     if (lpWCStr != nullptr) {
       hb_xfree(lpWCStr);
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }

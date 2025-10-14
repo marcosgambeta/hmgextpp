@@ -102,9 +102,7 @@ HB_FUNC(HMG_INITRICHEDITBOX)
 
     lpClassName = MSFTEDIT_CLASS; // TODO: fix warning 'ISO C++ forbids converting a string constant
                                   // to 'TCHAR*'
-  }
-  else
-  {
+  } else {
     if (!hRELib) {
       hRELib = LoadLibrary(TEXT("RichEd20.dll"));
     }
@@ -215,9 +213,7 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
   if (es.dwError) {
     hb_retl(false);
-  }
-  else
-  {
+  } else {
     hb_retl(true);
   }
 }
@@ -272,9 +268,7 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 
   if (es.dwError) {
     hb_retl(false);
-  }
-  else
-  {
+  } else {
     hb_retl(true);
   }
 }
@@ -285,9 +279,7 @@ HB_FUNC(HMG_GETAUTOFONTRTF) // GetAutoFont(HWND hwnd)
 
   if (lAuto) {
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -300,9 +292,7 @@ HB_FUNC(HMG_SETAUTOFONTRTF) // SetAutoFont(HWND hwnd, lAutoFont)
 
   if (hb_parl(2)) {
     lOpt &= IMF_AUTOFONT;
-  }
-  else
-  {
+  } else {
     lOpt &= ~IMF_AUTOFONT;
   }
 
@@ -310,9 +300,7 @@ HB_FUNC(HMG_SETAUTOFONTRTF) // SetAutoFont(HWND hwnd, lAutoFont)
 
   if (lResult) {
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -347,9 +335,7 @@ HB_FUNC(HMG_GETFONTRTF)
   cF.dwMask = CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_SIZE;
   if (hb_parni(2) > 0) {
     SelText = SCF_SELECTION;
-  }
-  else
-  {
+  } else {
     SelText = SCF_DEFAULT;
   }
 
@@ -440,9 +426,7 @@ HB_FUNC(HMG_SETFONTRTF)
 
   if (lResult) {
     hb_retl(true);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -468,8 +452,7 @@ static BOOL IsWinxpSp1Min(void)
   if (osvi.dwMajorVersion >= 5) {
     if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
       return FALSE;
-    }
-    else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1) {
+    } else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1) {
 #ifndef UNICODE
       pch = strstr(osvi.szCSDVersion, "Service Pack");
 #else
@@ -477,9 +460,7 @@ static BOOL IsWinxpSp1Min(void)
 #endif
       if (lstrcmpi(pch, TEXT("Service Pack 1")) >= 0) {
         return TRUE;
-      }
-      else
-      {
+      } else {
         return FALSE;
       }
     }

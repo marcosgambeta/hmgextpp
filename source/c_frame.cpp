@@ -71,9 +71,7 @@ HB_FUNC(HMG_INITFRAME)
                        hmg_par_int(6), hwnd, (IsMenu(hmenu) ? hmenu : nullptr), GetInstance(), nullptr);
 
     hb_strfree(str);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 

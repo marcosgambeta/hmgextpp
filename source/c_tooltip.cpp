@@ -153,8 +153,7 @@ HB_FUNC(HMG_INITTOOLTIP)
       if (HB_ISLOG(2) && hb_parl(2)) {
         dwStyle |= TTS_BALLOON;
       }
-    }
-    else if (g_bIsToolTipBalloon) {
+    } else if (g_bIsToolTipBalloon) {
       dwStyle |= TTS_BALLOON;
     }
 
@@ -163,9 +162,7 @@ HB_FUNC(HMG_INITTOOLTIP)
                                       CW_USEDEFAULT, hwndParent, nullptr, GetInstance(), nullptr);
 
     hmg_ret_HWND(hwndToolTip);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -194,9 +191,7 @@ HB_FUNC(HMG_SETTOOLTIP)
       SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
       hb_strfree(str);
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
@@ -273,8 +268,7 @@ HB_FUNC(HMG_INITTOOLTIPEX)
 
     if (hb_parclen(3) > 0) {
       lpszText = const_cast<TCHAR *>(HB_PARSTR(3, &str1, nullptr));
-    }
-    else if (HB_ISNUM(3)) {
+    } else if (HB_ISNUM(3)) {
       lpszText = static_cast<LPTSTR>(MAKEINTRESOURCE(hb_parni(3)));
     }
 
@@ -326,9 +320,7 @@ HB_FUNC(HMG_INITTOOLTIPEX)
 
     hb_strfree(str1);
     hb_strfree(str2);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -347,9 +339,7 @@ HB_FUNC(HMG_TTM_ACTIVATE)
     if (g_bIsToolTipActive) {
       SendMessage(hwndToolTip, TTM_ACTIVATE, hmg_par_BOOL(2), 0);
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -384,9 +374,7 @@ HB_FUNC(HMG_TTM_GETDELAYTIME)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -406,9 +394,7 @@ HB_FUNC(HMG_TTM_GETMARGIN)
     SendMessage(hwndToolTip, TTM_GETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
 
     hb_itemReturnRelease(hmg_RectToArray(&rect));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -420,9 +406,7 @@ HB_FUNC(HMG_TTM_GETMAXTIPWIDTH)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -439,9 +423,7 @@ HB_FUNC(HMG_TTM_GETTIPBKCOLOR)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -454,9 +436,7 @@ HB_FUNC(HMG_TTM_GETTIPTEXTCOLOR)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -474,9 +454,7 @@ HB_FUNC(HMG_TTM_GETTOOLCOUNT)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -500,9 +478,7 @@ HB_FUNC(HMG_TTM_POP)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     SendMessage(hwndToolTip, TTM_POP, 0, 0);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -516,9 +492,7 @@ HB_FUNC(HMG_TTM_POPUP)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     SendMessage(hwndToolTip, TTM_POPUP, 0, 0);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -539,15 +513,11 @@ HB_FUNC(HMG_TTM_SETDELAYTIME)
 
     if (nMilliSec < 0) {
       SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), -1);
-    }
-    else
-    {
+    } else {
       SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP),
                   static_cast<LPARAM>(static_cast<DWORD>(nMilliSec)));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -566,14 +536,10 @@ HB_FUNC(HMG_TTM_SETMARGIN)
 
     if (hmg_ArrayToRect(hb_param(2, Harbour::Item::ANY), &rect)) {
       SendMessage(hwndToolTip, TTM_SETMARGIN, 0, reinterpret_cast<LPARAM>(&rect));
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -587,9 +553,7 @@ HB_FUNC(HMG_TTM_SETMAXTIPWIDTH)
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     hmg_ret_LRESULT(
         SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, static_cast<LPARAM>(hb_parnidef(2, g_iToolTipMaxWidth))));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -609,14 +573,10 @@ HB_FUNC(HMG_TTM_SETTIPBKCOLOR)
       }
 
       SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, cr, 0);
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -636,14 +596,10 @@ HB_FUNC(HMG_TTM_SETTIPTEXTCOLOR)
       }
 
       SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, cr, 0);
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(2));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -671,9 +627,7 @@ HB_FUNC(HMG_TTM_TRACKACTIVATE)
     ti.uId = (UINT_PTR)hwndTool;
 
     SendMessage(hwndToolTip, TTM_TRACKACTIVATE, hb_parl(3), reinterpret_cast<LPARAM>(&ti));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
@@ -692,14 +646,10 @@ HB_FUNC(HMG_TTM_TRACKPOSITION)
       ClientToScreen(hwndTool, &point);
 
       SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, MAKELONG(point.x, point.y));
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
@@ -712,9 +662,7 @@ HB_FUNC(HMG_TTM_UPDATE)
 
   if (_isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS)) {
     SendMessage(hwndToolTip, TTM_UPDATE, 0, 0);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
   }
 }
@@ -738,9 +686,7 @@ HB_FUNC(HMG_TTM_UPDATETIPTEXT) // old HB_FUNC(UPDATETOOLTIPTEXT)
       SendMessage(hwndToolTip, TTM_UPDATETIPTEXT, 0, reinterpret_cast<LPARAM>(&ti));
       hb_strfree(str);
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
@@ -761,14 +707,10 @@ HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
       ClientToScreen(hwndTool, &point);
 
       HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
-    }
-    else
-    {
+    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 2, hb_paramError(1), hb_paramError(2));
   }
 }
