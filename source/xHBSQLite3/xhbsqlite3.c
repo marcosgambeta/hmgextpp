@@ -9,6 +9,7 @@
 // Copyright 2007-2010 P.Chornyj <myorg63@mail.ru>
 //
 
+// $BEGIN_LICENSE$
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2, or (at your option)
@@ -49,6 +50,7 @@
 // If you do not wish that, delete this exception notice.
 //
 // See COPYING for licensing terms.
+// $END_LICENSE$
 
 //-----------------------------------------------------------------------------------------
 // XHarbour Port from orginale Harbour version by P.Chornyj <myorg63@mail.ru>
@@ -1070,7 +1072,7 @@ HB_FUNC(SQLITE3_GET_TABLE)
 
         for (j = 1; j <= iCol; j++, k++) {
           hb_arraySetStrUTF8(pArray, j, static_cast<const char *>(pResult[k]));
-        }  
+        }
 
         hb_arrayAddForward(pResultList, pArray);
         hb_itemRelease(pArray);
