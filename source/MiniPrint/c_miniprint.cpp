@@ -792,22 +792,26 @@ HB_FUNC(_HMG_PRINTER_C_LINE)
       b = 0;
     }
 
-    switch (hb_parni(12))
-    {
-    case 1:
+    switch (hb_parni(12)) {
+    case 1: {
       Style = PS_DOT;
       break;
-    case 2:
+    }
+    case 2: {
       Style = PS_DASH;
       break;
-    case 3:
+    }
+    case 3: {
       Style = PS_DASHDOT;
       break;
-    case 4:
+    }
+    case 4: {
       Style = PS_DASHDOTDOT;
       break;
-    default:
+    }
+    default: {
       Style = PS_SOLID;
+    }
     }
 
     hpen = CreatePen(Style, (width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000), static_cast<COLORREF>(RGB(r, g, b)));

@@ -160,35 +160,41 @@ HB_FUNC(HMG_STREAMIN) // StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 {
   long Flag, Mode;
 
-  switch (hb_parni(3))
-  {
-  case 1:
+  switch (hb_parni(3)) {
+  case 1: {
     Flag = SF_TEXT;
     Mode = TM_PLAINTEXT;
     break;
-  case 2:
+  }
+  case 2: {
     Flag = SF_RTF;
     Mode = TM_RICHTEXT;
     break;
-  case 3:
+  }
+  case 3: {
     Flag = SF_TEXT | SF_UNICODE;
     Mode = TM_PLAINTEXT;
     break;
-  case 4:
+  }
+  case 4: {
     Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
     Mode = TM_PLAINTEXT;
     break;
-  case 5:
+  }
+  case 5: {
     Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
     Mode = TM_RICHTEXT;
     break;
-  case 6:
+  }
+  case 6: {
     Flag = (CP_UTF7 << 16) | SF_USECODEPAGE | SF_TEXT;
     Mode = TM_PLAINTEXT;
     break;
-  default:
+  }
+  default: {
     Flag = SF_TEXT;
     Mode = TM_PLAINTEXT;
+  }
   }
 
   // open the source file.
@@ -224,28 +230,34 @@ HB_FUNC(HMG_STREAMOUT) // StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
 {
   long Flag;
 
-  switch (hb_parni(3))
-  {
-  case 1:
+  switch (hb_parni(3)) {
+  case 1: {
     Flag = SF_TEXT;
     break;
-  case 2:
+  }
+  case 2: {
     Flag = SF_RTF;
     break;
-  case 3:
+  }
+  case 3: {
     Flag = SF_TEXT | SF_UNICODE;
     break;
-  case 4:
+  }
+  case 4: {
     Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
     break;
-  case 5:
+  }
+  case 5: {
     Flag = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
     break;
-  case 6:
+  }
+  case 6: {
     Flag = (CP_UTF7 << 16) | SF_USECODEPAGE | SF_TEXT;
     break;
-  default:
+  }
+  default: {
     Flag = SF_TEXT;
+  }
   }
 
   // open the destination file.

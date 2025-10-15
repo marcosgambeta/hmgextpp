@@ -130,14 +130,14 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hedit, TEXT("oldspinproc"))));
 
-  switch (Msg)
-  {
-  case WM_DESTROY:
+  switch (Msg) {
+  case WM_DESTROY: {
     SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hedit, TEXT("oldspinproc"));
     break;
+  }
   case WM_CONTEXTMENU:
-  case WM_GETDLGCODE:
+  case WM_GETDLGCODE: {
     if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
     }
@@ -152,6 +152,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
     }
     long int r = hb_parnl(-1); // P.Ch. 10.16.
     return (r != 0) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
+  }
   }
 
   return CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);

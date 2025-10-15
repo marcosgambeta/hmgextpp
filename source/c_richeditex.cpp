@@ -154,25 +154,30 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMIN)
 {
   auto nDataFormat = hmg_par_LONG(4);
   LONG Format;
-  switch (nDataFormat)
-  {
-  case 1:
+  switch (nDataFormat) {
+  case 1: {
     Format = SF_TEXT;
     break; // ANSI and UTF-8 with BOM
-  case 2:
+  }
+  case 2: {
     Format = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
     break; // ANSI and UTF-8 without BOM
-  case 3:
+  }
+  case 3: {
     Format = SF_TEXT | SF_UNICODE;
     break; // UTF-16 LE
-  case 4:
+  }
+  case 4: {
     Format = SF_RTF;
     break;
-  case 5:
+  }
+  case 5: {
     Format = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
     break;
-  default:
+  }
+  default: {
     Format = SF_RTF;
+  }
   }
 
   if (hmg_par_BOOL(3)) {
@@ -214,25 +219,30 @@ HB_FUNC(HMG_RICHEDITBOX_STREAMOUT)
 {
   auto nDataFormat = hmg_par_LONG(4);
   LONG Format;
-  switch (nDataFormat)
-  {
-  case 1:
+  switch (nDataFormat) {
+  case 1: {
     Format = SF_TEXT;
     break; // ANSI and UTF-8 with BOM
-  case 2:
+  }
+  case 2: {
     Format = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT;
     break; // ANSI and UTF-8 without BOM
-  case 3:
+  }
+  case 3: {
     Format = SF_TEXT | SF_UNICODE;
     break; // UTF-16 LE
-  case 4:
+  }
+  case 4: {
     Format = SF_RTF;
     break;
-  case 5:
+  }
+  case 5: {
     Format = (CP_UTF8 << 16) | SF_USECODEPAGE | SF_RTF;
     break;
-  default:
+  }
+  default: {
     Format = SF_RTF;
+  }  
   }
 
   if (hmg_par_BOOL(3)) {
@@ -689,88 +699,104 @@ HB_FUNC(HMG_RICHEDITBOX_SETPARAFORMAT)
 
   if (Alignment > 0) {
     Mask |= PFM_ALIGNMENT;
-    switch (Alignment)
-    {
-    case 1:
+    switch (Alignment) {
+    case 1: {
       ParaFormat2.wAlignment = PFA_LEFT;
       break;
-    case 2:
+    }
+    case 2: {
       ParaFormat2.wAlignment = PFA_RIGHT;
       break;
-    case 3:
+    }
+    case 3: {
       ParaFormat2.wAlignment = PFA_CENTER;
       break;
-    case 4:
+    }
+    case 4: {
       ParaFormat2.wAlignment = PFA_JUSTIFY;
       break;
-
-    default:
+    }
+    default: {
       ParaFormat2.wAlignment = PFA_LEFT;
       break;
+    }
     }
   }
 
   if (Numbering > 0) {
     Mask |= PFM_NUMBERING;
-    switch (Numbering)
-    {
-    case 1:
+    switch (Numbering) {
+    case 1: {
       ParaFormat2.wNumbering = 0;
       break; // No paragraph numbering or bullets
-    case 2:
+    }
+    case 2: {
       ParaFormat2.wNumbering = PFN_BULLET;
       break; // Insert a bullet at the beginning of each selected paragraph
-    case 3:
+    }
+    case 3: {
       ParaFormat2.wNumbering = PFN_ARABIC;
       break; // Use Arabic numbers          ( 0,  1,   2, ... )
-    case 4:
+    }
+    case 4: {
       ParaFormat2.wNumbering = PFN_LCLETTER;
       break; // Use lowercase letters       ( a,  b,   c, ... )
-    case 5:
+    }
+    case 5: {
       ParaFormat2.wNumbering = PFN_LCROMAN;
       break; // Use lowercase Roman letters ( i, ii, iii, ... )
-    case 6:
+    }
+    case 6: {
       ParaFormat2.wNumbering = PFN_UCLETTER;
       break; // Use uppercase letters       ( A,  B,   C, ... )
-    case 7:
+    }
+    case 7: {
       ParaFormat2.wNumbering = PFN_UCROMAN;
       break; // Use uppercase Roman letters ( I, II, III, ... )
-    case 8:
+    }
+    case 8: {
       ParaFormat2.wNumbering = 7;
       break; // Uses a sequence of characters beginning with the Unicode character specified
+    }
     // by the nNumberingStart
-    default:
+    default: {
       ParaFormat2.wNumbering = 0;
-      break;
+      break; // TODO: unnecessary break
+    }
     }
   }
 
   if (NumberingStyle > 0) {
     Mask |= PFM_NUMBERINGSTYLE;
-    switch (NumberingStyle)
-    {
-    case 1:
+    switch (NumberingStyle) {
+    case 1: {
       ParaFormat2.wNumberingStyle = PFNS_PAREN;
       break; // Follows the number with a right parenthesis.
-    case 2:
+    }
+    case 2: {
       ParaFormat2.wNumberingStyle = PFNS_PARENS;
       break; // Encloses the number in parentheses
-    case 3:
+    }
+    case 3: {
       ParaFormat2.wNumberingStyle = PFNS_PERIOD;
       break; // Follows the number with a period
-    case 4:
+    }
+    case 4: {
       ParaFormat2.wNumberingStyle = PFNS_PLAIN;
       break; // Displays only the number
-    case 5:
+    }
+    case 5: {
       ParaFormat2.wNumberingStyle = PFNS_NONUMBER;
       break; // Continues a numbered list without applying the next number or bullet
-    case 6:
+    }
+    case 6: {
       ParaFormat2.wNumberingStyle = PFNS_NEWNUMBER;
       break; // Starts a new number with nNumberingStart
-
-    default:
+    }
+    default: {
       ParaFormat2.wNumberingStyle = 0;
-      break;
+      break; // TODO: unnecessary break
+    }
     }
   }
 
@@ -821,76 +847,92 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
   SendMessage(hmg_par_HWND(1), EM_GETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 
   if (HB_ISBYREF(2)) {
-    switch (ParaFormat2.wAlignment)
-    {
-    case PFA_LEFT:
+    switch (ParaFormat2.wAlignment) {
+    case PFA_LEFT: {
       Alignment = 1;
       break;
-    case PFA_RIGHT:
+    }
+    case PFA_RIGHT: {
       Alignment = 2;
       break;
-    case PFA_CENTER:
+    }
+    case PFA_CENTER: {
       Alignment = 3;
       break;
-    case PFA_JUSTIFY:
+    }
+    case PFA_JUSTIFY: {
       Alignment = 4;
+    }
     }
     hb_stornl(Alignment, 2);
   }
 
   if (HB_ISBYREF(3)) {
-    switch (ParaFormat2.wNumbering)
-    {
-    case 0:
+    switch (ParaFormat2.wNumbering) {
+    case 0: {
       Numbering = 1;
       break;
-    case PFN_BULLET:
+    }
+    case PFN_BULLET: {
       Numbering = 2;
       break;
-    case PFN_ARABIC:
+    }
+    case PFN_ARABIC: {
       Numbering = 3;
       break;
-    case PFN_LCLETTER:
+    }
+    case PFN_LCLETTER: {
       Numbering = 4;
       break;
-    case PFN_LCROMAN:
+    }
+    case PFN_LCROMAN: {
       Numbering = 5;
       break;
-    case PFN_UCLETTER:
+    }
+    case PFN_UCLETTER: {
       Numbering = 6;
       break;
-    case PFN_UCROMAN:
+    }
+    case PFN_UCROMAN: {
       Numbering = 7;
       break;
-    case 7:
+    }
+    case 7: {
       Numbering = 8;
+    }
     }
     hb_stornl(Numbering, 3);
   }
 
   if (HB_ISBYREF(4)) {
-    switch (ParaFormat2.wNumberingStyle)
-    {
-    case PFNS_PAREN:
+    switch (ParaFormat2.wNumberingStyle) {
+    case PFNS_PAREN: {
       NumberingStyle = 1;
       break;
-    case PFNS_PARENS:
+    }
+    case PFNS_PARENS: {
       NumberingStyle = 2;
       break;
-    case PFNS_PERIOD:
+    }
+    case PFNS_PERIOD: {
       NumberingStyle = 3;
       break;
-    case PFNS_PLAIN:
+    }
+    case PFNS_PLAIN: {
       NumberingStyle = 4;
       break;
-    case PFNS_NONUMBER:
+    }
+    case PFNS_NONUMBER: {
       NumberingStyle = 5;
       break;
-    case PFNS_NEWNUMBER:
+    }
+    case PFNS_NEWNUMBER: {
       NumberingStyle = 6;
       break;
-    default:
+    }
+    default: {
       NumberingStyle = 0;
+    }
     }
     hb_stornl(NumberingStyle, 4);
   }
@@ -906,25 +948,30 @@ HB_FUNC(HMG_RICHEDITBOX_GETPARAFORMAT)
   }
 
   if (HB_ISBYREF(7)) {
-    switch (ParaFormat2.bLineSpacingRule)
-    {
-    case 0:
+    switch (ParaFormat2.bLineSpacingRule) {
+    case 0: {
       LineSpacing = 1.0;
       break;
-    case 1:
+    }
+    case 1: {
       LineSpacing = 1.5;
       break;
-    case 2:
+    }
+    case 2: {
       LineSpacing = 2.0;
       break;
-    case 3:
+    }
+    case 3: {
       LineSpacing = (static_cast<double>(ParaFormat2.dyLineSpacing)) * -1.0; // if < 0 is in twips
       break;
-    case 4:
+    }
+    case 4: {
       LineSpacing = (static_cast<double>(ParaFormat2.dyLineSpacing)) * -1.0; // if < 0 is in twips
       break;
-    case 5:
+    }
+    case 5: {
       LineSpacing = (static_cast<double>(ParaFormat2.dyLineSpacing)) * 1.0 / 20.0;
+    }
     }
     hb_stornd(static_cast<double>(LineSpacing), 7);
   }

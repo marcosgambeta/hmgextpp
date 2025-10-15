@@ -177,73 +177,93 @@ HB_FUNC(HMG_MCIFUNC)
   auto mcihand = hmg_par_HWND(1);
   auto func = hb_parni(2);
 
-  switch (func)
-  {
-  case 1:
+  switch (func) {
+  case 1: {
     hb_retnl(MCIWndPlay(mcihand));
     break;
-  case 2:
+  }
+  case 2: {
     hb_retnl(MCIWndStop(mcihand));
     break;
-  case 3:
+  }
+  case 3: {
     hb_retnl(MCIWndPause(mcihand));
     break;
-  case 4:
+  }
+  case 4: {
     hb_retnl(MCIWndClose(mcihand));
     break;
-  case 5:
+  }
+  case 5: {
     MCIWndDestroy(mcihand);
     hb_retnl(0);
     break;
-  case 6:
+  }
+  case 6: {
     hb_retnl(MCIWndEject(mcihand));
     break;
-  case 7:
+  }
+  case 7: {
     hb_retnl(MCIWndEnd(mcihand));
     break;
-  case 8:
+  }
+  case 8: {
     hb_retnl(MCIWndHome(mcihand));
     break;
-  case 9:
+  }
+  case 9: {
     hb_retnl(MCIWndOpen(mcihand, hb_parc(3), 0));
     break;
-  case 10:
+  }
+  case 10: {
     hb_retnl(MCIWndOpenDialog(mcihand));
     break;
-  case 11:
+  }
+  case 11: {
     hb_retnl(MCIWndPlayReverse(mcihand));
     break;
-  case 12:
+  }
+  case 12: {
     hb_retnl(MCIWndResume(mcihand));
     break;
-  case 13:
+  }
+  case 13: {
     MCIWndSetRepeat(mcihand, hb_parl(3));
     hb_retnl(0);
     break;
-  case 14:
+  }
+  case 14: {
     hb_retnl(MCIWndSetSpeed(mcihand, hb_parni(3)));
     break;
-  case 15:
+  }
+  case 15: {
     hb_retnl(MCIWndSetVolume(mcihand, hb_parni(3)));
     break;
-  case 16:
+  }
+  case 16: {
     MCIWndSetZoom(mcihand, hb_parni(3));
     hb_retnl(0);
     break;
-  case 17:
+  }
+  case 17: {
     hb_retnl(MCIWndGetLength(mcihand));
     break;
-  case 18:
+  }
+  case 18: {
     hb_retnl(MCIWndGetPosition(mcihand));
     break;
-  case 19:
+  }
+  case 19: {
     hb_retnl(MCIWndGetVolume(mcihand));
     break;
-  case 20:
+  }
+  case 20: {
     hb_retnl(MCIWndSeek(mcihand, hb_parni(3)));
     break;
-  default:
+  }
+  default: {
     hb_retnl(0);
+  }  
   }
 }
 

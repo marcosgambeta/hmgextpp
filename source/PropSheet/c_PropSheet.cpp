@@ -76,12 +76,10 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 
   HWND hWndParent = GetParent(hWndDlg);
 
-  switch (message)
-  {
-    // wNotifyCode = HIWORD(wParam); // notification code
-    // wID = LOWORD(wParam);         // item, control, or accelerator identifier
-    // hwndCtl = (HWND) lParam;      // handle of control
-
+  switch (message) {
+  // wNotifyCode = HIWORD(wParam); // notification code
+  // wID = LOWORD(wParam);         // item, control, or accelerator identifier
+  // hwndCtl = (HWND) lParam;      // handle of control
   case WM_INITDIALOG: {
     ps = reinterpret_cast<PROPSHEETPAGE *>(lParam);
     if (!pSymbol2) {
@@ -97,10 +95,12 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
     }
     return TRUE;
   }
-  case WM_DESTROY:
+  case WM_DESTROY: {
     break;
-  case WM_COMMAND:
+  }
+  case WM_COMMAND: {
     break;
+  }
   case WM_NOTIFY: {
     LPNMHDR lpnmhdr = reinterpret_cast<NMHDR FAR *>(lParam);
     auto psn = reinterpret_cast<PSHNOTIFY *>(lParam);
@@ -123,10 +123,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 
     long int r = hb_parnl(-1);
 
-    switch (psn->hdr.code)
-    {
-    case PSN_APPLY: // sent when OK or Apply button pressed
-    {
+    switch (psn->hdr.code) {
+    case PSN_APPLY: { // sent when OK or Apply button pressed
       if (psn->lParam == FALSE) {
         // Apply pressed
         if (r) {
@@ -137,8 +135,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       }
       break;
     }
-    case PSN_RESET: // sent when Cancel button pressed
-    {
+    case PSN_RESET: { // sent when Cancel button pressed
       if (r) {
         // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
@@ -147,8 +144,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       }
       break;
     }
-    case PSN_QUERYCANCEL: // sent when Quit button pressed
-    {
+    case PSN_QUERYCANCEL: { // sent when Quit button pressed
       if (r) {
         // Not finished yet.
         SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
@@ -167,17 +163,19 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       }
       break;
     }
-    case PSN_SETACTIVE:
+    case PSN_SETACTIVE: {
       // this will be ignored if the property sheet is not a wizard
       break;
-    default:
+    }
+    default: { // TODO: unnecessary default
       break;
+    }
     }
     break;
   }
-
-  default:
+  default: { // TODO: unnecessary break
     break;
+  }
   }
 
   if (!pSymbol) {
@@ -203,12 +201,10 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  switch (message)
-  {
-    // called before the dialog is created,
-    // hwndPropSheet = nullptr, lParam points
-    // lpTemplate = {style, dwExtendStyle, cdit, x, y, cx, cy }  //ToDo
-
+  switch (message) {
+  // called before the dialog is created,
+  // hwndPropSheet = nullptr, lParam points
+  // lpTemplate = {style, dwExtendStyle, cdit, x, y, cx, cy }  //ToDo
   case PSCB_PRECREATE: {
     auto lpTemplate = reinterpret_cast<LPDLGTEMPLATE>(lParam);
 
@@ -359,16 +355,18 @@ HB_FUNC(PROPSHEETGETCURRENTPAGEHWND)
 
 HB_FUNC(PROPSHEETSETWIZBUTTONS)
 {
-  switch (hb_parni(2))
-  {
-  case 0:
+  switch (hb_parni(2)) {
+  case 0: {
     PropSheet_SetWizButtons(hmg_par_HWND(1), PSWIZB_NEXT);
     break;
-  case 1:
+  }
+  case 1: {
     PropSheet_SetWizButtons(hmg_par_HWND(1), PSWIZB_BACK | PSWIZB_NEXT);
     break;
-  case 2:
+  }
+  case 2: {
     PropSheet_SetWizButtons(hmg_par_HWND(1), PSWIZB_BACK | PSWIZB_FINISH);
+  }
   }
 }
 

@@ -161,16 +161,18 @@ HB_FUNC(HMG_GETMONTHCALVALUE)
 
   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
-  switch (hb_parni(2))
-  {
-  case 1:
+  switch (hb_parni(2)) {
+  case 1: {
     hb_retni(st.wYear);
     break;
-  case 2:
+  }
+  case 2: {
     hb_retni(st.wMonth);
     break;
-  case 3:
+  }
+  case 3: {
     hb_retni(st.wDay);
+  }
   }
 }
 
@@ -282,16 +284,15 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
 
-  switch (Msg)
-  {
-  case WM_DESTROY:
+  switch (Msg) {
+  case WM_DESTROY: {
     SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hwnd, TEXT("oldmcproc"));
     break;
-
+  }
   case WM_MOUSEACTIVATE:
   case WM_SETFOCUS:
-  case WM_KILLFOCUS:
+  case WM_KILLFOCUS: {
     if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
     }
@@ -311,6 +312,7 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
     if (r != 0) {
       return r;
     }
+  }
   }
 
   return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);

@@ -91,22 +91,22 @@ void bt_MsgDebugInfo(char *Format, ...)
 
 static void bt_bmp_adjust_rect(int *Width1, int *Height1, int *Width2, int *Height2, int Mode_Stretch)
 {
-  switch (Mode_Stretch)
-  {
-  case BT_SCALE:
+  switch (Mode_Stretch) {
+  case BT_SCALE: {
     if (static_cast<int>(*Width2 * *Height1 / *Height2) <= *Width1) {
       *Width1 = static_cast<int>(*Width2 * *Height1 / *Height2);
     } else {
       *Height1 = static_cast<int>(*Height2 * *Width1 / *Width2);
     }
     break;
-
-  case BT_STRETCH:
+  }
+  case BT_STRETCH: {
     break;
-
-  case BT_COPY:
+  }
+  case BT_COPY: {
     *Width1 = *Width2 = HB_MIN(*Width1, *Width2);
     *Height1 = *Height2 = HB_MIN(*Height1, *Height2);
+  }
   }
 }
 
@@ -642,25 +642,30 @@ static BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, const TCHAR *FileName, INT Ty
   IStream *iStream;
   WCHAR format[21];
 
-  switch (TypePicture)
-  {
-  case BT_FILEFORMAT_BMP:
+  switch (TypePicture) {
+  case BT_FILEFORMAT_BMP: {
     wcscpy(format, L"image/bmp");
     break;
-  case BT_FILEFORMAT_JPG:
+  }
+  case BT_FILEFORMAT_JPG: {
     wcscpy(format, L"image/jpeg");
     break;
-  case BT_FILEFORMAT_GIF:
+  }
+  case BT_FILEFORMAT_GIF: {
     wcscpy(format, L"image/gif");
     break;
-  case BT_FILEFORMAT_TIF:
+  }
+  case BT_FILEFORMAT_TIF: {
     wcscpy(format, L"image/tiff");
     break;
-  case BT_FILEFORMAT_PNG:
+  }
+  case BT_FILEFORMAT_PNG: {
     wcscpy(format, L"image/png");
     break;
-  default:
+  }
+  default: {
     return FALSE;
+  }
   }
 
   if (bt_Load_GDIplus() == FALSE) {
@@ -734,39 +739,39 @@ HB_FUNC(BT_DC_CREATE)
   BT_STRUCT BT{};
   BT.Type = hmg_par_INT(1);
 
-  switch (BT.Type)
-  {
-  case BT_HDC_DESKTOP:
+  switch (BT.Type) {
+  case BT_HDC_DESKTOP: {
     // BT.hDC  = CreateDC("DISPLAY", nullptr, nullptr, nullptr);
     // BT.hDC  = GetDC(nullptr);
     BT.hWnd = GetDesktopWindow();
     BT.hDC = GetDC(BT.hWnd);
     break;
-
-  case BT_HDC_WINDOW:
+  }
+  case BT_HDC_WINDOW: {
     BT.hWnd = hmg_par_HWND(2);
     BT.hDC = GetWindowDC(BT.hWnd);
     break;
-
-  case BT_HDC_ALLCLIENTAREA:
+  }
+  case BT_HDC_ALLCLIENTAREA: {
     BT.hWnd = hmg_par_HWND(2);
     BT.hDC = GetDC(BT.hWnd);
     break;
-
-  case BT_HDC_INVALIDCLIENTAREA:
+  }
+  case BT_HDC_INVALIDCLIENTAREA: {
     BT.hWnd = hmg_par_HWND(2);
     BT.hDC = BeginPaint(BT.hWnd, &BT.PaintStruct);
     break;
-
-  case BT_HDC_BITMAP:
+  }
+  case BT_HDC_BITMAP: {
     hBitmap = hmg_par_HBITMAP(2);
     BT.hDC = CreateCompatibleDC(nullptr);
     SelectObject(BT.hDC, hBitmap);
     break;
-
-  default:
+  }
+  default: {
     hb_ret(); // Return NIL
     return;
+  }
   }
 
   hb_reta(50); // Return array = {Type, hWnd, hBitmap, hDC, PaintStruct ...}
@@ -817,32 +822,32 @@ HB_FUNC(BT_DC_DELETE)
     BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i)); // BYTE rgbReserved[32];
   }
 
-  switch (BT.Type)
-  {
-  case BT_HDC_DESKTOP:
+  switch (BT.Type) {
+  case BT_HDC_DESKTOP: {
     // DeleteDC(BT.hDC);
     ReleaseDC(BT.hWnd, BT.hDC);
     break;
-
-  case BT_HDC_WINDOW:
+  }
+  case BT_HDC_WINDOW: {
     ReleaseDC(BT.hWnd, BT.hDC);
     break;
-
-  case BT_HDC_ALLCLIENTAREA:
+  }
+  case BT_HDC_ALLCLIENTAREA: {
     ReleaseDC(BT.hWnd, BT.hDC);
     break;
-
-  case BT_HDC_INVALIDCLIENTAREA:
+  }
+  case BT_HDC_INVALIDCLIENTAREA: {
     EndPaint(BT.hWnd, &BT.PaintStruct);
     break;
-
-  case BT_HDC_BITMAP:
+  }
+  case BT_HDC_BITMAP: {
     DeleteDC(BT.hDC);
     break;
-
-  default:
+  }
+  default: {
     hb_retl(false);
     return;
+  }
   }
   hb_retl(true);
 }
@@ -888,36 +893,41 @@ HB_FUNC(BT_SCR_GETINFO)
   auto Mode = hmg_par_INT(2);
   auto info = hmg_par_INT(3);
 
-  switch (Mode)
-  {
-  case BT_SCR_DESKTOP:
-    break;
-  case BT_SCR_WINDOW:
-    break;
-  case BT_SCR_CLIENTAREA:
-    hDC = GetDC(hWnd);
+  switch (Mode) {
+  case BT_SCR_DESKTOP: {
     break;
   }
+  case BT_SCR_WINDOW: {
+    break;
+  }
+  case BT_SCR_CLIENTAREA: {
+    hDC = GetDC(hWnd);
+    break; // TODO: unnecessary break
+  }
+  }
 
-  switch (Mode)
-  {
-  case BT_SCR_DESKTOP:
+  switch (Mode) {
+  case BT_SCR_DESKTOP: {
     rect.right = GetSystemMetrics(SM_CXSCREEN);
     rect.bottom = GetSystemMetrics(SM_CYSCREEN);
     break;
-  case BT_SCR_WINDOW:
+  }
+  case BT_SCR_WINDOW: {
     GetWindowRect(hWnd, &rect);
     rect.right = rect.right - rect.left;
     rect.bottom = rect.bottom - rect.top;
     break;
-  case BT_SCR_CLIENTAREA:
+  }
+  case BT_SCR_CLIENTAREA: {
     GetClientRect(hWnd, &rect);
     ReleaseDC(hWnd, hDC);
     break;
-  default:
+  }
+  default: {
     rect.right = 0;
     rect.bottom = 0;
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   hb_retnl(info == BT_SCR_INFO_WIDTH ? rect.right : rect.bottom);
@@ -1021,17 +1031,19 @@ HB_FUNC(BT_DRAW_HDC_POLY)
     auto hBrush = CreateSolidBrush(ColorFill);
     auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
-    switch (nPOLY)
-    {
-    case BT_DRAW_POLYLINE:
+    switch (nPOLY) {
+    case BT_DRAW_POLYLINE: {
       Polyline(hDC, aPoint, nLen);
       break;
-    case BT_DRAW_POLYGON:
+    }
+    case BT_DRAW_POLYGON: {
       Polygon(hDC, aPoint, nLen);
       break;
-    case BT_DRAW_POLYBEZIER:
+    }
+    case BT_DRAW_POLYBEZIER: {
       PolyBezier(hDC, aPoint, nLen);
-      break;
+      break; // TODO: unncessary break
+    }
     }
 
     SelectObject(hDC, OldBrush);
@@ -1083,17 +1095,19 @@ HB_FUNC(BT_DRAW_HDC_ARCX)
   auto hBrush = CreateSolidBrush(ColorFill);
   auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
-  switch (nArcType)
-  {
-  case BT_DRAW_ARC:
+  switch (nArcType) {
+  case BT_DRAW_ARC: {
     Arc(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
     break;
-  case BT_DRAW_CHORD:
+  }
+  case BT_DRAW_CHORD: {
     Chord(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
     break;
-  case BT_DRAW_PIE:
+  }
+  case BT_DRAW_PIE: {
     Pie(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
-    break;
+    break; // TODO: unncessary break
+  }
   }
 
   SelectObject(hDC, OldBrush);
@@ -1136,19 +1150,22 @@ HB_FUNC(BT_DRAW_HDC_FILLEDOBJECT)
   auto hBrush = CreateSolidBrush(ColorFill);
   auto OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
-  switch (Type)
-  {
-  case BT_FILLRECTANGLE:
+  switch (Type) {
+  case BT_FILLRECTANGLE: {
     Rectangle(hDC, x1, y1, x1 + Width1, y1 + Height1);
     break;
-  case BT_FILLELLIPSE:
+  }
+  case BT_FILLELLIPSE: {
     Ellipse(hDC, x1, y1, x1 + Width1, y1 + Height1);
     break;
-  case BT_FILLROUNDRECT:
+  }
+  case BT_FILLROUNDRECT: {
     RoundRect(hDC, x1, y1, x1 + Width1, y1 + Height1, RoundWidth, RoundHeight);
     break;
-  case BT_FILLFLOOD:
+  }
+  case BT_FILLFLOOD: {
     ExtFloodFill(hDC, x1, y1, GetPixel(hDC, x1, y1), FLOODFILLSURFACE);
+  }
   }
 
   SelectObject(hDC, OldBrush);
@@ -1200,17 +1217,19 @@ HB_FUNC(BT_DRAW_HDC_BITMAP)
   SetStretchBltMode(hDC, HALFTONE);
   SetBrushOrgEx(hDC, Point.x, Point.y, nullptr);
 
-  switch (Action)
-  {
-  case BT_BITMAP_OPAQUE:
+  switch (Action) {
+  case BT_BITMAP_OPAQUE: {
     StretchBlt(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, SRCCOPY);
     break;
-  case BT_BITMAP_TRANSPARENT:
+  }
+  case BT_BITMAP_TRANSPARENT: {
     TransparentBlt(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, color_transp);
     break;
-  default:
+  }
+  default: {
     hb_retl(false);
     return;
+  }
   }
 
   DeleteDC(memDC);
@@ -1609,13 +1628,14 @@ HB_FUNC(BT_DRAW_HDC_PIXEL)
   auto Action = hmg_par_INT(4);
   auto Color = hmg_par_COLORREF(5);
 
-  switch (Action)
-  {
-  case BT_HDC_GETPIXEL:
+  switch (Action) {
+  case BT_HDC_GETPIXEL: {
     Color = GetPixel(hDC, x, y);
     break;
-  case BT_HDC_SETPIXEL:
+  }
+  case BT_HDC_SETPIXEL: {
     Color = SetPixel(hDC, x, y, Color);
+  }
   }
 
   hb_reta(3);
@@ -1663,17 +1683,19 @@ HB_FUNC(BT_DRAW_HDC_TO_HDC)
   SetStretchBltMode(hDC1, HALFTONE);
   SetBrushOrgEx(hDC1, Point.x, Point.y, nullptr);
 
-  switch (Action)
-  {
-  case BT_HDC_OPAQUE:
+  switch (Action) {
+  case BT_HDC_OPAQUE: {
     StretchBlt(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, SRCCOPY);
     break;
-  case BT_HDC_TRANSPARENT:
+  }
+  case BT_HDC_TRANSPARENT: {
     TransparentBlt(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, color_transp);
     break;
-  default:
+  }
+  default: {
     hb_retl(false);
     return;
+  }
   }
 
   hb_retl(true);
@@ -2061,17 +2083,19 @@ HB_FUNC(BT_BMP_GETINFO)
       LPVOID bmBits;
    */
 
-  switch (Info)
-  {
-  case BT_BITMAP_INFO_WIDTH:
+  switch (Info) {
+  case BT_BITMAP_INFO_WIDTH: {
     hb_retnl(bm.bmWidth);
     break;
-  case BT_BITMAP_INFO_HEIGHT:
+  }
+  case BT_BITMAP_INFO_HEIGHT: {
     hb_retnl(bm.bmHeight);
     break;
-  case BT_BITMAP_INFO_BITSPIXEL:
+  }
+  case BT_BITMAP_INFO_BITSPIXEL: {
     hb_retnl(bm.bmBitsPixel);
     break;
+  }
   case BT_BITMAP_INFO_GETCOLORPIXEL: {
     auto x = hmg_par_INT(3);
     auto y = hmg_par_INT(4);
@@ -2082,8 +2106,9 @@ HB_FUNC(BT_BMP_GETINFO)
     hb_retnl(color);
     break;
   }
-  default:
+  default: {
     hb_retnl(0);
+  }
   }
 }
 
@@ -2370,17 +2395,19 @@ HB_FUNC(BT_BMP_PASTE)
   SetStretchBltMode(memDC_D, HALFTONE);
   SetBrushOrgEx(memDC_D, Point.x, Point.y, nullptr);
 
-  switch (Action)
-  {
-  case BT_BITMAP_OPAQUE:
+  switch (Action) {
+  case BT_BITMAP_OPAQUE: {
     StretchBlt(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, SRCCOPY);
     break;
-  case BT_BITMAP_TRANSPARENT:
+  }
+  case BT_BITMAP_TRANSPARENT: {
     TransparentBlt(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, color_transp);
     break;
-  default:
+  }
+  default: {
     hb_retl(false);
     return;
+  }
   }
 
   DeleteDC(memDC_D);
@@ -2467,21 +2494,24 @@ HB_FUNC(BT_BMP_CAPTURESCR)
   auto Height1 = hmg_par_INT(5);
   auto Mode = hmg_par_INT(6);
 
-  switch (Mode)
-  {
-  case BT_BITMAP_CAPTURE_DESKTOP:
+  switch (Mode) {
+  case BT_BITMAP_CAPTURE_DESKTOP: {
     // hWnd = GetDesktopWindow();
     hDC = GetDC(hWnd);
     break;
-  case BT_BITMAP_CAPTURE_WINDOW:
+  }
+  case BT_BITMAP_CAPTURE_WINDOW: {
     hDC = GetWindowDC(hWnd);
     break;
-  case BT_BITMAP_CAPTURE_CLIENTAREA:
+  }
+  case BT_BITMAP_CAPTURE_CLIENTAREA: {
     hDC = GetDC(hWnd);
     break;
-  default:
+  }
+  default: {
     hmg_ret_HBITMAP(nullptr);
     return;
+  }
   }
 
   auto hBitmap = bt_bmp_create_24bpp(Width1, Height1);
@@ -2493,12 +2523,12 @@ HB_FUNC(BT_BMP_CAPTURESCR)
 
   DeleteDC(memDC);
 
-  switch (Mode)
-  {
+  switch (Mode) {
   case BT_BITMAP_CAPTURE_DESKTOP:
   case BT_BITMAP_CAPTURE_WINDOW:
-  case BT_BITMAP_CAPTURE_CLIENTAREA:
+  case BT_BITMAP_CAPTURE_CLIENTAREA: {
     ReleaseDC(hWnd, hDC);
+  }
   }
 
   hmg_ret_HBITMAP(hBitmap);
@@ -2558,28 +2588,27 @@ HB_FUNC(BT_BMP_PROCESS)
   auto hBitmap = hmg_par_HBITMAP(1);
   auto Action = hmg_par_INT(2);
 
-  switch (Action)
-  {
-  case BT_BMP_PROCESS_INVERT:
+  switch (Action) {
+  case BT_BMP_PROCESS_INVERT: {
     break;
-
-  case BT_BMP_PROCESS_GRAYNESS:
+  }
+  case BT_BMP_PROCESS_GRAYNESS: {
     GrayLevel = static_cast<DOUBLE>(hb_parnd(3)) / 100.0;
     if (GrayLevel <= 0.0 || GrayLevel > 1.0) {
       hb_retl(false);
       return;
     }
     break;
-
-  case BT_BMP_PROCESS_BRIGHTNESS:
+  }
+  case BT_BMP_PROCESS_BRIGHTNESS: {
     LightLevel = hmg_par_INT(3);
     if ((LightLevel < -255) || (LightLevel == 0) || (LightLevel > 255)) {
       hb_retl(false);
       return;
     }
     break;
-
-  case BT_BMP_PROCESS_CONTRAST:
+  }
+  case BT_BMP_PROCESS_CONTRAST: {
     ContrastAngle = static_cast<DOUBLE>(hb_parnd(3));
     if (ContrastAngle <= 0.0) {
       hb_retl(false);
@@ -2587,8 +2616,8 @@ HB_FUNC(BT_BMP_PROCESS)
     }
     ContrastConstant = tan(ContrastAngle * M_PI / 180.0);
     break;
-
-  case BT_BMP_PROCESS_MODIFYCOLOR:
+  }
+  case BT_BMP_PROCESS_MODIFYCOLOR: {
     if (!HB_ISARRAY(3) || hb_parinfa(3, 0) != 3) {
       hb_retl(false);
       return;
@@ -2601,8 +2630,8 @@ HB_FUNC(BT_BMP_PROCESS)
       return;
     }
     break;
-
-  case BT_BMP_PROCESS_GAMMACORRECT:
+  }
+  case BT_BMP_PROCESS_GAMMACORRECT: {
     if (!HB_ISARRAY(3) || hb_parinfa(3, 0) != 3) {
       hb_retl(false);
       return;
@@ -2616,10 +2645,11 @@ HB_FUNC(BT_BMP_PROCESS)
       BlueGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, BlueGamma));
     }
     break;
-
-  default:
+  }
+  default: {
     hb_retl(false);
     return;
+  }
   }
 
   BITMAP bm;
@@ -2656,22 +2686,21 @@ HB_FUNC(BT_BMP_PROCESS)
     RGBcolor = (bt_RGBCOLORBYTE *)(lp_Bits + static_cast<LONG>(y) * bm.bmWidthBytes);
 
     for (auto x = 0; x < bm.bmWidth; x++) {
-      switch (Action)
-      {
-      case BT_BMP_PROCESS_INVERT:
+      switch (Action) {
+      case BT_BMP_PROCESS_INVERT: {
         RGBcolor->R = 255 - RGBcolor->R;
         RGBcolor->G = 255 - RGBcolor->G;
         RGBcolor->B = 255 - RGBcolor->B;
         break;
-
-      case BT_BMP_PROCESS_GRAYNESS:
+      }
+      case BT_BMP_PROCESS_GRAYNESS: {
         GrayValue = static_cast<BYTE>(bt_RGB_TO_GRAY(RGBcolor->R, RGBcolor->G, RGBcolor->B));
         RGBcolor->R = static_cast<BYTE>(RGBcolor->R + (GrayValue - RGBcolor->R) * GrayLevel);
         RGBcolor->G = static_cast<BYTE>(RGBcolor->G + (GrayValue - RGBcolor->G) * GrayLevel);
         RGBcolor->B = static_cast<BYTE>(RGBcolor->B + (GrayValue - RGBcolor->B) * GrayLevel);
         break;
-
-      case BT_BMP_PROCESS_BRIGHTNESS:
+      }
+      case BT_BMP_PROCESS_BRIGHTNESS: {
         RGBcolor->R = static_cast<BYTE>(
             (RGBcolor->R + LightLevel < 0) ? 0 : ((RGBcolor->R + LightLevel > 255) ? 255 : (RGBcolor->R + LightLevel)));
         RGBcolor->G = static_cast<BYTE>(
@@ -2679,8 +2708,8 @@ HB_FUNC(BT_BMP_PROCESS)
         RGBcolor->B = static_cast<BYTE>(
             (RGBcolor->B + LightLevel < 0) ? 0 : ((RGBcolor->B + LightLevel > 255) ? 255 : (RGBcolor->B + LightLevel)));
         break;
-
-      case BT_BMP_PROCESS_CONTRAST:
+      }
+      case BT_BMP_PROCESS_CONTRAST: {
         ContrastValue = 128 + (RGBcolor->R - 128) * ContrastConstant;
         RGBcolor->R = static_cast<BYTE>((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
         ContrastValue = 128 + (RGBcolor->G - 128) * ContrastConstant;
@@ -2688,8 +2717,8 @@ HB_FUNC(BT_BMP_PROCESS)
         ContrastValue = 128 + (RGBcolor->B - 128) * ContrastConstant;
         RGBcolor->B = static_cast<BYTE>((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
         break;
-
-      case BT_BMP_PROCESS_MODIFYCOLOR:
+      }
+      case BT_BMP_PROCESS_MODIFYCOLOR: {
         RGBcolor->R = static_cast<BYTE>(
             (RGBcolor->R + RLevel < 0) ? 0 : ((RGBcolor->R + RLevel > 255) ? 255 : (RGBcolor->R + RLevel)));
         RGBcolor->G = static_cast<BYTE>(
@@ -2697,11 +2726,12 @@ HB_FUNC(BT_BMP_PROCESS)
         RGBcolor->B = static_cast<BYTE>(
             (RGBcolor->B + BLevel < 0) ? 0 : ((RGBcolor->B + BLevel > 255) ? 255 : (RGBcolor->B + BLevel)));
         break;
-
-      case BT_BMP_PROCESS_GAMMACORRECT:
+      }
+      case BT_BMP_PROCESS_GAMMACORRECT: {
         RGBcolor->R = RedGammaRamp[RGBcolor->R];
         RGBcolor->G = GreenGammaRamp[RGBcolor->G];
         RGBcolor->B = BlueGammaRamp[RGBcolor->B];
+      }
       }
 
       RGBcolor++;

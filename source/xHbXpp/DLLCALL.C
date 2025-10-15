@@ -392,22 +392,21 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
   if (iArgCnt > 0) {
     for (i = iFirst; i <= iParams; i++) {
-      switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
-      {
-      case Harbour::Item::NIL:
+      switch (hb_parinfo(i) & ~Harbour::Item::BYREF) {
+      case Harbour::Item::NIL: {
         Parm[iCnt].nWidth = sizeof(void *);
         Parm[iCnt].dwArg = (DWORD)NULL;
         break;
-
-      case Harbour::Item::POINTER:
+      }
+      case Harbour::Item::POINTER: {
         Parm[iCnt].nWidth = sizeof(void *);
         Parm[iCnt].dwArg = (DWORD)hb_parptr(i);
         break;
-
+      }
       case Harbour::Item::INTEGER:
       case Harbour::Item::LONG:
       case Harbour::Item::DATE:
-      case Harbour::Item::LOGICAL:
+      case Harbour::Item::LOGICAL: {
         Parm[iCnt].nWidth = sizeof(DWORD);
         Parm[iCnt].dwArg = (DWORD)hb_parnl(i);
 
@@ -416,17 +415,17 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
           Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
         }
         break;
-
-      case Harbour::Item::DOUBLE:
+      }
+      case Harbour::Item::DOUBLE: {
         Parm[iCnt].nWidth = sizeof(double);
         DblParms[iCnt] = hb_parnd(i);
         Parm[iCnt].pArg = &(DblParms[iCnt]);
         Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
         iFlags |= DC_RETVAL_MATH8;
         break;
-
+      }
       case Harbour::Item::STRING:
-      case Harbour::Item::MEMO:
+      case Harbour::Item::MEMO: {
         Parm[iCnt].nWidth = sizeof(void *);
         if (hb_parinfo(i) & Harbour::Item::BYREF) {
           Parm[iCnt].pArg = malloc(hb_parclen(i));
@@ -436,24 +435,25 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
         }
         Parm[iCnt].dwFlags = DC_FLAG_ARGPTR; // use the pointer
         break;
-
-      case Harbour::Item::ARRAY:
+      }
+      case Harbour::Item::ARRAY: {
         if (strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0) {
           Parm[iCnt].nWidth = sizeof(void *);
           Parm[iCnt].dwArg = (DWORD)hb_parcstruct(i);
           break;
-        }
-
+        } // TODO: check
+      }
       case Harbour::Item::HASH:
       case Harbour::Item::SYMBOL:
       case Harbour::Item::ALIAS:
       case Harbour::Item::MEMOFLAG:
       case Harbour::Item::BLOCK:
-      case Harbour::Item::MEMVAR:
-
-      default:
+      case Harbour::Item::MEMVAR: {
+      }
+      default: {
         MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
         return;
+      }
       }
 
       iCnt++;
@@ -485,44 +485,43 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
     for (i = iFirst; i <= iParams; i++) {
       if (hb_parinfo(i) & Harbour::Item::BYREF) {
-        switch (hb_parinfo(i) & ~Harbour::Item::BYREF)
-        {
-        case Harbour::Item::NIL:
+        switch (hb_parinfo(i) & ~Harbour::Item::BYREF) {
+        case Harbour::Item::NIL: {
           hb_stornl(Parm[iCnt].dwArg, i);
           break;
-
-        case Harbour::Item::POINTER:
+        }
+        case Harbour::Item::POINTER: {
           break;
-
+        }
         case Harbour::Item::INTEGER:
         case Harbour::Item::LONG:
         case Harbour::Item::DATE:
-        case Harbour::Item::LOGICAL:
+        case Harbour::Item::LOGICAL: {
           hb_stornl(*(LONG *)(Parm[iCnt].pArg), i);
           break;
-
-        case Harbour::Item::DOUBLE:
+        }
+        case Harbour::Item::DOUBLE: {
           hb_stornd(DblParms[iCnt], i);
           break;
-
+        }
         case Harbour::Item::STRING:
-        case Harbour::Item::MEMO:
+        case Harbour::Item::MEMO: {
           hb_storclen((char *)Parm[iCnt].pArg, hb_parclen(i), i);
           free(Parm[iCnt].pArg);
           break;
-
-        case Harbour::Item::ARRAY:
+        }
+        case Harbour::Item::ARRAY: {
           if (strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0) {
             hb_vmPushSymbol(pDEVALUE->pSymbol);
             hb_vmPush(hb_param(i, Harbour::Item::ANY));
             hb_vmSend(0);
-
             break;
-          }
-
-        default:
+          } // TODO: check
+        }
+        default: {
           MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
           return;
+        }
         }
       }
 
@@ -531,44 +530,43 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
   }
 
   // return the correct value
-  switch (iRtype)
-  {
-  case CTYPE_BOOL:
+  switch (iRtype) {
+  case CTYPE_BOOL: {
     hb_retl((BOOL)rc.Long);
     break;
-
-  case CTYPE_VOID:
+  }
+  case CTYPE_VOID: {
     hb_retni(0);
     break;
-
+  }
   case CTYPE_CHAR:
-  case CTYPE_UNSIGNED_CHAR:
+  case CTYPE_UNSIGNED_CHAR: {
     hb_retni((char)rc.Int);
     break;
-
+  }
   case CTYPE_SHORT:
-  case CTYPE_UNSIGNED_SHORT:
+  case CTYPE_UNSIGNED_SHORT: {
     hb_retni((int)rc.Int);
     break;
-
-  case CTYPE_INT:
+  }
+  case CTYPE_INT: {
     hb_retni((int)rc.Long);
     break;
-
-  case CTYPE_LONG:
+  }
+  case CTYPE_LONG: {
     hb_retnl((LONG)rc.Long);
     break;
-
+  }
   case CTYPE_CHAR_PTR:
-  case CTYPE_UNSIGNED_CHAR_PTR:
+  case CTYPE_UNSIGNED_CHAR_PTR: {
     hb_retc((char *)rc.Long);
     break;
-
+  }
   case CTYPE_UNSIGNED_INT:
-  case CTYPE_UNSIGNED_LONG:
+  case CTYPE_UNSIGNED_LONG: {
     hb_retnl(rc.Long);
     break;
-
+  }
   case CTYPE_INT_PTR:
   case CTYPE_UNSIGNED_SHORT_PTR:
   case CTYPE_UNSIGNED_INT_PTR:
@@ -577,21 +575,22 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
   case CTYPE_UNSIGNED_LONG_PTR:
   case CTYPE_VOID_PTR:
   case CTYPE_FLOAT_PTR:
-  case CTYPE_DOUBLE_PTR:
+  case CTYPE_DOUBLE_PTR: {
     hb_retptr((void *)rc.Long);
     break;
-
-  case CTYPE_FLOAT:
+  }
+  case CTYPE_FLOAT: {
     hb_retnd(rc.Float);
     break;
-
-  case CTYPE_DOUBLE:
+  }
+  case CTYPE_DOUBLE: {
     hb_retnd(rc.Double);
     break;
-
-  default:
+  }
+  default: {
     MessageBox(GetActiveWindow(), "Unknown return type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 }
 

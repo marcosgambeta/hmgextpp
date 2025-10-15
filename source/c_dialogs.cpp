@@ -334,22 +334,24 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
 {
   TCHAR szPath[MAX_PATH];
 
-  switch (uMsg)
-  {
-  case BFFM_INITIALIZED:
+  switch (uMsg) {
+  case BFFM_INITIALIZED: {
     if (lpData) {
       SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lpData);
       SetWindowText(hWnd, static_cast<LPCTSTR>(s_szWinName));
     }
     break;
-  case BFFM_VALIDATEFAILED:
+  }
+  case BFFM_VALIDATEFAILED: {
     MessageBeep(MB_ICONHAND);
     return 1;
-  case BFFM_SELCHANGED:
+  }
+  case BFFM_SELCHANGED: {
     if (lpData) {
       SHGetPathFromIDList(reinterpret_cast<LPITEMIDLIST>(lParam), szPath);
       SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, reinterpret_cast<LPARAM>(szPath));
     }
+  }
   }
 
   return 0;

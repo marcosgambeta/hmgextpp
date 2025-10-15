@@ -92,19 +92,22 @@ HB_FUNC(HMG_INITITEMBAR)
   auto hWndSB = hmg_par_HWND(1);
   style = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
 
-  switch (hb_parni(8))
-  {
-  case 0:
+  switch (hb_parni(8)) {
+  case 0: {
     displayFlags = 0;
     break;
-  case 1:
+  }
+  case 1: {
     displayFlags = SBT_POPOUT;
     break;
-  case 2:
+  }
+  case 2: {
     displayFlags = SBT_NOBORDERS;
     break;
-  default:
+  }
+  default: {
     displayFlags = 0;
+  }
   }
 
   if (hb_parnl(5)) {

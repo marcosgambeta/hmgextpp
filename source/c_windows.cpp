@@ -819,8 +819,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 {
   LONG_PTR lpUserData;
 
-  switch (message)
-  {
+  switch (message) {
   case WM_CREATE: {
     PMYUSERDATA pUserData = (PMYUSERDATA)(((LPCREATESTRUCT)lParam)->lpCreateParams);
     if (pUserData) {

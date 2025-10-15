@@ -139,9 +139,8 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldpickproc"))));
 
-  switch (Msg)
-  {
-  case WM_ERASEBKGND:
+  switch (Msg) {
+  case WM_ERASEBKGND: {
     if (pSymbol == nullptr) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
     }
@@ -163,6 +162,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
             return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
          }
 #endif
+  }
   }
 
   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);

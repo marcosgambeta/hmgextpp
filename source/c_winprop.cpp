@@ -152,26 +152,30 @@ HB_FUNC(HMG_SETPROP)
   lpMem[0] = chType;
   memcpy(lpMem + 1, reinterpret_cast<char *>(&nLen), sizeof(int));
 
-  switch (chType)
-  {
-  case 'C':
+  switch (chType) {
+  case 'C': {
     memcpy(lpMem + sizeof(int) + 1, hb_parc(3), nLen);
     break;
-  case 'L':
+  }
+  case 'L': {
     bValue = hb_parl(3);
     memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char *>(&bValue), sizeof(BOOL));
     break;
-  case 'D':
+  }
+  case 'D': {
     memcpy(lpMem + sizeof(int) + 1, hb_pards(3), nLen);
     break;
-  case 'I':
+  }
+  case 'I': {
     iValue = hb_parnl(3);
     memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char *>(&iValue), sizeof(INT));
     break;
-  case 'F':
+  }
+  case 'F': {
     dValue = hb_parnd(3);
     memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char *>(&dValue), sizeof(double));
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   GlobalUnlock(hMem);
@@ -233,23 +237,27 @@ HB_FUNC(HMG_GETPROP)
   }
 
   auto nLen = static_cast<int>(*reinterpret_cast<int *>(lpMem + 1));
-  switch (lpMem[0])
-  {
-  case 'C':
+  switch (lpMem[0]) {
+  case 'C': {
     hb_retclen(lpMem + sizeof(int) + 1, nLen);
     break;
-  case 'L':
+  }
+  case 'L': {
     hb_retl(static_cast<BOOL>(*reinterpret_cast<BOOL *>(lpMem + sizeof(int) + 1)));
     break;
-  case 'D':
+  }
+  case 'D': {
     hb_retds(lpMem + sizeof(int) + 1);
     break;
-  case 'I':
+  }
+  case 'I': {
     hb_retni(static_cast<INT>(*reinterpret_cast<INT *>(lpMem + sizeof(int) + 1)));
     break;
-  case 'F':
+  }
+  case 'F': {
     hb_retnd(static_cast<double>(*reinterpret_cast<double *>(lpMem + sizeof(int) + 1)));
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   GlobalUnlock(hMem);

@@ -335,30 +335,34 @@ HB_FUNC(HMG_APPENDMENUSTRING)
     lpMenuItem->uiItemType = hb_parni(4);
     lpMenuItem->hwnd = nullptr;
 
-    switch (hb_parni(4))
-    {
-    case 1:
+    switch (hb_parni(4)) {
+    case 1: {
       style = MF_OWNERDRAW | MF_MENUBREAK;
       break;
-    case 2:
+    }
+    case 2: {
       style = MF_OWNERDRAW | MF_MENUBARBREAK;
       break;
-    default:
+    }
+    default: {
       style = MF_OWNERDRAW;
+    }
     }
 
     hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
   } else {
-    switch (hb_parni(4))
-    {
-    case 1:
+    switch (hb_parni(4)) {
+    case 1: {
       style = MF_STRING | MF_MENUBREAK;
       break;
-    case 2:
+    }
+    case 2: {
       style = MF_STRING | MF_MENUBARBREAK;
       break;
-    default:
+    }
+    default: {
       style = MF_STRING;
+    }
     }
 
     hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem));

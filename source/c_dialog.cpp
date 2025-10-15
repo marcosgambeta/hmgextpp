@@ -387,19 +387,22 @@ HB_FUNC(HMG_INITEXCOMMONCONTROLS)
   INITCOMMONCONTROLSEX i{};
   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
 
-  switch (hb_parni(1))
-  {
-  case 1:
+  switch (hb_parni(1)) {
+  case 1: {
     i.dwICC = ICC_DATE_CLASSES;
     break;
-  case 2:
+  }
+  case 2: {
     i.dwICC = ICC_TREEVIEW_CLASSES;
     break;
-  case 3:
+  }
+  case 3: {
     i.dwICC = ICC_INTERNET_CLASSES;
     break;
-  default:
+  }
+  default: {
     i.dwICC = ICC_DATE_CLASSES;
+  }
   }
 
   InitCommonControlsEx(&i);

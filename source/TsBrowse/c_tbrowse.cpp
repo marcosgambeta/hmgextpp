@@ -377,31 +377,31 @@ HB_FUNC(TSDRAWCELL)
         GetObject(hBitMap, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
         nTop = rct.top + ((rct.bottom - rct.top + 1) / 2) - (bm.bmHeight / 2);
 
-        switch (ixLayOut) // bitmap layout x coordinate
-        {
-        case 0: // column left
+        switch (ixLayOut) { // bitmap layout x coordinate
+        case 0: { // column left
           nLeft = rct.left;
           break;
-
-        case 1: // column center (text -if any- may overwrite the bitmap)
+        }
+        case 1: { // column center (text -if any- may overwrite the bitmap)
           nLeft = rct.left + ((rct.right - rct.left + 1) / 2) - (bm.bmWidth / 2) - 1;
           break;
-
-        case 2: // column right
+        }
+        case 2: { // column right
           nLeft = rct.right - (bm.bmWidth + 1);
           break;
-
-        case 3: // left of centered text
+        }
+        case 3: { // left of centered text
           nLeft = HB_MAX(rct.left, rct.left + ((rct.right - rct.left + 1) / 2) - (iTxtW / 2) - bm.bmWidth - 2);
           break;
-
-        case 4: // right of centered text
+        }
+        case 4: { // right of centered text
           nLeft = rct.left + ((rct.right - rct.left + 1) / 2) + (iTxtW / 2) + 2;
           break;
-
-        default: // a value > 4 means specific pixel location from column left
+        }
+        default: { // a value > 4 means specific pixel location from column left
           nLeft = rct.left + ixLayOut;
-          break;
+          break; // TODO: unnecessary break
+        }
         }
       } else {
         nTop = rct.top;
@@ -537,12 +537,11 @@ void WndBoxDraw(HDC hDC, RECT *rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle
   auto hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
   auto hBlack = CreatePen(PS_SOLID, 1, 0);
 
-  switch (nLineStyle)
-  {
-  case 0:
+  switch (nLineStyle) {
+  case 0: {
     break;
-
-  case 1:
+  }
+  case 1: {
     SelectObject(hDC, hPBotRit);
     GoToPoint(hDC, rct->left, rct->bottom - (bHeader ? 1 : 0));
     LineTo(hDC, rct->right - 1, rct->bottom - (bHeader ? 1 : 0));
@@ -550,20 +549,20 @@ void WndBoxDraw(HDC hDC, RECT *rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle
     if (bHeader)
       LineTo(hDC, rct->left - 1, rct->top - 1);
     break;
-
-  case 2:
+  }
+  case 2: {
     SelectObject(hDC, hPBotRit);
     GoToPoint(hDC, rct->right - 1, rct->bottom);
     LineTo(hDC, rct->right - 1, rct->top - 1);
     break;
-
-  case 3:
+  }
+  case 3: {
     SelectObject(hDC, hPBotRit);
     GoToPoint(hDC, rct->left, rct->bottom);
     LineTo(hDC, rct->right, rct->bottom);
     break;
-
-  case 4:
+  }
+  case 4: {
     SelectObject(hDC, hPUpLeft);
     GoToPoint(hDC, rct->left, rct->bottom);
     LineTo(hDC, rct->left, rct->top);
@@ -573,14 +572,15 @@ void WndBoxDraw(HDC hDC, RECT *rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle
     LineTo(hDC, rct->right - 1, rct->bottom - (bHeader ? 1 : 0));
     LineTo(hDC, rct->right - 1, rct->top - 1);
     break;
-
-  case 5:
+  }
+  case 5: {
     rct->top += 1;
     rct->left += 1;
     rct->bottom -= 1;
     rct->right -= 1;
     DrawFocusRect(hDC, rct);
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   SelectObject(hDC, hOldPen);
@@ -764,19 +764,22 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
 
   lrct.top = rct->top + (((rct->bottom - rct->top + 1) / 2) - 8);
 
-  switch (nAlign)
-  {
-  case 0:
+  switch (nAlign) {
+  case 0: {
     lrct.left = rct->left;
     break;
-  case 1:
+  }
+  case 1: {
     lrct.left = rct->left + ((rct->right - rct->left + 1) / 2) - 8;
     break;
-  case 2:
+  }
+  case 2: {
     lrct.left = rct->right - 16;
     break;
-  default:
+  }
+  default: {
     lrct.left = rct->left;
+  }
   }
 
   lrct.bottom = lrct.top + 16;

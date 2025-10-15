@@ -913,11 +913,9 @@ HB_FUNC(HMG_TOOLBAREXCUSTFUNC)
 
   auto Msg = hmg_par_UINT(2);
 
-  switch (Msg)
-  {
+  switch (Msg) {
   case WM_NOTIFY: {
-    switch ((reinterpret_cast<LPNMHDR>(lParam))->code)
-    {
+    switch ((reinterpret_cast<LPNMHDR>(lParam))->code) {
     case TBN_BEGINADJUST: { // Start customizing the toolbar.
       nResetCount = static_cast<int>(SendMessage(lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0));
       buttonCount = nResetCount;
@@ -956,7 +954,7 @@ HB_FUNC(HMG_TOOLBAREXCUSTFUNC)
     }
     default: {
       hb_retl(false);
-      break;
+      break; // TODO: unnecessary break
     }
     }
   }

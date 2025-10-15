@@ -56,31 +56,36 @@ HB_FUNC(HMG_WINHELP)
   DWORD context;
   void *str;
 
-  switch (hb_parni(3))
-  {
-  case 0:
+  switch (hb_parni(3)) {
+  case 0: {
     style = HELP_FINDER;
     context = 0;
     break;
-  case 1:
+  }
+  case 1: {
     style = HELP_CONTEXT;
     context = hb_parni(4);
     break;
-  case 2:
+  }
+  case 2: {
     style = HELP_CONTEXTPOPUP;
     context = hb_parni(4);
     break;
-  case 3:
+  }
+  case 3: {
     style = HELP_FORCEFILE;
     context = 0;
     break;
-  case 4:
+  }
+  case 4: {
     style = HELP_QUIT;
     context = 0;
     break;
-  default:
+  }
+  default: {
     style = HELP_CONTENTS;
     context = 0;
+  }
   }
 
   hb_retl(WinHelp(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr), style, context));

@@ -215,26 +215,25 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
   LPNMHDR lpnmhdr;
   FLDHDRINFO *pFhi;
 
-  switch (message)
-  {
+  switch (message) {
   // wNotifyCode = HIWORD(wParam); // notification code
   // wID = LOWORD(wParam);         // item, control, or accelerator identifier
   // hwndCtl = (HWND) lParam;      // handle of control
-  case WM_INITDIALOG:
+  case WM_INITDIALOG: {
     pFhi = reinterpret_cast<FLDHDRINFO *>(lParam);
     FLD_FolderInit(hWndDlg, pFhi);
     FLD_AddBitmap(hWndDlg);
     break;
-
-  case WM_CLOSE:
+  }
+  case WM_CLOSE: {
     FLD_Cancel(hWndDlg, 0);
     break;
-
-  case WM_MOVE:
+  }
+  case WM_MOVE: {
     FLD_DialogAlign(hWndDlg);
     return FALSE;
-
-  case WM_COMMAND:
+  }
+  case WM_COMMAND: {
     if (lParam != 0 && HIWORD(wParam) == BN_CLICKED) {
       if (!FLD_DoCommand(hWndDlg, LOWORD(wParam))) {
         pFhi = reinterpret_cast<FLDHDRINFO *>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
@@ -253,8 +252,8 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
     }
 
     return TRUE;
-
-  case WM_NOTIFY:
+  }
+  case WM_NOTIFY: {
     lpnmhdr = reinterpret_cast<NMHDR FAR *>(lParam);
     if (lpnmhdr != 0) {
       if (lpnmhdr->code == TCN_SELCHANGE) {
@@ -263,6 +262,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
     }
 
     return FALSE;
+  }
   }
 
   if (!pSymbol) {
@@ -298,12 +298,11 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
   FLDHDRINFO *pFhi;
 
   hWndParent = GetParent(hWndDlg);
-  switch (message)
-  {
+  switch (message) {
   // wNotifyCode = HIWORD(wParam); // notification code
   // wID = LOWORD(wParam);         // item, control, or accelerator identifier
   // HWND hwndCtl = (HWND) lParam;      // handle of control
-  case WM_INITDIALOG:
+  case WM_INITDIALOG: {
     pFhi = reinterpret_cast<FLDHDRINFO *>(lParam);
     iSel = TabCtrl_GetCurSel(pFhi->hwndTab);
     hfpi = pFhi->fhpage;
@@ -311,6 +310,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 
     FLD_ChildDialogInit(hWndDlg, hWndParent, fpi->idrc);
     return TRUE;
+  }
   }
 
   if (!pSymbol) {
@@ -992,31 +992,35 @@ static BOOL FLD_PageInfo(DLGTEMPLATE *pTemplate, FLDHDRINFO *pFhi, int index, BO
   }
 
   // menu
-  switch (static_cast<WORD>(*p))
-  {
-  case 0x0000:
+  switch (static_cast<WORD>(*p)) {
+  case 0x0000: {
     p++;
     break;
-  case 0xffff:
+  }
+  case 0xffff: {
     p += 2;
     break;
-  default:
+  }
+  default: {
     p += lstrlenW(reinterpret_cast<LPCWSTR>(p)) + 1;
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   // class
-  switch (static_cast<WORD>(*p))
-  {
-  case 0x0000:
+  switch (static_cast<WORD>(*p)) {
+  case 0x0000: {
     p++;
     break;
-  case 0xffff:
+  }
+  case 0xffff: {
     p += 2;
     break;
-  default:
+  }
+  default: {
     p += lstrlenW(reinterpret_cast<LPCWSTR>(p)) + 1;
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   // Extract the caption
@@ -1089,8 +1093,7 @@ static void FLD_UnChanged(HWND hWndParent, HWND hwndCleanPage)
 // FLD_DoCommand()
 static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
 {
-  switch (wID)
-  {
+  switch (wID) {
   case FLBTN_OK:
   case FLBTN_APPLY: {
     auto pFhi = reinterpret_cast<FLDHDRINFO *>(GetWindowLongPtr(hWndDlg, GWLP_USERDATA));
@@ -1132,17 +1135,17 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
     }
     break;
   }
-
-  case FLBTN_CANCEL:
+  case FLBTN_CANCEL: {
     FLD_Cancel(hWndDlg, wID);
     break;
-
-  case FLBTN_HELP:
+  }
+  case FLBTN_HELP: {
     FLD_Help(hWndDlg);
     break;
-
-  default:
+  }
+  default: {
     return FALSE;
+  }
   }
 
   return TRUE;

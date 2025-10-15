@@ -84,9 +84,8 @@ HB_FUNC(HMG_GETNONCLIENTFONT)
 
   hb_reta(4);
 
-  switch (hb_parni(1))
-  {
-  case 1:
+  switch (hb_parni(1)) {
+  case 1: {
 #ifndef UNICODE
     HB_STORC(ncm.lfCaptionFont.lfFaceName, -1, 1);
 #else
@@ -98,7 +97,8 @@ HB_FUNC(HMG_GETNONCLIENTFONT)
     HB_STORL(ncm.lfCaptionFont.lfWeight == 700 ? TRUE : FALSE, -1, 3);
     HB_STORNI(ncm.lfCaptionFont.lfCharSet, -1, 4);
     break;
-  case 2:
+  }
+  case 2: {
 #ifndef UNICODE
     HB_STORC(ncm.lfMenuFont.lfFaceName, -1, 1);
 #else
@@ -110,7 +110,8 @@ HB_FUNC(HMG_GETNONCLIENTFONT)
     HB_STORL(ncm.lfMenuFont.lfWeight == 700 ? TRUE : FALSE, -1, 3);
     HB_STORNI(ncm.lfMenuFont.lfCharSet, -1, 4);
     break;
-  case 3:
+  }
+  case 3: {
 #ifndef UNICODE
     HB_STORC(ncm.lfStatusFont.lfFaceName, -1, 1);
 #else
@@ -122,7 +123,8 @@ HB_FUNC(HMG_GETNONCLIENTFONT)
     HB_STORL(ncm.lfStatusFont.lfWeight == 700 ? TRUE : FALSE, -1, 3);
     HB_STORNI(ncm.lfStatusFont.lfCharSet, -1, 4);
     break;
-  case 4:
+  }
+  case 4: {
 #ifndef UNICODE
     HB_STORC(ncm.lfMessageFont.lfFaceName, -1, 1);
 #else
@@ -133,7 +135,8 @@ HB_FUNC(HMG_GETNONCLIENTFONT)
     HB_STORNI(static_cast<int>(-0.75) * ncm.lfMessageFont.lfHeight, -1, 2);
     HB_STORL(ncm.lfMessageFont.lfWeight == 700 ? TRUE : FALSE, -1, 3);
     HB_STORNI(ncm.lfMessageFont.lfCharSet, -1, 4);
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 }
 
@@ -143,25 +146,29 @@ HB_FUNC(HMG_SETNONCLIENT)
   ncm.cbSize = sizeof(NONCLIENTMETRICS);
   SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, &ncm, 0);
 
-  switch (hb_parni(1))
-  {
-  case 1:
+  switch (hb_parni(1)) {
+  case 1: {
     ncm.iBorderWidth = HB_MIN(50, HB_MAX(1, hb_parni(2)));
     break;
-  case 2:
+  }
+  case 2: {
     ncm.iScrollWidth = HB_MIN(100, HB_MAX(8, hb_parni(2)));
     ncm.iScrollHeight = HB_MIN(100, HB_MAX(8, hb_parni(2)));
     break;
-  case 3:
+  }
+  case 3: {
     ncm.iCaptionWidth = HB_MIN(100, HB_MAX(17, hb_parni(2)));
     break;
-  case 4:
+  }
+  case 4: {
     ncm.iCaptionHeight = HB_MIN(100, HB_MAX(17, hb_parni(2)));
     break;
-  case 5:
+  }
+  case 5: {
     ncm.iMenuWidth = HB_MIN(100, HB_MAX(17, hb_parni(2)));
     ncm.iMenuHeight = HB_MIN(100, HB_MAX(17, hb_parni(2)));
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   SystemParametersInfo(SPI_SETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
@@ -190,20 +197,23 @@ HB_FUNC(HMG_SETNONCLIENTFONT)
   lf.lfWeight = (HB_ISLOG(4) && hb_parl(4)) ? 700 : 400;
   lf.lfCharSet = static_cast<BYTE>(HB_ISNIL(5) ? 0 : hb_parni(5));
 
-  switch (hb_parni(1))
-  {
-  case 1:
+  switch (hb_parni(1)) {
+  case 1: {
     ncm.lfCaptionFont = lf;
     break;
-  case 2:
+  }
+  case 2: {
     ncm.lfMenuFont = lf;
     break;
-  case 3:
+  }
+  case 3: {
     ncm.lfStatusFont = lf;
     break;
-  case 4:
+  }
+  case 4: {
     ncm.lfMessageFont = lf;
-    break;
+    break; // TODO: unnecessary break
+  }
   }
 
   SystemParametersInfo(SPI_SETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);

@@ -345,22 +345,24 @@ HB_FUNC(HMG_INKEYGUI)
       // handle the error and possibly exit
       hmg_ErrorExit(TEXT("INKEYGUI"), 0, TRUE);
     } else {
-      switch (Msg.message)
-      {
+      switch (Msg.message) {
       case WM_KEYDOWN:
-      case WM_SYSKEYDOWN:
+      case WM_SYSKEYDOWN: {
         bBreak = TRUE;
         uRet = static_cast<UINT>(Msg.wParam);
         break;
-      case WM_TIMER:
+      }
+      case WM_TIMER: {
         bBreak = (Msg.wParam == uTimer);
         break;
+      }
       case WM_LBUTTONDOWN:
-      case WM_RBUTTONDOWN:
+      case WM_RBUTTONDOWN: {
         bBreak = TRUE;
         uRet = (Msg.message == WM_LBUTTONDOWN) ? K_LBUTTONDOWN : K_RBUTTONDOWN;
         PostMessage(Msg.hwnd, Msg.message, Msg.wParam, Msg.lParam);
-        break;
+        break; // TODO: unnecessary break
+      }
       }
     }
 
@@ -484,26 +486,31 @@ HB_FUNC(HMG_MEMORYSTATUS)
       mstex.dwLength = sizeof(mstex);
 
       if (fn_GlobalMemoryStatusEx(&mstex)) {
-        switch (hb_parni(1))
-        {
-        case 1:
+        switch (hb_parni(1)) {
+        case 1: {
           hb_retnll(mstex.ullTotalPhys / DIV);
           break;
-        case 2:
+        }
+        case 2: {
           hb_retnll(mstex.ullAvailPhys / DIV);
           break;
-        case 3:
+        }
+        case 3: {
           hb_retnll(mstex.ullTotalPageFile / DIV);
           break;
-        case 4:
+        }
+        case 4: {
           hb_retnll(mstex.ullAvailPageFile / DIV);
           break;
-        case 5:
+        }
+        case 5: {
           hb_retnll(mstex.ullTotalVirtual / DIV);
           break;
-        case 6:
+        }
+        case 6: {
           hb_retnll(mstex.ullAvailVirtual / DIV);
-          break;
+          break; // TODO: unnecessary break
+        }
         }
       }
     } else {
@@ -512,26 +519,31 @@ HB_FUNC(HMG_MEMORYSTATUS)
       mst.dwLength = sizeof(MEMORYSTATUS);
       GlobalMemoryStatus(&mst);
 
-      switch (hb_parni(1))
-      {
-      case 1:
+      switch (hb_parni(1)) {
+      case 1: {
         HB_RETNL(mst.dwTotalPhys / DIV);
         break;
-      case 2:
+      }
+      case 2: {
         HB_RETNL(mst.dwAvailPhys / DIV);
         break;
-      case 3:
+      }
+      case 3: {
         HB_RETNL(mst.dwTotalPageFile / DIV);
         break;
-      case 4:
+      }
+      case 4: {
         HB_RETNL(mst.dwAvailPageFile / DIV);
         break;
-      case 5:
+      }
+      case 5: {
         HB_RETNL(mst.dwTotalVirtual / DIV);
         break;
-      case 6:
+      }
+      case 6: {
         HB_RETNL(mst.dwAvailVirtual / DIV);
-        break;
+        break; // TODO: unnecessary break
+      }
       }
     }
   }
@@ -957,9 +969,8 @@ HB_FUNC(HMG_WINVERSION)
   }
 
   if (szVersion.empty()) {
-    switch (osvi.dwPlatformId)
-    {
-    case VER_PLATFORM_WIN32_NT:
+    switch (osvi.dwPlatformId) {
+    case VER_PLATFORM_WIN32_NT: {
       if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2) {
         szVersion = TEXT("Windows Server 2003 family ");
       }
@@ -1114,8 +1125,8 @@ HB_FUNC(HMG_WINVERSION)
 #endif
       }
       break;
-
-    case VER_PLATFORM_WIN32_WINDOWS:
+    }
+    case VER_PLATFORM_WIN32_WINDOWS: {
       if ((osvi.dwMajorVersion == 4) && (osvi.dwMinorVersion == 0)) {
         if (osvi.szCSDVersion[1] == 'B') {
           szVersion = TEXT("Windows 95 B");
@@ -1161,7 +1172,8 @@ HB_FUNC(HMG_WINVERSION)
         szBuild = std::to_string(osvi.dwBuildNumber & 0x0000FFFF);
 #endif
       }
-      break;
+      break; // TODO: unnecessary break
+    }
     }
   }
 

@@ -311,8 +311,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
   static PHB_SYMB pSymbol = nullptr;
 
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("OldWndProc"))));
-  switch (Msg)
-  {
+  switch (Msg) {
   case WM_NCDESTROY: {
     return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
   }

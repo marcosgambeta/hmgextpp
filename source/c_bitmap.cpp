@@ -212,17 +212,20 @@ WORD DibNumColors(VOID FAR *pv)
     bits = lpbc->bcBitCount;
   }
 
-  switch (bits)
-  {
-  case 1:
+  switch (bits) {
+  case 1: {
     return 2;
-  case 4:
+  }
+  case 4: {
     return 16;
-  case 8:
+  }
+  case 8: {
     return 256;
-  default:
+  }
+  default: {
     // A 24 bitcount DIB has no color table
     return 0;
+  }
   }
 }
 

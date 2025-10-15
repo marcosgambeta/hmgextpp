@@ -432,19 +432,22 @@ HB_FUNC(HMG_GETWINDOWRECT)
   GetWindowRect(hmg_par_HWND(1), &rect);
 
   if (HB_ISNUM(2)) {
-    switch (hb_parni(2))
-    {
-    case 1:
+    switch (hb_parni(2)) {
+    case 1: {
       hb_retni(rect.top);
       break;
-    case 2:
+    }
+    case 2: {
       hb_retni(rect.left);
       break;
-    case 3:
+    }
+    case 3: {
       hb_retni(rect.right - rect.left);
       break;
-    case 4:
+    }
+    case 4: {
       hb_retni(rect.bottom - rect.top);
+    }
     }
   } else if (HB_ISARRAY(2)) {
     HB_STORVNL(rect.left, 2, 1);
@@ -752,18 +755,20 @@ HB_FUNC(HMG_C_SETWINDOWRGN)
   if (hb_parni(6) == 0) {
     SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
   } else {
-    switch (hb_parni(6))
-    {
-    case 1:
+    switch (hb_parni(6)) {
+    case 1: {
       hRgn = CreateRectRgn(hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
       break;
-    case 2:
+    }
+    case 2: {
       hRgn = CreateEllipticRgn(hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
       break;
-    case 3:
+    }
+    case 3: {
       hRgn = CreateRoundRectRgn(0, 0, hb_parni(4), hb_parni(5), hb_parni(2), hb_parni(3));
       break;
-    case 4:
+    }
+    case 4: {
       hbmp = static_cast<HBITMAP>(
           LoadImage(GetResources(), const_cast<TCHAR *>(hb_parc(2)), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
       if (hbmp == nullptr) {
@@ -774,8 +779,10 @@ HB_FUNC(HMG_C_SETWINDOWRGN)
       hRgn = BitmapToRegion(hbmp, static_cast<COLORREF>(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3))), 0x101010);
       DeleteObject(hbmp);
       break;
-    default:
+    }
+    default: { // TODO: unnecessary default
       break;
+    }
     }
 
     SetWindowRgn(hmg_par_HWND(1), hRgn, TRUE);

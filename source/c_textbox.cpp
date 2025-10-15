@@ -192,15 +192,14 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
 
-  switch (Msg)
-  {
-  case WM_DESTROY:
+  switch (Msg) {
+  case WM_DESTROY: {
     SetWindowLongPtr(hButton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hButton, TEXT("oldeditproc"));
     break;
-
+  }
   case WM_CONTEXTMENU:
-  case WM_CHAR:
+  case WM_CHAR: {
     if (!pSymbol) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
     }
@@ -222,6 +221,7 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
     } else {
       return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
     }
+  }
   }
 
   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);

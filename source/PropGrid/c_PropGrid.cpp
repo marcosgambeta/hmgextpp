@@ -972,14 +972,12 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
   PROPGRD *ppgrd = (PROPGRD *)GetWindowLongPtr(hWnd, GWLP_USERDATA);
   WNDPROC OldWndProc = ppgrd->oldproc;
 
-  switch (Msg)
-  {
+  switch (Msg) {
   case WM_DESTROY: {
     OldWndProc = ppgrd->oldproc;
     HeapFree(GetProcessHeap(), 0, ppgrd);
     return CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam);
   }
-
   case WM_DRAWITEM: {
     LPDRAWITEMSTRUCT lpdis = (LPDRAWITEMSTRUCT)lParam;
     if (lpdis->itemID == static_cast<UINT>(-1)) {
@@ -1030,11 +1028,9 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     SetBkColor(lpdis->hDC, clrBackground);
     break;
   }
-
   case WM_GETDLGCODE: {
     return DLGC_WANTALLKEYS;
   }
-
   case WM_NCCALCSIZE: {
     RECT rect;
     GetWindowRect(hWnd, &rect);
@@ -1046,20 +1042,17 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     // ppgrd->cyBottomEdge = rect.bottom;
     return 0;
   }
-
   case WM_NCPAINT: {
     m_crBack = GetSysColor(COLOR_WINDOW);
     CallWindowProc(ppgrd->oldproc, hWnd, Msg, wParam, lParam);
     return 0;
   }
-
   case WM_VSCROLL: {
     PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
     ppgrd->hItemEdit = nullptr;
     SetFocus(hWnd);
     break;
   }
-
   case WM_LBUTTONDBLCLK: {
     TV_ITEM tvi{};
     tvi.mask = TVIF_HANDLE | TVIF_STATE;
@@ -1077,7 +1070,6 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     }
     break;
   }
-
   case WM_LBUTTONUP:
   case WM_LBUTTONDOWN:
   case WM_KILLFOCUS: {
@@ -1087,7 +1079,6 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     }
     break;
   }
-
   case NM_SETFOCUS: {
     if (!(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit)) {
       PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
@@ -1095,7 +1086,6 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     }
     break;
   }
-
   case WM_COMMAND:
   case WM_CHAR:
   case WM_NOTIFY: {
@@ -1131,14 +1121,12 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
   auto ppgrd = reinterpret_cast<PROPGRD *>(GetWindowLongPtr(hFramePG, GWLP_USERDATA));
   auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hFramePG, "oldframepgproc")));
 
-  switch (Msg)
-  {
+  switch (Msg) {
   case WM_DESTROY: {
     SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OldWndProc));
     RemoveProp(hFramePG, "oldframepgproc");
     break;
   }
-
   case WM_DRAWITEM: {
     auto hDC = GetWindowDC(GetParent(hFramePG));
     RECT rc = ppgrd->rcInfo;
@@ -1149,7 +1137,6 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
     ReleaseDC(hFramePG, hDC);
     break;
   }
-
   case WM_COMMAND: {
     if (lParam != 0 && HIWORD(wParam) == BN_CLICKED) {
       if (ppgrd) {
@@ -1174,16 +1161,13 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
     }
     break;
   }
-
   case WM_NOTIFY: {
     NMHDR *nmhdr = (NMHDR *)lParam;
     HWND hWndHD = nmhdr->hwndFrom;
 
-    switch (nmhdr->code)
-    {
-      // case HDN_ENDTRACK:
-      //    break;
-
+    switch (nmhdr->code) {
+    // case HDN_ENDTRACK:
+    //    break;
     case HDN_ITEMCHANGED: {
       HD_ITEM hdi;
       hdi.mask = HDI_WIDTH;
@@ -1196,13 +1180,12 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                    RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
       break;
     }
-
-      // case HDN_BEGINTRACK:
-      //    break;
-
-      // case HDN_ITEMCLICK:
-      //    break;
-
+    // case HDN_BEGINTRACK: {
+    //    break;
+    // }
+    // case HDN_ITEMCLICK: {
+    //    break;
+    // }
     case HDN_ITEMDBLCLICK: {
       LPNMHEADER nmh = (LPNMHEADER)lParam;
       if (nmh->iItem == 0) {
@@ -1222,12 +1205,11 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
       }
       break;
     }
-
     case NM_CUSTOMDRAW: {
       if (hWndHD == ppgrd->hPropGrid) {
         return PropGridOnCustomDraw(hWndHD, lParam);
       }
-      break;
+      break; // TODO: unnecessary break
     }
     }
   }
@@ -1413,8 +1395,7 @@ HB_FUNC(PG_GETITEM)
 
   LPARAMDATA *pData = (LPARAMDATA *)TreeItem.lParam;
 
-  switch (hmg_par_int(3))
-  {
+  switch (hmg_par_int(3)) {
   case 0: {
     hb_reta(10);
     HB_STORC(pData->ItemName, -1, 1);
@@ -1429,57 +1410,46 @@ HB_FUNC(PG_GETITEM)
     HB_STORC(pData->ItemValueName, -1, 10);
     break;
   }
-
   case 1: {
     hb_retc(pData->ItemName);
     break;
   }
-
   case 2: {
     hb_retc(pData->ItemValue);
     break;
   }
-
   case 3: {
     hb_retc(pData->ItemData);
     break;
   }
-
   case 4: {
     hb_retl(pData->ItemDisabled);
     break;
   }
-
   case 5: {
     hb_retl(pData->ItemChanged);
     break;
   }
-
   case 6: {
     hb_retni(pData->ItemEdit);
     break;
   }
-
   case 7: {
     hb_retni(pData->ItemType);
     break;
   }
-
   case 8: {
     hb_retni(pData->ItemID);
     break;
   }
-
   case 9: {
     hb_retc(pData->ItemInfo);
     break;
   }
-
   case 10: {
     hb_retc(pData->ItemValueName);
     break;
   }
-
   default: {
     hb_retc(pData->ItemValue);
   }
@@ -1940,8 +1910,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   auto nBtn = 0;
   int height = rc.bottom - rc.top - 1;
 
-  switch (ItemType)
-  {
+  switch (ItemType) {
   case PG_DEFAULT:
   case PG_CATEG:
   case PG_STRING:
@@ -1949,7 +1918,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
   case PG_DOUBLE:
   case PG_SYSINFO:
   case PG_SIZE:
-  case PG_FLAG:
+  case PG_FLAG: {
     Style = Style | WS_VISIBLE | ES_AUTOHSCROLL;
     if (DisEdit) {
       Style = Style | ES_READONLY;
@@ -1959,14 +1928,14 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
     }
     cClass = "EDIT";
     break;
-
+  }
   case PG_COLOR:
   case PG_IMAGE:
   case PG_FILE:
   case PG_FOLDER:
   case PG_FONT:
   case PG_ARRAY:
-  case PG_USERFUN:
+  case PG_USERFUN: {
     Style = Style | ES_AUTOHSCROLL;
     if (DisEdit) {
       Style = Style | ES_READONLY;
@@ -1974,67 +1943,68 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BO
     cClass = "EDIT";
     nBtn = 1;
     break;
-
-  case PG_PASSWORD:
+  }
+  case PG_PASSWORD: {
     Style = Style | ES_AUTOHSCROLL | ES_PASSWORD;
     if (DisEdit) {
       Style = Style | ES_READONLY;
     }
     cClass = "EDIT";
     break;
-  case PG_LOGIC:
+  }
+  case PG_LOGIC: {
     Style = Style | WS_VSCROLL | CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS; // | CBS_AUTOHSCROLL;
     cClass = "COMBOBOX";
     height = 200;
     break;
-
-  case PG_LIST:
+  }
+  case PG_LIST: {
     Style = Style | WS_VSCROLL | CBS_DROPDOWN | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS; //| CBS_AUTOHSCROLL;;
     cClass = "COMBOBOX";
     height = 200;
     break;
-
+  }
   case PG_SYSCOLOR:
-  case PG_ENUM:
+  case PG_ENUM: {
     Style = Style | WS_VSCROLL | CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS; // | CBS_AUTOHSCROLL;;
     cClass = "COMBOBOX";                                                                 // WC_COMBOBOXEX;
     height = 200;
     break;
-
-  case PG_DATE:
+  }
+  case PG_DATE: {
     // Style = Style; // | DTS_UPDOWN;
     cClass = DATETIMEPICK_CLASS;
     cName = "DateTime";
     break;
-
-  default:
+  }
+  default: {
     cClass = "EDIT";
+  }
   }
 
   auto hEdit = CreateWindowEx(0, cClass.c_str(), cName.c_str(), Style, rc.left + 1, rc.top - 1, rc.right - rc.left - 1,
                               height, hWnd, hmg_par_HMENU(2), GetModuleHandle(nullptr), nullptr);
 
-  switch (ItemType)
-  {
-  case PG_LOGIC:
+  switch (ItemType) {
+  case PG_LOGIC: {
     SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
     SendMessage(hEdit, CB_SETITEMHEIGHT, 0, (LPARAM)rc.bottom - rc.top);
     break;
-
+  }
   case PG_COLOR:
   case PG_DATE:
-  case PG_USERFUN:
+  case PG_USERFUN: {
     break;
-
+  }
   case PG_ENUM:
   case PG_LIST:
   case PG_SYSCOLOR: {
     SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
     break;
   }
-
-  case PG_ARRAY:
+  case PG_ARRAY: {
     SendMessage(hEdit, CB_SETITEMHEIGHT, static_cast<WPARAM>(-1), (LPARAM)rc.bottom - rc.top - 6);
+  }
   }
 
   InsertBtnPG(hEdit, hItem, nBtn, ItemType, ppgrd);
@@ -2076,16 +2046,15 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
   hItem = pbtn->hItem;
   hWndParent = GetParent(hEdit);
 
-  switch (Msg)
-  {
-  case WM_NCDESTROY:
+  switch (Msg) {
+  case WM_NCDESTROY: {
     OldWndProc = pbtn->oldproc;
     HeapFree(GetProcessHeap(), 0, pbtn);
     return CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam);
-
-  case WM_GETDLGCODE:
+  }
+  case WM_GETDLGCODE: {
     return DLGC_WANTALLKEYS; //+DLGC_WANTARROWS+DLGC_WANTCHARS+DLGC_HASSETSEL;
-
+  }
   case WM_NCCALCSIZE: {
     prect = (RECT *)lParam;
     oldrect = *prect;
@@ -2103,7 +2072,6 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
     return 0;
   }
-
   case WM_NCPAINT: {
     CallWindowProc(pbtn->oldproc, hEdit, Msg, wParam, lParam);
     if (pbtn->nButton) {
@@ -2117,8 +2085,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
     return 0;
   }
-
-  case WM_NCHITTEST:
+  case WM_NCHITTEST: {
     if (pbtn->nButton) {
       pt.x = LOWORD(lParam);
       pt.y = HIWORD(lParam);
@@ -2131,9 +2098,9 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       }
     }
     break;
-
+  }
   case WM_NCLBUTTONDBLCLK:
-  case WM_NCLBUTTONDOWN:
+  case WM_NCLBUTTONDOWN: {
     if (pbtn->nButton) {
       pt.x = LOWORD(lParam);
       pt.y = HIWORD(lParam);
@@ -2152,8 +2119,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       }
     }
     break;
-
-  case WM_MOUSEMOVE:
+  }
+  case WM_MOUSEMOVE: {
     if (pbtn->nButton) {
       if (pbtn->fMouseDown == true) {
         pt.x = LOWORD(lParam);
@@ -2182,8 +2149,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       }
     }
     break;
-
-  case WM_KEYDOWN:
+  }
+  case WM_KEYDOWN: {
     if (wParam == VK_DOWN) {
       LPSTR cData[1024];
       GetWindowText(hEdit, (LPSTR)cData, 1024);
@@ -2200,8 +2167,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       SetFocus(GetParent(hEdit));
     }
     break;
-
-  case WM_LBUTTONUP:
+  }
+  case WM_LBUTTONUP: {
     if (pbtn->nButton) {
       if (pbtn->fMouseDown == true) {
         pt.x = LOWORD(lParam);
@@ -2229,8 +2196,8 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       }
     }
     break;
-
-  case WM_CHAR:
+  }
+  case WM_CHAR: {
     if (wParam == 13) {
       LPSTR cData[1024];
       GetWindowText(hEdit, (LPSTR)cData, 1024);
@@ -2239,7 +2206,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       SetFocus(GetParent(hEdit));
     }
     break;
-
+  }
   case WM_CREATE:
   case WM_NCCREATE:
   case WM_COMMAND:
@@ -2268,7 +2235,6 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
       return CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam);
     }
   }
-
   case WM_KILLFOCUS: {
     if (pbtn->ppgrd.hItemEdit) {
       PostMessage(pbtn->ppgrd.hPropEdit, WM_CLOSE, 0, 0);
