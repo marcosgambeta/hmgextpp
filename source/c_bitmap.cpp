@@ -981,9 +981,9 @@ HB_FUNC(HMG_GETPIXELCOLOR)
   bool result = (pixel != CLR_INVALID ? true : false);
 
   if (result) {
-    COLORREF C1 = static_cast<USHORT>(GetRValue(pixel));
-    COLORREF C2 = static_cast<USHORT>(GetGValue(pixel));
-    COLORREF C3 = static_cast<USHORT>(GetBValue(pixel));
+    COLORREF C1 = static_cast<uint16_t>(GetRValue(pixel));
+    COLORREF C2 = static_cast<uint16_t>(GetGValue(pixel));
+    COLORREF C3 = static_cast<uint16_t>(GetBValue(pixel));
     HB_STORNI(C1, 4, 1);
     HB_STORNI(C2, 4, 2);
     HB_STORNI(C3, 4, 3);

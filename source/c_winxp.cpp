@@ -506,9 +506,9 @@ bool hmg_ArrayToPoint(PHB_ITEM aPoint, POINT *pt)
 bool hmg_ArrayToColorRef(PHB_ITEM aCRef, COLORREF *cr)
 {
   if (HB_IS_ARRAY(aCRef) && hb_arrayLen(aCRef) == 3) {
-    auto r = static_cast<USHORT>(HB_arrayGetNL(aCRef, 1));
-    auto g = static_cast<USHORT>(HB_arrayGetNL(aCRef, 2));
-    auto b = static_cast<USHORT>(HB_arrayGetNL(aCRef, 3));
+    auto r = static_cast<uint16_t>(HB_arrayGetNL(aCRef, 1));
+    auto g = static_cast<uint16_t>(HB_arrayGetNL(aCRef, 2));
+    auto b = static_cast<uint16_t>(HB_arrayGetNL(aCRef, 3));
     *cr = RGB(r, g, b);
     return true;
   }

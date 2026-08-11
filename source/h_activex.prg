@@ -810,7 +810,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
             }
 
             // execute
-            hb_vmDo(static_cast<USHORT>(iArg));
+            hb_vmDo(static_cast<uint16_t>(iArg));
 
             // En caso de que los parametros sean pasados por referencia
             for( i = iArg; i > 0; i-- )

@@ -192,7 +192,7 @@ HB_FUNC(HMG_GETEDITTEXT)
 {
   auto hDlg = hmg_par_HWND(1);
   auto id = hmg_par_int(2);
-  auto strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
+  auto strlen = static_cast<uint16_t>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
   auto str = new TCHAR[strlen + 2];
   GetDlgItemText(hDlg, id, str, strlen + 1);
   HB_RETSTR(str);
