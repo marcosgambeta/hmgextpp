@@ -1058,7 +1058,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
+    pi2->pDevMode->dmOrientation = static_cast<int16_t>(hb_parni(2));
   }
 
   // PaperSize
@@ -1077,7 +1077,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(3));
+    pi2->pDevMode->dmPaperSize = static_cast<int16_t>(hb_parni(3));
   }
 
   // PaperLength
@@ -1096,7 +1096,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parni(4) * 10);
+    pi2->pDevMode->dmPaperLength = static_cast<int16_t>(hb_parni(4) * 10);
   }
 
   // PaperWidth
@@ -1115,7 +1115,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmPaperWidth = static_cast<short>(hb_parni(5) * 10);
+    pi2->pDevMode->dmPaperWidth = static_cast<int16_t>(hb_parni(5) * 10);
   }
 
   // Copies
@@ -1134,7 +1134,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(6));
+    pi2->pDevMode->dmCopies = static_cast<int16_t>(hb_parni(6));
   }
 
   // Default Source
@@ -1153,7 +1153,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(7));
+    pi2->pDevMode->dmDefaultSource = static_cast<int16_t>(hb_parni(7));
   }
 
   // Print Quality
@@ -1172,7 +1172,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(8));
+    pi2->pDevMode->dmPrintQuality = static_cast<int16_t>(hb_parni(8));
   }
 
   // Print Color
@@ -1191,7 +1191,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmColor = static_cast<short>(hb_parni(9));
+    pi2->pDevMode->dmColor = static_cast<int16_t>(hb_parni(9));
   }
 
   // Print Duplex
@@ -1210,7 +1210,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(10));
+    pi2->pDevMode->dmDuplex = static_cast<int16_t>(hb_parni(10));
   }
 
   // Print Collate
@@ -1229,7 +1229,7 @@ HB_FUNC(_HMG_PRINTER_SETPRINTERPROPERTIES)
       return;
     }
 
-    pi2->pDevMode->dmCollate = static_cast<short>(hb_parni(11));
+    pi2->pDevMode->dmCollate = static_cast<int16_t>(hb_parni(11));
   }
 
   //////////////////////////////////////////////////////////////////////

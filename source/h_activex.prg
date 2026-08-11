@@ -825,7 +825,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
                      //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbVal) = va_arg(argList,unsigned char*);  //pItemArray[i-1]
                      //   break;
                      case VT_I2 | VT_BYREF:
-                        *((&(params->rgvarg[iArg - i]))->n1.n2.n3.piVal) = static_cast<short>(hb_itemGetNI(pItemArray[i - 1]));
+                        *((&(params->rgvarg[iArg - i]))->n1.n2.n3.piVal) = static_cast<int16_t>(hb_itemGetNI(pItemArray[i - 1]));
                         break;
                      case VT_I4 | VT_BYREF:
                         *((&(params->rgvarg[iArg - i]))->n1.n2.n3.plVal) = hb_itemGetNL(pItemArray[i - 1]);

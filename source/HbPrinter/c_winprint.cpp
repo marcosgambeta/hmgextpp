@@ -293,35 +293,35 @@ HB_FUNC(RR_SETDEVMODE)
     s_pi2->pDevMode->dmFields = s_pi2->pDevMode->dmFields | what;
 
     if (what == DM_ORIENTATION) {
-      s_pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmOrientation = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_PAPERSIZE) {
-      s_pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmPaperSize = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_SCALE) {
-      s_pi2->pDevMode->dmScale = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmScale = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_COPIES) {
-      s_pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmCopies = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_DEFAULTSOURCE) {
-      s_pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmDefaultSource = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_PRINTQUALITY) {
-      s_pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmPrintQuality = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_COLOR) {
-      s_pi2->pDevMode->dmColor = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmColor = static_cast<int16_t>(hb_parni(2));
     }
 
     if (what == DM_DUPLEX) {
-      s_pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(2));
+      s_pi2->pDevMode->dmDuplex = static_cast<int16_t>(hb_parni(2));
     }
   }
 
@@ -338,8 +338,8 @@ HB_FUNC(RR_SETUSERMODE)
   if (what == (s_pi2->pDevMode->dmFields & what)) {
     s_pi2->pDevMode->dmFields = s_pi2->pDevMode->dmFields | DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
     s_pi2->pDevMode->dmPaperSize = DMPAPER_USER;
-    s_pi2->pDevMode->dmPaperWidth = static_cast<short>(hb_parnl(2));
-    s_pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parnl(3));
+    s_pi2->pDevMode->dmPaperWidth = static_cast<int16_t>(hb_parnl(2));
+    s_pi2->pDevMode->dmPaperLength = static_cast<int16_t>(hb_parnl(3));
   }
 
   DocumentProperties(nullptr, s_hPrinter, s_PrinterName, s_pi2->pDevMode, s_pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
