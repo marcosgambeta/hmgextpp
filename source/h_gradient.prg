@@ -331,16 +331,16 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
 
       rcVertex[0].y     = rect->top;
       rcVertex[0].x     = rect->left;
-      rcVertex[0].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
-      rcVertex[0].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
-      rcVertex[0].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
+      rcVertex[0].Red   = (uint16_t) ( GetRValue(crFrom) << 8 );
+      rcVertex[0].Green = (uint16_t) ( GetGValue(crFrom) << 8 );
+      rcVertex[0].Blue  = (uint16_t) ( GetBValue(crFrom) << 8 );
       rcVertex[0].Alpha = 0;
 
       rcVertex[1].y     = rect->bottom;
       rcVertex[1].x     = rect->right;
-      rcVertex[1].Red   = ( unsigned short ) ( GetRValue(crTo) << 8 );
-      rcVertex[1].Green = ( unsigned short ) ( GetGValue(crTo) << 8 );
-      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue(crTo) << 8 );
+      rcVertex[1].Red   = (uint16_t) ( GetRValue(crTo) << 8 );
+      rcVertex[1].Green = (uint16_t) ( GetGValue(crTo) << 8 );
+      rcVertex[1].Blue  = (uint16_t) ( GetBValue(crTo) << 8 );
       rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;
@@ -381,16 +381,16 @@ HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF 
 
       rcVertex[0].x     = 0;
       rcVertex[0].y     = 0;
-      rcVertex[0].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
-      rcVertex[0].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
-      rcVertex[0].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
+      rcVertex[0].Red   = (uint16_t) ( GetRValue(crFrom) << 8 );
+      rcVertex[0].Green = (uint16_t) ( GetGValue(crFrom) << 8 );
+      rcVertex[0].Blue  = (uint16_t) ( GetBValue(crFrom) << 8 );
       rcVertex[0].Alpha = 0;
 
       rcVertex[1].x     = cx;
       rcVertex[1].y     = cy;
-      rcVertex[1].Red   = ( unsigned short ) ( GetRValue(crTo) << 8 );
-      rcVertex[1].Green = ( unsigned short ) ( GetGValue(crTo) << 8 );
-      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue(crTo) << 8 );
+      rcVertex[1].Red   = (uint16_t) ( GetRValue(crTo) << 8 );
+      rcVertex[1].Green = (uint16_t) ( GetGValue(crTo) << 8 );
+      rcVertex[1].Blue  = (uint16_t) ( GetBValue(crTo) << 8 );
       rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;

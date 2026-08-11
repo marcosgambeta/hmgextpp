@@ -122,7 +122,7 @@ HB_FUNC(RR_PRINTDIALOG)
   s_pdlg.hDC = nullptr;
   s_pdlg.nCopies = 1;
   s_pdlg.nFromPage = 1;
-  s_pdlg.nToPage = (unsigned short int)-1;
+  s_pdlg.nToPage = (uint16_t)-1;
   s_pdlg.nMinPage = 1;
   s_pdlg.nMaxPage = 0xFFFF;
 
