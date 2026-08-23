@@ -548,7 +548,7 @@ HB_FUNC(SQLITE3_BIND_TEXT)
 
   if (pStmt) {
     void *hSQLText;
-    ULONG nSQLText;
+    uint32_t nSQLText;
 
     const char *pszSQLText = hb_parstr_utf8(3, &hSQLText, &nSQLText);
 

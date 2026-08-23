@@ -405,8 +405,8 @@ struct ImageCodecInfo
 struct EncoderParameter
 {
   GUID Guid;
-  ULONG NumberOfValues;
-  ULONG Type;
+  uint32_t NumberOfValues;
+  uint32_t Type;
   VOID *Value;
 };
 
@@ -416,7 +416,7 @@ struct EncoderParameters
   EncoderParameter Parameter[1];
 };
 
-using ARGB = ULONG;
+using ARGB = uint32_t;
 using Func_GdiPlusStartup = GpStatus(WINGDIPAPI *)(uintptr_t *, GDIPCONST GdiplusStartupInput *,
                                                    GdiplusStartupOutput *);
 using Func_GdiPlusShutdown = VOID(WINGDIPAPI *)(uintptr_t);
@@ -1305,7 +1305,7 @@ HB_FUNC(BT_DRAW_HDC_GRADIENTFILL)
 
   auto Color_RGB_O = hmg_par_COLORREF(6);
   auto Color_RGB_D = hmg_par_COLORREF(7);
-  auto Mode = static_cast<ULONG>(hb_parnl(8));
+  auto Mode = static_cast<uint32_t>(hb_parnl(8));
 
   TRIVERTEX Vert[2];
 

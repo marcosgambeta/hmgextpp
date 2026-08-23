@@ -275,11 +275,11 @@ PWORD CreateDlgTemplate(HB_SIZE lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
   WORD iPointSize;
   PHB_ITEM iArray;
 #ifndef _WIN64
-  ULONG style, ExStyle, HelpId;
+  uint32_t style, ExStyle, HelpId;
 #else
   HB_LONGLONG style, ExStyle, HelpId;
 #endif
-  ULONG Id;
+  uint32_t Id;
   int nchar;
 
   auto pdlgtemplate = static_cast<PWORD>(LocalAlloc(LPTR, lTemplateSize));

@@ -57,7 +57,8 @@ HB_FUNC(DBINSERT)
   BOOL bOk = TRUE;
 
   if (pArea && !pArea->fReadonly && !pArea->fShared) {
-    ULONG ulRec, ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
+    ULONG ulRec;
+    uint32_t ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
     HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);
 
     if (HB_ISNUM(1)) {
@@ -73,7 +74,7 @@ HB_FUNC(DBINSERT)
     if (bOk && SELF_GOCOLD((AREAP)pArea) != HB_SUCCESS) {
       bOk = FALSE;
     } else {
-      for (ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++) {
+      for (uint32_t ulIndex = 0; ulIndex < ulCount; ulIndex++) {
         if (bOk && SELF_APPEND((AREAP)pArea, TRUE) != HB_SUCCESS) {
           bOk = FALSE;
         }
@@ -84,8 +85,8 @@ HB_FUNC(DBINSERT)
       }
 
       if (bOk) {
-        ULONG ulLen = (pArea->ulRecCount - ulRec) * pArea->uiRecordLen;
-        ULONG ulLen1 = ulCount * pArea->uiRecordLen;
+        uint32_t ulLen = (pArea->ulRecCount - ulRec) * pArea->uiRecordLen;
+        uint32_t ulLen1 = ulCount * pArea->uiRecordLen;
         auto pData = reinterpret_cast<char *>(hb_xgrab(ulLen + 1));
         auto pZero = reinterpret_cast<char *>(hb_xgrab(ulLen1 + 1));
 

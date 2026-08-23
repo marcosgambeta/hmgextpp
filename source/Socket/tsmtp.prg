@@ -594,7 +594,7 @@ HB_FUNC_STATIC(MEMOREAD)
 
       if( fhnd != FS_ERROR )
       {
-         ULONG ulSize = hb_fsSeek(fhnd, 0, FS_END);
+         uint32_t ulSize = hb_fsSeek(fhnd, 0, FS_END);
 
          if( ulSize != 0 )
          {

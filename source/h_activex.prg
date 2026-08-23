@@ -553,13 +553,13 @@ DECLARE_INTERFACE_( INTERFACE, IDispatch )
 {
    // IUnknown functions
    STDMETHOD( QueryInterface          ) ( THIS_ REFIID, void **                                                          ) PURE;
-   STDMETHOD_( ULONG, AddRef           ) ( THIS                                                                           ) PURE;
-   STDMETHOD_( ULONG, Release          ) ( THIS                                                                           ) PURE;
+   STDMETHOD_( uint32_t, AddRef           ) ( THIS                                                                           ) PURE;
+   STDMETHOD_( uint32_t, Release          ) ( THIS                                                                           ) PURE;
    // IDispatch functions
-   STDMETHOD_( ULONG, GetTypeInfoCount ) ( THIS_ UINT *                                                                   ) PURE;
-   STDMETHOD_( ULONG, GetTypeInfo      ) ( THIS_ UINT, LCID, ITypeInfo * *                                                 ) PURE;
-   STDMETHOD_( ULONG, GetIDsOfNames    ) ( THIS_ REFIID, LPOLESTR *, UINT, LCID, DISPID *                                 ) PURE;
-   STDMETHOD_( ULONG, Invoke           ) ( THIS_ DISPID, REFIID, LCID, WORD, DISPPARAMS *, VARIANT *, EXCEPINFO *, UINT * ) PURE;
+   STDMETHOD_( uint32_t, GetTypeInfoCount ) ( THIS_ UINT *                                                                   ) PURE;
+   STDMETHOD_( uint32_t, GetTypeInfo      ) ( THIS_ UINT, LCID, ITypeInfo * *                                                 ) PURE;
+   STDMETHOD_( uint32_t, GetIDsOfNames    ) ( THIS_ REFIID, LPOLESTR *, UINT, LCID, DISPID *                                 ) PURE;
+   STDMETHOD_( uint32_t, Invoke           ) ( THIS_ DISPID, REFIID, LCID, WORD, DISPPARAMS *, VARIANT *, EXCEPINFO *, UINT * ) PURE;
 };
 
 // In other words, it defines our IEventHandler to have nothing
@@ -643,7 +643,7 @@ static HRESULT STDMETHODCALLTYPE QueryInterface(IEventHandler * self, REFIID vTa
 
 //------------------------------------------------------------------------------
 // IEventHandler's AddRef()
-static ULONG STDMETHODCALLTYPE AddRef(IEventHandler * self)
+static uint32_t STDMETHODCALLTYPE AddRef(IEventHandler * self)
 {
    // Increment IEventHandler's reference count, and return the updated value.
    // NOTE: We have to typecast to gain access to any data members. These
@@ -655,7 +655,7 @@ static ULONG STDMETHODCALLTYPE AddRef(IEventHandler * self)
 
 //------------------------------------------------------------------------------
 // IEventHandler's Release()
-static ULONG STDMETHODCALLTYPE Release(IEventHandler * self)
+static uint32_t STDMETHODCALLTYPE Release(IEventHandler * self)
 {
    if (--(reinterpret_cast<MyRealIEventHandler*>(self))->count == 0)
    {
@@ -667,27 +667,27 @@ static ULONG STDMETHODCALLTYPE Release(IEventHandler * self)
 
 //------------------------------------------------------------------------------
 // IEventHandler's GetTypeInfoCount()
-static ULONG STDMETHODCALLTYPE GetTypeInfoCount(IEventHandler * self, UINT * pCount)
+static uint32_t STDMETHODCALLTYPE GetTypeInfoCount(IEventHandler * self, UINT * pCount)
 {
    HB_SYMBOL_UNUSED(self);
    HB_SYMBOL_UNUSED(pCount);
-   return static_cast<ULONG>(E_NOTIMPL);
+   return static_cast<uint32_t>(E_NOTIMPL);
 }
 
 //------------------------------------------------------------------------------
 // IEventHandler's GetTypeInfo()
-static ULONG STDMETHODCALLTYPE GetTypeInfo(IEventHandler * self, UINT itinfo, LCID lcid, ITypeInfo ** pTypeInfo)
+static uint32_t STDMETHODCALLTYPE GetTypeInfo(IEventHandler * self, UINT itinfo, LCID lcid, ITypeInfo ** pTypeInfo)
 {
    HB_SYMBOL_UNUSED(self);
    HB_SYMBOL_UNUSED(itinfo);
    HB_SYMBOL_UNUSED(lcid);
    HB_SYMBOL_UNUSED(pTypeInfo);
-   return static_cast<ULONG>(E_NOTIMPL);
+   return static_cast<uint32_t>(E_NOTIMPL);
 }
 
 //------------------------------------------------------------------------------
 // IEventHandler's GetIDsOfNames()
-static ULONG STDMETHODCALLTYPE GetIDsOfNames(IEventHandler * self, REFIID riid, LPOLESTR * rgszNames, UINT cNames, LCID lcid, DISPID * rgdispid)
+static uint32_t STDMETHODCALLTYPE GetIDsOfNames(IEventHandler * self, REFIID riid, LPOLESTR * rgszNames, UINT cNames, LCID lcid, DISPID * rgdispid)
 {
    HB_SYMBOL_UNUSED(self);
    HB_SYMBOL_UNUSED(riid);
@@ -695,7 +695,7 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames(IEventHandler * self, REFIID riid, 
    HB_SYMBOL_UNUSED(cNames);
    HB_SYMBOL_UNUSED(lcid);
    HB_SYMBOL_UNUSED(rgdispid);
-   return static_cast<ULONG>(E_NOTIMPL);
+   return static_cast<uint32_t>(E_NOTIMPL);
 }
 
 //------------------------------------------------------------------------------
@@ -703,7 +703,7 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames(IEventHandler * self, REFIID riid, 
 // self is where the action happens
 // self function receives events (by their ID number) and distributes the processing
 // or them or ignores them
-static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFIID riid,
+static uint32_t STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFIID riid,
                                       LCID lcid, WORD wFlags, DISPPARAMS * params, VARIANT * result, EXCEPINFO * pexcepinfo,
                                       UINT * puArgErr)
 {
@@ -718,7 +718,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
    // We implement only a "default" interface
    if (!IsEqualIID(riid, IID_NULL))
    {
-      return static_cast<ULONG>(DISP_E_UNKNOWNINTERFACE);
+      return static_cast<uint32_t>(DISP_E_UNKNOWNINTERFACE);
    }
 
    HB_SYMBOL_UNUSED(lcid);

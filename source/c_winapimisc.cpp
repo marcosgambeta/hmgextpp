@@ -799,8 +799,8 @@ HB_FUNC(HMG_WAITRUNTERM)
   }
 
   if (pWaitProc != nullptr) {
-    ULONG ulNoSignal;
-    ULONG ulWaitMsec = (HB_ISNIL(5) ? 2000 : hb_parnl(5));
+    uint32_t ulNoSignal;
+    uint32_t ulWaitMsec = (HB_ISNIL(5) ? 2000 : hb_parnl(5));
     BOOL bWait;
 
     do {
@@ -913,14 +913,14 @@ HB_FUNC(HMG_CREATESOLIDBRUSH)
 // HMG_SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 HB_FUNC(HMG_SETTEXTCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(
+  hb_retnl(static_cast<uint32_t>(
       SetTextColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
 // HMG_SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 HB_FUNC(HMG_SETBKCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(
+  hb_retnl(static_cast<uint32_t>(
       SetBkColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 

@@ -834,7 +834,7 @@ static bool GetEnCodecClsid(const char *MimeType, CLSID *Clsid)
 }
 
 BOOL SaveHBitmapToFile(void *HBitmap, const char *FileName, unsigned int Width, unsigned int Height,
-                       const char *MimeType, ULONG JpgQuality)
+                       const char *MimeType, uint32_t JpgQuality)
 {
   static CLSID Clsid;
 

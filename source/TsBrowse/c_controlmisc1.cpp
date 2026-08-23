@@ -188,12 +188,12 @@ HB_FUNC(SETCAPTURE)
 
 HB_FUNC(GETTEXTCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(GetTextColor(hmg_par_HDC(1))));
+  hb_retnl(static_cast<uint32_t>(GetTextColor(hmg_par_HDC(1))));
 }
 
 HB_FUNC(GETBKCOLOR)
 {
-  hb_retnl(static_cast<ULONG>(GetBkColor(hmg_par_HDC(1))));
+  hb_retnl(static_cast<uint32_t>(GetBkColor(hmg_par_HDC(1))));
 }
 
 HB_FUNC(MOVEFILE)

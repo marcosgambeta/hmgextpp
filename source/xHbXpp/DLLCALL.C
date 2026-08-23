@@ -120,11 +120,11 @@ HB_EXPORT char *hb_parcstruct(int iParam, ...)
 
     if (HB_IS_ARRAY(pItem) && !HB_IS_OBJECT(pItem)) {
       va_list va;
-      ULONG ulArrayIndex;
+      uint32_t ulArrayIndex;
       PHB_ITEM pArray = pItem;
 
       va_start(va, iParam);
-      ulArrayIndex = va_arg(va, ULONG);
+      ulArrayIndex = va_arg(va, uint32_t);
       va_end(va);
 
       pItem = hb_itemNew(NULL);
