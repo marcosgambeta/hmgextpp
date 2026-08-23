@@ -15,8 +15,8 @@
 #define UNICODE
 
 #if defined(__MINGW32__)
-#define MAKEINTRESOURCEA(i) (static_cast<LPSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i))))
-#define MAKEINTRESOURCEW(i) (static_cast<LPWSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i))))
+#define MAKEINTRESOURCEA(i) (static_cast<LPSTR>(static_cast<uintptr_t>(static_cast<WORD>(i))))
+#define MAKEINTRESOURCEW(i) (static_cast<LPWSTR>(static_cast<uintptr_t>(static_cast<WORD>(i))))
 #ifdef UNICODE
 #define MAKEINTRESOURCE MAKEINTRESOURCEW
 #else

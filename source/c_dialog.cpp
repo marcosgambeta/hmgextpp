@@ -213,7 +213,7 @@ HB_FUNC(HMG_ISDLGBUTTONCHECKED)
 
 static LPWORD lpwAlign(LPWORD lpIn)
 {
-  auto ul = reinterpret_cast<ULONG_PTR>(lpIn);
+  auto ul = reinterpret_cast<uintptr_t>(lpIn);
   ul += 3;
   ul >>= 2;
   ul <<= 2;

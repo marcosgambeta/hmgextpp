@@ -24,7 +24,7 @@ DECLARE_FUNCPTR(GdipCreateBitmapFromHBITMAP);
 DECLARE_FUNCPTR(GdipSaveImageToFile);
 
 HMODULE g_GpModule = nullptr;
-static ULONG_PTR g_GpToken = 0;
+static uintptr_t g_GpToken = 0;
 
 /**
  */

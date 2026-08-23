@@ -372,11 +372,11 @@ struct GdiplusStartupInput
 };
 
 #ifdef _MSC_VER
-using NotificationHookProc = GpStatus(WINGDIPAPI *)(ULONG_PTR *token);
-using NotificationUnhookProc = VOID(WINGDIPAPI *)(ULONG_PTR token);
+using NotificationHookProc = GpStatus(WINGDIPAPI *)(uintptr_t *token);
+using NotificationUnhookProc = VOID(WINGDIPAPI *)(uintptr_t token);
 #else
-using NotificationHookProc = GpStatus WINGDIPAPI (*)(ULONG_PTR *token);
-using NotificationUnhookProc = VOID WINGDIPAPI (*)(ULONG_PTR token);
+using NotificationHookProc = GpStatus WINGDIPAPI (*)(uintptr_t *token);
+using NotificationUnhookProc = VOID WINGDIPAPI (*)(uintptr_t token);
 #endif
 
 struct GdiplusStartupOutput
@@ -417,9 +417,9 @@ struct EncoderParameters
 };
 
 using ARGB = ULONG;
-using Func_GdiPlusStartup = GpStatus(WINGDIPAPI *)(ULONG_PTR *, GDIPCONST GdiplusStartupInput *,
+using Func_GdiPlusStartup = GpStatus(WINGDIPAPI *)(uintptr_t *, GDIPCONST GdiplusStartupInput *,
                                                    GdiplusStartupOutput *);
-using Func_GdiPlusShutdown = VOID(WINGDIPAPI *)(ULONG_PTR);
+using Func_GdiPlusShutdown = VOID(WINGDIPAPI *)(uintptr_t);
 using Func_GdipCreateBitmapFromStream = GpStatus(WINGDIPAPI *)(IStream *, GpBitmap **);
 using Func_GdipCreateHBITMAPFromBitmap = GpStatus(WINGDIPAPI *)(GpBitmap *, HBITMAP *, ARGB);
 using Func_GdipCreateFromHDC = GpStatus(WINGDIPAPI *)(HDC, GpGraphics **);
@@ -446,7 +446,7 @@ Func_GdipSaveImageToFile GdipSaveImageToFile;
 
 // Global Variables
 HMODULE GdiPlusHandle = nullptr; // VOID *    GdiPlusHandle = nullptr;
-ULONG_PTR GdiPlusToken;
+uintptr_t GdiPlusToken;
 GdiplusStartupInput GDIPlusStartupInput;
 
 // BOOL bt_Load_GDIplus();

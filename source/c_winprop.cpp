@@ -292,11 +292,11 @@ HB_FUNC(HMG_REMOVEPROP)
   }
   // !!!
   if (hMem != nullptr) {
-    hmg_ret_HANDLE(hMem); // ( ( ULONG_PTR ) hMem )
+    hmg_ret_HANDLE(hMem); // ( ( uintptr_t ) hMem )
   }
 }
 
-static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
+static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, uintptr_t lParam);
 
 // Usage: aProps := EnumProps(nHandle)
 HB_FUNC(HMG_ENUMPROPS)
@@ -312,7 +312,7 @@ HB_FUNC(HMG_ENUMPROPS)
   }
 }
 
-static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
+static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, uintptr_t lParam)
 {
   int iLen = lstrlen(pszPropName);
 
@@ -366,7 +366,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 //              ? "MY_PROP found"
 //      ..
 
-BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
+BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, uintptr_t lParam);
 
 HB_FUNC(HMG_ENUMPROPSEX)
 {
@@ -380,7 +380,7 @@ HB_FUNC(HMG_ENUMPROPSEX)
   }
 }
 
-BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
+BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, uintptr_t lParam)
 {
   auto pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
   int iLen = lstrlen(pszPropName);
