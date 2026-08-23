@@ -87,7 +87,7 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
   HB_SYMBOL_UNUSED(hdcMonitor);
   auto pMonitor = hb_itemArrayNew(2);
   PHB_ITEM pRect = Rect2Hash(lprcMonitor);
-  hb_arraySetNInt(pMonitor, 1, reinterpret_cast<LONG_PTR>(hMonitor));
+  hb_arraySetNInt(pMonitor, 1, reinterpret_cast<intptr_t>(hMonitor));
   hb_itemArrayPut(pMonitor, 2, pRect);
   hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(dwData), pMonitor);
   hb_itemRelease(pMonitor);
@@ -107,7 +107,7 @@ HB_FUNC(HMG_GETMONITORINFO)
     PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
     hb_itemArrayPut(pMonInfo, 1, pMonitor);
     hb_itemArrayPut(pMonInfo, 2, pWork);
-    hb_arraySetNInt(pMonInfo, 3, static_cast<LONG_PTR>(mi.dwFlags));
+    hb_arraySetNInt(pMonInfo, 3, static_cast<intptr_t>(mi.dwFlags));
     hb_itemReturnRelease(pMonInfo);
     hb_itemRelease(pMonitor);
     hb_itemRelease(pWork);

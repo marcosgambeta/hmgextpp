@@ -143,7 +143,7 @@ HB_FUNC(HMG_INITTEXTBOX)
   SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
   SetProp(hedit, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnEditProc)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnEditProc)));
 
   hmg_ret_HWND(hedit);
 }
@@ -190,11 +190,11 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
   static PHB_SYMB pSymbol = nullptr;
   long int r;
 
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldeditproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hButton, TEXT("oldeditproc"))));
 
   switch (Msg) {
   case WM_DESTROY: {
-    SetWindowLongPtr(hButton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hButton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hButton, TEXT("oldeditproc"));
     break;
   }

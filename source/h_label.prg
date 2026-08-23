@@ -417,7 +417,7 @@ HB_FUNC_STATIC(HMG_INITLABEL)
 
    if (hb_parl(10))
    {
-      LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(LabelSubClassFunc)));
+      LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<intptr_t>(LabelSubClassFunc)));
    }
 
    hmg_ret_HWND(hWnd);

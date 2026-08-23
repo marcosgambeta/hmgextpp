@@ -288,7 +288,7 @@ HB_FUNC(HMG_INITIMAGE)
 
   if (hb_parl(7)) {
     s_Image_WNDPROC =
-        reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ImageSubClassFunc)));
+        reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<intptr_t>(ImageSubClassFunc)));
   }
 
   hmg_ret_HWND(hWnd);
@@ -1208,7 +1208,7 @@ HB_FUNC(HMG_C_SAVEHICONTOFILE)
 
   if (pArray && ((nLen = static_cast<int>(hb_arrayLen(pArray))) > 0)) {
     for (auto i = 0; i < nLen; i++) {
-      hIcon[i] = reinterpret_cast<HICON>(static_cast<LONG_PTR>(hb_arrayGetNL(pArray, i + 1)));
+      hIcon[i] = reinterpret_cast<HICON>(static_cast<intptr_t>(hb_arrayGetNL(pArray, i + 1)));
     }
     if (SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen))) {
       hb_retl(true);

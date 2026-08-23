@@ -61,7 +61,7 @@ LRESULT CALLBACK WndProcMDI(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
   if (pSymbol) {
     hb_vmPushSymbol(pSymbol);
     hb_vmPushNil();
-    hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
+    hb_vmPushNumInt(reinterpret_cast<intptr_t>(hWnd));
     hmg_vmPushUINT(message);
     hmg_vmPushWPARAM(wParam);
     hmg_vmPushLPARAM(lParam);
@@ -109,7 +109,7 @@ HB_FUNC(REGISTER_CLASS)
     ExitProcess(0);
   }
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(hbrush));
+  HB_RETNL(reinterpret_cast<intptr_t>(hbrush));
 
 #ifdef UNICODE
   hb_strfree(hClassName);
@@ -137,7 +137,7 @@ HB_FUNC(_CREATEWINDOWEX)
   auto hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hmg_par_HWND(9), nullptr,
                              static_cast<HINSTANCE>(hmg_par_HANDLE(11)), nullptr);
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
+  HB_RETNL(reinterpret_cast<intptr_t>(hWnd));
 
 #ifdef UNICODE
   hb_strfree(hClassName);
@@ -1014,7 +1014,7 @@ HB_FUNC(INITEDSPINNER)
 
   SendMessage(hupdown, UDM_SETRANGE32, iMin, iMax);
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(hupdown));
+  HB_RETNL(reinterpret_cast<intptr_t>(hupdown));
 }
 
 HB_FUNC(SETINCREMENTSPINNER)

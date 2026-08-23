@@ -96,7 +96,7 @@ HB_FUNC(HMG_INITDATEPICK)
                      hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnPickProc)));
 
   hmg_ret_HWND(hbutton);
 }
@@ -128,7 +128,7 @@ HB_FUNC(HMG_INITTIMEPICK)
                      hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
+  SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnPickProc)));
 
   hmg_ret_HWND(hbutton);
 }
@@ -137,7 +137,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldpickproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hButton, TEXT("oldpickproc"))));
 
   switch (Msg) {
   case WM_ERASEBKGND: {

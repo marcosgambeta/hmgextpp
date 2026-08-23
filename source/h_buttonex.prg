@@ -1023,7 +1023,7 @@ HB_FUNC_STATIC(HMG_INITOWNERBUTTON)
                                  nullptr);
 
    SetProp(hbutton, TEXT("oldbtnproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnButtonProc));
+   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OwnButtonProc));
 
    int ImgStyle = hb_parl(10) ? 0 : LR_LOADTRANSPARENT;
 

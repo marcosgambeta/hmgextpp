@@ -351,8 +351,8 @@ HB_FUNC(HMG_CLOSETHEMEDATA)
     }
   }
 
-  if (nRet != reinterpret_cast<LONG_PTR>(nullptr)) {
-    HB_RETNL(static_cast<LONG_PTR>(nRet));
+  if (nRet != reinterpret_cast<intptr_t>(nullptr)) {
+    HB_RETNL(static_cast<intptr_t>(nRet));
   }
 }
 

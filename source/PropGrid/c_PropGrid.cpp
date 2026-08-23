@@ -227,11 +227,11 @@ static bool InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROP
   // replace the old window procedure with our new one
 
   pbtn->oldproc =
-      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(PGEditProc)));
+      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<intptr_t>(PGEditProc)));
 
   // associate our button state structure with the window
 
-  SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pbtn));
+  SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<intptr_t>(pbtn));
 
   // force the edit control to update its non-client area
 
@@ -471,18 +471,18 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
   // replace the old window procedure with our new one
 
   ppgrd->oldproc =
-      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWndPG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnPropGridProc)));
-  SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnFramePgProc));
+      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWndPG, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OwnPropGridProc)));
+  SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OwnFramePgProc));
 
   // associate our button state structure with the window
 
-  SetWindowLongPtr(hFramePG, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hWndPG, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hHeader, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hBtnOk, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hBtnCancel, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hBtnApply, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
-  SetWindowLongPtr(hBtnHelp, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+  SetWindowLongPtr(hFramePG, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hWndPG, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hHeader, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hBtnOk, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hBtnCancel, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hBtnApply, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
+  SetWindowLongPtr(hBtnHelp, GWLP_USERDATA, reinterpret_cast<intptr_t>(ppgrd));
 
   // force the edit control to update its non-client area
 
@@ -1119,11 +1119,11 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
   static PHB_SYMB pSymbol = nullptr;
 
   auto ppgrd = reinterpret_cast<PROPGRD *>(GetWindowLongPtr(hFramePG, GWLP_USERDATA));
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hFramePG, "oldframepgproc")));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hFramePG, "oldframepgproc")));
 
   switch (Msg) {
   case WM_DESTROY: {
-    SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OldWndProc));
+    SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OldWndProc));
     RemoveProp(hFramePG, "oldframepgproc");
     break;
   }
@@ -1705,7 +1705,7 @@ GETNOTIFYTREEITEM(p1) --> numeric
 */
 HB_FUNC(GETNOTIFYTREEITEM)
 {
-  hb_retnl(static_cast<long>((LONG_PTR)((NMTREEVIEW FAR *)HB_PARNL(1))->itemNew.hItem));
+  hb_retnl(static_cast<long>((intptr_t)((NMTREEVIEW FAR *)HB_PARNL(1))->itemNew.hItem));
 }
 
 /*

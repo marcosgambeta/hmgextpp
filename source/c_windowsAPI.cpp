@@ -350,7 +350,7 @@ HB_FUNC(HMG_SENDMESSAGE)
   auto hwnd = hmg_par_HWND(1);
 
   if (IsWindow(hwnd)) {
-    HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
+    HB_RETNL(static_cast<intptr_t>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
   } else {
     hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
@@ -358,7 +358,7 @@ HB_FUNC(HMG_SENDMESSAGE)
 
 HB_FUNC(HMG_SENDMESSAGESTRING)
 {
-  HB_RETNL(static_cast<LONG_PTR>(
+  HB_RETNL(static_cast<intptr_t>(
       SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4)))));
 }
 
@@ -374,8 +374,8 @@ HB_FUNC(HMG_GETNOTIFYLINK)
   LPARAM lParam = HB_PARNL(1);
   auto pENLink = reinterpret_cast<ENLINK *>(lParam);
   hb_retnl(pENLink->msg);
-  HB_STORNL(static_cast<LONG_PTR>(pENLink->wParam), 2);
-  HB_STORNL(static_cast<LONG_PTR>(pENLink->lParam), 3);
+  HB_STORNL(static_cast<intptr_t>(pENLink->wParam), 2);
+  HB_STORNL(static_cast<intptr_t>(pENLink->lParam), 3);
   hb_stornl(pENLink->chrg.cpMin, 4);
   hb_stornl(pENLink->chrg.cpMax, 5);
 }
@@ -385,7 +385,7 @@ HB_FUNC(HMG_GETNOTIFYID)
 {
   LPARAM lParam = HB_PARNL(1);
   auto nmhdr = reinterpret_cast<NMHDR *>(lParam);
-  HB_RETNL(static_cast<LONG_PTR>(nmhdr->idFrom)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<intptr_t>(nmhdr->idFrom)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC(HMG_GETHWNDFROM)
@@ -598,7 +598,7 @@ HB_FUNC(HMG_CHANGENOTIFYICON)
 
 HB_FUNC(HMG_GETITEMPOS)
 {
-  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<NMMOUSE FAR *>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<intptr_t>((reinterpret_cast<NMMOUSE FAR *>(HB_PARNL(1)))->dwItemSpec)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC(HMG_SETSCROLLRANGE)
@@ -631,7 +631,7 @@ HB_FUNC(HMG_GETDESKTOPWINDOW)
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
-  auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+  auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(hWnd));
   hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(pArray), pHWnd);
   hb_itemRelease(pHWnd);
   return TRUE;
@@ -647,7 +647,7 @@ HB_FUNC(HMG_ENUMWINDOWS)
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
   auto pCodeBlock = reinterpret_cast<PHB_ITEM>(lParam);
-  auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+  auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(hWnd));
 
   if (pCodeBlock) {
     hb_evalBlock1(pCodeBlock, pHWnd);
@@ -824,17 +824,17 @@ HB_FUNC(HMG_GETHELPDATA)
 
 HB_FUNC(HMG_GETMSKTEXTMESSAGE)
 {
-  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<intptr_t>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->msg)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC(HMG_GETMSKTEXTWPARAM)
 {
-  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<intptr_t>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->wParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC(HMG_GETMSKTEXTLPARAM)
 {
-  HB_RETNL(static_cast<LONG_PTR>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
+  HB_RETNL(static_cast<intptr_t>((reinterpret_cast<MSGFILTER FAR *>(HB_PARNL(1)))->lParam)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC(HMG_GETWINDOW)
@@ -1042,13 +1042,13 @@ HB_FUNC(HMG_ISZOOMED)
 
 HB_FUNC(HMG_GETWINDOWBRUSH)
 {
-  HB_RETNL(static_cast<LONG_PTR>(GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND)));
+  HB_RETNL(static_cast<intptr_t>(GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND)));
 }
 
 HB_FUNC(HMG_SETWINDOWBRUSH)
 {
   HB_RETNL(
-      static_cast<LONG_PTR>(SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<LONG_PTR>(HB_PARNL(2)))));
+      static_cast<intptr_t>(SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<intptr_t>(HB_PARNL(2)))));
 }
 
 HB_FUNC(HMG_CREATEHATCHBRUSH)

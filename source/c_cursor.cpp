@@ -111,7 +111,7 @@ HB_FUNC(HMG_SETWINDOWCURSOR)
     }
 
     if (ch != nullptr) {
-      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<intptr_t>(ch));
     }
 
     hb_strfree(str);
@@ -119,7 +119,7 @@ HB_FUNC(HMG_SETWINDOWCURSOR)
     auto ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
 
     if (ch != nullptr) {
-      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+      SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<intptr_t>(ch));
     }
   }
 }
@@ -127,7 +127,7 @@ HB_FUNC(HMG_SETWINDOWCURSOR)
 // HMG_SETHANDCURSOR(HWND) --> NIL
 HB_FUNC(HMG_SETHANDCURSOR)
 {
-  SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
+  SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<intptr_t>(LoadCursor(nullptr, IDC_HAND)));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS

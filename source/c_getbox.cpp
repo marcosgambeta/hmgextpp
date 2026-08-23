@@ -142,7 +142,7 @@ HB_FUNC(HMG_INITGETBOX)
                               hb_parni(5), hb_parni(6), hwnd, static_cast<HMENU>(nullptr), GetInstance(), nullptr);
 
   SetProp(hedit, TEXT("OldWndProc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnGetProc)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnGetProc)));
 
   SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
@@ -310,7 +310,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("OldWndProc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hwnd, TEXT("OldWndProc"))));
   switch (Msg) {
   case WM_NCDESTROY: {
     return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);

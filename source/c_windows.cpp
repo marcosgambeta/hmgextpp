@@ -259,10 +259,10 @@ static LRESULT AppEventDo(EVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT mess
   if ((nPos > 0) && events->active &&
       (events->events[nPos - 1].active &&
        ((events->events[nPos - 1].bAction != nullptr) && HB_IS_BLOCK(events->events[nPos - 1].bAction)))) {
-    auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+    auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(hWnd));
     auto pmessage = hb_itemPutNS(nullptr, message);
-    auto pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
-    auto plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
+    auto pwParam = hb_itemPutNInt(nullptr, static_cast<intptr_t>(wParam));
+    auto plParam = hb_itemPutNInt(nullptr, static_cast<intptr_t>(lParam));
 
     hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
@@ -484,7 +484,7 @@ HB_FUNC(HMG_GETAPPEVENTSINFO)
     aInfo = hb_itemArrayNew((events != nullptr) ? 4 : 0);
 
     if (events != nullptr) {
-      hb_arraySetNInt(aInfo, 1, reinterpret_cast<LONG_PTR>(events->hwnd));
+      hb_arraySetNInt(aInfo, 1, reinterpret_cast<intptr_t>(events->hwnd));
       hb_arraySetNS(aInfo, 2, events->count);
       hb_arraySetNS(aInfo, 3, (HB_ISIZ)HB_ATOM_GET(&events->used));
       hb_arraySetL(aInfo, 4, events->active);
@@ -575,10 +575,10 @@ static LRESULT WinEventDo(WINEVENTSHOLDER *events, bool bOnce, HWND hWnd, UINT m
   if ((nPos > 0) && events->active &&
       (events->events[nPos - 1].active &&
        ((events->events[nPos - 1].bAction != nullptr) && HB_IS_BLOCK(events->events[nPos - 1].bAction)))) {
-    auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
+    auto phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(hWnd));
     auto pmessage = hb_itemPutNS(nullptr, message);
-    auto pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
-    auto plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
+    auto pwParam = hb_itemPutNInt(nullptr, static_cast<intptr_t>(wParam));
+    auto plParam = hb_itemPutNInt(nullptr, static_cast<intptr_t>(lParam));
 
     hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
@@ -800,7 +800,7 @@ HB_FUNC(HMG_GETWINEVENTSINFO)
     aInfo = hb_itemArrayNew((events != nullptr) ? 4 : 0);
 
     if (events != nullptr) {
-      hb_arraySetNInt(aInfo, 1, reinterpret_cast<LONG_PTR>(events->hwnd));
+      hb_arraySetNInt(aInfo, 1, reinterpret_cast<intptr_t>(events->hwnd));
       hb_arraySetNS(aInfo, 2, events->count);
       hb_arraySetNS(aInfo, 3, events->used);
       hb_arraySetL(aInfo, 4, events->active);
@@ -817,7 +817,7 @@ HB_FUNC(HMG_GETWINEVENTSINFO)
 
 LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  LONG_PTR lpUserData;
+  intptr_t lpUserData;
 
   switch (message) {
   case WM_CREATE: {
@@ -825,7 +825,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     if (pUserData) {
       SetLastError(0);
 
-      SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pUserData));
+      SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<intptr_t>(pUserData));
 
       if (GetLastError() != 0) {
         return -1;
@@ -836,7 +836,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     break;
   }
   case WM_NCDESTROY: {
-    lpUserData = SetWindowLongPtr(hWnd, GWLP_USERDATA, static_cast<LONG_PTR>(0));
+    lpUserData = SetWindowLongPtr(hWnd, GWLP_USERDATA, static_cast<intptr_t>(0));
     if (lpUserData) {
       PMYUSERDATA pUserData = (PMYUSERDATA)lpUserData;
 

@@ -129,7 +129,7 @@ HB_FUNC(HMG_DRAWSTATE)
     if (wData > 0) {
       lpData = reinterpret_cast<LPARAM>(hb_parc(4));
     } else {
-      lpData = static_cast<LPARAM>(static_cast<LONG_PTR>(HB_PARNL(4)));
+      lpData = static_cast<LPARAM>(static_cast<intptr_t>(HB_PARNL(4)));
     }
 
     hb_retl(DrawState(hDC, hBrush, nullptr, lpData, wData, hmg_par_int(6), hmg_par_int(7), hmg_par_int(8),
@@ -371,7 +371,7 @@ HB_FUNC(HMG_VALIDATERECT)
 // HMG_WINDOWFROMDC(HDC) --> numeric
 HB_FUNC(HMG_WINDOWFROMDC)
 {
-  HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));
+  HB_RETNL(reinterpret_cast<intptr_t>(WindowFromDC(hmg_par_HDC(1))));
 }
 
 #ifndef HMG_NO_DEPRECATED_FUNCTIONS

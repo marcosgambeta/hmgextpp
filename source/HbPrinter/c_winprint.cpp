@@ -1086,8 +1086,8 @@ HB_FUNC(RR_DRAWTEXT)
 
 HB_FUNC(RR_RECTANGLE)
 {
-  LONG_PTR xpen = HB_PARNL(3);
-  LONG_PTR xbrush = HB_PARNL(4);
+  intptr_t xpen = HB_PARNL(3);
+  intptr_t xbrush = HB_PARNL(4);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1578,8 +1578,8 @@ HB_FUNC(RR_POLYGON)
   auto number = static_cast<int>(hb_parinfa(1, 0));
   int styl = GetPolyFillMode(s_hDC);
   POINT apoints[1024];
-  LONG_PTR xpen = HB_PARNL(3);
-  LONG_PTR xbrush = HB_PARNL(4);
+  intptr_t xpen = HB_PARNL(3);
+  intptr_t xbrush = HB_PARNL(4);
 
   for (auto i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
@@ -1613,7 +1613,7 @@ HB_FUNC(RR_POLYBEZIER)
 {
   auto number = static_cast<DWORD>(hb_parinfa(1, 0));
   POINT apoints[1024];
-  LONG_PTR xpen = HB_PARNL(3);
+  intptr_t xpen = HB_PARNL(3);
 
   for (DWORD i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
@@ -1635,7 +1635,7 @@ HB_FUNC(RR_POLYBEZIERTO)
 {
   auto number = static_cast<DWORD>(hb_parinfa(1, 0));
   POINT apoints[1024];
-  LONG_PTR xpen = HB_PARNL(3);
+  intptr_t xpen = HB_PARNL(3);
 
   for (DWORD i = 0; i <= number - 1; i++) {
     apoints[i].x = HB_PARNI(1, i + 1);
@@ -1660,7 +1660,7 @@ HB_FUNC(RR_GETTEXTEXTENT)
 #else
   LPWSTR lpText = AnsiToWide(const_cast<char *>(hb_parc(1)));
 #endif
-  LONG_PTR xfont = HB_PARNL(3);
+  intptr_t xfont = HB_PARNL(3);
   SIZE szMetric;
 
   if (xfont != 0) {
@@ -1681,8 +1681,8 @@ HB_FUNC(RR_GETTEXTEXTENT)
 
 HB_FUNC(RR_ROUNDRECT)
 {
-  LONG_PTR xpen = HB_PARNL(4);
-  LONG_PTR xbrush = HB_PARNL(5);
+  intptr_t xpen = HB_PARNL(4);
+  intptr_t xbrush = HB_PARNL(5);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1706,8 +1706,8 @@ HB_FUNC(RR_ROUNDRECT)
 
 HB_FUNC(RR_ELLIPSE)
 {
-  LONG_PTR xpen = HB_PARNL(3);
-  LONG_PTR xbrush = HB_PARNL(4);
+  intptr_t xpen = HB_PARNL(3);
+  intptr_t xbrush = HB_PARNL(4);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1730,8 +1730,8 @@ HB_FUNC(RR_ELLIPSE)
 
 HB_FUNC(RR_CHORD)
 {
-  LONG_PTR xpen = HB_PARNL(5);
-  LONG_PTR xbrush = HB_PARNL(6);
+  intptr_t xpen = HB_PARNL(5);
+  intptr_t xbrush = HB_PARNL(6);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1755,7 +1755,7 @@ HB_FUNC(RR_CHORD)
 
 HB_FUNC(RR_ARCTO)
 {
-  LONG_PTR xpen = HB_PARNL(5);
+  intptr_t xpen = HB_PARNL(5);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1771,7 +1771,7 @@ HB_FUNC(RR_ARCTO)
 
 HB_FUNC(RR_ARC)
 {
-  LONG_PTR xpen = HB_PARNL(5);
+  intptr_t xpen = HB_PARNL(5);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1787,8 +1787,8 @@ HB_FUNC(RR_ARC)
 
 HB_FUNC(RR_PIE)
 {
-  LONG_PTR xpen = HB_PARNL(5);
-  LONG_PTR xbrush = HB_PARNL(6);
+  intptr_t xpen = HB_PARNL(5);
+  intptr_t xbrush = HB_PARNL(6);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1834,7 +1834,7 @@ HB_FUNC(RR_FRAMERECT)
 
 HB_FUNC(RR_LINE)
 {
-  LONG_PTR xpen = HB_PARNL(3);
+  intptr_t xpen = HB_PARNL(3);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));
@@ -1849,7 +1849,7 @@ HB_FUNC(RR_LINE)
 
 HB_FUNC(RR_LINETO)
 {
-  LONG_PTR xpen = HB_PARNL(2);
+  intptr_t xpen = HB_PARNL(2);
 
   if (xpen != 0) {
     SelectObject(s_hDC, reinterpret_cast<HPEN>(xpen));

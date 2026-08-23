@@ -390,7 +390,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
     }
 
     // 22 PFTASKDIALOGCALLBACK pfCallback;
-    // 23 LONG_PTR lpCallbackData;
+    // 23 intptr_t lpCallbackData;
     if (hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM) {
       pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, TDC_CALLBACK));
     }
@@ -402,7 +402,7 @@ HB_FUNC(HMG_WIN_TASKDIALOGINDIRECT0)
     if (pCallbackData != nullptr) {
       hb_gcUnlock(pCallbackData);
 
-      config.lpCallbackData = reinterpret_cast<LONG_PTR>(pCallbackData);
+      config.lpCallbackData = reinterpret_cast<intptr_t>(pCallbackData);
       config.pfCallback = __ClsCBFunc;
     }
 
@@ -486,7 +486,7 @@ static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
   return true;
 }
 
-HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData)
+HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam, intptr_t dwRefData)
 {
   HB_TYPE iType = hb_itemType(reinterpret_cast<PHB_ITEM>(dwRefData));
 

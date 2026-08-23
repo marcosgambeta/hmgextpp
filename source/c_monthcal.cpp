@@ -102,7 +102,7 @@ HB_FUNC(HMG_INITMONTHCAL)
                                   GetInstance(), nullptr);
 
   SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
-  SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
+  SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnMCProc)));
 
   if (hb_parl(14)) {
     bold = FW_BOLD;
@@ -282,11 +282,11 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hwnd, TEXT("oldmcproc"))));
 
   switch (Msg) {
   case WM_DESTROY: {
-    SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hwnd, TEXT("oldmcproc"));
     break;
   }

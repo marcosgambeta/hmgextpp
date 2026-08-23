@@ -108,7 +108,7 @@ HB_FUNC(HMG_INITSPINNER)
 
   // 2006.08.13 JD
   SetProp(hedit, TEXT("oldspinproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnSpinProc)));
+  SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OwnSpinProc)));
 
   hb_reta(2);
   hmg_storvhandle(hedit, -1, 1);
@@ -128,11 +128,11 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
   static PHB_SYMB pSymbol = nullptr;
 
-  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hedit, TEXT("oldspinproc"))));
+  auto OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<intptr_t>(GetProp(hedit, TEXT("oldspinproc"))));
 
   switch (Msg) {
   case WM_DESTROY: {
-    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
+    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(static_cast<WNDPROC>(OldWndProc)));
     RemoveProp(hedit, TEXT("oldspinproc"));
     break;
   }

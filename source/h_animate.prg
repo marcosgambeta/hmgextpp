@@ -290,7 +290,7 @@ HB_FUNC_STATIC(HMG_INITANIMATERES)
 
    Animate_OpenEx(AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni(8)));
 
-   HB_STORNL(reinterpret_cast<LONG_PTR>(avi), 2);
+   HB_STORNL(reinterpret_cast<intptr_t>(avi), 2);
 
    hmg_ret_HWND(AnimationCtrl);
 

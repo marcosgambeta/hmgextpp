@@ -101,7 +101,7 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 // HMG_INITMODALDIALOG(HWND, np2) --> LRESULT
 HB_FUNC(HMG_INITMODALDIALOG)
 {
-  HB_RETNL(static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
+  HB_RETNL(static_cast<intptr_t>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1),
                                            reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
 }
 
@@ -372,7 +372,7 @@ HB_FUNC(HMG_CREATEDLGTEMPLATE)
     LRESULT lResult = DialogBoxIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
                                         reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
     LocalFree(pdlgtemplate);
-    HB_RETNL(static_cast<LONG_PTR>(lResult));
+    HB_RETNL(static_cast<intptr_t>(lResult));
   } else {
     HWND hwndDlg = CreateDialogIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1),
                                         reinterpret_cast<DLGPROC>(HMG_DlgProc));

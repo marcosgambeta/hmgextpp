@@ -78,7 +78,7 @@ HB_FUNC(HMG_INITBROWSE)
                      hmg_par_int(6), hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
 
   lpfnOldWndProc =
-      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
+      reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(SubClassFunc)));
 
   hmg_ret_HWND(hbutton);
 }

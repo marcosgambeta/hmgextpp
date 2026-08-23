@@ -706,7 +706,7 @@ HB_FUNC(HMG_TTM_WINDOWFROMPOINT)
     if (hmg_ArrayToPoint(hb_param(3, Harbour::Item::ARRAY), &point)) {
       ClientToScreen(hwndTool, &point);
 
-      HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
+      HB_RETNL(static_cast<intptr_t>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))));
     } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
     }

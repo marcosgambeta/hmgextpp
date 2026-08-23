@@ -190,15 +190,15 @@ HB_FUNC(HMG_CREATECARET)
 HB_FUNC(HMG_CHANGESTYLE)
 {
   auto hWnd = hmg_par_HWND(1);
-  auto dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
-  auto dwRemove = static_cast<LONG_PTR>(HB_PARNL(3));
+  auto dwAdd = static_cast<intptr_t>(HB_PARNL(2));
+  auto dwRemove = static_cast<intptr_t>(HB_PARNL(3));
   int iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
-  LONG_PTR dwStyle, dwNewStyle;
+  intptr_t dwStyle, dwNewStyle;
 
   dwStyle = GetWindowLongPtr(hWnd, iStyle);
   dwNewStyle = (dwStyle & (~dwRemove)) | dwAdd;
 
-  HB_RETNL(static_cast<LONG_PTR>(SetWindowLongPtr(hWnd, iStyle, dwNewStyle)));
+  HB_RETNL(static_cast<intptr_t>(SetWindowLongPtr(hWnd, iStyle, dwNewStyle)));
 
   SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }

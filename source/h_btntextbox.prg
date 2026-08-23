@@ -516,7 +516,7 @@ HB_FUNC_STATIC(HMG_INITBTNTEXTBOX)
                                nullptr);
 
    SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-   SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OwnBtnTextProc));
 
    SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
@@ -664,7 +664,7 @@ HB_FUNC_STATIC(HMG_REDEFBTNTEXTBOX)
    auto height = hb_parni(7);
 
    SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
-   SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<intptr_t>(OwnBtnTextProc));
 
    if (hb_parc(2) != nullptr)
    {

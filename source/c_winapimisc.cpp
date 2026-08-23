@@ -651,7 +651,7 @@ HB_FUNC(HMG_POSTMESSAGE)
 // HMG_DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 HB_FUNC(HMG_DEFWINDOWPROC)
 {
-  HB_RETNL(static_cast<LONG_PTR>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
+  HB_RETNL(static_cast<intptr_t>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
 }
 
 // HMG_GETSTOCKOBJECT(np) --> HANDLE
@@ -696,7 +696,7 @@ HB_FUNC(HMG_SHELLEXECUTE)
 
   CoInitialize(nullptr);
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(
+  HB_RETNL(reinterpret_cast<intptr_t>(
       ShellExecute(hmg_par_HWND(1), HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str1, nullptr), HB_PARSTR(3, &str2, nullptr),
                    HB_ISNIL(4) ? nullptr : HB_PARSTR(4, &str3, nullptr),
                    HB_ISNIL(5) ? nullptr : HB_PARSTR(5, &str4, nullptr), hb_parni(6))));
@@ -1566,7 +1566,7 @@ HB_FUNC(HMG_ISOEMTEXT)
 //   OBJ_COLORSPACE  14
 HB_FUNC(HMG_GETOBJECTTYPE)
 {
-  HB_RETNL(static_cast<LONG_PTR>(GetObjectType(hmg_par_HGDIOBJ(1))));
+  HB_RETNL(static_cast<intptr_t>(GetObjectType(hmg_par_HGDIOBJ(1))));
 }
 
 // Harbour MiniGUI 1.4 Extended (Build 47)

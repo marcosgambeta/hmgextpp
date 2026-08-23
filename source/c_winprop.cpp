@@ -214,7 +214,7 @@ HB_FUNC(HMG_GETPROP)
   }
 
   if (hb_parldef(3, false)) {
-    HB_RETNL(reinterpret_cast<LONG_PTR>(GetProp(hwnd, pW)));
+    HB_RETNL(reinterpret_cast<intptr_t>(GetProp(hwnd, pW)));
 #ifdef UNICODE
     hb_xfree(pW);
 #endif
@@ -322,13 +322,13 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 
     lstrcpy(pszName, pszPropName);
 
-    hb_arraySetNInt(item, 1, reinterpret_cast<LONG_PTR>(hWnd));
+    hb_arraySetNInt(item, 1, reinterpret_cast<intptr_t>(hWnd));
 #ifndef UNICODE
     hb_arraySetCLPtr(item, 2, pszName, iLen);
 #else
     hb_arraySetCLPtr(item, 2, WideToAnsi(pszName), iLen);
 #endif
-    hb_arraySetNInt(item, 3, reinterpret_cast<LONG_PTR>(handle));
+    hb_arraySetNInt(item, 3, reinterpret_cast<intptr_t>(handle));
 
     hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(lParam), item);
     hb_itemRelease(item);
@@ -386,8 +386,8 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
   int iLen = lstrlen(pszPropName);
 
   if (iLen) {
-    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
-    auto pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(handle));
+    auto pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(hWnd));
+    auto pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<intptr_t>(handle));
     auto pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
     lstrcpy(pszName, pszPropName);

@@ -373,7 +373,7 @@ HB_FUNC(HMG_CREATEFOLDERPAGEINDIRECT)
     pfpi->pszTemplate = ImageName;
   }
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(reinterpret_cast<HFLDPAGEINFO>(pfpi)));
+  HB_RETNL(reinterpret_cast<intptr_t>(reinterpret_cast<HFLDPAGEINFO>(pfpi)));
 
 #ifdef UNICODE
   hb_xfree(strTitle);
@@ -415,7 +415,7 @@ HB_FUNC(HMG_CREATEFOLDERPAGE)
     pfpi->pszTemplate = caption;
   }
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(reinterpret_cast<HFLDPAGEINFO>(pfpi)));
+  HB_RETNL(reinterpret_cast<intptr_t>(reinterpret_cast<HFLDPAGEINFO>(pfpi)));
 
 #ifdef UNICODE
   hb_xfree(strTitle);
@@ -512,7 +512,7 @@ HB_FUNC(HMG_CREATEDLGFOLDER)
     lResult = DialogBoxIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd,
                                      reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
     LocalFree(pdlgtemplate);
-    HB_RETNL(static_cast<LONG_PTR>(lResult));
+    HB_RETNL(static_cast<intptr_t>(lResult));
   } else {
     hWndDlg = CreateDialogIndirectParam(GetResources(), static_cast<LPDLGTEMPLATE>(pdlgtemplate), hwnd,
                                         reinterpret_cast<DLGPROC>(HMG_FldProc), reinterpret_cast<LPARAM>(pFhi));
@@ -663,7 +663,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO *pFhi)
   InitCommonControlsEx(&icc);
 
   // Save a pointer to the FLDHDR structure.
-  SetWindowLongPtr(hWndDlg, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pFhi));
+  SetWindowLongPtr(hWndDlg, GWLP_USERDATA, reinterpret_cast<intptr_t>(pFhi));
 
   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
   GetVersionEx(&osvi);

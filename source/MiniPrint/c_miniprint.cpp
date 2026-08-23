@@ -1360,7 +1360,7 @@ HB_FUNC(_HMG_PRINTER_STARTPAGE_PREVIEW)
   void *str;
   HDC tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), HB_PARSTR(2, &str, nullptr), &emfrect, "");
   hb_strfree(str);
-  HB_RETNL(reinterpret_cast<LONG_PTR>(tmpDC));
+  HB_RETNL(reinterpret_cast<intptr_t>(tmpDC));
 }
 
 /*
@@ -1832,7 +1832,7 @@ HB_FUNC(INITEMFFILE)
   auto hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hmg_par_int(3), hmg_par_int(4), 0, 0, hmg_par_HWND(1),
                              hmg_par_HMENU(2), GetInstance(), nullptr);
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
+  HB_RETNL(reinterpret_cast<intptr_t>(hWnd));
 }
 
 /*
@@ -1841,7 +1841,7 @@ C_SETEMFFILE(p1, p2, p3, p4, p5, p6) --> HANDLE
 HB_FUNC(C_SETEMFFILE)
 {
   if (hb_parclen(2) == 0) {
-    HB_RETNL(reinterpret_cast<LONG_PTR>(nullptr));
+    HB_RETNL(reinterpret_cast<intptr_t>(nullptr));
   }
 
   void *str;
@@ -1853,7 +1853,7 @@ HB_FUNC(C_SETEMFFILE)
     SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hBitmap));
   }
 
-  HB_RETNL(reinterpret_cast<LONG_PTR>(hBitmap));
+  HB_RETNL(reinterpret_cast<intptr_t>(hBitmap));
 }
 
 static BOOL read_image(const TCHAR *filename, DWORD *nFileSize, HGLOBAL *hMem)

@@ -525,7 +525,7 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 
    // associate our button state structure with the window
 
-   SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pbtn));
+   SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<intptr_t>(pbtn));
 
    // force the edit control to update its non-client area
 
@@ -674,7 +674,7 @@ HB_FUNC_STATIC(HMG_INITCHKLABEL)
 
    InsertCheck(hbutton, himage, himage2, BtnWidth, hb_parl(22), hb_parl(21));
 
-   LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ChkLabelFunc)));
+   LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<intptr_t>(ChkLabelFunc)));
    SetWindowPos(hbutton, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    hmg_ret_HWND(hbutton);

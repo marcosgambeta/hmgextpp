@@ -993,7 +993,7 @@ HB_FUNC(HMG_SETUPCONNECTIONPOINT)
 #endif
 
       pThis->pEvents = hb_itemNew(hb_param(3, Harbour::Item::ANY));
-      HB_STORNL(reinterpret_cast<LONG_PTR>(pThis), 2);
+      HB_STORNL(reinterpret_cast<intptr_t>(pThis), 2);
 
    }
 

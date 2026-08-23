@@ -865,7 +865,7 @@ BT_SCR_GETDESKTOPHANDLE() --> HWND
 */
 HB_FUNC(BT_SCR_GETDESKTOPHANDLE)
 {
-  HB_RETNL(reinterpret_cast<LONG_PTR>(GetDesktopWindow()));
+  HB_RETNL(reinterpret_cast<intptr_t>(GetDesktopWindow()));
 }
 
 //**************************************************************************
